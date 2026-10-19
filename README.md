@@ -52,15 +52,15 @@ The Framework core runs effects from this catalogue: `SF.Effects` (simai.effect
 runs windows mode. The page names the catalogue, pinned by commit:
 
 ```html
-<!-- SIMAI Framework and the catalogue, both pinned by their full commit -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/simai/ui@08c07b3e938a0eb4bd9204b187c267b2cb4ba5b7/distr/core/css/core.min.css">
+<!-- SIMAI Framework pinned by its release package version, the catalogue by its full commit -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simai-studio/ui@5.20261019.1827/distr/core/css/core.min.css">
 <script>
-  window.sfPath = 'https://cdn.jsdelivr.net/gh/simai/ui@08c07b3e938a0eb4bd9204b187c267b2cb4ba5b7/distr/';
+  window.sfPath = 'https://cdn.jsdelivr.net/npm/@simai-studio/ui@5.20261019.1827/distr/';
   window.SF_BOOT_CONFIG = Object.assign(window.SF_BOOT_CONFIG || {}, {
     effects: {catalogue: 'https://cdn.jsdelivr.net/gh/simai/ui-effects@<commit>/'},
   });
 </script>
-<script src="https://cdn.jsdelivr.net/gh/simai/ui@08c07b3e938a0eb4bd9204b187c267b2cb4ba5b7/distr/core/js/core.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@simai-studio/ui@5.20261019.1827/distr/core/js/core.min.js"></script>
 ```
 
 Then markup alone places an effect:
@@ -80,9 +80,9 @@ or a script does: `await SF.Effects.placeEffect(element, {effect: 'comet-flow',
 themeMode: 'auto', settings, windows})`. The configurator's «Получить код»
 gives both for the chosen effect, settings, theme mode and layout.
 
-- Give the area a background and text colour from the roles
-  (`background: var(--sf-surface-0); color: var(--sf-on-surface)`): it takes
-  the theme the effect is drawn in.
+- Give the area a background from the roles (`background: var(--sf-surface-0)`):
+  it takes the theme the effect is drawn in, and the core sets its text colour
+  (class `sf-effect-area`, at the lowest layer, so the page's own colour wins).
 - Window cards draw no background of their own while the effect runs.
 - The core imports a module from its verified bytes through a `blob:` URL, so
   a Content Security Policy must allow `blob:` scripts; `crypto.subtle` needs
@@ -95,9 +95,20 @@ gives both for the chosen effect, settings, theme mode and layout.
   published pinned by commit plus SHA-256 per file. They run inline, in the
   page, like any other script the page chose to load.
 - **Anything else** (an effect from another source, a user upload, a
-  modified copy) must run in the Framework's sandbox: an iframe without
-  `allow-same-origin`, a strict CSP, settings passed by message, no access to
-  the page, cookies or network. The sandbox runner ships in a later core release.
+  modified copy) runs in the Framework's sandbox: the address of any
+  `effect.json` outside the pinned catalogue goes into an
+  `<iframe sandbox="allow-scripts">` with an opaque origin and a strict CSP.
+  It gets its settings and the palette tones by message, and has no access
+  to the page, its storage or the network. Its host must serve the files with
+  CORS; there is no digest to check them against, so the frame is the trust
+  boundary.
+- **What the sandbox does not stop.** The frame can navigate itself, post
+  messages to the page and use CPU.
+- **A page with its own CSP** must allow `blob:` scripts (catalogue modules
+  are imported from their verified bytes) and, for foreign effects,
+  `'sha256-<SF.Effects.SANDBOX_RUNNER_SHA256>'`.
+- **To refuse foreign effects** set `SF_BOOT_CONFIG.effects.foreign` to
+  `'refuse'`; `'sandbox'` is the default.
 - **Static checks cannot make JavaScript safe.** The kit and the hygiene check
   catch mistakes (network calls, leaks, missing cleanup); they do not prove
   that code is harmless. Review and pinning are what make official effects

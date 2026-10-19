@@ -204,12 +204,13 @@ h3 { font-size: 1.0625rem; line-height: 1.4; font-weight: 700; }
 }
 .demo-hero[data-sf-effect-state] { border-color: transparent; }
 /* The core's placement: a layer under the area's content; the area, or each
-   window card, takes the theme the effect is drawn in (SF.Effects). */
+   window card, takes the theme the effect is drawn in, and its ink with the
+   class sf-effect-area (SF.Effects). The site adds only the ground. */
 .demo-hero { position: relative; isolation: isolate; }
 [data-sf-effect-layer] { position: absolute; inset: 0; z-index: -1; overflow: hidden; border-radius: inherit; pointer-events: none; }
 .intro.theme-dark, .intro.theme-light,
 .demo-hero.theme-dark, .demo-hero.theme-light,
-[data-effect-window].theme-dark, [data-effect-window].theme-light { background-color: var(--sf-surface-0); color: var(--sf-on-surface); }
+[data-effect-window].theme-dark, [data-effect-window].theme-light { background-color: var(--sf-surface-0); }
 [data-sf-effect-state="running"] [data-effect-window] { background-color: transparent; }
 .demo-hero__body { display: grid; gap: 1rem; max-inline-size: 36rem; }
 /* Small accent text over a moving effect sits on a veil (THEMES.md, R5). */

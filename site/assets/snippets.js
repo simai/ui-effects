@@ -11,7 +11,7 @@ const attr = (value) => String(value).replace(/&/gu, '&amp;').replace(/'/gu, '&#
 // the core loads every effect from there and checks each file against its index.
 export function connectSnippet(config) {
   const base = config.framework.base;
-  return `<!-- SIMAI Framework ${config.framework.pair} и каталог эффектов, оба закреплены по полному коммиту -->
+  return `<!-- SIMAI Framework ${config.framework.pair} закреплён версией выпуска, каталог эффектов — полным коммитом -->
 <link rel="stylesheet" href="${base}core/css/core.min.css">
 <script>
   window.sfPath = '${base}';
@@ -23,8 +23,8 @@ export function connectSnippet(config) {
 }
 
 const heroStyle = `<style>
-  /* Область берёт тему, в которой нарисован эффект: фон и текст — из её ролей. */
-  .effect-hero { display: flex; align-items: center; min-height: 28rem; padding: 3rem 1.5rem; background: var(--sf-surface-0); color: var(--sf-on-surface); }
+  /* Область берёт тему, в которой нарисован эффект; цвет текста задаёт ядро, фон — роль этой темы. */
+  .effect-hero { display: flex; align-items: center; min-height: 28rem; padding: 3rem 1.5rem; background: var(--sf-surface-0); }
   .effect-hero__body { max-width: 36rem; }
 </style>`;
 const heroBody = `  <div class="effect-hero__body">

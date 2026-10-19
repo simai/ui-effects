@@ -4,9 +4,13 @@
 
 The catalogue holds only effects made by SIMAI. **We do not accept effects
 from outside contributors yet**: pull requests that add an effect from another
-author will be closed. Community submissions need the Framework's sandbox
-runner (a later core release) and a review process for foreign code; we will open
-them when both exist, and say so here.
+author will be closed. The Framework's sandbox runs foreign effects
+safely on a page, but a submission to this catalogue would run inline, so it
+needs a review process for foreign code and the owner's decision first; we
+will say so here when submissions open.
+
+An effect hosted elsewhere does not need this catalogue: a page can name its
+`effect.json` address, and the Framework runs it in the sandbox.
 
 Reports and suggestions are welcome: open an issue for a bug in an effect or
 the site, an accessibility problem, or an idea for an effect.

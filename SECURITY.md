@@ -22,9 +22,13 @@ answer within five working days.
 
 - Official effects are reviewed, pass the Framework kit and are published
   pinned by commit plus SHA-256; they run inline in the page that loads them.
-- Anything else must run in the Framework's sandbox (an iframe without
-  `allow-same-origin`, strict CSP, settings by message); the sandbox runner
-  ships in a later core release.
+- Anything else runs in the Framework's sandbox: an
+  `<iframe sandbox="allow-scripts">` with an opaque origin, a strict CSP,
+  settings and palette tones by message, and no access to the page, its
+  storage or the network. The frame can still navigate itself, post messages
+  to the page and use CPU. `SF_BOOT_CONFIG.effects.foreign = 'refuse'` turns
+  foreign effects off. Report a sandbox escape to simai/ui-source, which owns
+  the runner.
 - Static checks (the kit, `scripts/check-hygiene.mjs`) catch mistakes; they
   cannot prove that JavaScript is safe.
 

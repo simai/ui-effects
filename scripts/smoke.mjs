@@ -36,7 +36,7 @@ import {execFileSync} from 'node:child_process';
 import {existsSync, mkdirSync, readFileSync, writeFileSync} from 'node:fs';
 import {join, resolve} from 'node:path';
 import {pathToFileURL} from 'node:url';
-import {ROOT, launchOptions, loadChromium, lock} from './lib/common.mjs';
+import {ROOT, frameworkBase, launchOptions, loadChromium, lock} from './lib/common.mjs';
 import {serve} from './lib/serve.mjs';
 
 const args = process.argv.slice(2);
@@ -69,7 +69,8 @@ const effects = catalogue.effects.filter((entry) => !only || only.includes(entry
 const reference = (entry, withPair = true) => ({id: entry.id, schemes: entry.schemes, pair: withPair && entry.pair ? reference(byId.get(entry.pair), false) : null});
 
 // --- jsDelivr, answered locally ------------------------------------------------------
-const UI_CDN = `https://cdn.jsdelivr.net/gh/simai/ui@${framework.ui.commit}/`;
+// The Framework's package root on the CDN; its distr/ is ui's distr/ at the lock commit.
+const UI_CDN = frameworkBase(framework).replace(/distr\/$/u, '');
 const EFFECTS_CDN = config.cdn;
 const uiRoot = process.env.UI_ROOT ? resolve(process.env.UI_ROOT) : null;
 const hasCommit = (root, commit) => { try { execFileSync('git', ['-C', root, 'cat-file', '-e', `${commit}^{commit}`], {stdio: 'ignore'}); return true; } catch { return false; } };

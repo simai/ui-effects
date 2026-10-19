@@ -25,7 +25,8 @@ export const fileDigest = (path) => {
 export const stableJson = (value) => `${JSON.stringify(value, null, 2)}\n`;
 
 export const lock = () => readJson(join(ROOT, 'framework.lock.json'));
-export const frameworkBase = (framework = lock()) => framework.cdn.replace('{commit}', framework.ui.commit);
+// The Framework's CDN base: jsDelivr's npm form, pinned by the release's package version.
+export const frameworkBase = (framework = lock()) => framework.cdn.replace('{version}', framework.ui.npm.version).replace('{commit}', framework.ui.commit);
 
 // The policy sidecar (order, Russian description and role, tags) with the
 // manifests it lists. Returns {policy, entries, problems}; each entry carries
