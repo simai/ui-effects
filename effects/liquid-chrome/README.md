@@ -13,7 +13,7 @@ Slow folds of dark liquid metal with narrow coloured highlights.
 | Key | Type | Range or options | Default | Meaning |
 |:---|:---|:---|:---|:---|
 | `speed` | integer | 10–300 % | `100` | Speed |
-| `intensity` | integer | 10–100 % | `60` | Reflection brightness |
+| `intensity` | integer | 10–100 % | `55` | Reflection brightness |
 | `scale` | integer | 1–5 | `3` | Wave size. 1 is broad folds, 5 is fine ripples |
 | `interactive` | boolean | — | `true` | React to the pointer. The pointer presses a soft dent |
 | `scheme` | choice | `dark` | `"dark"` | The scheme the effect is drawn in. Set by the placement, not by the user (see «Schemes»). |

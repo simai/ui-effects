@@ -14,7 +14,7 @@ A print halftone screen at 15 degrees: dots grow and shrink under slow crossing 
 |:---|:---|:---|:---|:---|
 | `speed` | integer | 10–200 % | `100` | Speed, % |
 | `density` | integer | 10–28 px | `16` | Screen pitch, px |
-| `intensity` | integer | 0–100 % | `50` | Strength |
+| `intensity` | integer | 0–100 % | `40` | Strength |
 | `shape` | choice | `dot`, `line`, `cross` | `"dot"` | Screen element |
 | `tone` | choice | `primary`, `secondary`, `tertiary`, `ink` | `"primary"` | Colour |
 | `interactive` | boolean | — | `true` | React to the pointer |

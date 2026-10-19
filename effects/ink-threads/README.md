@@ -14,7 +14,7 @@ Fine threads of ink drift on a slow flow field and draw fading tails.
 |:---|:---|:---|:---|:---|
 | `speed` | integer | 10–200 % | `100` | Speed, % |
 | `density` | integer | 100–1200 | `450` | Threads |
-| `intensity` | integer | 0–100 % | `50` | Ink strength |
+| `intensity` | integer | 0–100 % | `25` | Ink strength |
 | `trail` | integer | 8–40 | `22` | Tail length |
 | `tone` | choice | `primary`, `secondary`, `tertiary`, `ink` | `"primary"` | Colour |
 | `interactive` | boolean | — | `true` | React to the pointer |

@@ -55,7 +55,7 @@ function readTheme(host) {
 const FX = {
   seed: 61,
   t0: 0,
-  settings: {speed: [100, 10, 300], intensity: [60, 10, 100], horizon: [42, 20, 70], interactive: true},
+  settings: {speed: [100, 10, 300], intensity: [50, 10, 100], horizon: [42, 20, 70], interactive: true},
   init(env, rand) {
     const st = {rand, vx: 0.5, stars: null};
     this.resize(env, st);

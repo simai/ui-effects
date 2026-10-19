@@ -54,7 +54,7 @@
         "ru": "Огни города",
         "en": "City lights"
       },
-      "default": 60,
+      "default": 50,
       "min": 10,
       "max": 100,
       "step": 5,

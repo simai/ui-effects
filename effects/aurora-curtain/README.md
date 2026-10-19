@@ -13,7 +13,7 @@ Glowing aurora curtains fold slowly over a dark starry sky.
 | Key | Type | Range or options | Default | Meaning |
 |:---|:---|:---|:---|:---|
 | `speed` | integer | 10–300 % | `100` | Speed |
-| `intensity` | integer | 10–100 % | `60` | Intensity |
+| `intensity` | integer | 10–100 % | `40` | Intensity |
 | `curtains` | integer | 1–4 | `3` | Curtains |
 | `interactive` | boolean | — | `true` | React to the pointer. Curtains lean towards the pointer |
 | `scheme` | choice | `dark` | `"dark"` | The scheme the effect is drawn in. Set by the placement, not by the user (see «Schemes»). |

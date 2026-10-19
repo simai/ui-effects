@@ -13,7 +13,7 @@ A web of underwater caustics sways in deep water, with soft rays from above.
 | Key | Type | Range or options | Default | Meaning |
 |:---|:---|:---|:---|:---|
 | `speed` | integer | 10–300 % | `100` | Speed |
-| `intensity` | integer | 10–100 % | `55` | Intensity |
+| `intensity` | integer | 10–100 % | `30` | Intensity |
 | `scale` | integer | 20–100 % | `50` | Caustic size |
 | `rays` | boolean | — | `true` | Light rays |
 | `interactive` | boolean | — | `true` | React to the pointer. The light shifts with the pointer |

@@ -13,7 +13,7 @@
   },
   "effects": {
     "aurora-curtain": {
-      "digest": "b16890ab4a86fc28058e949b23b2d0b510e6267b60d71e7b84a6b2e9537d593e",
+      "digest": "714fd1258ba915edb3a8ab54c58b8c98136f4025b72edd4eea1b8f70e7284dc6",
       "schemes": {
         "dark": {
           "passed": 11,
@@ -73,7 +73,7 @@
       }
     },
     "neon-horizon": {
-      "digest": "94805170a0791908ec7e476dc56e7c1d90ea959c7e6ebbe67ce63f0483fce6e0",
+      "digest": "e28036a3d094862db60c1e614ce6726227bf3a309f3820d78a9f59109f6ad12b",
       "schemes": {
         "dark": {
           "passed": 11,
@@ -83,7 +83,7 @@
       }
     },
     "abyss-caustics": {
-      "digest": "cbf64f90a2ba8d2483811c61bc859fa9ece73efb3c10116b7f8b7e4474975f77",
+      "digest": "bf9f96c8d43cefecb106896471006fce6e1730e3de22cc86796a18b37cf897a4",
       "schemes": {
         "dark": {
           "passed": 11,
@@ -108,7 +108,7 @@
       }
     },
     "rain-glass": {
-      "digest": "5511c3151488181cc5d9ff6336f32ea9d3bc602be763735bef86dd223411eed0",
+      "digest": "560238e84d270ac4e59142b138b51f5ddeada91e25ba5e75443225d51f9379d9",
       "schemes": {
         "dark": {
           "passed": 11,
@@ -118,7 +118,7 @@
       }
     },
     "liquid-chrome": {
-      "digest": "24e7f90c217e7f2d6b7eda8d56dc60bc32d93ad41188a2dffa2752bd9c7288cf",
+      "digest": "3da4c39e3901a22dc8884759b2e56ec80ac491f72ec8031038b45b63284ad1a1",
       "schemes": {
         "dark": {
           "passed": 11,
@@ -183,7 +183,7 @@
       }
     },
     "ink-threads": {
-      "digest": "08e9a9996a47d531a82288eb476ed40268f2ceba948d73ff5e6ffdc6646eae99",
+      "digest": "93d698c8b45fe646635879702b10f62639cb2752874f1ab04240992e428a0c65",
       "schemes": {
         "light": {
           "passed": 11,
@@ -198,7 +198,7 @@
       }
     },
     "halftone-tide": {
-      "digest": "aa609954768c759709268dd2f3bb7a3c7cb3f6f0c932154c52da71cf889727f5",
+      "digest": "c62a07e2bf1667bcf7ab89ade9fd51ef6fe01a881f400c217135888655ca9d52",
       "schemes": {
         "light": {
           "passed": 11,

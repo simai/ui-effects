@@ -62,7 +62,7 @@ const E = 256;
 const FX = {
   seed: 17,
   t0: 30,
-  settings: {speed: [100, 10, 300], intensity: [60, 10, 100], scale: [3, 1, 5], interactive: true},
+  settings: {speed: [100, 10, 300], intensity: [55, 10, 100], scale: [3, 1, 5], interactive: true},
   init(env, rand) {
     const st = {px: 0, py: 0, pk: 0};
     this.resize(env, st);

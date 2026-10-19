@@ -74,7 +74,7 @@ const noise2 = (x, y) => {
 const FX = {
   seed: 11,
   t0: 40,
-  settings: {speed: [100, 10, 300], intensity: [60, 10, 100], curtains: [3, 1, 4], interactive: true},
+  settings: {speed: [100, 10, 300], intensity: [40, 10, 100], curtains: [3, 1, 4], interactive: true},
   init(env, rand) {
     const st = {rand, stars: null, sprites: [], sway: 0};
     this.resize(env, st);

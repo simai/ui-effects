@@ -56,22 +56,22 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "7e575aeeef7e0ba20be8360512ccf6abf9d870015a852a1bcde096753c52bc0a",
+          "sha256": "f0aebdd418bdcb92c60908c5788a91510c1045d14d0c50f7b81652457203b84e",
           "size": 2193
         },
         {
           "path": "index.js",
-          "sha256": "7c5ef3332d11295cb0d7ec67a5260111053afec34e95b7ea39f440203de1a254",
+          "sha256": "9ebbf9c2dcd9b2cfa1b3f95257f0aaf53dc264623ec5edcd1a7370b1e193527e",
           "size": 13120
         },
         {
           "path": "preview.png",
-          "sha256": "798da335c839de8f0a1954a1b0675c8c79bf88676bb56e6cadfbf13f3692d3c8",
-          "size": 144138
+          "sha256": "038b4ad2cf6a48548fa0449a3085f02b43790f2ba8edce330dc2e684dce86eeb",
+          "size": 127267
         },
         {
           "path": "README.md",
-          "sha256": "6b6da2406e4f12de6f30afc68acabf80a46e01b4a4ad2353f585b896fc6e1b34",
+          "sha256": "330d1bf1465e8b97258df77d4f742b91a1cd1387b087d30269dbc9dac416f51e",
           "size": 1364
         }
       ],
@@ -376,22 +376,22 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "bf05fa93495b1d47cc3d872355a61cb46fd4766228c72a6346d6dca9019a1eac",
+          "sha256": "35d654339e20763abecae1373dc0f52990738d2574a11fbebd9ef5617ed6a761",
           "size": 2253
         },
         {
           "path": "index.js",
-          "sha256": "165f523960194cdc12a1a26148a40b13ccc3d226ee1c3cfababb913ef3404432",
+          "sha256": "278497c2954b3171183ca5f166de8acd2f3f4826056926ef91fb611944f42884",
           "size": 12432
         },
         {
           "path": "preview.png",
-          "sha256": "bbe394af6b5574d7b305160ab7647c21d954c44a95b64ae01b17212f5943a236",
-          "size": 113027
+          "sha256": "c72f9b3a2b37bb35d7fe18bfaa9c5cdd7df80d1bef0faa113d0adbc86abc338e",
+          "size": 109368
         },
         {
           "path": "README.md",
-          "sha256": "1635c1ae3b78888922e422ff1a07184dfb7a8dbed08b719d1e8e00e3742cec53",
+          "sha256": "5ca456782fd927a95594251acfe8fbd2e9747e5ab291db5d7eab20e44aa56e40",
           "size": 1399
         }
       ],
@@ -438,22 +438,22 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "61627ab57908f1ed204ea60df51a5e45a403086cfa7b94ce6aeb4ea86cab7f50",
+          "sha256": "caddc5e62f9116aff9fc41bc1030f5ee4bc3c0f2070ee0671e4f160a1f114c29",
           "size": 2408
         },
         {
           "path": "index.js",
-          "sha256": "4f7cd56f2ae1318d6f364d5dfe417ee38da8117fb377c0ed85bd471e8c403f98",
+          "sha256": "e51ff8eeb6b9ae8a40e2e6e9cf0ee208d2236b6af37409a9f9e78d0a684eaecc",
           "size": 13315
         },
         {
           "path": "preview.png",
-          "sha256": "3ec5a16e07529232f3149c5fb453f34b1c70dcfd025c06b3748b89e99676b16e",
-          "size": 105604
+          "sha256": "30586c831e6e448a995c6b4beb44258673c30ff7086a0ef3c5536ce8ebea339e",
+          "size": 65074
         },
         {
           "path": "README.md",
-          "sha256": "e5803274fc2b4e976d130181c5a02ec3f45a554d4549ce886550c63096c22b4e",
+          "sha256": "6fac0eff360ff6c04b9f017cb7dfa39be73c59dad0ea4d2d1c644f37438160e8",
           "size": 1479
         }
       ],
@@ -566,22 +566,22 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "08c4a6e5b0133ecb06de48108f7b8c0797e7ea075b0d1edca5790a3475fecf97",
+          "sha256": "6b3850c93eafd7d4668968eb6a3564411c16857b177c33e3aa4931bf1ee6cf47",
           "size": 2565
         },
         {
           "path": "index.js",
-          "sha256": "464a549a06b26eac427f0a67c3645c8d4bfcaa68d6a1901af55342e305145957",
+          "sha256": "b0a19b1f2d3dfe9d64ea1eb4efb84fe724b149f335e08fe99241321fdd20b7e8",
           "size": 15092
         },
         {
           "path": "preview.png",
-          "sha256": "296287ff465ff2747d66d4c37ee12945a4306f7afe268a842336d2c31b40a9ba",
-          "size": 99826
+          "sha256": "896469e16edb4b0badddba628a07bc04936af3b0b5ea0bee5ffbd5f98c28dde6",
+          "size": 80755
         },
         {
           "path": "README.md",
-          "sha256": "6602766a95e3ea43d817a2a714263594fb35871e01627235102a87546da165e9",
+          "sha256": "69fb02bb82728ce936670d4ca861acbf019a86c81b7866e677fdac1577fcab46",
           "size": 1532
         }
       ],
@@ -626,22 +626,22 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "11285ff5a7c15e75f51f188f25c37251fbb3dffc29c1becbcfd4148cf42fb5eb",
+          "sha256": "9e9fea3a664c70e565e5ce293efd9c579a82f11d03b496458139babb64262b92",
           "size": 2381
         },
         {
           "path": "index.js",
-          "sha256": "58ef147adcfd505b54495a4a48ee86044a5a0f76e32cc3d70ee34c4f94c628db",
+          "sha256": "dc86b3852b6a758b52e112392d21da1658a8cf778abbd3c6755850be3ce91cad",
           "size": 13389
         },
         {
           "path": "preview.png",
-          "sha256": "99398314815f388ab85891d35e11dc09676890b58d8e384b1f011fa1a14aa1b4",
-          "size": 118300
+          "sha256": "5466333b32e5ca719ad9be481e4c92515f385be5139bb3faa83b049679d829bd",
+          "size": 116716
         },
         {
           "path": "README.md",
-          "sha256": "a1a3eba1f398481733e91e4329ffacbece14ddda07880e56c607a70d20440a68",
+          "sha256": "8ce602443e2b2746a1aa607fe1f768d73f5bf7264da4eda62d60bf3dec49eb58",
           "size": 1417
         }
       ],
@@ -996,7 +996,7 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "59c64b7198c62faf5597930cb5c6a1f1e56e1585332c562cdd5b4152320ae90c",
+          "sha256": "59bc9d8d947cfa59ee60f753ee64515ff99a5c1d2d76306993c63ec1b2a3da55",
           "size": 3338
         },
         {
@@ -1006,12 +1006,12 @@
         },
         {
           "path": "preview.png",
-          "sha256": "a22be2e143b93ac55c24d971d210ea8cb60d72e84313ca3850cdf081c704b17e",
-          "size": 89443
+          "sha256": "68a895a72120840b29e201dc5bd64296d6e2371246da75fa00ba290a1d823087",
+          "size": 94901
         },
         {
           "path": "README.md",
-          "sha256": "67793bcaec1dcb1a4986e8486f76bf2c75a3341d693f43eaa7071cf08b2f697c",
+          "sha256": "2363ba78ca3969dbe2eb7c903a5fd73486a7ff15d17d8227fcb8bc829194d4c8",
           "size": 1492
         }
       ],
@@ -1061,7 +1061,7 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "64b0c6f74bb38bbee8381d3c55713b985b1f751401f07c86e161f560a0bb0096",
+          "sha256": "d77b26351c4a0ccf7348620c0a031f4992fd814597182ef666255901d59131d4",
           "size": 3738
         },
         {
@@ -1071,12 +1071,12 @@
         },
         {
           "path": "preview.png",
-          "sha256": "d363bd9352667f1a655a56a9facafb7dfdb26ea9c6a0ac2fe406e9e88b588884",
-          "size": 27626
+          "sha256": "412069572455e490d266c46feef1ce5439cd85bc547572a3df896508e1d9c4d6",
+          "size": 52739
         },
         {
           "path": "README.md",
-          "sha256": "ca441b71c5c48dfa123e86a18970d0e783ab7ee378c7b17ad3deff9985bc8b00",
+          "sha256": "bfef8ee96b76092e9138116786dd3fb95968e249f596a47d27ee40f9a0117df2",
           "size": 1539
         }
       ],

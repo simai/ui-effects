@@ -90,8 +90,19 @@ Resolve the variables through a probe element, as the template does, so
 
 ## 4. Readability
 
-Text sits on the effect. On its **brightest frame**, the effect must leave
-room for 4.5:1 text in the on-surface colour of the theme it is drawn in:
+Text sits on the effect. At the manifest's default settings, over the worst
+of five frames and against 95 % of the pixels, text in the roles of the theme
+the effect is drawn in must reach:
+
+- **4.5:1** in `--sf-on-surface`;
+- **3:1** in `--sf-on-surface-variant`.
+
+3:1 is the WCAG level for large text and icons, not for body text. So
+`--sf-on-surface-variant` over an effect is for large text only (24px, or
+18.66px bold); smaller text over an effect uses `--sf-on-surface`. Raising a setting past its default is the page's
+choice. `node scripts/contrast-probe.mjs` measures every effect this way.
+
+To get there:
 
 - keep bright elements small and the main area calm;
 - light effects keep their darkest areas well above mid-grey, dark effects

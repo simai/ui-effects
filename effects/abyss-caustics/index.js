@@ -60,7 +60,7 @@ const fsin = (x) => SIN[(x * 651.8986) & 4095];
 const FX = {
   seed: 71,
   t0: 25,
-  settings: {speed: [100, 10, 300], intensity: [55, 10, 100], scale: [50, 20, 100], rays: true, interactive: true},
+  settings: {speed: [100, 10, 300], intensity: [30, 10, 100], scale: [50, 20, 100], rays: true, interactive: true},
   init(env, rand) {
     const st = {rand, buf: null, img: null, lx: 0.5,
       motes: Array.from({length: 46}, () => ({x: rand(), y: rand(), s: 0.4 + rand() * 1.1, v: 0.004 + rand() * 0.01, ph: rand() * 6.28}))};

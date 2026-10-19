@@ -14,7 +14,7 @@ Drops on a night window with blurred city lights behind; large drops slide down 
 |:---|:---|:---|:---|:---|
 | `speed` | integer | 10–300 % | `100` | Speed |
 | `density` | integer | 10–100 % | `55` | Droplet density. How many droplets cover the glass |
-| `lights` | integer | 10–100 % | `60` | City lights. How many blurred lights shine behind the glass |
+| `lights` | integer | 10–100 % | `50` | City lights. How many blurred lights shine behind the glass |
 | `interactive` | boolean | — | `true` | React to the pointer. A moving pointer shakes drops loose |
 | `scheme` | choice | `dark` | `"dark"` | The scheme the effect is drawn in. Set by the placement, not by the user (see «Schemes»). |
 

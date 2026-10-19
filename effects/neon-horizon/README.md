@@ -13,7 +13,7 @@ A neon perspective grid runs to a glowing horizon under sparse stars.
 | Key | Type | Range or options | Default | Meaning |
 |:---|:---|:---|:---|:---|
 | `speed` | integer | 10–300 % | `100` | Speed |
-| `intensity` | integer | 10–100 % | `60` | Intensity |
+| `intensity` | integer | 10–100 % | `50` | Intensity |
 | `horizon` | integer | 20–70 % | `42` | Horizon height |
 | `interactive` | boolean | — | `true` | React to the pointer. The vanishing point follows the pointer |
 | `scheme` | choice | `dark` | `"dark"` | The scheme the effect is drawn in. Set by the placement, not by the user (see «Schemes»). |

@@ -58,7 +58,7 @@ const TAU = Math.PI * 2;
 const FX = {
   seed: 53,
   t0: 4,
-  settings: {speed: [100, 10, 300], density: [55, 10, 100], lights: [60, 10, 100], interactive: true},
+  settings: {speed: [100, 10, 300], density: [55, 10, 100], lights: [50, 10, 100], interactive: true},
   init(env, rand) {
     const st = {rand, wait: 1, spawn: 0, px: -1e3, py: -1e3};
     this.build(env, st);
