@@ -278,6 +278,9 @@ const rgba = (value) => {
 };
 const veilOf = (element, area) => {
   for (let node = element; node && node !== area; node = node.parentElement) {
+    // A faded veil declares its full-strength colour; the text sits on that part.
+    const declared = getComputedStyle(node).getPropertyValue('--window-veil').trim();
+    if (declared && rgba(declared)[3] > 0) return rgba(declared);
     const colour = rgba(getComputedStyle(node).backgroundColor);
     if (colour[3] > 0) return colour;
   }

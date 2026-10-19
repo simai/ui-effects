@@ -265,18 +265,23 @@ h3 { font-size: 1.0625rem; line-height: 1.4; font-weight: 700; }
 .demo-card__icon { inline-size: 1.75rem; block-size: 1.75rem; color: var(--sf-primary); }
 .demo-card__text { display: grid; gap: 0.25rem; }
 [data-effect-state="shown"] .demo-card[data-effect-window] { border-color: transparent; }
+/* The veil under window captions fades in from the effect: transparent at its
+   top edge, full strength from where the text starts. The text lines sit on the
+   full-strength part, so the contrast readout composites --window-veil. */
+@property --window-veil { syntax: "<color>"; inherits: false; initial-value: transparent; }
 [data-effect-state="shown"] [data-effect-window] .demo-card__text {
+  --window-veil: color-mix(in srgb, var(--sf-surface-0) var(--veil), transparent);
   margin: -1rem;
-  margin-block-start: 0;
-  padding: 0.75rem 1rem;
+  margin-block-start: -1.75rem;
+  padding: 2.5rem 1rem 0.75rem;
   border-radius: 0 0 var(--radius-m) var(--radius-m);
-  background: color-mix(in srgb, var(--sf-surface-0) var(--veil), transparent);
+  background: linear-gradient(to bottom, transparent, var(--window-veil) 2.25rem);
 }
 [data-effect-state="shown"] [data-effect-window] .demo-card__icon {
   align-self: flex-start;
   padding: 0.375rem;
   border-radius: 50%;
-  background: color-mix(in srgb, var(--sf-surface-0) var(--veil), transparent);
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--sf-surface-0) var(--veil), transparent) 55%, transparent);
 }
 .fallback-note { padding: 0.75rem 1rem; border-radius: var(--radius-m); background: var(--sf-error-container); color: var(--sf-on-error-container); }
 
