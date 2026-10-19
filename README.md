@@ -90,6 +90,17 @@ gives both for the chosen effect, settings, theme mode and layout.
   a secure context (https or localhost).
 - Every URL is pinned by commit, never a branch.
 
+## Releases for the simai.io portal
+
+The portal hosts the catalogue at https://simai.io/ru/framework/effects/. A tag
+`vX.Y.Z` on a `main` commit that passed Quality runs `.github/workflows/portal.yml`:
+`scripts/pack-portal.mjs` builds the site for that path (canonical addresses on
+simai.io, a link back to the portal home, none of the files the hub owns) and
+the release gets `framework-effects-vX.Y.Z-portal.tar.gz`, its `.sha256` and
+its receipt (`simai.io.portal-artifact` v1, see simai/simai.io
+`docs/ASSEMBLY.md`). A release is never replaced; the portal pins its digest.
+https://simai.github.io/ui-effects/ keeps serving `main`.
+
 ## Security model
 
 - **Official effects** (this repository) are reviewed, pass the kit, and are

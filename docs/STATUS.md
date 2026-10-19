@@ -33,6 +33,8 @@ The state of the catalogue, the decisions behind it and what waits on the Framew
 - **Site and snippets** place effects through the core: the site reads its own copy of the catalogue, and «Получить код» gives the declarative markup and the `SF.Effects.placeEffect` script, pinned by commit. `site/assets/place.js` only adds the configurator's still-frame switch and names what is shown.
 - **Theme modes.** An editor offers a fixed mode when the effect or its pair draws it (the core's `allowedModes`); a dark-only effect with a light pair offers «Всегда светлая», which shows the pair.
 
+- **Portal.** Releases `vX.Y.Z` carry the portal artifact for https://simai.io/ru/framework/effects/ (`.github/workflows/portal.yml`). The hub pins one in `portal.lock.json`; GitHub Pages keeps serving `main` until the redirect is agreed.
+
 ## Waiting on the Framework, in its order
 
 1. **The segmented Button Group** (simai/ui-source#4). **Then here:** replace `.seg` on the site.
