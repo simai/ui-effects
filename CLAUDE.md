@@ -2,7 +2,7 @@
 
 This repository is the catalogue of background effects for SIMAI Framework:
 - the effects;
-- the catalogue site at https://simai.github.io/ui-effects/;
+- the catalogue site at https://effects.simai.io/ (GitHub Pages; simai.github.io/ui-effects/ redirects there);
 - the author guide and the checks.
 
 The thread working here is the **only writer** in this repository.
@@ -40,4 +40,4 @@ See `README.md` → «Working on the repository», and `.github/workflows/qualit
 - hygiene;
 - the kit over all effects and schemes, plus the template;
 - the site build;
-- the browser smoke under `/ui-effects/`, which must report 0 failing.
+- the browser smoke at the site root, which must report 0 failing.

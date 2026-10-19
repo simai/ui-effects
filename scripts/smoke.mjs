@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 // Browser smoke of the built catalogue site.
 //
-//   node scripts/smoke.mjs [--root dist] [--prefix /ui-effects/] [--shots DIR] [--json FILE] [--only id,id]
+//   node scripts/smoke.mjs [--root dist] [--prefix /] [--shots DIR] [--json FILE] [--only id,id]
 //
-// dist/ is served under the prefix, the way GitHub Pages serves the project
-// site, and opened in headless Chromium at 1440×900 and 390×844, light and dark.
+// dist/ is served at the prefix (the root, as https://effects.simai.io/ serves
+// it) and opened in headless Chromium at 1440×900 and 390×844, light and dark.
 // It fails on:
 //   - a page error or console error, or a request to any host other than the
 //     local server, the two pinned jsDelivr bases and the Framework's icon
@@ -42,7 +42,7 @@ import {serve} from './lib/serve.mjs';
 const args = process.argv.slice(2);
 const option = (name, fallback) => (args.includes(name) ? args[args.indexOf(name) + 1] : fallback);
 const distDir = resolve(ROOT, option('--root', 'dist'));
-const prefix = option('--prefix', '/ui-effects/');
+const prefix = option('--prefix', '/');
 const shots = option('--shots', null) ? resolve(option('--shots')) : null;
 const jsonOut = option('--json', null);
 const only = option('--only', '') ? option('--only', '').split(',') : null;
@@ -364,7 +364,11 @@ try {
       if (label === 'pause') await page.click('[data-pause]');
       await wait(600);
       await page.waitForFunction(() => document.documentElement.dataset.mounted === 'yes');
-      // The readout and the page's own timers ask for no animation frames.
+      // The readout and the page's own timers ask for no animation frames. The
+      // Framework's controls may redraw once when the icon font arrives; that
+      // settles first, so only the effect is counted.
+      await page.evaluate(() => document.fonts.ready);
+      await wait(400);
       await page.evaluate(() => { window.__frames = 0; });
       const after = await frames(page);
       const canvas = await page.evaluate(() => Boolean(document.querySelector('[data-hero] [data-sf-effect-layer] canvas')));

@@ -1,6 +1,6 @@
 name: Pages
 
-# Deploys the catalogue site to GitHub Pages, https://simai.github.io/ui-effects/,
+# Deploys the catalogue site to GitHub Pages at its own domain, https://effects.simai.io/,
 # after Quality has passed on main, or on a manual run. The site's snippets
 # point at jsDelivr gh/simai/ui-effects@<the deployed commit>.
 on:
@@ -36,7 +36,7 @@ jobs:
       # configure-pages fails until Pages is enabled with "GitHub Actions" as the source.
       - id: pages
         uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
-      - name: Build the site (base path /ui-effects/; every URL in it is relative)
+      - name: Build the site (every URL in it is relative)
         run: UI_EFFECTS_COMMIT="$DEPLOY_SHA" node scripts/build-site.mjs
       - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:

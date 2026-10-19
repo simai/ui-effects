@@ -168,8 +168,8 @@ node scripts/build-catalogue.mjs         # catalogue/index.json with SHA-256 and
 node scripts/build-catalogue.mjs --check
 node scripts/check-hygiene.mjs
 node scripts/build-site.mjs
-node scripts/smoke.mjs --prefix /ui-effects/ --only <id>
-node scripts/serve.mjs                   # look at it: http://127.0.0.1:4173/ui-effects/effect/<id>/
+node scripts/smoke.mjs --only <id>
+node scripts/serve.mjs                   # look at it: http://127.0.0.1:4173/effect/<id>/
 ```
 
 The kit runs `scripts/effect-kit.mjs` of `simai/ui-source` against `distr/core`

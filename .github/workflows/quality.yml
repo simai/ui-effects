@@ -64,9 +64,9 @@ jobs:
         run: git diff --exit-code -- catalogue/
       - name: Build the site
         run: UI_EFFECTS_COMMIT="$GITHUB_SHA" node scripts/build-site.mjs
-      - name: Browser smoke under /ui-effects/
+      - name: Browser smoke at the site root, as effects.simai.io serves it
         timeout-minutes: 20
-        run: node scripts/smoke.mjs --prefix /ui-effects/ --shots "$RUNNER_TEMP/shots" --json "$RUNNER_TEMP/smoke.json"
+        run: node scripts/smoke.mjs --shots "$RUNNER_TEMP/shots" --json "$RUNNER_TEMP/smoke.json"
       - name: Keep the smoke evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2

@@ -29,7 +29,7 @@ The state of the catalogue, the decisions behind it and what waits on the Framew
 - **Site and snippets** place effects through the core: the site reads its own copy of the catalogue, and «Получить код» gives the declarative markup and the `SF.Effects.placeEffect` script, pinned by commit. `site/assets/place.js` only adds the configurator's still-frame switch and names what is shown.
 - **Theme modes.** An editor offers a fixed mode only when the effect draws it (the core's `allowedModes`).
 
-- **Portal.** Releases `vX.Y.Z` carry the portal artifact for https://simai.io/ru/framework/effects/ (`.github/workflows/portal.yml`). The hub pins one in `portal.lock.json`; GitHub Pages keeps serving `main` until the redirect is agreed.
+- **Address.** The site is https://effects.simai.io/ (owner decision: one third-level domain per SIMAI site; simai.io is the navigator and links here). GitHub Pages serves it; simai.github.io/ui-effects/ redirects. The portal artifact releases v1.0.0 and v2.0.0 stay as history; no more are cut.
 
 ## Waiting on the Framework, in its order
 

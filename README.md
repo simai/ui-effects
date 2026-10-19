@@ -5,7 +5,7 @@ hero sections, sign-in screens, dashboards and card groups. Each effect is one
 small ES module with a manifest, checked by the Framework's effect kit,
 reviewed, and published pinned by commit and SHA-256.
 
-**Catalogue site:** https://simai.github.io/ui-effects/ (gallery, a live
+**Catalogue site:** https://effects.simai.io/ (gallery, a live
 configurator for every effect, and «Получить код»). The site is in Russian,
 like the Framework documentation.
 
@@ -89,17 +89,6 @@ gives both for the chosen effect, settings, theme mode and layout.
   a secure context (https or localhost).
 - Every URL is pinned by commit, never a branch.
 
-## Releases for the simai.io portal
-
-The portal hosts the catalogue at https://simai.io/ru/framework/effects/. A tag
-`vX.Y.Z` on a `main` commit that passed Quality runs `.github/workflows/portal.yml`:
-`scripts/pack-portal.mjs` builds the site for that path (canonical addresses on
-simai.io, a link back to the portal home, none of the files the hub owns) and
-the release gets `framework-effects-vX.Y.Z-portal.tar.gz`, its `.sha256` and
-its receipt (`simai.io.portal-artifact` v1, see simai/simai.io
-`docs/ASSEMBLY.md`). A release is never replaced; the portal pins its digest.
-https://simai.github.io/ui-effects/ keeps serving `main`.
-
 ## Security model
 
 - **Official effects** (this repository) are reviewed, pass the kit, and are
@@ -126,8 +115,8 @@ node scripts/build-catalogue.mjs --check    # fail unless current and every effe
 node scripts/check-hygiene.mjs              # local paths, secret-shaped strings, offline modules
 UI_ROOT=../ui UI_SOURCE_ROOT=../ui-source node scripts/kit.mjs --template
 node scripts/build-site.mjs                 # dist/
-UI_ROOT=../ui node scripts/smoke.mjs --prefix /ui-effects/
-node scripts/serve.mjs                      # http://127.0.0.1:4173/ui-effects/
+UI_ROOT=../ui node scripts/smoke.mjs
+node scripts/serve.mjs                      # http://127.0.0.1:4173/
 ```
 
 `kit.mjs` and `smoke.mjs` read `simai/ui` and `simai/ui-source` with

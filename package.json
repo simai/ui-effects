@@ -12,7 +12,7 @@
     "check": "node scripts/build-catalogue.mjs --check && node scripts/check-hygiene.mjs",
     "kit": "node scripts/kit.mjs",
     "site": "node scripts/build-site.mjs",
-    "smoke": "node scripts/smoke.mjs --prefix /ui-effects/"
+    "smoke": "node scripts/smoke.mjs"
   },
   "devDependencies": {
     "playwright-core": "1.62.1"

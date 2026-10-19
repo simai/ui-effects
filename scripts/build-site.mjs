@@ -7,7 +7,7 @@
 // UI_EFFECTS_COMMIT, else GITHUB_SHA (CI), else the checkout's HEAD. The
 // Framework is loaded from jsDelivr at the commit of framework.lock.json.
 // Every URL in the built pages is relative, so the site works under any base
-// path (GitHub Pages serves it under /ui-effects/).
+// path (GitHub Pages serves it at https://effects.simai.io/).
 import {execFileSync} from 'node:child_process';
 import {cpSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync} from 'node:fs';
 import {join, resolve} from 'node:path';
@@ -15,13 +15,6 @@ import {CATALOGUE, ROOT, fileDigest, frameworkBase, lock, readJson} from './lib/
 
 const args = process.argv.slice(2);
 const out = resolve(ROOT, args.includes('--out') ? args[args.indexOf('--out') + 1] : 'dist');
-// --portal <address>: the build the simai.io portal hosts at that address
-// (https://simai.io/ru/framework/effects/). Every page names its canonical
-// address there, the header links back to the portal home, and the files the
-// portal owns (.nojekyll) are left out. See simai/simai.io docs/ASSEMBLY.md.
-const portal = args.includes('--portal') ? args[args.indexOf('--portal') + 1] : null;
-if (portal !== null && !/^https:\/\/simai\.io\/[a-z]{2}\/[a-z0-9/-]+\/$/u.test(portal)) throw new Error(`build-site: --portal is not a simai.io path ending in /: ${portal}`);
-const PORTAL_HOME = 'https://simai.io/ru/';
 const framework = lock();
 const catalogue = readJson(join(CATALOGUE, 'index.json'));
 
@@ -60,10 +53,8 @@ const siteConfig = (rootPath) => JSON.stringify({
   cdn: `https://cdn.jsdelivr.net/gh/simai/ui-effects@${commit}/`,
   framework: {pair: framework.pair, commit: framework.ui.commit, base: frameworkBase(framework)},
 }).replace(/</gu, '\\u003c');
-const common = (rootPath, page) => ({
+const common = (rootPath) => ({
   ROOT: rootPath,
-  CANONICAL: portal ? `<link rel="canonical" href="${portal}${page}">\n` : '',
-  PORTAL_HOME: portal ? `      <a href="${PORTAL_HOME}">simai.io</a>\n` : '',
   CONFIG: siteConfig(rootPath),
   FRAMEWORK_BASE: frameworkBase(framework),
   PAIR: framework.pair,
@@ -71,7 +62,7 @@ const common = (rootPath, page) => ({
 });
 
 writeFileSync(join(out, 'index.html'), render(readFileSync(join(ROOT, 'site', 'index.html'), 'utf8'), {
-  ...common('./', ''),
+  ...common('./'),
   TITLE: 'Фоновые эффекты SIMAI Framework',
   DESCRIPTION: `Каталог фоновых эффектов для SIMAI Framework: ${catalogue.effects.length} эффектов, живой пример, настройки и код подключения.`,
 }));
@@ -79,7 +70,7 @@ const effectTemplate = readFileSync(join(ROOT, 'site', 'effect.html'), 'utf8');
 for (const effect of catalogue.effects) {
   mkdirSync(join(out, 'effect', effect.id), {recursive: true});
   writeFileSync(join(out, 'effect', effect.id, 'index.html'), render(effectTemplate, {
-    ...common('../../', `effect/${effect.id}/`),
+    ...common('../../'),
     TITLE: `${escape(effect.label.ru)} — фоновые эффекты SIMAI Framework`,
     DESCRIPTION: escape(effect.description.ru),
     EFFECT_ID: effect.id,
@@ -93,6 +84,6 @@ cpSync(join(ROOT, 'site', 'assets'), join(out, 'assets'), {recursive: true});
 mkdirSync(join(out, 'catalogue'), {recursive: true});
 cpSync(join(CATALOGUE, 'index.json'), join(out, 'catalogue', 'index.json'));
 cpSync(join(CATALOGUE, 'index.schema.json'), join(out, 'catalogue', 'index.schema.json'));
-if (!portal) writeFileSync(join(out, '.nojekyll'), '');
+writeFileSync(join(out, '.nojekyll'), '');
 if (!existsSync(join(out, 'assets', 'configurator.js'))) throw new Error('build-site: assets missing');
-console.log(`build-site: ${catalogue.effects.length + 1} pages in ${out}${portal ? ` for ${portal}` : ''}; snippets pinned to ${commit.slice(0, 12)} (${source}); Framework ${framework.pair}`);
+console.log(`build-site: ${catalogue.effects.length + 1} pages in ${out}; snippets pinned to ${commit.slice(0, 12)} (${source}); Framework ${framework.pair}`);
