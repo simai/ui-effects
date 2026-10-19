@@ -5,14 +5,15 @@
 //   node scripts/build-catalogue.mjs           # write catalogue/index.json
 //   node scripts/build-catalogue.mjs --check   # fail unless the committed file is current and every effect passes
 //
-// Sources: effects/policy.json (order, Russian description, schemes, pair,
-// tags), effects/<id>/ (manifest, module, preview, README), catalogue/kit.json
+// Sources: effects/policy.json (order, Russian description and role, tags),
+// effects/<id>/ (manifest with schemes, pair and capabilities; module,
+// preview, README), catalogue/kit.json
 // (written by scripts/kit.mjs) and framework.lock.json. A kit result counts
 // only when it was taken on the current manifest and module (its digest) and
 // against the locked Framework commits; otherwise the effect is «stale».
 import {existsSync, readFileSync, writeFileSync} from 'node:fs';
 import {join} from 'node:path';
-import {CATALOGUE, EFFECT_FILES, PLACEMENT, ROOT, fileDigest, loadPolicy, lock, readJson, sha256, stableJson, validate} from './lib/common.mjs';
+import {CATALOGUE, EFFECT_FILES, PLACEMENT, ROOT, expectedChecks, fileDigest, loadPolicy, lock, readJson, sha256, stableJson, validate} from './lib/common.mjs';
 
 const checkMode = process.argv.includes('--check');
 const problems = [];
@@ -36,15 +37,11 @@ const effects = entries.map((entry) => {
   const digest = sha256(['effect.json', 'index.js'].map((name) => sha256(readFileSync(join(folder, name)))).join('\n'));
   const record = kit.effects?.[entry.id];
   let status = 'missing';
-  const schemes = {};
+  const expected = expectedChecks(manifest, framework).length;
+  const result = {passed: record?.passed ?? 0, total: record?.total ?? expected};
   if (record) {
-    for (const scheme of entry.schemes) {
-      const result = record.schemes?.[scheme];
-      if (result) schemes[scheme] = {passed: result.passed, total: result.total};
-    }
-    const complete = entry.schemes.every((scheme) => schemes[scheme]);
-    const passing = complete && Object.values(schemes).every((result) => result.passed === result.total && result.total === framework.kit.checks.length);
-    status = record.digest !== digest || !kitCurrent ? 'stale' : !complete ? 'missing' : passing ? 'pass' : 'fail';
+    const passing = result.passed === result.total && result.total === expected && !(record.failed ?? []).length;
+    status = record.digest !== digest || !kitCurrent ? 'stale' : passing ? 'pass' : 'fail';
   }
   if (status !== 'pass') problems.push(`${entry.id}: kit ${status}${status === 'stale' ? ' (run scripts/kit.mjs)' : ''}`);
   return {
@@ -55,23 +52,24 @@ const effects = entries.map((entry) => {
     role: entry.role,
     schemes: entry.schemes,
     pair: entry.pair ?? null,
+    capabilities: manifest.capabilities ?? [],
     tags: entry.tags,
     surfaces: manifest.surfaces,
     path: `effects/${entry.id}/`,
     entry: 'index.js',
     files,
-    kit: {status, framework: framework.pair, schemes},
+    kit: {status, framework: framework.pair, ...result},
   };
 });
 
 const catalogue = {
   $schema: './index.schema.json',
   schema: 'simai.ui-effects.catalogue',
-  version: 1,
+  version: 2,
   repository: 'simai/ui-effects',
   standard: framework.standard,
   framework: {pair: framework.pair, ui: framework.ui.commit, ui_source: framework.ui_source.commit},
-  runtime: {placement: {path: PLACEMENT, ...fileDigest(join(ROOT, PLACEMENT)), replaced_by: 'simai.effect 1.1 (SF.Effects themeMode, pair, windows, integrity loading)'}},
+  runtime: {placement: {path: PLACEMENT, ...fileDigest(join(ROOT, PLACEMENT)), replaced_by: 'SF.Effects placement (themeMode, windows, declarative mount, integrity loading)'}},
   counts: {
     effects: effects.length,
     dual: effects.filter((effect) => effect.schemes.length === 2).length,

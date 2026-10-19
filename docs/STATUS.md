@@ -27,36 +27,25 @@ The state of the catalogue, the decisions behind it and what waits on the Framew
 
 ## Today
 
-- **Standard.** The Framework release is pinned in `framework.lock.json`, on standard simai.effect 1.0.0.
-- **Schemes and pairs.** They live in `effects/policy.json`, because 1.0 manifests allow no extra fields. Each manifest also has a `scheme` setting.
+- **Standard.** simai.effect 1.1.0, Framework pair `ui-e7701fef3733`, pinned in `framework.lock.json`.
+- **Manifests** declare `schemes` (home scheme first), `pair` by catalogue id, and `capabilities: ["windows"]`. The modules read the scheme from `context.scheme`. `effects/policy.json` holds only order, Russian descriptions and roles, and tags.
+- **Kit.** The 1.1 kit runs per scheme, the scheme switch, contrast (4.5:1 on-surface, 3:1 on-surface-variant, at defaults) and windows. Every effect passes all checks the lock expects for it: 14 to 17.
 - **Placement.** `site/lib/placement.js` adds the theme mode, the pair, windows mode and integrity loading on top of `SF.Effects.mountEffect`. It is the only stand-in for the core.
-- **The declarative snippet** in «Получить код» is marked «после выхода ядра simai.effect 1.1» and does not work yet.
+- **The declarative snippet** in «Получить код» is marked «после выхода размещения в ядре (SF.Effects)» and does not work yet.
 
 ## Waiting on the Framework, in its order
 
-1. **simai.effect 1.1.**
-   - Manifest fields:
-     - `schemes`;
-     - `pair`: a catalogue id or an https URL ending in `/effect.json`, allowed only with a single scheme;
-     - `capabilities: ["windows"]`;
-     - `context.scheme`, with `update(settings, context)` on a scheme switch.
-   - Kit checks: per-scheme runs, a scheme switch, windows, and contrast (worst of five frames, 95 % of pixels; 4.5:1 on-surface, 3:1 on-surface-variant).
-   - **Then here:**
-     - repin the lock;
-     - move the manifests to the new fields and drop the `scheme` setting;
-     - shrink `policy.json` to order, descriptions and tags;
-     - update the schemas, the kit runner, `AUTHORING.md` and the template.
-2. **SF.Effects.**
+1. **SF.Effects placement.**
    - `themeMode` with `allowedModes()` and `resolveTheme()`, windows mode, the declarative `data-sf-effect` mount, and integrity loading.
    - **Then here:**
      - delete `site/lib/placement.js` and call the core;
      - make the declarative snippet real, with the attribute names as shipped;
      - update the README.
-3. **The segmented Button Group** (simai/ui-source#4). **Then here:** replace `.seg` on the site.
-4. **The sandbox runner.** **Then here:** document foreign effects in `README.md` and `SECURITY.md`.
+2. **The segmented Button Group** (simai/ui-source#4). **Then here:** replace `.seg` on the site.
+3. **The sandbox runner.** **Then here:** document foreign effects in `README.md` and `SECURITY.md`.
 
 ## Effects
 
-There are 20 effects: 7 draw both schemes, 7 dark only and 6 light only. Eleven name a pair. `aurora-curtain` (dark) and `foam-cells` (light) have no pair, by design. The order, descriptions and tags are in `effects/policy.json`; the per-effect kit results are in `catalogue/kit.json`.
+There are 20 effects: 7 draw both schemes, 7 dark only and 6 light only. Eleven name a pair. `aurora-curtain` (dark) and `foam-cells` (light) have no pair, by design. Schemes and pairs are in the manifests; the order, descriptions and tags are in `effects/policy.json`; the per-effect kit results are in `catalogue/kit.json`.
 
-Every effect's defaults pass the 1.1 contrast rule in each scheme it draws. `scripts/contrast-probe.mjs` measures it the way the 1.1 kit does, ahead of that kit.
+Every effect's defaults pass the 1.1 contrast rule in each scheme it draws. `scripts/contrast-probe.mjs` measures it the way the kit does and takes other defaults with `--set`, for tuning.

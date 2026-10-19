@@ -1,6 +1,6 @@
 # Template effect (`template-dots`)
 
-A minimal effect that follows every rule of simai.effect 1.0.0 and the
+A minimal effect that follows every rule of simai.effect 1.1.0 and the
 ui-effects theme policy. It is not in the catalogue. Copy it to start a new
 effect; see [docs/AUTHORING.md](../../docs/AUTHORING.md).
 
@@ -12,11 +12,10 @@ effect; see [docs/AUTHORING.md](../../docs/AUTHORING.md).
 | `density` | integer | 10–100 % | `50` | Number of dots |
 | `size` | integer | 4–60 px | `24` | Largest dot radius |
 | `interactive` | boolean | — | `true` | The dots lean towards the pointer |
-| `scheme` | choice | `dark`, `light` | `"dark"` | The scheme the effect is drawn in. Set by the placement, not by the user. |
 
 ## Schemes
 
-Draws in both schemes: **dark** (home) and **light**, each from its own palette tones.
+Draws in both schemes: **dark** (home) and **light**, each from its own palette tones. The manifest declares `"schemes": ["dark", "light"]` and `"capabilities": ["windows"]`; the module reads the scheme from `context.scheme`, and a switch arrives as `update(settings, context)`.
 
 ## Pair
 

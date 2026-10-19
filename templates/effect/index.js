@@ -1,8 +1,10 @@
-// Template effect (simai.effect 1.0.0; schemes dark and light): soft dots drift
+// Template effect (simai.effect 1.1.0; schemes dark and light): soft dots drift
 // slowly. Copy this folder to effects/<id>/, rename, and replace draw().
 //
 // What every effect must do, and where this template does it:
 // - mount(host, settings, context) returns {update, pause, resume, destroy};
+// - the scheme it draws in is context.scheme (one of the manifest's schemes);
+//   a switch arrives as update(settings, context), without a remount;
 // - draw only inside host, on its own canvas; aria-hidden; no pointer capture
 //   (pointer reactions listen on window, passive);
 // - no network: no requests, no dynamic imports, no remote images or fonts;
@@ -15,6 +17,14 @@
 
 const clamp = (v, a, b) => (v < a ? a : v > b ? b : v);
 const rgba = (c, a = 1) => `rgba(${c[0] | 0},${c[1] | 0},${c[2] | 0},${a})`;
+// A seeded generator: the same picture on every mount, so the kit's contrast
+// check measures what a page shows.
+const rng = (seed) => () => {
+  seed = (seed + 0x6d2b79f5) | 0;
+  let x = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+  x = (x + Math.imul(x ^ (x >>> 7), 61 | x)) ^ x;
+  return ((x ^ (x >>> 14)) >>> 0) / 4294967296;
+};
 
 // Palette tones of the theme, read through a probe so var() chains settle.
 // A tone keeps its value in both page themes; a role (--sf-primary,
@@ -51,7 +61,8 @@ export function mount(host, settings, context = {}) {
   const ctx = canvas.getContext('2d', {alpha: false});
   const motion = win.matchMedia?.('(prefers-reduced-motion: reduce)');
   let values = {...settings};
-  let tones = readTones(host, values.scheme);
+  let scheme = context.scheme ?? 'dark';
+  let tones = readTones(host, scheme);
   let still = Boolean(context.reducedMotion) || Boolean(motion?.matches);
   let paused = false;
   let visible = true;
@@ -64,8 +75,9 @@ export function mount(host, settings, context = {}) {
   let dots = [];
 
   const seed = () => {
+    const random = rng(7);
     const count = Math.round(20 + values.density * 0.8);
-    dots = Array.from({length: count}, (_, i) => ({x: Math.random(), y: Math.random(), r: 2 + Math.random() * values.size, p: i * 1.7, alt: i % 5 === 0}));
+    dots = Array.from({length: count}, (_, i) => ({x: random(), y: random(), r: 2 + random() * values.size, p: i * 1.7, alt: i % 5 === 0}));
   };
   const draw = () => {
     ctx.fillStyle = rgba(tones.ground);
@@ -73,7 +85,8 @@ export function mount(host, settings, context = {}) {
     for (const dot of dots) {
       const x = (dot.x + Math.sin(t * 0.05 + dot.p) * 0.02 + (values.interactive ? (pointer.x - 0.5) * 0.02 : 0)) * w;
       const y = (dot.y + Math.cos(t * 0.04 + dot.p) * 0.02) * h;
-      ctx.fillStyle = rgba(dot.alt ? tones.alt : tones.dot, 0.18);
+      // Light dots on a deep ground stay fainter: text over the effect keeps its contrast.
+      ctx.fillStyle = rgba(dot.alt ? tones.alt : tones.dot, scheme === 'dark' ? 0.12 : 0.18);
       ctx.beginPath();
       ctx.arc(x, y, dot.r, 0, Math.PI * 2);
       ctx.fill();
@@ -121,15 +134,16 @@ export function mount(host, settings, context = {}) {
   schedule();
 
   return {
-    update(next) {
+    update(next, nextContext = {}) {
       const reseed = next.density !== values.density || next.size !== values.size;
-      const rescheme = next.scheme !== values.scheme;
+      const rescheme = nextContext.scheme !== undefined && nextContext.scheme !== scheme;
       values = {...next};
-      if (rescheme) tones = readTones(host, values.scheme);
+      if (rescheme) scheme = nextContext.scheme;
+      if (rescheme) tones = readTones(host, scheme);
       if (reseed) seed();
       draw();
     },
-    refreshTheme() { tones = readTones(host, values.scheme); draw(); },
+    refreshTheme() { tones = readTones(host, scheme); draw(); },
     pause() { paused = true; stop(); },
     resume() { paused = false; schedule(); },
     destroy() {

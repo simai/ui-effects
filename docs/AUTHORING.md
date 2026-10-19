@@ -5,9 +5,9 @@ catalogue holds only SIMAI's own effects (see [CONTRIBUTING.md](../CONTRIBUTING.
 
 ## 1. The standard
 
-An effect follows **simai.effect 1.0.0**, the standard of the SIMAI Framework
+An effect follows **simai.effect 1.1.0**, the standard of the SIMAI Framework
 core. Its normative text, manifest schema and kit live in `simai/ui-source`
-(`contracts/standards/simai.effect/1.0.0/`, `src/core/contracts/effect.v1.schema.json`,
+(`contracts/standards/simai.effect/1.1.0/`, `src/core/contracts/effect.v1.schema.json`,
 `scripts/effect-kit.mjs`); the Framework documentation explains it on the page
 «Фоновые эффекты» of the layouts guide.
 
@@ -15,15 +15,16 @@ An effect is a folder:
 
 | File | Rule |
 |:---|:---|
-| `effect.json` | The manifest: `"schema": "simai.effect"`, `"schema_version": 1`, `id` equal to the folder name, `entry: "index.js"`, typed and bounded settings, `"needs": {"network": false}` |
+| `effect.json` | The manifest: `"schema": "simai.effect"`, `"schema_version": 1`, `id` equal to the folder name, `entry: "index.js"`, `schemes`, `pair` when it has one, `"capabilities": ["windows"]`, typed and bounded settings, `"needs": {"network": false}` |
 | `index.js` | One ES module, no imports, exporting `mount(host, settings, context)` |
 | `preview.png` | 640×360 still of the home scheme |
 | `README.md` | English: what it is, every setting, schemes, pair |
 
 Rules every effect follows:
 
-- **Lifecycle.** `mount` returns `{update(settings), pause(), resume(), destroy()}`.
-  `update` changes settings without a remount (the host keeps its nodes).
+- **Lifecycle.** `mount` returns `{update(settings, context), pause(), resume(), destroy()}`.
+  `update` changes settings, and with `context.scheme` the scheme, without a
+  remount (the host keeps its nodes).
   An optional `refreshTheme()` re-reads the palette.
 - **Drawing.** Only inside `host`, on the effect's own canvas or SVG, `aria-hidden`,
   no pointer capture. Pointer reactions listen on `window`, passively.
@@ -39,24 +40,29 @@ Rules every effect follows:
   second mount works.
 - **Settings.** Typed and bounded (`integer`, `number`, `boolean`, `choice`,
   `color` ...), each with a valid default and a Russian label. Every effect has
-  `speed` (%), `intensity` or `density`, one setting of its own, `interactive`
-  where it makes sense, and `scheme` as the **last** setting (below).
+  `speed` (%), `intensity` or `density`, one setting of its own, and
+  `interactive` where it makes sense. The scheme is not a setting (below).
 
 ## 2. Schemes and pairs
 
 An effect declares the schemes it can draw: `dark`, `light` or both.
 
-- Until simai.effect 1.1, the schemes are the options of the `scheme` choice
-  setting, home scheme first and as the default, **and** the `schemes` of the
-  effect's entry in `effects/policy.json`. The catalogue check fails when the
-  two differ.
+- The manifest declares them: `"schemes": ["dark"]`, `["light"]`, or both
+  with the home scheme (the default and the preview) first. The catalogue
+  always declares them, though the standard reads an absent field as both.
+- The module draws the scheme it is given as `context.scheme` on mount; a
+  switch arrives as `update(settings, context)` without a remount. Never pick
+  the scheme from the page theme yourself: the placement decides.
 - Both schemes of a dual effect are **designed**, each from its own tones. A
   dual effect is not an inverted picture. Good candidates are line work,
   geometry, grids and type. Effects of emitted light (aurora, neon, caustics)
   or of paper and shadow stay single-scheme.
-- A single-scheme effect may name a **pair** in the policy: an effect of the
-  other scheme that plays the same role (comet-flow ↔ ink-threads). The pair
-  must draw the scheme the effect lacks. Name a pair for every single-scheme
+- A single-scheme effect may name a **pair** in its manifest (`"pair": "<id>"`):
+  an effect of the other scheme in this catalogue that plays the same role
+  (comet-flow ↔ ink-threads). The pair must draw the scheme the effect lacks.
+  The standard also allows an https URL to a foreign `effect.json`; the
+  catalogue names pairs by id only, because a foreign pair would run only in
+  the sandbox. Name a pair for every single-scheme
   effect meant for public pages, unless the role has no counterpart.
 
 What a placement shows (theme mode `auto` | `dark` | `light`):
@@ -145,8 +151,9 @@ Then:
 
 1. set `id`, `label`, `surfaces` and the settings in `effect.json`;
 2. replace `draw()` in `index.js`; keep the lifecycle code;
-3. add the entry to `effects/policy.json` (`description.ru`, `schemes`, `pair`,
-   `role.ru`, `tags`) at its place in the catalogue order;
+3. set `schemes`, `pair` and `capabilities` in `effect.json`, and add the entry
+   to `effects/policy.json` (`description.ru`, `role.ru`, `tags`) at its place
+   in the catalogue order;
 4. write `README.md` (every setting key in backticks) and `preview.png`.
 
 ## 8. Run the checks
@@ -154,7 +161,7 @@ Then:
 ```sh
 npm ci
 export UI_ROOT=../ui UI_SOURCE_ROOT=../ui-source     # clones that hold the commits of framework.lock.json
-node scripts/kit.mjs --only <id>         # the Framework kit, in every scheme: 11/11 each
+node scripts/kit.mjs --only <id>         # the Framework kit: every check the lock expects for the manifest
 node scripts/build-catalogue.mjs         # catalogue/index.json with SHA-256 and the kit result
 node scripts/build-catalogue.mjs --check
 node scripts/check-hygiene.mjs
@@ -164,14 +171,15 @@ node scripts/serve.mjs                   # look at it: http://127.0.0.1:4173/ui-
 ```
 
 The kit runs `scripts/effect-kit.mjs` of `simai/ui-source` against `distr/core`
-of `simai/ui`, read with `git archive`. A non-home scheme runs on a copy whose
-`scheme` default is that scheme. Results go to `catalogue/kit.json` with a
+of `simai/ui`, read with `git archive`. The kit mounts the effect in each
+declared scheme, switches a two-scheme effect, measures contrast in each scheme
+and runs the windows check. Results go to `catalogue/kit.json` with a
 digest of the manifest and module; change either and the catalogue reports the
 result as stale until the kit runs again.
 
 ## 9. Review checklist
 
-- [ ] Kit 11/11 in every declared scheme, at the locked Framework.
+- [ ] Kit passes every expected check (14 to 17, by schemes and pair), at the locked Framework.
 - [ ] `build-catalogue --check` and `check-hygiene` pass; the module is offline and under the size limit.
 - [ ] Palette tones only; no role variable is read (`grep -- '--sf-on-\|--sf-surface' index.js`).
 - [ ] Each scheme is designed, not inverted; the preview shows the home scheme.

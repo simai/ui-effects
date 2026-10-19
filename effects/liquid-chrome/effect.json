@@ -2,7 +2,7 @@
   "schema": "simai.effect",
   "schema_version": 1,
   "id": "liquid-chrome",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "label": {
     "ru": "Жидкий металл",
     "en": "Liquid metal"
@@ -14,6 +14,13 @@
     "sign-in",
     "hero",
     "section"
+  ],
+  "schemes": [
+    "dark"
+  ],
+  "pair": "paper-facets",
+  "capabilities": [
+    "windows"
   ],
   "settings": [
     {
@@ -69,28 +76,6 @@
       "hint": {
         "ru": "Указатель продавливает мягкую вмятину",
         "en": "The pointer presses a soft dent"
-      }
-    },
-    {
-      "key": "scheme",
-      "type": "choice",
-      "label": {
-        "ru": "Тема области",
-        "en": "Area theme"
-      },
-      "default": "dark",
-      "options": [
-        {
-          "value": "dark",
-          "label": {
-            "ru": "Тёмная",
-            "en": "Dark"
-          }
-        }
-      ],
-      "hint": {
-        "ru": "Эффект рисует тёмный фон в любой теме страницы; область эффекта получает класс theme-dark, и текст над ним берёт роли этой темы.",
-        "en": "The effect draws a dark ground in any page theme; its area takes theme-dark, so text over it uses that theme's roles."
       }
     }
   ],

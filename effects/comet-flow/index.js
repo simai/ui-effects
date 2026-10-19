@@ -1,7 +1,7 @@
-// Comet flow (simai.effect 1.0.0, dark set): glowing particles follow a slowly changing noise flow field
+// Comet flow (simai.effect 1.1.0, dark set): glowing particles follow a slowly changing noise flow field
 // and keep a short history of where they were, drawn as tails that fade towards the end.
 
-// ---- runtime shared by the dark set (simai.effect 1.0.0) ----
+// ---- runtime shared by the dark set (simai.effect 1.1.0) ----
 const clamp = (v, a, b) => (v < a ? a : v > b ? b : v);
 const mixc = (a, b, k) => [a[0] + (b[0] - a[0]) * k, a[1] + (b[1] - a[1]) * k, a[2] + (b[2] - a[2]) * k];
 const rgba = (c, a = 1) => `rgba(${c[0] | 0},${c[1] | 0},${c[2] | 0},${clamp(a, 0, 1).toFixed(3)})`;

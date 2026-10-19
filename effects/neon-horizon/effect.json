@@ -2,7 +2,7 @@
   "schema": "simai.effect",
   "schema_version": 1,
   "id": "neon-horizon",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "label": {
     "ru": "Неоновый горизонт",
     "en": "Neon horizon"
@@ -15,6 +15,13 @@
     "hero",
     "section",
     "dashboard"
+  ],
+  "schemes": [
+    "dark"
+  ],
+  "pair": "paper-hills",
+  "capabilities": [
+    "windows"
   ],
   "settings": [
     {
@@ -67,28 +74,6 @@
       "hint": {
         "ru": "Точка схода следует за указателем",
         "en": "The vanishing point follows the pointer"
-      }
-    },
-    {
-      "key": "scheme",
-      "type": "choice",
-      "label": {
-        "ru": "Тема области",
-        "en": "Area theme"
-      },
-      "default": "dark",
-      "options": [
-        {
-          "value": "dark",
-          "label": {
-            "ru": "Тёмная",
-            "en": "Dark"
-          }
-        }
-      ],
-      "hint": {
-        "ru": "Эффект рисует тёмный фон в любой теме страницы; область эффекта получает класс theme-dark, и текст над ним берёт роли этой темы.",
-        "en": "The effect draws a dark ground in any page theme; its area takes theme-dark, so text over it uses that theme's roles."
       }
     }
   ],

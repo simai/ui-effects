@@ -1,7 +1,7 @@
-// Constellations (simai.effect 1.0.0; schemes dark and light): stars in three depth layers drift slowly and link to
+// Constellations (simai.effect 1.1.0; schemes dark and light): stars in three depth layers drift slowly and link to
 // their near neighbours with faint lines; nearer layers move more, and follow the pointer in parallax.
 
-// ---- runtime shared by the dark set (simai.effect 1.0.0) ----
+// ---- runtime shared by the dark set (simai.effect 1.1.0) ----
 const clamp = (v, a, b) => (v < a ? a : v > b ? b : v);
 const mixc = (a, b, k) => [a[0] + (b[0] - a[0]) * k, a[1] + (b[1] - a[1]) * k, a[2] + (b[2] - a[2]) * k];
 const rgba = (c, a = 1) => `rgba(${c[0] | 0},${c[1] | 0},${c[2] | 0},${clamp(a, 0, 1).toFixed(3)})`;
@@ -232,7 +232,7 @@ export function mount(host, settings = {}, context = {}) {
     return out;
   };
   const mq = win.matchMedia ? win.matchMedia('(prefers-reduced-motion: reduce)') : null;
-  const env = {ctx, canvas, w: 1, h: 1, dpr: 1, S: norm(settings), C: null, still: false,
+  const env = {ctx, canvas, w: 1, h: 1, dpr: 1, S: norm({...settings, scheme: context.scheme}), C: null, still: false,
     pointer: {x: 0.5, y: 0.5, on: false}, q: 1, cost: 0};
   env.C = readTheme(host, env.S.scheme);
   env.still = context.reducedMotion === true || Boolean(mq && mq.matches);
@@ -321,10 +321,10 @@ export function mount(host, settings = {}, context = {}) {
   win.addEventListener('pointerout', onLeave, {passive: true});
   resize();
   return {
-    update(next = {}) {
+    update(next = {}, context = {}) {
       if (dead) return;
       const before = env.S;
-      env.S = norm(next);
+      env.S = norm({...next, scheme: context.scheme ?? env.S.scheme});
       env.C = readTheme(host, env.S.scheme);
       if (FX.update && state !== null) FX.update(env, state, before);
       if (FX.theme && state !== null) FX.theme(env, state);

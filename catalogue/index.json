@@ -1,20 +1,20 @@
 {
   "$schema": "./index.schema.json",
   "schema": "simai.ui-effects.catalogue",
-  "version": 1,
+  "version": 2,
   "repository": "simai/ui-effects",
-  "standard": "simai.effect 1.0.0",
+  "standard": "simai.effect 1.1.0",
   "framework": {
-    "pair": "ui-7493766fe39e",
-    "ui": "7493766fe39ec6633cb1420532690c61661b0354",
-    "ui_source": "eb5b215c332c65644529a5c12631ec57c0f30df1"
+    "pair": "ui-e7701fef3733",
+    "ui": "e7701fef37337c73a558b29f33f8f66ffcb4b93c",
+    "ui_source": "cc25931a9694a4d5494291dbe02caaa2dd8f848f"
   },
   "runtime": {
     "placement": {
       "path": "site/lib/placement.js",
-      "sha256": "a9bb89b4520230c1594b48ec718fa41ac55e68798c75df5eb328be4277026c1b",
-      "size": 12643,
-      "replaced_by": "simai.effect 1.1 (SF.Effects themeMode, pair, windows, integrity loading)"
+      "sha256": "9ad7f8b93da1d7df60c9f2c40077d38389aaf4f98cdcc0bce5b88afb5b17d686",
+      "size": 12350,
+      "replaced_by": "SF.Effects placement (themeMode, windows, declarative mount, integrity loading)"
     }
   },
   "counts": {
@@ -26,7 +26,7 @@
   "effects": [
     {
       "id": "aurora-curtain",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "label": {
         "ru": "Полярное сияние",
         "en": "Aurora curtain"
@@ -41,6 +41,9 @@
         "dark"
       ],
       "pair": null,
+      "capabilities": [
+        "windows"
+      ],
       "tags": [
         "glow",
         "sky"
@@ -56,12 +59,12 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "f0aebdd418bdcb92c60908c5788a91510c1045d14d0c50f7b81652457203b84e",
-          "size": 2193
+          "sha256": "651637e4a1b5dd21665d455876f2dc0b2811f54a6ab5a2c0560adfeeef9155bd",
+          "size": 1518
         },
         {
           "path": "index.js",
-          "sha256": "9ebbf9c2dcd9b2cfa1b3f95257f0aaf53dc264623ec5edcd1a7370b1e193527e",
+          "sha256": "8a800780c0ea3ffa269284d9972cae0d68a0a7dc3922484e11dfd50a793af8ae",
           "size": 13120
         },
         {
@@ -71,24 +74,20 @@
         },
         {
           "path": "README.md",
-          "sha256": "330d1bf1465e8b97258df77d4f742b91a1cd1387b087d30269dbc9dac416f51e",
-          "size": 1364
+          "sha256": "7da1c862e96c4a3402138af205a38f8211904f28ccd948fda735989aa68a06a1",
+          "size": 1421
         }
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-7493766fe39e",
-        "schemes": {
-          "dark": {
-            "passed": 11,
-            "total": 11
-          }
-        }
+        "framework": "ui-e7701fef3733",
+        "passed": 14,
+        "total": 14
       }
     },
     {
       "id": "constellation-net",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "label": {
         "ru": "Созвездия",
         "en": "Constellations"
@@ -104,6 +103,9 @@
         "light"
       ],
       "pair": null,
+      "capabilities": [
+        "windows"
+      ],
       "tags": [
         "particles",
         "lines",
@@ -120,13 +122,13 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "d2d3058f367846f7af843b8456cc6937071890073cb58c528376ec4b929d7a01",
-          "size": 2407
+          "sha256": "093acc3fe18f5d526d3f96c9f9093004e1e073843fbec26cf3b27cdf54e5c94b",
+          "size": 1569
         },
         {
           "path": "index.js",
-          "sha256": "6ea7aa7749e6578793201c452197a95c8173d490d63d3fef21a1eea9641f43d3",
-          "size": 15885
+          "sha256": "1155080ba0e7bb5eef44482a28ca15ff6a961c3abbf5cfc976a21a78b3db2fe7",
+          "size": 15973
         },
         {
           "path": "preview.png",
@@ -135,28 +137,20 @@
         },
         {
           "path": "README.md",
-          "sha256": "080bb2493564a426dcfa92d4c21b0acfa323d6c35ccfb5c2ad41143d7f4c2820",
-          "size": 1426
+          "sha256": "5faaa94f99f653816d1bf5ce133e7c17c041228f467a5089c2749c6b9e36e12d",
+          "size": 1483
         }
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-7493766fe39e",
-        "schemes": {
-          "dark": {
-            "passed": 11,
-            "total": 11
-          },
-          "light": {
-            "passed": 11,
-            "total": 11
-          }
-        }
+        "framework": "ui-e7701fef3733",
+        "passed": 17,
+        "total": 17
       }
     },
     {
       "id": "hex-conduits",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "label": {
         "ru": "Световоды",
         "en": "Light conduits"
@@ -172,6 +166,9 @@
         "light"
       ],
       "pair": null,
+      "capabilities": [
+        "windows"
+      ],
       "tags": [
         "geometry",
         "lines"
@@ -187,13 +184,13 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "5e16ba0caa17ad9f74f36eb13704e4068429711834b719afbe143e81d86f523b",
-          "size": 2517
+          "sha256": "8697ddecd6a0be8b257c56babce141ee11326e07b72a9c5c8757554535f9d168",
+          "size": 1679
         },
         {
           "path": "index.js",
-          "sha256": "82ee9587818a0a5f733869d89ad191dbd4b7e427345866532247e0cccae5ccdd",
-          "size": 15865
+          "sha256": "d4c6b29de43b682f6f4830950901e1e5f5ad79e67f044555ca3f4159e6cf0bf3",
+          "size": 15953
         },
         {
           "path": "preview.png",
@@ -202,28 +199,20 @@
         },
         {
           "path": "README.md",
-          "sha256": "af0db999b556226a0c533b222b7bb9dedd02de06a25845adb97efbc6ec1e723c",
-          "size": 1435
+          "sha256": "bd2dbe9d3b4d7df17de72715dfc68ac2d6719fee920850c9942b1d1a08a322c7",
+          "size": 1492
         }
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-7493766fe39e",
-        "schemes": {
-          "dark": {
-            "passed": 11,
-            "total": 11
-          },
-          "light": {
-            "passed": 11,
-            "total": 11
-          }
-        }
+        "framework": "ui-e7701fef3733",
+        "passed": 17,
+        "total": 17
       }
     },
     {
       "id": "comet-flow",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "label": {
         "ru": "Кометные потоки",
         "en": "Comet flow"
@@ -238,6 +227,9 @@
         "dark"
       ],
       "pair": "ink-threads",
+      "capabilities": [
+        "windows"
+      ],
       "tags": [
         "particles",
         "flow"
@@ -253,12 +245,12 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "26561b7d4835eeff4916c3c5f2d2eaf8960d7291e43595bd15de3e042fac04f9",
-          "size": 2460
+          "sha256": "2c47f0199d19b246434160779ba4164b136a51c0d5ef84d94d300f6aaf0461e8",
+          "size": 1810
         },
         {
           "path": "index.js",
-          "sha256": "774ffb421f59134d4b18c318b21b1956d1ecc614f97fda215974a19e4b7940bc",
+          "sha256": "c76ad207024e3140f2f80f4e1a691e9f51023877b4574e17a668447a2897f767",
           "size": 13857
         },
         {
@@ -268,24 +260,20 @@
         },
         {
           "path": "README.md",
-          "sha256": "cc910c17b146e0018aa70cbf2225f16104b49008b00fb9fc6b4e453f827c9352",
-          "size": 1455
+          "sha256": "415d1b4c6376e18b511d9b4166c0ae36b9a0e2d8cf0bcbb0e819888c2e284145",
+          "size": 1540
         }
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-7493766fe39e",
-        "schemes": {
-          "dark": {
-            "passed": 11,
-            "total": 11
-          }
-        }
+        "framework": "ui-e7701fef3733",
+        "passed": 15,
+        "total": 15
       }
     },
     {
       "id": "nebula-mesh",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "label": {
         "ru": "Глубинный градиент",
         "en": "Nebula mesh"
@@ -300,6 +288,9 @@
         "dark"
       ],
       "pair": "mist-gradient",
+      "capabilities": [
+        "windows"
+      ],
       "tags": [
         "gradient"
       ],
@@ -314,12 +305,12 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "d3b17813d717d49387c2f1e3d3e812eebb5a80b9a1e600989bb0701c23317965",
-          "size": 2413
+          "sha256": "3264a6f9aed21e9b63b052b5c9b675a96b2a6dc845994cb2c64782b3de2a402b",
+          "size": 1765
         },
         {
           "path": "index.js",
-          "sha256": "ddd5ba2ed02948ee4f0dd852f76bf5dfd44639d40ec3f5ee86f0d8a066f7b2de",
+          "sha256": "8838797c98f0db4703169a3f7d2c6b21493a4c8288f29637f42edb3f6cb2f143",
           "size": 11996
         },
         {
@@ -329,24 +320,20 @@
         },
         {
           "path": "README.md",
-          "sha256": "35109a3d790577197e4a7b71ff53764d2c30b61b053875976d6cec1ae59f5efb",
-          "size": 1441
+          "sha256": "69092aa02b23c0c706065ddcf2e462acd003a3396e4fd4fdd845b543813f90b5",
+          "size": 1528
         }
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-7493766fe39e",
-        "schemes": {
-          "dark": {
-            "passed": 11,
-            "total": 11
-          }
-        }
+        "framework": "ui-e7701fef3733",
+        "passed": 15,
+        "total": 15
       }
     },
     {
       "id": "neon-horizon",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "label": {
         "ru": "Неоновый горизонт",
         "en": "Neon horizon"
@@ -361,6 +348,9 @@
         "dark"
       ],
       "pair": "paper-hills",
+      "capabilities": [
+        "windows"
+      ],
       "tags": [
         "geometry",
         "depth"
@@ -376,12 +366,12 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "35d654339e20763abecae1373dc0f52990738d2574a11fbebd9ef5617ed6a761",
-          "size": 2253
+          "sha256": "8dd120ed4d7dbc421f787637c2a5a030b79f82eebf767680b6dbed53281e550d",
+          "size": 1603
         },
         {
           "path": "index.js",
-          "sha256": "278497c2954b3171183ca5f166de8acd2f3f4826056926ef91fb611944f42884",
+          "sha256": "df897bc6f812bbf1c7894a4f8c56087915c5a6147a702b5355f17de7dc81e697",
           "size": 12432
         },
         {
@@ -391,24 +381,20 @@
         },
         {
           "path": "README.md",
-          "sha256": "5ca456782fd927a95594251acfe8fbd2e9747e5ab291db5d7eab20e44aa56e40",
-          "size": 1399
+          "sha256": "e73bd272a1cda67326a62ceeb91d02be728ebe892c1944d625e7c2721e86ce4b",
+          "size": 1484
         }
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-7493766fe39e",
-        "schemes": {
-          "dark": {
-            "passed": 11,
-            "total": 11
-          }
-        }
+        "framework": "ui-e7701fef3733",
+        "passed": 15,
+        "total": 15
       }
     },
     {
       "id": "abyss-caustics",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "label": {
         "ru": "Глубоководные блики",
         "en": "Abyss caustics"
@@ -423,6 +409,9 @@
         "dark"
       ],
       "pair": "daylight-caustics",
+      "capabilities": [
+        "windows"
+      ],
       "tags": [
         "water",
         "glow"
@@ -438,12 +427,12 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "caddc5e62f9116aff9fc41bc1030f5ee4bc3c0f2070ee0671e4f160a1f114c29",
-          "size": 2408
+          "sha256": "11fc30166d36f9bec96df182311df4360534817df58cc6327d87dd13156d69a1",
+          "size": 1764
         },
         {
           "path": "index.js",
-          "sha256": "e51ff8eeb6b9ae8a40e2e6e9cf0ee208d2236b6af37409a9f9e78d0a684eaecc",
+          "sha256": "3e3452c2bfde3b08d02e4325918ba424b10bbb2a00877cc4e5676ccd9f6e25a9",
           "size": 13315
         },
         {
@@ -453,24 +442,20 @@
         },
         {
           "path": "README.md",
-          "sha256": "6fac0eff360ff6c04b9f017cb7dfa39be73c59dad0ea4d2d1c644f37438160e8",
-          "size": 1479
+          "sha256": "069f5813199a220e1db8f23b4864c92f27037f77e68b0b21f8139391df71e4ef",
+          "size": 1570
         }
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-7493766fe39e",
-        "schemes": {
-          "dark": {
-            "passed": 11,
-            "total": 11
-          }
-        }
+        "framework": "ui-e7701fef3733",
+        "passed": 15,
+        "total": 15
       }
     },
     {
       "id": "glyph-tide",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "label": {
         "ru": "Знаковый прилив",
         "en": "Glyph tide"
@@ -486,6 +471,9 @@
         "light"
       ],
       "pair": null,
+      "capabilities": [
+        "windows"
+      ],
       "tags": [
         "type"
       ],
@@ -500,13 +488,13 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "37d0f23c7abb6c9801b782a49849686c2d1fdbdf99202849a62d090c367c241c",
-          "size": 3304
+          "sha256": "dd4681b949f1b48940c91042ce515a7ce97bbe68577e6a0637f1f49ac2115250",
+          "size": 2466
         },
         {
           "path": "index.js",
-          "sha256": "6b651fa599f17cc9623e24bd611e9835ceee7d590e3c0271a6b7a7379f625158",
-          "size": 14854
+          "sha256": "3cbad8089c8813bab0123572256b3a1a629c0487181b20329f8fad0afc224b8e",
+          "size": 14942
         },
         {
           "path": "preview.png",
@@ -515,28 +503,20 @@
         },
         {
           "path": "README.md",
-          "sha256": "a80e67586f66edd0f177f88fc37de976db86438bea42e98b7f54af8c3cabecd1",
-          "size": 1506
+          "sha256": "49a5de5b7b97450fd8795be853d522f48dc234f26d10295d47d7fcd119f00a0e",
+          "size": 1563
         }
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-7493766fe39e",
-        "schemes": {
-          "dark": {
-            "passed": 11,
-            "total": 11
-          },
-          "light": {
-            "passed": 11,
-            "total": 11
-          }
-        }
+        "framework": "ui-e7701fef3733",
+        "passed": 17,
+        "total": 17
       }
     },
     {
       "id": "rain-glass",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "label": {
         "ru": "Дождь на стекле",
         "en": "Rain on glass"
@@ -551,6 +531,9 @@
         "dark"
       ],
       "pair": "leaf-shadows",
+      "capabilities": [
+        "windows"
+      ],
       "tags": [
         "water",
         "depth"
@@ -566,12 +549,12 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "6b3850c93eafd7d4668968eb6a3564411c16857b177c33e3aa4931bf1ee6cf47",
-          "size": 2565
+          "sha256": "7605fd1c6cb567768e3dca9c0a1765fe718ad290735556b37d47337869188c3e",
+          "size": 1916
         },
         {
           "path": "index.js",
-          "sha256": "b0a19b1f2d3dfe9d64ea1eb4efb84fe724b149f335e08fe99241321fdd20b7e8",
+          "sha256": "cc4c25282c767bf7400fc58f3de1ff03efd6ce9c4f7761a968b4d55d6cda126c",
           "size": 15092
         },
         {
@@ -581,24 +564,20 @@
         },
         {
           "path": "README.md",
-          "sha256": "69fb02bb82728ce936670d4ca861acbf019a86c81b7866e677fdac1577fcab46",
-          "size": 1532
+          "sha256": "c2935f3cb36ce4d0854e8673672bc75fa6a8044a08397dee32c94556174abb9e",
+          "size": 1618
         }
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-7493766fe39e",
-        "schemes": {
-          "dark": {
-            "passed": 11,
-            "total": 11
-          }
-        }
+        "framework": "ui-e7701fef3733",
+        "passed": 15,
+        "total": 15
       }
     },
     {
       "id": "liquid-chrome",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "label": {
         "ru": "Жидкий металл",
         "en": "Liquid metal"
@@ -613,6 +592,9 @@
         "dark"
       ],
       "pair": "paper-facets",
+      "capabilities": [
+        "windows"
+      ],
       "tags": [
         "material"
       ],
@@ -626,12 +608,12 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "9e9fea3a664c70e565e5ce293efd9c579a82f11d03b496458139babb64262b92",
-          "size": 2381
+          "sha256": "7c28046a0f53acad113f1528871ad177a6db616d41573c515ae17fa40902090e",
+          "size": 1732
         },
         {
           "path": "index.js",
-          "sha256": "dc86b3852b6a758b52e112392d21da1658a8cf778abbd3c6755850be3ce91cad",
+          "sha256": "949512a9876db505d00958cc54d8384a7c69cbb787fb1563ed6f5bb5fa67a397",
           "size": 13389
         },
         {
@@ -641,24 +623,20 @@
         },
         {
           "path": "README.md",
-          "sha256": "8ce602443e2b2746a1aa607fe1f768d73f5bf7264da4eda62d60bf3dec49eb58",
-          "size": 1417
+          "sha256": "23e3941410322ae51d6cf63e4bd2295e891405cc1c3f953f4c2e05c5cb0de435",
+          "size": 1503
         }
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-7493766fe39e",
-        "schemes": {
-          "dark": {
-            "passed": 11,
-            "total": 11
-          }
-        }
+        "framework": "ui-e7701fef3733",
+        "passed": 15,
+        "total": 15
       }
     },
     {
       "id": "mist-gradient",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "label": {
         "ru": "Утренняя дымка",
         "en": "Morning mist"
@@ -673,6 +651,9 @@
         "light"
       ],
       "pair": "nebula-mesh",
+      "capabilities": [
+        "windows"
+      ],
       "tags": [
         "gradient"
       ],
@@ -688,12 +669,12 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "88d17d85f399caf304a99b2d1b4a9b67361a5c11c9a462b1994d99e324ef5610",
-          "size": 2831
+          "sha256": "ba117e32c14e5140335cd999e9c093fcf2d1f28d783cff385b5e26029e66d73a",
+          "size": 2172
         },
         {
           "path": "index.js",
-          "sha256": "f67a670bfba707db27afe4365a4fdecfebb11f4453598360e172255eeb6803de",
+          "sha256": "e5ce6e33aac397fb188f506185661c0bdbcebb9950faadaadbae25f93c6c150b",
           "size": 13434
         },
         {
@@ -703,24 +684,20 @@
         },
         {
           "path": "README.md",
-          "sha256": "48369014b8b5f6995dbb7b4a493e3e2147bd648deeb1a2c9c5e399737d0b01cf",
-          "size": 1475
+          "sha256": "94a705f1947ce1de7432ad2f21e9edd8b827a0b685f308f7a0abe509e0928d86",
+          "size": 1559
         }
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-7493766fe39e",
-        "schemes": {
-          "light": {
-            "passed": 11,
-            "total": 11
-          }
-        }
+        "framework": "ui-e7701fef3733",
+        "passed": 15,
+        "total": 15
       }
     },
     {
       "id": "daylight-caustics",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "label": {
         "ru": "Солнечные блики",
         "en": "Daylight caustics"
@@ -735,6 +712,9 @@
         "light"
       ],
       "pair": "abyss-caustics",
+      "capabilities": [
+        "windows"
+      ],
       "tags": [
         "water"
       ],
@@ -748,12 +728,12 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "9e6cf933672f40d92a5d362fa552054e26f0a5cb676f8cfeb2713e4978264ff4",
-          "size": 3371
+          "sha256": "a5f0aea665f48e58d796092f1a98776f5528a72e3e5244c26bce6d4b3b5e29b0",
+          "size": 2715
         },
         {
           "path": "index.js",
-          "sha256": "ba1657bb2cce2433a089ee3affb281b10c9f44e81a7a1543747508dbf1dc2aa6",
+          "sha256": "ecb2b00521dccf3ab51b2eb48765c07d45070c60984ae53af30b6c0bdb9d3137",
           "size": 11734
         },
         {
@@ -763,24 +743,20 @@
         },
         {
           "path": "README.md",
-          "sha256": "6dbedca7140c0d96c0ef125a4d882bc889fcb043fac031ce8af16825f55b9513",
-          "size": 1514
+          "sha256": "ad0ba22dff8783d754704aa8585212f1cdefc3680d55097093acde9d67cf54f0",
+          "size": 1601
         }
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-7493766fe39e",
-        "schemes": {
-          "light": {
-            "passed": 11,
-            "total": 11
-          }
-        }
+        "framework": "ui-e7701fef3733",
+        "passed": 15,
+        "total": 15
       }
     },
     {
       "id": "leaf-shadows",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "label": {
         "ru": "Тень листвы",
         "en": "Leaf shadows"
@@ -795,6 +771,9 @@
         "light"
       ],
       "pair": "rain-glass",
+      "capabilities": [
+        "windows"
+      ],
       "tags": [
         "nature"
       ],
@@ -808,12 +787,12 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "9874dec1fb9a7e6834c9a33f38e38126ce2848ca5cc852398a1f9b39274f073d",
-          "size": 2718
+          "sha256": "e1da43269bbd0ac528427a419a759d226b3a2fa6efafddc0a842a542791522e6",
+          "size": 2058
         },
         {
           "path": "index.js",
-          "sha256": "b8a016ff3fe4c76a546cf91db2a53cd2440258c33bc12f81d6d4502434e4485c",
+          "sha256": "a9a2d901a9021339c24d990cbb3d309aec21865fcec750d254dec000bfefc2ee",
           "size": 13918
         },
         {
@@ -823,24 +802,20 @@
         },
         {
           "path": "README.md",
-          "sha256": "7a964e6904fd3a36078d0fe90d46efc0fbd9ac340925836eddb29f2f74efc53f",
-          "size": 1450
+          "sha256": "78bdafd7e9fca9235b6f7b86647c2ec5eec77a8b65ce6537abf9794748f19e83",
+          "size": 1533
         }
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-7493766fe39e",
-        "schemes": {
-          "light": {
-            "passed": 11,
-            "total": 11
-          }
-        }
+        "framework": "ui-e7701fef3733",
+        "passed": 15,
+        "total": 15
       }
     },
     {
       "id": "paper-facets",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "label": {
         "ru": "Бумажные грани",
         "en": "Paper facets"
@@ -855,6 +830,9 @@
         "light"
       ],
       "pair": "liquid-chrome",
+      "capabilities": [
+        "windows"
+      ],
       "tags": [
         "paper",
         "geometry"
@@ -869,12 +847,12 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "504e5c90257f64ba5e1a12acea4af46115c0611fadd38a88ba1820e7a186f835",
-          "size": 3018
+          "sha256": "f4e1199acaa8fd37397ee8602eba71ec4d6877cf59830a36441a453ce4ab16a2",
+          "size": 2361
         },
         {
           "path": "index.js",
-          "sha256": "6874f6164b4c43a545ce18ec8455719812e64d4a55baa1ceb56ec290a049cef2",
+          "sha256": "eca832adb85e7d51725025a89a5e0c3b0f7a6152ef4fa032194ece2373bb033c",
           "size": 13570
         },
         {
@@ -884,24 +862,20 @@
         },
         {
           "path": "README.md",
-          "sha256": "2f96df9e0c18f8b330fa746c53e16923578a622ba4f04f90749765bd88f0d8aa",
-          "size": 1489
+          "sha256": "a13d76db035ba53340cbf0ad61011dc6b89578cba6fede4c15e181e9e098c541",
+          "size": 1575
         }
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-7493766fe39e",
-        "schemes": {
-          "light": {
-            "passed": 11,
-            "total": 11
-          }
-        }
+        "framework": "ui-e7701fef3733",
+        "passed": 15,
+        "total": 15
       }
     },
     {
       "id": "contour-map",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "label": {
         "ru": "Горизонтали",
         "en": "Contour map"
@@ -917,6 +891,9 @@
         "dark"
       ],
       "pair": null,
+      "capabilities": [
+        "windows"
+      ],
       "tags": [
         "lines"
       ],
@@ -930,13 +907,13 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "0264bad1581bfbc6b5b820c62d4da6ed362bb55abd759d0765c64866154a2165",
-          "size": 3086
+          "sha256": "19f3967ffa804b4ed9dc738db832a296a978f51c3b9468bf8a26899d7f7bc7d1",
+          "size": 2247
         },
         {
           "path": "index.js",
-          "sha256": "587497c808f88929ff7ef51e884e3123ea4f83b67d848650057e92ecf7e0351d",
-          "size": 13479
+          "sha256": "485915b62d3b2877c0254b8cae3e0685c7ac28c8492e88e0dfece8aa14bf05ca",
+          "size": 13570
         },
         {
           "path": "preview.png",
@@ -945,28 +922,20 @@
         },
         {
           "path": "README.md",
-          "sha256": "fa42a8a15343d41c96b65cd34b3ada1a2da5bcbc1281fd9db6994b47dab57d8c",
-          "size": 1448
+          "sha256": "8c17c90484ce4304482ee9c232837b434ff64d2eeaa64117e47fe4024525e1fa",
+          "size": 1504
         }
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-7493766fe39e",
-        "schemes": {
-          "light": {
-            "passed": 11,
-            "total": 11
-          },
-          "dark": {
-            "passed": 11,
-            "total": 11
-          }
-        }
+        "framework": "ui-e7701fef3733",
+        "passed": 17,
+        "total": 17
       }
     },
     {
       "id": "ink-threads",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "label": {
         "ru": "Чернильные нити",
         "en": "Ink threads"
@@ -982,6 +951,9 @@
         "dark"
       ],
       "pair": null,
+      "capabilities": [
+        "windows"
+      ],
       "tags": [
         "flow",
         "lines"
@@ -996,13 +968,13 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "59bc9d8d947cfa59ee60f753ee64515ff99a5c1d2d76306993c63ec1b2a3da55",
-          "size": 3338
+          "sha256": "c4a4847227edcee97e9fcbbd13d96192d330cab81b4c7cc396a45a53e1c994cb",
+          "size": 2499
         },
         {
           "path": "index.js",
-          "sha256": "4ff058fca6c6d28c31a1b60caad9b7ac430c072529475757328f4e4b929c68d3",
-          "size": 14624
+          "sha256": "efd2c9a280974d71f11841fd656352d1b472199a628f3e271add857183845b1a",
+          "size": 14715
         },
         {
           "path": "preview.png",
@@ -1011,28 +983,20 @@
         },
         {
           "path": "README.md",
-          "sha256": "2363ba78ca3969dbe2eb7c903a5fd73486a7ff15d17d8227fcb8bc829194d4c8",
-          "size": 1492
+          "sha256": "7b7885e765544b9dc78e6cffebde7dbe129d0cff63ff7112523d695e281b9974",
+          "size": 1548
         }
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-7493766fe39e",
-        "schemes": {
-          "light": {
-            "passed": 11,
-            "total": 11
-          },
-          "dark": {
-            "passed": 11,
-            "total": 11
-          }
-        }
+        "framework": "ui-e7701fef3733",
+        "passed": 17,
+        "total": 17
       }
     },
     {
       "id": "halftone-tide",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "label": {
         "ru": "Растровая волна",
         "en": "Halftone tide"
@@ -1048,6 +1012,9 @@
         "dark"
       ],
       "pair": null,
+      "capabilities": [
+        "windows"
+      ],
       "tags": [
         "print"
       ],
@@ -1061,13 +1028,13 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "d77b26351c4a0ccf7348620c0a031f4992fd814597182ef666255901d59131d4",
-          "size": 3738
+          "sha256": "7edcd34dafba2805bc72b032ddc50f9d0f7e0d6f5a3b04e76e6df90e12059b21",
+          "size": 2899
         },
         {
           "path": "index.js",
-          "sha256": "c840069ddbeb09f7c2b83d2197c229427ed1ae36fa5682d7ddd46df562e73b72",
-          "size": 12268
+          "sha256": "8c539d5a2cfdc56b0e4df64c4999b00b42757aee1de6fdb278aaa580380b4836",
+          "size": 12359
         },
         {
           "path": "preview.png",
@@ -1076,28 +1043,20 @@
         },
         {
           "path": "README.md",
-          "sha256": "bfef8ee96b76092e9138116786dd3fb95968e249f596a47d27ee40f9a0117df2",
-          "size": 1539
+          "sha256": "cde9ce148fe9a69b8b8a1d0a971a903aca6d678a3db2872d205279c20a18c6c6",
+          "size": 1595
         }
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-7493766fe39e",
-        "schemes": {
-          "light": {
-            "passed": 11,
-            "total": 11
-          },
-          "dark": {
-            "passed": 11,
-            "total": 11
-          }
-        }
+        "framework": "ui-e7701fef3733",
+        "passed": 17,
+        "total": 17
       }
     },
     {
       "id": "foam-cells",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "label": {
         "ru": "Пена",
         "en": "Foam cells"
@@ -1112,6 +1071,9 @@
         "light"
       ],
       "pair": null,
+      "capabilities": [
+        "windows"
+      ],
       "tags": [
         "organic"
       ],
@@ -1125,12 +1087,12 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "e88c03383d14a726eb43fa7a5e9c9d14f3f7f0721df0756fd2befa1bbbd67cf4",
-          "size": 3606
+          "sha256": "d0b04305819e935452dc4fd6f66eba8ac862c7285d66bff18efb192edd9acf14",
+          "size": 2922
         },
         {
           "path": "index.js",
-          "sha256": "b5b5d2c89165cd48e42dbc3e69e0ff0ffb47637cf8a6d7ff9a0c94b712d65b27",
+          "sha256": "203cd6916728475c1ae5f49d7b8b707d60f9e89e0239e44f5b7b83d3cb317537",
           "size": 13743
         },
         {
@@ -1140,24 +1102,20 @@
         },
         {
           "path": "README.md",
-          "sha256": "551ce8c087bfaeaa4080673046ce0fc3705e4d7a3e4a7b8c923981e35efd4219",
-          "size": 1459
+          "sha256": "1bd5e0bda8c85b7259683ad10f7e47629ce3a0afce1fb045cd87c318df25d54a",
+          "size": 1515
         }
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-7493766fe39e",
-        "schemes": {
-          "light": {
-            "passed": 11,
-            "total": 11
-          }
-        }
+        "framework": "ui-e7701fef3733",
+        "passed": 14,
+        "total": 14
       }
     },
     {
       "id": "paper-hills",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "label": {
         "ru": "Бумажные холмы",
         "en": "Paper hills"
@@ -1172,6 +1130,9 @@
         "light"
       ],
       "pair": "neon-horizon",
+      "capabilities": [
+        "windows"
+      ],
       "tags": [
         "paper",
         "depth"
@@ -1186,12 +1147,12 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "a583c683bf2778e0d7b475f5ff6da217e8aa357fe7da8c5aeeae996462519b84",
-          "size": 2641
+          "sha256": "f207c3b8af31ebb6863dc6bb6ddbf7cb78079fc768036ac861d1a8262f30f37c",
+          "size": 1983
         },
         {
           "path": "index.js",
-          "sha256": "dfb92a62d086c1d5a944b20c1bcfccc14a6a29f50f51e7d2fe4e04f17eaca972",
+          "sha256": "ca1289bc3781f54142656914af318025bf085fdc6616e3ddfc2812bcc7899375",
           "size": 11854
         },
         {
@@ -1201,24 +1162,20 @@
         },
         {
           "path": "README.md",
-          "sha256": "43079f95e33555021d560bb79e0b3c6ea3572d077081ccd98f32a4b0c9ac45a7",
-          "size": 1419
+          "sha256": "3ce8935680df0daa9c4e42652c4d3154d67201d0bddad0da1ccf03edddac035e",
+          "size": 1504
         }
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-7493766fe39e",
-        "schemes": {
-          "light": {
-            "passed": 11,
-            "total": 11
-          }
-        }
+        "framework": "ui-e7701fef3733",
+        "passed": 15,
+        "total": 15
       }
     },
     {
       "id": "guilloche",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "label": {
         "ru": "Гильош",
         "en": "Guilloche"
@@ -1234,6 +1191,9 @@
         "dark"
       ],
       "pair": null,
+      "capabilities": [
+        "windows"
+      ],
       "tags": [
         "lines",
         "print"
@@ -1248,13 +1208,13 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "b74d24006032e48b12da1d2110f9db75bdba5aeed753f844a764fc0c8769521d",
-          "size": 3728
+          "sha256": "d768ade67145762c497d327e6a70a81e9468c65cc4bbb601c218348b8ebc3486",
+          "size": 2889
         },
         {
           "path": "index.js",
-          "sha256": "3d58da96e3c76bdc6a83d8fe088aff602cfcbd1cca6030734cfd18dab11a64c3",
-          "size": 13015
+          "sha256": "7d187f67472949abd7cd01fb21626986c4ef01c9be8f079682d762fc471f989c",
+          "size": 13106
         },
         {
           "path": "preview.png",
@@ -1263,23 +1223,15 @@
         },
         {
           "path": "README.md",
-          "sha256": "616d5026f6c4d39e816aca36c400cb966409d05914b7c0f1e8e86c54f2e5cbc4",
-          "size": 1523
+          "sha256": "35dbea70bc0d19ff184fb4383382ac894f9fe40a002ecc58f3cf7d48fb610644",
+          "size": 1579
         }
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-7493766fe39e",
-        "schemes": {
-          "light": {
-            "passed": 11,
-            "total": 11
-          },
-          "dark": {
-            "passed": 11,
-            "total": 11
-          }
-        }
+        "framework": "ui-e7701fef3733",
+        "passed": 17,
+        "total": 17
       }
     }
   ]

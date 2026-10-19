@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Runs the Framework's effect kit on every effect, in every scheme it declares.
+// Runs the Framework's effect kit on every effect; the kit runs each scheme it declares.
 //
 //   UI_ROOT=../ui UI_SOURCE_ROOT=../ui-source node scripts/kit.mjs [--only id,id] [--jobs 4]
 //
@@ -9,10 +9,12 @@
 // default ../ui and ../ui-source beside this checkout) into a work folder
 // (KIT_WORK, default .kit/); nothing is checked out or written in those clones.
 //
-// A scheme other than the effect's home scheme is run on a copy whose `scheme`
-// default is that scheme, so the kit mounts it drawn that way. The results go
-// to catalogue/kit.json with a digest of the manifest and module they were
-// taken on; build-catalogue.mjs refuses a result whose digest is stale.
+// The kit of simai.effect 1.1 mounts the effect in each scheme it declares
+// (context.scheme), switches a two-scheme effect, measures contrast and runs
+// the windows check. A run passes when every check the lock expects for that
+// manifest ran and held. The results go to catalogue/kit.json with a digest of
+// the manifest and module they were taken on; build-catalogue.mjs refuses a
+// result whose digest is stale.
 //
 // The kit imports `playwright`; a small shim in the work folder hands it this
 // repository's playwright-core (PLAYWRIGHT_CORE overrides it), with CHROME_PATH
@@ -22,7 +24,7 @@ import {cpSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync} from
 import {createRequire} from 'node:module';
 import {join, resolve} from 'node:path';
 import {pathToFileURL} from 'node:url';
-import {CATALOGUE, ROOT, loadPolicy, lock, sha256, stableJson} from './lib/common.mjs';
+import {CATALOGUE, ROOT, expectedChecks, loadPolicy, lock, readJson, sha256, stableJson} from './lib/common.mjs';
 
 const args = process.argv.slice(2);
 const option = (name, fallback) => {
@@ -86,41 +88,17 @@ if (problems.length) {
 }
 const digestOf = (folder) => sha256(['effect.json', 'index.js'].map((name) => sha256(readFileSync(join(folder, name)))).join('\n'));
 
-// One run per effect and scheme.
+// One run per effect.
 const runs = [];
 for (const entry of entries) {
   if (only && !only.includes(entry.id)) continue;
-  for (const scheme of entry.schemes) {
-    let folder = entry.folder;
-    if (scheme !== entry.schemes[0]) {
-      folder = join(work, 'variants', `${entry.id}--${scheme}`);
-      mkdirSync(folder, {recursive: true});
-      for (const name of ['effect.json', 'index.js', 'preview.png']) cpSync(join(entry.folder, name), join(folder, name));
-      const manifest = JSON.parse(readFileSync(join(folder, 'effect.json'), 'utf8'));
-      const setting = manifest.settings.find((item) => item.key === 'scheme');
-      if (!setting) throw new Error(`${entry.id}: no scheme setting`);
-      setting.default = scheme;
-      writeFileSync(join(folder, 'effect.json'), stableJson(manifest));
-    }
-    runs.push({entry, scheme, folder});
-  }
+  runs.push({entry, folder: entry.folder});
 }
 
-// --template also runs templates/effect, in both schemes; it is not recorded.
+// --template also runs templates/effect; it is not recorded.
 if (args.includes('--template')) {
   const folder = join(ROOT, 'templates', 'effect');
-  for (const scheme of ['dark', 'light']) {
-    let target = folder;
-    if (scheme !== 'dark') {
-      target = join(work, 'variants', `template--${scheme}`);
-      mkdirSync(target, {recursive: true});
-      for (const name of ['effect.json', 'index.js']) cpSync(join(folder, name), join(target, name));
-      const manifest = JSON.parse(readFileSync(join(target, 'effect.json'), 'utf8'));
-      manifest.settings.find((item) => item.key === 'scheme').default = scheme;
-      writeFileSync(join(target, 'effect.json'), stableJson(manifest));
-    }
-    runs.push({entry: {id: 'templates/effect', folder, template: true}, scheme, folder: target});
-  }
+  runs.push({entry: {id: 'templates/effect', folder, template: true}, folder});
 }
 
 const results = new Map();
@@ -135,17 +113,19 @@ const worker = async () => {
     } catch (error) {
       outcome = {ok: false, results: [{id: 'run', ok: false, detail: String(error?.message ?? error)}]};
     }
-    const failing = outcome.results.filter((result) => !result.ok).map((result) => result.id);
-    const passed = outcome.results.filter((result) => result.ok).length;
-    const total = framework.kit.checks.length;
-    const ok = outcome.ok && passed === total;
+    const expected = expectedChecks(readJson(join(run.folder, 'effect.json')), framework);
+    const ran = new Map(outcome.results.map((result) => [result.id, result.ok]));
+    const failing = [...outcome.results.filter((result) => !result.ok).map((result) => result.id), ...expected.filter((id) => !ran.has(id)).map((id) => `${id} (not run)`)];
+    const passed = expected.filter((id) => ran.get(id) === true).length;
+    const total = expected.length;
+    const ok = outcome.ok && passed === total && !failing.length;
     if (!ok) failed += 1;
-    console.log(`${ok ? 'ok  ' : 'FAIL'} ${run.entry.id} ${run.scheme} ${passed}/${total}${failing.length ? ` failing: ${failing.join(', ')}` : ''}`);
+    console.log(`${ok ? 'ok  ' : 'FAIL'} ${run.entry.id} ${passed}/${total}${failing.length ? ` failing: ${failing.join(', ')}` : ''}`);
     if (!ok) for (const result of outcome.results.filter((item) => !item.ok)) console.log(`     ${result.id} ${JSON.stringify(result.detail ?? null)}`);
     if (run.entry.template) continue;
-    const record = results.get(run.entry.id) ?? {digest: digestOf(run.entry.folder), schemes: {}};
-    record.schemes[run.scheme] = {passed, total, failed: failing};
-    results.set(run.entry.id, record);
+    // Pass counts only: measured values (contrast, frame means) differ across
+    // platforms, and CI checks that the committed results reproduce.
+    results.set(run.entry.id, {digest: digestOf(run.entry.folder), passed, total, failed: failing});
   }
 };
 await Promise.all(Array.from({length: Math.max(1, jobs)}, worker));
@@ -158,15 +138,15 @@ const sameFramework = previous.framework?.ui === framework.ui.commit && previous
 const effects = {};
 for (const entry of entries) {
   const fresh = results.get(entry.id);
-  if (fresh) effects[entry.id] = {digest: fresh.digest, schemes: Object.fromEntries(entry.schemes.map((scheme) => [scheme, fresh.schemes[scheme]]))};
+  if (fresh) effects[entry.id] = fresh;
   else if (sameFramework && previous.effects?.[entry.id]) effects[entry.id] = previous.effects[entry.id];
 }
 mkdirSync(CATALOGUE, {recursive: true});
 writeFileSync(path, stableJson({
   schema: 'simai.ui-effects.kit',
-  version: 1,
+  version: 2,
   framework: {pair: framework.pair, ui: framework.ui.commit, ui_source: framework.ui_source.commit},
-  kit: {script: framework.kit.script, sha256: sha256(readFileSync(kitScript)), checks: framework.kit.checks.length},
+  kit: {script: framework.kit.script, sha256: sha256(readFileSync(kitScript))},
   effects,
 }));
 console.log(`kit: ${runs.length - failed}/${runs.length} runs passed (${new Set(runs.map((run) => run.entry.id)).size} effects${args.includes('--template') ? ', with the template' : ''}); wrote catalogue/kit.json`);

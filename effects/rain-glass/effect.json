@@ -2,7 +2,7 @@
   "schema": "simai.effect",
   "schema_version": 1,
   "id": "rain-glass",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "label": {
     "ru": "Дождь на стекле",
     "en": "Rain on glass"
@@ -15,6 +15,13 @@
     "hero",
     "section",
     "dashboard"
+  ],
+  "schemes": [
+    "dark"
+  ],
+  "pair": "leaf-shadows",
+  "capabilities": [
+    "windows"
   ],
   "settings": [
     {
@@ -75,28 +82,6 @@
       "hint": {
         "ru": "Движение указателя срывает капли вниз",
         "en": "A moving pointer shakes drops loose"
-      }
-    },
-    {
-      "key": "scheme",
-      "type": "choice",
-      "label": {
-        "ru": "Тема области",
-        "en": "Area theme"
-      },
-      "default": "dark",
-      "options": [
-        {
-          "value": "dark",
-          "label": {
-            "ru": "Тёмная",
-            "en": "Dark"
-          }
-        }
-      ],
-      "hint": {
-        "ru": "Эффект рисует тёмный фон в любой теме страницы; область эффекта получает класс theme-dark, и текст над ним берёт роли этой темы.",
-        "en": "The effect draws a dark ground in any page theme; its area takes theme-dark, so text over it uses that theme's roles."
       }
     }
   ],

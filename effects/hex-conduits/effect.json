@@ -2,7 +2,7 @@
   "schema": "simai.effect",
   "schema_version": 1,
   "id": "hex-conduits",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "label": {
     "ru": "Световоды",
     "en": "Light conduits"
@@ -15,6 +15,13 @@
     "hero",
     "section",
     "dashboard"
+  ],
+  "schemes": [
+    "dark",
+    "light"
+  ],
+  "capabilities": [
+    "windows"
   ],
   "settings": [
     {
@@ -71,35 +78,6 @@
       "hint": {
         "ru": "Импульсы тянутся к указателю",
         "en": "Pulses drift towards the pointer"
-      }
-    },
-    {
-      "key": "scheme",
-      "type": "choice",
-      "label": {
-        "ru": "Тема области",
-        "en": "Area theme"
-      },
-      "default": "dark",
-      "options": [
-        {
-          "value": "dark",
-          "label": {
-            "ru": "Тёмная",
-            "en": "Dark"
-          }
-        },
-        {
-          "value": "light",
-          "label": {
-            "ru": "Светлая",
-            "en": "Light"
-          }
-        }
-      ],
-      "hint": {
-        "ru": "Схема рисунка; обе нарисованы отдельно из тонов палитры. Хост выбирает её по режиму темы и даёт области theme-dark или theme-light.",
-        "en": "The scheme the effect draws in; both are designed from palette tones. The host picks it from the theme mode and gives the area theme-dark or theme-light."
       }
     }
   ],

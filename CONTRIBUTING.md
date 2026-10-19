@@ -5,7 +5,7 @@
 The catalogue holds only effects made by SIMAI. **We do not accept effects
 from outside contributors yet**: pull requests that add an effect from another
 author will be closed. Community submissions need the Framework's sandbox
-runner (simai.effect 1.1) and a review process for foreign code; we will open
+runner (a later core release) and a review process for foreign code; we will open
 them when both exist, and say so here.
 
 Reports and suggestions are welcome: open an issue for a bug in an effect or

@@ -2,7 +2,7 @@
   "schema": "simai.effect",
   "schema_version": 1,
   "id": "paper-facets",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "label": {
     "ru": "Бумажные грани",
     "en": "Paper facets"
@@ -14,6 +14,13 @@
     "hero",
     "product",
     "sign-in"
+  ],
+  "schemes": [
+    "light"
+  ],
+  "pair": "liquid-chrome",
+  "capabilities": [
+    "windows"
   ],
   "settings": [
     {
@@ -107,28 +114,6 @@
         "en": "React to the pointer"
       },
       "default": true
-    },
-    {
-      "key": "scheme",
-      "type": "choice",
-      "label": {
-        "ru": "Тема области",
-        "en": "Area theme"
-      },
-      "default": "light",
-      "options": [
-        {
-          "value": "light",
-          "label": {
-            "ru": "Светлая",
-            "en": "Light"
-          }
-        }
-      ],
-      "hint": {
-        "ru": "Эффект рисует светлый фон в любой теме страницы; область эффекта получает класс theme-light, и текст над ним берёт роли этой темы.",
-        "en": "The effect draws a light ground in any page theme; its area takes theme-light, so text over it uses that theme's roles."
-      }
     }
   ],
   "needs": {

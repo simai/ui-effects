@@ -3,7 +3,7 @@
 Blurred shadows of branches sway in the wind on a sunlit wall; morning, noon or evening.
 
 - **Russian name:** Тень листвы
-- **Version:** 1.0.0, simai.effect 1.0.0
+- **Version:** 1.1.0, simai.effect 1.1.0
 - **Surfaces:** sign-in, hero, product
 - **Tags:** nature
 - **Role:** Leaf shadows on a lit wall; its dark pair is rain on a night window.
@@ -17,9 +17,10 @@ Blurred shadows of branches sway in the wind on a sunlit wall; morning, noon or 
 | `density` | integer | 10–100 % | `55` | Foliage, % |
 | `daytime` | choice | `morning`, `noon`, `evening` | `"morning"` | Time of day |
 | `interactive` | boolean | — | `true` | React to the pointer |
-| `scheme` | choice | `light` | `"light"` | The scheme the effect is drawn in. Set by the placement, not by the user (see «Schemes»). |
 
 ## Schemes
+
+The manifest declares `"schemes": ["light"]` and `"pair": "rain-glass"`, and `"capabilities": ["windows"]`. The module reads the scheme it draws in from `context.scheme`; a switch arrives as `update(settings, context)`.
 
 Draws in the **light** scheme only.
 
@@ -31,7 +32,7 @@ Theme modes a placement may choose: `auto`, `light`.
 
 ## Files
 
-- `effect.json`: the manifest (simai.effect 1.0.0).
+- `effect.json`: the manifest (simai.effect 1.1.0).
 - `index.js`: the module, `mount(host, settings, context)`.
 - `preview.png`: a still of the home scheme, 640×360.
 

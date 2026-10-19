@@ -60,7 +60,7 @@ async function importVerified(url, sha256) {
 }
 
 // Тема эффекта, пара${windows ? ' и окна' : ''} — placement.js из ui-effects, пока их не взяло
-// ядро simai.effect 1.1. Монтирует эффект через SF.Effects.mountEffect.
+// ядро (SF.Effects). Монтирует эффект через SF.Effects.mountEffect.
 const {mountPlacement} = await importVerified(CDN + ${quote(placement.path)}, PLACEMENT_SHA256);
 const placement = mountPlacement(document.querySelector('[data-effect-area]'), {
   effect: EFFECT,
@@ -108,7 +108,7 @@ export function futureSnippet({config, entry, mode, layout, values}) {
   const url = `${config.cdn}${entry.path}effect.json`;
   const settings = attr(JSON.stringify(values));
   if (layout === 'windows') {
-    return `<!-- После выхода ядра simai.effect 1.1. Имена атрибутов — из плана ядра. -->
+    return `<!-- После выхода размещения в ядре (SF.Effects). Имена атрибутов — из плана ядра. -->
 <ul data-sf-effect="${url}"
     data-sf-effect-windows
     data-sf-effect-theme="${mode}"
@@ -118,7 +118,7 @@ export function futureSnippet({config, entry, mode, layout, values}) {
   <li>Карточка без окна</li>
 </ul>`;
   }
-  return `<!-- После выхода ядра simai.effect 1.1. Имена атрибутов — из плана ядра. -->
+  return `<!-- После выхода размещения в ядре (SF.Effects). Имена атрибутов — из плана ядра. -->
 <section data-sf-effect="${url}"
          data-sf-effect-theme="${mode}"
          data-sf-effect-settings='${settings}'>

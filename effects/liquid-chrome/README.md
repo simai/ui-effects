@@ -3,7 +3,7 @@
 Slow folds of dark liquid metal with narrow coloured highlights.
 
 - **Russian name:** Жидкий металл
-- **Version:** 1.0.0, simai.effect 1.0.0
+- **Version:** 1.1.0, simai.effect 1.1.0
 - **Surfaces:** sign-in, hero, section
 - **Tags:** material
 - **Role:** A material that light moves over; its light pair is paper facets.
@@ -16,9 +16,10 @@ Slow folds of dark liquid metal with narrow coloured highlights.
 | `intensity` | integer | 10–100 % | `55` | Reflection brightness |
 | `scale` | integer | 1–5 | `3` | Wave size. 1 is broad folds, 5 is fine ripples |
 | `interactive` | boolean | — | `true` | React to the pointer. The pointer presses a soft dent |
-| `scheme` | choice | `dark` | `"dark"` | The scheme the effect is drawn in. Set by the placement, not by the user (see «Schemes»). |
 
 ## Schemes
+
+The manifest declares `"schemes": ["dark"]` and `"pair": "paper-facets"`, and `"capabilities": ["windows"]`. The module reads the scheme it draws in from `context.scheme`; a switch arrives as `update(settings, context)`.
 
 Draws in the **dark** scheme only.
 
@@ -30,7 +31,7 @@ Theme modes a placement may choose: `auto`, `dark`.
 
 ## Files
 
-- `effect.json`: the manifest (simai.effect 1.0.0).
+- `effect.json`: the manifest (simai.effect 1.1.0).
 - `index.js`: the module, `mount(host, settings, context)`.
 - `preview.png`: a still of the home scheme, 640×360.
 

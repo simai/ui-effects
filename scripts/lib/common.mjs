@@ -1,5 +1,5 @@
 // Shared helpers of the repository scripts: paths, digests, the policy
-// sidecar, the Framework lock and the browser.
+// sidecar with the manifests, the Framework lock and the browser.
 import {createHash} from 'node:crypto';
 import {existsSync, readFileSync, readdirSync, statSync} from 'node:fs';
 import {createRequire} from 'node:module';
@@ -15,7 +15,7 @@ export const ID = /^[a-z][a-z0-9-]{1,40}$/u;
 export const EFFECT_FILES = ['effect.json', 'index.js', 'preview.png', 'README.md'];
 // An effect module above this size fails; the author guide asks for about 15 KB.
 export const MODULE_LIMIT = 20 * 1024;
-// The module that stands in for simai.effect 1.1 until the core ships it.
+// The module that stands in for SF.Effects placement until the core ships it.
 export const PLACEMENT = 'site/lib/placement.js';
 
 export const readJson = (path) => JSON.parse(readFileSync(path, 'utf8'));
@@ -29,8 +29,9 @@ export const stableJson = (value) => `${JSON.stringify(value, null, 2)}\n`;
 export const lock = () => readJson(join(ROOT, 'framework.lock.json'));
 export const frameworkBase = (framework = lock()) => framework.cdn.replace('{commit}', framework.ui.commit);
 
-// The policy sidecar, read and checked against the manifests. Returns
-// {entries, problems}; each entry carries its manifest.
+// The policy sidecar (order, Russian description and role, tags) with the
+// manifests it lists. Returns {policy, entries, problems}; each entry carries
+// its manifest, and its schemes and pair as the manifest declares them.
 export function loadPolicy() {
   const problems = [];
   const policy = readJson(join(EFFECTS, 'policy.json'));
@@ -51,17 +52,18 @@ export function loadPolicy() {
     const files = readdirSync(folder).filter((name) => !name.startsWith('.'));
     for (const name of files) if (!EFFECT_FILES.includes(name)) problems.push(`${id}: unexpected file ${name}`);
     for (const name of EFFECT_FILES) if (!files.includes(name)) problems.push(`${id}: missing ${name}`);
-    const scheme = (manifest.settings ?? []).find((setting) => setting.key === 'scheme');
-    const options = scheme?.type === 'choice' ? (scheme.options ?? []).map((option) => option.value) : [];
-    const schemes = rule.schemes ?? [];
+    // The catalogue declares schemes explicitly (the home scheme first), names
+    // a pair only by catalogue id, and every effect here is safe for windows.
+    const schemes = Array.isArray(manifest.schemes) ? manifest.schemes : [];
     if (!schemes.length || schemes.length > 2 || schemes.some((value) => !SCHEMES.includes(value)) || new Set(schemes).size !== schemes.length) {
       problems.push(`${id}: schemes must be one or two of dark, light`);
     }
-    if (JSON.stringify(options) !== JSON.stringify(schemes)) problems.push(`${id}: policy schemes ${JSON.stringify(schemes)} differ from the scheme options ${JSON.stringify(options)}`);
-    if (scheme && scheme.default !== schemes[0]) problems.push(`${id}: the scheme default ${scheme.default} is not the home scheme ${schemes[0]}`);
-    if (manifest.settings?.at(-1)?.key !== 'scheme') problems.push(`${id}: scheme is not the last setting`);
+    const pair = manifest.pair ?? null;
+    if (pair !== null && !ID.test(pair)) problems.push(`${id}: pair must be a catalogue id`);
+    if (!(manifest.capabilities ?? []).includes('windows')) problems.push(`${id}: capabilities lack windows`);
+    if ((manifest.settings ?? []).some((setting) => setting.key === 'scheme')) problems.push(`${id}: a scheme setting; the scheme comes from context.scheme`);
     if (existsSync(join(folder, entry)) && statSync(join(folder, entry)).size > MODULE_LIMIT) problems.push(`${id}: module above ${MODULE_LIMIT} bytes`);
-    entries.push({...rule, manifest, folder});
+    entries.push({...rule, schemes, pair, manifest, folder});
   }
   for (const name of readdirSync(EFFECTS)) {
     if (statSync(join(EFFECTS, name)).isDirectory() && !seen.has(name)) problems.push(`effects/${name}: not listed in effects/policy.json`);
@@ -76,6 +78,21 @@ export function loadPolicy() {
     else if (lacking.some((value) => !pair.schemes.includes(value))) problems.push(`${entry.id}: pair ${entry.pair} does not draw ${lacking.join(', ')}`);
   }
   return {policy, entries, problems};
+}
+
+// The kit checks a manifest gets under the lock: the base checks, each
+// declared scheme's checks, the switch when it draws both, the pair, and its
+// capabilities' checks.
+export function expectedChecks(manifest, framework = lock()) {
+  const {kit} = framework;
+  const schemes = Array.isArray(manifest.schemes) && manifest.schemes.length ? manifest.schemes : SCHEMES;
+  return [
+    ...kit.checks,
+    ...schemes.flatMap((scheme) => kit.per_scheme.map((check) => check.replace('{scheme}', scheme))),
+    ...(schemes.length === 2 ? kit.dual : []),
+    ...(manifest.pair ? kit.pair : []),
+    ...(manifest.capabilities ?? []).flatMap((capability) => kit.capabilities[capability] ?? []),
+  ];
 }
 
 // playwright-core: PLAYWRIGHT_CORE points at another copy, else this

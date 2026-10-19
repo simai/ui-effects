@@ -1,9 +1,9 @@
-// Ink threads (ink-threads) -- SIMAI Framework background effect, simai.effect 1.0.0; schemes light and dark.
+// Ink threads (ink-threads) -- SIMAI Framework background effect, simai.effect 1.1.0; schemes light and dark.
 // One module, no imports, no network. Generated from the effects-lab light sources.
 
 // Shared runtime of the light set, copied into every module so each stays one file with no imports.
 // It owns the canvas, sizing (pixel ratio capped at 2), theme colours, the pointer, the frame loop
-// and every rule of simai.effect 1.0.0: still frame for reduced motion, idle while hidden or off
+// and every rule of simai.effect 1.1.0: still frame for reduced motion, idle while hidden or off
 // screen, nothing left behind after destroy.
 const clamp = (v, a, b) => (v < a ? a : v > b ? b : v);
 const mix = (a, b, k) => [a[0] + (b[0] - a[0]) * k, a[1] + (b[1] - a[1]) * k, a[2] + (b[2] - a[2]) * k];
@@ -24,7 +24,7 @@ function run(host, settings, context, spec) {
   host.append(canvas);
   const ctx = canvas.getContext('2d', {alpha: false});
   const api = {canvas, ctx, doc, w: 1, h: 1, ratio: 1, quality: 1, t: 0, still: false,
-    values: {...settings}, colors: null, pointer: {x: 0.5, y: 0.5, on: 0, tx: 0.5, ty: 0.5, to: 0}};
+    values: {...settings, scheme: context?.scheme ?? 'light'}, colors: null, pointer: {x: 0.5, y: 0.5, on: 0, tx: 0.5, ty: 0.5, to: 0}};
   const motion = win.matchMedia ? win.matchMedia('(prefers-reduced-motion: reduce)') : null;
   const scheme = win.matchMedia ? win.matchMedia('(prefers-color-scheme: dark)') : null;
   let reduced = Boolean(context && context.reducedMotion) || Boolean(motion && motion.matches);
@@ -200,9 +200,9 @@ function run(host, settings, context, spec) {
   sync();
 
   return {
-    update(next) {
+    update(next, context) {
       if (destroyed) return;
-      api.values = {...api.values, ...next};
+      api.values = {...api.values, ...next, scheme: context?.scheme ?? api.values.scheme};
       readTheme();
       listen();
       if (spec.resize) spec.resize(api);

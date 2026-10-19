@@ -2,7 +2,7 @@
   "schema": "simai.effect",
   "schema_version": 1,
   "id": "comet-flow",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "label": {
     "ru": "Кометные потоки",
     "en": "Comet flow"
@@ -15,6 +15,13 @@
     "hero",
     "section",
     "dashboard"
+  ],
+  "schemes": [
+    "dark"
+  ],
+  "pair": "ink-threads",
+  "capabilities": [
+    "windows"
   ],
   "settings": [
     {
@@ -80,28 +87,6 @@
       "hint": {
         "ru": "Указатель закручивает поток",
         "en": "The pointer stirs a vortex"
-      }
-    },
-    {
-      "key": "scheme",
-      "type": "choice",
-      "label": {
-        "ru": "Тема области",
-        "en": "Area theme"
-      },
-      "default": "dark",
-      "options": [
-        {
-          "value": "dark",
-          "label": {
-            "ru": "Тёмная",
-            "en": "Dark"
-          }
-        }
-      ],
-      "hint": {
-        "ru": "Эффект рисует тёмный фон в любой теме страницы; область эффекта получает класс theme-dark, и текст над ним берёт роли этой темы.",
-        "en": "The effect draws a dark ground in any page theme; its area takes theme-dark, so text over it uses that theme's roles."
       }
     }
   ],

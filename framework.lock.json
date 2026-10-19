@@ -1,20 +1,47 @@
 {
   "schema": "simai.ui-effects.framework-lock",
   "version": 1,
-  "note": "The Framework release the catalogue is checked and served against. The site loads ui from jsDelivr at ui.commit; the kit runs scripts/effect-kit.mjs from ui-source at ui_source.commit against ui's distr/core at ui.commit. A repin changes this file only.",
-  "pair": "ui-7493766fe39e",
-  "standard": "simai.effect 1.0.0",
+  "note": "The Framework release the catalogue is checked and served against. The site loads ui from jsDelivr at ui.commit; the kit runs scripts/effect-kit.mjs from ui-source at ui_source.commit against ui's distr/core at ui.commit. The kit runs every check below that applies to a manifest: the base checks always, the per-scheme checks for each declared scheme, the dual checks when it draws both, pair when it names one, and a capability's checks when it declares it. A repin changes this file only.",
+  "pair": "ui-e7701fef3733",
+  "standard": "simai.effect 1.1.0",
   "ui": {
     "repository": "simai/ui",
-    "commit": "7493766fe39ec6633cb1420532690c61661b0354"
+    "commit": "e7701fef37337c73a558b29f33f8f66ffcb4b93c"
   },
   "ui_source": {
     "repository": "simai/ui-source",
-    "commit": "eb5b215c332c65644529a5c12631ec57c0f30df1"
+    "commit": "cc25931a9694a4d5494291dbe02caaa2dd8f848f"
   },
   "kit": {
     "script": "scripts/effect-kit.mjs",
-    "checks": ["manifest", "defaults", "mounts", "no-network", "accessibility", "pixel-ratio", "update", "hidden-tab", "cleanup", "remount", "still-motion"]
+    "checks": [
+      "manifest",
+      "defaults",
+      "mounts",
+      "no-network",
+      "accessibility",
+      "pixel-ratio",
+      "update",
+      "hidden-tab",
+      "cleanup",
+      "remount",
+      "still-motion"
+    ],
+    "per_scheme": [
+      "scheme-{scheme}",
+      "contrast-{scheme}"
+    ],
+    "dual": [
+      "scheme-switch"
+    ],
+    "pair": [
+      "pair"
+    ],
+    "capabilities": {
+      "windows": [
+        "windows"
+      ]
+    }
   },
   "cdn": "https://cdn.jsdelivr.net/gh/simai/ui@{commit}/distr/"
 }

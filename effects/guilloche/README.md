@@ -3,7 +3,7 @@
 Security-paper engraving: rosettes and bands of fine curves whose phase shifts slowly.
 
 - **Russian name:** Гильош
-- **Version:** 1.0.0, simai.effect 1.0.0
+- **Version:** 1.1.0, simai.effect 1.1.0
 - **Surfaces:** dashboard, product, sign-in
 - **Tags:** lines, print
 - **Role:** Guilloche: security paper on light, an engraving on a dark banknote on dark.
@@ -18,9 +18,10 @@ Security-paper engraving: rosettes and bands of fine curves whose phase shifts s
 | `pattern` | choice | `rosettes`, `bands`, `mesh` | `"mesh"` | Pattern |
 | `tone` | choice | `primary`, `secondary`, `tertiary`, `ink` | `"primary"` | Colour |
 | `interactive` | boolean | — | `true` | React to the pointer |
-| `scheme` | choice | `light`, `dark` | `"light"` | The scheme the effect is drawn in. Set by the placement, not by the user (see «Schemes»). |
 
 ## Schemes
+
+The manifest declares `"schemes": ["light", "dark"]`, and `"capabilities": ["windows"]`. The module reads the scheme it draws in from `context.scheme`; a switch arrives as `update(settings, context)`.
 
 Draws in both schemes: **light** (home, the default) and **dark**. Each scheme is designed from its own palette tones; it is not an inverted picture.
 
@@ -32,7 +33,7 @@ None needed: the effect draws both schemes.
 
 ## Files
 
-- `effect.json`: the manifest (simai.effect 1.0.0).
+- `effect.json`: the manifest (simai.effect 1.1.0).
 - `index.js`: the module, `mount(host, settings, context)`.
 - `preview.png`: a still of the home scheme, 640×360.
 

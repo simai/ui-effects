@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-// Measures every effect the way the contrast check of simai.effect 1.1 does,
-// ahead of that kit: drawn at its default settings in a .theme-<scheme> area on
+// Measures every effect the way the contrast check of the simai.effect 1.1 kit
+// does, with room to try other defaults while tuning: drawn at its default settings in a .theme-<scheme> area on
 // --sf-surface-0, five host screenshots 450 ms apart after 400 ms, and for
 // --sf-on-surface and --sf-on-surface-variant the 5th percentile of the
 // per-pixel contrast, the worst frame counting. --sf-on-surface needs 4.5:1,
@@ -10,8 +10,9 @@
 //     [--set key=value,key=value]   try other defaults while tuning (numbers as numbers)
 //
 // The runtime is distr/core of ui at framework.lock.json; --roles takes
-// core.css (the role values) from another ui commit. The scheme comes from the
-// `scheme` setting, as scripts/kit.mjs runs it until the manifests carry schemes.
+// core.css (the role values) from another ui commit. Each declared scheme is
+// passed to SF.Effects.mountEffect, which hands it to the effect as
+// context.scheme. scripts/kit.mjs is the gate; this is the tuning tool.
 import {execFileSync} from 'node:child_process';
 import {createServer} from 'node:http';
 import {existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync} from 'node:fs';
@@ -95,7 +96,6 @@ try {
     if (only && !only.includes(entry.id)) continue;
     for (const scheme of entry.schemes) {
       const manifest = structuredClone(entry.manifest);
-      manifest.settings.find((setting) => setting.key === 'scheme').default = scheme;
       for (const pair of option('--set')?.split(',') ?? []) {
         const [key, value] = pair.split('=');
         const setting = manifest.settings.find((item) => item.key === key);

@@ -3,7 +3,7 @@
 A neon perspective grid runs to a glowing horizon under sparse stars.
 
 - **Russian name:** Неоновый горизонт
-- **Version:** 1.0.0, simai.effect 1.0.0
+- **Version:** 1.1.0, simai.effect 1.1.0
 - **Surfaces:** sign-in, hero, section, dashboard
 - **Tags:** geometry, depth
 - **Role:** Horizon and depth; its light pair is paper hills.
@@ -16,9 +16,10 @@ A neon perspective grid runs to a glowing horizon under sparse stars.
 | `intensity` | integer | 10–100 % | `50` | Intensity |
 | `horizon` | integer | 20–70 % | `42` | Horizon height |
 | `interactive` | boolean | — | `true` | React to the pointer. The vanishing point follows the pointer |
-| `scheme` | choice | `dark` | `"dark"` | The scheme the effect is drawn in. Set by the placement, not by the user (see «Schemes»). |
 
 ## Schemes
+
+The manifest declares `"schemes": ["dark"]` and `"pair": "paper-hills"`, and `"capabilities": ["windows"]`. The module reads the scheme it draws in from `context.scheme`; a switch arrives as `update(settings, context)`.
 
 Draws in the **dark** scheme only.
 
@@ -30,7 +31,7 @@ Theme modes a placement may choose: `auto`, `dark`.
 
 ## Files
 
-- `effect.json`: the manifest (simai.effect 1.0.0).
+- `effect.json`: the manifest (simai.effect 1.1.0).
 - `index.js`: the module, `mount(host, settings, context)`.
 - `preview.png`: a still of the home scheme, 640×360.
 

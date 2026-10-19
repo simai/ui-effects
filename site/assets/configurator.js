@@ -61,7 +61,7 @@ const setMode = (mode) => {
 
 // --- Settings ---------------------------------------------------------------------
 const {manifest} = await loadEffect(reference);
-const userSettings = manifest.settings.filter((setting) => setting.key !== 'scheme');
+const userSettings = manifest.settings;
 const defaults = () => Object.fromEntries(userSettings.map((setting) => [setting.key, setting.default]));
 state.values = defaults();
 const checkSetting = (setting, raw) => (window.SF?.Effects?.checkSetting ? window.SF.Effects.checkSetting(setting, raw) : {ok: true, value: raw});
@@ -164,13 +164,6 @@ function buildForm() {
     });
     form.append(field);
   });
-  const scheme = manifest.settings.find((setting) => setting.key === 'scheme');
-  if (scheme) {
-    const note = document.createElement('p');
-    note.className = 'hint';
-    note.textContent = `Схема (${entry.schemes.map(schemeName).join(' и ')}) задаётся режимом «Тема эффекта» над примером, а не этой формой.`;
-    form.append(note);
-  }
 }
 buildForm();
 $('[data-reset]').addEventListener('click', () => {
@@ -417,7 +410,7 @@ const fact = (term, value) => {
   checks.append(row);
 };
 fact('Версия', `${entry.version}, стандарт ${catalogue.standard}`);
-fact('Набор Framework', `${entry.kit.status === 'pass' ? 'пройден' : entry.kit.status}: ${Object.entries(entry.kit.schemes).map(([scheme, result]) => `${schemeName(scheme)} ${result.passed}/${result.total}`).join(', ')} (${entry.kit.framework})`);
+fact('Набор Framework', `${entry.kit.status === 'pass' ? 'пройден' : entry.kit.status}: ${entry.kit.passed}/${entry.kit.total} проверок (${entry.kit.framework})`);
 fact('Поверхности', manifest.surfaces.join(', '));
 fact('Модуль', `${(entry.files.find((file) => file.path === 'index.js').size / 1024).toFixed(1).replace('.', ',')} КБ, без зависимостей и сети`);
 const fileList = $('[data-files]');

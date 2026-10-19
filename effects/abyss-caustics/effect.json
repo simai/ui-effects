@@ -2,7 +2,7 @@
   "schema": "simai.effect",
   "schema_version": 1,
   "id": "abyss-caustics",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "label": {
     "ru": "Глубоководные блики",
     "en": "Abyss caustics"
@@ -15,6 +15,13 @@
     "hero",
     "section",
     "dashboard"
+  ],
+  "schemes": [
+    "dark"
+  ],
+  "pair": "daylight-caustics",
+  "capabilities": [
+    "windows"
   ],
   "settings": [
     {
@@ -76,28 +83,6 @@
       "hint": {
         "ru": "Свет смещается за указателем",
         "en": "The light shifts with the pointer"
-      }
-    },
-    {
-      "key": "scheme",
-      "type": "choice",
-      "label": {
-        "ru": "Тема области",
-        "en": "Area theme"
-      },
-      "default": "dark",
-      "options": [
-        {
-          "value": "dark",
-          "label": {
-            "ru": "Тёмная",
-            "en": "Dark"
-          }
-        }
-      ],
-      "hint": {
-        "ru": "Эффект рисует тёмный фон в любой теме страницы; область эффекта получает класс theme-dark, и текст над ним берёт роли этой темы.",
-        "en": "The effect draws a dark ground in any page theme; its area takes theme-dark, so text over it uses that theme's roles."
       }
     }
   ],

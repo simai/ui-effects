@@ -1,9 +1,9 @@
-// Daylight caustics (daylight-caustics) -- SIMAI Framework light background effect, simai.effect 1.0.0.
+// Daylight caustics (daylight-caustics) -- SIMAI Framework light background effect, simai.effect 1.1.0.
 // One module, no imports, no network. Generated from the effects-lab light sources.
 
 // Shared runtime of the light set, copied into every module so each stays one file with no imports.
 // It owns the canvas, sizing (pixel ratio capped at 2), theme colours, the pointer, the frame loop
-// and every rule of simai.effect 1.0.0: still frame for reduced motion, idle while hidden or off
+// and every rule of simai.effect 1.1.0: still frame for reduced motion, idle while hidden or off
 // screen, nothing left behind after destroy.
 const clamp = (v, a, b) => (v < a ? a : v > b ? b : v);
 const mix = (a, b, k) => [a[0] + (b[0] - a[0]) * k, a[1] + (b[1] - a[1]) * k, a[2] + (b[2] - a[2]) * k];

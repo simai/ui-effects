@@ -17,12 +17,12 @@ there will be many. The Framework ships only the core: `SF.Effects`, the
 
 | Path | What it is |
 |:---|:---|
-| `effects/<id>/` | One effect: `effect.json` (simai.effect 1.0 manifest), `index.js`, `preview.png`, `README.md` |
-| `effects/policy.json` | Theme policy sidecar: `schemes`, `pair`, tags, Russian descriptions, catalogue order |
+| `effects/<id>/` | One effect: `effect.json` (simai.effect 1.1 manifest with `schemes`, `pair`, `capabilities`), `index.js`, `preview.png`, `README.md` |
+| `effects/policy.json` | Catalogue sidecar: order, Russian descriptions and roles, tags |
 | `catalogue/index.json` | Generated catalogue: every effect, its files with SHA-256 and size, the kit result ([schema](catalogue/index.schema.json)) |
-| `catalogue/kit.json` | Kit results per effect and scheme, written by `scripts/kit.mjs` |
-| `framework.lock.json` | The Framework release everything is checked against (`ui-7493766fe39e`) |
-| `site/` | The catalogue site; `site/lib/placement.js` is the stand-in for simai.effect 1.1 (below) |
+| `catalogue/kit.json` | Kit results per effect, written by `scripts/kit.mjs` |
+| `framework.lock.json` | The Framework release everything is checked against (`ui-e7701fef3733`) |
+| `site/` | The catalogue site; `site/lib/placement.js` is the stand-in for the core's placement (below) |
 | `templates/effect/` | A template effect to start from |
 | `docs/AUTHORING.md` | The author guide |
 | `scripts/` | Catalogue build and check, kit runner, site build, browser smoke, hygiene check |
@@ -46,13 +46,12 @@ single-scheme effects name a pair of the other scheme.
 
 ## Using an effect today
 
-Today's core is simai.effect 1.0 with `SF.Effects.mountEffect`. It has no
-manifest fields for schemes and pairs, no theme mode and no windows mode, so
-this repository carries them:
+The core is simai.effect 1.1: the manifest declares `schemes`, `pair` and
+`capabilities`, and `SF.Effects.mountEffect(host, {manifest, module, stored,
+scheme})` passes the drawn scheme to the effect as `context.scheme`. The core
+has no placement yet (theme mode, windows mode, integrity loading), so this
+repository carries one:
 
-- `schemes` and `pair` live in `effects/policy.json` (1.0 forbids extra
-  manifest fields); `schemes` also equal the options of each manifest's
-  `scheme` setting;
 - `site/lib/placement.js` implements the theme mode, the pair, the windows
   mode and integrity loading on top of `SF.Effects.mountEffect`. It is kept
   small and isolated so the core can replace it.
@@ -62,9 +61,9 @@ effect, settings, theme mode and layout. In short:
 
 ```html
 <!-- SIMAI Framework, pinned by its full release commit -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/simai/ui@7493766fe39ec6633cb1420532690c61661b0354/distr/core/css/core.min.css">
-<script>window.sfPath = 'https://cdn.jsdelivr.net/gh/simai/ui@7493766fe39ec6633cb1420532690c61661b0354/distr/';</script>
-<script src="https://cdn.jsdelivr.net/gh/simai/ui@7493766fe39ec6633cb1420532690c61661b0354/distr/core/js/core.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/simai/ui@e7701fef37337c73a558b29f33f8f66ffcb4b93c/distr/core/css/core.min.css">
+<script>window.sfPath = 'https://cdn.jsdelivr.net/gh/simai/ui@e7701fef37337c73a558b29f33f8f66ffcb4b93c/distr/';</script>
+<script src="https://cdn.jsdelivr.net/gh/simai/ui@e7701fef37337c73a558b29f33f8f66ffcb4b93c/distr/core/js/core.min.js"></script>
 
 <section data-effect-area>…</section>
 <script type="module">
@@ -72,18 +71,19 @@ effect, settings, theme mode and layout. In short:
   // 1. fetch site/lib/placement.js, check its SHA-256 from catalogue/index.json, import it;
   // 2. mountPlacement(area, {effect, themeMode: 'auto', settings, windows});
   //    it fetches effect.json and index.js, checks both against their SHA-256,
-  //    and mounts through SF.Effects.mountEffect.
+  //    and mounts through SF.Effects.mountEffect with the drawn scheme.
 </script>
 ```
 
 Every URL is pinned by commit, never a branch. The SHA-256 values come from
 `catalogue/index.json` at the same commit.
 
-## After the core ships simai.effect 1.1
+## After the core ships its placement
 
-The Framework will add, in its core: manifest fields `schemes` and `pair`, a
-placement `themeMode`, windows mode, a declarative mount, integrity loading
-from the catalogue and a sandbox runner for foreign effects. Then:
+The Framework will add, in SF.Effects: a placement `themeMode` with
+`allowedModes()` and `resolveTheme()`, windows mode, a declarative mount and
+integrity loading from the catalogue; later, a sandbox runner for foreign
+effects. Then:
 
 ```html
 <section data-sf-effect="https://cdn.jsdelivr.net/gh/simai/ui-effects@<commit>/effects/comet-flow/effect.json"
@@ -91,13 +91,10 @@ from the catalogue and a sandbox runner for foreign effects. Then:
          data-sf-effect-settings='{"speed":100}'>…</section>
 ```
 
-(attribute names follow the core plan and may change before release), and:
+(attribute names follow the core plan and may change before release), and
+`site/lib/placement.js` is removed; the site and the snippets call the core.
 
-- the effects here move `schemes` and `pair` into their manifests;
-- `effects/policy.json` keeps only order, descriptions and tags;
-- `site/lib/placement.js` is removed; the site and the snippets call the core.
-
-This form does not work yet. The site marks it «после выхода ядра simai.effect 1.1».
+This form does not work yet. The site marks it «после выхода размещения в ядре (SF.Effects)».
 
 ## Security model
 
@@ -107,7 +104,7 @@ This form does not work yet. The site marks it «после выхода ядр�
 - **Anything else** (an effect from another source, a user upload, a
   modified copy) must run in the Framework's sandbox: an iframe without
   `allow-same-origin`, a strict CSP, settings passed by message, no access to
-  the page, cookies or network. The sandbox runner ships with core 1.1.
+  the page, cookies or network. The sandbox runner ships in a later core release.
 - **Static checks cannot make JavaScript safe.** The kit and the hygiene check
   catch mistakes (network calls, leaks, missing cleanup); they do not prove
   that code is harmless. Review and pinning are what make official effects

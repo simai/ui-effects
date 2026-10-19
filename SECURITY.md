@@ -24,7 +24,7 @@ answer within five working days.
   pinned by commit plus SHA-256; they run inline in the page that loads them.
 - Anything else must run in the Framework's sandbox (an iframe without
   `allow-same-origin`, strict CSP, settings by message); the sandbox runner
-  ships with simai.effect 1.1.
+  ships in a later core release.
 - Static checks (the kit, `scripts/check-hygiene.mjs`) catch mistakes; they
   cannot prove that JavaScript is safe.
 

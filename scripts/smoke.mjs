@@ -396,7 +396,7 @@ try {
       const settings = await page.evaluate(async ({url, json}) => {
         const manifest = await (await fetch(url)).json();
         const {invalid} = window.SF.Effects.effectSettings(manifest, json);
-        return {invalid, keys: Object.keys(json).sort().join(), expected: manifest.settings.map((setting) => setting.key).filter((key) => key !== 'scheme').sort().join()};
+        return {invalid, keys: Object.keys(json).sort().join(), expected: manifest.settings.map((setting) => setting.key).sort().join()};
       }, {url: `${EFFECTS_CDN}${entry.path}effect.json`, json});
       if (settings.invalid.length || settings.keys !== settings.expected) fail(`snippet json ${entry.id}`, JSON.stringify(settings));
       // JS tab, windows layout, in a page with its own windows.

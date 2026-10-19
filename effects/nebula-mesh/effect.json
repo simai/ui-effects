@@ -2,7 +2,7 @@
   "schema": "simai.effect",
   "schema_version": 1,
   "id": "nebula-mesh",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "label": {
     "ru": "Глубинный градиент",
     "en": "Nebula mesh"
@@ -15,6 +15,13 @@
     "hero",
     "section",
     "dashboard"
+  ],
+  "schemes": [
+    "dark"
+  ],
+  "pair": "mist-gradient",
+  "capabilities": [
+    "windows"
   ],
   "settings": [
     {
@@ -78,28 +85,6 @@
       "hint": {
         "ru": "Мягкое пятно следует за указателем",
         "en": "A soft glow follows the pointer"
-      }
-    },
-    {
-      "key": "scheme",
-      "type": "choice",
-      "label": {
-        "ru": "Тема области",
-        "en": "Area theme"
-      },
-      "default": "dark",
-      "options": [
-        {
-          "value": "dark",
-          "label": {
-            "ru": "Тёмная",
-            "en": "Dark"
-          }
-        }
-      ],
-      "hint": {
-        "ru": "Эффект рисует тёмный фон в любой теме страницы; область эффекта получает класс theme-dark, и текст над ним берёт роли этой темы.",
-        "en": "The effect draws a dark ground in any page theme; its area takes theme-dark, so text over it uses that theme's roles."
       }
     }
   ],

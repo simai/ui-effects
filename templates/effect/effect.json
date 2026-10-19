@@ -14,6 +14,8 @@
     "hero",
     "section"
   ],
+  "schemes": ["dark", "light"],
+  "capabilities": ["windows"],
   "settings": [
     {
       "key": "speed",
@@ -49,20 +51,6 @@
       "type": "boolean",
       "label": {"ru": "Реагировать на указатель", "en": "React to the pointer"},
       "default": true
-    },
-    {
-      "key": "scheme",
-      "type": "choice",
-      "label": {"ru": "Тема области", "en": "Area theme"},
-      "default": "dark",
-      "options": [
-        {"value": "dark", "label": {"ru": "Тёмная", "en": "Dark"}},
-        {"value": "light", "label": {"ru": "Светлая", "en": "Light"}}
-      ],
-      "hint": {
-        "ru": "Схему задаёт размещение (режим темы эффекта), а не пользователь.",
-        "en": "The placement sets the scheme (its theme mode), not the user."
-      }
     }
   ],
   "needs": {

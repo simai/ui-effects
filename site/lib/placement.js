@@ -1,12 +1,14 @@
 // ui-effects placement: theme mode, pair, windows mode and integrity loading
-// for simai.effect 1.0 effects.
+// for simai.effect 1.1 effects.
 //
-// This module is a stand-in. The SIMAI Framework core will ship the same
-// behaviour as simai.effect 1.1 (manifest `schemes`/`pair`, `themeMode`,
-// windows mode, declarative `data-sf-effect` mount, integrity loading). When it
-// does, the catalogue site and the published snippets call the core instead,
-// and this file is removed. Until then it stays small and depends only on
-// today's `SF.Effects.mountEffect`.
+// This module is a stand-in. simai.effect 1.1 gives the manifest `schemes`,
+// `pair` and `capabilities`, and SF.Effects.mountEffect passes the drawn scheme
+// as context.scheme. The SIMAI Framework core will also ship the placement
+// itself (`themeMode` with allowedModes/resolveTheme, windows mode, the
+// declarative `data-sf-effect` mount, integrity loading). When it does, the
+// catalogue site and the published snippets call the core instead, and this
+// file is removed. Until then it stays small and depends only on
+// `SF.Effects.mountEffect`.
 //
 // Theme policy (owner decision 2026-10-19):
 // - an effect draws the schemes it declares (`dark`, `light` or both) and may
@@ -185,15 +187,9 @@ export function mountPlacement(area, {effect, themeMode = 'auto', settings = {},
     windowList().forEach((element) => resize.observe(element));
   }
 
-  const withScheme = (manifest, stored, scheme) => {
-    const setting = manifest.settings?.find((item) => item.key === 'scheme' && item.type === 'choice');
-    return setting?.options?.some((option) => option.value === scheme) ? {...stored, scheme} : stored;
-  };
-  let current = null; // {manifest} of what is mounted
   const unmount = () => {
     handle?.destroy();
     handle = null;
-    current = null;
   };
   const settle = async () => {
     if (destroyed) return;
@@ -209,7 +205,7 @@ export function mountPlacement(area, {effect, themeMode = 'auto', settings = {},
     }
     const stored = next.shown === effect ? values : {};
     if (same) {
-      handle.update(withScheme(current.manifest, stored, next.drawn));
+      handle.update(stored, {scheme: next.drawn});
       report();
       return;
     }
@@ -220,8 +216,7 @@ export function mountPlacement(area, {effect, themeMode = 'auto', settings = {},
       if (mine !== token || destroyed) return;
       const extra = context ? Object.freeze({...context}) : null;
       const wrapped = extra ? {mount: (target, given, base) => module.mount(target, given, Object.freeze({...base, ...extra}))} : module;
-      handle = Effects.mountEffect(host, {manifest, module: wrapped, stored: withScheme(manifest, stored, next.drawn)});
-      current = {manifest};
+      handle = Effects.mountEffect(host, {manifest, module: wrapped, stored, scheme: next.drawn});
       if (paused) handle.pause();
     } catch (error) {
       if (mine !== token) return;
@@ -246,7 +241,7 @@ export function mountPlacement(area, {effect, themeMode = 'auto', settings = {},
     state,
     update(next) {
       values = {...next};
-      if (handle && state.shown === effect) handle.update(withScheme(current.manifest, values, state.drawn));
+      if (handle && state.shown === effect) handle.update(values, {scheme: state.drawn});
     },
     setThemeMode(next) {
       if (!allowedModes(effect).includes(next)) throw new RangeError(`${effect.id} cannot draw the ${next} scheme`);
