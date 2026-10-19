@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ru" data-page="effect" data-effect="{{EFFECT_ID}}">
+<head>
+{{HEAD}}
+</head>
+<body>
+{{HEADER}}
+<main id="main" class="wrap">
+  <nav class="crumbs" aria-label="Навигация"><a href="{{ROOT}}">← Все эффекты</a></nav>
+
+  <header class="head">
+    <h1 data-title>{{EFFECT_LABEL}}</h1>
+    <div class="head__facts" data-facts></div>
+    <p data-description>{{EFFECT_DESCRIPTION}}</p>
+    <p class="small muted" data-role></p>
+  </header>
+
+  <section aria-labelledby="stage-title">
+    <h2 id="stage-title" class="visually-hidden">Живой пример</h2>
+    <div class="toolbar">
+      <div class="field-group">
+        <span class="field-group__label" id="page-theme-label">Тема страницы</span>
+        <div class="seg" role="group" aria-labelledby="page-theme-label">
+          <button type="button" class="seg__btn" data-site-theme="light" aria-pressed="false">Светлая</button>
+          <button type="button" class="seg__btn" data-site-theme="dark" aria-pressed="false">Тёмная</button>
+        </div>
+      </div>
+      <div class="field-group">
+        <span class="field-group__label" id="mode-label">Тема эффекта</span>
+        <div class="seg" role="group" aria-labelledby="mode-label" data-modes></div>
+      </div>
+      <div class="field-group">
+        <span class="field-group__label" id="layout-label">Макет</span>
+        <div class="seg" role="group" aria-labelledby="layout-label">
+          <button type="button" class="seg__btn" data-layout="hero" aria-pressed="true">Первый экран</button>
+          <button type="button" class="seg__btn" data-layout="windows" aria-pressed="false">Окна</button>
+        </div>
+      </div>
+      <div class="field-group">
+        <span class="field-group__label" id="motion-label">Движение</span>
+        <div class="seg" role="group" aria-labelledby="motion-label">
+          <button type="button" class="seg__btn" data-pause aria-pressed="false">Пауза</button>
+          <button type="button" class="seg__btn" data-reduced aria-pressed="false">Меньше движения</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="policy" data-policy aria-live="polite">
+      <p data-policy-outcome></p>
+      <p class="small muted" data-policy-facts></p>
+    </div>
+
+    <div class="stage" data-stage data-layout="hero">
+      <section class="demo-hero" data-hero aria-labelledby="demo-title">
+        <div class="demo-hero__body" data-measure="hero">
+          <p class="demo-hero__eyebrow" data-text>Фоновый эффект</p>
+          <p class="demo-hero__title" id="demo-title" data-text>Заголовок читается в любом кадре</p>
+          <p class="demo-hero__lead" data-text>Эффект оживляет первый экран и не спорит с текстом: спокойное движение, тёмные и светлые участки под заголовком.</p>
+          <div class="demo-hero__actions">
+            <button type="button" class="btn btn--primary" tabindex="-1">Начать работу</button>
+            <button type="button" class="btn" tabindex="-1">Документация</button>
+          </div>
+        </div>
+      </section>
+      <ul class="demo-cards" data-cards aria-label="Карточки примера">
+        <li class="demo-card" data-effect-window><svg class="demo-card__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V9m5 10V5m5 14v-7m5 7V8" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" fill="none"/></svg><div class="demo-card__text" data-measure="card"><h3 data-text>Аналитика</h3><p class="small" data-text>Показатели за неделю и месяц.</p></div></li>
+        <li class="demo-card" data-effect-window><svg class="demo-card__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13l3-8h10l3 8v6H4v-6zm0 0h5l1 2h4l1-2h5" stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="none"/></svg><div class="demo-card__text" data-measure="card"><h3 data-text>Заявки</h3><p class="small" data-text>Новые, в работе и закрытые.</p></div></li>
+        <li class="demo-card" data-effect-window><svg class="demo-card__icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5" stroke="currentColor" stroke-width="2" fill="none"/><path d="M2.5 19c.8-3.4 3.4-5 6.5-5s5.7 1.6 6.5 5M16 4.6a3.5 3.5 0 0 1 0 6.8M18 14.4c1.8.7 3 2.2 3.5 4.6" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg><div class="demo-card__text" data-measure="card"><h3 data-text>Команда</h3><p class="small" data-text>Роли, доступы и приглашения.</p></div></li>
+        <li class="demo-card" data-effect-window><svg class="demo-card__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h8l4 4v14H6V3zm8 0v4h4M9 12h6M9 16h6" stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="none"/></svg><div class="demo-card__text" data-measure="card"><h3 data-text>Отчёты</h3><p class="small" data-text>Выгрузка в таблицу и PDF.</p></div></li>
+        <li class="demo-card"><svg class="demo-card__icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" fill="none"/><circle cx="4.5" cy="6" r="2" fill="currentColor"/><circle cx="19.5" cy="6" r="2" fill="currentColor"/><circle cx="12" cy="20.5" r="2" fill="currentColor"/><path d="M6 7.2l3.6 3M18 7.2l-3.6 3M12 15v3.5" stroke="currentColor" stroke-width="2" fill="none"/></svg><div class="demo-card__text"><h3>Интеграции</h3><p class="small">Почта, телефония и API.</p></div></li>
+        <li class="demo-card"><svg class="demo-card__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8l7.5 3v6c0 4.6-3.2 8-7.5 9.4-4.3-1.4-7.5-4.8-7.5-9.4v-6l7.5-3z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="none"/></svg><div class="demo-card__text"><h3>Безопасность</h3><p class="small">Журнал входов и двухфакторный вход.</p></div></li>
+      </ul>
+    </div>
+
+    <div class="readout" data-readout data-state="none" role="status" aria-live="polite">
+      <span class="readout__mark" aria-hidden="true"></span>
+      <span data-readout-text>Контраст измеряется после запуска эффекта.</span>
+    </div>
+    <p class="fallback-note" data-error role="alert" hidden></p>
+  </section>
+
+  <div class="panels">
+    <section class="panel" aria-labelledby="settings-title">
+      <div class="panel__head">
+        <h2 id="settings-title">Настройки</h2>
+        <button type="button" class="btn btn--small" data-reset>Сбросить</button>
+      </div>
+      <p class="notice small" data-settings-note hidden></p>
+      <form class="form" data-form novalidate></form>
+    </section>
+
+    <section class="panel" aria-labelledby="code-title">
+      <div class="panel__head">
+        <h2 id="code-title">Получить код</h2>
+      </div>
+      <div class="tabs" role="tablist" aria-label="Формат кода">
+        <button type="button" class="tab" role="tab" id="tab-html" aria-controls="panel-html" aria-selected="true" data-tab="html">HTML</button>
+        <button type="button" class="tab" role="tab" id="tab-js" aria-controls="panel-js" aria-selected="false" tabindex="-1" data-tab="js">JS</button>
+        <button type="button" class="tab" role="tab" id="tab-json" aria-controls="panel-json" aria-selected="false" tabindex="-1" data-tab="json">Настройки JSON</button>
+      </div>
+      <div role="tabpanel" id="panel-html" aria-labelledby="tab-html" data-panel="html" class="code-block">
+        <p class="small muted">Сегодняшний рабочий вариант: страница уже подключает Framework {{PAIR}} (фрагмент «Подключение» ниже), а эффект монтируется через <code>SF.Effects.mountEffect</code> с проверкой SHA-256 каждого файла.</p>
+        <div class="code-block__head"><span class="code-block__title">Разметка и скрипт</span><button type="button" class="btn btn--small" data-code-copy="html">Скопировать</button></div>
+        <pre class="code" tabindex="0" aria-label="HTML: разметка и скрипт" data-code="html"></pre>
+        <div class="code-block__head"><span class="code-block__title">Подключение Framework, если его ещё нет на странице</span><button type="button" class="btn btn--small" data-code-copy="connect">Скопировать</button></div>
+        <pre class="code" tabindex="0" aria-label="HTML: подключение Framework" data-code="connect"></pre>
+        <div class="future">
+          <span class="future__tag">После выхода ядра simai.effect 1.1</span>
+          <p class="small">Так же можно будет подключать эффект одной разметкой, без скрипта: Loader найдёт атрибут, проверит файлы и смонтирует эффект. Сейчас этот вариант не работает.</p>
+          <pre class="code" tabindex="0" aria-label="HTML после выхода ядра simai.effect 1.1" data-code="future"></pre>
+        </div>
+      </div>
+      <div role="tabpanel" id="panel-js" aria-labelledby="tab-js" data-panel="js" class="code-block" hidden>
+        <p class="small muted">Модуль для страницы, где уже есть Framework и элемент <code>[data-effect-area]</code>. Подходит для <code>&lt;script type="module"&gt;</code> или сборщика.</p>
+        <div class="code-block__head"><span class="code-block__title">JavaScript</span><button type="button" class="btn btn--small" data-code-copy="js">Скопировать</button></div>
+        <pre class="code" tabindex="0" aria-label="JavaScript" data-code="js"></pre>
+      </div>
+      <div role="tabpanel" id="panel-json" aria-labelledby="tab-json" data-panel="json" class="code-block" hidden>
+        <p class="small muted">Сохранённые значения настроек: их принимает <code>SF.Effects.mountEffect</code> как <code>stored</code>. Схему (<code>scheme</code>) задаёт режим темы, поэтому её здесь нет.</p>
+        <div class="code-block__head"><span class="code-block__title">Настройки</span><button type="button" class="btn btn--small" data-code-copy="json">Скопировать</button></div>
+        <pre class="code" tabindex="0" aria-label="Настройки, JSON" data-code="json"></pre>
+      </div>
+      <p class="small muted" data-copied aria-live="polite"></p>
+    </section>
+
+    <section class="panel" aria-labelledby="files-title">
+      <h2 id="files-title">Файлы и проверки</h2>
+      <dl class="facts" data-checks></dl>
+      <ul class="files" data-files></ul>
+    </section>
+  </div>
+</main>
+{{FOOTER}}
+<script type="module" src="{{ROOT}}assets/configurator.js"></script>
+</body>
+</html>

@@ -1,0 +1,251 @@
+{
+  "schema": "simai.ui-effects.kit",
+  "version": 1,
+  "framework": {
+    "pair": "ui-7493766fe39e",
+    "ui": "7493766fe39ec6633cb1420532690c61661b0354",
+    "ui_source": "eb5b215c332c65644529a5c12631ec57c0f30df1"
+  },
+  "kit": {
+    "script": "scripts/effect-kit.mjs",
+    "sha256": "735ba989bb248b2844299e24341976b29b9fb88d64761ad1379c6e63767e3481",
+    "checks": 11
+  },
+  "effects": {
+    "aurora-curtain": {
+      "digest": "b16890ab4a86fc28058e949b23b2d0b510e6267b60d71e7b84a6b2e9537d593e",
+      "schemes": {
+        "dark": {
+          "passed": 11,
+          "total": 11,
+          "failed": []
+        }
+      }
+    },
+    "constellation-net": {
+      "digest": "f5e3c032d65c69961e532f24f6ce091ea02a2b1072e987abc191e91d910b4513",
+      "schemes": {
+        "dark": {
+          "passed": 11,
+          "total": 11,
+          "failed": []
+        },
+        "light": {
+          "passed": 11,
+          "total": 11,
+          "failed": []
+        }
+      }
+    },
+    "hex-conduits": {
+      "digest": "260e39d78fbe1272e10e85df46c76267d3ede74f4013a295d09122723ea79f50",
+      "schemes": {
+        "dark": {
+          "passed": 11,
+          "total": 11,
+          "failed": []
+        },
+        "light": {
+          "passed": 11,
+          "total": 11,
+          "failed": []
+        }
+      }
+    },
+    "comet-flow": {
+      "digest": "744929cb6d7d878e6f0d48a2cfbabeac5ddc9dc426e0e58b91447a045e49e89a",
+      "schemes": {
+        "dark": {
+          "passed": 11,
+          "total": 11,
+          "failed": []
+        }
+      }
+    },
+    "nebula-mesh": {
+      "digest": "137999ebaab1d991b1047c81b83421ff9a8d6635f38c3766af1ffcb51ea378e8",
+      "schemes": {
+        "dark": {
+          "passed": 11,
+          "total": 11,
+          "failed": []
+        }
+      }
+    },
+    "neon-horizon": {
+      "digest": "94805170a0791908ec7e476dc56e7c1d90ea959c7e6ebbe67ce63f0483fce6e0",
+      "schemes": {
+        "dark": {
+          "passed": 11,
+          "total": 11,
+          "failed": []
+        }
+      }
+    },
+    "abyss-caustics": {
+      "digest": "cbf64f90a2ba8d2483811c61bc859fa9ece73efb3c10116b7f8b7e4474975f77",
+      "schemes": {
+        "dark": {
+          "passed": 11,
+          "total": 11,
+          "failed": []
+        }
+      }
+    },
+    "glyph-tide": {
+      "digest": "128c492a58926f058167b89884f86c743d90e294af44606680de99b6ee8304e9",
+      "schemes": {
+        "dark": {
+          "passed": 11,
+          "total": 11,
+          "failed": []
+        },
+        "light": {
+          "passed": 11,
+          "total": 11,
+          "failed": []
+        }
+      }
+    },
+    "rain-glass": {
+      "digest": "5511c3151488181cc5d9ff6336f32ea9d3bc602be763735bef86dd223411eed0",
+      "schemes": {
+        "dark": {
+          "passed": 11,
+          "total": 11,
+          "failed": []
+        }
+      }
+    },
+    "liquid-chrome": {
+      "digest": "24e7f90c217e7f2d6b7eda8d56dc60bc32d93ad41188a2dffa2752bd9c7288cf",
+      "schemes": {
+        "dark": {
+          "passed": 11,
+          "total": 11,
+          "failed": []
+        }
+      }
+    },
+    "mist-gradient": {
+      "digest": "8b9fab751422323c23a009365fd33a4e8765851539484a851720e8c3bb611d16",
+      "schemes": {
+        "light": {
+          "passed": 11,
+          "total": 11,
+          "failed": []
+        }
+      }
+    },
+    "daylight-caustics": {
+      "digest": "e115ccf856bd8452c3232ab97ce4b1fd8361c2c89d2c89cd2999505e8634def8",
+      "schemes": {
+        "light": {
+          "passed": 11,
+          "total": 11,
+          "failed": []
+        }
+      }
+    },
+    "leaf-shadows": {
+      "digest": "a522ccd3400fce16df9d1a3e602d14fa6f5965995322351ac0ab94f50c66a97b",
+      "schemes": {
+        "light": {
+          "passed": 11,
+          "total": 11,
+          "failed": []
+        }
+      }
+    },
+    "paper-facets": {
+      "digest": "90d36d1c9a039ecdd5d89421980433f2484d0dfe96d269f71b992a4f7d070d63",
+      "schemes": {
+        "light": {
+          "passed": 11,
+          "total": 11,
+          "failed": []
+        }
+      }
+    },
+    "contour-map": {
+      "digest": "39dd06224f0cdc689538a013bc160c5574b3a88dc00ba7e0ed4d5e93f4a34cf7",
+      "schemes": {
+        "light": {
+          "passed": 11,
+          "total": 11,
+          "failed": []
+        },
+        "dark": {
+          "passed": 11,
+          "total": 11,
+          "failed": []
+        }
+      }
+    },
+    "ink-threads": {
+      "digest": "08e9a9996a47d531a82288eb476ed40268f2ceba948d73ff5e6ffdc6646eae99",
+      "schemes": {
+        "light": {
+          "passed": 11,
+          "total": 11,
+          "failed": []
+        },
+        "dark": {
+          "passed": 11,
+          "total": 11,
+          "failed": []
+        }
+      }
+    },
+    "halftone-tide": {
+      "digest": "aa609954768c759709268dd2f3bb7a3c7cb3f6f0c932154c52da71cf889727f5",
+      "schemes": {
+        "light": {
+          "passed": 11,
+          "total": 11,
+          "failed": []
+        },
+        "dark": {
+          "passed": 11,
+          "total": 11,
+          "failed": []
+        }
+      }
+    },
+    "foam-cells": {
+      "digest": "89e132dace4399e465f4b4a8e003b6e5021c2f36fdc1b7fc65091bb45de4d65f",
+      "schemes": {
+        "light": {
+          "passed": 11,
+          "total": 11,
+          "failed": []
+        }
+      }
+    },
+    "paper-hills": {
+      "digest": "de9ad35416ea59b472334d0cf1b08090cebb0c1b21e68009ebfd1906bca26f16",
+      "schemes": {
+        "light": {
+          "passed": 11,
+          "total": 11,
+          "failed": []
+        }
+      }
+    },
+    "guilloche": {
+      "digest": "9486e329a1239de7d8af71f2b2b7dc729240247256d2d5785f6c790c9be4ec5a",
+      "schemes": {
+        "light": {
+          "passed": 11,
+          "total": 11,
+          "failed": []
+        },
+        "dark": {
+          "passed": 11,
+          "total": 11,
+          "failed": []
+        }
+      }
+    }
+  }
+}

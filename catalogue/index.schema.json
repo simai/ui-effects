@@ -1,0 +1,122 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/simai/ui-effects/blob/main/catalogue/index.schema.json",
+  "title": "simai/ui-effects catalogue",
+  "description": "catalogue/index.json, written by scripts/build-catalogue.mjs. Lists every effect with its theme policy, its files and their SHA-256, and the Framework kit result.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "version", "repository", "standard", "framework", "runtime", "counts", "effects"],
+  "properties": {
+    "$schema": {"type": "string"},
+    "schema": {"const": "simai.ui-effects.catalogue"},
+    "version": {"const": 1},
+    "repository": {"const": "simai/ui-effects"},
+    "standard": {"type": "string", "pattern": "^simai\\.effect [0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "framework": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["pair", "ui", "ui_source"],
+      "properties": {
+        "pair": {"type": "string", "pattern": "^ui-[0-9a-f]{12}$"},
+        "ui": {"$ref": "#/$defs/commit"},
+        "ui_source": {"$ref": "#/$defs/commit"}
+      }
+    },
+    "runtime": {
+      "description": "Modules the site and the published snippets load besides the effects.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["placement"],
+      "properties": {
+        "placement": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["path", "sha256", "size", "replaced_by"],
+          "properties": {
+            "path": {"const": "site/lib/placement.js"},
+            "sha256": {"$ref": "#/$defs/sha256"},
+            "size": {"type": "integer", "minimum": 1},
+            "replaced_by": {"type": "string"}
+          }
+        }
+      }
+    },
+    "counts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["effects", "dual", "dark", "light"],
+      "properties": {
+        "effects": {"type": "integer", "minimum": 0},
+        "dual": {"type": "integer", "minimum": 0},
+        "dark": {"description": "Dark-only effects.", "type": "integer", "minimum": 0},
+        "light": {"description": "Light-only effects.", "type": "integer", "minimum": 0}
+      }
+    },
+    "effects": {"type": "array", "items": {"$ref": "#/$defs/effect"}}
+  },
+  "$defs": {
+    "commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "id": {"type": "string", "pattern": "^[a-z][a-z0-9-]{1,40}$"},
+    "scheme": {"enum": ["dark", "light"]},
+    "text": {
+      "type": "object",
+      "required": ["ru"],
+      "additionalProperties": {"type": "string", "minLength": 1},
+      "properties": {"ru": {"type": "string", "minLength": 1}}
+    },
+    "effect": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "version", "label", "description", "role", "schemes", "pair", "tags", "surfaces", "path", "entry", "files", "kit"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"},
+        "version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+        "label": {"$ref": "#/$defs/text"},
+        "description": {"$ref": "#/$defs/text"},
+        "role": {"$ref": "#/$defs/text"},
+        "schemes": {"type": "array", "minItems": 1, "maxItems": 2, "uniqueItems": true, "items": {"$ref": "#/$defs/scheme"}},
+        "pair": {"oneOf": [{"type": "null"}, {"$ref": "#/$defs/id"}]},
+        "tags": {"type": "array", "uniqueItems": true, "items": {"type": "string", "pattern": "^[a-z][a-z-]*$"}},
+        "surfaces": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "path": {"type": "string", "pattern": "^effects/[a-z][a-z0-9-]{1,40}/$"},
+        "entry": {"const": "index.js"},
+        "files": {
+          "type": "array",
+          "minItems": 4,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["path", "sha256", "size"],
+            "properties": {
+              "path": {"enum": ["effect.json", "index.js", "preview.png", "README.md"]},
+              "sha256": {"$ref": "#/$defs/sha256"},
+              "size": {"type": "integer", "minimum": 1}
+            }
+          }
+        },
+        "kit": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "framework", "schemes"],
+          "properties": {
+            "status": {"enum": ["pass", "fail", "stale", "missing"]},
+            "framework": {"type": "string"},
+            "schemes": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["passed", "total"],
+                "properties": {
+                  "passed": {"type": "integer", "minimum": 0},
+                  "total": {"type": "integer", "minimum": 1}
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,1286 @@
+{
+  "$schema": "./index.schema.json",
+  "schema": "simai.ui-effects.catalogue",
+  "version": 1,
+  "repository": "simai/ui-effects",
+  "standard": "simai.effect 1.0.0",
+  "framework": {
+    "pair": "ui-7493766fe39e",
+    "ui": "7493766fe39ec6633cb1420532690c61661b0354",
+    "ui_source": "eb5b215c332c65644529a5c12631ec57c0f30df1"
+  },
+  "runtime": {
+    "placement": {
+      "path": "site/lib/placement.js",
+      "sha256": "a9bb89b4520230c1594b48ec718fa41ac55e68798c75df5eb328be4277026c1b",
+      "size": 12643,
+      "replaced_by": "simai.effect 1.1 (SF.Effects themeMode, pair, windows, integrity loading)"
+    }
+  },
+  "counts": {
+    "effects": 20,
+    "dual": 7,
+    "dark": 7,
+    "light": 6
+  },
+  "effects": [
+    {
+      "id": "aurora-curtain",
+      "version": "1.0.0",
+      "label": {
+        "ru": "Полярное сияние",
+        "en": "Aurora curtain"
+      },
+      "description": {
+        "ru": "Светящиеся занавеси полярного сияния медленно складываются над тёмным звёздным небом."
+      },
+      "role": {
+        "ru": "Ночное небо со светящимися занавесями. Свечение без тьмы теряет смысл; светлой пары с той же ролью нет."
+      },
+      "schemes": [
+        "dark"
+      ],
+      "pair": null,
+      "tags": [
+        "glow",
+        "sky"
+      ],
+      "surfaces": [
+        "sign-in",
+        "hero",
+        "section",
+        "dashboard"
+      ],
+      "path": "effects/aurora-curtain/",
+      "entry": "index.js",
+      "files": [
+        {
+          "path": "effect.json",
+          "sha256": "7e575aeeef7e0ba20be8360512ccf6abf9d870015a852a1bcde096753c52bc0a",
+          "size": 2193
+        },
+        {
+          "path": "index.js",
+          "sha256": "7c5ef3332d11295cb0d7ec67a5260111053afec34e95b7ea39f440203de1a254",
+          "size": 13120
+        },
+        {
+          "path": "preview.png",
+          "sha256": "798da335c839de8f0a1954a1b0675c8c79bf88676bb56e6cadfbf13f3692d3c8",
+          "size": 144138
+        },
+        {
+          "path": "README.md",
+          "sha256": "6b6da2406e4f12de6f30afc68acabf80a46e01b4a4ad2353f585b896fc6e1b34",
+          "size": 1364
+        }
+      ],
+      "kit": {
+        "status": "pass",
+        "framework": "ui-7493766fe39e",
+        "schemes": {
+          "dark": {
+            "passed": 11,
+            "total": 11
+          }
+        }
+      }
+    },
+    {
+      "id": "constellation-net",
+      "version": "1.0.0",
+      "label": {
+        "ru": "Созвездия",
+        "en": "Constellations"
+      },
+      "description": {
+        "ru": "Звёзды в трёх слоях глубины дрейфуют и связываются тонкими линиями, как живая сеть."
+      },
+      "role": {
+        "ru": "Сеть точек и линий: на тёмном — звёзды, на светлом — печатный звёздный атлас."
+      },
+      "schemes": [
+        "dark",
+        "light"
+      ],
+      "pair": null,
+      "tags": [
+        "particles",
+        "lines",
+        "sky"
+      ],
+      "surfaces": [
+        "sign-in",
+        "hero",
+        "section",
+        "dashboard"
+      ],
+      "path": "effects/constellation-net/",
+      "entry": "index.js",
+      "files": [
+        {
+          "path": "effect.json",
+          "sha256": "d2d3058f367846f7af843b8456cc6937071890073cb58c528376ec4b929d7a01",
+          "size": 2407
+        },
+        {
+          "path": "index.js",
+          "sha256": "6ea7aa7749e6578793201c452197a95c8173d490d63d3fef21a1eea9641f43d3",
+          "size": 15885
+        },
+        {
+          "path": "preview.png",
+          "sha256": "0d931062b1bcae46de7781563205a558b6d0efa82eeaa684b7d08cadb8cc3a70",
+          "size": 65184
+        },
+        {
+          "path": "README.md",
+          "sha256": "080bb2493564a426dcfa92d4c21b0acfa323d6c35ccfb5c2ad41143d7f4c2820",
+          "size": 1426
+        }
+      ],
+      "kit": {
+        "status": "pass",
+        "framework": "ui-7493766fe39e",
+        "schemes": {
+          "dark": {
+            "passed": 11,
+            "total": 11
+          },
+          "light": {
+            "passed": 11,
+            "total": 11
+          }
+        }
+      }
+    },
+    {
+      "id": "hex-conduits",
+      "version": "1.0.0",
+      "label": {
+        "ru": "Световоды",
+        "en": "Light conduits"
+      },
+      "description": {
+        "ru": "По рёбрам тёмной шестиугольной решётки бегут световые импульсы и оставляют гаснущий след."
+      },
+      "role": {
+        "ru": "Решётка с бегущими импульсами: на тёмном — световоды, на светлом — чертёж схемы."
+      },
+      "schemes": [
+        "dark",
+        "light"
+      ],
+      "pair": null,
+      "tags": [
+        "geometry",
+        "lines"
+      ],
+      "surfaces": [
+        "sign-in",
+        "hero",
+        "section",
+        "dashboard"
+      ],
+      "path": "effects/hex-conduits/",
+      "entry": "index.js",
+      "files": [
+        {
+          "path": "effect.json",
+          "sha256": "5e16ba0caa17ad9f74f36eb13704e4068429711834b719afbe143e81d86f523b",
+          "size": 2517
+        },
+        {
+          "path": "index.js",
+          "sha256": "82ee9587818a0a5f733869d89ad191dbd4b7e427345866532247e0cccae5ccdd",
+          "size": 15865
+        },
+        {
+          "path": "preview.png",
+          "sha256": "068ec7f7c16715d687274a5d978ab990680cba8f5b32ecf68294ecb64c61759d",
+          "size": 105189
+        },
+        {
+          "path": "README.md",
+          "sha256": "af0db999b556226a0c533b222b7bb9dedd02de06a25845adb97efbc6ec1e723c",
+          "size": 1435
+        }
+      ],
+      "kit": {
+        "status": "pass",
+        "framework": "ui-7493766fe39e",
+        "schemes": {
+          "dark": {
+            "passed": 11,
+            "total": 11
+          },
+          "light": {
+            "passed": 11,
+            "total": 11
+          }
+        }
+      }
+    },
+    {
+      "id": "comet-flow",
+      "version": "1.0.0",
+      "label": {
+        "ru": "Кометные потоки",
+        "en": "Comet flow"
+      },
+      "description": {
+        "ru": "Светящиеся частицы текут по невидимому полю течения и оставляют мягкие хвосты."
+      },
+      "role": {
+        "ru": "Поток светящихся частиц; на светлой странице его роль играют чернильные нити."
+      },
+      "schemes": [
+        "dark"
+      ],
+      "pair": "ink-threads",
+      "tags": [
+        "particles",
+        "flow"
+      ],
+      "surfaces": [
+        "sign-in",
+        "hero",
+        "section",
+        "dashboard"
+      ],
+      "path": "effects/comet-flow/",
+      "entry": "index.js",
+      "files": [
+        {
+          "path": "effect.json",
+          "sha256": "26561b7d4835eeff4916c3c5f2d2eaf8960d7291e43595bd15de3e042fac04f9",
+          "size": 2460
+        },
+        {
+          "path": "index.js",
+          "sha256": "774ffb421f59134d4b18c318b21b1956d1ecc614f97fda215974a19e4b7940bc",
+          "size": 13857
+        },
+        {
+          "path": "preview.png",
+          "sha256": "9532a516393eac4148ff5dcda564060dc5c5012325f4b2b1d28a34edb9929f7c",
+          "size": 76034
+        },
+        {
+          "path": "README.md",
+          "sha256": "cc910c17b146e0018aa70cbf2225f16104b49008b00fb9fc6b4e453f827c9352",
+          "size": 1455
+        }
+      ],
+      "kit": {
+        "status": "pass",
+        "framework": "ui-7493766fe39e",
+        "schemes": {
+          "dark": {
+            "passed": 11,
+            "total": 11
+          }
+        }
+      }
+    },
+    {
+      "id": "nebula-mesh",
+      "version": "1.0.0",
+      "label": {
+        "ru": "Глубинный градиент",
+        "en": "Nebula mesh"
+      },
+      "description": {
+        "ru": "Крупные цветовые пятна темы медленно перетекают на почти чёрном фоне с тонким зерном."
+      },
+      "role": {
+        "ru": "Глубокий меш-градиент; светлая пара — утренняя дымка."
+      },
+      "schemes": [
+        "dark"
+      ],
+      "pair": "mist-gradient",
+      "tags": [
+        "gradient"
+      ],
+      "surfaces": [
+        "sign-in",
+        "hero",
+        "section",
+        "dashboard"
+      ],
+      "path": "effects/nebula-mesh/",
+      "entry": "index.js",
+      "files": [
+        {
+          "path": "effect.json",
+          "sha256": "d3b17813d717d49387c2f1e3d3e812eebb5a80b9a1e600989bb0701c23317965",
+          "size": 2413
+        },
+        {
+          "path": "index.js",
+          "sha256": "ddd5ba2ed02948ee4f0dd852f76bf5dfd44639d40ec3f5ee86f0d8a066f7b2de",
+          "size": 11996
+        },
+        {
+          "path": "preview.png",
+          "sha256": "6a780d6365683a0e1f3e7fa60f6dc8fea5e912c65687e9dc216ddecd680d20d9",
+          "size": 184711
+        },
+        {
+          "path": "README.md",
+          "sha256": "35109a3d790577197e4a7b71ff53764d2c30b61b053875976d6cec1ae59f5efb",
+          "size": 1441
+        }
+      ],
+      "kit": {
+        "status": "pass",
+        "framework": "ui-7493766fe39e",
+        "schemes": {
+          "dark": {
+            "passed": 11,
+            "total": 11
+          }
+        }
+      }
+    },
+    {
+      "id": "neon-horizon",
+      "version": "1.0.0",
+      "label": {
+        "ru": "Неоновый горизонт",
+        "en": "Neon horizon"
+      },
+      "description": {
+        "ru": "Перспективная неоновая сетка уходит к светящемуся горизонту под редкими звёздами."
+      },
+      "role": {
+        "ru": "Горизонт и глубина; светлая пара — бумажные холмы."
+      },
+      "schemes": [
+        "dark"
+      ],
+      "pair": "paper-hills",
+      "tags": [
+        "geometry",
+        "depth"
+      ],
+      "surfaces": [
+        "sign-in",
+        "hero",
+        "section",
+        "dashboard"
+      ],
+      "path": "effects/neon-horizon/",
+      "entry": "index.js",
+      "files": [
+        {
+          "path": "effect.json",
+          "sha256": "bf05fa93495b1d47cc3d872355a61cb46fd4766228c72a6346d6dca9019a1eac",
+          "size": 2253
+        },
+        {
+          "path": "index.js",
+          "sha256": "165f523960194cdc12a1a26148a40b13ccc3d226ee1c3cfababb913ef3404432",
+          "size": 12432
+        },
+        {
+          "path": "preview.png",
+          "sha256": "bbe394af6b5574d7b305160ab7647c21d954c44a95b64ae01b17212f5943a236",
+          "size": 113027
+        },
+        {
+          "path": "README.md",
+          "sha256": "1635c1ae3b78888922e422ff1a07184dfb7a8dbed08b719d1e8e00e3742cec53",
+          "size": 1399
+        }
+      ],
+      "kit": {
+        "status": "pass",
+        "framework": "ui-7493766fe39e",
+        "schemes": {
+          "dark": {
+            "passed": 11,
+            "total": 11
+          }
+        }
+      }
+    },
+    {
+      "id": "abyss-caustics",
+      "version": "1.0.0",
+      "label": {
+        "ru": "Глубоководные блики",
+        "en": "Abyss caustics"
+      },
+      "description": {
+        "ru": "Сетка подводных бликов колышется в глубокой воде, сверху падают мягкие лучи."
+      },
+      "role": {
+        "ru": "Блики в глубокой воде; светлая пара — солнечные блики на дне."
+      },
+      "schemes": [
+        "dark"
+      ],
+      "pair": "daylight-caustics",
+      "tags": [
+        "water",
+        "glow"
+      ],
+      "surfaces": [
+        "sign-in",
+        "hero",
+        "section",
+        "dashboard"
+      ],
+      "path": "effects/abyss-caustics/",
+      "entry": "index.js",
+      "files": [
+        {
+          "path": "effect.json",
+          "sha256": "61627ab57908f1ed204ea60df51a5e45a403086cfa7b94ce6aeb4ea86cab7f50",
+          "size": 2408
+        },
+        {
+          "path": "index.js",
+          "sha256": "4f7cd56f2ae1318d6f364d5dfe417ee38da8117fb377c0ed85bd471e8c403f98",
+          "size": 13315
+        },
+        {
+          "path": "preview.png",
+          "sha256": "3ec5a16e07529232f3149c5fb453f34b1c70dcfd025c06b3748b89e99676b16e",
+          "size": 105604
+        },
+        {
+          "path": "README.md",
+          "sha256": "e5803274fc2b4e976d130181c5a02ec3f45a554d4549ce886550c63096c22b4e",
+          "size": 1479
+        }
+      ],
+      "kit": {
+        "status": "pass",
+        "framework": "ui-7493766fe39e",
+        "schemes": {
+          "dark": {
+            "passed": 11,
+            "total": 11
+          }
+        }
+      }
+    },
+    {
+      "id": "glyph-tide",
+      "version": "1.0.0",
+      "label": {
+        "ru": "Знаковый прилив",
+        "en": "Glyph tide"
+      },
+      "description": {
+        "ru": "Поле моноширинных знаков, по которому медленно проходит волна света."
+      },
+      "role": {
+        "ru": "Поле знаков с волной: на тёмном знаки загораются, на светлом — пропечатываются."
+      },
+      "schemes": [
+        "dark",
+        "light"
+      ],
+      "pair": null,
+      "tags": [
+        "type"
+      ],
+      "surfaces": [
+        "sign-in",
+        "hero",
+        "section",
+        "dashboard"
+      ],
+      "path": "effects/glyph-tide/",
+      "entry": "index.js",
+      "files": [
+        {
+          "path": "effect.json",
+          "sha256": "37d0f23c7abb6c9801b782a49849686c2d1fdbdf99202849a62d090c367c241c",
+          "size": 3304
+        },
+        {
+          "path": "index.js",
+          "sha256": "6b651fa599f17cc9623e24bd611e9835ceee7d590e3c0271a6b7a7379f625158",
+          "size": 14854
+        },
+        {
+          "path": "preview.png",
+          "sha256": "57aa0eab69fb716bccc2683738d5e088a033e217a49133ef2d8fc369883273b4",
+          "size": 71752
+        },
+        {
+          "path": "README.md",
+          "sha256": "a80e67586f66edd0f177f88fc37de976db86438bea42e98b7f54af8c3cabecd1",
+          "size": 1506
+        }
+      ],
+      "kit": {
+        "status": "pass",
+        "framework": "ui-7493766fe39e",
+        "schemes": {
+          "dark": {
+            "passed": 11,
+            "total": 11
+          },
+          "light": {
+            "passed": 11,
+            "total": 11
+          }
+        }
+      }
+    },
+    {
+      "id": "rain-glass",
+      "version": "1.0.0",
+      "label": {
+        "ru": "Дождь на стекле",
+        "en": "Rain on glass"
+      },
+      "description": {
+        "ru": "Капли на ночном стекле, за ним размытые огни города; крупные капли сползают и оставляют дорожку."
+      },
+      "role": {
+        "ru": "Настроение окна ночью; светлая пара — тени листвы на стене днём."
+      },
+      "schemes": [
+        "dark"
+      ],
+      "pair": "leaf-shadows",
+      "tags": [
+        "water",
+        "depth"
+      ],
+      "surfaces": [
+        "sign-in",
+        "hero",
+        "section",
+        "dashboard"
+      ],
+      "path": "effects/rain-glass/",
+      "entry": "index.js",
+      "files": [
+        {
+          "path": "effect.json",
+          "sha256": "08c4a6e5b0133ecb06de48108f7b8c0797e7ea075b0d1edca5790a3475fecf97",
+          "size": 2565
+        },
+        {
+          "path": "index.js",
+          "sha256": "464a549a06b26eac427f0a67c3645c8d4bfcaa68d6a1901af55342e305145957",
+          "size": 15092
+        },
+        {
+          "path": "preview.png",
+          "sha256": "296287ff465ff2747d66d4c37ee12945a4306f7afe268a842336d2c31b40a9ba",
+          "size": 99826
+        },
+        {
+          "path": "README.md",
+          "sha256": "6602766a95e3ea43d817a2a714263594fb35871e01627235102a87546da165e9",
+          "size": 1532
+        }
+      ],
+      "kit": {
+        "status": "pass",
+        "framework": "ui-7493766fe39e",
+        "schemes": {
+          "dark": {
+            "passed": 11,
+            "total": 11
+          }
+        }
+      }
+    },
+    {
+      "id": "liquid-chrome",
+      "version": "1.0.0",
+      "label": {
+        "ru": "Жидкий металл",
+        "en": "Liquid metal"
+      },
+      "description": {
+        "ru": "Медленные складки тёмного жидкого металла с узкими цветными бликами."
+      },
+      "role": {
+        "ru": "Материал, по которому ходит свет; светлая пара — бумажные грани."
+      },
+      "schemes": [
+        "dark"
+      ],
+      "pair": "paper-facets",
+      "tags": [
+        "material"
+      ],
+      "surfaces": [
+        "sign-in",
+        "hero",
+        "section"
+      ],
+      "path": "effects/liquid-chrome/",
+      "entry": "index.js",
+      "files": [
+        {
+          "path": "effect.json",
+          "sha256": "11285ff5a7c15e75f51f188f25c37251fbb3dffc29c1becbcfd4148cf42fb5eb",
+          "size": 2381
+        },
+        {
+          "path": "index.js",
+          "sha256": "58ef147adcfd505b54495a4a48ee86044a5a0f76e32cc3d70ee34c4f94c628db",
+          "size": 13389
+        },
+        {
+          "path": "preview.png",
+          "sha256": "99398314815f388ab85891d35e11dc09676890b58d8e384b1f011fa1a14aa1b4",
+          "size": 118300
+        },
+        {
+          "path": "README.md",
+          "sha256": "a1a3eba1f398481733e91e4329ffacbece14ddda07880e56c607a70d20440a68",
+          "size": 1417
+        }
+      ],
+      "kit": {
+        "status": "pass",
+        "framework": "ui-7493766fe39e",
+        "schemes": {
+          "dark": {
+            "passed": 11,
+            "total": 11
+          }
+        }
+      }
+    },
+    {
+      "id": "mist-gradient",
+      "version": "1.0.0",
+      "label": {
+        "ru": "Утренняя дымка",
+        "en": "Morning mist"
+      },
+      "description": {
+        "ru": "Меш-градиент из пяти мягких цветовых пятен темы, медленно дрейфующих по кривым Лиссажу; тонкое зерно против полос."
+      },
+      "role": {
+        "ru": "Мягкий меш-градиент; тёмная пара — глубинный градиент."
+      },
+      "schemes": [
+        "light"
+      ],
+      "pair": "nebula-mesh",
+      "tags": [
+        "gradient"
+      ],
+      "surfaces": [
+        "sign-in",
+        "hero",
+        "docs",
+        "dashboard",
+        "product"
+      ],
+      "path": "effects/mist-gradient/",
+      "entry": "index.js",
+      "files": [
+        {
+          "path": "effect.json",
+          "sha256": "88d17d85f399caf304a99b2d1b4a9b67361a5c11c9a462b1994d99e324ef5610",
+          "size": 2831
+        },
+        {
+          "path": "index.js",
+          "sha256": "f67a670bfba707db27afe4365a4fdecfebb11f4453598360e172255eeb6803de",
+          "size": 13434
+        },
+        {
+          "path": "preview.png",
+          "sha256": "fe86223ee10ba23bb02be0e4dfc0813032ecde57d63e6262b524dce3b55b2e70",
+          "size": 220877
+        },
+        {
+          "path": "README.md",
+          "sha256": "48369014b8b5f6995dbb7b4a493e3e2147bd648deeb1a2c9c5e399737d0b01cf",
+          "size": 1475
+        }
+      ],
+      "kit": {
+        "status": "pass",
+        "framework": "ui-7493766fe39e",
+        "schemes": {
+          "light": {
+            "passed": 11,
+            "total": 11
+          }
+        }
+      }
+    },
+    {
+      "id": "daylight-caustics",
+      "version": "1.0.0",
+      "label": {
+        "ru": "Солнечные блики",
+        "en": "Daylight caustics"
+      },
+      "description": {
+        "ru": "Сетка солнечных бликов, как свет сквозь воду на светлом дне; мягкий «шейдер» на 2D canvas."
+      },
+      "role": {
+        "ru": "Солнечные блики на дне; тёмная пара — глубоководные блики."
+      },
+      "schemes": [
+        "light"
+      ],
+      "pair": "abyss-caustics",
+      "tags": [
+        "water"
+      ],
+      "surfaces": [
+        "sign-in",
+        "hero",
+        "product"
+      ],
+      "path": "effects/daylight-caustics/",
+      "entry": "index.js",
+      "files": [
+        {
+          "path": "effect.json",
+          "sha256": "9e6cf933672f40d92a5d362fa552054e26f0a5cb676f8cfeb2713e4978264ff4",
+          "size": 3371
+        },
+        {
+          "path": "index.js",
+          "sha256": "ba1657bb2cce2433a089ee3affb281b10c9f44e81a7a1543747508dbf1dc2aa6",
+          "size": 11734
+        },
+        {
+          "path": "preview.png",
+          "sha256": "edaf91d8d60f8b8da0602e1d78dc1c1ce85dfb4cc325bf4babf476cd454acc8c",
+          "size": 101238
+        },
+        {
+          "path": "README.md",
+          "sha256": "6dbedca7140c0d96c0ef125a4d882bc889fcb043fac031ce8af16825f55b9513",
+          "size": 1514
+        }
+      ],
+      "kit": {
+        "status": "pass",
+        "framework": "ui-7493766fe39e",
+        "schemes": {
+          "light": {
+            "passed": 11,
+            "total": 11
+          }
+        }
+      }
+    },
+    {
+      "id": "leaf-shadows",
+      "version": "1.0.0",
+      "label": {
+        "ru": "Тень листвы",
+        "en": "Leaf shadows"
+      },
+      "description": {
+        "ru": "Размытые тени веток на освещённой стене качаются от ветра; утро, полдень или вечер."
+      },
+      "role": {
+        "ru": "Тени листвы на освещённой стене; тёмная пара — дождь на ночном стекле."
+      },
+      "schemes": [
+        "light"
+      ],
+      "pair": "rain-glass",
+      "tags": [
+        "nature"
+      ],
+      "surfaces": [
+        "sign-in",
+        "hero",
+        "product"
+      ],
+      "path": "effects/leaf-shadows/",
+      "entry": "index.js",
+      "files": [
+        {
+          "path": "effect.json",
+          "sha256": "9874dec1fb9a7e6834c9a33f38e38126ce2848ca5cc852398a1f9b39274f073d",
+          "size": 2718
+        },
+        {
+          "path": "index.js",
+          "sha256": "b8a016ff3fe4c76a546cf91db2a53cd2440258c33bc12f81d6d4502434e4485c",
+          "size": 13918
+        },
+        {
+          "path": "preview.png",
+          "sha256": "457c6fbef65eb2c228755a1127fe421d417e0f1bde668796a0d2fb739d2118a5",
+          "size": 150839
+        },
+        {
+          "path": "README.md",
+          "sha256": "7a964e6904fd3a36078d0fe90d46efc0fbd9ac340925836eddb29f2f74efc53f",
+          "size": 1450
+        }
+      ],
+      "kit": {
+        "status": "pass",
+        "framework": "ui-7493766fe39e",
+        "schemes": {
+          "light": {
+            "passed": 11,
+            "total": 11
+          }
+        }
+      }
+    },
+    {
+      "id": "paper-facets",
+      "version": "1.0.0",
+      "label": {
+        "ru": "Бумажные грани",
+        "en": "Paper facets"
+      },
+      "description": {
+        "ru": "Смятый лист из треугольных граней; свет медленно обходит его, и складки то ловят, то теряют свет."
+      },
+      "role": {
+        "ru": "Смятая бумага, свет обходит грани; тёмная пара — жидкий металл."
+      },
+      "schemes": [
+        "light"
+      ],
+      "pair": "liquid-chrome",
+      "tags": [
+        "paper",
+        "geometry"
+      ],
+      "surfaces": [
+        "hero",
+        "product",
+        "sign-in"
+      ],
+      "path": "effects/paper-facets/",
+      "entry": "index.js",
+      "files": [
+        {
+          "path": "effect.json",
+          "sha256": "504e5c90257f64ba5e1a12acea4af46115c0611fadd38a88ba1820e7a186f835",
+          "size": 3018
+        },
+        {
+          "path": "index.js",
+          "sha256": "6874f6164b4c43a545ce18ec8455719812e64d4a55baa1ceb56ec290a049cef2",
+          "size": 13570
+        },
+        {
+          "path": "preview.png",
+          "sha256": "d898d5d29dfbf182d9b3d368ffce36c5d1df5c7b0fcb106e0c86d7cdaa6d0fc6",
+          "size": 15982
+        },
+        {
+          "path": "README.md",
+          "sha256": "2f96df9e0c18f8b330fa746c53e16923578a622ba4f04f90749765bd88f0d8aa",
+          "size": 1489
+        }
+      ],
+      "kit": {
+        "status": "pass",
+        "framework": "ui-7493766fe39e",
+        "schemes": {
+          "light": {
+            "passed": 11,
+            "total": 11
+          }
+        }
+      }
+    },
+    {
+      "id": "contour-map",
+      "version": "1.0.0",
+      "label": {
+        "ru": "Горизонтали",
+        "en": "Contour map"
+      },
+      "description": {
+        "ru": "Изолинии медленно меняющегося рельефа, каждая пятая — утолщённая, как на топографической карте."
+      },
+      "role": {
+        "ru": "Изолинии: на светлом — топографический лист, на тёмном — ночная карта."
+      },
+      "schemes": [
+        "light",
+        "dark"
+      ],
+      "pair": null,
+      "tags": [
+        "lines"
+      ],
+      "surfaces": [
+        "dashboard",
+        "docs",
+        "hero"
+      ],
+      "path": "effects/contour-map/",
+      "entry": "index.js",
+      "files": [
+        {
+          "path": "effect.json",
+          "sha256": "0264bad1581bfbc6b5b820c62d4da6ed362bb55abd759d0765c64866154a2165",
+          "size": 3086
+        },
+        {
+          "path": "index.js",
+          "sha256": "587497c808f88929ff7ef51e884e3123ea4f83b67d848650057e92ecf7e0351d",
+          "size": 13479
+        },
+        {
+          "path": "preview.png",
+          "sha256": "adb0e104c21af8c5a677f64261fce76a307c51434df5f482b33a58ff19e94cc5",
+          "size": 17800
+        },
+        {
+          "path": "README.md",
+          "sha256": "fa42a8a15343d41c96b65cd34b3ada1a2da5bcbc1281fd9db6994b47dab57d8c",
+          "size": 1448
+        }
+      ],
+      "kit": {
+        "status": "pass",
+        "framework": "ui-7493766fe39e",
+        "schemes": {
+          "light": {
+            "passed": 11,
+            "total": 11
+          },
+          "dark": {
+            "passed": 11,
+            "total": 11
+          }
+        }
+      }
+    },
+    {
+      "id": "ink-threads",
+      "version": "1.0.0",
+      "label": {
+        "ru": "Чернильные нити",
+        "en": "Ink threads"
+      },
+      "description": {
+        "ru": "Тонкие нити туши плывут по медленному полю течения и тянут затухающие хвосты."
+      },
+      "role": {
+        "ru": "Нити в поле течения: на светлом — тушь, на тёмном — светящиеся волокна."
+      },
+      "schemes": [
+        "light",
+        "dark"
+      ],
+      "pair": null,
+      "tags": [
+        "flow",
+        "lines"
+      ],
+      "surfaces": [
+        "docs",
+        "sign-in",
+        "hero"
+      ],
+      "path": "effects/ink-threads/",
+      "entry": "index.js",
+      "files": [
+        {
+          "path": "effect.json",
+          "sha256": "59c64b7198c62faf5597930cb5c6a1f1e56e1585332c562cdd5b4152320ae90c",
+          "size": 3338
+        },
+        {
+          "path": "index.js",
+          "sha256": "4ff058fca6c6d28c31a1b60caad9b7ac430c072529475757328f4e4b929c68d3",
+          "size": 14624
+        },
+        {
+          "path": "preview.png",
+          "sha256": "a22be2e143b93ac55c24d971d210ea8cb60d72e84313ca3850cdf081c704b17e",
+          "size": 89443
+        },
+        {
+          "path": "README.md",
+          "sha256": "67793bcaec1dcb1a4986e8486f76bf2c75a3341d693f43eaa7071cf08b2f697c",
+          "size": 1492
+        }
+      ],
+      "kit": {
+        "status": "pass",
+        "framework": "ui-7493766fe39e",
+        "schemes": {
+          "light": {
+            "passed": 11,
+            "total": 11
+          },
+          "dark": {
+            "passed": 11,
+            "total": 11
+          }
+        }
+      }
+    },
+    {
+      "id": "halftone-tide",
+      "version": "1.0.0",
+      "label": {
+        "ru": "Растровая волна",
+        "en": "Halftone tide"
+      },
+      "description": {
+        "ru": "Полиграфический растр под 15°: точки растут и сжимаются под медленными встречными волнами."
+      },
+      "role": {
+        "ru": "Растр с волнами: на светлом — газетная печать, на тёмном — люминофорный экран."
+      },
+      "schemes": [
+        "light",
+        "dark"
+      ],
+      "pair": null,
+      "tags": [
+        "print"
+      ],
+      "surfaces": [
+        "hero",
+        "product",
+        "docs"
+      ],
+      "path": "effects/halftone-tide/",
+      "entry": "index.js",
+      "files": [
+        {
+          "path": "effect.json",
+          "sha256": "64b0c6f74bb38bbee8381d3c55713b985b1f751401f07c86e161f560a0bb0096",
+          "size": 3738
+        },
+        {
+          "path": "index.js",
+          "sha256": "c840069ddbeb09f7c2b83d2197c229427ed1ae36fa5682d7ddd46df562e73b72",
+          "size": 12268
+        },
+        {
+          "path": "preview.png",
+          "sha256": "d363bd9352667f1a655a56a9facafb7dfdb26ea9c6a0ac2fe406e9e88b588884",
+          "size": 27626
+        },
+        {
+          "path": "README.md",
+          "sha256": "ca441b71c5c48dfa123e86a18970d0e783ab7ee378c7b17ad3deff9985bc8b00",
+          "size": 1539
+        }
+      ],
+      "kit": {
+        "status": "pass",
+        "framework": "ui-7493766fe39e",
+        "schemes": {
+          "light": {
+            "passed": 11,
+            "total": 11
+          },
+          "dark": {
+            "passed": 11,
+            "total": 11
+          }
+        }
+      }
+    },
+    {
+      "id": "foam-cells",
+      "version": "1.0.0",
+      "label": {
+        "ru": "Пена",
+        "en": "Foam cells"
+      },
+      "description": {
+        "ru": "Клеточный узор с мягкими перегородками, как мыльная пена или живая ткань; центры клеток бродят."
+      },
+      "role": {
+        "ru": "Мыльная пена на светлом. Тёмной пары нет: на тёмной странице не показывается."
+      },
+      "schemes": [
+        "light"
+      ],
+      "pair": null,
+      "tags": [
+        "organic"
+      ],
+      "surfaces": [
+        "hero",
+        "sign-in",
+        "product"
+      ],
+      "path": "effects/foam-cells/",
+      "entry": "index.js",
+      "files": [
+        {
+          "path": "effect.json",
+          "sha256": "e88c03383d14a726eb43fa7a5e9c9d14f3f7f0721df0756fd2befa1bbbd67cf4",
+          "size": 3606
+        },
+        {
+          "path": "index.js",
+          "sha256": "b5b5d2c89165cd48e42dbc3e69e0ff0ffb47637cf8a6d7ff9a0c94b712d65b27",
+          "size": 13743
+        },
+        {
+          "path": "preview.png",
+          "sha256": "fb65c19bfef843f62683ad456304c782124940500700fa780a6469b313cbaa6c",
+          "size": 122610
+        },
+        {
+          "path": "README.md",
+          "sha256": "551ce8c087bfaeaa4080673046ce0fc3705e4d7a3e4a7b8c923981e35efd4219",
+          "size": 1459
+        }
+      ],
+      "kit": {
+        "status": "pass",
+        "framework": "ui-7493766fe39e",
+        "schemes": {
+          "light": {
+            "passed": 11,
+            "total": 11
+          }
+        }
+      }
+    },
+    {
+      "id": "paper-hills",
+      "version": "1.0.0",
+      "label": {
+        "ru": "Бумажные холмы",
+        "en": "Paper hills"
+      },
+      "description": {
+        "ru": "Слои бумажных холмов в воздушной перспективе: дальние светлее и медленнее, в долинах туман."
+      },
+      "role": {
+        "ru": "Бумажные холмы в дымке; тёмная пара — неоновый горизонт."
+      },
+      "schemes": [
+        "light"
+      ],
+      "pair": "neon-horizon",
+      "tags": [
+        "paper",
+        "depth"
+      ],
+      "surfaces": [
+        "sign-in",
+        "hero",
+        "product"
+      ],
+      "path": "effects/paper-hills/",
+      "entry": "index.js",
+      "files": [
+        {
+          "path": "effect.json",
+          "sha256": "a583c683bf2778e0d7b475f5ff6da217e8aa357fe7da8c5aeeae996462519b84",
+          "size": 2641
+        },
+        {
+          "path": "index.js",
+          "sha256": "dfb92a62d086c1d5a944b20c1bcfccc14a6a29f50f51e7d2fe4e04f17eaca972",
+          "size": 11854
+        },
+        {
+          "path": "preview.png",
+          "sha256": "b69e9530ef9bf6936bb31d2cafdfe71fcbc1e2f1a17588710c7ec23123c3ccc1",
+          "size": 6583
+        },
+        {
+          "path": "README.md",
+          "sha256": "43079f95e33555021d560bb79e0b3c6ea3572d077081ccd98f32a4b0c9ac45a7",
+          "size": 1419
+        }
+      ],
+      "kit": {
+        "status": "pass",
+        "framework": "ui-7493766fe39e",
+        "schemes": {
+          "light": {
+            "passed": 11,
+            "total": 11
+          }
+        }
+      }
+    },
+    {
+      "id": "guilloche",
+      "version": "1.0.0",
+      "label": {
+        "ru": "Гильош",
+        "en": "Guilloche"
+      },
+      "description": {
+        "ru": "Гравировка защищённой бумаги: розетки и ленты из тонких кривых, фаза которых медленно смещается."
+      },
+      "role": {
+        "ru": "Гильош: на светлом — защищённая бумага, на тёмном — гравировка на тёмной купюре."
+      },
+      "schemes": [
+        "light",
+        "dark"
+      ],
+      "pair": null,
+      "tags": [
+        "lines",
+        "print"
+      ],
+      "surfaces": [
+        "dashboard",
+        "product",
+        "sign-in"
+      ],
+      "path": "effects/guilloche/",
+      "entry": "index.js",
+      "files": [
+        {
+          "path": "effect.json",
+          "sha256": "b74d24006032e48b12da1d2110f9db75bdba5aeed753f844a764fc0c8769521d",
+          "size": 3728
+        },
+        {
+          "path": "index.js",
+          "sha256": "3d58da96e3c76bdc6a83d8fe088aff602cfcbd1cca6030734cfd18dab11a64c3",
+          "size": 13015
+        },
+        {
+          "path": "preview.png",
+          "sha256": "635a4a78ad122d70af1b69d78c79639595804e8e5f53b3208ab3f1a2d260337e",
+          "size": 67597
+        },
+        {
+          "path": "README.md",
+          "sha256": "616d5026f6c4d39e816aca36c400cb966409d05914b7c0f1e8e86c54f2e5cbc4",
+          "size": 1523
+        }
+      ],
+      "kit": {
+        "status": "pass",
+        "framework": "ui-7493766fe39e",
+        "schemes": {
+          "light": {
+            "passed": 11,
+            "total": 11
+          },
+          "dark": {
+            "passed": 11,
+            "total": 11
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ru" data-page="gallery">
+<head>
+{{HEAD}}
+</head>
+<body>
+{{HEADER}}
+<main id="main">
+  <section class="intro" data-intro aria-labelledby="intro-title">
+    <div class="wrap intro__body">
+      <h1 id="intro-title">Фоновые эффекты для SIMAI Framework</h1>
+      <p class="intro__lead">Анимированные фоны для первых экранов, страниц входа и дашбордов. Каждый эффект проверен набором Framework, закреплён по коммиту и SHA-256 и подключается одним фрагментом кода.</p>
+      <p class="intro__note" data-intro-note>Фон этого блока — «Глубинный градиент»; на светлой странице его заменяет пара, «Утренняя дымка».</p>
+    </div>
+  </section>
+
+  <section class="wrap gallery" aria-labelledby="gallery-title">
+    <h2 id="gallery-title">Галерея</h2>
+    <div class="gallery__bar">
+      <div class="seg" role="group" aria-label="Фильтр по схемам" data-filters>
+        <button type="button" class="seg__btn" data-filter="all" aria-pressed="true">Все <span class="count" data-count="all"></span></button>
+        <button type="button" class="seg__btn" data-filter="dual" aria-pressed="false">Двухтемные <span class="count" data-count="dual"></span></button>
+        <button type="button" class="seg__btn" data-filter="dark" aria-pressed="false">Тёмные <span class="count" data-count="dark"></span></button>
+        <button type="button" class="seg__btn" data-filter="light" aria-pressed="false">Светлые <span class="count" data-count="light"></span></button>
+      </div>
+      <p class="small muted" data-shown aria-live="polite"></p>
+    </div>
+    <p class="small muted">Двухтемные рисуют и тёмную, и светлую схему. Тёмные и светлые рисуют одну; у многих есть пара другой схемы с той же ролью.</p>
+    <ul class="cards" data-cards></ul>
+  </section>
+</main>
+{{FOOTER}}
+<script type="module" src="{{ROOT}}assets/gallery.js"></script>
+</body>
+</html>
