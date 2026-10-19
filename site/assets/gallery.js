@@ -1,5 +1,5 @@
 // Gallery: every effect with its preview, schemes and pair, filtered by scheme.
-import {badges, groupOf, loadCatalogue, onSiteTheme, root, text} from './common.js';
+import {badges, groupOf, loadCatalogue, onSiteColour, onSiteTheme, root, text} from './common.js';
 import {outcomeOf, place} from './place.js';
 
 const list = document.querySelector('[data-cards]');
@@ -73,12 +73,18 @@ const describeIntro = (handle) => {
   intro.dataset.state = state.outcome;
   note.textContent = `Фон этого блока — «${text(byId.get('constellation-net').label)}»: эффект рисует обе схемы, сейчас ${state.drawn === 'light' ? 'светлую' : 'тёмную'}, и меняется вместе с темой страницы.`;
 };
-place(intro, {id: 'constellation-net', themeMode: 'auto'}).then((handle) => {
+let introHandle = null;
+const placeIntro = () => place(intro, {id: 'constellation-net', themeMode: 'auto'}).then((handle) => {
+  introHandle?.destroy();
+  introHandle = handle;
   describeIntro(handle);
-  // The core switches the scheme with the page theme; the note follows it.
-  onSiteTheme(() => setTimeout(() => describeIntro(handle), 60));
 }, (error) => {
   intro.dataset.state = 'error';
   console.error('Эффект не запустился:', error?.reason ?? error);
 });
+placeIntro();
+// The core switches the scheme with the page theme; the note follows it.
+onSiteTheme(() => setTimeout(() => introHandle && describeIntro(introHandle), 60));
+// A new main colour: the effect reads its tones again.
+onSiteColour(() => { introHandle?.destroy(); introHandle = null; placeIntro(); });
 document.documentElement.dataset.ready = 'true';

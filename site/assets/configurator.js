@@ -1,7 +1,7 @@
 // Effect page: a live stage (hero or windows), the theme mode limited to what
 // the effect can draw, settings built from the manifest, a contrast readout,
 // motion controls and «Получить код».
-import {TAGS, badges, config, formatRatio, loadCatalogue, luminance, modeName, onSiteTheme, ratio, root, schemeName, siteTheme, text} from './common.js';
+import {TAGS, badges, config, formatRatio, loadCatalogue, luminance, modeName, onSiteColour, onSiteTheme, ratio, root, schemeName, siteTheme, text} from './common.js';
 import {loadWithPair, outcomeOf, place} from './place.js';
 import {connectSnippet, htmlSnippet, jsSnippet, jsonSnippet} from './snippets.js';
 
@@ -261,6 +261,8 @@ reduced.addEventListener('click', () => {
   mount();
 });
 onSiteTheme(settleSoon);
+// A new main colour: the effect reads its tones again.
+onSiteColour(() => mount());
 
 // --- Contrast readout ------------------------------------------------------------------
 // Every text over the effect is sampled from the effect's canvas, laid over the
@@ -404,8 +406,8 @@ document.querySelectorAll('[data-code-copy]').forEach((button) => button.addEven
   }
 }));
 
-// --- Files and checks -----------------------------------------------------------------
-const checks = $('[data-checks]');
+// --- About the effect ------------------------------------------------------------------
+const aboutList = $('[data-facts-list]');
 const fact = (term, value) => {
   const row = document.createElement('div');
   const dt = document.createElement('dt');
@@ -413,23 +415,15 @@ const fact = (term, value) => {
   const dd = document.createElement('dd');
   dd.textContent = value;
   row.append(dt, dd);
-  checks.append(row);
+  aboutList.append(row);
 };
+const SURFACES = {'sign-in': 'страница входа', hero: 'первый экран', section: 'раздел', dashboard: 'дашборд', docs: 'документация', product: 'страница продукта'};
+fact('Темы', entry.schemes.length > 1 ? 'тёмная и светлая' : schemeName(entry.schemes[0]));
+fact('Где уместен', manifest.surfaces.map((surface) => SURFACES[surface] ?? surface).join(', '));
+fact('Проверки Framework', entry.kit.status === 'pass' ? `пройдены все ${entry.kit.total}` : `не пройдены (${entry.kit.passed} из ${entry.kit.total})`);
+fact('Размер', `${(entry.files.find((file) => file.path === 'index.js').size / 1024).toFixed(1).replace('.', ',')} КБ, без зависимостей и сети`);
 fact('Версия', `${entry.version}, стандарт ${catalogue.standard}`);
-fact('Набор Framework', `${entry.kit.status === 'pass' ? 'пройден' : entry.kit.status}: ${entry.kit.passed}/${entry.kit.total} проверок (${entry.kit.framework})`);
-fact('Поверхности', manifest.surfaces.join(', '));
-fact('Модуль', `${(entry.files.find((file) => file.path === 'index.js').size / 1024).toFixed(1).replace('.', ',')} КБ, без зависимостей и сети`);
-const fileList = $('[data-files]');
-for (const file of entry.files) {
-  const item = document.createElement('li');
-  const link = document.createElement('a');
-  link.href = `https://github.com/simai/ui-effects/blob/${config.commit}/${entry.path}${file.path}`;
-  link.textContent = file.path;
-  const sum = document.createElement('code');
-  sum.textContent = `SHA-256 ${file.sha256}`;
-  item.append(link, sum);
-  fileList.append(item);
-}
+$('[data-source]').href = `https://github.com/simai/ui-effects/tree/${config.commit}/${entry.path}`;
 
 renderCode();
 mount();

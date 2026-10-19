@@ -5,37 +5,58 @@ export const config = JSON.parse(document.getElementById('site-config').textCont
 export const root = new URL(config.root, document.baseURI);
 
 // --- Site theme -----------------------------------------------------------------
-// The theme class on <html> is the page theme every effect placement follows.
-const THEME_KEY = 'ui-effects-theme';
+// The Framework's Loader keeps the theme: the header's theme switch and the
+// effect page's «Тема страницы» call it, it stores the choice and puts
+// theme-dark or theme-light on <html>, the page theme every effect follows.
 const listeners = new Set();
 export const siteTheme = () => (document.documentElement.classList.contains('theme-dark') ? 'dark' : 'light');
-export function setSiteTheme(theme, remember = true) {
+export function setSiteTheme(theme) {
+  if (globalThis.SF?.Loader?.setTheme?.(theme)) return;
+  // Without the Loader's theme: the class alone, for this page.
   const html = document.documentElement;
   html.classList.remove('theme-light', 'theme-dark');
   html.classList.add(`theme-${theme}`);
-  if (remember) {
-    try { localStorage.setItem(THEME_KEY, theme); } catch (error) { /* storage blocked: the choice lasts for this page */ }
-  }
-  syncThemeButtons();
-  listeners.forEach((listener) => listener(theme));
+  themeChanged();
 }
 export const onSiteTheme = (listener) => listeners.add(listener);
-// The theme switches are the Framework's segmented Button Group: the site sets
-// their value, and a choice arrives as their change event.
+// The page-theme switches (segmented Button Groups) show the drawn theme.
 function syncThemeButtons() {
   const theme = siteTheme();
   document.querySelectorAll('[data-site-theme-group]').forEach((group) => { if (group.getAttribute('value') !== theme) group.setAttribute('value', theme); });
 }
+function themeChanged() {
+  syncThemeButtons();
+  listeners.forEach((listener) => listener(siteTheme()));
+}
+window.addEventListener('sf-theme-change', themeChanged);
 document.addEventListener('change', (event) => {
   const group = event.target.closest?.('[data-site-theme-group]');
   if (group && (event.detail?.value === 'light' || event.detail?.value === 'dark')) setSiteTheme(event.detail.value);
 });
-// Without a stored choice the site follows the system.
-const stored = () => { try { return localStorage.getItem(THEME_KEY); } catch (error) { return null; } };
-matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (event) => {
-  if (!stored()) setSiteTheme(event.matches ? 'dark' : 'light', false);
-});
 syncThemeButtons();
+
+// --- Main colour -------------------------------------------------------------------
+// The header's theme generator (Framework) makes the whole theme from one
+// colour and applies it to the page; the choice is kept in this browser and
+// applied again before the first paint (partials/head.html). Effects read
+// palette tones when they mount, so they are placed again after a change.
+const COLOUR_KEY = 'ui-effects-colour';
+const colourListeners = new Set();
+export const onSiteColour = (listener) => colourListeners.add(listener);
+const generator = document.querySelector('[data-site-colour]');
+if (generator) {
+  try {
+    const kept = localStorage.getItem(COLOUR_KEY);
+    if (kept) generator.setAttribute('value', kept);
+  } catch (error) { /* storage blocked: the Framework's own colour */ }
+  generator.addEventListener('sf-theme-generator-apply', (event) => {
+    const value = event.detail?.value ?? '';
+    try {
+      if (value) localStorage.setItem(COLOUR_KEY, value); else localStorage.removeItem(COLOUR_KEY);
+    } catch (error) { /* storage blocked: the colour lasts for this page */ }
+    colourListeners.forEach((listener) => listener(value));
+  });
+}
 
 // --- Catalogue ------------------------------------------------------------------
 let catalogue = null;

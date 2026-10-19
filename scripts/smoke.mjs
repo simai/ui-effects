@@ -10,8 +10,8 @@
 //     local server, the two pinned jsDelivr bases and the Framework's icon
 //     service (icons.simai.io);
 //   - a Framework component or Smart module loaded by the site beyond the
-//     Button Group it uses for its switches (other class names must not
-//     trigger the Loader);
+//     Button Group and the Theme Generator it uses (other class names must
+//     not trigger the Loader);
 //   - horizontal scroll;
 //   - an effect page whose outcome differs from the theme policy, whose
 //     effect does not mount, whose theme-mode control offers a mode the
@@ -116,9 +116,10 @@ async function routeAll(context) {
 }
 
 // Problems a page reports: errors and Framework modules it should not load.
-// The site's switches are the Button Group (Smart, segmented) with what it
-// requires: buttons and icons.
-const SITE_MODULES = /^(component|smart)\/(button-group|button|buttons|icon|icons|cl-button-group|cl-buttons|cl-icons)\//u;
+// The site uses the Button Group (Smart, segmented) for its switches and the
+// Theme Generator for the main colour, with what they require: buttons, icons,
+// icon buttons, the colour control, inputs and the close button.
+const SITE_MODULES = /^(component|smart)\/(button-group|buttons?|icons?|icon-buttons|theme-generator|color|inputs|close)\//u;
 function watch(page, where) {
   const problems = [];
   page.on('pageerror', (error) => problems.push(`page error: ${error.message}`));
@@ -240,7 +241,7 @@ try {
         const reached = (test) => stops.some(test);
         if (stops[0].cls !== 'skip') fail(`keyboard ${viewport.width}`, `first stop is ${stops[0].cls}, not the skip link`);
         if (!reached((stop) => /sf-button-group-segment/u.test(stop.cls) && /Все/u.test(stop.text))) fail(`keyboard ${viewport.width}`, 'filters not reached');
-        if (!reached((stop) => stop.cls === '' && stop.text && !/Галерея|Авторам|GitHub/u.test(stop.text))) fail(`keyboard ${viewport.width}`, 'cards not reached');
+        if (!reached((stop) => stop.cls === '' && stop.text && !/Галерея|Авторам|GitHub|simai\.io/u.test(stop.text))) fail(`keyboard ${viewport.width}`, 'cards not reached');
         const noRing = stops.filter((stop) => !stop.ring);
         if (noRing.length) fail(`keyboard ${viewport.width}`, `no focus ring on ${noRing.map((stop) => stop.text || stop.cls).join(', ')}`);
         report.keyboard.push({viewport: viewport.width, stops});
