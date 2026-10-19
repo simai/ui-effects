@@ -1,0 +1,71 @@
+{
+  "schema": "simai.effect",
+  "schema_version": 1,
+  "id": "template-dots",
+  "version": "1.0.0",
+  "label": {
+    "ru": "Шаблон: мягкие точки",
+    "en": "Template: soft dots"
+  },
+  "author": "SIMAI",
+  "entry": "index.js",
+  "preview": "preview.png",
+  "surfaces": [
+    "hero",
+    "section"
+  ],
+  "settings": [
+    {
+      "key": "speed",
+      "type": "integer",
+      "label": {"ru": "Скорость", "en": "Speed"},
+      "default": 100,
+      "min": 10,
+      "max": 300,
+      "step": 10,
+      "unit": "%"
+    },
+    {
+      "key": "density",
+      "type": "integer",
+      "label": {"ru": "Плотность", "en": "Density"},
+      "default": 50,
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "%"
+    },
+    {
+      "key": "size",
+      "type": "integer",
+      "label": {"ru": "Размер точек", "en": "Dot size"},
+      "default": 24,
+      "min": 4,
+      "max": 60,
+      "unit": "px"
+    },
+    {
+      "key": "interactive",
+      "type": "boolean",
+      "label": {"ru": "Реагировать на указатель", "en": "React to the pointer"},
+      "default": true
+    },
+    {
+      "key": "scheme",
+      "type": "choice",
+      "label": {"ru": "Тема области", "en": "Area theme"},
+      "default": "dark",
+      "options": [
+        {"value": "dark", "label": {"ru": "Тёмная", "en": "Dark"}},
+        {"value": "light", "label": {"ru": "Светлая", "en": "Light"}}
+      ],
+      "hint": {
+        "ru": "Схему задаёт размещение (режим темы эффекта), а не пользователь.",
+        "en": "The placement sets the scheme (its theme mode), not the user."
+      }
+    }
+  ],
+  "needs": {
+    "network": false
+  }
+}
