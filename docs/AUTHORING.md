@@ -15,10 +15,10 @@ An effect is a folder:
 
 | File | Rule |
 |:---|:---|
-| `effect.json` | The manifest: `"schema": "simai.effect"`, `"schema_version": 1`, `id` equal to the folder name, `entry: "index.js"`, `schemes`, `pair` when it has one, `"capabilities": ["windows"]`, typed and bounded settings, `"needs": {"network": false}` |
+| `effect.json` | The manifest: `"schema": "simai.effect"`, `"schema_version": 1`, `id` equal to the folder name, `entry: "index.js"`, `schemes`, `"capabilities": ["windows"]`, typed and bounded settings, `"needs": {"network": false}` |
 | `index.js` | One ES module, no imports, exporting `mount(host, settings, context)` |
 | `preview.png` | 640×360 still of the home scheme |
-| `README.md` | English: what it is, every setting, schemes, pair |
+| `README.md` | English: what it is, every setting, schemes |
 
 Rules every effect follows:
 
@@ -49,7 +49,7 @@ Rules every effect follows:
   `speed` (%), `intensity` or `density`, one setting of its own, and
   `interactive` where it makes sense. The scheme is not a setting (below).
 
-## 2. Schemes and pairs
+## 2. Schemes
 
 An effect declares the schemes it can draw: `dark`, `light` or both.
 
@@ -63,25 +63,20 @@ An effect declares the schemes it can draw: `dark`, `light` or both.
   dual effect is not an inverted picture. Good candidates are line work,
   geometry, grids and type. Effects of emitted light (aurora, neon, caustics)
   or of paper and shadow stay single-scheme.
-- A single-scheme effect may name a **pair** in its manifest (`"pair": "<id>"`):
-  an effect of the other scheme in this catalogue that plays the same role
-  (comet-flow ↔ ink-threads). The pair must draw the scheme the effect lacks.
-  The standard also allows an https URL to a foreign `effect.json`; the
-  catalogue names pairs by id only, because a foreign pair would run only in
-  the sandbox. Name a pair for every single-scheme
-  effect meant for public pages, unless the role has no counterpart.
+- **No pairs.** The standard lets a single-scheme effect name a `pair` of the
+  other scheme; this catalogue does not use it (owner decision). An effect
+  that works well in both themes is dual; any other effect draws one scheme
+  and names no pair.
 
 What a placement shows (theme mode `auto` | `dark` | `light`):
 
 | Effect | Page / target | Shown |
 |:---|:---|:---|
 | draws the target scheme | any | the effect, in that scheme |
-| lacks it, has a pair | any | the pair, in that scheme |
-| dark only, no pair | light | the effect, still dark; the area is `theme-dark` |
-| light only, no pair | dark | nothing: a plain dark surface |
+| dark only | light, in `auto` | the effect, still dark; the area is `theme-dark` |
+| light only | dark, in `auto` | nothing: a plain dark surface |
 
-An editor never offers a fixed mode that neither the effect nor its pair can
-draw. The effect's area takes the theme it is drawn in. The core sends the
+An editor never offers a fixed mode the effect cannot draw. The effect's area takes the theme it is drawn in. The core sends the
 scheme as `context.scheme`, through `mount` and `update(settings, context)`;
 react to it in `update`.
 
@@ -158,7 +153,7 @@ Then:
 
 1. set `id`, `label`, `surfaces` and the settings in `effect.json`;
 2. replace `draw()` in `index.js`; keep the lifecycle code;
-3. set `schemes`, `pair` and `capabilities` in `effect.json`, and add the entry
+3. set `schemes` and `capabilities` in `effect.json`, and add the entry
    to `effects/policy.json` (`description.ru`, `role.ru`, `tags`) at its place
    in the catalogue order;
 4. write `README.md` (every setting key in backticks) and `preview.png`.
@@ -186,16 +181,15 @@ result as stale until the kit runs again.
 
 ## 9. Review checklist
 
-- [ ] Kit passes every expected check (14 to 17, by schemes and pair), at the locked Framework.
+- [ ] Kit passes every expected check (14 for one scheme, 17 for both), at the locked Framework.
 - [ ] `build-catalogue --check` and `check-hygiene` pass; the module is offline and under the size limit.
 - [ ] Palette tones only; no role variable is read (`grep -- '--sf-on-\|--sf-surface' index.js`).
 - [ ] Each scheme is designed, not inverted; the preview shows the home scheme.
-- [ ] The pair, if any, plays the same role and draws the missing scheme.
 - [ ] Contrast readout at least 4.5:1 in the hero and windows layouts, light and dark page, at 1440 and 390.
 - [ ] Reduced motion: one still frame. Pause, hidden tab and off screen: no frames.
 - [ ] Calm by default; nothing flashes more than 3 times a second.
 - [ ] Frame time under about 3 ms at 1440×900; graceful on a slow machine.
 - [ ] Any crop looks finished (windows mode).
 - [ ] `destroy` then `mount` again works; settings at their bounds do not throw.
-- [ ] README describes every setting, the schemes and the pair; Russian labels read naturally.
+- [ ] README describes every setting and the schemes; Russian labels read naturally.
 - [ ] A second reviewer has approved the change.

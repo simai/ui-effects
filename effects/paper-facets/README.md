@@ -3,10 +3,10 @@
 A crumpled sheet of triangular facets; light circles it slowly, and the folds catch and lose it.
 
 - **Russian name:** Бумажные грани
-- **Version:** 1.1.0, simai.effect 1.1.0
+- **Version:** 1.2.0, simai.effect 1.1.0
 - **Surfaces:** hero, product, sign-in
 - **Tags:** paper, geometry
-- **Role:** Crumpled paper with light moving round the facets; its dark pair is liquid metal.
+- **Role:** Crumpled paper, the light moving round its facets.
 
 ## Settings
 
@@ -20,15 +20,15 @@ A crumpled sheet of triangular facets; light circles it slowly, and the folds ca
 
 ## Schemes
 
-The manifest declares `"schemes": ["light"]` and `"pair": "liquid-chrome"`, and `"capabilities": ["windows"]`. The module reads the scheme it draws in from `context.scheme`; a switch arrives as `update(settings, context)`.
+The manifest declares `"schemes": ["light"]`, and `"capabilities": ["windows"]`. The module reads the scheme it draws in from `context.scheme`; a switch arrives as `update(settings, context)`.
 
 Draws in the **light** scheme only.
 
-Theme modes a placement may choose: `auto`, `dark`, `light`. A fixed `dark` shows the pair.
+Theme modes a placement may choose: `auto`, `light`.
 
-## Pair
+## On a dark page
 
-[`liquid-chrome`](../liquid-chrome/README.md) (Liquid metal) draws the dark scheme with the same role. In the `auto` theme mode it replaces this effect when the page is dark.
+In the `auto` theme mode the effect is not shown; the area is a plain dark surface (`theme-dark`).
 
 ## Files
 

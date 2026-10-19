@@ -2,7 +2,7 @@
   "schema": "simai.effect",
   "schema_version": 1,
   "id": "rain-glass",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "label": {
     "ru": "Дождь на стекле",
     "en": "Rain on glass"
@@ -19,7 +19,6 @@
   "schemes": [
     "dark"
   ],
-  "pair": "leaf-shadows",
   "capabilities": [
     "windows"
   ],

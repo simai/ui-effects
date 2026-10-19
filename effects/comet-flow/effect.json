@@ -2,7 +2,7 @@
   "schema": "simai.effect",
   "schema_version": 1,
   "id": "comet-flow",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "label": {
     "ru": "Кометные потоки",
     "en": "Comet flow"
@@ -19,7 +19,6 @@
   "schemes": [
     "dark"
   ],
-  "pair": "ink-threads",
   "capabilities": [
     "windows"
   ],

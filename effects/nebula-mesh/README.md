@@ -3,10 +3,10 @@
 Large patches of theme colour drift slowly over a near-black ground with fine grain.
 
 - **Russian name:** Глубинный градиент
-- **Version:** 1.1.0, simai.effect 1.1.0
+- **Version:** 1.2.0, simai.effect 1.1.0
 - **Surfaces:** sign-in, hero, section, dashboard
 - **Tags:** gradient
-- **Role:** A deep mesh gradient; its light pair is morning mist.
+- **Role:** A deep mesh gradient on the dark.
 
 ## Settings
 
@@ -20,15 +20,15 @@ Large patches of theme colour drift slowly over a near-black ground with fine gr
 
 ## Schemes
 
-The manifest declares `"schemes": ["dark"]` and `"pair": "mist-gradient"`, and `"capabilities": ["windows"]`. The module reads the scheme it draws in from `context.scheme`; a switch arrives as `update(settings, context)`.
+The manifest declares `"schemes": ["dark"]`, and `"capabilities": ["windows"]`. The module reads the scheme it draws in from `context.scheme`; a switch arrives as `update(settings, context)`.
 
 Draws in the **dark** scheme only.
 
-Theme modes a placement may choose: `auto`, `dark`, `light`. A fixed `light` shows the pair.
+Theme modes a placement may choose: `auto`, `dark`.
 
-## Pair
+## On a light page
 
-[`mist-gradient`](../mist-gradient/README.md) (Morning mist) draws the light scheme with the same role. In the `auto` theme mode it replaces this effect when the page is light.
+In the `auto` theme mode the effect stays dark, and its area keeps `theme-dark`.
 
 ## Files
 

@@ -4,7 +4,7 @@ import {outcomeOf, place} from './place.js';
 
 const list = document.querySelector('[data-cards]');
 const shown = document.querySelector('[data-shown]');
-const filters = [...document.querySelectorAll('[data-filter]')];
+const filters = document.querySelector('[data-filters]');
 
 const catalogue = await loadCatalogue();
 const byId = new Map(catalogue.effects.map((entry) => [entry.id, entry]));
@@ -36,19 +36,20 @@ for (const entry of catalogue.effects) {
   pair.className = 'card__pair small';
   pair.textContent = entry.schemes.length > 1
     ? 'Рисует обе схемы.'
-    : entry.pair ? `${entry.schemes[0] === 'dark' ? 'Светлая' : 'Тёмная'} пара: «${text(byId.get(entry.pair).label)}».`
-      : entry.schemes[0] === 'dark' ? 'Без пары: на светлой странице остаётся тёмным.' : 'Без пары: на тёмной странице не показывается.';
-  const marks = badges({...entry, pair: null}, byId);
+    : entry.schemes[0] === 'dark' ? 'На светлой странице остаётся тёмным.' : 'На тёмной странице не показывается.';
+  const marks = badges(entry);
   body.append(title, marks, description, pair);
   item.append(image, body);
   list.append(item);
 }
 
 const counts = {all: catalogue.effects.length, dual: catalogue.counts.dual, dark: catalogue.counts.dark, light: catalogue.counts.light};
-for (const [key, value] of Object.entries(counts)) document.querySelector(`[data-count="${key}"]`).textContent = String(value);
+// The filter is a segmented Button Group of the Framework, with the counts on its segments.
+const FILTERS = [['all', 'Все'], ['dual', 'Двухтемные'], ['dark', 'Тёмные'], ['light', 'Светлые']];
+filters.setAttribute('items', JSON.stringify(FILTERS.map(([value, label]) => ({value, label, count: counts[value]}))));
 
 const applyFilter = (filter) => {
-  filters.forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.filter === filter)));
+  if (filters.getAttribute('value') !== filter) filters.setAttribute('value', filter);
   let visible = 0;
   for (const card of list.children) {
     const on = filter === 'all' || card.dataset.group === filter;
@@ -60,23 +61,21 @@ const applyFilter = (filter) => {
   if (filter === 'all') url.searchParams.delete('schemes'); else url.searchParams.set('schemes', filter);
   history.replaceState(null, '', url);
 };
-filters.forEach((button) => button.addEventListener('click', () => applyFilter(button.dataset.filter)));
+filters.addEventListener('change', (event) => { if (FILTERS.some(([value]) => value === event.detail?.value)) applyFilter(event.detail.value); });
 const initial = new URL(location.href).searchParams.get('schemes');
 applyFilter(['dual', 'dark', 'light'].includes(initial) ? initial : 'all');
 
-// The intro is itself a placement: nebula-mesh in auto mode, its pair on a light page.
+// The intro is itself a placement: constellation-net in auto mode, drawn in the page's scheme.
 const intro = document.querySelector('[data-intro]');
 const note = document.querySelector('[data-intro-note]');
 const describeIntro = (handle) => {
-  const state = outcomeOf(handle, {id: 'nebula-mesh', pairId: 'mist-gradient', mode: 'auto'});
+  const state = outcomeOf(handle, {id: 'constellation-net', mode: 'auto'});
   intro.dataset.state = state.outcome;
-  note.textContent = state.outcome === 'pair'
-    ? `Фон этого блока — «${text(byId.get(state.shown).label)}», светлая пара эффекта «${text(byId.get('nebula-mesh').label)}». На тёмной странице вернётся он сам.`
-    : `Фон этого блока — «${text(byId.get('nebula-mesh').label)}». На светлой странице его заменит пара, «${text(byId.get('mist-gradient').label)}».`;
+  note.textContent = `Фон этого блока — «${text(byId.get('constellation-net').label)}»: эффект рисует обе схемы, сейчас ${state.drawn === 'light' ? 'светлую' : 'тёмную'}, и меняется вместе с темой страницы.`;
 };
-place(intro, {id: 'nebula-mesh', themeMode: 'auto'}).then((handle) => {
+place(intro, {id: 'constellation-net', themeMode: 'auto'}).then((handle) => {
   describeIntro(handle);
-  // The core switches the effect with the page theme; the note follows it.
+  // The core switches the scheme with the page theme; the note follows it.
   onSiteTheme(() => setTimeout(() => describeIntro(handle), 60));
 }, (error) => {
   intro.dataset.state = 'error';

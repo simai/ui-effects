@@ -18,24 +18,16 @@ const errorBox = $('[data-error]');
 const catalogue = await loadCatalogue();
 const byId = new Map(catalogue.effects.map((entry) => [entry.id, entry]));
 const entry = byId.get(id);
-const pairEntry = entry.pair ? byId.get(entry.pair) : null;
-// The effect and its pair, loaded by the core with SHA-256 checks; the modes
-// offered are the ones the core allows.
-const {Effects, main, pair: pairLoaded} = await loadWithPair(id);
-const modes = Effects.allowedModes(main.manifest, {pair: pairLoaded?.manifest});
+// The effect, loaded by the core with SHA-256 checks; the modes offered are
+// the ones the core allows.
+const {Effects, main} = await loadWithPair(id);
+const modes = Effects.allowedModes(main.manifest);
 
 const state = {mode: 'auto', layout: 'hero', values: {}, paused: false, reduced: false, placement: null, last: null};
 
 // --- Head --------------------------------------------------------------------------
 const facts = $('[data-facts]');
-facts.append(badges({...entry, pair: null}, byId));
-if (pairEntry) {
-  const link = document.createElement('a');
-  link.href = new URL(`effect/${pairEntry.id}/`, root).href;
-  link.textContent = `${schemeName(pairEntry.schemes.find((scheme) => !entry.schemes.includes(scheme)) || pairEntry.schemes[0])} пара: «${text(pairEntry.label)}»`;
-  link.className = 'small';
-  facts.append(link);
-}
+facts.append(badges(entry));
 const tagLine = document.createElement('span');
 tagLine.className = 'small muted';
 tagLine.textContent = entry.tags.map((tag) => TAGS[tag] || tag).join(' · ');
@@ -43,20 +35,14 @@ facts.append(tagLine);
 $('[data-role]').textContent = text(entry.role);
 
 // --- Theme mode: only the modes the effect can draw ------------------------------------
+// A segmented Button Group of the Framework; a choice arrives as its change event.
 const modeGroup = $('[data-modes]');
-for (const mode of modes) {
-  const button = document.createElement('button');
-  button.type = 'button';
-  button.className = 'seg__btn';
-  button.dataset.mode = mode;
-  button.setAttribute('aria-pressed', String(mode === state.mode));
-  button.textContent = modeName(mode);
-  button.addEventListener('click', () => setMode(mode));
-  modeGroup.append(button);
-}
+modeGroup.setAttribute('items', JSON.stringify(modes.map((mode) => ({value: mode, label: modeName(mode)}))));
+modeGroup.setAttribute('value', state.mode);
+modeGroup.addEventListener('change', (event) => { if (modes.includes(event.detail?.value)) setMode(event.detail.value); });
 const setMode = (mode) => {
   state.mode = mode;
-  modeGroup.querySelectorAll('[data-mode]').forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.mode === mode)));
+  if (modeGroup.getAttribute('value') !== mode) modeGroup.setAttribute('value', mode);
   state.placement?.update(state.values, {themeMode: mode});
   settleSoon();
   renderCode();
@@ -181,7 +167,7 @@ $('[data-reset]').addEventListener('click', () => {
 const outcomeText = (current) => {
   switch (current.outcome) {
     case 'pair': return `заменён парой «${text(byId.get(current.shown).label)}» в ${current.drawn === 'light' ? 'светлой' : 'тёмной'} схеме`;
-    case 'dark-kept': return 'показан тёмным: светлой схемы и пары нет';
+    case 'dark-kept': return 'показан тёмным: светлой схемы у него нет';
     case 'hidden': return state.mode === 'auto' ? 'не показан: светлый фон на тёмной странице, вместо него ровная поверхность' : 'не показан';
     default: return entry.schemes.length > 1 ? `показан в ${current.drawn === 'light' ? 'светлой' : 'тёмной'} схеме` : 'показан как есть';
   }
@@ -200,7 +186,7 @@ function describe(current) {
   $('[data-policy-facts]').textContent = [
     `Страница ${schemeName(siteTheme())}, режим «${modeName(state.mode)}».`,
     current.shown ? `${where} в теме theme-${current.drawn}: текст и кнопки над эффектом берут роли этой темы.` : `${where} — ровная поверхность theme-${current.drawn}.`,
-    missing.length ? `«${modeName(missing[0])}» не предлагается: ${entry.pair ? 'ни эффект, ни его пара не рисуют' : 'эффект без пары и не рисует'} ${missing[0] === 'light' ? 'светлую' : 'тёмную'} схему.` : '',
+    missing.length ? `«${modeName(missing[0])}» не предлагается: эффект не рисует ${missing[0] === 'light' ? 'светлую' : 'тёмную'} схему.` : '',
   ].filter(Boolean).join(' ');
   const note = $('[data-settings-note]');
   const foreign = current.shown && current.shown !== entry.id;
@@ -253,23 +239,25 @@ async function mount() {
   settle();
 }
 
-document.querySelectorAll('[data-layout]').forEach((button) => button.addEventListener('click', () => {
-  if (state.layout === button.dataset.layout) return;
-  state.layout = button.dataset.layout;
-  document.querySelectorAll('[data-layout]').forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
+$('[data-layouts]').addEventListener('change', (event) => {
+  const layout = event.detail?.value;
+  if (!['hero', 'windows'].includes(layout) || state.layout === layout) return;
+  state.layout = layout;
   mount();
   renderCode();
-}));
+});
 const pause = $('[data-pause]');
 pause.addEventListener('click', () => {
   state.paused = !state.paused;
   pause.setAttribute('aria-pressed', String(state.paused));
+  pause.classList.toggle('active', state.paused);
   if (state.paused) state.placement?.pause(); else state.placement?.resume();
 });
 const reduced = $('[data-reduced]');
 reduced.addEventListener('click', () => {
   state.reduced = !state.reduced;
   reduced.setAttribute('aria-pressed', String(state.reduced));
+  reduced.classList.toggle('active', state.reduced);
   mount();
 });
 onSiteTheme(settleSoon);
@@ -395,7 +383,7 @@ $('[role="tablist"]').addEventListener('keydown', (event) => {
 });
 
 function renderCode() {
-  const options = {config, catalogue, entry, pair: pairEntry, mode: state.mode, layout: state.layout, values: state.values};
+  const options = {config, catalogue, entry, mode: state.mode, layout: state.layout, values: state.values};
   $('[data-code="html"]').textContent = htmlSnippet(options);
   $('[data-code="connect"]').textContent = connectSnippet(config);
   $('[data-code="js"]').textContent = jsSnippet(options);

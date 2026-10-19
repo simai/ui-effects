@@ -17,7 +17,7 @@ there will be many. The Framework ships only the core: `SF.Effects`, the
 
 | Path | What it is |
 |:---|:---|
-| `effects/<id>/` | One effect: `effect.json` (simai.effect 1.1 manifest with `schemes`, `pair`, `capabilities`), `index.js`, `preview.png`, `README.md` |
+| `effects/<id>/` | One effect: `effect.json` (simai.effect 1.1 manifest with `schemes` and `capabilities`), `index.js`, `preview.png`, `README.md` |
 | `effects/policy.json` | Catalogue sidecar: order, Russian descriptions and roles, tags |
 | `catalogue/index.json` | Generated catalogue: every effect, its files with SHA-256 and size, the kit result ([schema](catalogue/index.schema.json)) |
 | `catalogue/kit.json` | Kit results per effect, written by `scripts/kit.mjs` |
@@ -27,18 +27,17 @@ there will be many. The Framework ships only the core: `SF.Effects`, the
 | `docs/AUTHORING.md` | The author guide |
 | `scripts/` | Catalogue build and check, kit runner, site build, browser smoke, hygiene check |
 
-20 effects today: 7 draw both schemes, 7 are dark only, 6 light only. 11 of the
-single-scheme effects name a pair of the other scheme.
+17 effects today: 5 draw both schemes, 7 are dark only, 5 light only. The
+catalogue uses no pairs: an effect that works well in both themes is dual.
 
 ## Theme policy
 
-- Each effect declares the **schemes** it can draw (`dark`, `light` or both)
-  and may name a **pair**: an effect of the other scheme with the same role.
+- Each effect declares the **schemes** it can draw (`dark`, `light` or both).
+  The catalogue names no pairs.
 - A placement has a **theme mode**: `auto` (follow the page, the default),
-  `dark` or `light`. A fixed mode that neither the effect nor its pair can
-  draw is never offered.
-- In `auto`, when the effect lacks the page's scheme: its pair is shown; with
-  no pair, a dark effect stays dark, and a light effect is not shown (the
+  `dark` or `light`. A fixed mode the effect cannot draw is never offered.
+- In `auto`, when the effect lacks the page's scheme: a dark effect stays
+  dark, and a light effect is not shown (the
   reader chose dark to avoid glare; the area is a plain dark surface).
 - The effect's area takes the theme it is drawn in (`theme-dark` or
   `theme-light`), so text and controls over it keep 4.5:1.
@@ -48,7 +47,7 @@ single-scheme effects name a pair of the other scheme.
 ## Using an effect
 
 The Framework core runs effects from this catalogue: `SF.Effects` (simai.effect
-1.1) loads an effect and its pair, checks every file against the SHA-256 in
+1.1) loads an effect, checks every file against the SHA-256 in
 `catalogue/index.json`, applies the theme policy, follows the page theme and
 runs windows mode. The page names the catalogue, pinned by commit:
 

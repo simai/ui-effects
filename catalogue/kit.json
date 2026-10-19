@@ -2,9 +2,9 @@
   "schema": "simai.ui-effects.kit",
   "version": 2,
   "framework": {
-    "pair": "ui-08c07b3e938a",
-    "ui": "08c07b3e938a0eb4bd9204b187c267b2cb4ba5b7",
-    "ui_source": "8a41f6d6d2c65dda72b0ed6ac9947c56f6bfd810"
+    "pair": "ui-a5bab69a11bb",
+    "ui": "a5bab69a11bb22bb53cc09aed47afcf10824e1a2",
+    "ui_source": "0450c3da6367e802ff7d41028ef2a6c7db594e79"
   },
   "kit": {
     "script": "scripts/effect-kit.mjs",
@@ -30,27 +30,27 @@
       "failed": []
     },
     "comet-flow": {
-      "digest": "aa2f5a79611d64ec3d992f775e613be2fd2511801e8be4ed2d8e331f742a4966",
-      "passed": 15,
-      "total": 15,
+      "digest": "25036376565f1966a45ca050d4eeebf58c291aa5b879fdfb56e85eace8dfc4f9",
+      "passed": 14,
+      "total": 14,
       "failed": []
     },
     "nebula-mesh": {
-      "digest": "1bac8f42c3e0d2e6d256aef2e8128864207339efc59f8b14d55f04af65b77467",
-      "passed": 15,
-      "total": 15,
+      "digest": "1fc2cd325aae8e61fda465d91fa428ff137295a071784a1f73cfe470ba5be325",
+      "passed": 14,
+      "total": 14,
       "failed": []
     },
     "neon-horizon": {
-      "digest": "9912728012e6395eaf82bba0d43dc0918796805307e0500455694072db152364",
-      "passed": 15,
-      "total": 15,
+      "digest": "36e043967cce1e96e46ddec4283accee2170ef560cd8eea872f1dc56d39d3cc1",
+      "passed": 14,
+      "total": 14,
       "failed": []
     },
     "abyss-caustics": {
-      "digest": "49a3d2bcdba72ae8e6acbbd9742119b192ed77d36d6787aecabebc39910e82c5",
-      "passed": 15,
-      "total": 15,
+      "digest": "fcfcab0e17d3b97ecf88a4725ebb0c0e6d2e64a62b34b7b1980283c1f840247a",
+      "passed": 14,
+      "total": 14,
       "failed": []
     },
     "glyph-tide": {
@@ -60,49 +60,43 @@
       "failed": []
     },
     "rain-glass": {
-      "digest": "21006359b87ba4221b5351021b3e70521a773bd20f1ee18f9e8757bb2b1478dd",
-      "passed": 15,
-      "total": 15,
+      "digest": "45226b29e8a498543ce8ed434ea55af5d395b6462ddb8d232779bd351b889a42",
+      "passed": 14,
+      "total": 14,
       "failed": []
     },
     "liquid-chrome": {
-      "digest": "06bc6c8885a2d341fd6a765be3cbbacedb873b0a5a91c6de7e3b9515668152e3",
-      "passed": 15,
-      "total": 15,
+      "digest": "10893d5bd0f5ed9f914669c7c5490d659080bf2c8c31acbc30f07a120594a2df",
+      "passed": 14,
+      "total": 14,
       "failed": []
     },
     "mist-gradient": {
-      "digest": "362252d2fe506d7972f06d487bc39697b561ca1bd6bdc852cfe501d0fcf7d252",
-      "passed": 15,
-      "total": 15,
+      "digest": "d316e7e7e5b55f83ae88093b21ef11dbfa583ad9df41dd6a914a086cd44302c6",
+      "passed": 14,
+      "total": 14,
       "failed": []
     },
     "daylight-caustics": {
-      "digest": "1f966486e20276f3be8a22a491ecf04b63675eb7c7d54d46e338bb27850c5d95",
-      "passed": 15,
-      "total": 15,
+      "digest": "24e97aa5f548c9e3306527d18bfb7ce919f08a5aa3c11cb72a9677cbaa41f47d",
+      "passed": 14,
+      "total": 14,
       "failed": []
     },
     "leaf-shadows": {
-      "digest": "8407c9d84454e3c5866faa846f9828bcf8d63c2d8acd946d52632c85f3f1883b",
-      "passed": 15,
-      "total": 15,
+      "digest": "3c2e7cecf59aabec626542b345e0c3cc182a90edc1e5f9499c1507ccfb349a4c",
+      "passed": 14,
+      "total": 14,
       "failed": []
     },
     "paper-facets": {
-      "digest": "afeb9ffeda0e50b6483ea54898afbe87c41d504102475771623d016576c3cf26",
-      "passed": 15,
-      "total": 15,
+      "digest": "dbc2df7bd451be222ba49f35c035df24f8c9a5307b67e3a44f112e236958e30c",
+      "passed": 14,
+      "total": 14,
       "failed": []
     },
     "contour-map": {
       "digest": "6560312cfca7b3511f4c2d6340e3378a38b2c13c7c4e8756f1018025c3b6b725",
-      "passed": 17,
-      "total": 17,
-      "failed": []
-    },
-    "ink-threads": {
-      "digest": "b6a8c6535907f777797c938365a97b490938b5051e41dc6fc8678289819c0b47",
       "passed": 17,
       "total": 17,
       "failed": []
@@ -113,22 +107,10 @@
       "total": 17,
       "failed": []
     },
-    "foam-cells": {
-      "digest": "7a84336435f58bab0eff370740f962cc5ef550a7651de183331497b341ea32b1",
+    "paper-hills": {
+      "digest": "dbc4a5301ea13e7cc5d3ef1bbfba2c53c99ba43160db7a2cd7a5650c0046432c",
       "passed": 14,
       "total": 14,
-      "failed": []
-    },
-    "paper-hills": {
-      "digest": "39d3079130ee603b73ab76ad0e18eaea8e081b513a96629057bdb23b051aff98",
-      "passed": 15,
-      "total": 15,
-      "failed": []
-    },
-    "guilloche": {
-      "digest": "7823548aa2c2abc3e6b70927971812f04d084dee53df86db95432f3ab35a3cf6",
-      "passed": 17,
-      "total": 17,
       "failed": []
     }
   }

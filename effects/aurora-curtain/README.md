@@ -6,7 +6,7 @@ Glowing aurora curtains fold slowly over a dark starry sky.
 - **Version:** 1.1.0, simai.effect 1.1.0
 - **Surfaces:** sign-in, hero, section, dashboard
 - **Tags:** glow, sky
-- **Role:** A night sky with glowing curtains. The glow needs the dark; no light effect plays the same role, so it has no pair.
+- **Role:** A night sky with glowing curtains. The glow needs the dark, so it draws the dark scheme only.
 
 ## Settings
 
@@ -25,9 +25,9 @@ Draws in the **dark** scheme only.
 
 Theme modes a placement may choose: `auto`, `dark`.
 
-## Pair
+## On a light page
 
-None. In the `auto` theme mode on a light page the effect stays dark, and its area keeps `theme-dark`.
+In the `auto` theme mode the effect stays dark, and its area keeps `theme-dark`.
 
 ## Files
 

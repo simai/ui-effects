@@ -3,10 +3,10 @@
 A web of sunlit caustics, like light through water on a bright pool floor; a soft shader on a 2D canvas.
 
 - **Russian name:** Солнечные блики
-- **Version:** 1.1.0, simai.effect 1.1.0
+- **Version:** 1.2.0, simai.effect 1.1.0
 - **Surfaces:** sign-in, hero, product
 - **Tags:** water
-- **Role:** Sunlit caustics on the floor; its dark pair is abyss caustics.
+- **Role:** Sunlight playing on the bottom.
 
 ## Settings
 
@@ -20,15 +20,15 @@ A web of sunlit caustics, like light through water on a bright pool floor; a sof
 
 ## Schemes
 
-The manifest declares `"schemes": ["light"]` and `"pair": "abyss-caustics"`, and `"capabilities": ["windows"]`. The module reads the scheme it draws in from `context.scheme`; a switch arrives as `update(settings, context)`.
+The manifest declares `"schemes": ["light"]`, and `"capabilities": ["windows"]`. The module reads the scheme it draws in from `context.scheme`; a switch arrives as `update(settings, context)`.
 
 Draws in the **light** scheme only.
 
-Theme modes a placement may choose: `auto`, `dark`, `light`. A fixed `dark` shows the pair.
+Theme modes a placement may choose: `auto`, `light`.
 
-## Pair
+## On a dark page
 
-[`abyss-caustics`](../abyss-caustics/README.md) (Abyss caustics) draws the dark scheme with the same role. In the `auto` theme mode it replaces this effect when the page is dark.
+In the `auto` theme mode the effect is not shown; the area is a plain dark surface (`theme-dark`).
 
 ## Files
 

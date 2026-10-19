@@ -20,13 +20,15 @@ export function setSiteTheme(theme, remember = true) {
   listeners.forEach((listener) => listener(theme));
 }
 export const onSiteTheme = (listener) => listeners.add(listener);
+// The theme switches are the Framework's segmented Button Group: the site sets
+// their value, and a choice arrives as their change event.
 function syncThemeButtons() {
   const theme = siteTheme();
-  document.querySelectorAll('[data-site-theme]').forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.siteTheme === theme)));
+  document.querySelectorAll('[data-site-theme-group]').forEach((group) => { if (group.getAttribute('value') !== theme) group.setAttribute('value', theme); });
 }
-document.addEventListener('click', (event) => {
-  const button = event.target.closest('[data-site-theme]');
-  if (button) setSiteTheme(button.dataset.siteTheme);
+document.addEventListener('change', (event) => {
+  const group = event.target.closest?.('[data-site-theme-group]');
+  if (group && (event.detail?.value === 'light' || event.detail?.value === 'dark')) setSiteTheme(event.detail.value);
 });
 // Without a stored choice the site follows the system.
 const stored = () => { try { return localStorage.getItem(THEME_KEY); } catch (error) { return null; } };
@@ -56,19 +58,13 @@ export const TAGS = {
 };
 export const groupOf = (entry) => (entry.schemes.length > 1 ? 'dual' : entry.schemes[0]);
 
-export function badges(entry, byId) {
+export function badges(entry) {
   const box = document.createElement('span');
   box.className = 'badges';
   for (const scheme of entry.schemes) {
     const badge = document.createElement('span');
     badge.className = `badge badge--${scheme}`;
     badge.textContent = schemeName(scheme);
-    box.append(badge);
-  }
-  if (entry.pair && byId.get(entry.pair)) {
-    const badge = document.createElement('span');
-    badge.className = 'badge badge--pair';
-    badge.textContent = `пара: ${text(byId.get(entry.pair).label)}`;
     box.append(badge);
   }
   return box;

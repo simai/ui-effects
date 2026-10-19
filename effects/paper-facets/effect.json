@@ -2,7 +2,7 @@
   "schema": "simai.effect",
   "schema_version": 1,
   "id": "paper-facets",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "label": {
     "ru": "Бумажные грани",
     "en": "Paper facets"
@@ -18,7 +18,6 @@
   "schemes": [
     "light"
   ],
-  "pair": "liquid-chrome",
   "capabilities": [
     "windows"
   ],

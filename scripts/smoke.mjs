@@ -7,9 +7,11 @@
 // site, and opened in headless Chromium at 1440×900 and 390×844, light and dark.
 // It fails on:
 //   - a page error or console error, or a request to any host other than the
-//     local server and the two pinned jsDelivr bases;
-//   - a Framework component or Smart module loaded by the site (its class
-//     names must not trigger the Loader);
+//     local server, the two pinned jsDelivr bases and the Framework's icon
+//     service (icons.simai.io);
+//   - a Framework component or Smart module loaded by the site beyond the
+//     Button Group it uses for its switches (other class names must not
+//     trigger the Loader);
 //   - horizontal scroll;
 //   - an effect page whose outcome differs from the theme policy, whose
 //     effect does not mount, whose theme-mode control offers a mode the
@@ -105,18 +107,24 @@ async function routeAll(context) {
     }
     const host = new URL(url).hostname;
     if (host === '127.0.0.1' || host === 'blank.test') return route.fallback();
+    // The Framework's icon service: the Button Group's icons come from it.
+    if (host === 'icons.simai.io') return route.continue();
     external.push(url);
     return route.abort();
   });
 }
 
 // Problems a page reports: errors and Framework modules it should not load.
+// The site's switches are the Button Group (Smart, segmented) with what it
+// requires: buttons and icons.
+const SITE_MODULES = /^(component|smart)\/(button-group|button|buttons|icon|icons|cl-button-group|cl-buttons|cl-icons)\//u;
 function watch(page, where) {
   const problems = [];
   page.on('pageerror', (error) => problems.push(`page error: ${error.message}`));
   page.on('console', (message) => { if (message.type() === 'error') problems.push(`console error: ${message.text()}`); });
   page.on('request', (request) => {
-    if (/\/distr\/(component|smart|packages)\//u.test(request.url())) problems.push(`loads a Framework module the site does not use: ${request.url().split('/distr/')[1]}`);
+    const module = request.url().match(/\/distr\/((?:component|smart|packages)\/[^?#]*)/u)?.[1];
+    if (module && !SITE_MODULES.test(module)) problems.push(`loads a Framework module the site does not use: ${module}`);
   });
   page.on('response', (response) => { if (response.status() >= 400) problems.push(`HTTP ${response.status()} ${response.url()}`); });
   return () => { for (const problem of problems.splice(0)) fail(where, problem); };
@@ -198,14 +206,14 @@ try {
       await wait(1500);
       const gallery = await page.evaluate(() => ({cards: document.querySelectorAll('.card').length, intro: document.querySelector('[data-intro]').dataset.state, introTheme: document.querySelector('[data-intro]').className}));
       if (gallery.cards !== catalogue.effects.length) fail(`gallery ${tag}`, `${gallery.cards} cards`);
-      const introExpected = resolveTheme(reference(byId.get('nebula-mesh')), scheme, 'auto').outcome;
+      const introExpected = resolveTheme(reference(byId.get('constellation-net')), scheme, 'auto').outcome;
       if (gallery.intro !== introExpected) fail(`gallery ${tag}`, `intro outcome ${gallery.intro}, expected ${introExpected}`);
       if (!await noHorizontalScroll(page)) fail(`gallery ${tag}`, 'horizontal scroll');
       const galleryContrast = await chromeContrast(page);
       galleryContrast.failing.forEach((item) => fail(`gallery ${tag}`, `contrast ${item}`));
       if (shots) await page.screenshot({path: join(shots, `gallery-${tag}.png`)});
       for (const filter of ['dual', 'dark', 'light', 'all']) {
-        await page.click(`[data-filter="${filter}"]`);
+        await page.click(`[data-filters] [data-sf-button-group-value="${filter}"]`);
         const visible = await page.evaluate(() => [...document.querySelectorAll('.card')].filter((card) => !card.hidden).length);
         const expected = filter === 'all' ? catalogue.effects.length : catalogue.counts[filter];
         if (visible !== expected) fail(`gallery ${tag}`, `filter ${filter} shows ${visible}, expected ${expected}`);
@@ -230,7 +238,7 @@ try {
         }
         const reached = (test) => stops.some(test);
         if (stops[0].cls !== 'skip') fail(`keyboard ${viewport.width}`, `first stop is ${stops[0].cls}, not the skip link`);
-        if (!reached((stop) => /seg__btn/u.test(stop.cls) && /Двухтемные/u.test(stop.text))) fail(`keyboard ${viewport.width}`, 'filters not reached');
+        if (!reached((stop) => /sf-button-group-segment/u.test(stop.cls) && /Все/u.test(stop.text))) fail(`keyboard ${viewport.width}`, 'filters not reached');
         if (!reached((stop) => stop.cls === '' && stop.text && !/Галерея|Авторам|GitHub/u.test(stop.text))) fail(`keyboard ${viewport.width}`, 'cards not reached');
         const noRing = stops.filter((stop) => !stop.ring);
         if (noRing.length) fail(`keyboard ${viewport.width}`, `no focus ring on ${noRing.map((stop) => stop.text || stop.cls).join(', ')}`);
@@ -264,7 +272,7 @@ try {
               plainCards: windows ? [...area.querySelectorAll('.demo-card:not([data-effect-window])')].every((card) => !card.classList.contains('theme-dark') && !card.classList.contains('theme-light')) : true,
               p5: Number(readout.dataset.p5),
               readout: readout.textContent.trim(),
-              modes: [...document.querySelectorAll('[data-modes] [data-mode]')].map((button) => button.dataset.mode),
+              modes: [...document.querySelectorAll('[data-modes] [data-sf-button-group-value]')].map((button) => button.dataset.sfButtonGroupValue),
             };
           }, layout === 'windows');
           if (facts.mounted === 'error') fail(where, `${layout}: the effect did not start`);
@@ -282,21 +290,21 @@ try {
         if (!await noHorizontalScroll(page)) fail(where, 'horizontal scroll');
         const contrast = await chromeContrast(page);
         contrast.failing.forEach((item) => fail(where, `contrast ${item}`));
-        if (shots && (viewport.width === 1440 || ['comet-flow', 'foam-cells', 'guilloche'].includes(entry.id))) {
+        if (shots && (viewport.width === 1440 || ['comet-flow', 'mist-gradient', 'halftone-tide'].includes(entry.id))) {
           await page.evaluate(() => document.querySelector('.toolbar').scrollIntoView({block: 'start'}));
           await page.screenshot({path: join(shots, `effect-${entry.id}-${tag}.png`), type: 'png'});
         }
         let windows = null;
         if (viewport.width === 1440) {
-          await page.click('[data-layout="windows"]');
+          await page.click('[data-layouts] [data-sf-button-group-value="windows"]');
           windows = await checkLayout('windows');
-          if (shots && ['comet-flow', 'foam-cells', 'constellation-net'].includes(entry.id)) {
+          if (shots && ['comet-flow', 'mist-gradient', 'constellation-net'].includes(entry.id)) {
             await page.evaluate(() => document.querySelector('[data-cards]').scrollIntoView({block: 'center'}));
             await page.screenshot({path: join(shots, `effect-${entry.id}-${tag}-windows.png`)});
           }
           // Each fixed mode the effect offers draws that scheme.
           for (const mode of allowedModes(reference(entry)).filter((item) => item !== 'auto')) {
-            await page.click(`[data-modes] [data-mode="${mode}"]`);
+            await page.click(`[data-modes] [data-sf-button-group-value="${mode}"]`);
             await wait(300);
             await page.waitForFunction(() => ['yes', 'hidden', 'error'].includes(document.documentElement.dataset.mounted));
             const drawn = await page.evaluate(() => document.documentElement.dataset.drawn);
@@ -379,7 +387,7 @@ try {
     const codeOf = async (id, layout) => {
       await configurator.goto(`${base}effect/${id}/`);
       await configurator.waitForFunction(() => document.documentElement.dataset.ready === 'true');
-      if (layout === 'windows') await configurator.click('[data-layout="windows"]');
+      if (layout === 'windows') await configurator.click('[data-layouts] [data-sf-button-group-value="windows"]');
       return configurator.evaluate(() => Object.fromEntries([...document.querySelectorAll('[data-code]')].map((block) => [block.dataset.code, block.textContent])));
     };
     const open = async (body, head) => {

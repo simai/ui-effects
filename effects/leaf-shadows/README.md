@@ -3,10 +3,10 @@
 Blurred shadows of branches sway in the wind on a sunlit wall; morning, noon or evening.
 
 - **Russian name:** Тень листвы
-- **Version:** 1.1.0, simai.effect 1.1.0
+- **Version:** 1.2.0, simai.effect 1.1.0
 - **Surfaces:** sign-in, hero, product
 - **Tags:** nature
-- **Role:** Leaf shadows on a lit wall; its dark pair is rain on a night window.
+- **Role:** Leaf shadows on a sunlit wall.
 
 ## Settings
 
@@ -20,15 +20,15 @@ Blurred shadows of branches sway in the wind on a sunlit wall; morning, noon or 
 
 ## Schemes
 
-The manifest declares `"schemes": ["light"]` and `"pair": "rain-glass"`, and `"capabilities": ["windows"]`. The module reads the scheme it draws in from `context.scheme`; a switch arrives as `update(settings, context)`.
+The manifest declares `"schemes": ["light"]`, and `"capabilities": ["windows"]`. The module reads the scheme it draws in from `context.scheme`; a switch arrives as `update(settings, context)`.
 
 Draws in the **light** scheme only.
 
-Theme modes a placement may choose: `auto`, `dark`, `light`. A fixed `dark` shows the pair.
+Theme modes a placement may choose: `auto`, `light`.
 
-## Pair
+## On a dark page
 
-[`rain-glass`](../rain-glass/README.md) (Rain on glass) draws the dark scheme with the same role. In the `auto` theme mode it replaces this effect when the page is dark.
+In the `auto` theme mode the effect is not shown; the area is a plain dark surface (`theme-dark`).
 
 ## Files
 

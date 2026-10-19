@@ -74,19 +74,10 @@ h3 { font-size: 1.0625rem; line-height: 1.4; font-weight: 700; }
 .top__nav a:hover { color: var(--sf-primary); text-decoration: underline; }
 @media (max-width: 40rem) {
   .top__nav { margin-inline-start: 0; order: 3; inline-size: 100%; }
-  .top .seg { margin-inline-start: auto; }
+  .top__theme { margin-inline-start: auto; }
 }
 
-/* Segmented groups and tabs */
-.seg {
-  display: inline-flex;
-  flex-wrap: wrap;
-  gap: 0.25rem;
-  padding: 0.25rem;
-  border-radius: var(--radius-m);
-  background: var(--sf-surface-container);
-}
-.seg__btn,
+/* Switches are the Framework's segmented Button Group; these are the code tabs. */
 .tab {
   display: inline-flex;
   align-items: center;
@@ -102,11 +93,8 @@ h3 { font-size: 1.0625rem; line-height: 1.4; font-weight: 700; }
   font-weight: 600;
   cursor: pointer;
 }
-.seg__btn:hover, .tab:hover { background: var(--sf-surface-container-hover); color: var(--sf-on-surface); }
-.seg__btn[aria-pressed="true"], .tab[aria-selected="true"] { background: var(--sf-primary); color: var(--sf-on-primary); }
-.seg__btn svg { inline-size: 1.125rem; block-size: 1.125rem; }
-.seg--icon .seg__btn span { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-.seg--icon .seg__btn { padding: 0 0.625rem; }
+.tab:hover { background: var(--sf-surface-container-hover); color: var(--sf-on-surface); }
+.tab[aria-selected="true"] { background: var(--sf-primary); color: var(--sf-on-primary); }
 .count { font-variant-numeric: tabular-nums; }
 
 /* Badges */
@@ -124,7 +112,6 @@ h3 { font-size: 1.0625rem; line-height: 1.4; font-weight: 700; }
 /* Scheme badges keep their own look in both site themes: a dark chip and a light chip. */
 .badge--dark { background: var(--sf-neutral-10, #1a1b1f); color: var(--sf-neutral-95, #f1f0f4); border-color: var(--sf-neutral-10, #1a1b1f); }
 .badge--light { background: var(--sf-neutral-98, #faf9fe); color: var(--sf-neutral-10, #1a1b1f); border-color: var(--sf-neutral-80, #c6c6ca); }
-.badge--pair { background: var(--sf-primary-container); color: var(--sf-on-primary-container); border-color: transparent; }
 
 /* Gallery */
 .intro {
@@ -144,8 +131,11 @@ h3 { font-size: 1.0625rem; line-height: 1.4; font-weight: 700; }
   font-size: 0.875rem;
 }
 .gallery { display: grid; gap: 1.25rem; padding-block: 2rem 3rem; }
+.gallery > * { min-inline-size: 0; }
 .gallery__bar { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1rem; }
-.gallery__bar .seg { max-inline-size: 100%; }
+/* sf-button-group is display: contents; its track is the box that must not
+   outgrow the bar (it scrolls inside itself when narrow). */
+.gallery__bar .sf-button-group, .toolbar .sf-button-group { max-inline-size: 100%; min-inline-size: 0; }
 .cards { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr)); }
 .card {
   position: relative;
@@ -372,10 +362,7 @@ pre.code {
 @media (max-width: 40rem) {
   .stage { padding: 0.5rem; gap: 1rem; }
   .demo-hero { min-block-size: 24rem; }
-  .toolbar .seg { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); inline-size: 100%; box-sizing: border-box; }
   .toolbar .field-group { inline-size: 100%; }
-  .toolbar .seg__btn { padding: 0.25rem 0.375rem; line-height: 1.2; text-align: center; }
-  .gallery__bar .seg { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); inline-size: 100%; box-sizing: border-box; }
 }
 
 @media (prefers-reduced-motion: reduce) {

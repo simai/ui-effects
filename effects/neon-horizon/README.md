@@ -3,10 +3,10 @@
 A neon perspective grid runs to a glowing horizon under sparse stars.
 
 - **Russian name:** Неоновый горизонт
-- **Version:** 1.1.0, simai.effect 1.1.0
+- **Version:** 1.2.0, simai.effect 1.1.0
 - **Surfaces:** sign-in, hero, section, dashboard
 - **Tags:** geometry, depth
-- **Role:** Horizon and depth; its light pair is paper hills.
+- **Role:** A neon horizon and a grid running into the depth.
 
 ## Settings
 
@@ -19,15 +19,15 @@ A neon perspective grid runs to a glowing horizon under sparse stars.
 
 ## Schemes
 
-The manifest declares `"schemes": ["dark"]` and `"pair": "paper-hills"`, and `"capabilities": ["windows"]`. The module reads the scheme it draws in from `context.scheme`; a switch arrives as `update(settings, context)`.
+The manifest declares `"schemes": ["dark"]`, and `"capabilities": ["windows"]`. The module reads the scheme it draws in from `context.scheme`; a switch arrives as `update(settings, context)`.
 
 Draws in the **dark** scheme only.
 
-Theme modes a placement may choose: `auto`, `dark`, `light`. A fixed `light` shows the pair.
+Theme modes a placement may choose: `auto`, `dark`.
 
-## Pair
+## On a light page
 
-[`paper-hills`](../paper-hills/README.md) (Paper hills) draws the light scheme with the same role. In the `auto` theme mode it replaces this effect when the page is light.
+In the `auto` theme mode the effect stays dark, and its area keeps `theme-dark`.
 
 ## Files
 

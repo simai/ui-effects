@@ -10,9 +10,7 @@
       <a href="https://github.com/simai/ui-effects/blob/main/docs/AUTHORING.md">Авторам</a>
       <a href="https://github.com/simai/ui-effects">GitHub</a>
     </nav>
-    <div class="seg seg--icon" role="group" aria-label="Тема сайта">
-      <button type="button" class="seg__btn" data-site-theme="light" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3M4.6 4.6l2.1 2.1M17.3 17.3l2.1 2.1M4.6 19.4l2.1-2.1M17.3 6.7l2.1-2.1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>Светлая</span></button>
-      <button type="button" class="seg__btn" data-site-theme="dark" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z" fill="currentColor"/></svg><span>Тёмная</span></button>
-    </div>
+    <sf-button-group class="top__theme" appearance="segmented" size="1/2" aria-label="Тема сайта" data-site-theme-group
+      items='[{"value":"light","label":"Светлая","icon":"light_mode","icon-only":true},{"value":"dark","label":"Тёмная","icon":"dark_mode","icon-only":true}]'></sf-button-group>
   </div>
 </header>

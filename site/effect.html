@@ -20,27 +20,24 @@
     <div class="toolbar">
       <div class="field-group">
         <span class="field-group__label" id="page-theme-label">Тема страницы</span>
-        <div class="seg" role="group" aria-labelledby="page-theme-label">
-          <button type="button" class="seg__btn" data-site-theme="light" aria-pressed="false">Светлая</button>
-          <button type="button" class="seg__btn" data-site-theme="dark" aria-pressed="false">Тёмная</button>
-        </div>
+        <sf-button-group appearance="segmented" aria-label="Тема страницы" data-site-theme-group
+          items='[{"value":"light","label":"Светлая"},{"value":"dark","label":"Тёмная"}]'></sf-button-group>
       </div>
       <div class="field-group">
         <span class="field-group__label" id="mode-label">Тема эффекта</span>
-        <div class="seg" role="group" aria-labelledby="mode-label" data-modes></div>
+        <sf-button-group appearance="segmented" aria-label="Тема эффекта" value="auto" data-modes></sf-button-group>
       </div>
       <div class="field-group">
         <span class="field-group__label" id="layout-label">Макет</span>
-        <div class="seg" role="group" aria-labelledby="layout-label">
-          <button type="button" class="seg__btn" data-layout="hero" aria-pressed="true">Первый экран</button>
-          <button type="button" class="seg__btn" data-layout="windows" aria-pressed="false">Окна</button>
-        </div>
+        <sf-button-group appearance="segmented" aria-label="Макет" value="hero" data-layouts
+          items='[{"value":"hero","label":"Первый экран"},{"value":"windows","label":"Окна"}]'></sf-button-group>
       </div>
       <div class="field-group">
         <span class="field-group__label" id="motion-label">Движение</span>
-        <div class="seg" role="group" aria-labelledby="motion-label">
-          <button type="button" class="seg__btn" data-pause aria-pressed="false">Пауза</button>
-          <button type="button" class="seg__btn" data-reduced aria-pressed="false">Меньше движения</button>
+        <!-- Two independent toggles, not one choice: a plain Button Group in the segmented look. -->
+        <div class="sf-button-group sf-button-group--segmented sf-button-group--size-1 sf-button-group--primary" role="group" aria-labelledby="motion-label">
+          <button type="button" class="sf-button sf-button--size-1 sf-button--link sf-button--on-surface flex items-cross-center sf-button-group-segment" data-pause aria-pressed="false"><span class="sf-button-text-container text-center pointer-event-none">Пауза</span></button>
+          <button type="button" class="sf-button sf-button--size-1 sf-button--link sf-button--on-surface flex items-cross-center sf-button-group-segment" data-reduced aria-pressed="false"><span class="sf-button-text-container text-center pointer-event-none">Меньше движения</span></button>
         </div>
       </div>
     </div>

@@ -51,13 +51,14 @@ export function loadPolicy() {
     for (const name of files) if (!EFFECT_FILES.includes(name)) problems.push(`${id}: unexpected file ${name}`);
     for (const name of EFFECT_FILES) if (!files.includes(name)) problems.push(`${id}: missing ${name}`);
     // The catalogue declares schemes explicitly (the home scheme first), names
-    // a pair only by catalogue id, and every effect here is safe for windows.
+    // no pairs (owner decision: an effect that works in both themes is dual),
+    // and every effect here is safe for windows.
     const schemes = Array.isArray(manifest.schemes) ? manifest.schemes : [];
     if (!schemes.length || schemes.length > 2 || schemes.some((value) => !SCHEMES.includes(value)) || new Set(schemes).size !== schemes.length) {
       problems.push(`${id}: schemes must be one or two of dark, light`);
     }
     const pair = manifest.pair ?? null;
-    if (pair !== null && !ID.test(pair)) problems.push(`${id}: pair must be a catalogue id`);
+    if (pair !== null) problems.push(`${id}: names a pair; the catalogue uses none`);
     if (!(manifest.capabilities ?? []).includes('windows')) problems.push(`${id}: capabilities lack windows`);
     if ((manifest.settings ?? []).some((setting) => setting.key === 'scheme')) problems.push(`${id}: a scheme setting; the scheme comes from context.scheme`);
     if (existsSync(join(folder, entry)) && statSync(join(folder, entry)).size > MODULE_LIMIT) problems.push(`${id}: module above ${MODULE_LIMIT} bytes`);

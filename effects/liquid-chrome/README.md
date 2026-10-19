@@ -3,10 +3,10 @@
 Slow folds of dark liquid metal with narrow coloured highlights.
 
 - **Russian name:** Жидкий металл
-- **Version:** 1.1.0, simai.effect 1.1.0
+- **Version:** 1.2.0, simai.effect 1.1.0
 - **Surfaces:** sign-in, hero, section
 - **Tags:** material
-- **Role:** A material that light moves over; its light pair is paper facets.
+- **Role:** Dark metal with light moving over it.
 
 ## Settings
 
@@ -19,15 +19,15 @@ Slow folds of dark liquid metal with narrow coloured highlights.
 
 ## Schemes
 
-The manifest declares `"schemes": ["dark"]` and `"pair": "paper-facets"`, and `"capabilities": ["windows"]`. The module reads the scheme it draws in from `context.scheme`; a switch arrives as `update(settings, context)`.
+The manifest declares `"schemes": ["dark"]`, and `"capabilities": ["windows"]`. The module reads the scheme it draws in from `context.scheme`; a switch arrives as `update(settings, context)`.
 
 Draws in the **dark** scheme only.
 
-Theme modes a placement may choose: `auto`, `dark`, `light`. A fixed `light` shows the pair.
+Theme modes a placement may choose: `auto`, `dark`.
 
-## Pair
+## On a light page
 
-[`paper-facets`](../paper-facets/README.md) (Paper facets) draws the light scheme with the same role. In the `auto` theme mode it replaces this effect when the page is light.
+In the `auto` theme mode the effect stays dark, and its area keeps `theme-dark`.
 
 ## Files
 

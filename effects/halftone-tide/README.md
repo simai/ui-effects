@@ -27,10 +27,6 @@ Draws in both schemes: **light** (home, the default) and **dark**. Each scheme i
 
 Theme modes a placement may choose: `auto`, `dark`, `light`.
 
-## Pair
-
-None needed: the effect draws both schemes.
-
 ## Files
 
 - `effect.json`: the manifest (simai.effect 1.1.0).

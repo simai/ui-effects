@@ -3,10 +3,10 @@
 Layers of paper hills in aerial perspective: far ones paler and slower, mist in the valleys.
 
 - **Russian name:** Бумажные холмы
-- **Version:** 1.1.0, simai.effect 1.1.0
+- **Version:** 1.2.0, simai.effect 1.1.0
 - **Surfaces:** sign-in, hero, product
 - **Tags:** paper, depth
-- **Role:** Paper hills in haze; its dark pair is the neon horizon.
+- **Role:** Paper hills in the haze.
 
 ## Settings
 
@@ -20,15 +20,15 @@ Layers of paper hills in aerial perspective: far ones paler and slower, mist in 
 
 ## Schemes
 
-The manifest declares `"schemes": ["light"]` and `"pair": "neon-horizon"`, and `"capabilities": ["windows"]`. The module reads the scheme it draws in from `context.scheme`; a switch arrives as `update(settings, context)`.
+The manifest declares `"schemes": ["light"]`, and `"capabilities": ["windows"]`. The module reads the scheme it draws in from `context.scheme`; a switch arrives as `update(settings, context)`.
 
 Draws in the **light** scheme only.
 
-Theme modes a placement may choose: `auto`, `dark`, `light`. A fixed `dark` shows the pair.
+Theme modes a placement may choose: `auto`, `light`.
 
-## Pair
+## On a dark page
 
-[`neon-horizon`](../neon-horizon/README.md) (Neon horizon) draws the dark scheme with the same role. In the `auto` theme mode it replaces this effect when the page is dark.
+In the `auto` theme mode the effect is not shown; the area is a plain dark surface (`theme-dark`).
 
 ## Files
 

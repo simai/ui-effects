@@ -17,10 +17,6 @@ effect; see [docs/AUTHORING.md](../../docs/AUTHORING.md).
 
 Draws in both schemes: **dark** (home) and **light**, each from its own palette tones. The manifest declares `"schemes": ["dark", "light"]` and `"capabilities": ["windows"]`; the module reads the scheme from `context.scheme`, and a switch arrives as `update(settings, context)`.
 
-## Pair
-
-None needed: the effect draws both schemes.
-
 ## Files
 
 - `effect.json`: the manifest.

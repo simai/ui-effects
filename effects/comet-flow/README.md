@@ -3,10 +3,10 @@
 Glowing particles follow an invisible flow field and leave soft tails.
 
 - **Russian name:** Кометные потоки
-- **Version:** 1.1.0, simai.effect 1.1.0
+- **Version:** 1.2.0, simai.effect 1.1.0
 - **Surfaces:** sign-in, hero, section, dashboard
 - **Tags:** particles, flow
-- **Role:** A stream of glowing particles; on a light page, ink threads play its role.
+- **Role:** A stream of glowing particles on the dark.
 
 ## Settings
 
@@ -20,15 +20,15 @@ Glowing particles follow an invisible flow field and leave soft tails.
 
 ## Schemes
 
-The manifest declares `"schemes": ["dark"]` and `"pair": "ink-threads"`, and `"capabilities": ["windows"]`. The module reads the scheme it draws in from `context.scheme`; a switch arrives as `update(settings, context)`.
+The manifest declares `"schemes": ["dark"]`, and `"capabilities": ["windows"]`. The module reads the scheme it draws in from `context.scheme`; a switch arrives as `update(settings, context)`.
 
 Draws in the **dark** scheme only.
 
-Theme modes a placement may choose: `auto`, `dark`, `light`. A fixed `light` shows the pair.
+Theme modes a placement may choose: `auto`, `dark`.
 
-## Pair
+## On a light page
 
-[`ink-threads`](../ink-threads/README.md) (Ink threads) draws the light scheme with the same role. In the `auto` theme mode it replaces this effect when the page is light.
+In the `auto` theme mode the effect stays dark, and its area keeps `theme-dark`.
 
 ## Files
 

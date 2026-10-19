@@ -3,10 +3,10 @@
 A mesh gradient of five soft theme-colour patches drifting on Lissajous paths, with fine grain against banding.
 
 - **Russian name:** Утренняя дымка
-- **Version:** 1.1.0, simai.effect 1.1.0
+- **Version:** 1.2.0, simai.effect 1.1.0
 - **Surfaces:** sign-in, hero, docs, dashboard, product
 - **Tags:** gradient
-- **Role:** A soft mesh gradient; its dark pair is the nebula mesh.
+- **Role:** A soft light mesh gradient.
 
 ## Settings
 
@@ -20,15 +20,15 @@ A mesh gradient of five soft theme-colour patches drifting on Lissajous paths, w
 
 ## Schemes
 
-The manifest declares `"schemes": ["light"]` and `"pair": "nebula-mesh"`, and `"capabilities": ["windows"]`. The module reads the scheme it draws in from `context.scheme`; a switch arrives as `update(settings, context)`.
+The manifest declares `"schemes": ["light"]`, and `"capabilities": ["windows"]`. The module reads the scheme it draws in from `context.scheme`; a switch arrives as `update(settings, context)`.
 
 Draws in the **light** scheme only.
 
-Theme modes a placement may choose: `auto`, `dark`, `light`. A fixed `dark` shows the pair.
+Theme modes a placement may choose: `auto`, `light`.
 
-## Pair
+## On a dark page
 
-[`nebula-mesh`](../nebula-mesh/README.md) (Nebula mesh) draws the dark scheme with the same role. In the `auto` theme mode it replaces this effect when the page is dark.
+In the `auto` theme mode the effect is not shown; the area is a plain dark surface (`theme-dark`).
 
 ## Files
 
