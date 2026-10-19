@@ -283,6 +283,19 @@ const veilOf = (element, area) => {
   }
   return null;
 };
+// The painted ground under an element: its own and its ancestors' backgrounds,
+// composited from the first opaque one up (surface-container is translucent).
+const groundOf = (element) => {
+  const layers = [];
+  for (let node = element; node; node = node.parentElement) {
+    const colour = rgba(getComputedStyle(node).backgroundColor);
+    if (colour[3] > 0) layers.push(colour);
+    if (colour[3] >= 0.999) break;
+  }
+  let ground = [255, 255, 255];
+  for (const [r, g, b, a] of layers.reverse()) ground = [r * a + ground[0] * (1 - a), g * a + ground[1] * (1 - a), b * a + ground[2] * (1 - a)];
+  return ground;
+};
 let timer = 0;
 const scheduleMeasure = (delay = 0) => { clearTimeout(timer); timer = setTimeout(measure, delay); };
 const setReadout = (status, message, p5 = null) => {
@@ -299,8 +312,7 @@ function measure() {
   const host = area.querySelector(':scope > [data-effect-host]');
   const texts = [...area.querySelectorAll(windows ? '[data-effect-window] [data-text]' : '[data-text]')];
   if (!current.shown || !host) {
-    const ground = rgba(getComputedStyle(windows ? texts[0].closest('[data-effect-window]') : area).backgroundColor);
-    const worst = Math.min(...texts.map((element) => ratio(luminance(rgba(getComputedStyle(element).color)), luminance(ground))));
+    const worst = Math.min(...texts.map((element) => ratio(luminance(rgba(getComputedStyle(element).color)), luminance(groundOf(element)))));
     setReadout(worst >= 4.5 ? 'ok' : 'warn', `Эффект не показан: текст на ровной поверхности темы, контраст ${formatRatio(worst)}.`, worst);
     return;
   }
