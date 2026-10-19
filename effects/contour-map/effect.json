@@ -1,0 +1,137 @@
+{
+  "schema": "simai.effect",
+  "schema_version": 1,
+  "id": "contour-map",
+  "version": "1.0.0",
+  "label": {
+    "ru": "Горизонтали",
+    "en": "Contour map"
+  },
+  "author": "SIMAI",
+  "entry": "index.js",
+  "preview": "preview.png",
+  "surfaces": [
+    "dashboard",
+    "docs",
+    "hero"
+  ],
+  "settings": [
+    {
+      "key": "speed",
+      "type": "integer",
+      "label": {
+        "ru": "Скорость, %",
+        "en": "Speed, %"
+      },
+      "default": 100,
+      "min": 10,
+      "max": 200,
+      "step": 10,
+      "unit": "%"
+    },
+    {
+      "key": "density",
+      "type": "integer",
+      "label": {
+        "ru": "Число уровней",
+        "en": "Levels"
+      },
+      "default": 14,
+      "min": 6,
+      "max": 30
+    },
+    {
+      "key": "lineWeight",
+      "type": "number",
+      "label": {
+        "ru": "Толщина линии, px",
+        "en": "Line weight, px"
+      },
+      "default": 1,
+      "min": 0.5,
+      "max": 2,
+      "step": 0.25,
+      "unit": "px"
+    },
+    {
+      "key": "tone",
+      "type": "choice",
+      "label": {
+        "ru": "Цвет",
+        "en": "Colour"
+      },
+      "default": "ink",
+      "options": [
+        {
+          "value": "primary",
+          "label": {
+            "ru": "Основной цвет темы",
+            "en": "Theme primary"
+          }
+        },
+        {
+          "value": "secondary",
+          "label": {
+            "ru": "Вторичный цвет темы",
+            "en": "Theme secondary"
+          }
+        },
+        {
+          "value": "tertiary",
+          "label": {
+            "ru": "Третичный цвет темы",
+            "en": "Theme tertiary"
+          }
+        },
+        {
+          "value": "ink",
+          "label": {
+            "ru": "Цвет текста",
+            "en": "Text colour"
+          }
+        }
+      ]
+    },
+    {
+      "key": "interactive",
+      "type": "boolean",
+      "label": {
+        "ru": "Реагировать на указатель",
+        "en": "React to the pointer"
+      },
+      "default": true
+    },
+    {
+      "key": "scheme",
+      "type": "choice",
+      "label": {
+        "ru": "Тема области",
+        "en": "Area theme"
+      },
+      "default": "light",
+      "options": [
+        {
+          "value": "light",
+          "label": {
+            "ru": "Светлая",
+            "en": "Light"
+          }
+        },
+        {
+          "value": "dark",
+          "label": {
+            "ru": "Тёмная",
+            "en": "Dark"
+          }
+        }
+      ],
+      "hint": {
+        "ru": "Схема рисунка; обе нарисованы отдельно из тонов палитры. Хост выбирает её по режиму темы и даёт области theme-dark или theme-light.",
+        "en": "The scheme the effect draws in; both are designed from palette tones. The host picks it from the theme mode and gives the area theme-dark or theme-light."
+      }
+    }
+  ],
+  "needs": {
+    "network": false
+  }
+}

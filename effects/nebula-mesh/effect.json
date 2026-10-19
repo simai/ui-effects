@@ -1,0 +1,109 @@
+{
+  "schema": "simai.effect",
+  "schema_version": 1,
+  "id": "nebula-mesh",
+  "version": "1.0.0",
+  "label": {
+    "ru": "Глубинный градиент",
+    "en": "Nebula mesh"
+  },
+  "author": "SIMAI",
+  "entry": "index.js",
+  "preview": "preview.png",
+  "surfaces": [
+    "sign-in",
+    "hero",
+    "section",
+    "dashboard"
+  ],
+  "settings": [
+    {
+      "key": "speed",
+      "type": "integer",
+      "label": {
+        "ru": "Скорость",
+        "en": "Speed"
+      },
+      "default": 100,
+      "min": 10,
+      "max": 300,
+      "step": 10,
+      "unit": "%"
+    },
+    {
+      "key": "intensity",
+      "type": "integer",
+      "label": {
+        "ru": "Яркость",
+        "en": "Intensity"
+      },
+      "default": 60,
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "%"
+    },
+    {
+      "key": "blobs",
+      "type": "integer",
+      "label": {
+        "ru": "Число пятен",
+        "en": "Blobs"
+      },
+      "default": 5,
+      "min": 3,
+      "max": 7
+    },
+    {
+      "key": "grain",
+      "type": "integer",
+      "label": {
+        "ru": "Зерно",
+        "en": "Grain"
+      },
+      "default": 35,
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%"
+    },
+    {
+      "key": "interactive",
+      "type": "boolean",
+      "label": {
+        "ru": "Реагировать на указатель",
+        "en": "React to the pointer"
+      },
+      "default": true,
+      "hint": {
+        "ru": "Мягкое пятно следует за указателем",
+        "en": "A soft glow follows the pointer"
+      }
+    },
+    {
+      "key": "scheme",
+      "type": "choice",
+      "label": {
+        "ru": "Тема области",
+        "en": "Area theme"
+      },
+      "default": "dark",
+      "options": [
+        {
+          "value": "dark",
+          "label": {
+            "ru": "Тёмная",
+            "en": "Dark"
+          }
+        }
+      ],
+      "hint": {
+        "ru": "Эффект рисует тёмный фон в любой теме страницы; область эффекта получает класс theme-dark, и текст над ним берёт роли этой темы.",
+        "en": "The effect draws a dark ground in any page theme; its area takes theme-dark, so text over it uses that theme's roles."
+      }
+    }
+  ],
+  "needs": {
+    "network": false
+  }
+}

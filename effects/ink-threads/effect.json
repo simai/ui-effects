@@ -1,0 +1,150 @@
+{
+  "schema": "simai.effect",
+  "schema_version": 1,
+  "id": "ink-threads",
+  "version": "1.0.0",
+  "label": {
+    "ru": "Чернильные нити",
+    "en": "Ink threads"
+  },
+  "author": "SIMAI",
+  "entry": "index.js",
+  "preview": "preview.png",
+  "surfaces": [
+    "docs",
+    "sign-in",
+    "hero"
+  ],
+  "settings": [
+    {
+      "key": "speed",
+      "type": "integer",
+      "label": {
+        "ru": "Скорость, %",
+        "en": "Speed, %"
+      },
+      "default": 100,
+      "min": 10,
+      "max": 200,
+      "step": 10,
+      "unit": "%"
+    },
+    {
+      "key": "density",
+      "type": "integer",
+      "label": {
+        "ru": "Число нитей",
+        "en": "Threads"
+      },
+      "default": 450,
+      "min": 100,
+      "max": 1200,
+      "step": 50
+    },
+    {
+      "key": "intensity",
+      "type": "integer",
+      "label": {
+        "ru": "Насыщенность туши",
+        "en": "Ink strength"
+      },
+      "default": 50,
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%"
+    },
+    {
+      "key": "trail",
+      "type": "integer",
+      "label": {
+        "ru": "Длина хвоста",
+        "en": "Tail length"
+      },
+      "default": 22,
+      "min": 8,
+      "max": 40,
+      "step": 2
+    },
+    {
+      "key": "tone",
+      "type": "choice",
+      "label": {
+        "ru": "Цвет",
+        "en": "Colour"
+      },
+      "default": "primary",
+      "options": [
+        {
+          "value": "primary",
+          "label": {
+            "ru": "Основной цвет темы",
+            "en": "Theme primary"
+          }
+        },
+        {
+          "value": "secondary",
+          "label": {
+            "ru": "Вторичный цвет темы",
+            "en": "Theme secondary"
+          }
+        },
+        {
+          "value": "tertiary",
+          "label": {
+            "ru": "Третичный цвет темы",
+            "en": "Theme tertiary"
+          }
+        },
+        {
+          "value": "ink",
+          "label": {
+            "ru": "Цвет текста",
+            "en": "Text colour"
+          }
+        }
+      ]
+    },
+    {
+      "key": "interactive",
+      "type": "boolean",
+      "label": {
+        "ru": "Реагировать на указатель",
+        "en": "React to the pointer"
+      },
+      "default": true
+    },
+    {
+      "key": "scheme",
+      "type": "choice",
+      "label": {
+        "ru": "Тема области",
+        "en": "Area theme"
+      },
+      "default": "light",
+      "options": [
+        {
+          "value": "light",
+          "label": {
+            "ru": "Светлая",
+            "en": "Light"
+          }
+        },
+        {
+          "value": "dark",
+          "label": {
+            "ru": "Тёмная",
+            "en": "Dark"
+          }
+        }
+      ],
+      "hint": {
+        "ru": "Схема рисунка; обе нарисованы отдельно из тонов палитры. Хост выбирает её по режиму темы и даёт области theme-dark или theme-light.",
+        "en": "The scheme the effect draws in; both are designed from palette tones. The host picks it from the theme mode and gives the area theme-dark or theme-light."
+      }
+    }
+  ],
+  "needs": {
+    "network": false
+  }
+}

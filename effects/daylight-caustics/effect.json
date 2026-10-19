@@ -1,0 +1,151 @@
+{
+  "schema": "simai.effect",
+  "schema_version": 1,
+  "id": "daylight-caustics",
+  "version": "1.0.0",
+  "label": {
+    "ru": "Солнечные блики",
+    "en": "Daylight caustics"
+  },
+  "author": "SIMAI",
+  "entry": "index.js",
+  "preview": "preview.png",
+  "surfaces": [
+    "sign-in",
+    "hero",
+    "product"
+  ],
+  "settings": [
+    {
+      "key": "speed",
+      "type": "integer",
+      "label": {
+        "ru": "Скорость, %",
+        "en": "Speed, %"
+      },
+      "default": 100,
+      "min": 10,
+      "max": 200,
+      "step": 10,
+      "unit": "%"
+    },
+    {
+      "key": "intensity",
+      "type": "integer",
+      "label": {
+        "ru": "Яркость бликов",
+        "en": "Light strength"
+      },
+      "default": 50,
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%"
+    },
+    {
+      "key": "scale",
+      "type": "choice",
+      "label": {
+        "ru": "Размер бликов",
+        "en": "Pattern scale"
+      },
+      "default": "medium",
+      "options": [
+        {
+          "value": "fine",
+          "label": {
+            "ru": "Мелкие",
+            "en": "Fine"
+          }
+        },
+        {
+          "value": "medium",
+          "label": {
+            "ru": "Средние",
+            "en": "Medium"
+          }
+        },
+        {
+          "value": "broad",
+          "label": {
+            "ru": "Крупные",
+            "en": "Broad"
+          }
+        }
+      ]
+    },
+    {
+      "key": "tone",
+      "type": "choice",
+      "label": {
+        "ru": "Цвет",
+        "en": "Colour"
+      },
+      "default": "primary",
+      "options": [
+        {
+          "value": "primary",
+          "label": {
+            "ru": "Основной цвет темы",
+            "en": "Theme primary"
+          }
+        },
+        {
+          "value": "secondary",
+          "label": {
+            "ru": "Вторичный цвет темы",
+            "en": "Theme secondary"
+          }
+        },
+        {
+          "value": "tertiary",
+          "label": {
+            "ru": "Третичный цвет темы",
+            "en": "Theme tertiary"
+          }
+        },
+        {
+          "value": "ink",
+          "label": {
+            "ru": "Цвет текста",
+            "en": "Text colour"
+          }
+        }
+      ]
+    },
+    {
+      "key": "interactive",
+      "type": "boolean",
+      "label": {
+        "ru": "Реагировать на указатель",
+        "en": "React to the pointer"
+      },
+      "default": true
+    },
+    {
+      "key": "scheme",
+      "type": "choice",
+      "label": {
+        "ru": "Тема области",
+        "en": "Area theme"
+      },
+      "default": "light",
+      "options": [
+        {
+          "value": "light",
+          "label": {
+            "ru": "Светлая",
+            "en": "Light"
+          }
+        }
+      ],
+      "hint": {
+        "ru": "Эффект рисует светлый фон в любой теме страницы; область эффекта получает класс theme-light, и текст над ним берёт роли этой темы.",
+        "en": "The effect draws a light ground in any page theme; its area takes theme-light, so text over it uses that theme's roles."
+      }
+    }
+  ],
+  "needs": {
+    "network": false
+  }
+}

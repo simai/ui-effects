@@ -1,0 +1,98 @@
+{
+  "schema": "simai.effect",
+  "schema_version": 1,
+  "id": "neon-horizon",
+  "version": "1.0.0",
+  "label": {
+    "ru": "Неоновый горизонт",
+    "en": "Neon horizon"
+  },
+  "author": "SIMAI",
+  "entry": "index.js",
+  "preview": "preview.png",
+  "surfaces": [
+    "sign-in",
+    "hero",
+    "section",
+    "dashboard"
+  ],
+  "settings": [
+    {
+      "key": "speed",
+      "type": "integer",
+      "label": {
+        "ru": "Скорость",
+        "en": "Speed"
+      },
+      "default": 100,
+      "min": 10,
+      "max": 300,
+      "step": 10,
+      "unit": "%"
+    },
+    {
+      "key": "intensity",
+      "type": "integer",
+      "label": {
+        "ru": "Яркость",
+        "en": "Intensity"
+      },
+      "default": 60,
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "%"
+    },
+    {
+      "key": "horizon",
+      "type": "integer",
+      "label": {
+        "ru": "Высота горизонта",
+        "en": "Horizon height"
+      },
+      "default": 42,
+      "min": 20,
+      "max": 70,
+      "step": 2,
+      "unit": "%"
+    },
+    {
+      "key": "interactive",
+      "type": "boolean",
+      "label": {
+        "ru": "Реагировать на указатель",
+        "en": "React to the pointer"
+      },
+      "default": true,
+      "hint": {
+        "ru": "Точка схода следует за указателем",
+        "en": "The vanishing point follows the pointer"
+      }
+    },
+    {
+      "key": "scheme",
+      "type": "choice",
+      "label": {
+        "ru": "Тема области",
+        "en": "Area theme"
+      },
+      "default": "dark",
+      "options": [
+        {
+          "value": "dark",
+          "label": {
+            "ru": "Тёмная",
+            "en": "Dark"
+          }
+        }
+      ],
+      "hint": {
+        "ru": "Эффект рисует тёмный фон в любой теме страницы; область эффекта получает класс theme-dark, и текст над ним берёт роли этой темы.",
+        "en": "The effect draws a dark ground in any page theme; its area takes theme-dark, so text over it uses that theme's roles."
+      }
+    }
+  ],
+  "needs": {
+    "network": false
+  }
+}

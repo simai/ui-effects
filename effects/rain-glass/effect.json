@@ -1,0 +1,106 @@
+{
+  "schema": "simai.effect",
+  "schema_version": 1,
+  "id": "rain-glass",
+  "version": "1.0.0",
+  "label": {
+    "ru": "Дождь на стекле",
+    "en": "Rain on glass"
+  },
+  "author": "SIMAI",
+  "entry": "index.js",
+  "preview": "preview.png",
+  "surfaces": [
+    "sign-in",
+    "hero",
+    "section",
+    "dashboard"
+  ],
+  "settings": [
+    {
+      "key": "speed",
+      "type": "integer",
+      "label": {
+        "ru": "Скорость",
+        "en": "Speed"
+      },
+      "default": 100,
+      "min": 10,
+      "max": 300,
+      "step": 10,
+      "unit": "%"
+    },
+    {
+      "key": "density",
+      "type": "integer",
+      "label": {
+        "ru": "Плотность капель",
+        "en": "Droplet density"
+      },
+      "default": 55,
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "hint": {
+        "ru": "Сколько капель на стекле",
+        "en": "How many droplets cover the glass"
+      }
+    },
+    {
+      "key": "lights",
+      "type": "integer",
+      "label": {
+        "ru": "Огни города",
+        "en": "City lights"
+      },
+      "default": 60,
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "hint": {
+        "ru": "Сколько размытых огней за стеклом",
+        "en": "How many blurred lights shine behind the glass"
+      }
+    },
+    {
+      "key": "interactive",
+      "type": "boolean",
+      "label": {
+        "ru": "Реагировать на указатель",
+        "en": "React to the pointer"
+      },
+      "default": true,
+      "hint": {
+        "ru": "Движение указателя срывает капли вниз",
+        "en": "A moving pointer shakes drops loose"
+      }
+    },
+    {
+      "key": "scheme",
+      "type": "choice",
+      "label": {
+        "ru": "Тема области",
+        "en": "Area theme"
+      },
+      "default": "dark",
+      "options": [
+        {
+          "value": "dark",
+          "label": {
+            "ru": "Тёмная",
+            "en": "Dark"
+          }
+        }
+      ],
+      "hint": {
+        "ru": "Эффект рисует тёмный фон в любой теме страницы; область эффекта получает класс theme-dark, и текст над ним берёт роли этой темы.",
+        "en": "The effect draws a dark ground in any page theme; its area takes theme-dark, so text over it uses that theme's roles."
+      }
+    }
+  ],
+  "needs": {
+    "network": false
+  }
+}

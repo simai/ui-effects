@@ -1,0 +1,170 @@
+{
+  "schema": "simai.effect",
+  "schema_version": 1,
+  "id": "halftone-tide",
+  "version": "1.0.0",
+  "label": {
+    "ru": "Растровая волна",
+    "en": "Halftone tide"
+  },
+  "author": "SIMAI",
+  "entry": "index.js",
+  "preview": "preview.png",
+  "surfaces": [
+    "hero",
+    "product",
+    "docs"
+  ],
+  "settings": [
+    {
+      "key": "speed",
+      "type": "integer",
+      "label": {
+        "ru": "Скорость, %",
+        "en": "Speed, %"
+      },
+      "default": 100,
+      "min": 10,
+      "max": 200,
+      "step": 10,
+      "unit": "%"
+    },
+    {
+      "key": "density",
+      "type": "integer",
+      "label": {
+        "ru": "Шаг растра, px",
+        "en": "Screen pitch, px"
+      },
+      "default": 16,
+      "min": 10,
+      "max": 28,
+      "unit": "px"
+    },
+    {
+      "key": "intensity",
+      "type": "integer",
+      "label": {
+        "ru": "Насыщенность",
+        "en": "Strength"
+      },
+      "default": 50,
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%"
+    },
+    {
+      "key": "shape",
+      "type": "choice",
+      "label": {
+        "ru": "Элемент растра",
+        "en": "Screen element"
+      },
+      "default": "dot",
+      "options": [
+        {
+          "value": "dot",
+          "label": {
+            "ru": "Точка",
+            "en": "Dot"
+          }
+        },
+        {
+          "value": "line",
+          "label": {
+            "ru": "Штрих",
+            "en": "Line"
+          }
+        },
+        {
+          "value": "cross",
+          "label": {
+            "ru": "Крест",
+            "en": "Cross"
+          }
+        }
+      ]
+    },
+    {
+      "key": "tone",
+      "type": "choice",
+      "label": {
+        "ru": "Цвет",
+        "en": "Colour"
+      },
+      "default": "primary",
+      "options": [
+        {
+          "value": "primary",
+          "label": {
+            "ru": "Основной цвет темы",
+            "en": "Theme primary"
+          }
+        },
+        {
+          "value": "secondary",
+          "label": {
+            "ru": "Вторичный цвет темы",
+            "en": "Theme secondary"
+          }
+        },
+        {
+          "value": "tertiary",
+          "label": {
+            "ru": "Третичный цвет темы",
+            "en": "Theme tertiary"
+          }
+        },
+        {
+          "value": "ink",
+          "label": {
+            "ru": "Цвет текста",
+            "en": "Text colour"
+          }
+        }
+      ]
+    },
+    {
+      "key": "interactive",
+      "type": "boolean",
+      "label": {
+        "ru": "Реагировать на указатель",
+        "en": "React to the pointer"
+      },
+      "default": true
+    },
+    {
+      "key": "scheme",
+      "type": "choice",
+      "label": {
+        "ru": "Тема области",
+        "en": "Area theme"
+      },
+      "default": "light",
+      "options": [
+        {
+          "value": "light",
+          "label": {
+            "ru": "Светлая",
+            "en": "Light"
+          }
+        },
+        {
+          "value": "dark",
+          "label": {
+            "ru": "Тёмная",
+            "en": "Dark"
+          }
+        }
+      ],
+      "hint": {
+        "ru": "Схема рисунка; обе нарисованы отдельно из тонов палитры. Хост выбирает её по режиму темы и даёт области theme-dark или theme-light.",
+        "en": "The scheme the effect draws in; both are designed from palette tones. The host picks it from the theme mode and gives the area theme-dark or theme-light."
+      }
+    }
+  ],
+  "needs": {
+    "network": false
+  }
+}

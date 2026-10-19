@@ -1,0 +1,107 @@
+{
+  "schema": "simai.effect",
+  "schema_version": 1,
+  "id": "abyss-caustics",
+  "version": "1.0.0",
+  "label": {
+    "ru": "Глубоководные блики",
+    "en": "Abyss caustics"
+  },
+  "author": "SIMAI",
+  "entry": "index.js",
+  "preview": "preview.png",
+  "surfaces": [
+    "sign-in",
+    "hero",
+    "section",
+    "dashboard"
+  ],
+  "settings": [
+    {
+      "key": "speed",
+      "type": "integer",
+      "label": {
+        "ru": "Скорость",
+        "en": "Speed"
+      },
+      "default": 100,
+      "min": 10,
+      "max": 300,
+      "step": 10,
+      "unit": "%"
+    },
+    {
+      "key": "intensity",
+      "type": "integer",
+      "label": {
+        "ru": "Яркость",
+        "en": "Intensity"
+      },
+      "default": 55,
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "%"
+    },
+    {
+      "key": "scale",
+      "type": "integer",
+      "label": {
+        "ru": "Размер бликов",
+        "en": "Caustic size"
+      },
+      "default": 50,
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "%"
+    },
+    {
+      "key": "rays",
+      "type": "boolean",
+      "label": {
+        "ru": "Лучи света",
+        "en": "Light rays"
+      },
+      "default": true
+    },
+    {
+      "key": "interactive",
+      "type": "boolean",
+      "label": {
+        "ru": "Реагировать на указатель",
+        "en": "React to the pointer"
+      },
+      "default": true,
+      "hint": {
+        "ru": "Свет смещается за указателем",
+        "en": "The light shifts with the pointer"
+      }
+    },
+    {
+      "key": "scheme",
+      "type": "choice",
+      "label": {
+        "ru": "Тема области",
+        "en": "Area theme"
+      },
+      "default": "dark",
+      "options": [
+        {
+          "value": "dark",
+          "label": {
+            "ru": "Тёмная",
+            "en": "Dark"
+          }
+        }
+      ],
+      "hint": {
+        "ru": "Эффект рисует тёмный фон в любой теме страницы; область эффекта получает класс theme-dark, и текст над ним берёт роли этой темы.",
+        "en": "The effect draws a dark ground in any page theme; its area takes theme-dark, so text over it uses that theme's roles."
+      }
+    }
+  ],
+  "needs": {
+    "network": false
+  }
+}

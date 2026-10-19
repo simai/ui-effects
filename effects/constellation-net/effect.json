@@ -1,0 +1,105 @@
+{
+  "schema": "simai.effect",
+  "schema_version": 1,
+  "id": "constellation-net",
+  "version": "1.0.0",
+  "label": {
+    "ru": "Созвездия",
+    "en": "Constellations"
+  },
+  "author": "SIMAI",
+  "entry": "index.js",
+  "preview": "preview.png",
+  "surfaces": [
+    "sign-in",
+    "hero",
+    "section",
+    "dashboard"
+  ],
+  "settings": [
+    {
+      "key": "speed",
+      "type": "integer",
+      "label": {
+        "ru": "Скорость",
+        "en": "Speed"
+      },
+      "default": 100,
+      "min": 10,
+      "max": 300,
+      "step": 10,
+      "unit": "%"
+    },
+    {
+      "key": "density",
+      "type": "integer",
+      "label": {
+        "ru": "Плотность",
+        "en": "Density"
+      },
+      "default": 55,
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "%"
+    },
+    {
+      "key": "linkDistance",
+      "type": "integer",
+      "label": {
+        "ru": "Длина связи",
+        "en": "Link distance"
+      },
+      "default": 120,
+      "min": 60,
+      "max": 220,
+      "step": 10,
+      "unit": "px"
+    },
+    {
+      "key": "interactive",
+      "type": "boolean",
+      "label": {
+        "ru": "Реагировать на указатель",
+        "en": "React to the pointer"
+      },
+      "default": true,
+      "hint": {
+        "ru": "Параллакс и связи с указателем",
+        "en": "Parallax and links to the pointer"
+      }
+    },
+    {
+      "key": "scheme",
+      "type": "choice",
+      "label": {
+        "ru": "Тема области",
+        "en": "Area theme"
+      },
+      "default": "dark",
+      "options": [
+        {
+          "value": "dark",
+          "label": {
+            "ru": "Тёмная",
+            "en": "Dark"
+          }
+        },
+        {
+          "value": "light",
+          "label": {
+            "ru": "Светлая",
+            "en": "Light"
+          }
+        }
+      ],
+      "hint": {
+        "ru": "Схема рисунка; обе нарисованы отдельно из тонов палитры. Хост выбирает её по режиму темы и даёт области theme-dark или theme-light.",
+        "en": "The scheme the effect draws in; both are designed from palette tones. The host picks it from the theme mode and gives the area theme-dark or theme-light."
+      }
+    }
+  ],
+  "needs": {
+    "network": false
+  }
+}

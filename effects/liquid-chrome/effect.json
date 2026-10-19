@@ -1,0 +1,100 @@
+{
+  "schema": "simai.effect",
+  "schema_version": 1,
+  "id": "liquid-chrome",
+  "version": "1.0.0",
+  "label": {
+    "ru": "Жидкий металл",
+    "en": "Liquid metal"
+  },
+  "author": "SIMAI",
+  "entry": "index.js",
+  "preview": "preview.png",
+  "surfaces": [
+    "sign-in",
+    "hero",
+    "section"
+  ],
+  "settings": [
+    {
+      "key": "speed",
+      "type": "integer",
+      "label": {
+        "ru": "Скорость",
+        "en": "Speed"
+      },
+      "default": 100,
+      "min": 10,
+      "max": 300,
+      "step": 10,
+      "unit": "%"
+    },
+    {
+      "key": "intensity",
+      "type": "integer",
+      "label": {
+        "ru": "Яркость отражений",
+        "en": "Reflection brightness"
+      },
+      "default": 60,
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "%"
+    },
+    {
+      "key": "scale",
+      "type": "integer",
+      "label": {
+        "ru": "Размер волн",
+        "en": "Wave size"
+      },
+      "default": 3,
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "hint": {
+        "ru": "1 — крупные складки, 5 — мелкая рябь",
+        "en": "1 is broad folds, 5 is fine ripples"
+      }
+    },
+    {
+      "key": "interactive",
+      "type": "boolean",
+      "label": {
+        "ru": "Реагировать на указатель",
+        "en": "React to the pointer"
+      },
+      "default": true,
+      "hint": {
+        "ru": "Указатель продавливает мягкую вмятину",
+        "en": "The pointer presses a soft dent"
+      }
+    },
+    {
+      "key": "scheme",
+      "type": "choice",
+      "label": {
+        "ru": "Тема области",
+        "en": "Area theme"
+      },
+      "default": "dark",
+      "options": [
+        {
+          "value": "dark",
+          "label": {
+            "ru": "Тёмная",
+            "en": "Dark"
+          }
+        }
+      ],
+      "hint": {
+        "ru": "Эффект рисует тёмный фон в любой теме страницы; область эффекта получает класс theme-dark, и текст над ним берёт роли этой темы.",
+        "en": "The effect draws a dark ground in any page theme; its area takes theme-dark, so text over it uses that theme's roles."
+      }
+    }
+  ],
+  "needs": {
+    "network": false
+  }
+}

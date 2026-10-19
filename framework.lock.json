@@ -1,0 +1,20 @@
+{
+  "schema": "simai.ui-effects.framework-lock",
+  "version": 1,
+  "note": "The Framework release the catalogue is checked and served against. The site loads ui from jsDelivr at ui.commit; the kit runs scripts/effect-kit.mjs from ui-source at ui_source.commit against ui's distr/core at ui.commit. A repin changes this file only.",
+  "pair": "ui-7493766fe39e",
+  "standard": "simai.effect 1.0.0",
+  "ui": {
+    "repository": "simai/ui",
+    "commit": "7493766fe39ec6633cb1420532690c61661b0354"
+  },
+  "ui_source": {
+    "repository": "simai/ui-source",
+    "commit": "eb5b215c332c65644529a5c12631ec57c0f30df1"
+  },
+  "kit": {
+    "script": "scripts/effect-kit.mjs",
+    "checks": ["manifest", "defaults", "mounts", "no-network", "accessibility", "pixel-ratio", "update", "hidden-tab", "cleanup", "remount", "still-motion"]
+  },
+  "cdn": "https://cdn.jsdelivr.net/gh/simai/ui@{commit}/distr/"
+}

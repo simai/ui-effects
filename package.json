@@ -1,0 +1,20 @@
+{
+  "name": "ui-effects",
+  "private": true,
+  "description": "Background effects for SIMAI Framework: the effects, their catalogue and the catalogue site.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "engines": {
+    "node": ">=20.19"
+  },
+  "scripts": {
+    "catalogue": "node scripts/build-catalogue.mjs",
+    "check": "node scripts/build-catalogue.mjs --check && node scripts/check-hygiene.mjs",
+    "kit": "node scripts/kit.mjs",
+    "site": "node scripts/build-site.mjs",
+    "smoke": "node scripts/smoke.mjs --prefix /ui-effects/"
+  },
+  "devDependencies": {
+    "playwright-core": "1.62.1"
+  }
+}
