@@ -5,11 +5,11 @@
   "description": "catalogue/index.json, written by scripts/build-catalogue.mjs. Lists every effect with its theme policy, its files and their SHA-256, and the Framework kit result.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema", "version", "repository", "standard", "framework", "runtime", "counts", "effects"],
+  "required": ["schema", "version", "repository", "standard", "framework", "counts", "effects"],
   "properties": {
     "$schema": {"type": "string"},
     "schema": {"const": "simai.ui-effects.catalogue"},
-    "version": {"const": 2},
+    "version": {"const": 3},
     "repository": {"const": "simai/ui-effects"},
     "standard": {"type": "string", "pattern": "^simai\\.effect [0-9]+\\.[0-9]+\\.[0-9]+$"},
     "framework": {
@@ -20,25 +20,6 @@
         "pair": {"type": "string", "pattern": "^ui-[0-9a-f]{12}$"},
         "ui": {"$ref": "#/$defs/commit"},
         "ui_source": {"$ref": "#/$defs/commit"}
-      }
-    },
-    "runtime": {
-      "description": "Modules the site and the published snippets load besides the effects.",
-      "type": "object",
-      "additionalProperties": false,
-      "required": ["placement"],
-      "properties": {
-        "placement": {
-          "type": "object",
-          "additionalProperties": false,
-          "required": ["path", "sha256", "size", "replaced_by"],
-          "properties": {
-            "path": {"const": "site/lib/placement.js"},
-            "sha256": {"$ref": "#/$defs/sha256"},
-            "size": {"type": "integer", "minimum": 1},
-            "replaced_by": {"type": "string"}
-          }
-        }
       }
     },
     "counts": {

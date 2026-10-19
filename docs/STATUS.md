@@ -27,22 +27,16 @@ The state of the catalogue, the decisions behind it and what waits on the Framew
 
 ## Today
 
-- **Standard.** simai.effect 1.1.0, Framework pair `ui-e7701fef3733`, pinned in `framework.lock.json`.
+- **Framework.** Pair `ui-08c07b3e938a`, pinned in `framework.lock.json`: simai.effect 1.1.0 with `SF.Effects` (theme policy, windows mode, declarative mount, integrity loading).
 - **Manifests** declare `schemes` (home scheme first), `pair` by catalogue id, and `capabilities: ["windows"]`. The modules read the scheme from `context.scheme`. `effects/policy.json` holds only order, Russian descriptions and roles, and tags.
 - **Kit.** The 1.1 kit runs per scheme, the scheme switch, contrast (4.5:1 on-surface, 3:1 on-surface-variant, at defaults) and windows. Every effect passes all checks the lock expects for it: 14 to 17.
-- **Placement.** `site/lib/placement.js` adds the theme mode, the pair, windows mode and integrity loading on top of `SF.Effects.mountEffect`. It is the only stand-in for the core.
-- **The declarative snippet** in «Получить код» is marked «после выхода размещения в ядре (SF.Effects)» and does not work yet.
+- **Site and snippets** place effects through the core: the site reads its own copy of the catalogue, and «Получить код» gives the declarative markup and the `SF.Effects.placeEffect` script, pinned by commit. `site/assets/place.js` only adds the configurator's still-frame switch and names what is shown.
+- **Theme modes.** An editor offers a fixed mode when the effect or its pair draws it (the core's `allowedModes`); a dark-only effect with a light pair offers «Всегда светлая», which shows the pair.
 
 ## Waiting on the Framework, in its order
 
-1. **SF.Effects placement.**
-   - `themeMode` with `allowedModes()` and `resolveTheme()`, windows mode, the declarative `data-sf-effect` mount, and integrity loading.
-   - **Then here:**
-     - delete `site/lib/placement.js` and call the core;
-     - make the declarative snippet real, with the attribute names as shipped;
-     - update the README.
-2. **The segmented Button Group** (simai/ui-source#4). **Then here:** replace `.seg` on the site.
-3. **The sandbox runner.** **Then here:** document foreign effects in `README.md` and `SECURITY.md`.
+1. **The segmented Button Group** (simai/ui-source#4). **Then here:** replace `.seg` on the site.
+2. **The sandbox runner.** **Then here:** document foreign effects in `README.md` and `SECURITY.md`. Community submissions stay closed until the owner decides.
 
 ## Effects
 

@@ -16,8 +16,9 @@
 <link rel="stylesheet" href="{{FRAMEWORK_BASE}}core/css/core.min.css">
 <script>
   window.sfPath = '{{FRAMEWORK_BASE}}';
-  // The site chooses the theme itself (the switch above); no preloader.
-  window.SF_BOOT_CONFIG = {theme: false, preloader: {enabled: false}};
+  // The site chooses the theme itself (the switch above); no preloader. Effects
+  // come from this site's own copy of the catalogue, the same commit it was built from.
+  window.SF_BOOT_CONFIG = {theme: false, preloader: {enabled: false}, effects: {catalogue: '{{ROOT}}'}};
 </script>
 <script src="{{FRAMEWORK_BASE}}core/js/core.min.js"></script>
 <link rel="stylesheet" href="{{ROOT}}assets/site.css">

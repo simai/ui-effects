@@ -22,7 +22,7 @@ there will be many. The Framework ships only the core: `SF.Effects`, the
 | `catalogue/index.json` | Generated catalogue: every effect, its files with SHA-256 and size, the kit result ([schema](catalogue/index.schema.json)) |
 | `catalogue/kit.json` | Kit results per effect, written by `scripts/kit.mjs` |
 | `framework.lock.json` | The Framework release everything is checked against (`ui-e7701fef3733`) |
-| `site/` | The catalogue site; `site/lib/placement.js` is the stand-in for the core's placement (below) |
+| `site/` | The catalogue site; it places effects through the core's `SF.Effects` |
 | `templates/effect/` | A template effect to start from |
 | `docs/AUTHORING.md` | The author guide |
 | `scripts/` | Catalogue build and check, kit runner, site build, browser smoke, hygiene check |
@@ -35,7 +35,8 @@ single-scheme effects name a pair of the other scheme.
 - Each effect declares the **schemes** it can draw (`dark`, `light` or both)
   and may name a **pair**: an effect of the other scheme with the same role.
 - A placement has a **theme mode**: `auto` (follow the page, the default),
-  `dark` or `light`. A fixed mode the effect cannot draw is never offered.
+  `dark` or `light`. A fixed mode that neither the effect nor its pair can
+  draw is never offered.
 - In `auto`, when the effect lacks the page's scheme: its pair is shown; with
   no pair, a dark effect stays dark, and a light effect is not shown (the
   reader chose dark to avoid glare; the area is a plain dark surface).
@@ -44,57 +45,50 @@ single-scheme effects name a pair of the other scheme.
 - **Windows mode:** one effect is drawn behind a group of cards and seen only
   through them, continuous from card to card. Every effect here is safe for it.
 
-## Using an effect today
+## Using an effect
 
-The core is simai.effect 1.1: the manifest declares `schemes`, `pair` and
-`capabilities`, and `SF.Effects.mountEffect(host, {manifest, module, stored,
-scheme})` passes the drawn scheme to the effect as `context.scheme`. The core
-has no placement yet (theme mode, windows mode, integrity loading), so this
-repository carries one:
-
-- `site/lib/placement.js` implements the theme mode, the pair, the windows
-  mode and integrity loading on top of `SF.Effects.mountEffect`. It is kept
-  small and isolated so the core can replace it.
-
-The configurator's «Получить код» gives a working snippet for the chosen
-effect, settings, theme mode and layout. In short:
+The Framework core runs effects from this catalogue: `SF.Effects` (simai.effect
+1.1) loads an effect and its pair, checks every file against the SHA-256 in
+`catalogue/index.json`, applies the theme policy, follows the page theme and
+runs windows mode. The page names the catalogue, pinned by commit:
 
 ```html
-<!-- SIMAI Framework, pinned by its full release commit -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/simai/ui@e7701fef37337c73a558b29f33f8f66ffcb4b93c/distr/core/css/core.min.css">
-<script>window.sfPath = 'https://cdn.jsdelivr.net/gh/simai/ui@e7701fef37337c73a558b29f33f8f66ffcb4b93c/distr/';</script>
-<script src="https://cdn.jsdelivr.net/gh/simai/ui@e7701fef37337c73a558b29f33f8f66ffcb4b93c/distr/core/js/core.min.js"></script>
-
-<section data-effect-area>…</section>
-<script type="module">
-  // CDN = 'https://cdn.jsdelivr.net/gh/simai/ui-effects@<commit>/'
-  // 1. fetch site/lib/placement.js, check its SHA-256 from catalogue/index.json, import it;
-  // 2. mountPlacement(area, {effect, themeMode: 'auto', settings, windows});
-  //    it fetches effect.json and index.js, checks both against their SHA-256,
-  //    and mounts through SF.Effects.mountEffect with the drawn scheme.
+<!-- SIMAI Framework and the catalogue, both pinned by their full commit -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/simai/ui@08c07b3e938a0eb4bd9204b187c267b2cb4ba5b7/distr/core/css/core.min.css">
+<script>
+  window.sfPath = 'https://cdn.jsdelivr.net/gh/simai/ui@08c07b3e938a0eb4bd9204b187c267b2cb4ba5b7/distr/';
+  window.SF_BOOT_CONFIG = Object.assign(window.SF_BOOT_CONFIG || {}, {
+    effects: {catalogue: 'https://cdn.jsdelivr.net/gh/simai/ui-effects@<commit>/'},
+  });
 </script>
+<script src="https://cdn.jsdelivr.net/gh/simai/ui@08c07b3e938a0eb4bd9204b187c267b2cb4ba5b7/distr/core/js/core.min.js"></script>
 ```
 
-Every URL is pinned by commit, never a branch. The SHA-256 values come from
-`catalogue/index.json` at the same commit.
-
-## After the core ships its placement
-
-The Framework will add, in SF.Effects: a placement `themeMode` with
-`allowedModes()` and `resolveTheme()`, windows mode, a declarative mount and
-integrity loading from the catalogue; later, a sandbox runner for foreign
-effects. Then:
+Then markup alone places an effect:
 
 ```html
-<section data-sf-effect="https://cdn.jsdelivr.net/gh/simai/ui-effects@<commit>/effects/comet-flow/effect.json"
+<section data-sf-effect="comet-flow"
          data-sf-effect-theme="auto"
          data-sf-effect-settings='{"speed":100}'>…</section>
+
+<ul data-sf-effect-windows="comet-flow" data-sf-effect-theme="auto">
+  <li data-sf-effect-window>…</li>
+  <li data-sf-effect-window>…</li>
+</ul>
 ```
 
-(attribute names follow the core plan and may change before release), and
-`site/lib/placement.js` is removed; the site and the snippets call the core.
+or a script does: `await SF.Effects.placeEffect(element, {effect: 'comet-flow',
+themeMode: 'auto', settings, windows})`. The configurator's «Получить код»
+gives both for the chosen effect, settings, theme mode and layout.
 
-This form does not work yet. The site marks it «после выхода размещения в ядре (SF.Effects)».
+- Give the area a background and text colour from the roles
+  (`background: var(--sf-surface-0); color: var(--sf-on-surface)`): it takes
+  the theme the effect is drawn in.
+- Window cards draw no background of their own while the effect runs.
+- The core imports a module from its verified bytes through a `blob:` URL, so
+  a Content Security Policy must allow `blob:` scripts; `crypto.subtle` needs
+  a secure context (https or localhost).
+- Every URL is pinned by commit, never a branch.
 
 ## Security model
 

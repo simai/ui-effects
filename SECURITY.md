@@ -14,8 +14,8 @@ answer within five working days.
   through its settings.
 - A published file whose SHA-256 differs from `catalogue/index.json` at the
   same commit.
-- `site/lib/placement.js` loading or running a file without checking its
-  SHA-256.
+- The catalogue site or a published snippet running an effect file without
+  the core checking its SHA-256 against `catalogue/index.json`.
 - The catalogue site exposing anything beyond the catalogue.
 
 ## The model

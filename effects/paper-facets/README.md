@@ -24,7 +24,7 @@ The manifest declares `"schemes": ["light"]` and `"pair": "liquid-chrome"`, and 
 
 Draws in the **light** scheme only.
 
-Theme modes a placement may choose: `auto`, `light`.
+Theme modes a placement may choose: `auto`, `dark`, `light`. A fixed `dark` shows the pair.
 
 ## Pair
 

@@ -11,7 +11,7 @@
 import {execFileSync} from 'node:child_process';
 import {cpSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync} from 'node:fs';
 import {join, resolve} from 'node:path';
-import {CATALOGUE, PLACEMENT, ROOT, fileDigest, frameworkBase, lock, readJson} from './lib/common.mjs';
+import {CATALOGUE, ROOT, fileDigest, frameworkBase, lock, readJson} from './lib/common.mjs';
 
 const args = process.argv.slice(2);
 const out = resolve(ROOT, args.includes('--out') ? args[args.indexOf('--out') + 1] : 'dist');
@@ -27,10 +27,8 @@ if (!commit) {
 }
 if (!/^[0-9a-f]{40}$/u.test(commit)) throw new Error(`build-site: ${source} is not a full commit: ${commit}`);
 
-// The site checks every effect file and the placement module against the
-// catalogue, so the two must agree before anything is published.
-const placement = fileDigest(join(ROOT, PLACEMENT));
-if (placement.sha256 !== catalogue.runtime.placement.sha256) throw new Error('build-site: site/lib/placement.js differs from the catalogue; run scripts/build-catalogue.mjs');
+// The core checks every effect file against the catalogue before it runs, so
+// the two must agree before anything is published.
 for (const effect of catalogue.effects) {
   for (const file of effect.files) {
     if (fileDigest(join(ROOT, effect.path, file.path)).sha256 !== file.sha256) throw new Error(`build-site: ${effect.path}${file.path} differs from the catalogue`);
@@ -83,9 +81,6 @@ for (const effect of catalogue.effects) {
   for (const file of effect.files) if (file.path !== 'README.md') cpSync(join(ROOT, effect.path, file.path), join(out, effect.path, file.path));
 }
 cpSync(join(ROOT, 'site', 'assets'), join(out, 'assets'), {recursive: true});
-// The placement module, next to the assets that import it (../lib/placement.js).
-mkdirSync(join(out, 'lib'), {recursive: true});
-cpSync(join(ROOT, PLACEMENT), join(out, 'lib', 'placement.js'));
 mkdirSync(join(out, 'catalogue'), {recursive: true});
 cpSync(join(CATALOGUE, 'index.json'), join(out, 'catalogue', 'index.json'));
 cpSync(join(CATALOGUE, 'index.schema.json'), join(out, 'catalogue', 'index.schema.json'));

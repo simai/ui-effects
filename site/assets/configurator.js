@@ -2,8 +2,8 @@
 // the effect can draw, settings built from the manifest, a contrast readout,
 // motion controls and «Получить код».
 import {TAGS, badges, config, formatRatio, loadCatalogue, luminance, modeName, onSiteTheme, ratio, root, schemeName, siteTheme, text} from './common.js';
-import {allowedModes, loadEffect, mountPlacement, referenceFrom} from '../lib/placement.js';
-import {connectSnippet, futureSnippet, htmlSnippet, jsSnippet, jsonSnippet} from './snippets.js';
+import {loadWithPair, outcomeOf, place} from './place.js';
+import {connectSnippet, htmlSnippet, jsSnippet, jsonSnippet} from './snippets.js';
 
 const html = document.documentElement;
 const id = html.dataset.effect;
@@ -19,8 +19,10 @@ const catalogue = await loadCatalogue();
 const byId = new Map(catalogue.effects.map((entry) => [entry.id, entry]));
 const entry = byId.get(id);
 const pairEntry = entry.pair ? byId.get(entry.pair) : null;
-const reference = referenceFrom(catalogue, id, root);
-const modes = allowedModes(reference);
+// The effect and its pair, loaded by the core with SHA-256 checks; the modes
+// offered are the ones the core allows.
+const {Effects, main, pair: pairLoaded} = await loadWithPair(id);
+const modes = Effects.allowedModes(main.manifest, {pair: pairLoaded?.manifest});
 
 const state = {mode: 'auto', layout: 'hero', values: {}, paused: false, reduced: false, placement: null, last: null};
 
@@ -55,12 +57,13 @@ for (const mode of modes) {
 const setMode = (mode) => {
   state.mode = mode;
   modeGroup.querySelectorAll('[data-mode]').forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.mode === mode)));
-  state.placement?.setThemeMode(mode);
+  state.placement?.update(state.values, {themeMode: mode});
+  settleSoon();
   renderCode();
 };
 
 // --- Settings ---------------------------------------------------------------------
-const {manifest} = await loadEffect(reference);
+const {manifest} = main;
 const userSettings = manifest.settings;
 const defaults = () => Object.fromEntries(userSettings.map((setting) => [setting.key, setting.default]));
 state.values = defaults();
@@ -192,46 +195,62 @@ function describe(current) {
   const strong = document.createElement('b');
   strong.textContent = `«${text(entry.label)}»`;
   outcome.append(strong, ` — ${outcomeText(current)}.`);
-  const missing = ['dark', 'light'].filter((scheme) => !entry.schemes.includes(scheme));
+  const missing = ['dark', 'light'].filter((scheme) => !modes.includes(scheme));
   const where = state.layout === 'windows' ? 'Окна-карточки' : 'Первый экран';
   $('[data-policy-facts]').textContent = [
     `Страница ${schemeName(siteTheme())}, режим «${modeName(state.mode)}».`,
     current.shown ? `${where} в теме theme-${current.drawn}: текст и кнопки над эффектом берут роли этой темы.` : `${where} — ровная поверхность theme-${current.drawn}.`,
-    missing.length ? `«${modeName(missing[0])}» не предлагается: эффект не рисует ${missing[0] === 'light' ? 'светлую' : 'тёмную'} схему.` : '',
+    missing.length ? `«${modeName(missing[0])}» не предлагается: ${entry.pair ? 'ни эффект, ни его пара не рисуют' : 'эффект без пары и не рисует'} ${missing[0] === 'light' ? 'светлую' : 'тёмную'} схему.` : '',
   ].filter(Boolean).join(' ');
   const note = $('[data-settings-note]');
   const foreign = current.shown && current.shown !== entry.id;
   note.hidden = !foreign && current.shown;
   note.textContent = !current.shown
     ? 'Сейчас эффект не показан. Настройки сохранятся и применятся, когда он появится.'
-    : foreign ? `Сейчас показана пара «${text(byId.get(current.shown).label)}» с её настройками по умолчанию. Эти настройки относятся к «${text(entry.label)}».` : '';
+    : foreign ? `Сейчас показана пара «${text(byId.get(current.shown).label)}»: из этих настроек она берёт те, что есть у неё. Настройки относятся к «${text(entry.label)}».` : '';
 }
 
-function mount() {
+// What the placement shows now: the core follows the page theme on its own,
+// so this is read again after every change the site makes or sees.
+function settle() {
+  const current = state.error
+    ? {shown: null, drawn: Effects.pageScheme(), outcome: 'hidden', error: state.error}
+    : state.placement ? outcomeOf(state.placement, {id, pairId: entry.pair, mode: state.mode}) : null;
+  if (!current) return;
+  state.last = current;
+  errorBox.hidden = !current.error;
+  errorBox.textContent = current.error ? `Эффект не запустился: ${current.error}. Показана ровная поверхность темы.` : '';
+  html.dataset.outcome = current.outcome;
+  html.dataset.drawn = current.drawn;
+  html.dataset.shown = current.shown ?? '';
+  html.dataset.mounted = current.error ? 'error' : current.shown ? 'yes' : 'hidden';
+  describe(current);
+  scheduleMeasure(900);
+}
+// The core applies a page theme change from its own observer: read after it.
+const settleSoon = () => setTimeout(settle, 60);
+
+let mounting = 0;
+async function mount() {
+  const mine = ++mounting;
   state.placement?.destroy();
+  state.placement = null;
+  state.error = null;
   const windows = state.layout === 'windows';
   stage.dataset.layout = state.layout;
   html.dataset.mounted = 'pending';
   readout.dataset.measured = 'false';
-  state.placement = mountPlacement(windows ? cards : hero, {
-    effect: reference,
-    themeMode: state.mode,
-    settings: state.values,
-    windows: windows ? '[data-effect-window]' : null,
-    context: state.reduced ? {reducedMotion: true} : null,
-    onChange: (current) => {
-      state.last = current;
-      errorBox.hidden = !current.error;
-      errorBox.textContent = current.error ? `Эффект не запустился: ${current.error}. Показана ровная поверхность темы.` : '';
-      html.dataset.outcome = current.outcome;
-      html.dataset.drawn = current.drawn;
-      html.dataset.shown = current.shown ?? '';
-      html.dataset.mounted = current.error ? 'error' : current.shown ? 'yes' : 'hidden';
-      describe(current);
-      scheduleMeasure(900);
-    },
-  });
-  if (state.paused) state.placement.pause();
+  let placement = null;
+  try {
+    placement = await place(windows ? cards : hero, {id, themeMode: state.mode, settings: state.values, windows, reducedMotion: state.reduced});
+  } catch (error) {
+    if (mine !== mounting) return;
+    state.error = error?.reason ?? String(error?.message ?? error);
+  }
+  if (mine !== mounting) { placement?.destroy(); return; }
+  state.placement = placement;
+  if (state.paused) state.placement?.pause();
+  settle();
 }
 
 document.querySelectorAll('[data-layout]').forEach((button) => button.addEventListener('click', () => {
@@ -253,7 +272,7 @@ reduced.addEventListener('click', () => {
   reduced.setAttribute('aria-pressed', String(state.reduced));
   mount();
 });
-onSiteTheme(() => { if (state.last) describe(state.last); scheduleMeasure(900); });
+onSiteTheme(settleSoon);
 
 // --- Contrast readout ------------------------------------------------------------------
 // Every text over the effect is sampled from the effect's canvas, laid over the
@@ -305,7 +324,7 @@ function measure() {
   if (!current) return;
   const windows = state.layout === 'windows';
   const area = windows ? cards : hero;
-  const host = area.querySelector(':scope > [data-effect-host]');
+  const host = area.querySelector(':scope > [data-sf-effect-layer]');
   const texts = [...area.querySelectorAll(windows ? '[data-effect-window] [data-text]' : '[data-text]')];
   if (!current.shown || !host) {
     const worst = Math.min(...texts.map((element) => ratio(luminance(rgba(getComputedStyle(element).color)), luminance(groundOf(element)))));
@@ -379,7 +398,6 @@ function renderCode() {
   const options = {config, catalogue, entry, pair: pairEntry, mode: state.mode, layout: state.layout, values: state.values};
   $('[data-code="html"]').textContent = htmlSnippet(options);
   $('[data-code="connect"]').textContent = connectSnippet(config);
-  $('[data-code="future"]').textContent = futureSnippet(options);
   $('[data-code="js"]').textContent = jsSnippet(options);
   $('[data-code="json"]').textContent = jsonSnippet(options);
 }

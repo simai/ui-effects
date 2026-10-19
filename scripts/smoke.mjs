@@ -47,7 +47,19 @@ const only = option('--only', '') ? option('--only', '').split(',') : null;
 if (shots) mkdirSync(shots, {recursive: true});
 
 const framework = lock();
-const {resolveTheme, allowedModes} = await import(pathToFileURL(join(ROOT, 'site/lib/placement.js')).href);
+// The theme policy, stated here on its own so the smoke checks the core rather
+// than itself. An effect reference is {id, schemes, pair: <reference> | null}.
+const SCHEMES = ['dark', 'light'];
+// auto always; a fixed mode when the effect or its catalogue pair draws it.
+const allowedModes = (effect) => ['auto', ...SCHEMES.filter((scheme) => effect.schemes.includes(scheme) || effect.pair?.schemes.includes(scheme))];
+// The effect in the target scheme; its pair; in auto a dark-only effect kept dark; else nothing.
+function resolveTheme(effect, pageTheme, mode = 'auto') {
+  const target = mode === 'auto' ? pageTheme : mode;
+  if (effect.schemes.includes(target)) return {shown: effect, drawn: target, outcome: 'as-is', target};
+  if (effect.pair?.schemes.includes(target)) return {shown: effect.pair, drawn: target, outcome: 'pair', target};
+  if (mode === 'auto' && target === 'light' && effect.schemes.includes('dark')) return {shown: effect, drawn: 'dark', outcome: 'dark-kept', target};
+  return {shown: null, drawn: target, outcome: 'hidden', target};
+}
 const catalogue = JSON.parse(readFileSync(join(distDir, 'catalogue', 'index.json'), 'utf8'));
 const config = JSON.parse(readFileSync(join(distDir, 'index.html'), 'utf8').match(/<script type="application\/json" id="site-config">(.*?)<\/script>/su)[1]);
 const byId = new Map(catalogue.effects.map((entry) => [entry.id, entry]));
@@ -238,7 +250,7 @@ try {
           await wait(400);
           const facts = await page.evaluate((windows) => {
             const area = document.querySelector(windows ? '[data-cards]' : '[data-hero]');
-            const host = area.querySelector(':scope > [data-effect-host]');
+            const host = area.querySelector(':scope > [data-sf-effect-layer]');
             const readout = document.querySelector('[data-readout]');
             return {
               mounted: document.documentElement.dataset.mounted,
@@ -249,7 +261,7 @@ try {
               sfEffect: host?.getAttribute('data-sf-effect') ?? null,
               clip: host?.style.clipPath ?? '',
               areaTheme: windows ? [...area.querySelectorAll('[data-effect-window]')].map((card) => card.classList.contains(`theme-${document.documentElement.dataset.drawn}`)) : [area.classList.contains(`theme-${document.documentElement.dataset.drawn}`)],
-              plainCards: windows ? [...area.querySelectorAll('.demo-card:not([data-effect-window])')].every((card) => !card.hasAttribute('data-effect-drawn')) : true,
+              plainCards: windows ? [...area.querySelectorAll('.demo-card:not([data-effect-window])')].every((card) => !card.classList.contains('theme-dark') && !card.classList.contains('theme-light')) : true,
               p5: Number(readout.dataset.p5),
               readout: readout.textContent.trim(),
               modes: [...document.querySelectorAll('[data-modes] [data-mode]')].map((button) => button.dataset.mode),
@@ -347,7 +359,7 @@ try {
       // The readout and the page's own timers ask for no animation frames.
       await page.evaluate(() => { window.__frames = 0; });
       const after = await frames(page);
-      const canvas = await page.evaluate(() => Boolean(document.querySelector('[data-hero] [data-effect-host] canvas')));
+      const canvas = await page.evaluate(() => Boolean(document.querySelector('[data-hero] [data-sf-effect-layer] canvas')));
       if (after !== 0 || !canvas) fail(`motion ${label}`, `${after} frames asked for after ${label} (before: ${running}), canvas ${canvas}`);
       report.motion.push({label, effect: target.id, framesBefore: running, framesAfter: after});
       console.log(`ok   motion ${label}: ${target.id}, frames ${running} -> ${after}`);
@@ -374,10 +386,27 @@ try {
       blank = `<!doctype html><html lang="ru"><head><meta charset="utf-8"><title>blank</title>${head}</head><body>${body}</body></html>`;
       await page.goto('https://blank.test/');
     };
+    // The area a snippet places the effect on: the declared element, or the
+    // page's own [data-effect-area] for the script.
     const settle = () => page.waitForFunction(() => {
-      const area = document.querySelector('[data-effect-area]');
-      return area && (area.dataset.effectState === 'hidden' || area.querySelector('[data-effect-host] canvas'));
+      const area = document.querySelector('.effect-hero, .effect-windows, [data-effect-area]');
+      const state = area?.dataset.sfEffectState;
+      return ['hidden', 'refused', 'failed'].includes(state) || (state === 'running' && area.querySelector(':scope > [data-sf-effect-layer] canvas'));
     }, null, {timeout: 20000}).then(() => true, () => false);
+    const placed = () => page.evaluate(() => {
+      const area = document.querySelector('.effect-hero, .effect-windows, [data-effect-area]');
+      const layer = area?.querySelector(':scope > [data-sf-effect-layer]');
+      const theme = (element) => (element.classList.contains('theme-dark') ? 'dark' : element.classList.contains('theme-light') ? 'light' : null);
+      return {
+        state: area?.dataset.sfEffectState ?? null,
+        reason: area?.dataset.sfEffectReason ?? null,
+        drawn: area ? theme(area) : null,
+        effect: layer?.getAttribute('data-sf-effect') ?? null,
+        canvas: Boolean(layer?.querySelector('canvas')),
+        clip: layer?.style.clipPath.slice(0, 5) ?? '',
+        windows: area ? [...area.querySelectorAll('[data-sf-effect-window]')].map(theme) : [],
+      };
+    });
     for (const entry of effects) {
       const expected = resolveTheme(reference(entry), 'light', 'auto');
       // HTML tab, hero layout.
@@ -385,10 +414,7 @@ try {
       let flush = watch(page, `snippet html ${entry.id}`);
       await open(code.html, code.connect);
       let ok = await settle();
-      let facts = await page.evaluate(() => {
-        const area = document.querySelector('[data-effect-area]');
-        return {state: area?.dataset.effectState, drawn: area?.dataset.effectDrawn, effect: area?.querySelector('[data-effect-host]')?.getAttribute('data-sf-effect') ?? null};
-      });
+      let facts = await placed();
       if (!ok || facts.drawn !== expected.drawn || (expected.shown ? facts.effect !== expected.shown.id : facts.state !== 'hidden')) fail(`snippet html ${entry.id}`, `mounted ${JSON.stringify(facts)}, expected ${expected.shown?.id ?? 'hidden'} ${expected.drawn}`);
       flush();
       // Settings JSON: valid stored values for the manifest.
@@ -402,13 +428,9 @@ try {
       // JS tab, windows layout, in a page with its own windows.
       code = await codeOf(entry.id, 'windows');
       flush = watch(page, `snippet js ${entry.id}`);
-      await open(`<ul data-effect-area style="list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:0">${'<li data-effect-window style="min-height:160px;border-radius:12px"><b>Окно</b></li>'.repeat(2)}<li style="min-height:160px">Без окна</li></ul><script type="module">\n${code.js}\n</script>`, code.connect);
+      await open(`<ul data-effect-area style="list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:0">${'<li data-sf-effect-window style="min-height:160px;border-radius:12px"><b>Окно</b></li>'.repeat(2)}<li style="min-height:160px">Без окна</li></ul><script type="module">\n${code.js}\n</script>`, code.connect);
       ok = await settle();
-      facts = await page.evaluate(() => {
-        const area = document.querySelector('[data-effect-area]');
-        const host = area.querySelector('[data-effect-host]');
-        return {state: area.dataset.effectState, clip: host?.style.clipPath.slice(0, 5), windows: [...area.querySelectorAll('[data-effect-window]')].map((item) => item.dataset.effectDrawn), effect: host?.getAttribute('data-sf-effect') ?? null};
-      });
+      facts = await placed();
       if (!ok || (expected.shown && (facts.effect !== expected.shown.id || facts.clip !== 'path(')) || facts.windows.some((value) => value !== expected.drawn)) fail(`snippet js ${entry.id}`, `mounted ${JSON.stringify(facts)}`);
       flush();
       report.snippets.push({effect: entry.id, html: expected.shown?.id ?? 'hidden', js: facts});
@@ -418,14 +440,12 @@ try {
     const victim = effects.find((entry) => entry.schemes.includes('light')) ?? effects[0];
     const code = await codeOf(victim.id, 'hero');
     tamper = `${victim.path}index.js`;
-    const errors = [];
-    page.on('console', (message) => { if (message.type() === 'error') errors.push(message.text()); });
     await open(code.html, code.connect);
-    await wait(3000);
-    const drawn = await page.evaluate(() => Boolean(document.querySelector('[data-effect-host] canvas')));
-    if (drawn || !errors.some((text) => /SHA-256/u.test(text))) fail('snippet integrity', `tampered ${tamper}: canvas ${drawn}, errors ${JSON.stringify(errors)}`);
-    else console.log(`ok   snippet integrity: tampered ${tamper} refused (${errors[0].slice(0, 90)})`);
-    report.integrity = {tampered: tamper, refused: !drawn, error: errors[0] ?? null};
+    await settle();
+    const refused = await placed();
+    if (refused.canvas || refused.state !== 'refused' || refused.reason !== 'integrity') fail('snippet integrity', `tampered ${tamper}: ${JSON.stringify(refused)}`);
+    else console.log(`ok   snippet integrity: tampered ${tamper} refused (${refused.reason})`);
+    report.integrity = {tampered: tamper, refused: refused.state === 'refused', reason: refused.reason};
     tamper = null;
     await context.close();
   }

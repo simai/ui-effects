@@ -23,7 +23,7 @@ The manifest declares `"schemes": ["dark"]` and `"pair": "paper-hills"`, and `"c
 
 Draws in the **dark** scheme only.
 
-Theme modes a placement may choose: `auto`, `dark`.
+Theme modes a placement may choose: `auto`, `dark`, `light`. A fixed `light` shows the pair.
 
 ## Pair
 

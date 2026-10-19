@@ -2,13 +2,13 @@
   "schema": "simai.ui-effects.kit",
   "version": 2,
   "framework": {
-    "pair": "ui-e7701fef3733",
-    "ui": "e7701fef37337c73a558b29f33f8f66ffcb4b93c",
-    "ui_source": "cc25931a9694a4d5494291dbe02caaa2dd8f848f"
+    "pair": "ui-08c07b3e938a",
+    "ui": "08c07b3e938a0eb4bd9204b187c267b2cb4ba5b7",
+    "ui_source": "8a41f6d6d2c65dda72b0ed6ac9947c56f6bfd810"
   },
   "kit": {
     "script": "scripts/effect-kit.mjs",
-    "sha256": "ed47de8f931bd7c068f16a8a7bcb4dce3cc9dec014652adf026cd10693679ebd"
+    "sha256": "555a7e6caed55ef0bc8012502126609f0b86204ebf29a3ac95f7da67f2a681d8"
   },
   "effects": {
     "aurora-curtain": {

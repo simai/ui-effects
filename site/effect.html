@@ -99,24 +99,19 @@
         <button type="button" class="tab" role="tab" id="tab-json" aria-controls="panel-json" aria-selected="false" tabindex="-1" data-tab="json">Настройки JSON</button>
       </div>
       <div role="tabpanel" id="panel-html" aria-labelledby="tab-html" data-panel="html" class="code-block">
-        <p class="small muted">Сегодняшний рабочий вариант: страница уже подключает Framework {{PAIR}} (фрагмент «Подключение» ниже), а эффект монтируется через <code>SF.Effects.mountEffect</code> с проверкой SHA-256 каждого файла.</p>
+        <p class="small muted">Разметка без скрипта: ядро Framework {{PAIR}} находит атрибуты <code>data-sf-effect</code>, берёт эффект из каталога, заданного во фрагменте «Подключение», и сверяет каждый файл с SHA-256, прежде чем запустить.</p>
         <div class="code-block__head"><span class="code-block__title">Разметка и скрипт</span><button type="button" class="btn btn--small" data-code-copy="html">Скопировать</button></div>
         <pre class="code" tabindex="0" aria-label="HTML: разметка и скрипт" data-code="html"></pre>
         <div class="code-block__head"><span class="code-block__title">Подключение Framework, если его ещё нет на странице</span><button type="button" class="btn btn--small" data-code-copy="connect">Скопировать</button></div>
         <pre class="code" tabindex="0" aria-label="HTML: подключение Framework" data-code="connect"></pre>
-        <div class="future">
-          <span class="future__tag">После выхода размещения в ядре (SF.Effects)</span>
-          <p class="small">Так же можно будет подключать эффект одной разметкой, без скрипта: Loader найдёт атрибут, проверит файлы и смонтирует эффект. Сейчас этот вариант не работает.</p>
-          <pre class="code" tabindex="0" aria-label="HTML после выхода размещения в ядре (SF.Effects)" data-code="future"></pre>
-        </div>
       </div>
       <div role="tabpanel" id="panel-js" aria-labelledby="tab-js" data-panel="js" class="code-block" hidden>
-        <p class="small muted">Модуль для страницы, где уже есть Framework и элемент <code>[data-effect-area]</code>. Подходит для <code>&lt;script type="module"&gt;</code> или сборщика.</p>
+        <p class="small muted">То же из скрипта: для страницы с фрагментом «Подключение» и элементом <code>[data-effect-area]</code> (в режиме окон — с карточками <code>[data-sf-effect-window]</code>). Подходит для <code>&lt;script type="module"&gt;</code> или сборщика.</p>
         <div class="code-block__head"><span class="code-block__title">JavaScript</span><button type="button" class="btn btn--small" data-code-copy="js">Скопировать</button></div>
         <pre class="code" tabindex="0" aria-label="JavaScript" data-code="js"></pre>
       </div>
       <div role="tabpanel" id="panel-json" aria-labelledby="tab-json" data-panel="json" class="code-block" hidden>
-        <p class="small muted">Сохранённые значения настроек: их принимает <code>SF.Effects.mountEffect</code> как <code>stored</code>.</p>
+        <p class="small muted">Сохранённые значения настроек: это значение <code>data-sf-effect-settings</code> и <code>settings</code> у <code>SF.Effects.placeEffect</code>.</p>
         <div class="code-block__head"><span class="code-block__title">Настройки</span><button type="button" class="btn btn--small" data-code-copy="json">Скопировать</button></div>
         <pre class="code" tabindex="0" aria-label="Настройки, JSON" data-code="json"></pre>
       </div>

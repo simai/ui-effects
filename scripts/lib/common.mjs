@@ -15,8 +15,6 @@ export const ID = /^[a-z][a-z0-9-]{1,40}$/u;
 export const EFFECT_FILES = ['effect.json', 'index.js', 'preview.png', 'README.md'];
 // An effect module above this size fails; the author guide asks for about 15 KB.
 export const MODULE_LIMIT = 20 * 1024;
-// The module that stands in for SF.Effects placement until the core ships it.
-export const PLACEMENT = 'site/lib/placement.js';
 
 export const readJson = (path) => JSON.parse(readFileSync(path, 'utf8'));
 export const sha256 = (bytes) => createHash('sha256').update(bytes).digest('hex');

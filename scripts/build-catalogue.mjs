@@ -13,7 +13,7 @@
 // against the locked Framework commits; otherwise the effect is «stale».
 import {existsSync, readFileSync, writeFileSync} from 'node:fs';
 import {join} from 'node:path';
-import {CATALOGUE, EFFECT_FILES, PLACEMENT, ROOT, expectedChecks, fileDigest, loadPolicy, lock, readJson, sha256, stableJson, validate} from './lib/common.mjs';
+import {CATALOGUE, EFFECT_FILES, expectedChecks, fileDigest, loadPolicy, lock, readJson, sha256, stableJson, validate} from './lib/common.mjs';
 
 const checkMode = process.argv.includes('--check');
 const problems = [];
@@ -65,11 +65,10 @@ const effects = entries.map((entry) => {
 const catalogue = {
   $schema: './index.schema.json',
   schema: 'simai.ui-effects.catalogue',
-  version: 2,
+  version: 3,
   repository: 'simai/ui-effects',
   standard: framework.standard,
   framework: {pair: framework.pair, ui: framework.ui.commit, ui_source: framework.ui_source.commit},
-  runtime: {placement: {path: PLACEMENT, ...fileDigest(join(ROOT, PLACEMENT)), replaced_by: 'SF.Effects placement (themeMode, windows, declarative mount, integrity loading)'}},
   counts: {
     effects: effects.length,
     dual: effects.filter((effect) => effect.schemes.length === 2).length,

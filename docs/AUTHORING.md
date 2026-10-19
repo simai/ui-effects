@@ -36,6 +36,12 @@ Rules every effect follows:
 - **Hidden tab, off screen.** Ask for no frames while the tab is hidden or the
   host is off screen (`IntersectionObserver`).
 - **Pixel ratio** capped at 2; size from `ResizeObserver`.
+- **Deterministic at the defaults.** No unseeded `Math.random`: seed any
+  randomness (a fixed seed, or one derived from the settings) so every mount
+  draws the same scene. The kit's contrast check samples frames; a randomly
+  placed picture passes one run and fails the next.
+- **One module.** No imports of any kind: the core imports the entry from its
+  verified bytes, so a relative import would have nothing to resolve against.
 - **Cleanup.** `destroy` leaves no nodes, frames, observers or listeners, and a
   second mount works.
 - **Settings.** Typed and bounded (`integer`, `number`, `boolean`, `choice`,
@@ -74,9 +80,10 @@ What a placement shows (theme mode `auto` | `dark` | `light`):
 | dark only, no pair | light | the effect, still dark; the area is `theme-dark` |
 | light only, no pair | dark | nothing: a plain dark surface |
 
-An editor never offers a fixed mode the effect cannot draw. The effect's area
-takes the theme it is drawn in. The host sends the scheme in `settings.scheme`,
-through `mount` and `update`; react to it in `update`.
+An editor never offers a fixed mode that neither the effect nor its pair can
+draw. The effect's area takes the theme it is drawn in. The core sends the
+scheme as `context.scheme`, through `mount` and `update(settings, context)`;
+react to it in `update`.
 
 ## 3. Draw with palette tones, not roles
 

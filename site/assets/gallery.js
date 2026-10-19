@@ -1,6 +1,6 @@
 // Gallery: every effect with its preview, schemes and pair, filtered by scheme.
-import {badges, groupOf, loadCatalogue, root, text} from './common.js';
-import {mountPlacement, referenceFrom} from '../lib/placement.js';
+import {badges, groupOf, loadCatalogue, onSiteTheme, root, text} from './common.js';
+import {outcomeOf, place} from './place.js';
 
 const list = document.querySelector('[data-cards]');
 const shown = document.querySelector('[data-shown]');
@@ -67,14 +67,19 @@ applyFilter(['dual', 'dark', 'light'].includes(initial) ? initial : 'all');
 // The intro is itself a placement: nebula-mesh in auto mode, its pair on a light page.
 const intro = document.querySelector('[data-intro]');
 const note = document.querySelector('[data-intro-note]');
-mountPlacement(intro, {
-  effect: referenceFrom(catalogue, 'nebula-mesh', root),
-  themeMode: 'auto',
-  onChange: (state) => {
-    intro.dataset.state = state.error ? 'error' : state.outcome;
-    note.textContent = state.outcome === 'pair'
-      ? `Фон этого блока — «${text(byId.get(state.shown).label)}», светлая пара эффекта «${text(byId.get('nebula-mesh').label)}». На тёмной странице вернётся он сам.`
-      : `Фон этого блока — «${text(byId.get('nebula-mesh').label)}». На светлой странице его заменит пара, «${text(byId.get('mist-gradient').label)}».`;
-  },
+const describeIntro = (handle) => {
+  const state = outcomeOf(handle, {id: 'nebula-mesh', pairId: 'mist-gradient', mode: 'auto'});
+  intro.dataset.state = state.outcome;
+  note.textContent = state.outcome === 'pair'
+    ? `Фон этого блока — «${text(byId.get(state.shown).label)}», светлая пара эффекта «${text(byId.get('nebula-mesh').label)}». На тёмной странице вернётся он сам.`
+    : `Фон этого блока — «${text(byId.get('nebula-mesh').label)}». На светлой странице его заменит пара, «${text(byId.get('mist-gradient').label)}».`;
+};
+place(intro, {id: 'nebula-mesh', themeMode: 'auto'}).then((handle) => {
+  describeIntro(handle);
+  // The core switches the effect with the page theme; the note follows it.
+  onSiteTheme(() => setTimeout(() => describeIntro(handle), 60));
+}, (error) => {
+  intro.dataset.state = 'error';
+  console.error('Эффект не запустился:', error?.reason ?? error);
 });
 document.documentElement.dataset.ready = 'true';
