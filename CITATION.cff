@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: "If you refer to the SIMAI Framework background effects, please cite them as below."
+title: "SIMAI Framework background effects"
+abstract: "A catalogue of background effects built on SIMAI Framework."
+type: software
+authors:
+  - family-names: "Zabarov"
+    given-names: "Rim"
+    email: "rim@zabarov.com"
+license: Apache-2.0
+repository-code: "https://github.com/simai/ui-effects"
+url: "https://effects.simai.io/"
