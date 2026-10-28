@@ -1,12 +1,12 @@
-# Fabric grid (`fabric-grid`)
+# Spacetime fabric (`fabric-grid`)
 
-A fine grid ripples like cloth and gives under the pointer.
+A grid bends round masses; the pointer is a heavy body, a click a gravitational wave.
 
-- **Russian name:** Сетка-ткань
+- **Russian name:** Ткань пространства-времени
 - **Version:** 0.1.0, simai.effect 1.1.0
 - **Surfaces:** hero, section, dashboard, sign-in
 - **Tags:** lines, geometry
-- **Role:** A calm grid for interfaces: light or dark.
+- **Role:** Science and depth: light and dark schemes.
 
 ## Settings
 
@@ -15,7 +15,7 @@ A fine grid ripples like cloth and gives under the pointer.
 | `speed` | integer | 10–300 % | `100` | Speed |
 | `intensity` | integer | 10–100 % | `70` | Intensity |
 | `density` | integer | 10–100 % | `50` | Density |
-| `interactive` | boolean | — | `true` | React to the pointer. The grid gives under the pointer |
+| `interactive` | boolean | — | `true` | React to the pointer. The pointer pulls the grid, a click sends a wave, holding grows a black hole |
 
 ## Schemes
 

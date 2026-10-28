@@ -1,6 +1,6 @@
 # Signals (`signals`)
 
-Points on a dark world map, with pulses flying between them along arcs.
+A dotted world map; pulses fly along arcs between cities.
 
 - **Russian name:** Сигналы
 - **Version:** 0.1.0, simai.effect 1.1.0
@@ -15,6 +15,7 @@ Points on a dark world map, with pulses flying between them along arcs.
 | `speed` | integer | 10–300 % | `100` | Speed |
 | `intensity` | integer | 10–100 % | `70` | Intensity |
 | `density` | integer | 10–100 % | `50` | Density |
+| `interactive` | boolean | — | `true` | React to the pointer. The pointer lights the nearest city, a click adds a node, a press-drag draws a link |
 
 ## Schemes
 

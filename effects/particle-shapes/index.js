@@ -1,4 +1,4 @@
-// Particle shapes (simai.effect 1.1.0; schemes dark and light): particles gather into a word and scatter again.
+// Particle text (simai.effect 1.1.0; schemes dark and light): particles hold a text, scatter from a click and come back.
 //
 // The lifecycle is the catalogue template's: one canvas in the host, devicePixelRatio capped at 2,
 // a seeded scene (the same picture on every mount at the defaults), one still frame for reduced
@@ -45,43 +45,70 @@ function readTones(host, scheme) {
   return tones;
 }
 
+// Particles hold a text of one or more lines, breathing a little, and now and then scatter and gather
+// again. The pointer pushes them aside; a click blows them apart from where it lands, and they fly back;
+// holding the button draws them into a whirl round the pointer until it is let go.
 const SCENE = {
-  home: 'dark', seed: 177, start: 6, reseed: ['density', 'word'],
+  home: 'dark', seed: 177, reseed: ['density', 'text', 'size'],
   tones: (read, scheme) => scheme === 'light'
     ? {ground: read('--sf-neutral-98', '#faf9fe'), dot: read('--sf-primary-40', '#005bbe'), alt: read('--sf-tertiary-40', '#7c4c86')}
     : {ground: read('--sf-neutral-5', '#111318'), dot: read('--sf-primary-80', '#acc7ff'), alt: read('--sf-tertiary-80', '#e9b4f2')},
   setup(env, random) {
-    // The word's points, sampled from the text drawn once off screen.
-    const word = String(env.values.word || 'SIMAI').slice(0, 12);
-    const fw = Math.min(env.w * 0.8, 900), size = Math.min(env.h * 0.45, fw / Math.max(3, word.length) * 1.6);
-    const off = new OffscreenCanvas(Math.ceil(fw), Math.ceil(size * 1.3));
+    const lines = String(env.values.text || 'SIMAI').split(/\r?\n/).map((line) => line.trim()).filter(Boolean).slice(0, 4);
+    if (!lines.length) lines.push('SIMAI');
+    const longest = Math.max(...lines.map((line) => line.length), 3);
+    // The text's height is a share of the area (size), kept inside its width.
+    const lineHeight = Math.min(env.h * 0.7 * (env.values.size / 100) / lines.length, env.w * 0.9 / longest * 1.7);
+    const off = new OffscreenCanvas(Math.ceil(env.w), Math.ceil(lineHeight * lines.length * 1.15 + 8));
     const o = off.getContext('2d');
     o.fillStyle = '#fff';
-    o.font = `700 ${size}px system-ui, sans-serif`;
+    o.font = `700 ${lineHeight}px system-ui, sans-serif`;
     o.textAlign = 'center';
     o.textBaseline = 'middle';
-    o.fillText(word, off.width / 2, off.height / 2);
+    lines.forEach((line, i) => o.fillText(line, off.width / 2, lineHeight * 0.6 + i * lineHeight * 1.12));
     const pixels = o.getImageData(0, 0, off.width, off.height).data;
-    const step = Math.max(4, Math.round(10 - env.values.density / 15));
-    const targets = [];
-    for (let y = 0; y < off.height; y += step) for (let x = 0; x < off.width; x += step) if (pixels[(y * off.width + x) * 4 + 3] > 128) targets.push([x + (env.w - off.width) / 2, y + (env.h - off.height) / 2]);
-    const particles = targets.map((target) => ({target, home: [random() * env.w, random() * env.h], phase: random() * 6, alt: random() < 0.2}));
-    return {particles};
+    const step = Math.max(3, Math.round(lineHeight / 22 * (1.6 - env.values.density / 100)));
+    const top = (env.h - off.height) / 2;
+    const particles = [];
+    for (let y = 0; y < off.height; y += step) for (let x = 0; x < off.width; x += step) {
+      if (pixels[(y * off.width + x) * 4 + 3] < 128) continue;
+      const home = [random() * env.w, random() * env.h];
+      particles.push({target: [x, y + top], home, x: x, y: y + top, vx: 0, vy: 0, phase: random() * 6, alt: random() < 0.2});
+    }
+    return {particles, size: Math.max(1.4, step * 0.45), whirl: false};
   },
+  click(env, x, y) {
+    for (const p of env.state.particles) {
+      const ex = p.x - x, ey = p.y - y, d = Math.hypot(ex, ey) || 1;
+      const kick = 2600 / (d + 40);
+      p.vx += ex / d * kick; p.vy += ey / d * kick;
+    }
+  },
+  press(env) { env.state.whirl = true; },
+  release(env) { env.state.whirl = false; },
   draw(env, t) {
-    const {ctx, w, h, tones, state, values, scheme} = env;
+    const {ctx, w, h, tones, state, values, pointer, scheme} = env;
     const k = values.intensity / 100;
     ctx.fillStyle = rgba(tones.ground);
     ctx.fillRect(0, 0, w, h);
-    // Scattered, gathering into the word, holding, scattering again.
-    const c = (t / 12) % 1;
-    const form = c < 0.35 ? smooth(c / 0.35) : c < 0.65 ? 1 : 1 - smooth((c - 0.65) / 0.35);
+    // Every 24 seconds the text comes apart for a while and gathers again.
+    const c = (t / 24) % 1;
+    const form = c < 0.8 ? 1 : c < 0.9 ? 1 - smooth((c - 0.8) / 0.1) : smooth((c - 0.9) / 0.1);
+    const px = pointer.x * w, py = pointer.y * h;
     for (const p of state.particles) {
-      const drift = 6 * (1 - form);
-      const x = mix(p.home[0], p.target[0], form) + Math.sin(t * 0.4 + p.phase) * drift;
-      const y = mix(p.home[1], p.target[1], form) + Math.cos(t * 0.35 + p.phase) * drift;
-      ctx.fillStyle = rgba(p.alt ? tones.alt : tones.dot, (scheme === 'light' ? 0.55 : 0.6) * k * (0.5 + 0.5 * form));
-      ctx.fillRect(x - 1, y - 1, 2, 2);
+      const tx = mix(p.home[0], p.target[0], form) + Math.sin(t * 0.7 + p.phase) * 1.2;
+      const ty = mix(p.home[1], p.target[1], form) + Math.cos(t * 0.6 + p.phase) * 1.2;
+      // A spring back to its place, damped.
+      p.vx += (tx - p.x) * 0.02; p.vy += (ty - p.y) * 0.02;
+      if (pointer.on) {
+        const ex = p.x - px, ey = p.y - py, d = Math.hypot(ex, ey) || 1;
+        if (state.whirl && pointer.down) { const f = 1.6 / Math.max(20, d) * 40; p.vx += (-ey / d * f) - ex / d * f * 0.35; p.vy += (ex / d * f) - ey / d * f * 0.35; }
+        else if (d < 70) { const f = (1 - d / 70) * 1.8; p.vx += ex / d * f; p.vy += ey / d * f; }
+      }
+      p.vx *= 0.86; p.vy *= 0.86;
+      p.x += p.vx; p.y += p.vy;
+      ctx.fillStyle = rgba(p.alt ? tones.alt : tones.dot, (scheme === 'light' ? 0.6 : 0.7) * k * (0.45 + 0.55 * form));
+      ctx.fillRect(p.x - state.size / 2, p.y - state.size / 2, state.size, state.size);
     }
   },
 };
@@ -95,7 +122,7 @@ export function mount(host, settings, context = {}) {
   host.append(canvas);
   const ctx = canvas.getContext('2d', {alpha: false});
   const motion = win.matchMedia?.('(prefers-reduced-motion: reduce)');
-  const env = {ctx, w: 1, h: 1, values: {...settings}, scheme: context.scheme ?? SCENE.home, tones: null, state: null, pointer: {x: 0.5, y: 0.5, on: false}, still: false};
+  const env = {ctx, w: 1, h: 1, values: {...settings}, scheme: context.scheme ?? SCENE.home, tones: null, state: null, pointer: {x: 0.5, y: 0.5, on: false, down: false, px: 0, py: 0}, still: false};
   env.tones = readTones(host, env.scheme);
   env.still = Boolean(context.reducedMotion) || Boolean(motion?.matches);
   let paused = false;
@@ -149,6 +176,41 @@ export function mount(host, settings, context = {}) {
     env.pointer.on = env.values.interactive !== false && env.pointer.x >= 0 && env.pointer.x <= 1 && env.pointer.y >= 0 && env.pointer.y <= 1;
   };
   win.addEventListener('pointermove', onPointer, {passive: true});
+  // Press, drag and click inside the area: the host takes no pointer events, so they are read from
+  // the window, inside the host's box, and never from a link, a button or a field over it.
+  let pressed = null;
+  const inside = (event) => {
+    if (env.values.interactive === false || env.still || paused) return null;
+    if (event.target instanceof Element && event.target.closest('a,button,input,textarea,select,label,[role="button"],[contenteditable]')) return null;
+    const box = host.getBoundingClientRect();
+    const x = event.clientX - box.left, y = event.clientY - box.top;
+    return x >= 0 && y >= 0 && x <= box.width && y <= box.height ? [x, y] : null;
+  };
+  const onDown = (event) => {
+    if (event.button !== 0) return;
+    const at = inside(event);
+    if (!at) return;
+    pressed = {x: at[0], y: at[1], time: event.timeStamp};
+    env.pointer.down = true;
+    env.pointer.px = at[0];
+    env.pointer.py = at[1];
+    SCENE.press?.(env, at[0], at[1]);
+    schedule();
+  };
+  const onUp = (event) => {
+    if (!pressed) return;
+    const box = host.getBoundingClientRect();
+    const x = event.clientX - box.left, y = event.clientY - box.top;
+    env.pointer.down = false;
+    SCENE.release?.(env, x, y);
+    if (Math.hypot(x - pressed.x, y - pressed.y) < 6 && event.timeStamp - pressed.time < 400) SCENE.click?.(env, x, y);
+    pressed = null;
+    schedule();
+  };
+  const onCancel = () => { pressed = null; env.pointer.down = false; };
+  win.addEventListener('pointerdown', onDown, {passive: true});
+  win.addEventListener('pointerup', onUp, {passive: true});
+  win.addEventListener('pointercancel', onCancel, {passive: true});
 
   resize();
   schedule();
@@ -175,6 +237,9 @@ export function mount(host, settings, context = {}) {
       doc.removeEventListener('visibilitychange', onVisibility);
       motion?.removeEventListener?.('change', onMotion);
       win.removeEventListener('pointermove', onPointer);
+      win.removeEventListener('pointerdown', onDown);
+      win.removeEventListener('pointerup', onUp);
+      win.removeEventListener('pointercancel', onCancel);
       canvas.remove();
     },
   };

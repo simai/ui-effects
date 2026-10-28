@@ -1,4 +1,4 @@
-// Blueprint (simai.effect 1.1.0; schemes dark and light): drawing lines seem to be pencilled in and rubbed out.
+// Blueprint (simai.effect 1.1.0; schemes dark and light): drawing lines are pencilled in and rubbed out; you can draw too.
 //
 // The lifecycle is the catalogue template's: one canvas in the host, devicePixelRatio capped at 2,
 // a seeded scene (the same picture on every mount at the defaults), one still frame for reduced
@@ -45,23 +45,35 @@ function readTones(host, scheme) {
   return tones;
 }
 
+// A drawing board: shapes are pencilled in, held and rubbed out on their own cycles. The pointer is
+// the draughtsman's eye: guides through it and its coordinates on the grid. A click swings a compass
+// circle with its radius written on it. A press-drag draws by hand; let go, the line is cleaned up
+// into straight strokes with their lengths, and it fades out later.
 const SCENE = {
   home: 'dark', seed: 165, reseed: ['density'],
-  // Dark: a blueprint, pale lines on deep blue. Light: graphite on paper.
   tones: (read, scheme) => scheme === 'light'
-    ? {ground: read('--sf-neutral-98', '#faf9fe'), grid: read('--sf-neutral-90', '#e2e2e9'), line: read('--sf-neutral-30', '#45464f')}
-    : {ground: read('--sf-primary-10', '#001a41'), grid: read('--sf-primary-20', '#002f66'), line: read('--sf-primary-80', '#acc7ff')},
+    ? {ground: read('--sf-neutral-98', '#faf9fe'), grid: read('--sf-neutral-90', '#e2e2e9'), line: read('--sf-neutral-30', '#45464f'), mark: read('--sf-primary-40', '#005bbe')}
+    : {ground: read('--sf-primary-10', '#001a41'), grid: read('--sf-primary-20', '#002f66'), line: read('--sf-primary-80', '#acc7ff'), mark: read('--sf-primary-90', '#d7e2ff')},
   setup(env, random) {
     const n = Math.round(5 + env.values.density / 10);
-    const shapes = Array.from({length: n}, () => {
-      const kind = Math.floor(random() * 3);
-      return {kind, x: random() * env.w, y: random() * env.h, a: 40 + random() * 160, b: 30 + random() * 120, phase: random(), period: 8 + random() * 8};
-    });
-    return {shapes};
+    const shapes = Array.from({length: n}, () => ({kind: Math.floor(random() * 3), x: random() * env.w, y: random() * env.h, a: 40 + random() * 160, b: 30 + random() * 120, phase: random(), period: 8 + random() * 8}));
+    return {shapes, circles: [], stroke: null, drawings: []};
+  },
+  click(env, x, y) {
+    const snap = (v) => Math.round(v / 24) * 24;
+    env.state.circles.push({x: snap(x), y: snap(y), r: 48 + Math.round(hash2(x, y) * 4) * 24, born: env.time ?? 0});
+  },
+  press(env, x, y) { env.state.stroke = [[x, y]]; },
+  release(env) {
+    const {state} = env;
+    if (state.stroke && state.stroke.length > 3) state.drawings.push({points: simplify(state.stroke, 10), born: env.time ?? 0});
+    state.stroke = null;
   },
   draw(env, t) {
-    const {ctx, w, h, tones, state, values, scheme} = env;
+    const {ctx, w, h, tones, state, values, pointer, scheme} = env;
+    env.time = t;
     const k = values.intensity / 100;
+    const a = (scheme === 'light' ? 0.5 : 0.45) * k;
     ctx.fillStyle = rgba(tones.ground);
     ctx.fillRect(0, 0, w, h);
     ctx.strokeStyle = rgba(tones.grid, 0.8);
@@ -71,8 +83,7 @@ const SCENE = {
     for (let y = 0; y < h; y += 24) { ctx.moveTo(0, y + 0.5); ctx.lineTo(w, y + 0.5); }
     ctx.stroke();
     ctx.lineWidth = 1.2;
-    ctx.strokeStyle = rgba(tones.line, (scheme === 'light' ? 0.5 : 0.45) * k);
-    // Every shape is drawn in, held and erased on its own cycle, as if by a pencil.
+    ctx.strokeStyle = rgba(tones.line, a);
     for (const s of state.shapes) {
       const c = (t / s.period + s.phase) % 1;
       const drawn = c < 0.5 ? c / 0.5 : c < 0.8 ? 1 : 1 - (c - 0.8) / 0.2;
@@ -86,8 +97,68 @@ const SCENE = {
       ctx.stroke();
       ctx.restore();
     }
+    ctx.font = '11px ui-monospace, monospace';
+    // Compass circles: swung in, held, then rubbed out.
+    state.circles = state.circles.filter((c) => t - c.born < 12);
+    for (const c of state.circles) {
+      const age = t - c.born, swing = Math.min(1, age / 1.2), fade = age > 9 ? 1 - (age - 9) / 3 : 1;
+      ctx.strokeStyle = rgba(tones.mark, a * 1.3 * fade);
+      ctx.beginPath(); ctx.arc(c.x, c.y, c.r, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * swing); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(c.x - 4, c.y); ctx.lineTo(c.x + 4, c.y); ctx.moveTo(c.x, c.y - 4); ctx.lineTo(c.x, c.y + 4); ctx.stroke();
+      if (swing === 1) {
+        ctx.setLineDash([3, 3]); ctx.beginPath(); ctx.moveTo(c.x, c.y); ctx.lineTo(c.x + c.r * 0.707, c.y - c.r * 0.707); ctx.stroke(); ctx.setLineDash([]);
+        ctx.fillStyle = rgba(tones.mark, a * 1.4 * fade);
+        ctx.fillText(`R ${c.r}`, c.x + c.r * 0.35 + 4, c.y - c.r * 0.35 - 4);
+      }
+    }
+    // Hand drawings, cleaned up into straight strokes with their lengths.
+    state.drawings = state.drawings.filter((d) => t - d.born < 20);
+    for (const d of state.drawings) {
+      const fade = t - d.born > 16 ? 1 - (t - d.born - 16) / 4 : 1;
+      ctx.strokeStyle = rgba(tones.mark, a * 1.4 * fade);
+      ctx.fillStyle = rgba(tones.mark, a * 1.4 * fade);
+      ctx.beginPath();
+      d.points.forEach(([x, y], i) => (i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)));
+      ctx.stroke();
+      for (let i = 1; i < d.points.length; i += 1) {
+        const [x0, y0] = d.points[i - 1], [x1, y1] = d.points[i];
+        ctx.fillRect(x1 - 2, y1 - 2, 4, 4);
+        const length = Math.round(Math.hypot(x1 - x0, y1 - y0));
+        if (length > 40) ctx.fillText(String(length), (x0 + x1) / 2 + 4, (y0 + y1) / 2 - 4);
+      }
+    }
+    if (state.stroke) {
+      if (pointer.down) { const last = state.stroke[state.stroke.length - 1], x = pointer.x * w, y = pointer.y * h; if (Math.hypot(x - last[0], y - last[1]) > 3) state.stroke.push([x, y]); }
+      ctx.strokeStyle = rgba(tones.line, a * 1.2);
+      ctx.beginPath();
+      state.stroke.forEach(([x, y], i) => (i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)));
+      ctx.stroke();
+    }
+    // The draughtsman's eye: guides and the cell under the pointer.
+    if (pointer.on && !pointer.down) {
+      const x = Math.round(pointer.x * w / 24) * 24, y = Math.round(pointer.y * h / 24) * 24;
+      ctx.strokeStyle = rgba(tones.mark, a * 0.8);
+      ctx.setLineDash([2, 4]);
+      ctx.beginPath(); ctx.moveTo(x + 0.5, 0); ctx.lineTo(x + 0.5, h); ctx.moveTo(0, y + 0.5); ctx.lineTo(w, y + 0.5); ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle = rgba(tones.mark, a * 1.3);
+      ctx.fillText(`${x / 24} · ${y / 24}`, x + 6, y - 6);
+    }
   },
 };
+// Ramer–Douglas–Peucker: a hand line reduced to its corners.
+function simplify(points, tolerance) {
+  if (points.length < 3) return points;
+  const [ax, ay] = points[0], [bx, by] = points[points.length - 1];
+  let far = 0, index = 0;
+  for (let i = 1; i < points.length - 1; i += 1) {
+    const [x, y] = points[i];
+    const d = Math.abs((by - ay) * x - (bx - ax) * y + bx * ay - by * ax) / (Math.hypot(bx - ax, by - ay) || 1);
+    if (d > far) { far = d; index = i; }
+  }
+  if (far <= tolerance) return [points[0], points[points.length - 1]];
+  return [...simplify(points.slice(0, index + 1), tolerance).slice(0, -1), ...simplify(points.slice(index), tolerance)];
+}
 
 export function mount(host, settings, context = {}) {
   const doc = host.ownerDocument;
@@ -98,7 +169,7 @@ export function mount(host, settings, context = {}) {
   host.append(canvas);
   const ctx = canvas.getContext('2d', {alpha: false});
   const motion = win.matchMedia?.('(prefers-reduced-motion: reduce)');
-  const env = {ctx, w: 1, h: 1, values: {...settings}, scheme: context.scheme ?? SCENE.home, tones: null, state: null, pointer: {x: 0.5, y: 0.5, on: false}, still: false};
+  const env = {ctx, w: 1, h: 1, values: {...settings}, scheme: context.scheme ?? SCENE.home, tones: null, state: null, pointer: {x: 0.5, y: 0.5, on: false, down: false, px: 0, py: 0}, still: false};
   env.tones = readTones(host, env.scheme);
   env.still = Boolean(context.reducedMotion) || Boolean(motion?.matches);
   let paused = false;
@@ -152,6 +223,41 @@ export function mount(host, settings, context = {}) {
     env.pointer.on = env.values.interactive !== false && env.pointer.x >= 0 && env.pointer.x <= 1 && env.pointer.y >= 0 && env.pointer.y <= 1;
   };
   win.addEventListener('pointermove', onPointer, {passive: true});
+  // Press, drag and click inside the area: the host takes no pointer events, so they are read from
+  // the window, inside the host's box, and never from a link, a button or a field over it.
+  let pressed = null;
+  const inside = (event) => {
+    if (env.values.interactive === false || env.still || paused) return null;
+    if (event.target instanceof Element && event.target.closest('a,button,input,textarea,select,label,[role="button"],[contenteditable]')) return null;
+    const box = host.getBoundingClientRect();
+    const x = event.clientX - box.left, y = event.clientY - box.top;
+    return x >= 0 && y >= 0 && x <= box.width && y <= box.height ? [x, y] : null;
+  };
+  const onDown = (event) => {
+    if (event.button !== 0) return;
+    const at = inside(event);
+    if (!at) return;
+    pressed = {x: at[0], y: at[1], time: event.timeStamp};
+    env.pointer.down = true;
+    env.pointer.px = at[0];
+    env.pointer.py = at[1];
+    SCENE.press?.(env, at[0], at[1]);
+    schedule();
+  };
+  const onUp = (event) => {
+    if (!pressed) return;
+    const box = host.getBoundingClientRect();
+    const x = event.clientX - box.left, y = event.clientY - box.top;
+    env.pointer.down = false;
+    SCENE.release?.(env, x, y);
+    if (Math.hypot(x - pressed.x, y - pressed.y) < 6 && event.timeStamp - pressed.time < 400) SCENE.click?.(env, x, y);
+    pressed = null;
+    schedule();
+  };
+  const onCancel = () => { pressed = null; env.pointer.down = false; };
+  win.addEventListener('pointerdown', onDown, {passive: true});
+  win.addEventListener('pointerup', onUp, {passive: true});
+  win.addEventListener('pointercancel', onCancel, {passive: true});
 
   resize();
   schedule();
@@ -178,6 +284,9 @@ export function mount(host, settings, context = {}) {
       doc.removeEventListener('visibilitychange', onVisibility);
       motion?.removeEventListener?.('change', onMotion);
       win.removeEventListener('pointermove', onPointer);
+      win.removeEventListener('pointerdown', onDown);
+      win.removeEventListener('pointerup', onUp);
+      win.removeEventListener('pointercancel', onCancel);
       canvas.remove();
     },
   };

@@ -1,4 +1,4 @@
-// Watercolour (simai.effect 1.1.0; light scheme only): blots of paint spread slowly over paper and blend at the edges.
+// Watercolour (simai.effect 1.1.0; light scheme only): drops of paint touch wet paper and bloom into stains with ragged edges.
 //
 // The lifecycle is the catalogue template's: one canvas in the host, devicePixelRatio capped at 2,
 // a seeded scene (the same picture on every mount at the defaults), one still frame for reduced
@@ -45,40 +45,101 @@ function readTones(host, scheme) {
   return tones;
 }
 
+// Watercolour on wet paper: a drop of paint touches the paper and blooms into a stain with ragged
+// edges, a darker rim where the pigment gathers, and a few spatters. Stains dry into the paper and
+// slowly fade, so the sheet keeps changing. A click drops paint; a press-drag is a wet brush.
+const BLOOM = 7; // seconds a stain takes to spread
 const SCENE = {
-  home: 'light', seed: 81, reseed: ['density'],
-  tones: (read) => ({paper: read('--sf-neutral-98', '#faf9fe'), inks: [read('--sf-primary-90', '#d7e2ff'), read('--sf-tertiary-90', '#ffd6fe'), read('--sf-secondary-90', '#dae2fd'), read('--sf-warning-90', '#ffddb6')]}),
+  home: 'light', seed: 81, start: 30, reseed: ['density'],
+  tones: (read) => ({paper: read('--sf-neutral-98', '#faf9fe'), inks: [read('--sf-primary-70', '#7fabff'), read('--sf-tertiary-70', '#c798cd'), read('--sf-primary-60', '#4a8eff'), read('--sf-tertiary-60', '#ac7eb2'), read('--sf-secondary-70', '#a0abc4')]}),
   setup(env, random) {
-    const n = Math.round(4 + env.values.density / 12);
-    const blots = Array.from({length: n}, (_, i) => ({x: random(), y: random(), r: 0.12 + random() * 0.2, ink: i % 4, phase: random() * 6, petals: Array.from({length: 7}, () => [random() * 6.28, 0.5 + random() * 0.5])}));
-    return {blots};
+    const {w, h, tones} = env;
+    const paper = new OffscreenCanvas(Math.ceil(w), Math.ceil(h));
+    const p = paper.getContext('2d');
+    p.fillStyle = rgba(tones.paper);
+    p.fillRect(0, 0, w, h);
+    const state = {paper, p, live: [], next: 0, period: 7 - env.values.density / 25, last: null};
+    // The sheet already holds the stains of the first seconds, dried.
+    const before = Math.floor((SCENE.start - BLOOM) / state.period);
+    for (let i = 0; i < before; i += 1) bake(env, state, spawn(env, state, i, i * state.period), BLOOM * 1.2);
+    state.next = before;
+    return state;
   },
+  click(env, x, y) { env.state.live.push(stain(env, x, y, 0.9 + hash2(x, y) * 0.5, env.time ?? 0, Math.floor(hash2(y, x) * 5))); },
+  press(env, x, y) { env.state.last = [x, y]; },
+  release(env) { env.state.last = null; },
   draw(env, t) {
-    const {ctx, w, h, tones, state, values} = env;
-    const k = values.intensity / 100;
-    ctx.fillStyle = rgba(tones.paper);
-    ctx.fillRect(0, 0, w, h);
-    const base = Math.max(w, h);
-    for (const blot of state.blots) {
-      const bx = (blot.x + Math.sin(t * 0.03 + blot.phase) * 0.05) * w;
-      const by = (blot.y + Math.cos(t * 0.025 + blot.phase) * 0.05) * h;
-      const grow = 0.8 + 0.2 * Math.sin(t * 0.05 + blot.phase);
-      // A blot is a few soft discs around its centre: pigment that pooled unevenly.
-      for (const [angle, reach] of blot.petals) {
-        const r = blot.r * base * grow * (0.55 + reach * 0.35);
-        const x = bx + Math.cos(angle + t * 0.01) * r * 0.45, y = by + Math.sin(angle + t * 0.01) * r * 0.45;
-        const g = ctx.createRadialGradient(x, y, 0, x, y, r);
-        g.addColorStop(0, rgba(tones.inks[blot.ink], 0.16 * k));
-        g.addColorStop(0.75, rgba(tones.inks[blot.ink], 0.12 * k));
-        g.addColorStop(1, rgba(tones.inks[blot.ink], 0));
-        ctx.fillStyle = g;
-        ctx.beginPath();
-        ctx.arc(x, y, r, 0, Math.PI * 2);
-        ctx.fill();
-      }
+    const {ctx, w, h, state, pointer} = env;
+    env.time = t;
+    // New stains on their own clock, each from a fixed seed.
+    while (state.next * state.period <= t) { state.live.push(spawn(env, state, state.next, state.next * state.period)); state.next += 1; }
+    // The wet brush: paint laid along the drag.
+    if (pointer.down && state.last) {
+      const x = pointer.x * w, y = pointer.y * h;
+      if (Math.hypot(x - state.last[0], y - state.last[1]) > 22) { state.live.push(stain(env, x, y, 0.35, t, 2)); state.last = [x, y]; }
     }
+    // Dried stains fade into the paper, very slowly.
+    state.p.fillStyle = rgba(env.tones.paper, 0.0025);
+    state.p.fillRect(0, 0, w, h);
+    ctx.drawImage(state.paper, 0, 0, w, h);
+    state.live = state.live.filter((s) => {
+      const age = t - s.born;
+      if (age > BLOOM * 1.2) { bake(env, state, s, age); return false; }
+      paint(ctx, env, s, age);
+      return true;
+    });
+    if (state.live.length > 40) state.live.splice(0, state.live.length - 40).forEach((s) => bake(env, state, s, BLOOM * 1.2));
   },
 };
+function spawn(env, state, i, born) {
+  const x = hash2(i, 11) * env.w, y = hash2(i, 23) * env.h;
+  return stain(env, x, y, 0.7 + hash2(i, 37) * 0.8, born, Math.floor(hash2(i, 41) * 5));
+}
+function stain(env, x, y, size, born, ink) {
+  const R = Math.min(env.w, env.h) * 0.22 * size * (0.6 + env.values.intensity / 200);
+  const seed = x * 0.013 + y * 0.007;
+  const specks = Array.from({length: 10}, (_, k) => [hash2(k, seed * 100) * 6.283, 1 + hash2(seed * 50, k) * 0.5, 1 + hash2(k, k + seed) * 2.5]);
+  return {x, y, R, born, ink, seed, specks};
+}
+// A stain's outline at a given spread: a ragged circle, its edge wobbling with noise.
+function outline(ctx, s, r, wobble, layer = 0) {
+  ctx.beginPath();
+  for (let i = 0; i <= 64; i += 1) {
+    const a = i / 64 * Math.PI * 2;
+    const n = noise2(Math.cos(a) * 1.6 + s.seed * 7 + layer * 2.3, Math.sin(a) * 1.6 + s.seed * 3) * 0.55 + noise2(Math.cos(a) * 4 + s.seed + layer, Math.sin(a) * 4) * 0.3 + noise2(Math.cos(a) * 11 + layer, Math.sin(a) * 11 + s.seed) * 0.15;
+    const rr = r * (0.72 + n * wobble);
+    if (i) ctx.lineTo(s.x + Math.cos(a) * rr, s.y + Math.sin(a) * rr); else ctx.moveTo(s.x + Math.cos(a) * rr, s.y + Math.sin(a) * rr);
+  }
+  ctx.closePath();
+}
+function paint(ctx, env, s, age) {
+  const grow = 1 - Math.exp(-age / (BLOOM / 3));
+  const r = s.R * grow;
+  if (r < 1) return;
+  const ink = env.tones.inks[s.ink];
+  // Washes: many thin, soft layers, each with its own ragged edge, so the colour pools unevenly.
+  ctx.save();
+  ctx.filter = 'blur(3px)';
+  for (let layer = 0; layer < 6; layer += 1) {
+    ctx.fillStyle = rgba(ink, 0.05);
+    outline(ctx, s, r * (1 - layer * 0.11), 0.6, layer);
+    ctx.fill();
+  }
+  // The rim: pigment gathers at the edge as the wash dries, a soft darker line.
+  ctx.filter = 'blur(1px)';
+  ctx.strokeStyle = rgba(ink, 0.14 * Math.min(1, grow * 1.4));
+  ctx.lineWidth = 2;
+  outline(ctx, s, r, 0.6, 0);
+  ctx.stroke();
+  ctx.restore();
+  for (const [a, reach, size] of s.specks) {
+    ctx.fillStyle = rgba(ink, 0.22 * grow);
+    ctx.beginPath();
+    ctx.arc(s.x + Math.cos(a) * r * reach, s.y + Math.sin(a) * r * reach, size, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+function bake(env, state, s, age) { paint(state.p, env, s, age); }
 
 export function mount(host, settings, context = {}) {
   const doc = host.ownerDocument;
@@ -89,7 +150,7 @@ export function mount(host, settings, context = {}) {
   host.append(canvas);
   const ctx = canvas.getContext('2d', {alpha: false});
   const motion = win.matchMedia?.('(prefers-reduced-motion: reduce)');
-  const env = {ctx, w: 1, h: 1, values: {...settings}, scheme: context.scheme ?? SCENE.home, tones: null, state: null, pointer: {x: 0.5, y: 0.5, on: false}, still: false};
+  const env = {ctx, w: 1, h: 1, values: {...settings}, scheme: context.scheme ?? SCENE.home, tones: null, state: null, pointer: {x: 0.5, y: 0.5, on: false, down: false, px: 0, py: 0}, still: false};
   env.tones = readTones(host, env.scheme);
   env.still = Boolean(context.reducedMotion) || Boolean(motion?.matches);
   let paused = false;
@@ -143,6 +204,41 @@ export function mount(host, settings, context = {}) {
     env.pointer.on = env.values.interactive !== false && env.pointer.x >= 0 && env.pointer.x <= 1 && env.pointer.y >= 0 && env.pointer.y <= 1;
   };
   win.addEventListener('pointermove', onPointer, {passive: true});
+  // Press, drag and click inside the area: the host takes no pointer events, so they are read from
+  // the window, inside the host's box, and never from a link, a button or a field over it.
+  let pressed = null;
+  const inside = (event) => {
+    if (env.values.interactive === false || env.still || paused) return null;
+    if (event.target instanceof Element && event.target.closest('a,button,input,textarea,select,label,[role="button"],[contenteditable]')) return null;
+    const box = host.getBoundingClientRect();
+    const x = event.clientX - box.left, y = event.clientY - box.top;
+    return x >= 0 && y >= 0 && x <= box.width && y <= box.height ? [x, y] : null;
+  };
+  const onDown = (event) => {
+    if (event.button !== 0) return;
+    const at = inside(event);
+    if (!at) return;
+    pressed = {x: at[0], y: at[1], time: event.timeStamp};
+    env.pointer.down = true;
+    env.pointer.px = at[0];
+    env.pointer.py = at[1];
+    SCENE.press?.(env, at[0], at[1]);
+    schedule();
+  };
+  const onUp = (event) => {
+    if (!pressed) return;
+    const box = host.getBoundingClientRect();
+    const x = event.clientX - box.left, y = event.clientY - box.top;
+    env.pointer.down = false;
+    SCENE.release?.(env, x, y);
+    if (Math.hypot(x - pressed.x, y - pressed.y) < 6 && event.timeStamp - pressed.time < 400) SCENE.click?.(env, x, y);
+    pressed = null;
+    schedule();
+  };
+  const onCancel = () => { pressed = null; env.pointer.down = false; };
+  win.addEventListener('pointerdown', onDown, {passive: true});
+  win.addEventListener('pointerup', onUp, {passive: true});
+  win.addEventListener('pointercancel', onCancel, {passive: true});
 
   resize();
   schedule();
@@ -169,6 +265,9 @@ export function mount(host, settings, context = {}) {
       doc.removeEventListener('visibilitychange', onVisibility);
       motion?.removeEventListener?.('change', onMotion);
       win.removeEventListener('pointermove', onPointer);
+      win.removeEventListener('pointerdown', onDown);
+      win.removeEventListener('pointerup', onUp);
+      win.removeEventListener('pointercancel', onCancel);
       canvas.remove();
     },
   };

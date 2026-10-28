@@ -1,12 +1,12 @@
 # Watercolour (`watercolor`)
 
-Blots of paint spread slowly over paper and blend at the edges.
+Drops of paint touch wet paper and bloom into stains with ragged edges.
 
 - **Russian name:** Акварель
 - **Version:** 0.1.0, simai.effect 1.1.0
 - **Surfaces:** hero, section, dashboard, sign-in
 - **Tags:** paper, gradient
-- **Role:** A soft light background. Light scheme only.
+- **Role:** Live watercolour. Light scheme only.
 
 ## Settings
 
@@ -15,6 +15,7 @@ Blots of paint spread slowly over paper and blend at the edges.
 | `speed` | integer | 10–300 % | `100` | Speed |
 | `intensity` | integer | 10–100 % | `70` | Intensity |
 | `density` | integer | 10–100 % | `50` | Density |
+| `interactive` | boolean | — | `true` | React to the pointer. A click drops paint, a press-drag is a wet brush |
 
 ## Schemes
 

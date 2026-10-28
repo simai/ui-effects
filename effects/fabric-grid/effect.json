@@ -4,8 +4,8 @@
   "id": "fabric-grid",
   "version": "0.1.0",
   "label": {
-    "ru": "Сетка-ткань",
-    "en": "Fabric grid"
+    "ru": "Ткань пространства-времени",
+    "en": "Spacetime fabric"
   },
   "author": "SIMAI",
   "entry": "index.js",
@@ -72,8 +72,8 @@
       },
       "default": true,
       "hint": {
-        "ru": "Сетка прогибается под указателем",
-        "en": "The grid gives under the pointer"
+        "ru": "Указатель притягивает сетку, клик пускает волну, удержание растит чёрную дыру",
+        "en": "The pointer pulls the grid, a click sends a wave, holding grows a black hole"
       }
     }
   ],

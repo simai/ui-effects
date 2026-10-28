@@ -5,7 +5,7 @@
   "version": "0.1.0",
   "label": {
     "ru": "Узор частиц",
-    "en": "Particle shapes"
+    "en": "Particle text"
   },
   "author": "SIMAI",
   "entry": "index.js",
@@ -64,17 +64,43 @@
       "unit": "%"
     },
     {
-      "key": "word",
-      "type": "string",
+      "key": "size",
+      "type": "integer",
       "label": {
-        "ru": "Слово",
-        "en": "Word"
+        "ru": "Размер текста",
+        "en": "Text size"
+      },
+      "default": 60,
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "%"
+    },
+    {
+      "key": "text",
+      "type": "text",
+      "label": {
+        "ru": "Текст",
+        "en": "Text"
       },
       "default": "SIMAI",
-      "max": 12,
+      "max": 80,
       "hint": {
-        "ru": "До 12 знаков",
-        "en": "Up to 12 characters"
+        "ru": "До четырёх строк",
+        "en": "Up to four lines"
+      }
+    },
+    {
+      "key": "interactive",
+      "type": "boolean",
+      "label": {
+        "ru": "Реагировать на указатель",
+        "en": "React to the pointer"
+      },
+      "default": true,
+      "hint": {
+        "ru": "Частицы расходятся от указателя, клик их разбрасывает, удержание закручивает вихрь",
+        "en": "Particles part round the pointer, a click scatters them, holding whirls them"
       }
     }
   ],

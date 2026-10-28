@@ -157,7 +157,7 @@ export function mount(host, settings, context = {}) {
   host.append(canvas);
   const ctx = canvas.getContext('2d', {alpha: false});
   const motion = win.matchMedia?.('(prefers-reduced-motion: reduce)');
-  const env = {ctx, w: 1, h: 1, values: {...settings}, scheme: context.scheme ?? SCENE.home, tones: null, state: null, pointer: {x: 0.5, y: 0.5, on: false}, still: false};
+  const env = {ctx, w: 1, h: 1, values: {...settings}, scheme: context.scheme ?? SCENE.home, tones: null, state: null, pointer: {x: 0.5, y: 0.5, on: false, down: false, px: 0, py: 0}, still: false};
   env.tones = readTones(host, env.scheme);
   env.still = Boolean(context.reducedMotion) || Boolean(motion?.matches);
   let paused = false;
@@ -211,6 +211,41 @@ export function mount(host, settings, context = {}) {
     env.pointer.on = env.values.interactive !== false && env.pointer.x >= 0 && env.pointer.x <= 1 && env.pointer.y >= 0 && env.pointer.y <= 1;
   };
   win.addEventListener('pointermove', onPointer, {passive: true});
+  // Press, drag and click inside the area: the host takes no pointer events, so they are read from
+  // the window, inside the host's box, and never from a link, a button or a field over it.
+  let pressed = null;
+  const inside = (event) => {
+    if (env.values.interactive === false || env.still || paused) return null;
+    if (event.target instanceof Element && event.target.closest('a,button,input,textarea,select,label,[role="button"],[contenteditable]')) return null;
+    const box = host.getBoundingClientRect();
+    const x = event.clientX - box.left, y = event.clientY - box.top;
+    return x >= 0 && y >= 0 && x <= box.width && y <= box.height ? [x, y] : null;
+  };
+  const onDown = (event) => {
+    if (event.button !== 0) return;
+    const at = inside(event);
+    if (!at) return;
+    pressed = {x: at[0], y: at[1], time: event.timeStamp};
+    env.pointer.down = true;
+    env.pointer.px = at[0];
+    env.pointer.py = at[1];
+    SCENE.press?.(env, at[0], at[1]);
+    schedule();
+  };
+  const onUp = (event) => {
+    if (!pressed) return;
+    const box = host.getBoundingClientRect();
+    const x = event.clientX - box.left, y = event.clientY - box.top;
+    env.pointer.down = false;
+    SCENE.release?.(env, x, y);
+    if (Math.hypot(x - pressed.x, y - pressed.y) < 6 && event.timeStamp - pressed.time < 400) SCENE.click?.(env, x, y);
+    pressed = null;
+    schedule();
+  };
+  const onCancel = () => { pressed = null; env.pointer.down = false; };
+  win.addEventListener('pointerdown', onDown, {passive: true});
+  win.addEventListener('pointerup', onUp, {passive: true});
+  win.addEventListener('pointercancel', onCancel, {passive: true});
 
   resize();
   schedule();
@@ -237,6 +272,9 @@ export function mount(host, settings, context = {}) {
       doc.removeEventListener('visibilitychange', onVisibility);
       motion?.removeEventListener?.('change', onMotion);
       win.removeEventListener('pointermove', onPointer);
+      win.removeEventListener('pointerdown', onDown);
+      win.removeEventListener('pointerup', onUp);
+      win.removeEventListener('pointercancel', onCancel);
       canvas.remove();
     },
   };

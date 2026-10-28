@@ -1,6 +1,6 @@
-# Particle shapes (`particle-shapes`)
+# Particle text (`particle-shapes`)
 
-Particles gather into a word and scatter again.
+Particles hold a text, scatter from a click and come back.
 
 - **Russian name:** Узор частиц
 - **Version:** 0.1.0, simai.effect 1.1.0
@@ -15,7 +15,9 @@ Particles gather into a word and scatter again.
 | `speed` | integer | 10–300 % | `100` | Speed |
 | `intensity` | integer | 10–100 % | `70` | Intensity |
 | `density` | integer | 10–100 % | `50` | Density |
-| `word` | string | up to 12 characters | `"SIMAI"` | Word. Up to 12 characters |
+| `size` | integer | 20–100 % | `60` | Text size |
+| `text` | text | up to 80 characters | `"SIMAI"` | Text. Up to four lines |
+| `interactive` | boolean | — | `true` | React to the pointer. Particles part round the pointer, a click scatters them, holding whirls them |
 
 ## Schemes
 

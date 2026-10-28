@@ -1,6 +1,6 @@
 # Blueprint (`blueprint`)
 
-Drawing lines seem to be pencilled in and rubbed out.
+Drawing lines are pencilled in and rubbed out; you can draw too.
 
 - **Russian name:** Чертёж
 - **Version:** 0.1.0, simai.effect 1.1.0
@@ -15,6 +15,7 @@ Drawing lines seem to be pencilled in and rubbed out.
 | `speed` | integer | 10–300 % | `100` | Speed |
 | `intensity` | integer | 10–100 % | `70` | Intensity |
 | `density` | integer | 10–100 % | `50` | Density |
+| `interactive` | boolean | — | `true` | React to the pointer. Guides follow the pointer, a click swings a compass, a press-drag draws |
 
 ## Schemes
 

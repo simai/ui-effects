@@ -116,8 +116,9 @@ function buildForm() {
         break;
       }
       default:
-        control = document.createElement('input');
-        control.type = 'text';
+        // A text setting may hold several lines; a string, one.
+        control = document.createElement(setting.type === 'text' ? 'textarea' : 'input');
+        if (setting.type === 'text') control.rows = 3; else control.type = 'text';
         control.value = value ?? '';
         if (setting.max) control.maxLength = setting.max;
         head.append(name);
@@ -131,7 +132,7 @@ function buildForm() {
       hint.textContent = text(setting.hint);
       field.append(hint);
     }
-    const event = control.type === 'text' ? 'change' : 'input';
+    const event = control.type === 'text' || control.tagName === 'TEXTAREA' ? 'change' : 'input';
     control.addEventListener(event, () => {
       const checked = checkSetting(setting, read());
       field.querySelector('.invalid')?.remove();

@@ -62,6 +62,19 @@
       "max": 100,
       "step": 5,
       "unit": "%"
+    },
+    {
+      "key": "interactive",
+      "type": "boolean",
+      "label": {
+        "ru": "Реагировать на указатель",
+        "en": "React to the pointer"
+      },
+      "default": true,
+      "hint": {
+        "ru": "Направляющие за указателем, клик — циркуль, протягивание — карандаш",
+        "en": "Guides follow the pointer, a click swings a compass, a press-drag draws"
+      }
     }
   ],
   "needs": {

@@ -197,6 +197,8 @@ h3 { font-size: 1.0625rem; line-height: 1.4; font-weight: 700; }
    window card, takes the theme the effect is drawn in, and its ink with the
    class sf-effect-area (SF.Effects). The site adds only the ground. */
 .demo-hero { position: relative; isolation: isolate; }
+/* A press-drag on an effect draws; over the demo areas it does not select their text. */
+.demo-hero, .demo-cards { user-select: none; -webkit-user-select: none; }
 [data-sf-effect-layer] { position: absolute; inset: 0; z-index: -1; overflow: hidden; border-radius: inherit; pointer-events: none; }
 .intro.theme-dark, .intro.theme-light,
 .demo-hero.theme-dark, .demo-hero.theme-light,
@@ -268,7 +270,7 @@ h3 { font-size: 1.0625rem; line-height: 1.4; font-weight: 700; }
 .field__value { font-variant-numeric: tabular-nums; color: var(--ink-muted); }
 .field input[type="range"] { inline-size: 100%; min-block-size: 1.75rem; accent-color: var(--sf-primary); margin: 0; }
 .field select,
-.field input[type="text"] {
+.field input[type="text"], .field textarea {
   min-block-size: 2.5rem;
   padding: 0 0.75rem;
   border: 1px solid var(--sf-outline);

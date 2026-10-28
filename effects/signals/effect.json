@@ -61,6 +61,19 @@
       "max": 100,
       "step": 5,
       "unit": "%"
+    },
+    {
+      "key": "interactive",
+      "type": "boolean",
+      "label": {
+        "ru": "Реагировать на указатель",
+        "en": "React to the pointer"
+      },
+      "default": true,
+      "hint": {
+        "ru": "Указатель зажигает ближайший город, клик добавляет узел, протягивание рисует свою связь",
+        "en": "The pointer lights the nearest city, a click adds a node, a press-drag draws a link"
+      }
     }
   ],
   "needs": {

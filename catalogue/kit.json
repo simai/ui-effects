@@ -66,7 +66,7 @@
       "failed": []
     },
     "rain-glass": {
-      "digest": "df88a814e0f83ef560db6f716a9aa87cb201c05d6d2244419462f46978e047bb",
+      "digest": "c2fd09eb01775501b7a46b2924829549831a3061ceb2573b9a02eff7dd707d2b",
       "passed": 14,
       "total": 14,
       "failed": []
@@ -114,73 +114,43 @@
       "failed": []
     },
     "city-lights": {
-      "digest": "e67850ba7d5806cf6ff80be6348c8f78be879a366b5c923d8ac22af02686d766",
+      "digest": "fce6639fc22f46024bb12ae916725eda7a939f5930cfbf101e8a9fe26c8e4c66",
       "passed": 14,
       "total": 14,
       "failed": []
     },
     "signals": {
-      "digest": "aa0fa4ecce01d1313eb2d400ca6ebf18008f3ad7d91eb465eb662a7d32a74815",
-      "passed": 14,
-      "total": 14,
-      "failed": []
-    },
-    "embers": {
-      "digest": "068a6c71b76a209dc2af5f28c53055a953deaa163b73285f9a48983f98155df4",
+      "digest": "1657d4707ecac01961ac9d7aeaf60cea1dfe4b467248f83ea1d9e0e2d49b48f8",
       "passed": 14,
       "total": 14,
       "failed": []
     },
     "watercolor": {
-      "digest": "1d4890163208347ee9b3af1d9231715b806f9b012d5a2ee65041bb7c44ffe2ea",
+      "digest": "e4ea3ea1eecfec21f12c01a8e51e96d76e5709626082938408ca745fbb404af0",
       "passed": 14,
       "total": 14,
-      "failed": []
-    },
-    "blinds": {
-      "digest": "4f75b863532afe6ee0abeafe04fa900fd86cbda7dad2cec7a0eabac37fa6619c",
-      "passed": 14,
-      "total": 14,
-      "failed": []
-    },
-    "origami": {
-      "digest": "0dabbcaab2dc8cbe01e0f450ada4990e8ae002bdc2e869d4626a7616032a9e8c",
-      "passed": 14,
-      "total": 14,
-      "failed": []
-    },
-    "dust-beam": {
-      "digest": "192687932c3b9466957069f1ad2a00aa69dbb1851e1b81719324082552b2936c",
-      "passed": 14,
-      "total": 14,
-      "failed": []
-    },
-    "relief-wave": {
-      "digest": "8624fa6ddf938c9f63c658cc5187acd6c3752b4aaddfe347ff061c43befb99e2",
-      "passed": 17,
-      "total": 17,
       "failed": []
     },
     "fabric-grid": {
-      "digest": "e39fcbbd1b4141067139931b725b87f19a832694453d69d9f8a70d446c7a8804",
+      "digest": "d7c3a464d713a7f3386afb7eb9609d6c2783767d96b7a34f58e11ad52c080d11",
       "passed": 17,
       "total": 17,
       "failed": []
     },
     "ripples": {
-      "digest": "953316a22c6238672c470ec9de3b3204de2e5c20f00b90f5b7e770929716d89d",
+      "digest": "ef1de970b8b15825f96be205b0c5b72baee30889bf17c39b3c0bd9cfa23d5da2",
       "passed": 17,
       "total": 17,
       "failed": []
     },
     "blueprint": {
-      "digest": "ef56e8b4f80545756f3e84edbb118105a42e7d4208ca9b9053ae5b53c04e602d",
+      "digest": "1f3067758b9d2983f58f661d2d9d0db10465d2c6c4b9d897b232d0dd855626a5",
       "passed": 17,
       "total": 17,
       "failed": []
     },
     "particle-shapes": {
-      "digest": "544a488bd10441f7555bcaa0f6fa43d1738e290efab0d8530fc10733e12d3b0d",
+      "digest": "cdc3a919953bb983a23a2450a055dea7f65fccf5451d9861a1eb5be16f20e311",
       "passed": 17,
       "total": 17,
       "failed": []

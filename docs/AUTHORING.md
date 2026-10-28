@@ -40,6 +40,11 @@ Rules every effect follows:
   randomness (a fixed seed, or one derived from the settings) so every mount
   draws the same scene. The kit's contrast check samples frames; a randomly
   placed picture passes one run and fails the next.
+- **Press, drag, click.** An effect may answer a click and a press-drag in its
+  area (read from the window, never from a link, a button or a field). A
+  press-drag also selects the text over the area, so a page that offers it
+  sets `user-select: none` on that area. Say in the `interactive` hint what
+  each gesture does.
 - **One module.** No imports of any kind: the core imports the entry from its
   verified bytes, so a relative import would have nothing to resolve against.
 - **Cleanup.** `destroy` leaves no nodes, frames, observers or listeners, and a
