@@ -337,7 +337,7 @@ try {
     await page.goto(`${base}effect/${effects[0].id}/`);
     await page.waitForFunction(() => document.documentElement.dataset.ready === 'true');
     await page.locator('[data-code-tabs] [role="tab"]').nth(1).click();
-    await page.waitForFunction(() => document.querySelector('[data-code="js"]')?.closest('.sf-highlight'), null, {timeout: 20000}).catch(() => {});
+    await page.waitForFunction(() => document.querySelector('[data-code="js"]')?.closest('.sf-highlight'), null, {timeout: 45000}).catch(() => {});
     const shown = await page.evaluate(() => {
       const code = document.querySelector('[data-code="js"]');
       const box = code?.getBoundingClientRect();

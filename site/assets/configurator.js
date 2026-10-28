@@ -323,7 +323,7 @@ setInterval(() => { if (!state.paused && !document.hidden) measure(); }, 2500);
 const highlighter = new Promise((resolve) => {
   globalThis.SF?.Loader?.ensurePlugin?.('highlight');
   const started = Date.now();
-  const tick = () => (globalThis.SF?.Highlight?.refresh ? resolve(globalThis.SF.Highlight) : Date.now() - started > 10000 ? resolve(null) : setTimeout(tick, 100));
+  const tick = () => (globalThis.SF?.Highlight?.refresh ? resolve(globalThis.SF.Highlight) : Date.now() - started > 60000 ? resolve(null) : setTimeout(tick, 100));
   tick();
 });
 function setCode(name, source) {
