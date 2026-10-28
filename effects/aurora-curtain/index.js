@@ -146,10 +146,10 @@ const FX = {
         const patch = noise2(u * 1.7 + k - tt * 0.5, k + tt * 0.3);
         const lit = patch < 0.3 ? 0 : patch > 0.75 ? 1 : (patch - 0.3) / 0.45;
         // Rays: bright folds with dark gaps between them, rather than an even haze.
-        const a = gain * 0.88 * (0.02 + rays ** 3 * 3.2) * lit * lit;
+        const a = gain * 0.46 * (0.02 + rays ** 3 * 3.2) * lit * lit;
         if (a < 0.01) continue;
         ctx.globalAlpha = Math.min(0.85, a);
-        ctx.drawImage(sprite, x - step * 0.2, y - len, step * 1.3, len * 1.2);
+        ctx.drawImage(sprite, x - step * 0.6, y - len, step * 2.2, len * 1.2);
       }
     }
     ctx.globalAlpha = 1;
