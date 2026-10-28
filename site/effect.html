@@ -11,7 +11,9 @@
   <header class="head">
     <h1 data-title>{{EFFECT_LABEL}}</h1>
     <p class="head__lead" data-description>{{EFFECT_DESCRIPTION}}</p>
-    <div class="head__facts" data-facts></div>
+    <div class="head__facts" data-facts>
+      <p class="readout small muted" data-readout data-state="none" role="status" aria-live="polite" title="Худший контраст текста поверх эффекта: 95 % площади текста не ниже этого"><span class="readout__mark" aria-hidden="true"></span><span data-readout-text>Контраст измеряется…</span></p>
+    </div>
   </header>
 
   <section class="stage" aria-labelledby="stage-title">
@@ -22,11 +24,11 @@
     </div>
     <section class="demo-hero" data-hero aria-labelledby="demo-title">
       <div class="demo-hero__body" data-measure="hero">
-        <p class="demo-hero__title" id="demo-title" data-text>Заголовок читается в любом кадре</p>
-        <p class="demo-hero__lead" data-text>Спокойное движение под текстом.</p>
+        <p class="demo-hero__title" id="demo-title" data-text>Заголовок баннера</p>
+        <p class="demo-hero__lead" data-text>Короткое описание: одна-две строки о главном.</p>
         <div class="demo-hero__actions">
-          <button type="button" class="btn btn--primary" tabindex="-1">Начать</button>
-          <button type="button" class="btn" tabindex="-1">Подробнее</button>
+          <button type="button" class="sf-button sf-button--default sf-button--primary sf-button--size-1" tabindex="-1"><span class="sf-button-text-container">Начать</span></button>
+          <button type="button" class="sf-button sf-button--outline sf-button--on-surface sf-button--size-1" tabindex="-1"><span class="sf-button-text-container">Подробнее</span></button>
         </div>
       </div>
       <div class="demo-hero__controls">
@@ -34,7 +36,8 @@
         <button type="button" class="sf-icon-button sf-icon-button--icon sf-icon-button--surface sf-icon-button--on-surface sf-icon-button--size-1 inline-grid items-cross-center content-main-center m-0" data-reduced aria-pressed="false" aria-label="Меньше движения" title="Меньше движения"><sf-icon icon="motion_photos_off" aria-hidden="true"></sf-icon></button>
       </div>
     </section>
-    <ul class="demo-cards" data-cards aria-label="Окна">
+    <h2 class="stage__label" id="cards-title">Карточки поверх фона</h2>
+    <ul class="demo-cards" data-cards aria-labelledby="cards-title">
         <li class="demo-card" data-effect-window><svg class="demo-card__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V9m5 10V5m5 14v-7m5 7V8" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" fill="none"/></svg><div class="demo-card__text"><h3 data-text>Аналитика</h3><p class="small" data-text>Неделя и месяц</p></div></li>
         <li class="demo-card" data-effect-window><svg class="demo-card__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13l3-8h10l3 8v6H4v-6zm0 0h5l1 2h4l1-2h5" stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="none"/></svg><div class="demo-card__text"><h3 data-text>Заявки</h3><p class="small" data-text>Новые и в работе</p></div></li>
         <li class="demo-card" data-effect-window><svg class="demo-card__icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5" stroke="currentColor" stroke-width="2" fill="none"/><path d="M2.5 19c.8-3.4 3.4-5 6.5-5s5.7 1.6 6.5 5M16 4.6a3.5 3.5 0 0 1 0 6.8M18 14.4c1.8.7 3 2.2 3.5 4.6" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg><div class="demo-card__text"><h3 data-text>Команда</h3><p class="small" data-text>Роли и доступы</p></div></li>
@@ -44,7 +47,6 @@
         <li class="demo-card" data-effect-window><svg class="demo-card__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v14H4zM4 10h16M8 3v5M16 3v5" stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="none"/></svg><div class="demo-card__text"><h3 data-text>Календарь</h3><p class="small" data-text>Встречи и сроки</p></div></li>
         <li class="demo-card" data-effect-window><svg class="demo-card__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H9l-5 4V5z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="none"/></svg><div class="demo-card__text"><h3 data-text>Сообщения</h3><p class="small" data-text>Чаты и уведомления</p></div></li>
     </ul>
-    <p class="readout small muted" data-readout data-state="none" role="status" aria-live="polite"><span class="readout__mark" aria-hidden="true"></span><span data-readout-text>Контраст измеряется…</span></p>
     <p class="fallback-note" data-error role="alert" hidden></p>
   </section>
 
@@ -53,7 +55,7 @@
       <section class="panel" aria-labelledby="settings-title">
         <div class="panel__head">
           <h2 id="settings-title">Настройки</h2>
-          <button type="button" class="btn btn--small" data-reset>Сбросить</button>
+          <button type="button" class="sf-button sf-button--outline sf-button--on-surface sf-button--size-1/2" data-reset><span class="sf-button-text-container">Сбросить</span></button>
         </div>
         <p class="notice small" data-settings-note hidden></p>
         <form class="form" data-form novalidate></form>
@@ -63,34 +65,35 @@
         <dl class="facts" data-facts-list></dl>
         <p class="small"><a data-source>Исходный код</a></p>
       </section>
+      <section class="panel" aria-labelledby="download-title">
+        <h2 id="download-title">Скачать пример</h2>
+        <p class="small muted">Готовая страница с этим фоном и текущими настройками: откройте файл в браузере.</p>
+        <sf-dropdown size="1" label="Что в примере" value="both" data-download-layout></sf-dropdown>
+        <button type="button" class="sf-button sf-button--default sf-button--primary sf-button--size-1" data-download><sf-icon icon="download" aria-hidden="true"></sf-icon><span class="sf-button-text-container">Скачать HTML</span></button>
+      </section>
     </div>
 
     <section class="panel" aria-labelledby="code-title">
       <div class="panel__head">
         <h2 id="code-title">Код</h2>
       </div>
-      <div class="tabs" role="tablist" aria-label="Формат кода">
-        <button type="button" class="tab" role="tab" id="tab-html" aria-controls="panel-html" aria-selected="true" data-tab="html">HTML</button>
-        <button type="button" class="tab" role="tab" id="tab-js" aria-controls="panel-js" aria-selected="false" tabindex="-1" data-tab="js">JS</button>
-        <button type="button" class="tab" role="tab" id="tab-json" aria-controls="panel-json" aria-selected="false" tabindex="-1" data-tab="json">Настройки</button>
-      </div>
-      <div role="tabpanel" id="panel-html" aria-labelledby="tab-html" data-panel="html" class="code-block">
-        <div class="code-block__head"><span class="code-block__title">Подключение</span><button type="button" class="btn btn--small" data-code-copy="connect">Скопировать</button></div>
-        <pre class="code" tabindex="0" aria-label="Подключение" data-code="connect"></pre>
-        <div class="code-block__head"><span class="code-block__title">Баннер</span><button type="button" class="btn btn--small" data-code-copy="html">Скопировать</button></div>
-        <pre class="code" tabindex="0" aria-label="Баннер" data-code="html"></pre>
-        <div class="code-block__head"><span class="code-block__title">Окна</span><button type="button" class="btn btn--small" data-code-copy="html-windows">Скопировать</button></div>
-        <pre class="code" tabindex="0" aria-label="Окна" data-code="html-windows"></pre>
-      </div>
-      <div role="tabpanel" id="panel-js" aria-labelledby="tab-js" data-panel="js" class="code-block" hidden>
-        <div class="code-block__head"><span class="code-block__title">JavaScript</span><button type="button" class="btn btn--small" data-code-copy="js">Скопировать</button></div>
-        <pre class="code" tabindex="0" aria-label="JavaScript" data-code="js"></pre>
-      </div>
-      <div role="tabpanel" id="panel-json" aria-labelledby="tab-json" data-panel="json" class="code-block" hidden>
-        <div class="code-block__head"><span class="code-block__title">Настройки</span><button type="button" class="btn btn--small" data-code-copy="json">Скопировать</button></div>
-        <pre class="code" tabindex="0" aria-label="Настройки, JSON" data-code="json"></pre>
-      </div>
-      <p class="small muted" data-copied aria-live="polite"></p>
+      <!-- Framework tabs; each block is the Framework's code highlight, with its own copy button. -->
+      <sf-tabs type="pills" size="1/2" aria-label="Формат кода" items="HTML|JS|Настройки" data-code-tabs>
+        <div slot="panel-0" class="code-stack">
+          <h3 class="code-stack__title">Подключение</h3>
+          <pre><code data-lang="html" data-code="connect"></code></pre>
+          <h3 class="code-stack__title">Баннер</h3>
+          <pre><code data-lang="html" data-code="html"></code></pre>
+          <h3 class="code-stack__title">Карточки</h3>
+          <pre><code data-lang="html" data-code="html-windows"></code></pre>
+        </div>
+        <div slot="panel-1" class="code-stack">
+          <pre><code data-lang="js" data-code="js"></code></pre>
+        </div>
+        <div slot="panel-2" class="code-stack">
+          <pre><code data-lang="json" data-code="json"></code></pre>
+        </div>
+      </sf-tabs>
     </section>
   </div>
 </main>

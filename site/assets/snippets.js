@@ -89,3 +89,23 @@ if (!placement) console.warn('Эффект не запущен:', area.dataset.s
 }
 
 export const jsonSnippet = ({values}) => JSON.stringify(values, null, 2);
+
+// A whole page around the snippets, for the «Скачать пример» file.
+export function examplePage({entry, connect, parts}) {
+  return `<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>${entry.label.ru} — пример фона</title>
+${connect}
+<style>
+  body { margin: 0; padding: 1.5rem; display: grid; gap: 1.5rem; background: var(--sf-surface-0); color: var(--sf-on-surface); font-family: system-ui, sans-serif; }
+</style>
+</head>
+<body>
+${parts.join('\n\n')}
+</body>
+</html>
+`;
+}

@@ -69,23 +69,6 @@ h3 { font-size: 1.0625rem; line-height: 1.4; font-weight: 700; }
 .brand { display: inline-flex; align-items: center; gap: 0.625rem; color: var(--sf-on-surface); text-decoration: none; font-weight: 700; }
 .brand__mark { inline-size: 1.75rem; block-size: 1.75rem; flex: none; }
 .top__tools { display: flex; align-items: center; gap: 0.5rem; }
-/* The main colour: the Framework's theme generator in a popover under the header. */
-.colour-pop {
-  position: fixed;
-  inset: 4.5rem 1rem auto auto;
-  margin: 0;
-  inline-size: min(26rem, calc(100vw - 2rem));
-  max-block-size: calc(100vh - 6rem);
-  overflow: auto;
-  padding: 1rem;
-  border: 1px solid var(--sf-outline-variant);
-  border-radius: var(--radius-m);
-  background: var(--sf-surface-0);
-  color: var(--sf-on-surface);
-  box-shadow: 0 0.5rem 2rem rgb(0 0 0 / 0.18);
-}
-.colour-pop p { margin: 0 0 0.75rem; }
-.brand__sub { display: block; font-size: 0.75rem; font-weight: 500; color: var(--ink-muted); }
 .top__nav { display: flex; flex-wrap: wrap; gap: 0.25rem 1rem; margin-inline-start: auto; }
 .top__nav a { color: var(--sf-on-surface); text-decoration: none; padding-block: 0.5rem; }
 .top__nav a:hover { color: var(--sf-primary); text-decoration: underline; }
@@ -94,24 +77,6 @@ h3 { font-size: 1.0625rem; line-height: 1.4; font-weight: 700; }
   .top__tools { margin-inline-start: auto; }
 }
 
-/* Switches are the Framework's segmented Button Group; these are the code tabs. */
-.tab {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.375rem;
-  min-block-size: 2.5rem;
-  padding: 0 0.875rem;
-  border: 0;
-  border-radius: var(--radius-s);
-  background: transparent;
-  color: var(--ink-muted);
-  font: inherit;
-  font-weight: 600;
-  cursor: pointer;
-}
-.tab:hover { background: var(--sf-surface-container-hover); color: var(--sf-on-surface); }
-.tab[aria-selected="true"] { background: var(--sf-primary); color: var(--sf-on-primary); }
 .count { font-variant-numeric: tabular-nums; }
 
 /* Badges */
@@ -205,33 +170,17 @@ h3 { font-size: 1.0625rem; line-height: 1.4; font-weight: 700; }
 [data-effect-window].theme-dark, [data-effect-window].theme-light { background-color: var(--sf-surface-0); }
 [data-sf-effect-state="running"] [data-effect-window] { background-color: transparent; }
 .demo-hero__body { display: grid; gap: 1rem; max-inline-size: 36rem; }
+/* Banner text, then a wider gap before its buttons, as banners have. */
+.demo-hero__actions { margin-block-start: 1rem; }
 /* Motion controls in the banner's corner, as on the documentation's home. */
 .demo-hero__controls { position: absolute; inset-block-end: 0.75rem; inset-inline-end: 0.75rem; display: flex; gap: 0.25rem; }
 .demo-hero__controls [aria-pressed="true"] { background: var(--sf-primary); color: var(--sf-on-primary); }
 .demo-hero__title { font-size: clamp(1.75rem, 1.2rem + 2.4vw, 3rem); line-height: 1.1; font-weight: 700; text-wrap: balance; }
 .demo-hero__lead { font-size: 1.0625rem; line-height: 1.55; max-inline-size: 32rem; }
 .demo-hero__actions { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  min-block-size: 2.5rem;
-  padding: 0 1rem;
-  border: 1px solid var(--sf-outline);
-  border-radius: var(--radius-s);
-  background: transparent;
-  color: var(--sf-on-surface);
-  font: inherit;
-  font-weight: 600;
-  text-decoration: none;
-  cursor: pointer;
-}
-.btn:hover { background: var(--sf-surface-container-hover); }
-.btn--primary { border-color: var(--sf-primary); background: var(--sf-primary); color: var(--sf-on-primary); }
-.btn--primary:hover { background: var(--sf-primary-hover, var(--sf-primary)); }
-.btn--small { min-block-size: 2.25rem; padding: 0 0.75rem; font-size: 0.875rem; }
-[data-sf-effect-state] .btn:not(.btn--primary) { background: color-mix(in srgb, var(--sf-surface-0) var(--veil), transparent); }
+/* A label and a gap between the banner and the cards. */
+.stage__label { margin-block-start: 1.5rem; font-size: 1.0625rem; }
+[data-sf-effect-state] .sf-button--outline { background: color-mix(in srgb, var(--sf-surface-0) var(--veil), transparent); }
 
 .demo-cards { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 13rem), 1fr)); }
 @media (min-width: 64rem) { .demo-cards { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
@@ -252,7 +201,7 @@ h3 { font-size: 1.0625rem; line-height: 1.4; font-weight: 700; }
 [data-sf-effect-state="running"] .demo-card[data-effect-window] { border-color: transparent; }
 .fallback-note { padding: 0.75rem 1rem; border-radius: var(--radius-m); background: var(--sf-error-container); color: var(--sf-on-error-container); }
 
-.readout { display: flex; align-items: center; gap: 0.5rem; margin: 0; }
+.readout { display: inline-flex; align-items: center; gap: 0.5rem; margin: 0; }
 .readout__mark { inline-size: 0.75rem; block-size: 0.75rem; border-radius: 50%; background: var(--sf-on-surface-variant); flex: none; }
 .readout[data-state="ok"] .readout__mark { background: var(--sf-success); }
 .readout[data-state="warn"] .readout__mark { background: var(--sf-warning); }
@@ -265,47 +214,23 @@ h3 { font-size: 1.0625rem; line-height: 1.4; font-weight: 700; }
 .panel__head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem; }
 .form { display: grid; gap: 1rem; }
 .field { display: grid; gap: 0.25rem; }
-.field__head { display: flex; justify-content: space-between; gap: 0.5rem; }
-.field__label { font-weight: 600; }
-.field__value { font-variant-numeric: tabular-nums; color: var(--ink-muted); }
-.field input[type="range"] { inline-size: 100%; min-block-size: 1.75rem; accent-color: var(--sf-primary); margin: 0; }
-.field select,
-.field input[type="text"], .field textarea {
-  min-block-size: 2.5rem;
-  padding: 0 0.75rem;
-  border: 1px solid var(--sf-outline);
-  border-radius: var(--radius-s);
-  background: var(--sf-surface-0);
-  color: var(--sf-on-surface);
-  font: inherit;
-}
-.check-row { display: flex; align-items: center; gap: 0.625rem; min-block-size: 2.5rem; cursor: pointer; }
-.check-row input { inline-size: 1.25rem; block-size: 1.25rem; margin: 0; accent-color: var(--sf-primary); }
-.colour { display: flex; gap: 0.5rem; align-items: center; }
-.colour input[type="color"] { inline-size: 2.5rem; block-size: 2.5rem; padding: 0.125rem; border: 1px solid var(--sf-outline); border-radius: var(--radius-s); background: var(--sf-surface-0); }
-.colour input[type="text"] { flex: 1; min-inline-size: 0; }
 .hint { color: var(--ink-muted); font-size: 0.875rem; }
 .invalid { color: var(--sf-error); font-size: 0.875rem; }
 .notice { padding: 0.75rem 1rem; border-radius: var(--radius-m); background: var(--sf-surface-0); border: 1px solid var(--sf-outline-variant); }
 
-.tabs { display: flex; flex-wrap: wrap; gap: 0.25rem; padding: 0.25rem; border-radius: var(--radius-m); background: var(--sf-surface-0); justify-self: start; }
-.code-block { display: grid; gap: 0.5rem; }
-.code-block__head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem; }
-.code-block__title { font-weight: 600; }
-pre.code {
-  margin: 0;
-  max-block-size: 26rem;
-  overflow: auto;
-  padding: 0.875rem 1rem;
-  border: 1px solid var(--sf-outline-variant);
-  border-radius: var(--radius-m);
-  background: var(--sf-surface-0);
-  color: var(--sf-on-surface);
-  font-size: 0.8125rem;
-  line-height: 1.55;
-  white-space: pre;
-  tab-size: 2;
-}
+/* The code highlight wraps a block in .source, and the Framework's doc component
+   also styles .source as an inverse surface; the code surface keeps its own. */
+.sf-code-surface.source { background: var(--sf-surface-container); color: var(--sf-on-surface); }
+.field__label { font-weight: 600; }
+.code-stack { display: grid; gap: 0.5rem; padding-block-start: 0.75rem; }
+.code-stack__title { font-size: 0.9375rem; margin-block-start: 0.5rem; }
+.code-stack, [data-code-tabs] { min-inline-size: 0; max-inline-size: 100%; }
+/* Long lines scroll inside the block, also before the highlight has wrapped it. */
+.code-stack pre { margin: 0; max-block-size: 26rem; max-inline-size: 100%; overflow: auto; }
+/* In the light theme the highlight's keyword and string colours reach only 4.45:1 on
+   surface-container; on surface-0 they hold 4.5:1 (reported to the Framework). */
+.theme-light .sf-code-surface.source { background: var(--sf-surface-0); }
+[data-download] { justify-self: start; }
 .facts { display: grid; gap: 0.375rem; margin: 0; }
 .facts div { display: grid; grid-template-columns: minmax(8rem, 12rem) minmax(0, 1fr); gap: 0.25rem 1rem; }
 .facts dt { font-weight: 600; }

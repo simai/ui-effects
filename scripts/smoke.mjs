@@ -120,7 +120,11 @@ async function routeAll(context) {
 // The site uses the Button Group (Smart, segmented) for its switches and the
 // Theme Generator for the main colour, with what they require: buttons, icons,
 // icon buttons, the colour control, inputs and the close button.
-const SITE_MODULES = /^(component|smart)\/(button-group|buttons?|icons?|icon-buttons|theme-generator|color|inputs|close)\//u;
+// The Framework parts the site is built from: buttons and icons, the colour swatch
+// and the theme (with the generator's script for SF.ThemePalette), the settings
+// controls (range slider, switch, dropdown, text fields) with the parts they
+// bring, the code tabs and the code highlight with its copy button.
+const SITE_MODULES = /^(component|smart)\/(button-group|buttons?|icons?|icon-buttons|theme|theme-generator|color|inputs?|close|range-slider|switch|dropdown|list-item|context-menu|checkbox|sortable|tags|avatars|tooltip|textarea|tabs|highlight|clipboard|scrollbar|doc)\//u;
 function watch(page, where) {
   const problems = [];
   page.on('pageerror', (error) => problems.push(`page error: ${error.message}`));

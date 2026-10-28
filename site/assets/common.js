@@ -5,8 +5,7 @@ export const config = JSON.parse(document.getElementById('site-config').textCont
 export const root = new URL(config.root, document.baseURI);
 
 // --- Site theme -----------------------------------------------------------------
-// The Framework's Loader keeps the theme: the header's theme switch and the
-// effect page's «Тема страницы» call it, it stores the choice and puts
+// The Framework's Loader keeps the theme: the header's theme button calls it, it stores the choice and puts
 // theme-dark or theme-light on <html>, the page theme every effect follows.
 const listeners = new Set();
 export const siteTheme = () => (document.documentElement.classList.contains('theme-dark') ? 'dark' : 'light');
@@ -19,44 +18,58 @@ export function setSiteTheme(theme) {
   themeChanged();
 }
 export const onSiteTheme = (listener) => listeners.add(listener);
-// The page-theme switches (segmented Button Groups) show the drawn theme.
-function syncThemeButtons() {
-  const theme = siteTheme();
-  document.querySelectorAll('[data-site-theme-group]').forEach((group) => { if (group.getAttribute('value') !== theme) group.setAttribute('value', theme); });
-}
 function themeChanged() {
-  syncThemeButtons();
   listeners.forEach((listener) => listener(siteTheme()));
 }
 window.addEventListener('sf-theme-change', themeChanged);
-document.addEventListener('change', (event) => {
-  const group = event.target.closest?.('[data-site-theme-group]');
-  if (group && (event.detail?.value === 'light' || event.detail?.value === 'dark')) setSiteTheme(event.detail.value);
-});
-syncThemeButtons();
+
+// --- Theme button -------------------------------------------------------------------
+// The Framework's sf-theme-button switches light and dark; its glyph is the
+// project's: the theme it would switch to (documented in the Theme component).
+const glyph = document.querySelector('[data-theme-glyph]');
+const showGlyph = () => { if (glyph) glyph.setAttribute('icon', siteTheme() === 'dark' ? 'light_mode' : 'dark_mode'); };
+window.addEventListener('sf-theme-change', showGlyph);
+showGlyph();
 
 // --- Main colour -------------------------------------------------------------------
-// The header's theme generator (Framework) makes the whole theme from one
-// colour and applies it to the page; the choice is kept in this browser and
-// applied again before the first paint (partials/head.html). Effects read
-// palette tones when they mount, so they are placed again after a change.
+// The header's colour swatch (Framework sf-color) opens the picker at once; the
+// whole theme is built from the colour by SF.ThemePalette, which ships with the
+// theme generator's script, loaded here without its panel. The choice is kept
+// in this browser. Effects read palette tones when they mount, so they are
+// placed again after a change.
 const COLOUR_KEY = 'ui-effects-colour';
 const colourListeners = new Set();
 export const onSiteColour = (listener) => colourListeners.add(listener);
-const generator = document.querySelector('[data-site-colour]');
-if (generator) {
-  try {
-    const kept = localStorage.getItem(COLOUR_KEY);
-    if (kept) generator.setAttribute('value', kept);
-  } catch (error) { /* storage blocked: the Framework's own colour */ }
-  generator.addEventListener('sf-theme-generator-apply', (event) => {
-    const value = event.detail?.value ?? '';
-    try {
-      if (value) localStorage.setItem(COLOUR_KEY, value); else localStorage.removeItem(COLOUR_KEY);
-    } catch (error) { /* storage blocked: the colour lasts for this page */ }
-    colourListeners.forEach((listener) => listener(value));
-  });
+let palette = null;
+const loadPalette = () => palette ??= new Promise((resolve) => {
+  if (globalThis.SF?.ThemePalette) { resolve(globalThis.SF.ThemePalette); return; }
+  const script = document.createElement('script');
+  script.src = `${globalThis.sfPath}smart/theme-generator/js/theme-generator.min.js`;
+  script.onload = () => resolve(globalThis.SF?.ThemePalette ?? null);
+  script.onerror = () => resolve(null);
+  document.head.append(script);
+});
+// The theme goes on <html> as inline custom properties; clearing them returns the Framework's own.
+async function applyColour(value) {
+  const root = document.documentElement;
+  for (const name of [...root.style]) if (name.startsWith('--sf-')) root.style.removeProperty(name);
+  if (!value) return;
+  const tools = await loadPalette();
+  if (tools?.isThemeColor(value)) tools.applyTheme(tools.themeFromColor(value));
 }
+const swatch = document.querySelector('[data-site-colour]');
+let kept = '';
+try { kept = localStorage.getItem(COLOUR_KEY) ?? ''; } catch (error) { kept = ''; }
+if (kept) { swatch?.setAttribute('value', kept); applyColour(kept).then(() => colourListeners.forEach((listener) => listener(kept))); }
+swatch?.addEventListener('change', async (event) => {
+  if (event.target !== swatch) return;
+  const value = event.detail?.value ?? '';
+  try {
+    if (value) localStorage.setItem(COLOUR_KEY, value); else localStorage.removeItem(COLOUR_KEY);
+  } catch (error) { /* storage blocked: the colour lasts for this page */ }
+  await applyColour(value);
+  colourListeners.forEach((listener) => listener(value));
+});
 
 // --- Catalogue ------------------------------------------------------------------
 let catalogue = null;

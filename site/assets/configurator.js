@@ -4,7 +4,7 @@
 // code.
 import {badges, config, formatRatio, loadCatalogue, luminance, modeName, onSiteColour, onSiteTheme, ratio, schemeName, text} from './common.js';
 import {effectiveMode, loadWithPair, outcomeOf, place} from './place.js';
-import {connectSnippet, htmlSnippet, jsSnippet, jsonSnippet} from './snippets.js';
+import {connectSnippet, examplePage, htmlSnippet, jsSnippet, jsonSnippet} from './snippets.js';
 
 const html = document.documentElement;
 const id = html.dataset.effect;
@@ -52,89 +52,61 @@ const defaults = () => Object.fromEntries(userSettings.map((setting) => [setting
 state.values = defaults();
 const checkSetting = (setting, raw) => (window.SF?.Effects?.checkSetting ? window.SF.Effects.checkSetting(setting, raw) : {ok: true, value: raw});
 
+// Every control is a Framework Smart component; each reports a committed value
+// with a change event on its host.
+function controlFor(setting, value) {
+  const label = text(setting.label);
+  const make = (tag, attributes) => {
+    const element = document.createElement(tag);
+    for (const [name, attribute] of Object.entries(attributes)) if (attribute !== undefined && attribute !== null && attribute !== false) element.setAttribute(name, attribute === true ? '' : String(attribute));
+    return element;
+  };
+  switch (setting.type) {
+    case 'integer':
+    case 'number':
+      // The slider's own label attribute is how a handle shows its value; the field's name is a caption above it.
+      return {caption: label, element: make('sf-range-slider', {min: setting.min, max: setting.max, step: setting.step ?? (setting.type === 'integer' ? 1 : (setting.max - setting.min) / 100), value, label: 'tooltip', decimals: setting.type === 'integer' ? '0' : undefined, suffix: setting.unit ? ` ${setting.unit}` : undefined, 'aria-label': label}),
+        read: (event) => Number(event.detail?.values?.[0] ?? event.detail?.value)};
+    case 'boolean':
+      return {element: make('sf-switch', {label, checked: Boolean(value), size: '1'}), read: (event, element) => Boolean(element.checked)};
+    case 'choice': {
+      // Options go in as a property: given as an attribute, the field does not show the chosen one.
+      const element = make('sf-dropdown', {label, size: '1', value: String(value)});
+      element.options = setting.options.map((option) => ({text: text(option.label) || String(option.value), value: String(option.value)}));
+      return {element, read: (event, picker) => picker.value};
+    }
+    case 'color':
+      return {element: make('sf-color', {label, value, size: '1'}), read: (event) => event.detail?.value ?? ''};
+    case 'text':
+      return {element: make('sf-textarea', {label, value: value ?? '', rows: 3, maxlength: setting.max, size: '1'}), read: (event, element) => event.detail?.value ?? element.value};
+    default:
+      return {element: make('sf-input', {label, value: value ?? '', maxlength: setting.max, size: '1'}), read: (event, element) => event.detail?.value ?? element.value};
+  }
+}
+
 function buildForm() {
   form.replaceChildren();
-  userSettings.forEach((setting, index) => {
-    const fieldId = `setting-${index}`;
+  userSettings.forEach((setting) => {
     const field = document.createElement('div');
     field.className = 'field';
     field.dataset.key = setting.key;
-    const head = document.createElement('div');
-    head.className = 'field__head';
-    const name = document.createElement('label');
-    name.className = 'field__label';
-    name.htmlFor = fieldId;
-    name.textContent = text(setting.label);
-    const unit = setting.unit ? ` ${setting.unit}` : '';
-    const output = document.createElement('span');
-    output.className = 'field__value small';
-    output.id = `${fieldId}-value`;
-    const value = state.values[setting.key];
-    let control;
-    const read = () => (setting.type === 'boolean' ? control.checked : ['integer', 'number'].includes(setting.type) ? Number(control.value) : control.value);
-    switch (setting.type) {
-      case 'integer':
-      case 'number':
-        control = document.createElement('input');
-        control.type = 'range';
-        control.min = setting.min;
-        control.max = setting.max;
-        control.step = setting.step ?? (setting.type === 'integer' ? 1 : (setting.max - setting.min) / 100);
-        control.value = value;
-        output.textContent = `${value}${unit}`;
-        control.setAttribute('aria-describedby', output.id);
-        head.append(name, output);
-        break;
-      case 'boolean': {
-        const row = document.createElement('label');
-        row.className = 'check-row';
-        control = document.createElement('input');
-        control.type = 'checkbox';
-        control.checked = Boolean(value);
-        const caption = document.createElement('span');
-        caption.textContent = text(setting.label);
-        row.append(control, caption);
-        head.append(row);
-        break;
-      }
-      case 'choice':
-        control = document.createElement('select');
-        for (const option of setting.options) {
-          const item = document.createElement('option');
-          item.value = String(option.value);
-          item.textContent = text(option.label) || String(option.value);
-          control.append(item);
-        }
-        control.value = String(value);
-        head.append(name);
-        break;
-      case 'color': {
-        control = document.createElement('input');
-        control.type = 'color';
-        control.value = /^#[0-9a-f]{6}$/iu.test(value) ? value : '#000000';
-        head.append(name);
-        break;
-      }
-      default:
-        // A text setting may hold several lines; a string, one.
-        control = document.createElement(setting.type === 'text' ? 'textarea' : 'input');
-        if (setting.type === 'text') control.rows = 3; else control.type = 'text';
-        control.value = value ?? '';
-        if (setting.max) control.maxLength = setting.max;
-        head.append(name);
+    const {element, read, caption} = controlFor(setting, state.values[setting.key]);
+    if (caption) {
+      const name = document.createElement('p');
+      name.className = 'field__label';
+      name.textContent = caption;
+      field.append(name);
     }
-    control.id = fieldId;
-    field.append(head);
-    if (setting.type !== 'boolean') field.append(control);
+    field.append(element);
     if (setting.hint) {
       const hint = document.createElement('p');
       hint.className = 'hint';
       hint.textContent = text(setting.hint);
       field.append(hint);
     }
-    const event = control.type === 'text' || control.tagName === 'TEXTAREA' ? 'change' : 'input';
-    control.addEventListener(event, () => {
-      const checked = checkSetting(setting, read());
+    element.addEventListener('change', (event) => {
+      if (event.target !== element) return;
+      const checked = checkSetting(setting, read(event, element));
       field.querySelector('.invalid')?.remove();
       if (!checked.ok) {
         const note = document.createElement('p');
@@ -144,7 +116,6 @@ function buildForm() {
         return;
       }
       state.values = {...state.values, [setting.key]: checked.value};
-      if (output.isConnected) output.textContent = `${checked.value}${unit}`;
       forEachPlacement((placement) => placement.update(state.values));
       renderCode();
       scheduleMeasure(300);
@@ -345,48 +316,48 @@ function measure() {
 setInterval(() => { if (!state.paused && !document.hidden) measure(); }, 2500);
 
 // --- Get the code ------------------------------------------------------------------
-const tabs = [...document.querySelectorAll('[role="tab"]')];
-const selectTab = (tab, focus = false) => {
-  tabs.forEach((item) => {
-    const on = item === tab;
-    item.setAttribute('aria-selected', String(on));
-    item.tabIndex = on ? 0 : -1;
-    $(`[data-panel="${item.dataset.tab}"]`).hidden = !on;
-  });
-  if (focus) tab.focus();
-};
-tabs.forEach((tab) => tab.addEventListener('click', () => selectTab(tab)));
-$('[role="tablist"]').addEventListener('keydown', (event) => {
-  const index = tabs.indexOf(document.activeElement);
-  const step = {ArrowRight: 1, ArrowLeft: -1}[event.key];
-  if (index === -1) return;
-  if (step) { event.preventDefault(); selectTab(tabs[(index + step + tabs.length) % tabs.length], true); }
-  if (event.key === 'Home') { event.preventDefault(); selectTab(tabs[0], true); }
-  if (event.key === 'End') { event.preventDefault(); selectTab(tabs.at(-1), true); }
+// The blocks are the Framework's code highlight (language bar and copy button);
+// a new text goes in through SF.Highlight.refresh, or as plain text without it.
+// The Loader does not find the blocks inside the tabs by itself, so the
+// component is asked for by name.
+const highlighter = new Promise((resolve) => {
+  globalThis.SF?.Loader?.ensurePlugin?.('highlight');
+  const started = Date.now();
+  const tick = () => (globalThis.SF?.Highlight?.refresh ? resolve(globalThis.SF.Highlight) : Date.now() - started > 10000 ? resolve(null) : setTimeout(tick, 100));
+  tick();
 });
-
+function setCode(name, source) {
+  const code = $(`[data-code="${name}"]`);
+  code.textContent = source;
+  highlighter.then((highlight) => highlight?.refresh(code.closest('.sf-highlight') ?? code.parentElement, source));
+}
 function renderCode() {
   const options = {config, catalogue, entry, mode: state.mode, values: state.values};
-  $('[data-code="html"]').textContent = htmlSnippet({...options, layout: 'hero'});
-  $('[data-code="html-windows"]').textContent = htmlSnippet({...options, layout: 'windows'});
-  $('[data-code="connect"]').textContent = connectSnippet(config);
-  $('[data-code="js"]').textContent = jsSnippet({...options, layout: 'hero'});
-  $('[data-code="json"]').textContent = jsonSnippet(options);
+  setCode('html', htmlSnippet({...options, layout: 'hero'}));
+  setCode('html-windows', htmlSnippet({...options, layout: 'windows'}));
+  setCode('connect', connectSnippet(config));
+  setCode('js', jsSnippet({...options, layout: 'hero'}));
+  setCode('json', jsonSnippet(options));
 }
-const copyStatus = $('[data-copied]');
-document.querySelectorAll('[data-code-copy]').forEach((button) => button.addEventListener('click', async () => {
-  const block = $(`[data-code="${button.dataset.codeCopy}"]`);
-  try {
-    await navigator.clipboard.writeText(block.textContent);
-    copyStatus.textContent = 'Скопировано.';
-  } catch (error) {
-    const range = document.createRange();
-    range.selectNodeContents(block);
-    getSelection().removeAllRanges();
-    getSelection().addRange(range);
-    copyStatus.textContent = 'Текст выделен — нажмите ⌘C или Ctrl+C.';
-  }
-}));
+
+// --- Download an example ------------------------------------------------------------
+// A standalone page with the snippets as they stand: the connection, then the
+// banner, the cards or both, with the current settings and theme mode.
+const layoutPicker = $('[data-download-layout]');
+layoutPicker.options = [{text: 'Баннер и карточки', value: 'both'}, {text: 'Только баннер', value: 'hero'}, {text: 'Только карточки', value: 'windows'}];
+$('[data-download]').addEventListener('click', () => {
+  const options = {config, catalogue, entry, mode: state.mode, values: state.values};
+  const layout = layoutPicker?.value || 'both';
+  const parts = [layout !== 'windows' ? htmlSnippet({...options, layout: 'hero'}) : '', layout !== 'hero' ? htmlSnippet({...options, layout: 'windows'}) : ''].filter(Boolean);
+  const page = examplePage({entry, connect: connectSnippet(config), parts});
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(new Blob([page], {type: 'text/html'}));
+  link.download = `${entry.id}-example.html`;
+  document.body.append(link);
+  link.click();
+  link.remove();
+  setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+});
 
 // --- About the effect ------------------------------------------------------------------
 const aboutList = $('[data-facts-list]');
