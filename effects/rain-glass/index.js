@@ -110,10 +110,11 @@ const SCENE = {
     for (const l of state.lamps) lights.push({p: at(l.X, l.Y, l.z), z: l.z, colour: tones[l.colour], a: 0.6 * fall(l.z), size: 0.3});
     const signal = values.signal ? (cyc < 6 ? 'go' : cyc < 7.5 ? 'lamp' : 'tail') : null;
     const neon = values.neon && (t % 5 < 4.1) && !(t % 5 > 3.5 && t % 0.24 < 0.1);
-    if (neon) lights.push({p: at(-6.2, 2.4, 11), z: 6, colour: tones.sign, a: 1.3, size: 1.2});
     for (const sign of state.signs) lights.push({p: at(sign.X, sign.Y, sign.z), z: sign.z, colour: tones[sign.colour], a: 0.5, size: 0.8});
     const lamps = state.lamps.map((l) => ({p: at(l.X, l.Y, l.z), z: l.z, colour: tones[l.colour], a: 0.45 * fall(l.z)}));
     if (signal) lamps.push({p: at(3.2, 3, 13), z: 6, colour: tones[signal], a: 1.4});
+    // The sign: a row of tubes, each a glow of its own.
+    if (neon) for (let i = 0; i < 5; i += 1) lamps.push({p: at(-6.4 + i * 0.35, 2.6, 10), z: 6, colour: tones[i % 2 ? 'cool' : 'sign'], a: 1.1});
     for (const car of state.cars) {
       const toward = car.way < 0;
       const fade = Math.min(1, (car.z - 1.2) / 1.5) * Math.min(1, (60 - car.z) / 8);

@@ -356,6 +356,26 @@ try {
     await context.close();
   }
 
+  // Settings: a switch and a dropdown change what the effect gets (the code shows the values).
+  {
+    const context = await browser.newContext({viewport: {width: 1440, height: 900}});
+    await routeAll(context);
+    const page = await context.newPage();
+    const flush = watch(page, 'settings');
+    await page.goto(`${base}effect/rain-glass/`);
+    await page.waitForFunction(() => document.documentElement.dataset.mounted === 'yes', null, {timeout: 20000});
+    await page.locator('[data-key="signal"] input').first().check({force: true});
+    await page.locator('[data-key="lamps"] .sf-dropdown-field').click();
+    await page.getByText('Белые', {exact: true}).last().click();
+    await page.waitForTimeout(500);
+    const values = await page.evaluate(() => JSON.parse(document.querySelector('[data-code="json"]').textContent));
+    if (values.signal !== true) fail('settings', `the switch did not apply (signal ${values.signal})`);
+    if (values.lamps !== 'white') fail('settings', `the dropdown did not apply (lamps ${values.lamps})`);
+    else console.log('ok   settings: a switch and a dropdown apply');
+    flush();
+    await context.close();
+  }
+
   // Reduced motion: the system setting, the page's switch and pause.
   {
     const counter = () => {

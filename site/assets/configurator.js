@@ -68,12 +68,12 @@ function controlFor(setting, value) {
       return {caption: label, element: make('sf-range-slider', {min: setting.min, max: setting.max, step: setting.step ?? (setting.type === 'integer' ? 1 : (setting.max - setting.min) / 100), value, label: 'tooltip', decimals: setting.type === 'integer' ? '0' : undefined, suffix: setting.unit ? ` ${setting.unit}` : undefined, 'aria-label': label}),
         read: (event) => Number(event.detail?.values?.[0] ?? event.detail?.value)};
     case 'boolean':
-      return {element: make('sf-switch', {label, checked: Boolean(value), size: '1'}), read: (event, element) => Boolean(element.checked)};
+      return {inner: true, element: make('sf-switch', {label, checked: Boolean(value), size: '1'}), read: (event, element) => Boolean(element.checked)};
     case 'choice': {
       // Options go in as a property: given as an attribute, the field does not show the chosen one.
       const element = make('sf-dropdown', {label, size: '1', value: String(value), search: 'false'});
       element.options = setting.options.map((option) => ({text: text(option.label) || String(option.value), value: String(option.value)}));
-      return {element, read: (event, picker) => picker.value};
+      return {inner: true, element, read: (event, picker) => picker.value};
     }
     case 'color':
       return {element: make('sf-color', {label, value, size: '1'}), read: (event) => event.detail?.value ?? ''};
@@ -90,7 +90,7 @@ function buildForm() {
     const field = document.createElement('div');
     field.className = 'field';
     field.dataset.key = setting.key;
-    const {element, read, caption, live} = controlFor(setting, state.values[setting.key]);
+    const {element, read, caption, live, inner} = controlFor(setting, state.values[setting.key]);
     if (caption) {
       const name = document.createElement('p');
       name.className = 'field__label';
@@ -119,12 +119,16 @@ function buildForm() {
       renderCode();
       scheduleMeasure(300);
     };
-    // A text field applies as it is typed, after a short pause; its native events come from the field
-    // inside the component. Every other control reports a committed value on the host itself.
+    // A text field applies as it is typed, after a short pause. A switch and a dropdown report their
+    // change from the field inside them (since ui-519fa0814a02 the switch no longer repeats it on the
+    // host), so any change within them counts and the value is read from the component. A range
+    // slider reports its committed value on the host itself; its inner events carry other details.
     let typing = 0;
     if (live) {
       element.addEventListener('input', (event) => { clearTimeout(typing); typing = setTimeout(() => apply(event), 400); });
       element.addEventListener('change', (event) => { clearTimeout(typing); apply(event); });
+    } else if (inner) {
+      element.addEventListener('change', (event) => apply(event));
     } else {
       element.addEventListener('change', (event) => { if (event.target === element) apply(event); });
     }
