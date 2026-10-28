@@ -1,6 +1,6 @@
 # Rain on glass (`rain-glass`)
 
-A fogged window at night: street lamps and passing cars behind the glass; a finger can wipe the fog.
+A fogged window at night: a street in bokeh behind it, oncoming headlights and receding tail lights; you can write on the glass.
 
 - **Russian name:** Дождь на стекле
 - **Version:** 2.0.0, simai.effect 1.1.0
@@ -13,10 +13,10 @@ A fogged window at night: street lamps and passing cars behind the glass; a fing
 | Key | Type | Range or options | Default | Meaning |
 |:---|:---|:---|:---|:---|
 | `speed` | integer | 10–300 % | `100` | Speed |
-| `intensity` | integer | 10–100 % | `70` | Intensity |
+| `intensity` | integer | 10–100 % | `60` | Intensity |
 | `density` | integer | 10–100 % | `55` | Density |
 | `fog` | integer | 0–100 % | `70` | Fog |
-| `interactive` | boolean | — | `true` | React to the pointer. The pointer wipes the fog like a finger |
+| `interactive` | boolean | — | `true` | React to the pointer. Press and drag to write on the fogged glass with a finger |
 
 ## Schemes
 

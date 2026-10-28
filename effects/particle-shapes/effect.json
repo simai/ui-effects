@@ -70,11 +70,15 @@
         "ru": "Размер текста",
         "en": "Text size"
       },
-      "default": 60,
-      "min": 20,
+      "default": 100,
+      "min": 30,
       "max": 100,
       "step": 5,
-      "unit": "%"
+      "unit": "%",
+      "hint": {
+        "ru": "100 % — текст по размеру области",
+        "en": "100 % fits the text to the area"
+      }
     },
     {
       "key": "text",
@@ -99,8 +103,8 @@
       },
       "default": true,
       "hint": {
-        "ru": "Частицы расходятся от указателя, клик их разбрасывает, удержание закручивает вихрь",
-        "en": "Particles part round the pointer, a click scatters them, holding whirls them"
+        "ru": "Клик рассыпает часть текста, удержание закручивает вихрь",
+        "en": "A click scatters part of the text, holding whirls it"
       }
     }
   ],

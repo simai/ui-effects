@@ -72,8 +72,8 @@
       },
       "default": true,
       "hint": {
-        "ru": "Указатель притягивает сетку, клик пускает волну, удержание растит чёрную дыру",
-        "en": "The pointer pulls the grid, a click sends a wave, holding grows a black hole"
+        "ru": "Указатель — тяжёлый шар, клик пускает гравитационную волну, удержание растит чёрную дыру",
+        "en": "The pointer is a heavy sphere, a click sends a gravitational wave, holding grows a black hole"
       }
     }
   ],

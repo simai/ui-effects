@@ -175,23 +175,23 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "170148863413f4081890c4912443bfda87b5d2410a0bd09cee00d478662e5a6e",
-          "size": 3116
+          "sha256": "8bcb3b880f3c8ddff0007788ab24b3de5feb668c4a92522969ce76276b1e2f06",
+          "size": 3735
         },
         {
           "path": "index.js",
-          "sha256": "455e25ad1b861065147cfdbb2ca4d11033949bd4b81bd3c62a02be9e448df72b",
-          "size": 13872
+          "sha256": "e515c3239a1f4b091f16cb903c2d299fa32204d310fe8a02eaeaf75f015cca69",
+          "size": 14135
         },
         {
           "path": "preview.png",
-          "sha256": "28bbe0f0a19b590eeb410bb99cc1d9a946b09ee2d8e16f9a2be2a983dc9f5c57",
-          "size": 77067
+          "sha256": "dfd7be635a493d4abd6e778339aed54425463acaa268dbe72ba24b54d4f13a4f",
+          "size": 77018
         },
         {
           "path": "README.md",
-          "sha256": "4b5b2b59c05cdfddff3535565a28933b6e290bd32077ce536b62659aa884e230",
-          "size": 1670
+          "sha256": "0a2a94e85c9bbc6e85c949fabdb7091f9f164c750ef018d33501f593b40a50c1",
+          "size": 1706
         }
       ],
       "kit": {
@@ -577,7 +577,7 @@
         "en": "Rain on glass"
       },
       "description": {
-        "ru": "Запотевшее окно ночью: за стеклом фонари и проезжающие машины, по стеклу можно провести пальцем."
+        "ru": "Запотевшее окно ночью: за стеклом улица в боке — встречные фары и уезжающие стоп-сигналы; по стеклу можно писать пальцем."
       },
       "role": {
         "ru": "Уютный вечер за окном. Только тёмная схема."
@@ -604,23 +604,23 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "5b7d23865d9e3109bdeb3bc7e4c224d4624766f41c3922f8b174db170d79a5d7",
-          "size": 1800
+          "sha256": "1d948a901ca4a1efafc214f2af408805cdeecf30e16127ca791d0f60f49c1986",
+          "size": 1859
         },
         {
           "path": "index.js",
-          "sha256": "550a9439ab93785007e7f367d2964a4700121e395ed20ec6ba25bef9e50dbe59",
-          "size": 12164
+          "sha256": "5f3554f18cfa14586cda08ef344ce2c2b61a13e083df4fe7fd6509c80672b4ab",
+          "size": 17599
         },
         {
           "path": "preview.png",
-          "sha256": "427d460f3673d0ddac77b8c9f2fc673b26f0a7c6296d315effddba6f80bf931b",
-          "size": 52450
+          "sha256": "872133d2f7b46a927309fcd536efdcf72834d4ca4951fa2d6a2a86b681266442",
+          "size": 229595
         },
         {
           "path": "README.md",
-          "sha256": "cdbfeb76a5bc0be55862aa9d99359af167799d2e790d937dea7b57586237f492",
-          "size": 1324
+          "sha256": "4f29eba21bdbedcf0fc6b73d5b00b136df53adaf6ce76605cb8f89dccc131bb4",
+          "size": 1370
         }
       ],
       "kit": {
@@ -1060,7 +1060,7 @@
         "en": "City lights"
       },
       "description": {
-        "ru": "Ночной город сверху: светящаяся сетка улиц, широкие авеню, парк, реки и потоки машин."
+        "ru": "Ночной город сверху: оранжевые улицы, тёмные дома с освещёнными крышами, парки и деревья, огни машин."
       },
       "role": {
         "ru": "Ночной город с высоты. Только тёмная схема."
@@ -1092,18 +1092,18 @@
         },
         {
           "path": "index.js",
-          "sha256": "2e4983f290467ee1bf2b449e30877f65944538d3f1409517dec97b7d00e3d4c1",
-          "size": 12759
+          "sha256": "6e0bd955cf07f6c13f263ac7de84ea8c823e0baa57a0fe6d78ce5d6a63c1cb2f",
+          "size": 16937
         },
         {
           "path": "preview.png",
-          "sha256": "dd83585028f0fdb42cf81d2a39c2b15a1668e3c69bdb1ce56e079755d05c3ac8",
-          "size": 193762
+          "sha256": "d066a8d5b2d16d8983703559bc2416fc0a4d74e3d43edcce69c6d9930a8fbda3",
+          "size": 290339
         },
         {
           "path": "README.md",
-          "sha256": "10a1a2c8f76fb2d3f8c5c8e750a9903ca27e8c5055c53680548335000e537ebf",
-          "size": 1169
+          "sha256": "d9388e77657134b415754c602491417de98665db1d41822d13560bdd26f88f29",
+          "size": 1172
         }
       ],
       "kit": {
@@ -1153,13 +1153,13 @@
         },
         {
           "path": "index.js",
-          "sha256": "1fcf2fd343e541a43a3e8b4b980b610305672d1feb38d736498e747ea4d927e2",
-          "size": 15533
+          "sha256": "b0bbc7b02a8a78ab68663b82e57fc18e1c9d3e0611ea2912362749051bb88b31",
+          "size": 16664
         },
         {
           "path": "preview.png",
-          "sha256": "929d31cd14855eb9802ef376c705383546d4b2df867e1467a5afa35d9740d04b",
-          "size": 18883
+          "sha256": "e30114ebc48fc4d9ac055790211a24ecddc00bae01eee5c46592488475e6ce4d",
+          "size": 25303
         },
         {
           "path": "README.md",
@@ -1243,7 +1243,7 @@
         "en": "Spacetime fabric"
       },
       "description": {
-        "ru": "Сетка прогибается вокруг масс; указатель — тяжёлое тело, клик — гравитационная волна."
+        "ru": "Сетка в перспективе прогибается воронками под шарами-массами; указатель — тяжёлое тело, клик — гравитационная волна."
       },
       "role": {
         "ru": "Наука и глубина: светлая и тёмная схемы."
@@ -1271,23 +1271,23 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "08ec7aa4d6ae56ba75df067527b3302642375979df1c6c439ab1eb89602a10d5",
-          "size": 1710
+          "sha256": "b0fcb3ab19364333428915bde0eb34328d325e535ba94cef35692766c5bb4962",
+          "size": 1748
         },
         {
           "path": "index.js",
-          "sha256": "a341fec183f9510629f986d19346d0f763351eb4ad39d3bb7465298c52fec4ba",
-          "size": 13210
+          "sha256": "b369509c5fb9d4aa0892a409b80a009baad26e4219596fcd911e54230361decf",
+          "size": 15841
         },
         {
           "path": "preview.png",
-          "sha256": "4f9f6d1a00989e54601f4a60c9b28cf243964fd43aabf41aab4e59499273e56a",
-          "size": 62273
+          "sha256": "f2c754dc9873005b0b5e03b656e1fb656293103f1ac264f9140d5131fa0892d5",
+          "size": 73585
         },
         {
           "path": "README.md",
-          "sha256": "a839b20882dfbd6182a8a15d0b8ee6e202c689013c7043917f8bd07aa293a4ce",
-          "size": 1355
+          "sha256": "69990a6f32f6d4c8d1ede1f44f7206fe548c5ac2b91bc6ca5cf70d001c8f35de",
+          "size": 1410
         }
       ],
       "kit": {
@@ -1457,23 +1457,23 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "0edfdf22b3b3ab72bcd902050e2a2227ca32942de4f2c4297aac73bed017dbe3",
-          "size": 2216
+          "sha256": "254b409c29c0b86fdb83e2a995c7006ee8ed7ec3ea2414822e3eaea0dfc39956",
+          "size": 2291
         },
         {
           "path": "index.js",
-          "sha256": "113bf42f2ec83e4432ae4ce6aae424090002f646307f4ecc0877317f5e276709",
-          "size": 11751
+          "sha256": "05a2a63257bf2a0ef3188d89f65ce3dae449acad7d78ccb45666ecfe8bf70ec5",
+          "size": 12104
         },
         {
           "path": "preview.png",
-          "sha256": "314e8425b989b22cb8ac92d3ff18e0fe871b6ffa35fb0c20fbfd382a00c748d1",
-          "size": 16916
+          "sha256": "9cb9da16b2b78ea928e2b3085bb28cca6ad48943af6cf1adc217637d7f8e4333",
+          "size": 22280
         },
         {
           "path": "README.md",
-          "sha256": "cecf6d95b8d57d8510f1c5b3395f99cc9cbceb570f7eae8664d3652aabf3f200",
-          "size": 1443
+          "sha256": "5dac5cfcf17d65d7963525338aa050a2da5b69375751a41b82d2fb77d7e0090c",
+          "size": 1453
         }
       ],
       "kit": {

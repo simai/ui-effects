@@ -1,4 +1,4 @@
-// City lights (simai.effect 1.1.0; dark scheme only): a city at night from above: a glowing street grid, wide avenues, a park, rivers and streams of cars.
+// City lights (simai.effect 1.1.0; dark scheme only): a city at night from above: orange streets, dark buildings with lit roofs, parks and trees, car lights.
 //
 // The lifecycle is the catalogue template's: one canvas in the host, devicePixelRatio capped at 2,
 // a seeded scene (the same picture on every mount at the defaults), one still frame for reduced
@@ -45,104 +45,167 @@ function readTones(host, scheme) {
   return tones;
 }
 
-// A night city seen from above, after Manhattan: a street grid turned about 29 degrees, wide avenues
-// every few blocks and dense cross streets, all glowing sodium orange; a dark park; rivers along two
-// sides; lit windows in the blocks; and streams of car lights running the avenues.
+// A night city from straight above, generated over the whole area: streets split the ground into
+// irregular blocks, avenues wider and brighter than lanes, all in sodium orange with a haze of light.
+// Blocks hold dark buildings with lit roofs here and there and edges catching the street light; some
+// blocks are parks of dark trees with a few path lamps, and trees line the quieter streets. Car
+// lights, white in front and red behind, run along the avenues.
 const SCENE = {
   home: 'dark', seed: 33, reseed: ['density'],
-  tones: (read) => ({ground: read('--sf-neutral-5', '#111318'), water: read('--sf-primary-10', '#001a41'), sodium: read('--sf-warning-70', '#e08f2c'), lamp: read('--sf-warning-80', '#ffb95c'), white: read('--sf-neutral-95', '#f0f0f7'), red: read('--sf-error-60', '#ff5449'), window: read('--sf-warning-90', '#ffddb6')}),
+  tones: (read) => ({ground: read('--sf-neutral-5', '#111318'), building: read('--sf-neutral-10', '#1a1b21'), roof: read('--sf-neutral-20', '#2f3036'), lit: read('--sf-neutral-60', '#90909a'), sodium: read('--sf-warning-70', '#e08f2c'), lamp: read('--sf-warning-80', '#ffb95c'), white: read('--sf-neutral-95', '#f0f0f7'), red: read('--sf-error-60', '#ff5449'), tree: read('--sf-success-10', '#002106'), cool: read('--sf-primary-80', '#adc6ff')}),
   setup(env, random) {
     const {w, h, tones} = env;
-    const angle = -0.5;
-    const span = Math.hypot(w, h) * 1.2;
-    const street = 8, avenue = street * 4.5;
-    const map = new OffscreenCanvas(Math.ceil(w), Math.ceil(h));
-    // The lights are drawn on a clear layer first, so their haze holds light only; the ground goes under them after.
-    const m = map.getContext('2d');
-    m.save();
-    m.translate(w * 0.5, h * 0.5);
-    m.rotate(angle);
-    // The island's edges: water beyond them.
-    const left = -span * 0.34, right = span * 0.38;
-    const park = {x: left + avenue * 6, y: -span * 0.3, w: avenue * 1.6, h: span * 0.16};
-    const lit = (x, y) => noise2(x / 160 + 4, y / 160) * 0.7 + noise2(x / 50, y / 50 + 3) * 0.3;
-    // Streets are chains of lamps, brighter in busy districts, dimmer and broken in quiet ones.
-    m.globalCompositeOperation = 'lighter';
-    const lamps = (x0, y0, x1, y1, gap, bright, size) => {
-      const length = Math.hypot(x1 - x0, y1 - y0), n = Math.floor(length / gap);
-      for (let i = 0; i <= n; i += 1) {
-        const x = x0 + (x1 - x0) * i / n, y = y0 + (y1 - y0) * i / n;
-        const d = lit(x, y);
-        if (random() > d * 1.6) continue;
-        m.fillStyle = rgba(random() < 0.85 ? tones.sodium : tones.window, bright * (0.35 + d) * (0.6 + random() * 0.4));
-        m.fillRect(x, y, size, size);
+    const angle = -0.16;
+    const span = Math.hypot(w, h) * 1.05;
+    const busy = (x, y) => noise2(x / 220 + 7, y / 220 + 2) * 0.75 + noise2(x / 60, y / 60 + 5) * 0.25;
+    // Streets by splitting: wide avenues at the first cuts, lanes deeper down, blocks where it stops.
+    const blocks = [], streets = [];
+    const least = 26 + (100 - env.values.density) * 0.3;
+    const split = (x, y, bw, bh, depth) => {
+      const limit = least * (0.8 + random() * 0.6);
+      if ((bw < limit * 1.7 && bh < limit * 1.7) || depth > 10) { blocks.push({x, y, w: bw, h: bh}); return; }
+      const across = bw > bh ? random() < 0.85 : random() < 0.15;
+      const width = depth < 2 ? 6 : depth < 4 ? 4 : 2.5;
+      const cut = 0.38 + random() * 0.24;
+      if (across) {
+        const c = x + bw * cut;
+        streets.push({x: c - width / 2, y, w: width, h: bh, width, upright: true});
+        split(x, y, c - width / 2 - x, bh, depth + 1);
+        split(c + width / 2, y, x + bw - c - width / 2, bh, depth + 1);
+      } else {
+        const c = y + bh * cut;
+        streets.push({x, y: c - width / 2, w: bw, h: width, width, upright: false});
+        split(x, y, bw, c - width / 2 - y, depth + 1);
+        split(x, c + width / 2, bw, y + bh - c - width / 2, depth + 1);
       }
     };
-    for (let y = -span / 2; y < span / 2; y += street) lamps(left, y, right, y, 4, 0.5, 1);
-    const avenues = [];
-    for (let x = left; x < right; x += avenue) {
-      avenues.push(x);
-      lamps(x, -span / 2, x, span / 2, 3, 0.9, 1.5);
-    }
-    // A diagonal like Broadway.
-    lamps(left + avenue, -span / 2, right - avenue, span / 2, 3, 0.8, 1.5);
-    // Lit windows: tiny points in the blocks, denser where the district is busy.
-    const count = Math.round(w * h / 40 * (0.3 + env.values.density / 100));
-    for (let i = 0; i < count; i += 1) {
-      const x = left + random() * (right - left), y = -span / 2 + random() * span;
-      if (random() > lit(x, y) * 1.3) continue;
-      m.fillStyle = rgba(random() < 0.7 ? tones.window : tones.white, 0.25 + random() * 0.35);
-      m.fillRect(x, y, 1, 1);
-    }
-    // A haze of light over the city: the lamps blurred and laid over themselves.
-    const haze = new OffscreenCanvas(map.width, map.height);
-    const hz = haze.getContext('2d');
-    hz.filter = 'blur(5px)';
-    hz.drawImage(map, 0, 0);
-    m.restore();
-    m.save();
-    m.globalCompositeOperation = 'lighter';
-    m.globalAlpha = 0.9;
-    m.drawImage(haze, 0, 0);
-    m.restore();
-    m.save();
-    m.globalCompositeOperation = 'destination-over';
+    split(-span / 2, -span / 2, span, span, 0);
+    const map = new OffscreenCanvas(Math.ceil(w), Math.ceil(h));
+    const m = map.getContext('2d');
+    const light = new OffscreenCanvas(Math.ceil(w), Math.ceil(h));
+    const l = light.getContext('2d');
     m.fillStyle = rgba(tones.ground);
     m.fillRect(0, 0, w, h);
-    m.restore();
-    m.save();
-    m.translate(w * 0.5, h * 0.5);
-    m.rotate(angle);
-    m.globalCompositeOperation = 'source-over';
-    // The park: dark, a few path lamps.
-    m.fillStyle = rgba(tones.ground);
-    m.fillRect(park.x, park.y, park.w, park.h);
-    for (let i = 0; i < 14; i += 1) { m.fillStyle = rgba(tones.lamp, 0.4); m.fillRect(park.x + random() * park.w, park.y + random() * park.h, 1, 1); }
-    // The rivers.
-    m.fillStyle = rgba(tones.water);
-    m.fillRect(-span, -span, left + span, span * 2);
-    m.fillRect(right, -span, span, span * 2);
-    m.restore();
-    const cars = [];
-    for (const x of avenues) {
-      const n = Math.round(4 + env.values.density / 12);
-      for (let i = 0; i < n; i += 1) cars.push({x: x + (random() < 0.5 ? -1.5 : 1.5), pos: random(), speed: 0.012 + random() * 0.02, dir: random() < 0.5 ? 1 : -1});
+    for (const c of [m, l]) { c.translate(w / 2, h / 2); c.rotate(angle); }
+    // Streets: the glow on the light layer, lamps as bright points along them.
+    for (const s of streets) {
+      const b = busy(s.x + s.w / 2, s.y + s.h / 2);
+      const strength = (s.width > 5 ? 0.42 : s.width > 3 ? 0.32 : 0.22) * (0.5 + b * 0.8);
+      l.fillStyle = rgba(tones.sodium, Math.min(1, strength));
+      l.fillRect(s.x, s.y, s.w, s.h);
+      const length = s.upright ? s.h : s.w, gap = s.width > 5 ? 7 : 11;
+      for (let i = 0; i < length; i += gap) {
+        if (random() > 0.35 + b) continue;
+        const side = random() < 0.5 ? 0.2 : s.width - 1.2;
+        l.fillStyle = rgba(tones.lamp, 0.6 + random() * 0.4);
+        if (s.upright) l.fillRect(s.x + side, s.y + i, 1.1, 1.1); else l.fillRect(s.x + i, s.y + side, 1.1, 1.1);
+      }
     }
-    return {map, angle, span, cars};
+    // Blocks: a park now and then, otherwise lots of buildings in one or two rows.
+    const tree = (c, x, y, r) => {
+      c.fillStyle = rgba(mixc(tones.tree, tones.ground, 0.2));
+      c.beginPath(); c.arc(x, y, r, 0, Math.PI * 2); c.fill();
+      c.fillStyle = rgba(mixc(tones.tree, tones.sodium, 0.12), 0.7);
+      c.beginPath(); c.arc(x - r * 0.25, y - r * 0.25, r * 0.55, 0, Math.PI * 2); c.fill();
+    };
+    for (const b of blocks) {
+      if (b.w < 6 || b.h < 6) continue;
+      const quiet = busy(b.x + b.w / 2, b.y + b.h / 2);
+      if (random() < 0.07 + (0.5 - quiet) * 0.12) {
+        m.fillStyle = rgba(mixc(tones.tree, tones.ground, 0.55));
+        m.fillRect(b.x + 1, b.y + 1, b.w - 2, b.h - 2);
+        const n = Math.round(b.w * b.h / 14);
+        for (let i = 0; i < n; i += 1) tree(m, b.x + 2 + random() * (b.w - 4), b.y + 2 + random() * (b.h - 4), 1.2 + random() * 2);
+        for (let i = 0; i < b.w * b.h / 900; i += 1) { l.fillStyle = rgba(tones.lamp, 0.5); l.fillRect(b.x + random() * b.w, b.y + random() * b.h, 1.2, 1.2); }
+        continue;
+      }
+      const inset = 1.2, x0 = b.x + inset, y0 = b.y + inset, bw = b.w - inset * 2, bh = b.h - inset * 2;
+      const long = bw >= bh, depth = long ? bh : bw, length = long ? bw : bh;
+      const rows = depth > 24 ? 2 : 1;
+      for (let row = 0; row < rows; row += 1) {
+        const r0 = row * depth / rows, r1 = (row + 1) * depth / rows;
+        for (let at = 0; at < length;) {
+          const size = Math.min(length - at, 4 + random() * (random() < 0.15 ? 22 : 10));
+          const gap = 0.6 + random() * 0.8, back = random() * (r1 - r0) * 0.25;
+          const lot = long
+            ? {x: x0 + at + gap / 2, y: y0 + r0 + (row ? 0 : 0) + gap / 2, w: size - gap, h: r1 - r0 - gap - back}
+            : {x: x0 + r0 + gap / 2, y: y0 + at + gap / 2, w: r1 - r0 - gap - back, h: size - gap};
+          at += size;
+          if (lot.w < 2 || lot.h < 2) continue;
+          const roll = random();
+          const tone = roll < 0.06 * (0.4 + quiet) ? mixc(tones.roof, tones.lit, 0.2 + random() * 0.35) : roll < 0.3 ? mixc(tones.building, tones.roof, 0.4 + random() * 0.6) : mixc(tones.ground, tones.building, 0.3 + random() * 0.7);
+          m.fillStyle = rgba(tone);
+          m.fillRect(lot.x, lot.y, lot.w, lot.h);
+          // Edges catch the street light; lit roofs carry a few fittings and lamps.
+          m.strokeStyle = rgba(tones.sodium, 0.08 + quiet * 0.14);
+          m.lineWidth = 0.6;
+          m.strokeRect(lot.x + 0.4, lot.y + 0.4, lot.w - 0.8, lot.h - 0.8);
+          if (lot.w * lot.h > 60 && random() < 0.4) {
+            m.fillStyle = rgba(mixc(tone, tones.ground, 0.5));
+            m.fillRect(lot.x + lot.w * 0.25, lot.y + lot.h * 0.3, lot.w * 0.3, lot.h * 0.25);
+          }
+          const dots = random() < 0.4 * (0.5 + quiet) ? 1 + Math.floor(random() * 4) : 0;
+          for (let i = 0; i < dots; i += 1) {
+            l.fillStyle = rgba(random() < 0.6 ? tones.lamp : tones.cool, 0.5 + random() * 0.4);
+            l.fillRect(lot.x + random() * lot.w, lot.y + random() * lot.h, 1, 1);
+          }
+        }
+      }
+    }
+    // Trees along the quieter streets, over the street glow.
+    for (const s of streets) {
+      if (s.width > 5) continue;
+      const length = s.upright ? s.h : s.w;
+      for (let i = 0; i < length; i += 3 + random() * 4) {
+        if (random() > 0.35) continue;
+        const r = 1 + random() * 1.3, side = random() < 0.5 ? 0 : s.width;
+        if (s.upright) tree(m, s.x + side, s.y + i, r); else tree(m, s.x + i, s.y + side, r);
+      }
+    }
+    for (const c of [m, l]) c.setTransform(1, 0, 0, 1, 0, 0);
+    // The light goes on the map twice: sharp, and blurred into a haze that spills over the edges.
+    const haze = new OffscreenCanvas(map.width, map.height);
+    const hz = haze.getContext('2d');
+    hz.filter = 'blur(4px)';
+    hz.drawImage(light, 0, 0);
+    m.globalCompositeOperation = 'lighter';
+    m.globalAlpha = 0.6;
+    m.drawImage(haze, 0, 0);
+    m.globalAlpha = 1;
+    m.drawImage(light, 0, 0);
+    m.globalCompositeOperation = 'source-over';
+    // Cars on the avenues and wider streets, each lane one way.
+    const cars = [];
+    for (const s of streets) {
+      if (s.width < 4) continue;
+      const n = Math.round((s.upright ? s.h : s.w) / 70 * (0.5 + env.values.density / 100));
+      for (let i = 0; i < n; i += 1) cars.push({s, pos: random(), speed: 18 + random() * 22, dir: random() < 0.5 ? 1 : -1});
+    }
+    // The overlay dims the whole picture by the intensity setting.
+    return {map, angle, cars};
   },
   draw(env, t) {
     const {ctx, w, h, tones, state, values} = env;
     const k = values.intensity / 100;
     ctx.globalAlpha = 1;
+    ctx.fillStyle = rgba(tones.ground);
+    ctx.fillRect(0, 0, w, h);
+    ctx.globalAlpha = 0.2 + k * 0.6;
     ctx.drawImage(state.map, 0, 0, w, h);
+    ctx.globalAlpha = 1;
     ctx.save();
-    ctx.translate(w * 0.5, h * 0.5);
+    ctx.translate(w / 2, h / 2);
     ctx.rotate(state.angle);
-    // Car lights: white heading one way, red the other, each a short streak.
     for (const car of state.cars) {
-      const y = (((car.pos + t * car.speed * car.dir) % 1 + 1) % 1 - 0.5) * state.span;
-      ctx.fillStyle = rgba(car.dir > 0 ? tones.white : tones.red, 0.75 * k);
-      ctx.fillRect(car.x - 0.6, y, 1.2, 4);
+      const {s} = car, length = s.upright ? s.h : s.w;
+      const at = (((car.pos * length + t * car.speed * car.dir) % length) + length) % length;
+      const lane = car.dir > 0 ? s.width * 0.68 : s.width * 0.32;
+      const [x, y] = s.upright ? [s.x + lane, s.y + at] : [s.x + at, s.y + lane];
+      const [dx, dy] = s.upright ? [0, car.dir * 1.5] : [car.dir * 1.5, 0];
+      ctx.fillStyle = rgba(tones.white, 0.85 * k);
+      ctx.fillRect(x + dx - 0.6, y + dy - 0.6, 1.2, 1.2);
+      ctx.fillStyle = rgba(tones.red, 0.8 * k);
+      ctx.fillRect(x - dx - 0.5, y - dy - 0.5, 1, 1);
     }
     ctx.restore();
   },

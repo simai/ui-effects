@@ -1,6 +1,6 @@
 # Spacetime fabric (`fabric-grid`)
 
-A grid bends round masses; the pointer is a heavy body, a click a gravitational wave.
+A grid in perspective sinks into funnels under spherical masses; the pointer is a heavy body, a click a gravitational wave.
 
 - **Russian name:** Ткань пространства-времени
 - **Version:** 0.1.0, simai.effect 1.1.0
@@ -15,7 +15,7 @@ A grid bends round masses; the pointer is a heavy body, a click a gravitational 
 | `speed` | integer | 10–300 % | `100` | Speed |
 | `intensity` | integer | 10–100 % | `70` | Intensity |
 | `density` | integer | 10–100 % | `50` | Density |
-| `interactive` | boolean | — | `true` | React to the pointer. The pointer pulls the grid, a click sends a wave, holding grows a black hole |
+| `interactive` | boolean | — | `true` | React to the pointer. The pointer is a heavy sphere, a click sends a gravitational wave, holding grows a black hole |
 
 ## Schemes
 

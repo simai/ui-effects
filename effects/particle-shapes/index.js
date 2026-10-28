@@ -46,8 +46,8 @@ function readTones(host, scheme) {
 }
 
 // Particles hold a text of one or more lines, breathing a little, and now and then scatter and gather
-// again. The pointer pushes them aside; a click blows them apart from where it lands, and they fly back;
-// holding the button draws them into a whirl round the pointer until it is let go.
+// again. The text fits the area by itself (size 100 % fills it comfortably). A click scatters the part
+// of the text it lands on, and the particles fly back; holding the button whirls the ones nearby.
 const SCENE = {
   home: 'dark', seed: 177, reseed: ['density', 'text', 'size'],
   tones: (read, scheme) => scheme === 'light'
@@ -56,9 +56,12 @@ const SCENE = {
   setup(env, random) {
     const lines = String(env.values.text || 'SIMAI').split(/\r?\n/).map((line) => line.trim()).filter(Boolean).slice(0, 4);
     if (!lines.length) lines.push('SIMAI');
-    const longest = Math.max(...lines.map((line) => line.length), 3);
-    // The text's height is a share of the area (size), kept inside its width.
-    const lineHeight = Math.min(env.h * 0.7 * (env.values.size / 100) / lines.length, env.w * 0.9 / longest * 1.7);
+    // Fit: the widest line takes about 70 % of the width and the block at most 55 % of the height,
+    // then scaled by the size setting.
+    const probe = new OffscreenCanvas(8, 8).getContext('2d');
+    probe.font = '700 100px system-ui, sans-serif';
+    const widest = Math.max(...lines.map((line) => probe.measureText(line).width), 1);
+    const lineHeight = Math.max(12, Math.min(env.w * 0.7 / widest * 100, env.h * 0.55 / (lines.length * 1.12)) * (env.values.size / 100));
     const off = new OffscreenCanvas(Math.ceil(env.w), Math.ceil(lineHeight * lines.length * 1.15 + 8));
     const o = off.getContext('2d');
     o.fillStyle = '#fff';
@@ -67,7 +70,7 @@ const SCENE = {
     o.textBaseline = 'middle';
     lines.forEach((line, i) => o.fillText(line, off.width / 2, lineHeight * 0.6 + i * lineHeight * 1.12));
     const pixels = o.getImageData(0, 0, off.width, off.height).data;
-    const step = Math.max(3, Math.round(lineHeight / 22 * (1.6 - env.values.density / 100)));
+    const step = Math.max(2, Math.round(lineHeight / 28 * (1.6 - env.values.density / 100)));
     const top = (env.h - off.height) / 2;
     const particles = [];
     for (let y = 0; y < off.height; y += step) for (let x = 0; x < off.width; x += step) {
@@ -75,13 +78,16 @@ const SCENE = {
       const home = [random() * env.w, random() * env.h];
       particles.push({target: [x, y + top], home, x: x, y: y + top, vx: 0, vy: 0, phase: random() * 6, alt: random() < 0.2});
     }
-    return {particles, size: Math.max(1.4, step * 0.45), whirl: false};
+    return {particles, size: 1.6, whirl: false, reach: Math.min(env.w, env.h) * 0.16};
   },
   click(env, x, y) {
+    // Only the part of the text under the click comes apart.
+    const reach = env.state.reach;
     for (const p of env.state.particles) {
       const ex = p.x - x, ey = p.y - y, d = Math.hypot(ex, ey) || 1;
-      const kick = 2600 / (d + 40);
-      p.vx += ex / d * kick; p.vy += ey / d * kick;
+      if (d > reach) continue;
+      const kick = 14 * (1 - d / reach) + 4;
+      p.vx += ex / d * kick + (hash2(p.x, p.y) - 0.5) * 3; p.vy += ey / d * kick + (hash2(p.y, p.x) - 0.5) * 3;
     }
   },
   press(env) { env.state.whirl = true; },
@@ -100,12 +106,11 @@ const SCENE = {
       const ty = mix(p.home[1], p.target[1], form) + Math.cos(t * 0.6 + p.phase) * 1.2;
       // A spring back to its place, damped.
       p.vx += (tx - p.x) * 0.02; p.vy += (ty - p.y) * 0.02;
-      if (pointer.on) {
+      if (state.whirl && pointer.down) {
         const ex = p.x - px, ey = p.y - py, d = Math.hypot(ex, ey) || 1;
-        if (state.whirl && pointer.down) { const f = 1.6 / Math.max(20, d) * 40; p.vx += (-ey / d * f) - ex / d * f * 0.35; p.vy += (ex / d * f) - ey / d * f * 0.35; }
-        else if (d < 70) { const f = (1 - d / 70) * 1.8; p.vx += ex / d * f; p.vy += ey / d * f; }
+        if (d < state.reach * 1.4) { const f = (1 - d / (state.reach * 1.4)) * 2.2; p.vx += -ey / d * f - ex / d * f * 0.3; p.vy += ex / d * f - ey / d * f * 0.3; }
       }
-      p.vx *= 0.86; p.vy *= 0.86;
+      p.vx *= 0.9; p.vy *= 0.9;
       p.x += p.vx; p.y += p.vy;
       ctx.fillStyle = rgba(p.alt ? tones.alt : tones.dot, (scheme === 'light' ? 0.6 : 0.7) * k * (0.45 + 0.55 * form));
       ctx.fillRect(p.x - state.size / 2, p.y - state.size / 2, state.size, state.size);

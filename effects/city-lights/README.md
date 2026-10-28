@@ -1,6 +1,6 @@
 # City lights (`city-lights`)
 
-A city at night from above: a glowing street grid, wide avenues, a park, rivers and streams of cars.
+A city at night from above: orange streets, dark buildings with lit roofs, parks and trees, car lights.
 
 - **Russian name:** Огни города
 - **Version:** 0.1.0, simai.effect 1.1.0

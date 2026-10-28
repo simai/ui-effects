@@ -15,9 +15,9 @@ Particles hold a text, scatter from a click and come back.
 | `speed` | integer | 10–300 % | `100` | Speed |
 | `intensity` | integer | 10–100 % | `70` | Intensity |
 | `density` | integer | 10–100 % | `50` | Density |
-| `size` | integer | 20–100 % | `60` | Text size |
+| `size` | integer | 30–100 % | `100` | Text size. 100 % fits the text to the area |
 | `text` | text | up to 80 characters | `"SIMAI"` | Text. Up to four lines |
-| `interactive` | boolean | — | `true` | React to the pointer. Particles part round the pointer, a click scatters them, holding whirls them |
+| `interactive` | boolean | — | `true` | React to the pointer. A click scatters part of the text, holding whirls it |
 
 ## Schemes
 

@@ -43,7 +43,7 @@
         "ru": "Яркость",
         "en": "Intensity"
       },
-      "default": 70,
+      "default": 60,
       "min": 10,
       "max": 100,
       "step": 5,
@@ -84,8 +84,8 @@
       },
       "default": true,
       "hint": {
-        "ru": "Указатель стирает запотевание, как палец",
-        "en": "The pointer wipes the fog like a finger"
+        "ru": "Зажмите кнопку и ведите — пишете пальцем по запотевшему стеклу",
+        "en": "Press and drag to write on the fogged glass with a finger"
       }
     }
   ],

@@ -1,4 +1,4 @@
-// Rain on glass (simai.effect 1.1.0; dark scheme only): a fogged window at night: street lamps and passing cars behind the glass; a finger can wipe the fog.
+// Rain on glass (simai.effect 1.1.0; dark scheme only): a fogged window at night: a street in bokeh behind it, oncoming headlights and receding tail lights; you can write on the glass.
 //
 // The lifecycle is the catalogue template's: one canvas in the host, devicePixelRatio capped at 2,
 // a seeded scene (the same picture on every mount at the defaults), one still frame for reduced
@@ -45,99 +45,166 @@ function readTones(host, scheme) {
   return tones;
 }
 
-// A fogged window at night. Behind the glass, out of focus: street lamps and the lights of passing
-// cars. On the glass: fog, a few drops, and now and then a drop that runs down and clears a track.
-// The pointer is a finger: where it moves the fog is wiped away, and the fog slowly comes back.
+// Looking out of a fogged window at a street in the rain. Out of focus behind the glass: street lamps
+// in perspective, shop signs, and traffic: cars coming towards us on the left, their white headlights
+// growing from the distance, and cars going away on the right, their red tail lights shrinking.
+// The glass is fogged with fine beads; pressing and dragging writes on it like a finger, the track
+// shows the street clearer, drips run down from it, and the fog slowly comes back.
 const SCENE = {
   home: 'dark', seed: 61, reseed: ['density'],
-  tones: (read) => ({ground: read('--sf-neutral-5', '#111318'), street: read('--sf-primary-10', '#001a41'), lamp: read('--sf-warning-80', '#ffb95c'), head: read('--sf-neutral-95', '#f0f0f7'), tail: read('--sf-error-60', '#ff5449'), fog: read('--sf-neutral-30', '#45464f'), cool: read('--sf-primary-70', '#7fabff')}),
+  tones: (read) => ({ground: read('--sf-neutral-5', '#111318'), sky: read('--sf-primary-10', '#001a41'), lamp: read('--sf-warning-80', '#ffb95c'), head: read('--sf-neutral-95', '#f0f0f7'), tail: read('--sf-error-60', '#ff5449'), fog: read('--sf-neutral-30', '#45464f'), cool: read('--sf-primary-70', '#7fabff'), sign: read('--sf-tertiary-70', '#c798cd'), go: read('--sf-success-70', '#4cdb6b')}),
   setup(env, random) {
     const {w, h} = env;
-    const lamps = Array.from({length: 7}, () => ({x: random(), y: 0.15 + random() * 0.35, r: 18 + random() * 40, warm: random() < 0.75}));
-    const cars = Array.from({length: Math.round(2 + env.values.density / 20)}, () => ({lane: 0.62 + random() * 0.22, pos: random(), speed: 0.035 + random() * 0.04, dir: random() < 0.5 ? 1 : -1}));
-    const drops = Array.from({length: Math.round(w * h / 9000)}, () => ({x: random() * w, y: random() * h, r: 1 + random() * 2.5}));
-    const runs = Array.from({length: 4}, () => ({x: random() * w, phase: random(), period: 9 + random() * 9}));
-    const fog = new OffscreenCanvas(Math.ceil(w), Math.ceil(h));
-    const f = fog.getContext('2d');
-    const state = {lamps, cars, drops, runs, fog, f, last: null, seeded: false};
-    return state;
+    const f = Math.max(h * 1.1, w * 0.55), cx = w * 0.5, horizon = h * 0.48;
+    const lamps = [];
+    for (let z = 3; z < 45; z += 3 + random() * 2.5) for (const side of [-1, 1]) if (random() < 0.8) lamps.push({X: side * (4 + random() * 3.5), Y: 2.4 + random() * 2.4, z, colour: random() < 0.8 ? 'lamp' : 'cool'});
+    const signs = Array.from({length: 18}, () => ({X: (random() < 0.5 ? -1 : 1) * (5 + random() * 4), Y: 0.6 + random() * 3, z: 3 + random() * 30, colour: ['sign', 'cool', 'lamp'][Math.floor(random() * 3)]}));
+    const n = Math.round(2 + env.values.density / 18);
+    const toward = Array.from({length: n}, (_, i) => ({z: 2 + (i + random()) * 50 / n, speed: 7 + random() * 5, lane: -1.9 - random() * 1.6}));
+    const away = Array.from({length: n}, (_, i) => ({z: 2 + (i + random()) * 50 / n, speed: 6 + random() * 5, lane: 1.9 + random() * 1.6}));
+    // The glass: fine beads of condensation, drawn once; the mask says where the glass is fogged.
+    const beads = new OffscreenCanvas(Math.ceil(w), Math.ceil(h));
+    const b = beads.getContext('2d');
+    for (let i = 0, count = w * h / 26; i < count; i += 1) {
+      const x = random() * w, y = random() * h, r = 0.4 + random() ** 3 * 2.6;
+      b.fillStyle = `rgba(255,255,255,${0.04 + random() * 0.06})`;
+      b.beginPath(); b.arc(x, y, r, 0, Math.PI * 2); b.fill();
+      if (r > 1.4) { b.fillStyle = 'rgba(255,255,255,0.22)'; b.fillRect(x - r * 0.4, y - r * 0.4, 1, 1); }
+    }
+    const mask = new OffscreenCanvas(Math.ceil(w), Math.ceil(h));
+    const mk = mask.getContext('2d');
+    mk.fillStyle = '#000';
+    mk.fillRect(0, 0, w, h);
+    const frost = new OffscreenCanvas(Math.max(1, Math.ceil(w / 2)), Math.max(1, Math.ceil(h / 2)));
+    const glass = new OffscreenCanvas(Math.ceil(w), Math.ceil(h));
+    const runs = Array.from({length: 3}, () => ({x: random() * w, phase: random(), period: 12 + random() * 10}));
+    return {f, cx, horizon, lamps, signs, toward, away, beads, mask, mk, frost, fr: frost.getContext('2d'), glass, gl: glass.getContext('2d'), drips: [], runs, last: null, t: null, random};
   },
+  press(env, x, y) {
+    const {state} = env;
+    state.mk.globalCompositeOperation = 'destination-out';
+    state.mk.fillStyle = 'rgba(0,0,0,0.95)';
+    state.mk.beginPath(); state.mk.arc(x, y, 8, 0, Math.PI * 2); state.mk.fill();
+    state.last = [x, y];
+  },
+  release(env) { env.state.last = null; },
   draw(env, t) {
     const {ctx, w, h, tones, state, values, pointer} = env;
-    const k = values.intensity / 100;
-    const fogLevel = values.fog / 100;
-    // Behind the glass.
-    const g = ctx.createLinearGradient(0, 0, 0, h);
-    g.addColorStop(0, rgba(tones.ground));
-    g.addColorStop(1, rgba(tones.street));
-    ctx.fillStyle = g;
-    ctx.fillRect(0, 0, w, h);
-    ctx.globalCompositeOperation = 'lighter';
-    const blob = (x, y, r, colour, a) => {
-      const b = ctx.createRadialGradient(x, y, 0, x, y, r);
-      b.addColorStop(0, rgba(colour, a));
-      b.addColorStop(1, rgba(colour, 0));
-      ctx.fillStyle = b;
-      ctx.beginPath();
-      ctx.arc(x, y, r, 0, Math.PI * 2);
-      ctx.fill();
+    const k = values.intensity / 100, fogLevel = values.fog / 100;
+    const dt = state.t === null ? 0 : Math.max(0, Math.min(0.05, t - state.t));
+    state.t = t;
+    // The traffic moves: towards us on the left, away on the right.
+    for (const car of state.toward) { car.z -= car.speed * dt; if (car.z < 1.2) { car.z = 48 + state.random() * 10; car.speed = 7 + state.random() * 5; } }
+    for (const car of state.away) { car.z += car.speed * dt; if (car.z > 60) { car.z = 1.6 + state.random(); car.speed = 6 + state.random() * 5; } }
+    const lights = [];
+    const at = (X, Y, z) => [state.cx + X * state.f / z, state.horizon + (1.6 - Y) * state.f / z];
+    for (const lamp of state.lamps) lights.push({p: at(lamp.X, lamp.Y, lamp.z), z: lamp.z, colour: tones[lamp.colour], a: 0.75, size: 0.5});
+    for (const sign of state.signs) lights.push({p: at(sign.X, sign.Y, sign.z), z: sign.z, colour: tones[sign.colour], a: 0.5, size: 0.8});
+    lights.push({p: at(-4, 4.2, 38), z: 38, colour: tones.go, a: 0.8, size: 0.3});
+    for (const car of state.toward) {
+      const fade = Math.min(1, (car.z - 1.2) / 1.5);
+      for (const side of [-0.75, 0.75]) lights.push({p: at(car.lane + side, 0.7, car.z), z: car.z, colour: tones.head, a: fade, size: 0.32, road: true});
+    }
+    for (const car of state.away) {
+      const fade = Math.min(1, (car.z - 1.6) / 1.5);
+      for (const side of [-0.7, 0.7]) lights.push({p: at(car.lane + side, 0.9, car.z), z: car.z, colour: tones.tail, a: 0.8 * fade, size: 0.26, road: true});
+    }
+    // A disc of light out of focus: the same light spread wider, so a bigger disc is a dimmer one.
+    const bokeh = (c, scale, x, y, r, colour, a) => {
+      a *= Math.min(1, 26 / r);
+      if (a <= 0.01) return;
+      const g = c.createRadialGradient(x * scale, y * scale, 0, x * scale, y * scale, r * scale);
+      g.addColorStop(0, rgba(colour, a * 0.6));
+      g.addColorStop(0.8, rgba(colour, a));
+      g.addColorStop(0.9, rgba(colour, a * 0.85));
+      g.addColorStop(1, rgba(colour, 0));
+      c.fillStyle = g;
+      c.beginPath(); c.arc(x * scale, y * scale, r * scale, 0, Math.PI * 2); c.fill();
     };
-    for (const lamp of state.lamps) blob(lamp.x * w, lamp.y * h, lamp.r, lamp.warm ? tones.lamp : tones.cool, 0.35 * k);
-    for (const car of state.cars) {
-      const x = ((car.pos + t * car.speed * car.dir) % 1 + 1) % 1 * (w + 200) - 100;
-      const y = car.lane * h;
-      const colour = car.dir > 0 ? tones.head : tones.tail;
-      blob(x, y, 26, colour, 0.4 * k);
-      blob(x + 22 * car.dir * -1, y, 26, colour, 0.4 * k);
+    const street = (c, scale) => {
+      const g = c.createLinearGradient(0, 0, 0, h * scale);
+      g.addColorStop(0, rgba(tones.ground));
+      g.addColorStop(0.46, rgba(tones.sky));
+      g.addColorStop(1, rgba(mixc(tones.ground, tones.sky, 0.4)));
+      c.fillStyle = g;
+      c.fillRect(0, 0, w * scale, h * scale);
+    };
+    // Far lights are fainter, so the many of them at the end of the street do not pile up into a glare.
+    const near = (z) => Math.min(1, 4 / z) ** 1.3;
+    // The street seen through cleared glass: soft but smaller lights, and their reflections on the wet road.
+    street(ctx, 1);
+    ctx.globalCompositeOperation = 'lighter';
+    for (const light of lights) {
+      const r = 2 + light.size * state.f / light.z;
+      bokeh(ctx, 1, light.p[0], light.p[1], r, light.colour, 0.6 * k * light.a * near(light.z));
+      if (light.road) bokeh(ctx, 1, light.p[0], light.p[1] + r * 2.5, r * 1.3, light.colour, 0.12 * k * light.a);
     }
-    ctx.globalCompositeOperation = 'source-over';
-    // The fog: laid once, then it creeps back over what the finger and the drops wiped.
-    const f = state.f;
-    if (!state.seeded) {
-      f.fillStyle = rgba(tones.fog, 0.62 * fogLevel);
-      f.fillRect(0, 0, w, h);
-      state.seeded = true;
-    } else {
-      f.globalCompositeOperation = 'source-over';
-      f.fillStyle = rgba(tones.fog, 0.004 * fogLevel);
-      f.fillRect(0, 0, w, h);
+    // The street through fog: a half-size picture, so it comes out soft, with big bokeh.
+    const fr = state.fr, q = 0.5;
+    fr.globalCompositeOperation = 'source-over';
+    street(fr, q);
+    fr.globalCompositeOperation = 'lighter';
+    for (const light of lights) {
+      const r = 6 + (2 + light.size * state.f / light.z) * 2.8;
+      bokeh(fr, q, light.p[0], light.p[1], r, light.colour, 0.5 * k * light.a * near(light.z));
+      if (light.road) bokeh(fr, q, light.p[0], light.p[1] + r * 1.4, r * 1.2, light.colour, 0.1 * k * light.a);
     }
-    f.globalCompositeOperation = 'destination-out';
-    f.lineCap = 'round';
-    f.lineJoin = 'round';
-    if (pointer.on) {
-      const x = pointer.x * w, y = pointer.y * h;
-      f.strokeStyle = 'rgba(0,0,0,0.9)';
-      f.lineWidth = 26;
-      f.beginPath();
-      f.moveTo(state.last?.[0] ?? x, state.last?.[1] ?? y);
-      f.lineTo(x, y);
-      f.stroke();
+    fr.globalCompositeOperation = 'source-over';
+    fr.fillStyle = rgba(tones.fog, 0.2);
+    fr.fillRect(0, 0, w * q, h * q);
+    // Writing: only while the button is held. Drips run from the track now and then.
+    const mk = state.mk;
+    mk.globalCompositeOperation = 'source-over';
+    mk.fillStyle = 'rgba(0,0,0,0.0018)';
+    mk.fillRect(0, 0, w, h);
+    mk.globalCompositeOperation = 'destination-out';
+    mk.lineCap = 'round';
+    mk.lineJoin = 'round';
+    if (pointer.down && state.last) {
+      const x = pointer.x * w, y = pointer.y * h, [lx, ly] = state.last;
+      mk.strokeStyle = 'rgba(0,0,0,0.95)';
+      mk.lineWidth = 16;
+      mk.beginPath(); mk.moveTo(lx, ly); mk.lineTo(x, y); mk.stroke();
+      const moved = Math.hypot(x - lx, y - ly);
+      if (moved > 0 && state.random() < Math.min(0.5, moved / 60)) state.drips.push({x: x + (state.random() - 0.5) * 10, y: y + 6, v: 0, left: 30 + state.random() * 140});
       state.last = [x, y];
-    } else {
-      state.last = null;
     }
-    // A drop now and then runs down and clears a thin track.
     for (const run of state.runs) {
       const p = (t / run.period + run.phase) % 1;
       if (p > 0.6) continue;
       const y = p / 0.6 * h;
-      f.strokeStyle = 'rgba(0,0,0,0.5)';
-      f.lineWidth = 3;
-      f.beginPath();
-      f.moveTo(run.x + Math.sin(y * 0.03) * 3, Math.max(0, y - 6));
-      f.lineTo(run.x + Math.sin(y * 0.03) * 3, y);
-      f.stroke();
+      mk.strokeStyle = 'rgba(0,0,0,0.6)';
+      mk.lineWidth = 3;
+      mk.beginPath(); mk.moveTo(run.x + Math.sin(y * 0.03) * 3, Math.max(0, y - 8)); mk.lineTo(run.x + Math.sin(y * 0.03) * 3, y); mk.stroke();
     }
-    f.globalCompositeOperation = 'source-over';
-    ctx.drawImage(state.fog, 0, 0, w, h);
-    // Drops on the glass catch a little light.
-    for (const d of state.drops) {
-      ctx.fillStyle = rgba(tones.head, 0.1 * k);
-      ctx.beginPath();
-      ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
-      ctx.fill();
+    for (const drip of state.drips) {
+      drip.v = Math.min(60, drip.v + (state.random() < 0.04 ? -drip.v : 40 * dt));
+      const step = drip.v * dt;
+      mk.strokeStyle = 'rgba(0,0,0,0.85)';
+      mk.lineWidth = 2.6;
+      mk.beginPath(); mk.moveTo(drip.x, drip.y); mk.lineTo(drip.x, drip.y + step + 0.5); mk.stroke();
+      drip.y += step;
+      drip.left -= step;
     }
+    // The fogged glass: blurred street, beads over it, cut by the mask, laid over the clear view.
+    const gl = state.gl;
+    gl.globalCompositeOperation = 'source-over';
+    gl.clearRect(0, 0, w, h);
+    gl.imageSmoothingQuality = 'high';
+    gl.drawImage(state.frost, 0, 0, w, h);
+    gl.drawImage(state.beads, 0, 0, w, h);
+    gl.globalCompositeOperation = 'destination-in';
+    gl.drawImage(state.mask, 0, 0, w, h);
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.globalAlpha = Math.min(1, 0.15 + fogLevel);
+    ctx.drawImage(state.glass, 0, 0, w, h);
+    ctx.globalAlpha = 1;
+    // Drip heads catch the light.
+    for (const drip of state.drips) {
+      ctx.fillStyle = rgba(tones.head, 0.35 * k);
+      ctx.beginPath(); ctx.arc(drip.x, drip.y, 2, 0, Math.PI * 2); ctx.fill();
+    }
+    state.drips = state.drips.filter((drip) => drip.left > 0 && drip.y < h);
   },
 };
 

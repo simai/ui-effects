@@ -14,7 +14,7 @@ Rows of code scroll, lit by slow folds of light; the text takes the theme colour
 |:---|:---|:---|:---|:---|
 | `speed` | integer | 10–200 % | `100` | Speed |
 | `intensity` | integer | 0–100 % | `52` | Light. Brightness of the folds of light |
-| `theme` | choice | `symbols`, `javascript`, `html`, `terminal`, `easter` | `"javascript"` | Text |
+| `theme` | choice | `javascript`, `html`, `terminal`, `easter`, `symbols`, `hex`, `binary`, `digits`, `signs` | `"javascript"` | Text |
 | `size` | integer | 8–18 px | `12` | Letter size |
 | `base` | integer | 0–30 % | `5` | Text in the dark |
 | `scale` | integer | 50–200 % | `65` | Fold size |

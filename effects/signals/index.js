@@ -50,6 +50,13 @@ function readTones(host, scheme) {
 // Pointer: the nearest city lights up and sends to its links; a click opens a new node that pings its
 // three nearest; a press-drag draws a link of your own.
 const MASK_W = 180, MASK_H = 72;
+// World capitals by weight, as [longitude, latitude]: the first ones are always shown.
+const CAPITALS = [[-0.13, 51.51], [-77.04, 38.91], [37.62, 55.76], [116.4, 39.9], [139.69, 35.69], [2.35, 48.86], [13.4, 52.52], [77.21, 28.61],
+  [-47.93, -15.78], [31.24, 30.04], [151.21, -33.87], [-99.13, 19.43], [-75.7, 45.42], [54.37, 24.45], [103.82, 1.35], [126.98, 37.57],
+  [-3.7, 40.42], [12.5, 41.9], [28.98, 41.01], [36.82, -1.29], [28.19, -25.75], [-58.38, -34.6], [100.5, 13.75], [106.85, -6.21],
+  [46.68, 24.71], [7.49, 9.06], [-74.07, 4.71], [-77.04, -12.05], [18.07, 59.33], [121.47, 31.23], [44.36, 33.31], [69.24, 41.3]];
+// Long routes that join the regions.
+const ROUTES = [[0, 1], [2, 3], [3, 4], [0, 7], [1, 8], [5, 9], [7, 14], [14, 10], [0, 2], [1, 11]];
 const MASK = 'AAAAAAYd8P///wAA+AAAAAA8AAAAAAAAAAAwADwf///4AAYAAAAAAEAAAAAAAAAAAfivwAf//wAAAAADgAP/4AHYAAAAAADwW2sAP//AAAAAAEAD//+MDAAAgAAADftYA/n//gAAAAAMDf///+/8AAAP/z/P7ZjwF//AAAH+AA3f//////3ePwAAABACbD4Af///gANAAgAAAAAAAAhAAAAAAB+J8B/B//BhwAAAAAAAAAAAAD/////5Q8D4AIAB9////////////+Af/////gHAB4AAAH5///////////74AH8f///gHkAAAAAH5P/////////+GAABgB///wH+AAAAEAw/////////8AYAACAA///8D+AAAAECh/////////4A4AAAAAf///v/gAAAbCv/////////8AwAAAAAP///n/wAAAbv///////////AgAAAAAP////7QAAAEf//////////9AAAAAAAB////sYAAAD///////////8AAAAAAAD////9AAAAB//7fn//////4AAAAAAAD////0AAAAB/Pwef//////xAAAAAAAD////gAAAAfznwHP//////DAAAAAAAD////AAAAAPCbf/v/////+CAAAAAAAD///8AAAAAfADf/H////+ECAAAAAAAB///8AAAAAGHQP/n/////mMAAAAAAAA///8AAAAAH+Ai///////E8AAAAAAAAf//wAAAAAP/AA///////BgAAAAAAAAP//gAAAAAf/z1///////gAAAAAAAAAD/AwAAAAAf////f/////gAAAAAAAAAF+AQAAAAB///+/v/////AAAAAAAAAAA+AQAAAAB///+fw/////AAAAAAAAAAAeAAAAAAD////f+D///+gAAAAAAAAAAeAEAAAAH////v/B/z/QAAAAAAAgAAAfEBgAAAD////v+A/h+gAAAAAAAAAAAH8AAAAAD////n8AfB+AgAAAAAAAAAAAdAAAAAD////3wAcBfAgAAAAAAAAAAAHAAAAAD////7AAcAfgwAAAAAAAAAAABAAAAAD////8QAMAXgIAAAAAAAAAAABD+AAAB/////gAMASBQAAAAAAAAAAAAX/AAAB/////gACAQAYAAAAAAAAAAAAH/gAAAfv///gACAICIAAAAAAAAAAAAH/8AAAAD///AAAAsGAAAAAAAAAAAAAH/+AAAAB//+AAAAUOAAAAAAAAAAAAAP/+AAAAB//8AAAAM+wAAAAAAAAAAAAP//gAAAB//4AAAAMcggAAAAAAAAAAAP//8AAAB//wAAAAGEm/AAAAAAAAAAAf///AAAA//gAAAACAQHkAAAAAAAAAAP///gAAA//wAAAABwAHwgAAAAAAAAAH///AAAA//wAAAAAAIBYIAAAAAAAAAH//+AAAAf/wAAAAAAAAAAAAAAAAAAAD//+AAAA//wgAAAAABxAAAAAAAAAAAD//+AAAA//wgAAAAAFxgBAAAAAAAAAA//8AAAA//zgAAAAAf5gB+AAAAAAAAAf/8AAAA//DgAAAAAf/gAAAAAAAAAAAf/8AAAAf+DAAAAAB//wCAAAAAAAAAAf/4AAAAf/DAAAAAH//4AAAAAAAAAAAf/AAAAAf/DAAAAAH//8AAAAAAAAAAAf/AAAAAP8AAAAAAH//+AAAAAAAAAAA//AAAAAP8AAAAAAH//+AAAAAAAAAAA/+AAAAAH4AAAAAAD//+AAAAAAAAAAA/8AAAAAHwAAAAAAD8f8AAAAAAAAAAA/4AAAAAGAAAAAAADAH8AAAAAAAAAAA/gAAAAAAAAAAAAAAAD4AAAAAAAAAAB/gAAAAAAAAAAAAAAADwAEAAAAAAAAB+AAAAAAAAAAAAAAAAAAAGAAAAAAAAB4AAAAAAAAAAAAAAAAAQAIAAAAAAAAB4AAAAAAAAAAAAAAAAAAAQAAAAAAAABwAAAAAAAAAAAAAAAAAABgAAAAAAAAB4AAAAAAAAAAAAAAAAAAAAAAAAAAAADwAAAAAAAAAACAAAAAAAAAAAAAAAAADwAAAAAAAAAAAAAAAAAAAAAAAAAAAABwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';
 const SCENE = {
   home: 'dark', seed: 57, reseed: ['density'],
@@ -67,13 +74,22 @@ const SCENE = {
       const px = ox + (x + 0.5) * scale, py = oy + (y + 0.5) * scale;
       if (px > -scale && py > -scale && px < w + scale && py < h + scale) dots.push([px, py]);
     }
-    const count = Math.max(8, Math.round(8 + env.values.density / 6));
-    const nodes = Array.from({length: count}, () => ({at: dots[Math.floor(random() * dots.length)] ?? [random() * w, random() * h], glow: 0}));
+    const place = ([lon, lat]) => [ox + (lon + 180) / 360 * MASK_W * scale, oy + (80 - lat) / 138 * MASK_H * scale];
+    const count = Math.min(CAPITALS.length, Math.round(12 + env.values.density / 5));
+    const nodes = CAPITALS.slice(0, count).map((capital) => ({at: place(capital), glow: 0}));
     const arcs = [];
+    const joined = new Set();
+    const join = (i, j) => {
+      const key = i < j ? `${i}-${j}` : `${j}-${i}`;
+      if (i === j || joined.has(key)) return;
+      joined.add(key);
+      arcs.push({a: i, b: j, phase: random(), speed: 0.08 + random() * 0.1, lift: 0.18 + random() * 0.14, life: Infinity});
+    };
     nodes.forEach((node, i) => {
       const near = nodes.map((other, j) => [j, Math.hypot(other.at[0] - node.at[0], other.at[1] - node.at[1])]).filter(([j]) => j !== i).sort((a, b) => a[1] - b[1]);
-      for (const [j] of near.slice(0, 2)) arcs.push({a: i, b: j, phase: random(), speed: 0.1 + random() * 0.12, lift: 0.18 + random() * 0.2, life: Infinity});
+      for (const [j] of near.slice(0, 2)) join(i, j);
     });
+    for (const [i, j] of ROUTES) if (i < count && j < count) join(i, j);
     return {dots, size: Math.max(1.2, scale * 0.42), nodes, arcs, drag: null, hover: -1, random};
   },
   click(env, x, y) {

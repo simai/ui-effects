@@ -64,13 +64,6 @@
       "default": "javascript",
       "options": [
         {
-          "value": "symbols",
-          "label": {
-            "ru": "Символы",
-            "en": "Symbols"
-          }
-        },
-        {
           "value": "javascript",
           "label": {
             "ru": "JavaScript",
@@ -96,6 +89,41 @@
           "label": {
             "ru": "С секретами",
             "en": "With secrets"
+          }
+        },
+        {
+          "value": "symbols",
+          "label": {
+            "ru": "Буквы и цифры",
+            "en": "Letters and digits"
+          }
+        },
+        {
+          "value": "hex",
+          "label": {
+            "ru": "Шестнадцатеричные",
+            "en": "Hexadecimal"
+          }
+        },
+        {
+          "value": "binary",
+          "label": {
+            "ru": "Двоичные",
+            "en": "Binary"
+          }
+        },
+        {
+          "value": "digits",
+          "label": {
+            "ru": "Цифры",
+            "en": "Digits"
+          }
+        },
+        {
+          "value": "signs",
+          "label": {
+            "ru": "Знаки",
+            "en": "Signs"
           }
         }
       ]
