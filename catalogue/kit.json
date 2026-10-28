@@ -160,6 +160,18 @@
       "passed": 17,
       "total": 17,
       "failed": []
+    },
+    "confetti": {
+      "digest": "ce96256c6f89c5e4fc9d0a76a8d5e10e4d4a1fec1c02d1bd24ef713d40fc72f0",
+      "passed": 17,
+      "total": 17,
+      "failed": []
+    },
+    "murmuration": {
+      "digest": "0b3acf16e1df17926afa5f5a5340c4f69faf774cba700b840e467757b52c8a7a",
+      "passed": 17,
+      "total": 17,
+      "failed": []
     }
   }
 }

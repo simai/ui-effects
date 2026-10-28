@@ -10,8 +10,8 @@
     "ui_source": "7389e4d84d8104c8c9bda816c0255f0f9b623bfb"
   },
   "counts": {
-    "effects": 25,
-    "dual": 14,
+    "effects": 27,
+    "dual": 16,
     "dark": 9,
     "light": 2
   },
@@ -1537,6 +1537,130 @@
           "path": "README.md",
           "sha256": "e740a5f731170dec12945f019d449daec6cadaecd4c5d40e210b893f626e76ff",
           "size": 1379
+        }
+      ],
+      "kit": {
+        "status": "pass",
+        "framework": "ui-519fa0814a02",
+        "passed": 17,
+        "total": 17
+      }
+    },
+    {
+      "id": "confetti",
+      "version": "0.1.0",
+      "label": {
+        "ru": "Конфетти",
+        "en": "Confetti"
+      },
+      "description": {
+        "ru": "Цветные бумажки из хлопушки падают сверху и кувыркаются в воздухе; нажатие стреляет хлопушкой вверх."
+      },
+      "role": {
+        "ru": "Праздник, поздравление, успех: светлая и тёмная схемы."
+      },
+      "schemes": [
+        "light",
+        "dark"
+      ],
+      "pair": null,
+      "capabilities": [
+        "windows"
+      ],
+      "tags": [
+        "particles",
+        "paper"
+      ],
+      "surfaces": [
+        "hero",
+        "section",
+        "dashboard",
+        "sign-in"
+      ],
+      "path": "effects/confetti/",
+      "entry": "index.js",
+      "files": [
+        {
+          "path": "effect.json",
+          "sha256": "16e1e0e025f5656307cfeff3f446f896f9493d02d831dac93201fa316d92e9a1",
+          "size": 1564
+        },
+        {
+          "path": "index.js",
+          "sha256": "20478a9b46ecac6d1f2a74eeebfcc0f459180b0a6842db9999daca917e5f792f",
+          "size": 12697
+        },
+        {
+          "path": "preview.png",
+          "sha256": "0795bfe93d6aa49c82f9a35baf88ee7b60e85f2b2038a64b675af2216e76c9ff",
+          "size": 30300
+        },
+        {
+          "path": "README.md",
+          "sha256": "47e8a5af1454ff3476428fc850397b7557cc6bf333802c9aa7e06cbd655831d6",
+          "size": 1311
+        }
+      ],
+      "kit": {
+        "status": "pass",
+        "framework": "ui-519fa0814a02",
+        "passed": 17,
+        "total": 17
+      }
+    },
+    {
+      "id": "murmuration",
+      "version": "0.1.0",
+      "label": {
+        "ru": "Мурмурация",
+        "en": "Murmuration"
+      },
+      "description": {
+        "ru": "Огромная стая скворцов летит как единое целое: тянется, складывается и снова сгущается."
+      },
+      "role": {
+        "ru": "Живая природа, слаженность, сообщество: светлая и тёмная схемы."
+      },
+      "schemes": [
+        "light",
+        "dark"
+      ],
+      "pair": null,
+      "capabilities": [
+        "windows"
+      ],
+      "tags": [
+        "particles",
+        "nature"
+      ],
+      "surfaces": [
+        "hero",
+        "section",
+        "dashboard",
+        "sign-in"
+      ],
+      "path": "effects/murmuration/",
+      "entry": "index.js",
+      "files": [
+        {
+          "path": "effect.json",
+          "sha256": "077491df0574bab791d015bc57c7f2216171422bd6a351c8781ec6658c1ae562",
+          "size": 1635
+        },
+        {
+          "path": "index.js",
+          "sha256": "fd96c2a11cb919775443c18cce5810b94a90aaa1810c4008abb6b07660257469",
+          "size": 13714
+        },
+        {
+          "path": "preview.png",
+          "sha256": "0e754a41b08ac989ea3841b0a59b7ec3f41c34bd712540a41cc8160c8970a358",
+          "size": 23450
+        },
+        {
+          "path": "README.md",
+          "sha256": "e0d20d4b2c4c210cb316812faa108d04f7ad4eb378b29992f2531fe16081c40b",
+          "size": 1332
         }
       ],
       "kit": {
