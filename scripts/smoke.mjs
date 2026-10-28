@@ -257,8 +257,10 @@ try {
       for (const entry of effects) {
         const where = `${entry.id} ${tag}`;
         flush = watch(page, where);
+        // A CDN request that stalls on a long run gets one reload before the page counts as failed.
+        const ready = () => page.waitForFunction(() => document.documentElement.dataset.ready === 'true' && document.body.style.opacity !== '0', null, {timeout: 20000});
         await page.goto(`${base}effect/${entry.id}/`);
-        await page.waitForFunction(() => document.documentElement.dataset.ready === 'true' && document.body.style.opacity !== '0', null, {timeout: 20000});
+        await ready().catch(async () => { console.log(`note ${where}: not ready in 20 s, reloaded`); await page.reload(); await ready(); });
         const expected = resolveTheme(reference(entry), scheme, 'auto');
         const checkLayout = async (layout) => {
           await page.waitForFunction(() => ['yes', 'hidden', 'error'].includes(document.documentElement.dataset.mounted), null, {timeout: 20000});
@@ -377,12 +379,19 @@ try {
       await wait(600);
       await page.waitForFunction(() => document.documentElement.dataset.mounted === 'yes');
       // The readout and the page's own timers ask for no animation frames. The
-      // Framework's controls may redraw once when the icon font arrives; that
-      // settles first, so only the effect is counted.
+      // Framework's controls redraw when a font arrives; that settles first, so
+      // only the effect is counted.
       await page.evaluate(() => document.fonts.ready);
       await wait(400);
-      await page.evaluate(() => { window.__frames = 0; });
-      const after = await frames(page);
+      // Late fonts (the code font comes with the highlight) make the range
+      // sliders measure again for a few frames. A stopped effect gives a quiet
+      // window within a few tries; a running one never does.
+      let after = 0;
+      for (let tries = 0; tries < 6; tries += 1) {
+        await page.evaluate(() => { window.__frames = 0; });
+        after = await frames(page);
+        if (after === 0) break;
+      }
       const canvas = await page.evaluate(() => Boolean(document.querySelector('[data-hero] [data-sf-effect-layer] canvas')));
       if (after !== 0 || !canvas) fail(`motion ${label}`, `${after} frames asked for after ${label} (before: ${running}), canvas ${canvas}`);
       report.motion.push({label, effect: target.id, framesBefore: running, framesAfter: after});
