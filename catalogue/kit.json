@@ -118,6 +118,90 @@
       "passed": 14,
       "total": 14,
       "failed": []
+    },
+    "wind-lines": {
+      "digest": "a9ace10fd4f13801573d3cd0eb4e3ccf6a1835f6e74cf117392b9cf538f38c0e",
+      "passed": 14,
+      "total": 14,
+      "failed": []
+    },
+    "city-lights": {
+      "digest": "f28549930d13c628cecd58231151abb73155ac86aafa23a40db872b78773a689",
+      "passed": 14,
+      "total": 14,
+      "failed": []
+    },
+    "deep-ocean": {
+      "digest": "a89e6f43fc12e8ac6db5e264f1b04fd3ab983c611bd26ac555c621bb31f50a28",
+      "passed": 14,
+      "total": 14,
+      "failed": []
+    },
+    "signals": {
+      "digest": "aa0fa4ecce01d1313eb2d400ca6ebf18008f3ad7d91eb465eb662a7d32a74815",
+      "passed": 14,
+      "total": 14,
+      "failed": []
+    },
+    "embers": {
+      "digest": "068a6c71b76a209dc2af5f28c53055a953deaa163b73285f9a48983f98155df4",
+      "passed": 14,
+      "total": 14,
+      "failed": []
+    },
+    "watercolor": {
+      "digest": "1d4890163208347ee9b3af1d9231715b806f9b012d5a2ee65041bb7c44ffe2ea",
+      "passed": 14,
+      "total": 14,
+      "failed": []
+    },
+    "blinds": {
+      "digest": "4f75b863532afe6ee0abeafe04fa900fd86cbda7dad2cec7a0eabac37fa6619c",
+      "passed": 14,
+      "total": 14,
+      "failed": []
+    },
+    "origami": {
+      "digest": "0dabbcaab2dc8cbe01e0f450ada4990e8ae002bdc2e869d4626a7616032a9e8c",
+      "passed": 14,
+      "total": 14,
+      "failed": []
+    },
+    "dust-beam": {
+      "digest": "192687932c3b9466957069f1ad2a00aa69dbb1851e1b81719324082552b2936c",
+      "passed": 14,
+      "total": 14,
+      "failed": []
+    },
+    "relief-wave": {
+      "digest": "8624fa6ddf938c9f63c658cc5187acd6c3752b4aaddfe347ff061c43befb99e2",
+      "passed": 17,
+      "total": 17,
+      "failed": []
+    },
+    "fabric-grid": {
+      "digest": "e39fcbbd1b4141067139931b725b87f19a832694453d69d9f8a70d446c7a8804",
+      "passed": 17,
+      "total": 17,
+      "failed": []
+    },
+    "ripples": {
+      "digest": "953316a22c6238672c470ec9de3b3204de2e5c20f00b90f5b7e770929716d89d",
+      "passed": 17,
+      "total": 17,
+      "failed": []
+    },
+    "blueprint": {
+      "digest": "ef56e8b4f80545756f3e84edbb118105a42e7d4208ca9b9053ae5b53c04e602d",
+      "passed": 17,
+      "total": 17,
+      "failed": []
+    },
+    "particle-shapes": {
+      "digest": "544a488bd10441f7555bcaa0f6fa43d1738e290efab0d8530fc10733e12d3b0d",
+      "passed": 17,
+      "total": 17,
+      "failed": []
     }
   }
 }

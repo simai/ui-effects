@@ -10,10 +10,10 @@
     "ui_source": "d0d01841fc765fb62b2748cd22949dc6723caa17"
   },
   "counts": {
-    "effects": 18,
-    "dual": 4,
-    "dark": 9,
-    "light": 5
+    "effects": 32,
+    "dual": 9,
+    "dark": 14,
+    "light": 9
   },
   "effects": [
     {
@@ -1106,6 +1106,865 @@
         "framework": "ui-3521193e0c6b",
         "passed": 14,
         "total": 14
+      }
+    },
+    {
+      "id": "wind-lines",
+      "version": "0.1.0",
+      "label": {
+        "ru": "Северный ветер",
+        "en": "North wind"
+      },
+      "description": {
+        "ru": "Тонкие линии ветра текут по невидимым потокам и огибают препятствия."
+      },
+      "role": {
+        "ru": "Карта потоков ночью. Только тёмная схема."
+      },
+      "schemes": [
+        "dark"
+      ],
+      "pair": null,
+      "capabilities": [
+        "windows"
+      ],
+      "tags": [
+        "lines",
+        "flow"
+      ],
+      "surfaces": [
+        "hero",
+        "section",
+        "dashboard",
+        "sign-in"
+      ],
+      "path": "effects/wind-lines/",
+      "entry": "index.js",
+      "files": [
+        {
+          "path": "effect.json",
+          "sha256": "41339fb9fe41db4029f5e8a3976048f71f3d2e225663bfec48af6a13d7c73078",
+          "size": 1524
+        },
+        {
+          "path": "index.js",
+          "sha256": "77883f0c7e0804c0fc04093aca68dd234ee3eb2091635936c3c434089dc3ec74",
+          "size": 8204
+        },
+        {
+          "path": "preview.png",
+          "sha256": "bdbf906ca9dfbc67651c1081bb4b376dc149316e1ed56a56236177d58624d608",
+          "size": 39170
+        },
+        {
+          "path": "README.md",
+          "sha256": "02ad6b82c75c393e3acf0fba19816702eecb1abed5efebf592bf3fe887d3e29d",
+          "size": 1233
+        }
+      ],
+      "kit": {
+        "status": "pass",
+        "framework": "ui-3521193e0c6b",
+        "passed": 14,
+        "total": 14
+      }
+    },
+    {
+      "id": "city-lights",
+      "version": "0.1.0",
+      "label": {
+        "ru": "Огни города",
+        "en": "City lights"
+      },
+      "description": {
+        "ru": "Ночной город сверху: сетка улиц, бегущие огни машин, тёплые окна."
+      },
+      "role": {
+        "ru": "Ночной город с высоты. Только тёмная схема."
+      },
+      "schemes": [
+        "dark"
+      ],
+      "pair": null,
+      "capabilities": [
+        "windows"
+      ],
+      "tags": [
+        "geometry",
+        "particles"
+      ],
+      "surfaces": [
+        "hero",
+        "section",
+        "dashboard",
+        "sign-in"
+      ],
+      "path": "effects/city-lights/",
+      "entry": "index.js",
+      "files": [
+        {
+          "path": "effect.json",
+          "sha256": "83aefdd039ef3789de6bb2abec3e64e531b87d81f58d28c8314d786919708ed6",
+          "size": 1169
+        },
+        {
+          "path": "index.js",
+          "sha256": "1355d739990460c95153dcb5ef3d297be98d287aba4c223e5cbf49d59b8705d1",
+          "size": 8995
+        },
+        {
+          "path": "preview.png",
+          "sha256": "043a6750a722073e0f6d7ca8491a906c49762bf281992f50ac2b1f912070403f",
+          "size": 16795
+        },
+        {
+          "path": "README.md",
+          "sha256": "5f1983a80d79fa3576e70185c9df01522878c0eea67eeeeea40788dbb5231437",
+          "size": 1157
+        }
+      ],
+      "kit": {
+        "status": "pass",
+        "framework": "ui-3521193e0c6b",
+        "passed": 14,
+        "total": 14
+      }
+    },
+    {
+      "id": "deep-ocean",
+      "version": "0.1.0",
+      "label": {
+        "ru": "Глубина океана",
+        "en": "Deep ocean"
+      },
+      "description": {
+        "ru": "Медленно всплывают пузыри, мерцает планктон, сверху падает слабый свет."
+      },
+      "role": {
+        "ru": "Толща воды. Только тёмная схема."
+      },
+      "schemes": [
+        "dark"
+      ],
+      "pair": null,
+      "capabilities": [
+        "windows"
+      ],
+      "tags": [
+        "water",
+        "depth"
+      ],
+      "surfaces": [
+        "hero",
+        "section",
+        "dashboard",
+        "sign-in"
+      ],
+      "path": "effects/deep-ocean/",
+      "entry": "index.js",
+      "files": [
+        {
+          "path": "effect.json",
+          "sha256": "a0ad0fe4c2d323755a01f96a4d4208f873be51921caac6b8ddad448840b4c96a",
+          "size": 1524
+        },
+        {
+          "path": "index.js",
+          "sha256": "3b83016374c5f3d1e9ceb69b983cddf0804643c7f0eabd0bdcb5722407bdbb20",
+          "size": 8529
+        },
+        {
+          "path": "preview.png",
+          "sha256": "888919d1257c5b969b733f6eae0a3ea5446d3827f3001156de6d0a585d325bc3",
+          "size": 25498
+        },
+        {
+          "path": "README.md",
+          "sha256": "4283a7e0c3c3e9cd8db30311bdda51b07b42096e3aa7249f8dee3077225afe92",
+          "size": 1224
+        }
+      ],
+      "kit": {
+        "status": "pass",
+        "framework": "ui-3521193e0c6b",
+        "passed": 14,
+        "total": 14
+      }
+    },
+    {
+      "id": "signals",
+      "version": "0.1.0",
+      "label": {
+        "ru": "Сигналы",
+        "en": "Signals"
+      },
+      "description": {
+        "ru": "Точки на тёмной карте мира, между ними дугами летят импульсы."
+      },
+      "role": {
+        "ru": "Сеть и интеграции. Только тёмная схема."
+      },
+      "schemes": [
+        "dark"
+      ],
+      "pair": null,
+      "capabilities": [
+        "windows"
+      ],
+      "tags": [
+        "lines",
+        "particles"
+      ],
+      "surfaces": [
+        "hero",
+        "section",
+        "dashboard",
+        "sign-in"
+      ],
+      "path": "effects/signals/",
+      "entry": "index.js",
+      "files": [
+        {
+          "path": "effect.json",
+          "sha256": "14d51489f6bec17a60a9064faa56a35c22180bdfa1e8860981e138ce5364c4e0",
+          "size": 1154
+        },
+        {
+          "path": "index.js",
+          "sha256": "813b7bbfd6be44b5ebbe728d4de5d6641df03614c5a570627fd20e7afd727c54",
+          "size": 8271
+        },
+        {
+          "path": "preview.png",
+          "sha256": "9b93df15356bad36a4d7d1c88407db3df76a819712d10d17ffccb26a0506faab",
+          "size": 18976
+        },
+        {
+          "path": "README.md",
+          "sha256": "fc95c30d3a19ade650ded79393045a0438a830516f28cd39f67123d1690323e1",
+          "size": 1128
+        }
+      ],
+      "kit": {
+        "status": "pass",
+        "framework": "ui-3521193e0c6b",
+        "passed": 14,
+        "total": 14
+      }
+    },
+    {
+      "id": "embers",
+      "version": "0.1.0",
+      "label": {
+        "ru": "Тлеющие угли",
+        "en": "Embers"
+      },
+      "description": {
+        "ru": "Искры поднимаются снизу, кружатся и гаснут над тёплым свечением."
+      },
+      "role": {
+        "ru": "Тёплый тёмный фон. Только тёмная схема."
+      },
+      "schemes": [
+        "dark"
+      ],
+      "pair": null,
+      "capabilities": [
+        "windows"
+      ],
+      "tags": [
+        "glow",
+        "particles"
+      ],
+      "surfaces": [
+        "hero",
+        "section",
+        "dashboard",
+        "sign-in"
+      ],
+      "path": "effects/embers/",
+      "entry": "index.js",
+      "files": [
+        {
+          "path": "effect.json",
+          "sha256": "0f4d450bda1ac9b36354231d4c1b70fed2931672e35a4f78f198641118748e66",
+          "size": 1523
+        },
+        {
+          "path": "index.js",
+          "sha256": "7b21372d27e32598f256656a277431ddcefabc793b2dfa4f5c40f9ed68b55441",
+          "size": 7721
+        },
+        {
+          "path": "preview.png",
+          "sha256": "7a2f3d9c67b4fe4017516502de51251113f330d7a5ef4f4a1c3fc30544d4206c",
+          "size": 20254
+        },
+        {
+          "path": "README.md",
+          "sha256": "a72353d7c1685c488c2c68e68c45d817281fead093e980f68673a9a6ec526ce2",
+          "size": 1214
+        }
+      ],
+      "kit": {
+        "status": "pass",
+        "framework": "ui-3521193e0c6b",
+        "passed": 14,
+        "total": 14
+      }
+    },
+    {
+      "id": "watercolor",
+      "version": "0.1.0",
+      "label": {
+        "ru": "Акварель",
+        "en": "Watercolour"
+      },
+      "description": {
+        "ru": "Пятна краски медленно растекаются по бумаге и смешиваются по краям."
+      },
+      "role": {
+        "ru": "Мягкий светлый фон. Только светлая схема."
+      },
+      "schemes": [
+        "light"
+      ],
+      "pair": null,
+      "capabilities": [
+        "windows"
+      ],
+      "tags": [
+        "paper",
+        "gradient"
+      ],
+      "surfaces": [
+        "hero",
+        "section",
+        "dashboard",
+        "sign-in"
+      ],
+      "path": "effects/watercolor/",
+      "entry": "index.js",
+      "files": [
+        {
+          "path": "effect.json",
+          "sha256": "1c0026a80c15fb5374c2738244e3097f17c123a64db68f2ab44185b71864660b",
+          "size": 1164
+        },
+        {
+          "path": "index.js",
+          "sha256": "a887cd8d57696402462309420d05456d0d8fea8770a00ed0fd6878b3b640cdd4",
+          "size": 7745
+        },
+        {
+          "path": "preview.png",
+          "sha256": "afd0b951d9be1ded6cedc4da482ab7273e0da91e62f24e4667cf65f7154376ff",
+          "size": 133838
+        },
+        {
+          "path": "README.md",
+          "sha256": "8c54bb6894173a4e49f432e797c04b85ab3dcc8f31536ba6533d632c97185d8b",
+          "size": 1147
+        }
+      ],
+      "kit": {
+        "status": "pass",
+        "framework": "ui-3521193e0c6b",
+        "passed": 14,
+        "total": 14
+      }
+    },
+    {
+      "id": "blinds",
+      "version": "0.1.0",
+      "label": {
+        "ru": "Тени жалюзи",
+        "en": "Blind shadows"
+      },
+      "description": {
+        "ru": "Полосы солнечного света на стене чуть колышутся."
+      },
+      "role": {
+        "ru": "Солнечная комната. Только светлая схема."
+      },
+      "schemes": [
+        "light"
+      ],
+      "pair": null,
+      "capabilities": [
+        "windows"
+      ],
+      "tags": [
+        "nature",
+        "geometry"
+      ],
+      "surfaces": [
+        "hero",
+        "section",
+        "dashboard",
+        "sign-in"
+      ],
+      "path": "effects/blinds/",
+      "entry": "index.js",
+      "files": [
+        {
+          "path": "effect.json",
+          "sha256": "1deab50ddcdd95a9303acbe3f128e5c88d99cbc19e06437e9d8e560955cf766f",
+          "size": 1533
+        },
+        {
+          "path": "index.js",
+          "sha256": "378afffd2560484160e5ac9314659ee460ad3dd56d9b7e4e6ac70914672ae2ca",
+          "size": 7292
+        },
+        {
+          "path": "preview.png",
+          "sha256": "96ac8cc157ee7bed3805086115f22ba74e8134bc5641f31f82761b4725d8e368",
+          "size": 66161
+        },
+        {
+          "path": "README.md",
+          "sha256": "faff58c3de6eb65d3b0e25345c4a94b48024794eba127adf4072ccda2fddc233",
+          "size": 1221
+        }
+      ],
+      "kit": {
+        "status": "pass",
+        "framework": "ui-3521193e0c6b",
+        "passed": 14,
+        "total": 14
+      }
+    },
+    {
+      "id": "origami",
+      "version": "0.1.0",
+      "label": {
+        "ru": "Оригами",
+        "en": "Origami"
+      },
+      "description": {
+        "ru": "Бумажные складки, свет медленно скользит по граням."
+      },
+      "role": {
+        "ru": "Бумага и свет. Только светлая схема."
+      },
+      "schemes": [
+        "light"
+      ],
+      "pair": null,
+      "capabilities": [
+        "windows"
+      ],
+      "tags": [
+        "paper",
+        "geometry"
+      ],
+      "surfaces": [
+        "hero",
+        "section",
+        "dashboard",
+        "sign-in"
+      ],
+      "path": "effects/origami/",
+      "entry": "index.js",
+      "files": [
+        {
+          "path": "effect.json",
+          "sha256": "3468abb1328fe2a392a70e7e265f4621a8fe1499ce3e3043cccbada6a06672c0",
+          "size": 1155
+        },
+        {
+          "path": "index.js",
+          "sha256": "ce0e6041b9ad3672371f01851c04910d113912baceb4b50094af825d48b68aa3",
+          "size": 8001
+        },
+        {
+          "path": "preview.png",
+          "sha256": "7b51a98630c0d2d284310e5b2340974404be1aba0b7c6e1156a454996439f118",
+          "size": 19463
+        },
+        {
+          "path": "README.md",
+          "sha256": "88839e51089af9974fed192a10ffbb019cd0cf48b8e1e350251ff4655e765d2c",
+          "size": 1122
+        }
+      ],
+      "kit": {
+        "status": "pass",
+        "framework": "ui-3521193e0c6b",
+        "passed": 14,
+        "total": 14
+      }
+    },
+    {
+      "id": "dust-beam",
+      "version": "0.1.0",
+      "label": {
+        "ru": "Пыль в луче",
+        "en": "Dust in a beam"
+      },
+      "description": {
+        "ru": "Редкие пылинки плывут в солнечном луче."
+      },
+      "role": {
+        "ru": "Тихая светлая комната. Только светлая схема."
+      },
+      "schemes": [
+        "light"
+      ],
+      "pair": null,
+      "capabilities": [
+        "windows"
+      ],
+      "tags": [
+        "nature",
+        "particles"
+      ],
+      "surfaces": [
+        "hero",
+        "section",
+        "dashboard",
+        "sign-in"
+      ],
+      "path": "effects/dust-beam/",
+      "entry": "index.js",
+      "files": [
+        {
+          "path": "effect.json",
+          "sha256": "899c617cb86e8c69011f1650308e23930af645b7788cac4f68b1896edeff9a22",
+          "size": 1170
+        },
+        {
+          "path": "index.js",
+          "sha256": "a610c8a98a21af6c025e211042a0c3be84679ad6580d514256e36d410ca55061",
+          "size": 7771
+        },
+        {
+          "path": "preview.png",
+          "sha256": "948242b1f64fe2435d330ba7dc2998604a7c2607fce5a59a01429b6bb83c6b7b",
+          "size": 29070
+        },
+        {
+          "path": "README.md",
+          "sha256": "757510607fdf34846e0d17e744ed16e2c480f0212f4d0357ce6d59ad8ed02c91",
+          "size": 1135
+        }
+      ],
+      "kit": {
+        "status": "pass",
+        "framework": "ui-3521193e0c6b",
+        "passed": 14,
+        "total": 14
+      }
+    },
+    {
+      "id": "relief-wave",
+      "version": "0.1.0",
+      "label": {
+        "ru": "Волна рельефа",
+        "en": "Relief wave"
+      },
+      "description": {
+        "ru": "Изолинии рельефа, по которым бежит медленная волна высоты."
+      },
+      "role": {
+        "ru": "Топографическая карта с движением: ночная или бумажная."
+      },
+      "schemes": [
+        "dark",
+        "light"
+      ],
+      "pair": null,
+      "capabilities": [
+        "windows"
+      ],
+      "tags": [
+        "lines",
+        "geometry"
+      ],
+      "surfaces": [
+        "hero",
+        "section",
+        "dashboard",
+        "sign-in"
+      ],
+      "path": "effects/relief-wave/",
+      "entry": "index.js",
+      "files": [
+        {
+          "path": "effect.json",
+          "sha256": "d83bd14d54b1e0e57ae6f31cb232c9553daa5a5297037b29937e7e60d653b206",
+          "size": 1185
+        },
+        {
+          "path": "index.js",
+          "sha256": "2d8bc4478a151c62687d6f21e2c4648d4f9c202aece9bf049ed5fde623aae77f",
+          "size": 8233
+        },
+        {
+          "path": "preview.png",
+          "sha256": "c56303c8a2c4f05d565a0d257793fe5408775f66489aa7e3261e91a9aa74b42f",
+          "size": 80618
+        },
+        {
+          "path": "README.md",
+          "sha256": "0fd73a95bc3a21fe5dbdcf36c3f3d9fd7a685d990195e48b1f9265e76fa4c63b",
+          "size": 1183
+        }
+      ],
+      "kit": {
+        "status": "pass",
+        "framework": "ui-3521193e0c6b",
+        "passed": 17,
+        "total": 17
+      }
+    },
+    {
+      "id": "fabric-grid",
+      "version": "0.1.0",
+      "label": {
+        "ru": "Сетка-ткань",
+        "en": "Fabric grid"
+      },
+      "description": {
+        "ru": "Тонкая сетка колышется, как ткань, и прогибается под указателем."
+      },
+      "role": {
+        "ru": "Спокойная сетка для интерфейсов: светлая или тёмная."
+      },
+      "schemes": [
+        "dark",
+        "light"
+      ],
+      "pair": null,
+      "capabilities": [
+        "windows"
+      ],
+      "tags": [
+        "lines",
+        "geometry"
+      ],
+      "surfaces": [
+        "hero",
+        "section",
+        "dashboard",
+        "sign-in"
+      ],
+      "path": "effects/fabric-grid/",
+      "entry": "index.js",
+      "files": [
+        {
+          "path": "effect.json",
+          "sha256": "67ccd6def2fa5624ddd07620f2452d84f67ed3a19ce6a97e6ec91aca8412d0ce",
+          "size": 1550
+        },
+        {
+          "path": "index.js",
+          "sha256": "a23f0a3920462614f061e72030cf13a494c1ea4185c82cea150f4b22dd55dff8",
+          "size": 7623
+        },
+        {
+          "path": "preview.png",
+          "sha256": "bc22324cf9cc15c6accd549914ce2f3ddaf291072112ab432fb6a027005a0736",
+          "size": 29528
+        },
+        {
+          "path": "README.md",
+          "sha256": "cc8d5e9259c1a0a5982bb2657305213f154a90ac5d1b5723f3038c81d6c961c9",
+          "size": 1259
+        }
+      ],
+      "kit": {
+        "status": "pass",
+        "framework": "ui-3521193e0c6b",
+        "passed": 17,
+        "total": 17
+      }
+    },
+    {
+      "id": "ripples",
+      "version": "0.1.0",
+      "label": {
+        "ru": "Круги на воде",
+        "en": "Ripples"
+      },
+      "description": {
+        "ru": "От редких капель расходятся круги по спокойной воде."
+      },
+      "role": {
+        "ru": "Спокойная вода: светлая или тёмная."
+      },
+      "schemes": [
+        "light",
+        "dark"
+      ],
+      "pair": null,
+      "capabilities": [
+        "windows"
+      ],
+      "tags": [
+        "water",
+        "geometry"
+      ],
+      "surfaces": [
+        "hero",
+        "section",
+        "dashboard",
+        "sign-in"
+      ],
+      "path": "effects/ripples/",
+      "entry": "index.js",
+      "files": [
+        {
+          "path": "effect.json",
+          "sha256": "9414ce6e05fddbc132ac464766168b5fbe02aaddca04954d26fc6489ec752e72",
+          "size": 1177
+        },
+        {
+          "path": "index.js",
+          "sha256": "a80cda853b692b2bdda24909d48a68a0baa8ec099beb2f038834b57e8c4ad65e",
+          "size": 7518
+        },
+        {
+          "path": "preview.png",
+          "sha256": "c17a9d0b24bdba2f5fbacfc20537692365a40022d866c0b4dfdec4bb06c308a0",
+          "size": 27435
+        },
+        {
+          "path": "README.md",
+          "sha256": "544a05b28bd40cdfe472c80a87d70963ebce4ba2141187b84a947b357869bb7c",
+          "size": 1127
+        }
+      ],
+      "kit": {
+        "status": "pass",
+        "framework": "ui-3521193e0c6b",
+        "passed": 17,
+        "total": 17
+      }
+    },
+    {
+      "id": "blueprint",
+      "version": "0.1.0",
+      "label": {
+        "ru": "Чертёж",
+        "en": "Blueprint"
+      },
+      "description": {
+        "ru": "Линии чертежа будто дорисовываются карандашом и стираются."
+      },
+      "role": {
+        "ru": "Инженерный фон: синька на тёмном, графит на светлом."
+      },
+      "schemes": [
+        "dark",
+        "light"
+      ],
+      "pair": null,
+      "capabilities": [
+        "windows"
+      ],
+      "tags": [
+        "lines",
+        "geometry"
+      ],
+      "surfaces": [
+        "hero",
+        "section",
+        "dashboard",
+        "sign-in"
+      ],
+      "path": "effects/blueprint/",
+      "entry": "index.js",
+      "files": [
+        {
+          "path": "effect.json",
+          "sha256": "9b56c911a2a029b6856586a0218e943ddcb99111bec9b6b67b12b8ca89a75427",
+          "size": 1169
+        },
+        {
+          "path": "index.js",
+          "sha256": "130e8e66cc49211d19d9f4f0bef79040e08293dac1b80143abf807b717b5bede",
+          "size": 8233
+        },
+        {
+          "path": "preview.png",
+          "sha256": "eb64e7ad3162afa0aad24d7d227e367427e9dbf8760508fb29ab54df8cc7ea55",
+          "size": 8002
+        },
+        {
+          "path": "README.md",
+          "sha256": "490dd0c9966fa179da881a9c46ddd293bea1ba9bd5448030dc29acbda86bf673",
+          "size": 1164
+        }
+      ],
+      "kit": {
+        "status": "pass",
+        "framework": "ui-3521193e0c6b",
+        "passed": 17,
+        "total": 17
+      }
+    },
+    {
+      "id": "particle-shapes",
+      "version": "0.1.0",
+      "label": {
+        "ru": "Узор частиц",
+        "en": "Particle shapes"
+      },
+      "description": {
+        "ru": "Частицы собираются в слово и снова рассыпаются."
+      },
+      "role": {
+        "ru": "Фон с подписью продукта: светлый или тёмный."
+      },
+      "schemes": [
+        "dark",
+        "light"
+      ],
+      "pair": null,
+      "capabilities": [
+        "windows"
+      ],
+      "tags": [
+        "particles",
+        "type"
+      ],
+      "surfaces": [
+        "hero",
+        "section",
+        "dashboard",
+        "sign-in"
+      ],
+      "path": "effects/particle-shapes/",
+      "entry": "index.js",
+      "files": [
+        {
+          "path": "effect.json",
+          "sha256": "28628b0828c31e66d2223386d8cd34f405fdaa68e2c97392102ae78bcb28dbdc",
+          "size": 1464
+        },
+        {
+          "path": "index.js",
+          "sha256": "74639714d9da270c28799a983386a04a559caa7be4cdfa716860fd596bf5e02c",
+          "size": 8295
+        },
+        {
+          "path": "preview.png",
+          "sha256": "8d7346a6d5be02705b4f9e0a8c68873cf404c7c6bb81052ad2464f26a021c637",
+          "size": 3103
+        },
+        {
+          "path": "README.md",
+          "sha256": "81cd076fc8c67fcb550e04a1d86ffad5c410f6bfdbad382972fd48454ffe5693",
+          "size": 1250
+        }
+      ],
+      "kit": {
+        "status": "pass",
+        "framework": "ui-3521193e0c6b",
+        "passed": 17,
+        "total": 17
       }
     }
   ]
