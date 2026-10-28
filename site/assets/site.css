@@ -210,6 +210,9 @@ h3 { font-size: 1.0625rem; line-height: 1.4; font-weight: 700; }
 .panels { display: grid; gap: 1rem; padding-block: 0.5rem 3rem; }
 .panels__col { display: grid; gap: 1rem; align-content: start; min-inline-size: 0; }
 @media (min-width: 64rem) { .panels { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); align-items: start; } }
+/* Framework field labels inside a panel read on-surface-variant; in the dark theme it reaches only
+   4.0:1 on surface-container, so panels give it the site's muted ink (4.5:1 or more). */
+.theme-dark .panel { --sf-on-surface-variant: var(--ink-muted); }
 .panel { display: grid; gap: 1rem; min-inline-size: 0; padding: 1.25rem; border-radius: var(--radius-l); background: var(--sf-surface-container); }
 .panel__head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem; }
 .form { display: grid; gap: 1rem; }
@@ -227,9 +230,10 @@ h3 { font-size: 1.0625rem; line-height: 1.4; font-weight: 700; }
 .code-stack, [data-code-tabs] { min-inline-size: 0; max-inline-size: 100%; }
 /* Long lines scroll inside the block, also before the highlight has wrapped it. */
 .code-stack pre { margin: 0; max-block-size: 26rem; max-inline-size: 100%; overflow: auto; }
-/* In the light theme the highlight's keyword and string colours reach only 4.45:1 on
-   surface-container; on surface-0 they hold 4.5:1 (reported to the Framework). */
-.theme-light .sf-code-surface.source { background: var(--sf-surface-0); }
+/* The code surface is translucent surface-container; laid over a panel of the same, its
+   comments drop to 2.6:1 in the dark theme and its keywords to 4.45:1 in the light one.
+   On surface-0 every token holds 4.5:1 (reported to the Framework). */
+.panel .sf-code-surface.source { background: var(--sf-surface-0); }
 [data-download] { justify-self: start; }
 .facts { display: grid; gap: 0.375rem; margin: 0; }
 .facts div { display: grid; grid-template-columns: minmax(8rem, 12rem) minmax(0, 1fr); gap: 0.25rem 1rem; }
