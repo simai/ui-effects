@@ -172,6 +172,9 @@ export function mount(host, settings, context = {}) {
   const env = {ctx, w: 1, h: 1, values: {...settings}, scheme: context.scheme ?? SCENE.home, tones: null, state: null, pointer: {x: 0.5, y: 0.5, on: false, down: false, px: 0, py: 0}, still: false};
   env.tones = readTones(host, env.scheme);
   env.still = Boolean(context.reducedMotion) || Boolean(motion?.matches);
+  // A scene marked fresh lays a new pattern on every mount while it moves; a still frame keeps the
+  // seeded one, so a reduced-motion page and the checks that sample it see the same picture.
+  env.salt = SCENE.fresh && !env.still ? Math.floor(Math.random() * 1e6) : 0;
   let paused = false;
   let visible = true;
   let frame = 0;

@@ -1,4 +1,4 @@
-// Sand picture (simai.effect 1.1.0; schemes light and dark): coloured sand between two panes runs down in streams into layered hills; the picture turns over and the landscape is new each time.
+// Sand picture (simai.effect 1.1.0; schemes light and dark): sand runs down from above in streams and settles in smooth dunes of the theme's two colours; the picture sinks slowly, and the landscape keeps changing.
 //
 // The lifecycle is the catalogue template's: one canvas in the host, devicePixelRatio capped at 2,
 // a seeded scene (the same picture on every mount at the defaults), one still frame for reduced
@@ -45,149 +45,123 @@ function readTones(host, scheme) {
   return tones;
 }
 
-// A sand picture: two panes of glass with liquid and coloured sand between them. The sand rests in
-// wavy layers in the upper half, held up by the liquid, and runs down in thin streams wherever it
-// breaks through, piling into layered hills in the lower half, steep in the liquid, with the colours
-// folding into each other. When the upper half has run out, the picture turns over and the sand that
-// made the hills runs down again into a new landscape. A click turns it over at once.
+// A sand picture: liquid between two panes, the upper half of the frame out of sight above the area.
+// Sand breaks away from it in curtains and runs down in thin streams that wander and stop, settles
+// in the liquid and lands on smooth, broad dunes, so the colours lie in wavy bands, now one, now the
+// other, now mixed into grey. Two colours: the theme's main one and the text colour, held soft.
+// When the dunes reach two fifths of the height, the whole picture sinks slowly, as if the sand
+// drained to the hidden half, and new layers keep landing on top: the landscape is new all the
+// time. A click lets sand run down above the pointer.
 const SCENE = {
-  home: 'light', seed: 23, reseed: ['density', 'colours'],
+  home: 'light', seed: 23, reseed: ['density'],
   tones: (read, scheme) => scheme === 'light'
-    ? {liquid: read('--sf-neutral-98', '#faf9fe'), deep: read('--sf-neutral-95', '#f0f0f7'), sand: [read('--sf-primary-80', '#adc6ff'), read('--sf-tertiary-80', '#e9b4f2'), read('--sf-warning-90', '#ffddb6'), read('--sf-neutral-80', '#c6c6cf'), read('--sf-secondary-80', '#4fd8e8')]}
-    : {liquid: read('--sf-neutral-5', '#111318'), deep: read('--sf-neutral-10', '#1a1b21'), sand: [read('--sf-primary-30', '#00458f'), read('--sf-tertiary-30', '#62356c'), read('--sf-warning-30', '#6d3a00'), read('--sf-neutral-20', '#2f3036'), read('--sf-secondary-30', '#004f56')]},
+    ? {ground: read('--sf-neutral-98', '#faf9fe'), a: read('--sf-primary-40', '#005bbe'), b: read('--sf-neutral-10', '#1a1b21')}
+    : {ground: read('--sf-neutral-5', '#111318'), a: read('--sf-primary-80', '#adc6ff'), b: read('--sf-neutral-90', '#e2e2e9')},
   setup(env, random) {
     const {w, h, values} = env;
-    // One cell is a few pixels: the grid is small enough to run every frame.
     const cell = 2, cols = Math.max(8, Math.ceil(w / cell)), rows = Math.max(8, Math.ceil(h / cell));
-    const state = {cell, cols, rows, mid: Math.floor(rows / 2), colour: new Uint8Array(cols * rows), shade: new Uint8Array(cols * rows), moving: new Uint8Array(cols * rows), random, flip: null, idle: 0, image: new ImageData(cols, rows), canvas: new OffscreenCanvas(cols, rows)};
+    const state = {cell, cols, rows, random, height: new Float32Array(cols), image: new ImageData(cols, rows), canvas: new OffscreenCanvas(cols, rows), grains: [], streams: [], sink: 0, last: null, colours: null};
     state.ctx = state.canvas.getContext('2d');
-    fill(state, Math.round(values.colours), values.density / 100);
-    // Start part way through, so the first frame already holds hills.
-    for (let i = 0; i < (env.still ? 700 : 340); i += 1) step(state);
+    state.px = new Uint32Array(state.image.data.buffer);
+    paletteOf(env, state);
+    state.px.fill(state.colours.ground);
+    const count = Math.round(2 + values.density / 25);
+    for (let i = 0; i < count; i += 1) state.streams.push(stream(state, random() * cols, i));
+    // The dunes of earlier minutes, laid straight onto the ground: the first frame has a landscape.
+    for (let n = 0, total = cols * rows * 0.3; n < total; n += 1) {
+      const sv = state.streams[n % count];
+      if (n % 300 === 0) for (const one of state.streams) one.x = (one.x + (random() - 0.5) * cols * 0.5 + cols) % cols;
+      land(state, Math.floor(sv.x + (random() - 0.5) * sv.width * 6), grain(state, sv, n / total * 240));
+    }
     return state;
   },
-  click(env) { if (!env.state.flip) env.state.flip = {born: env.time ?? 0}; },
+  click(env, x) { const st = env.state; st.streams.push(Object.assign(stream(st, x / st.cell, st.streams.length), {life: 3.5, rate: 2.2})); },
   draw(env, t) {
-    const {ctx, w, h, tones, state, values} = env;
-    env.time = t;
-    const k = values.intensity / 100;
-    const dt = state.last === undefined ? 0 : Math.max(0, Math.min(0.05, t - state.last));
+    const {ctx, w, h, state, values} = env;
+    const {cols, rows, cell, random, height} = state;
+    const dt = state.last === null ? 0 : Math.max(0, Math.min(0.05, t - state.last));
     state.last = t;
-    // Turning over: a half turn in a second and a half, then the grid is the other way up.
-    let turn = 0;
-    if (state.flip) {
-      turn = Math.min(1, (t - state.flip.born) / 1.5);
-      if (turn >= 1) { state.colour.reverse(); state.shade.reverse(); state.moving.fill(0); holes(state); state.flip = null; state.idle = 0; turn = 0; }
-    } else {
-      for (let i = 0, n = dt > 0 ? 2 : 0; i < n; i += 1) step(state);
-      // Once the upper half has run out, wait a little and turn over.
-      if (dt > 0 && upper(state) < state.cols * 0.6) { state.idle += dt; if (state.idle > 3) state.flip = {born: t}; }
-    }
-    const {cols, rows, colour, shade, image} = state;
-    const data = image.data, sand = tones.sand.map((c) => mixc(tones.liquid, c, 0.35 + k * 0.65));
-    for (let y = 0; y < rows; y += 1) {
-      const liquid = mixc(tones.liquid, tones.deep, y / rows);
-      for (let x = 0; x < cols; x += 1) {
-        const i = y * cols + x, o = i * 4, c = colour[i];
-        const rgb = c ? sand[c - 1] : liquid, s = c ? 0.93 + shade[i] / 255 * 0.14 : 1;
-        data[o] = rgb[0] * s; data[o + 1] = rgb[1] * s; data[o + 2] = rgb[2] * s; data[o + 3] = 255;
+    if (state.k !== values.intensity) paletteOf(env, state);
+    // Streams wander, break off and start again; a clicked one runs out.
+    const flow = 300 * (0.4 + values.density / 100) / Math.max(1, state.streams.length) * cols / 400;
+    state.streams = state.streams.filter((sv) => sv.life === undefined || (sv.life -= dt) > 0);
+    for (const sv of state.streams) {
+      sv.x = (sv.x + (noise2(t * 0.08, sv.seed) - 0.5) * dt * 40 + cols) % cols;
+      const on = sv.life !== undefined ? 1 : smooth(clamp((noise2(t * 0.12, sv.seed + 40) - 0.35) * 4, 0, 1));
+      for (let n = flow * (sv.rate ?? 1) * on * dt; n > 0; n -= 1) {
+        if (n < 1 && random() > n) break;
+        state.grains.push({x: sv.x + (random() - 0.5) * sv.width, y: -random() * 6, v: 6 + random() * 10, c: grain(state, sv, t)});
       }
     }
-    state.ctx.putImageData(image, 0, 0);
-    ctx.fillStyle = rgba(tones.liquid);
-    ctx.fillRect(0, 0, w, h);
-    ctx.save();
-    ctx.imageSmoothingEnabled = false;
-    if (turn > 0) {
-      // While it turns, the picture shrinks just enough for its turned box to stay inside the area.
-      const a = smooth(turn) * Math.PI, sin = Math.abs(Math.sin(a)), cos = Math.abs(Math.cos(a));
-      const fit = Math.min(1, h / (w * sin + h * cos), w / (w * cos + h * sin));
-      ctx.translate(w / 2, h / 2);
-      ctx.rotate(a);
-      ctx.scale(fit, fit);
-      ctx.translate(-w / 2, -h / 2);
+    // Grains sink through the liquid at a gentle pace and land on the dune below.
+    const kept = [];
+    for (const g of state.grains) {
+      g.v = Math.min(55, g.v + 60 * dt);
+      g.y += g.v * dt;
+      g.x += (random() - 0.5) * 0.3;
+      const col = ((Math.round(g.x) % cols) + cols) % cols;
+      if (g.y >= rows - height[col] - 1) land(state, col, g.c); else kept.push(g);
     }
-    ctx.drawImage(state.canvas, 0, 0, cols * state.cell, rows * state.cell);
-    ctx.restore();
+    state.grains = kept;
+    // Past the middle, the picture sinks a row at a time.
+    let mean = 0;
+    for (let i = 0; i < cols; i += 1) mean += height[i];
+    if (mean / cols > rows * 0.4 && (state.sink += dt) > 0.25) {
+      state.sink = 0;
+      state.px.copyWithin(cols, 0, (rows - 1) * cols);
+      state.px.fill(state.colours.ground, 0, cols);
+      for (let i = 0; i < cols; i += 1) height[i] = Math.max(0, height[i] - 1);
+    }
+    state.ctx.putImageData(state.image, 0, 0);
+    ctx.imageSmoothingEnabled = false;
+    ctx.drawImage(state.canvas, 0, 0, cols * cell, rows * cell);
+    ctx.imageSmoothingEnabled = true;
+    const img = state.colours.css;
+    for (const g of state.grains) { ctx.fillStyle = img(g.c); ctx.fillRect(g.x * cell, g.y * cell, cell, cell); }
   },
 };
-// The sand in wavy layers over the upper half, the lower half empty, and the gaps it will run through.
-function fill(state, count, density) {
-  const {cols, rows, mid, colour, shade, random} = state;
-  colour.fill(0);
-  const top = Math.floor(rows * 0.06);
-  const waves = [random() * 9, random() * 9, random() * 9];
-  let band = 0, depth = 0, current = 1 + Math.floor(random() * count);
-  const bands = [];
-  for (let y = top; y < mid; y += 1) {
-    if (depth <= 0) { current = 1 + ((current + Math.floor(random() * (count - 1))) % count); depth = 2 + Math.floor(random() * (4 + (1 - density) * 10)); band += 1; }
-    bands.push(current);
-    depth -= 1;
-  }
-  for (let x = 0; x < cols; x += 1) {
-    const lift = Math.round(Math.sin(x / cols * 6.3 + waves[0]) * 2 + Math.sin(x / cols * 17 + waves[1]) * 1.2);
-    for (let y = top; y < mid; y += 1) {
-      const i = y * cols + x, b = Math.max(0, Math.min(bands.length - 1, y - top + lift));
-      colour[i] = bands[b];
-      shade[i] = random() * 255;
-    }
-  }
-  holes(state);
-}
-// The places along the middle where the sand breaks through the liquid, new after every turn.
-function holes(state) {
-  const {cols, random} = state;
-  state.gaps = new Uint8Array(cols);
-  const n = 3 + Math.floor(random() * 4);
-  for (let i = 0; i < n; i += 1) {
-    const at = Math.floor(random() * cols), width = 1 + Math.floor(random() * 3);
-    for (let x = at; x < Math.min(cols, at + width); x += 1) state.gaps[x] = 1;
+// The theme's colours as packed pixels; each grain is one of twelve soft tones of the two colours.
+function paletteOf(env, state) {
+  const {tones, values} = env;
+  const k = values.intensity / 100;
+  const pack = (c) => (255 << 24) | ((c[2] | 0) << 16) | ((c[1] | 0) << 8) | (c[0] | 0);
+  const tonesOf = (c) => Array.from({length: 6}, (_, i) => mixc(tones.ground, c, (0.07 + i * 0.03) * (0.5 + k * 0.7)));
+  const list = [...tonesOf(tones.a), ...tonesOf(tones.b)];
+  const packed = list.map(pack), styles = list.map((c) => rgba(c));
+  const old = state.colours;
+  state.colours = {ground: pack(tones.ground), list: packed, css: (i) => styles[i]};
+  state.k = values.intensity;
+  // A new intensity recolours what is already laid: every pixel keeps its tone index.
+  if (old) {
+    const map = new Map(old.list.map((v, i) => [v, packed[i]]));
+    map.set(old.ground, state.colours.ground);
+    for (let i = 0; i < state.px.length; i += 1) state.px[i] = map.get(state.px[i]) ?? state.px[i];
   }
 }
-function upper(state) {
-  let n = 0;
-  for (let i = 0, end = state.mid * state.cols; i < end; i += 1) if (state.colour[i]) n += 1;
-  return n;
+function stream(state, x, i) { return {x, seed: i * 17.3 + 5, width: 2 + state.random() * 5}; }
+// A grain's tone: the band the stream lays now (more of one colour or the other), and a shade.
+function grain(state, sv, t) {
+  const share = smooth(clamp((noise2(t * 0.05, sv.seed * 0.1 + 9) - 0.5) * 7 + 0.5, 0, 1));
+  return (state.random() < share ? 0 : 6) + Math.floor(state.random() * 6);
 }
-// One step of falling sand, bottom row first, each grain at most one cell: straight down if it can,
-// else down and to one side, so it piles into hills. The middle holds except at the gaps, and a gap
-// now and then widens, so the streams wander. Above the middle the sand is wet and hangs together:
-// a grain falls only once the grain under it has gone (so shafts drain from below), or now and then
-// drops off the underside as a drip.
-function step(state) {
-  const {cols, rows, mid, colour, shade, moving, gaps, random} = state;
-  if (random() < 0.02) { const x = Math.floor(random() * cols); gaps[x] = 1; }
-  const move = (from, to) => {
-    colour[to] = colour[from]; shade[to] = shade[from]; moving[to] = 1;
-    colour[from] = 0; moving[from] = 0;
-    if (from >= cols && colour[from - cols]) moving[from - cols] = 1;
-  };
-  for (let y = rows - 2; y >= 0; y -= 1) {
-    const blocked = y === mid - 1;
-    const left = (y & 1) === 0;
-    for (let n = 0; n < cols; n += 1) {
-      const x = left ? n : cols - 1 - n, i = y * cols + x;
-      if (!colour[i]) continue;
-      if (blocked && !gaps[x]) {
-        // On the middle the sand creeps sideways into an empty neighbour, and so on to a gap.
-        const side = random() < 0.5 ? -1 : 1;
-        if (x + side >= 0 && x + side < cols && !colour[i + side] && random() < 0.3) move(i, i + side); else moving[i] = 0;
-        continue;
-      }
-      if (random() < 0.12) continue;
-      const below = i + cols, wet = y < mid - 1;
-      if (wet && !moving[i] && random() > 0.0025) continue;
-      if (!colour[below]) { move(i, below); continue; }
-      const side = random() < 0.5 ? -1 : 1;
-      for (const dx of [side, -side]) {
-        const nx = x + dx;
-        if (nx < 0 || nx >= cols || (blocked && !gaps[nx])) continue;
-        // Wet sand above the middle holds together: it slides aside only now and then, so it caves in narrow funnels.
-        if (!colour[below + dx] && random() < (y < mid ? 0.25 : 0.6)) { move(i, below + dx); break; }
-      }
-      if (colour[i]) moving[i] = 0;
-    }
+// A grain lands on a column, then slides down whichever side is steeper, so the dunes stay smooth.
+function land(state, col, c) {
+  const {cols, rows, height, px, random} = state;
+  col = ((col % cols) + cols) % cols;
+  if (height[col] >= rows - 1) return;
+  let x = col;
+  for (let i = 0; i < 160; i += 1) {
+    // A grain slides off any step of two cells, and down any slope steeper than one cell in three:
+    // the dunes lie at about twenty degrees, not forty-five.
+    const h = height[x], l1 = x > 0 ? h - height[x - 1] : 0, r1 = x < cols - 1 ? h - height[x + 1] : 0;
+    const l = x > 2 ? h - height[x - 3] : l1, r = x < cols - 3 ? h - height[x + 3] : r1;
+    const to = l + l1 > r + r1 || (l + l1 === r + r1 && random() < 0.5) ? x - 1 : x + 1;
+    const step = to < x ? l1 : r1, slope = to < x ? l : r;
+    if (step < 1 || (step < 2 && slope < 2)) break;
+    x = to;
   }
+  height[x] += 1;
+  px[(rows - height[x]) * cols + x] = state.colours.list[c];
 }
 
 export function mount(host, settings, context = {}) {
@@ -202,6 +176,9 @@ export function mount(host, settings, context = {}) {
   const env = {ctx, w: 1, h: 1, values: {...settings}, scheme: context.scheme ?? SCENE.home, tones: null, state: null, pointer: {x: 0.5, y: 0.5, on: false, down: false, px: 0, py: 0}, still: false};
   env.tones = readTones(host, env.scheme);
   env.still = Boolean(context.reducedMotion) || Boolean(motion?.matches);
+  // A scene marked fresh lays a new pattern on every mount while it moves; a still frame keeps the
+  // seeded one, so a reduced-motion page and the checks that sample it see the same picture.
+  env.salt = SCENE.fresh && !env.still ? Math.floor(Math.random() * 1e6) : 0;
   let paused = false;
   let visible = true;
   let frame = 0;

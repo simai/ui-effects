@@ -41,6 +41,7 @@ const windowsStyle = `<style>
   .effect-windows { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr)); }
   .effect-card { display: flex; flex-direction: column; justify-content: flex-end; min-height: 9rem; padding: 1rem; border-radius: 0.75rem; background: var(--sf-surface-container); color: var(--sf-on-surface); }
   .effect-card h3, .effect-card p { margin: 0; }
+  .effect-card h3 { font-size: 1.25rem; }
   /* Окно своего фона не рисует: сквозь него виден эффект. */
   [data-sf-effect-state="running"] [data-sf-effect-window] { background: transparent; }
 </style>`;

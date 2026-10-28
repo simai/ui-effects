@@ -571,13 +571,13 @@
     },
     {
       "id": "rain-glass",
-      "version": "2.1.0",
+      "version": "2.2.0",
       "label": {
         "ru": "Дождь на стекле",
         "en": "Rain on glass"
       },
       "description": {
-        "ru": "Запотевшее окно ночью: за стеклом улица в боке, изредка проезжают машины; на стекле капли, по нему можно писать пальцем."
+        "ru": "Запотевшее окно ночью: за стеклом улица с фонарями в боке, изредка проезжают машины; на стекле капли, по нему можно писать пальцем."
       },
       "role": {
         "ru": "Уютный вечер за окном. Только тёмная схема."
@@ -604,23 +604,23 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "bf20186c35f9070dcf36449eccd5d4ab84af0d137fddf09d3f6264bc93707835",
-          "size": 2220
+          "sha256": "42b082500a72a1453a47a5799d3e3edc98afa4d43955b7f061fa3d2e9f6dae62",
+          "size": 2971
         },
         {
           "path": "index.js",
-          "sha256": "51d56882ed6ab29cf1869c40df8839d07d8f699711dcf62de03d6113a98bcd78",
-          "size": 19945
+          "sha256": "825008e6f3aff4eb44fc81d9f2d7f04f38162623fd3e8a05f580da8aed8dfd83",
+          "size": 20378
         },
         {
           "path": "preview.png",
-          "sha256": "4783dfb3a8645fe21b8c95b7a1189c835d597588b32fb44b7b45cfe698fb27f9",
-          "size": 152057
+          "sha256": "b3799a6bf938fa0d0a15c0b35702cb2748389217324773b637524be9209133b2",
+          "size": 160184
         },
         {
           "path": "README.md",
-          "sha256": "5e32754efb597e14e11f4ec29c9b70539e6a6efda145703abaa7a4097eaa032d",
-          "size": 1445
+          "sha256": "2646c28b766344e22457e7a4b912fba9475d96792dad70dc791ff7c0124cc28c",
+          "size": 1536
         }
       ],
       "kit": {
@@ -813,7 +813,7 @@
     },
     {
       "id": "paper-facets",
-      "version": "1.2.0",
+      "version": "1.3.0",
       "label": {
         "ru": "Бумажные грани",
         "en": "Paper facets"
@@ -845,23 +845,23 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "346209df37cd5bbc2d4cde9b7126c24c6f2032a11ff7883f13da56b104e1dbef",
-          "size": 2334
+          "sha256": "53fc20a25d83493c51d7a7764dbebf4d32692f07be83ea1ce50ad84721ddcbef",
+          "size": 2510
         },
         {
           "path": "index.js",
-          "sha256": "eca832adb85e7d51725025a89a5e0c3b0f7a6152ef4fa032194ece2373bb033c",
-          "size": 13570
+          "sha256": "d41a7134fe90960932c52bb625093b57d2a5e833af26adc8861df48bc571115b",
+          "size": 14617
         },
         {
           "path": "preview.png",
-          "sha256": "d898d5d29dfbf182d9b3d368ffce36c5d1df5c7b0fcb106e0c86d7cdaa6d0fc6",
-          "size": 15982
+          "sha256": "e8e00e2cd09e6efa52c39aa057ea5e7b0e150e34d0030f4948f5564e8fc82988",
+          "size": 33612
         },
         {
           "path": "README.md",
-          "sha256": "7073ea200c16d38cc0e917462b90b500c1d0ccc8f66bf18c4fab03f4ff86eaef",
-          "size": 1432
+          "sha256": "91a0166963c7f7e682fc6f42f61512c53afc999ed87036a42cc279c88bbd86d9",
+          "size": 1529
         }
       ],
       "kit": {
@@ -1092,8 +1092,8 @@
         },
         {
           "path": "index.js",
-          "sha256": "dd07b97a2ee4a7b6bf2f4ff68f162ab9825aa3f669fc276bde3432feaa22bec8",
-          "size": 18489
+          "sha256": "0b8765f3ab161639701bc924a3a90b817d40494cd2ca23c4852fb3562a2f184e",
+          "size": 18761
         },
         {
           "path": "preview.png",
@@ -1153,8 +1153,8 @@
         },
         {
           "path": "index.js",
-          "sha256": "32f5e73fe7d5c5fd1670eb7d01ff23bb32a2f25724895fb766cf86921b69cc02",
-          "size": 12685
+          "sha256": "e73dc86d89549a925ba1db514b6b6afea09634cc316e7579131f65c9bfaf0be5",
+          "size": 13122
         },
         {
           "path": "preview.png",
@@ -1182,7 +1182,7 @@
         "en": "Spacetime fabric"
       },
       "description": {
-        "ru": "Солнце и планеты продавливают воронки в сетке пространства-времени; клик пускает гравитационную волну."
+        "ru": "По сетке пространства-времени расходятся гравитационные волны; клик пускает свою."
       },
       "role": {
         "ru": "Наука и глубина: светлая и тёмная схемы."
@@ -1210,23 +1210,23 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "b4b2ae3133b7267a1e383be66c77c56065442af17fa64d672d527cbb9539d8d6",
-          "size": 1963
+          "sha256": "ffa7ff497a2f1e16fcbeb18adbffc3bfc609d04b7bf00e70ce335ba035c91082",
+          "size": 1671
         },
         {
           "path": "index.js",
-          "sha256": "d599da91e2544e6ccf482fc73559ddcc4664df0649809477e60c7768e9d99368",
-          "size": 18324
+          "sha256": "f4915e9ddfc22da05d81fb1cc9af2e0033a33c22e6fe7dc72216dbfd57e2908a",
+          "size": 14337
         },
         {
           "path": "preview.png",
-          "sha256": "0d85ec633525b8fe41df88768294d434088bf48f08b3990025e4dd50fb356d2c",
-          "size": 135258
+          "sha256": "9c32bb69cdf50b1a468bc5828a14abe3a792c529be4c7ce7a37a173b564e4d6d",
+          "size": 111750
         },
         {
           "path": "README.md",
-          "sha256": "ba86679ad4a361a622d779083ecbd4266c7b3a3b1dabbb24bdc57ed0176666fc",
-          "size": 1430
+          "sha256": "42255149118fe19017324058a24893ef32c0d4be601b65d50c77ad7543a0fb26",
+          "size": 1341
         }
       ],
       "kit": {
@@ -1277,8 +1277,8 @@
         },
         {
           "path": "index.js",
-          "sha256": "29f789b6e617746681a1c7ae6620391d309627f5814f97f61d7612d6212b7146",
-          "size": 9359
+          "sha256": "d23e28d1216fd46f0892f3122e2815253fd64bbaf3ea4ffff44de78bfad33c25",
+          "size": 9631
         },
         {
           "path": "preview.png",
@@ -1339,8 +1339,8 @@
         },
         {
           "path": "index.js",
-          "sha256": "3e30536eaec770ac8615f1d1f5edfce94e90ce23c140e09327b56812ba7338e6",
-          "size": 14279
+          "sha256": "53647ae7c6c16991dce2209b32287a6112ce1aaa6176b941b35f5b0104f40056",
+          "size": 14551
         },
         {
           "path": "preview.png",
@@ -1401,8 +1401,8 @@
         },
         {
           "path": "index.js",
-          "sha256": "b3d299e5354ba18cb9e640121884b222688fb5153ab114b32e9d84399207dbfc",
-          "size": 13133
+          "sha256": "e5415c4e69a2bcbb20feee500b251cb5b43cab2ac72a1108778562b1c2fd31cd",
+          "size": 13730
         },
         {
           "path": "preview.png",
@@ -1462,8 +1462,8 @@
         },
         {
           "path": "index.js",
-          "sha256": "240538c8032add48b210da870e58fc839aec1cbed642a42ac475cfc8895586a3",
-          "size": 18653
+          "sha256": "45d8fcc60f6fe2e3112e8e653878059f6580387f45c9bb91906f4fcb6608ef1f",
+          "size": 18925
         },
         {
           "path": "preview.png",
@@ -1491,7 +1491,7 @@
         "en": "Sand picture"
       },
       "description": {
-        "ru": "Цветной песок между стёклами сыплется струйками и насыпает слоистые горы; картина переворачивается, и пейзаж каждый раз новый."
+        "ru": "Песок сыплется сверху струйками и ложится плавными барханами в два цвета темы; картина медленно оседает, и пейзаж всё время новый."
       },
       "role": {
         "ru": "Спокойный рукотворный фон: светлая и тёмная схемы."
@@ -1519,23 +1519,23 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "8ffe33835e18056cdf46548142adfb4d0af6f6a1d7ef3b4048ca4414c1fdac37",
-          "size": 1775
+          "sha256": "42540e326593f6d1ec8606a1b5e5f2e94f37f7becf96a8791580aaf8ddfd22ed",
+          "size": 1575
         },
         {
           "path": "index.js",
-          "sha256": "82485f6779c08911738d5dbd0172e8943d26c1759d988bb8c600924874b2ae71",
-          "size": 15725
+          "sha256": "18b4980e95e461e5068a0a71bb551436f34e9833b0af585434942a31757c2d5a",
+          "size": 15079
         },
         {
           "path": "preview.png",
-          "sha256": "1bc39227b235a9cea99edf8be0416c905abc364a78ca9093e0c8233751247657",
-          "size": 85346
+          "sha256": "58add44813eddcc0e6b1506a4df86e128fce26bc6aef1ed90842d72d331899c1",
+          "size": 28848
         },
         {
           "path": "README.md",
-          "sha256": "609915915fa009ca9d483b386964c9fa14ad7dad01c030288b7bde7fe9b4a81e",
-          "size": 1397
+          "sha256": "e740a5f731170dec12945f019d449daec6cadaecd4c5d40e210b893f626e76ff",
+          "size": 1379
         }
       ],
       "kit": {

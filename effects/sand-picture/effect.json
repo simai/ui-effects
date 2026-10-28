@@ -64,18 +64,6 @@
       "unit": "%"
     },
     {
-      "key": "colours",
-      "type": "integer",
-      "label": {
-        "ru": "Цвета песка",
-        "en": "Sand colours"
-      },
-      "default": 3,
-      "min": 2,
-      "max": 5,
-      "step": 1
-    },
-    {
       "key": "interactive",
       "type": "boolean",
       "label": {
@@ -84,8 +72,8 @@
       },
       "default": true,
       "hint": {
-        "ru": "Клик переворачивает картину",
-        "en": "A click turns the picture over"
+        "ru": "Клик ссыпает песок над указателем",
+        "en": "A click lets sand run down above the pointer"
       }
     }
   ],

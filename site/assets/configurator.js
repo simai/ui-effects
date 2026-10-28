@@ -71,16 +71,16 @@ function controlFor(setting, value) {
       return {element: make('sf-switch', {label, checked: Boolean(value), size: '1'}), read: (event, element) => Boolean(element.checked)};
     case 'choice': {
       // Options go in as a property: given as an attribute, the field does not show the chosen one.
-      const element = make('sf-dropdown', {label, size: '1', value: String(value)});
+      const element = make('sf-dropdown', {label, size: '1', value: String(value), search: 'false'});
       element.options = setting.options.map((option) => ({text: text(option.label) || String(option.value), value: String(option.value)}));
       return {element, read: (event, picker) => picker.value};
     }
     case 'color':
       return {element: make('sf-color', {label, value, size: '1'}), read: (event) => event.detail?.value ?? ''};
     case 'text':
-      return {element: make('sf-textarea', {label, value: value ?? '', rows: 3, maxlength: setting.max, size: '1'}), read: (event, element) => event.detail?.value ?? element.value};
+      return {live: true, element: make('sf-textarea', {label, value: value ?? '', rows: 3, maxlength: setting.max, size: '1'}), read: (event, element) => element.value};
     default:
-      return {element: make('sf-input', {label, value: value ?? '', maxlength: setting.max, size: '1'}), read: (event, element) => event.detail?.value ?? element.value};
+      return {live: true, element: make('sf-input', {label, value: value ?? '', maxlength: setting.max, size: '1'}), read: (event, element) => element.value};
   }
 }
 
@@ -90,7 +90,7 @@ function buildForm() {
     const field = document.createElement('div');
     field.className = 'field';
     field.dataset.key = setting.key;
-    const {element, read, caption} = controlFor(setting, state.values[setting.key]);
+    const {element, read, caption, live} = controlFor(setting, state.values[setting.key]);
     if (caption) {
       const name = document.createElement('p');
       name.className = 'field__label';
@@ -104,8 +104,7 @@ function buildForm() {
       hint.textContent = text(setting.hint);
       field.append(hint);
     }
-    element.addEventListener('change', (event) => {
-      if (event.target !== element) return;
+    const apply = (event) => {
       const checked = checkSetting(setting, read(event, element));
       field.querySelector('.invalid')?.remove();
       if (!checked.ok) {
@@ -119,7 +118,16 @@ function buildForm() {
       forEachPlacement((placement) => placement.update(state.values));
       renderCode();
       scheduleMeasure(300);
-    });
+    };
+    // A text field applies as it is typed, after a short pause; its native events come from the field
+    // inside the component. Every other control reports a committed value on the host itself.
+    let typing = 0;
+    if (live) {
+      element.addEventListener('input', (event) => { clearTimeout(typing); typing = setTimeout(() => apply(event), 400); });
+      element.addEventListener('change', (event) => { clearTimeout(typing); apply(event); });
+    } else {
+      element.addEventListener('change', (event) => { if (event.target === element) apply(event); });
+    }
     form.append(field);
   });
 }
@@ -344,6 +352,7 @@ function renderCode() {
 // A standalone page with the snippets as they stand: the connection, then the
 // banner, the cards or both, with the current settings and theme mode.
 const layoutPicker = $('[data-download-layout]');
+if (!config.published) $('[data-draft-note]').hidden = false;
 layoutPicker.options = [{text: 'Баннер и карточки', value: 'both'}, {text: 'Только баннер', value: 'hero'}, {text: 'Только карточки', value: 'windows'}];
 $('[data-download]').addEventListener('click', () => {
   const options = {config, catalogue, entry, mode: state.mode, values: state.values};

@@ -25,6 +25,12 @@ if (!commit) {
   const dirty = execFileSync('git', ['-C', ROOT, 'status', '--porcelain', '--', 'effects', 'site', 'catalogue'], {encoding: 'utf8'}).trim();
   if (dirty) console.warn('build-site: effects/, site/ or catalogue/ differ from HEAD; the snippets point at HEAD, which does not hold these files');
 }
+// A draft build (a local commit nobody pushed) names a commit jsDelivr cannot
+// serve: the snippets and the downloaded example work once it is published.
+const isPublished = () => {
+  if (source !== 'HEAD') return true;
+  try { execFileSync('git', ['-C', ROOT, 'merge-base', '--is-ancestor', commit, 'origin/main'], {stdio: 'ignore'}); return true; } catch (error) { return false; }
+};
 if (!/^[0-9a-f]{40}$/u.test(commit)) throw new Error(`build-site: ${source} is not a full commit: ${commit}`);
 
 // The core checks every effect file against the catalogue before it runs, so
@@ -51,6 +57,7 @@ const siteConfig = (rootPath) => JSON.stringify({
   commit,
   commit_source: source,
   cdn: `https://cdn.jsdelivr.net/gh/simai/ui-effects@${commit}/`,
+  published: isPublished(),
   framework: {pair: framework.pair, commit: framework.ui.commit, base: frameworkBase(framework)},
 }).replace(/</gu, '\\u003c');
 const common = (rootPath) => ({

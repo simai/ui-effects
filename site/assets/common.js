@@ -32,12 +32,14 @@ window.addEventListener('sf-theme-change', showGlyph);
 showGlyph();
 
 // --- Main colour -------------------------------------------------------------------
-// The header's colour swatch (Framework sf-color) opens the picker at once; the
+// The header's primary palette button opens the platform colour picker; the
 // whole theme is built from the colour by SF.ThemePalette, which ships with the
-// theme generator's script, loaded here without its panel. The choice is kept
-// in this browser. Effects read palette tones when they mount, so they are
-// placed again after a change.
+// theme generator's script, loaded here without its panel. The theme follows
+// the picker while it moves (a short pause keeps a drag from rebuilding it on
+// every step); effects read palette tones when they mount, so they are placed
+// again once the colour is committed. The choice is kept in this browser.
 const COLOUR_KEY = 'ui-effects-colour';
+const FRAMEWORK_COLOUR = '#005bbe';
 const colourListeners = new Set();
 export const onSiteColour = (listener) => colourListeners.add(listener);
 let palette = null;
@@ -51,25 +53,34 @@ const loadPalette = () => palette ??= new Promise((resolve) => {
 });
 // The theme goes on <html> as inline custom properties; clearing them returns the Framework's own.
 async function applyColour(value) {
+  const tools = value ? await loadPalette() : null;
   const root = document.documentElement;
   for (const name of [...root.style]) if (name.startsWith('--sf-')) root.style.removeProperty(name);
-  if (!value) return;
-  const tools = await loadPalette();
-  if (tools?.isThemeColor(value)) tools.applyTheme(tools.themeFromColor(value));
+  if (value && tools?.isThemeColor(value)) tools.applyTheme(tools.themeFromColor(value));
 }
-const swatch = document.querySelector('[data-site-colour]');
-let kept = '';
-try { kept = localStorage.getItem(COLOUR_KEY) ?? ''; } catch (error) { kept = ''; }
-if (kept) { swatch?.setAttribute('value', kept); applyColour(kept).then(() => colourListeners.forEach((listener) => listener(kept))); }
-swatch?.addEventListener('change', async (event) => {
-  if (event.target !== swatch) return;
-  const value = event.detail?.value ?? '';
+const picker = document.querySelector('[data-site-colour]');
+const reset = document.querySelector('[data-site-colour-reset]');
+let chosen = '';
+try { chosen = localStorage.getItem(COLOUR_KEY) ?? ''; } catch (error) { chosen = ''; }
+const show = () => { if (picker) picker.value = chosen || FRAMEWORK_COLOUR; if (reset) reset.hidden = !chosen; };
+const commit = async (value) => {
+  chosen = value;
   try {
     if (value) localStorage.setItem(COLOUR_KEY, value); else localStorage.removeItem(COLOUR_KEY);
   } catch (error) { /* storage blocked: the colour lasts for this page */ }
+  show();
   await applyColour(value);
   colourListeners.forEach((listener) => listener(value));
+};
+show();
+if (chosen) applyColour(chosen).then(() => colourListeners.forEach((listener) => listener(chosen)));
+let moving = 0;
+picker?.addEventListener('input', () => {
+  clearTimeout(moving);
+  moving = setTimeout(() => applyColour(picker.value), 120);
 });
+picker?.addEventListener('change', () => { clearTimeout(moving); commit(picker.value); });
+reset?.addEventListener('click', () => commit(''));
 
 // --- Catalogue ------------------------------------------------------------------
 let catalogue = null;

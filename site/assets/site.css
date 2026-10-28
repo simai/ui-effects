@@ -69,6 +69,10 @@ h3 { font-size: 1.0625rem; line-height: 1.4; font-weight: 700; }
 .brand { display: inline-flex; align-items: center; gap: 0.625rem; color: var(--sf-on-surface); text-decoration: none; font-weight: 700; }
 .brand__mark { inline-size: 1.75rem; block-size: 1.75rem; flex: none; }
 .top__tools { display: flex; align-items: center; gap: 0.5rem; }
+/* The palette button: the native colour input lies over it, transparent, so a click and the keyboard reach the picker. */
+.top__colour { position: relative; cursor: pointer; }
+.top__colour-input { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; opacity: 0; cursor: pointer; border: 0; padding: 0; }
+.top__colour:has(.top__colour-input:focus-visible) { outline: 2px solid var(--sf-primary); outline-offset: 2px; }
 .top__nav { display: flex; flex-wrap: wrap; gap: 0.25rem 1rem; margin-inline-start: auto; }
 .top__nav a { color: var(--sf-on-surface); text-decoration: none; padding-block: 0.5rem; }
 .top__nav a:hover { color: var(--sf-primary); text-decoration: underline; }
@@ -225,11 +229,13 @@ h3 { font-size: 1.0625rem; line-height: 1.4; font-weight: 700; }
    also styles .source as an inverse surface; the code surface keeps its own. */
 .sf-code-surface.source { background: var(--sf-surface-container); color: var(--sf-on-surface); }
 .field__label { font-weight: 600; }
-.code-stack { display: grid; gap: 0.5rem; padding-block-start: 0.75rem; }
+/* A column of flex, not grid: in a grid row the highlighted block was sized before its head arrived and cut its last lines. */
+.code-stack { display: flex; flex-direction: column; gap: 0.5rem; padding-block-start: 0.75rem; }
+.code-stack > * { min-inline-size: 0; max-inline-size: 100%; }
 .code-stack__title { font-size: 0.9375rem; margin-block-start: 0.5rem; }
 .code-stack, [data-code-tabs] { min-inline-size: 0; max-inline-size: 100%; }
 /* Long lines scroll inside the block, also before the highlight has wrapped it. */
-.code-stack pre { margin: 0; max-block-size: 26rem; max-inline-size: 100%; overflow: auto; }
+.code-stack pre { margin: 0; max-inline-size: 100%; overflow-x: auto; }
 /* The code surface is translucent surface-container; laid over a panel of the same, its
    comments drop to 2.6:1 in the dark theme and its keywords to 4.45:1 in the light one.
    On surface-0 every token holds 4.5:1 (reported to the Framework). */
@@ -254,3 +260,7 @@ h3 { font-size: 1.0625rem; line-height: 1.4; font-weight: 700; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
 }
+
+/* Framework defect (ordered): sf-dropdown draws its focus ring on the field and the global
+   :focus-visible ring on the read-only input inside it, two frames one in the other. */
+.sf-dropdown-field input:focus-visible { outline: none; }

@@ -1,4 +1,4 @@
-// Rain on glass (simai.effect 1.1.0; dark scheme only): a fogged window at night: a street in bokeh behind it, a car going by now and then; drops on the glass, and you can write on it.
+// Rain on glass (simai.effect 1.1.0; dark scheme only): a fogged window at night: a lamp-lit street in bokeh behind it, a car going by now and then; drops on the glass, and you can write on it.
 //
 // The lifecycle is the catalogue template's: one canvas in the host, devicePixelRatio capped at 2,
 // a seeded scene (the same picture on every mount at the defaults), one still frame for reduced
@@ -45,17 +45,18 @@ function readTones(host, scheme) {
   return tones;
 }
 
-// A fogged window on a rainy street at night: lamps and signs as soft discs, and now and then a car,
-// white headlights coming on the left or red tail lights going on the right, glowing on the wet road.
+// A fogged window on a rainy street at night: street lamps in two rows (warm, white or mixed), signs
+// as soft discs, and now and then a car, white headlights coming or red tail lights going, all of
+// them glowing on the wet road.
 // Beads and drops on the glass, each drop a lens. Press and drag to write; drips run, fog returns.
 const SCENE = {
-  home: 'dark', seed: 61, reseed: ['density'],
+  home: 'dark', seed: 61, reseed: ['density', 'lamps'],
   tones: (read) => ({ground: read('--sf-neutral-5', '#111318'), sky: read('--sf-primary-10', '#001a41'), lamp: read('--sf-warning-80', '#ffb95c'), head: read('--sf-neutral-95', '#f0f0f7'), tail: read('--sf-error-60', '#ff5449'), fog: read('--sf-neutral-30', '#45464f'), cool: read('--sf-primary-70', '#7fabff'), sign: read('--sf-tertiary-70', '#c798cd')}),
   setup(env, random) {
     const {w, h} = env;
     const f = Math.max(h * 1.1, w * 0.55), cx = w * 0.5, horizon = h * 0.48;
-    const lamps = [];
-    for (let z = 3; z < 45; z += 3 + random() * 2.5) for (const side of [-1, 1]) if (random() < 0.8) lamps.push({X: side * (4 + random() * 3.5), Y: 2.4 + random() * 2.4, z, colour: random() < 0.8 ? 'lamp' : 'cool'});
+    const lamps = [], kind = env.values.lamps;
+    if (kind !== 'none') for (let z = 7; z < 60; z += 5) for (const side of [-1, 1]) lamps.push({X: side * 4.2, Y: 3.4, z: z + (side + 1) * 1.2, colour: kind === 'white' ? 'head' : kind === 'mixed' && random() < 0.5 ? 'cool' : 'lamp'});
     const signs = Array.from({length: Math.round(20 + env.values.density / 2)}, () => ({X: (random() < 0.5 ? -1 : 1) * (4.5 + random() * 5), Y: 0.5 + random() * 3.5, z: 2.5 + random() * 28, colour: ['sign', 'cool', 'lamp'][Math.floor(random() * 3)]}));
     const cars = [];
     const busy = env.values.traffic / 100;
@@ -106,9 +107,9 @@ const SCENE = {
     state.cars = state.cars.filter((car) => car.z > 1.2 && car.z < 60);
     const at = (X, Y, z) => [state.cx + X * state.f / z, state.horizon + (1.6 - Y) * state.f / z];
     const lights = [];
-    for (const lamp of state.lamps) lights.push({p: at(lamp.X, lamp.Y, lamp.z), z: lamp.z, colour: tones[lamp.colour], a: 0.75, size: 0.5});
+    for (const l of state.lamps) lights.push({p: at(l.X, l.Y, l.z), z: l.z, colour: tones[l.colour], a: 0.6, size: 0.3});
     for (const sign of state.signs) lights.push({p: at(sign.X, sign.Y, sign.z), z: sign.z, colour: tones[sign.colour], a: 0.5, size: 0.8});
-    const lamps = [];
+    const lamps = state.lamps.map((l) => ({p: at(l.X, l.Y, l.z), z: l.z, colour: tones[l.colour], a: 0.45}));
     for (const car of state.cars) {
       const toward = car.way < 0;
       const fade = Math.min(1, (car.z - 1.2) / 1.5) * Math.min(1, (60 - car.z) / 8);
@@ -259,6 +260,9 @@ export function mount(host, settings, context = {}) {
   const env = {ctx, w: 1, h: 1, values: {...settings}, scheme: context.scheme ?? SCENE.home, tones: null, state: null, pointer: {x: 0.5, y: 0.5, on: false, down: false, px: 0, py: 0}, still: false};
   env.tones = readTones(host, env.scheme);
   env.still = Boolean(context.reducedMotion) || Boolean(motion?.matches);
+  // A scene marked fresh lays a new pattern on every mount while it moves; a still frame keeps the
+  // seeded one, so a reduced-motion page and the checks that sample it see the same picture.
+  env.salt = SCENE.fresh && !env.still ? Math.floor(Math.random() * 1e6) : 0;
   let paused = false;
   let visible = true;
   let frame = 0;

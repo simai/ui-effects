@@ -253,7 +253,9 @@ const valueNoise = (seed) => {
 };
 
 // Paper facets: a creased sheet as a low-poly mesh. Each triangle is lit by its normal; the relief
-// breathes slowly and the light walks around the sheet, so the folds catch and lose the light.
+// breathes slowly and the light walks around the sheet, so the folds catch and lose the light. On
+// top of that every facet shimmers on its own clock, a little lighter or darker in turn, so the
+// light and shade play over the sheet unhurriedly; near the pointer the facets turn faster.
 const FACET = {large: 150, medium: 104, small: 70};
 
 export function mount(host, settings, context) {
@@ -262,6 +264,9 @@ export function mount(host, settings, context) {
   let cols = 0;
   let rows = 0;
   let step = 104;
+  let phase = null;
+  let rate = null;
+  let before = 0;
   return run(host, settings, context, {
     still: 9,
     resize(api) {
@@ -277,20 +282,24 @@ export function mount(host, settings, context) {
           pts[o + 1] = (j - 1) * step + (r() - 0.5) * step * 0.7;
         }
       }
+      // Each facet's shimmer: its own starting point and its own pace.
+      const n = (cols - 1) * (rows - 1) * 2;
+      phase = new Float32Array(n);
+      rate = new Float32Array(n);
+      for (let i = 0; i < n; i += 1) { phase[i] = r() * Math.PI * 2; rate[i] = 0.25 + r() * 0.35; }
     },
     draw(api) {
       const {ctx, w, h, t, values, colors} = api;
       const relief = 0.25 + 1.1 * (values.intensity / 100);
       const p = api.pointer;
-      let la = t * 0.12 + 0.8;
+      const la = t * 0.12 + 0.8;
       let lx = Math.cos(la);
       let ly = Math.sin(la);
-      if (values.interactive && p.on > 0) {
-        const tx = (p.x - 0.5) * 2;
-        const ty = (p.y - 0.5) * 2;
-        lx += (tx - lx) * p.on;
-        ly += (ty - ly) * p.on;
-      }
+      // The pointer does not move the light: it quickens the facets near it.
+      const dt = clamp(t - before, 0, 0.1);
+      before = t;
+      const near = values.interactive && p.on > 0.01 ? p.on : 0;
+      const px = p.x * w, py = p.y * h, reach = Math.min(w, h) * 0.3;
       const lz = 0.9;
       const ln = Math.hypot(lx, ly, lz);
       lx /= ln; ly /= ln;
@@ -309,7 +318,9 @@ export function mount(host, settings, context) {
       }
       ctx.lineJoin = 'round';
       ctx.lineWidth = 0.75;
+      let face = -1;
       const tri = (a, b, c) => {
+        face += 1;
         const ax = pts[a * 2], ay = pts[a * 2 + 1];
         const bx = pts[b * 2], by = pts[b * 2 + 1];
         const cx = pts[c * 2], cy = pts[c * 2 + 1];
@@ -322,7 +333,14 @@ export function mount(host, settings, context) {
         if (nz < 0) { nx = -nx; ny = -ny; nz = -nz; }
         const nl = Math.hypot(nx, ny, nz) || 1;
         const shade = (nx * lx + ny * ly + nz * lzn) / nl;
-        const k = clamp((shade - 0.72) * 4, -1, 1);
+        let pace = rate[face];
+        if (near) {
+          const d = Math.hypot((ax + bx + cx) / 3 - px, (ay + by + cy) / 3 - py) / reach;
+          if (d < 1) pace += 2.6 * near * (1 - d) * (1 - d);
+        }
+        if (!api.still) phase[face] += dt * pace;
+        // Light from the normal, plus the facet's own shimmer, within the paper's range.
+        const k = clamp((shade - 0.72) * 3 + Math.sin(phase[face]) * 0.5, -1, 1);
         const col = k < 0 ? mix(base, dark, -k) : mix(base, lite, k);
         const fill = css(col);
         ctx.fillStyle = fill;

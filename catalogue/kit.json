@@ -66,7 +66,7 @@
       "failed": []
     },
     "rain-glass": {
-      "digest": "3448f30dbdd9faafce8027bff68228c97a0166a48812e6652a1ceec8fdf4f2b0",
+      "digest": "0fb18bbdf0b6160f43cd5cc43777ca9c27bf7798bb6df5e3847c480e0329f4c6",
       "passed": 14,
       "total": 14,
       "failed": []
@@ -90,7 +90,7 @@
       "failed": []
     },
     "paper-facets": {
-      "digest": "dbc2df7bd451be222ba49f35c035df24f8c9a5307b67e3a44f112e236958e30c",
+      "digest": "4cadc431a322b075ac6224f6eb22562c38b3c6cfd7cc59a80720af442d5e46c5",
       "passed": 14,
       "total": 14,
       "failed": []
@@ -114,49 +114,49 @@
       "failed": []
     },
     "city-lights": {
-      "digest": "456421fb9971f503de1d24f9f391c322fe568ada9e1360f1f464d100c1c99976",
+      "digest": "447a8a5eb9753712c2809c0b87244f2d1b598328edf0de46c6a351c60e7fc7a4",
       "passed": 14,
       "total": 14,
       "failed": []
     },
     "watercolor": {
-      "digest": "e4ea3ea1eecfec21f12c01a8e51e96d76e5709626082938408ca745fbb404af0",
+      "digest": "e4b54271c0fb6f87d16f6c1e97c1acf895a6817c60e4275c8575c48191899f12",
       "passed": 14,
       "total": 14,
       "failed": []
     },
     "fabric-grid": {
-      "digest": "55bec8aa598c7d0746e2afed869ac377d0869c29e5b1dd21f009ee2a2c8f2703",
+      "digest": "2528dfa8dfca1e4efa321d1b5097443c2ae88778eb3eadd2ad1751430d80781a",
       "passed": 17,
       "total": 17,
       "failed": []
     },
     "ripples": {
-      "digest": "ef1de970b8b15825f96be205b0c5b72baee30889bf17c39b3c0bd9cfa23d5da2",
+      "digest": "5f8dad928c3ed699864c6afed995c527b5e5ddc783019f0d1ae6f38af99cc3bf",
       "passed": 17,
       "total": 17,
       "failed": []
     },
     "blueprint": {
-      "digest": "1f3067758b9d2983f58f661d2d9d0db10465d2c6c4b9d897b232d0dd855626a5",
+      "digest": "ec74c04b50bb6ff63f23edbc66bbc11dce90fa6fd2564d704a12925ff566e556",
       "passed": 17,
       "total": 17,
       "failed": []
     },
     "particle-shapes": {
-      "digest": "a15052fc903ac14b4b207d2178cda146c7a9707e45673861c3bcd80b03dedb91",
+      "digest": "ca438afe950c99dfe64685d247964b0b9227e2d70a46fba77db6e9d719be2594",
       "passed": 17,
       "total": 17,
       "failed": []
     },
     "world-routes": {
-      "digest": "963db409b375ec2acd55456eaeb925ffd163f77ce46f266c34634837a96eb0d2",
+      "digest": "6e6c889ad5126d83a51cf98debf0ae72006f83a7c0091d16d970b27ba956cab6",
       "passed": 14,
       "total": 14,
       "failed": []
     },
     "sand-picture": {
-      "digest": "16206e58a71b24589a1065e0f4f548a5ef6cc1fc3417030954a1e02859f537a5",
+      "digest": "349383bc1e260488cbb27de6ca741c1a48a6a61cad78f34bf174136289f15cd5",
       "passed": 17,
       "total": 17,
       "failed": []

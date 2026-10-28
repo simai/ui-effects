@@ -1,9 +1,9 @@
 # Paper facets (`paper-facets`)
 
-A crumpled sheet of triangular facets; light circles it slowly, and the folds catch and lose it.
+A crumpled sheet of triangular facets; light circles it slowly, the folds catch and lose it, and each facet shimmers lighter and darker on its own clock.
 
 - **Russian name:** Бумажные грани
-- **Version:** 1.2.0, simai.effect 1.1.0
+- **Version:** 1.3.0, simai.effect 1.1.0
 - **Surfaces:** hero, product, sign-in
 - **Tags:** paper, geometry
 - **Role:** Crumpled paper, the light moving round its facets.
@@ -16,7 +16,7 @@ A crumpled sheet of triangular facets; light circles it slowly, and the folds ca
 | `intensity` | integer | 0–100 % | `50` | Relief depth |
 | `facet` | choice | `large`, `medium`, `small` | `"medium"` | Facet size |
 | `tint` | choice | `paper`, `primary` | `"paper"` | Paper |
-| `interactive` | boolean | — | `true` | React to the pointer |
+| `interactive` | boolean | — | `true` | React to the pointer. Facets near the pointer shimmer faster |
 
 ## Schemes
 

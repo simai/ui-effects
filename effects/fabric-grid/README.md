@@ -1,6 +1,6 @@
 # Spacetime fabric (`fabric-grid`)
 
-A sun and its planets sink funnels into the grid of spacetime; a click sends a gravitational wave.
+Gravitational waves run through the grid of spacetime; a click sends one of your own.
 
 - **Russian name:** Ткань пространства-времени
 - **Version:** 0.1.0, simai.effect 1.1.0
@@ -15,8 +15,7 @@ A sun and its planets sink funnels into the grid of spacetime; a click sends a g
 | `speed` | integer | 10–300 % | `100` | Speed |
 | `intensity` | integer | 10–100 % | `70` | Intensity |
 | `density` | integer | 10–100 % | `50` | Density |
-| `planets` | integer | 1–8 | `6` | Planets |
-| `interactive` | boolean | — | `true` | React to the pointer. The pointer turns the view, a click sends a gravitational wave, holding grows a black hole |
+| `interactive` | boolean | — | `true` | React to the pointer. A click sends a gravitational wave, holding grows a black hole |
 
 ## Schemes
 

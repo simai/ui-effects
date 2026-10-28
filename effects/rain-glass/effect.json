@@ -2,7 +2,7 @@
   "schema": "simai.effect",
   "schema_version": 1,
   "id": "rain-glass",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "label": {
     "ru": "Дождь на стекле",
     "en": "Rain on glass"
@@ -91,6 +91,45 @@
         "ru": "Как часто проезжают машины",
         "en": "How often cars go by"
       }
+    },
+    {
+      "key": "lamps",
+      "type": "choice",
+      "label": {
+        "ru": "Фонари",
+        "en": "Street lamps"
+      },
+      "default": "warm",
+      "options": [
+        {
+          "value": "warm",
+          "label": {
+            "ru": "Тёплые",
+            "en": "Warm"
+          }
+        },
+        {
+          "value": "white",
+          "label": {
+            "ru": "Белые",
+            "en": "White"
+          }
+        },
+        {
+          "value": "mixed",
+          "label": {
+            "ru": "Разные",
+            "en": "Mixed"
+          }
+        },
+        {
+          "value": "none",
+          "label": {
+            "ru": "Нет",
+            "en": "None"
+          }
+        }
+      ]
     },
     {
       "key": "interactive",

@@ -2,7 +2,7 @@
   "schema": "simai.effect",
   "schema_version": 1,
   "id": "paper-facets",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "label": {
     "ru": "Бумажные грани",
     "en": "Paper facets"
@@ -112,7 +112,11 @@
         "ru": "Реагировать на указатель",
         "en": "React to the pointer"
       },
-      "default": true
+      "default": true,
+      "hint": {
+        "ru": "Под указателем грани переливаются быстрее",
+        "en": "Facets near the pointer shimmer faster"
+      }
     }
   ],
   "needs": {

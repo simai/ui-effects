@@ -77,7 +77,10 @@ const SCENE = {
     const step = Math.max(3, Math.round(lineHeight / 22 * (1.6 - env.values.density / 100)));
     const top = (h - off.height) / 2;
     const particles = [];
-    const free = () => [random() * w, random() * h];
+    // After a change of text the gas the particles were stays where it was and gathers at once.
+    const old = env.state?.particles ?? [];
+    let reuse = 0;
+    const free = () => (old.length ? (({x, y}) => [x, y])(old[reuse++ % old.length]) : [random() * w, random() * h]);
     for (let y = 0; y < off.height; y += step) for (let x = 0; x < off.width; x += step) {
       if (pixels[(y * off.width + x) * 4 + 3] < 128) continue;
       // A still frame shows the text; a moving one starts as gas.
@@ -88,7 +91,7 @@ const SCENE = {
       const [fx, fy] = free();
       particles.push({target: null, x: fx, y: fy, vx: 0, vy: 0, heat: 0, alt: random() < 0.3});
     }
-    return {particles, random, reach: Math.min(w, h) * 0.18, last: null};
+    return {particles, random, reach: Math.min(w, h) * 0.18, last: null, born: old.length ? null : 0};
   },
   click(env, x, y) { heat(env.state, x, y, 4); },
   draw(env, t) {
@@ -101,7 +104,8 @@ const SCENE = {
     ctx.fillRect(0, 0, w, h);
     if (pointer.down && pointer.on) heat(state, pointer.x * w, pointer.y * h, 0.25 * frames);
     // The cycle: wander, gather (written left to right), hold, dissolve (left to right).
-    const c = (t / 18) % 1;
+    if (state.born === null) state.born = t - 18 * 0.2;
+    const c = ((t - state.born) / 18) % 1;
     const random = state.random, size = 2;
     for (const p of state.particles) {
       let pull = 0;
@@ -148,6 +152,9 @@ export function mount(host, settings, context = {}) {
   const env = {ctx, w: 1, h: 1, values: {...settings}, scheme: context.scheme ?? SCENE.home, tones: null, state: null, pointer: {x: 0.5, y: 0.5, on: false, down: false, px: 0, py: 0}, still: false};
   env.tones = readTones(host, env.scheme);
   env.still = Boolean(context.reducedMotion) || Boolean(motion?.matches);
+  // A scene marked fresh lays a new pattern on every mount while it moves; a still frame keeps the
+  // seeded one, so a reduced-motion page and the checks that sample it see the same picture.
+  env.salt = SCENE.fresh && !env.still ? Math.floor(Math.random() * 1e6) : 0;
   let paused = false;
   let visible = true;
   let frame = 0;

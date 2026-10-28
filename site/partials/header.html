@@ -12,8 +12,14 @@
       <a href="https://github.com/simai/ui-effects">GitHub</a>
     </nav>
     <div class="top__tools">
-      <!-- The main colour: a swatch that opens the colour picker at once; the whole theme is built from it. -->
-      <sf-color class="top__colour" size="1/2" appearance="plain" clearable label="Основной цвет сайта" choose-label="Основной цвет сайта" clear-label="Цвет Framework" inherited-value="#005bbe" inherited-text="Цвет сайта" data-site-colour></sf-color>
+      <!-- The main colour: one primary icon button that opens the platform colour picker; the whole theme is
+           built from the colour while it moves. Framework sf-color has no icon-only form yet (ordered from the
+           Framework, msg in docs/STATUS.md); this is its own pattern: a transparent native input laid over the button. -->
+      <label class="top__colour sf-button sf-button--default sf-button--primary sf-button--size-1/2 flex items-cross-center" title="Основной цвет сайта">
+        <sf-icon icon="palette" aria-hidden="true"></sf-icon>
+        <input type="color" class="top__colour-input" value="#005bbe" aria-label="Основной цвет сайта" data-site-colour>
+      </label>
+      <button type="button" class="sf-button sf-button--size-1/2 sf-button--link sf-button--on-surface flex items-cross-center" aria-label="Вернуть цвет Framework" title="Вернуть цвет Framework" data-site-colour-reset hidden><sf-icon icon="restart_alt" aria-hidden="true"></sf-icon></button>
       <!-- One theme button: it shows the theme it switches to (a sun on a dark page, a moon on a light one). -->
       <button type="button" class="sf-theme-button sf-button sf-button--size-1/2 sf-button--link sf-button--on-surface flex items-cross-center" aria-label="Тёмная тема" title="Сменить тему"><sf-icon icon="dark_mode" aria-hidden="true" data-theme-glyph></sf-icon></button>
     </div>

@@ -47,10 +47,11 @@ function readTones(host, scheme) {
 
 // Watercolour on wet paper: a drop of paint touches the paper and blooms into a stain with ragged
 // edges, a darker rim where the pigment gathers, and a few spatters. Stains dry into the paper and
-// slowly fade, so the sheet keeps changing. A click drops paint; a press-drag is a wet brush.
+// slowly fade, so the sheet keeps changing; each load lays them in a new order. A click drops paint;
+// a press-drag is a wet brush.
 const BLOOM = 7; // seconds a stain takes to spread
 const SCENE = {
-  home: 'light', seed: 81, start: 30, reseed: ['density'],
+  home: 'light', seed: 81, start: 30, fresh: true, reseed: ['density'],
   tones: (read) => ({paper: read('--sf-neutral-98', '#faf9fe'), inks: [read('--sf-primary-70', '#7fabff'), read('--sf-tertiary-70', '#c798cd'), read('--sf-primary-60', '#4a8eff'), read('--sf-tertiary-60', '#ac7eb2'), read('--sf-secondary-70', '#a0abc4')]}),
   setup(env, random) {
     const {w, h, tones} = env;
@@ -92,8 +93,10 @@ const SCENE = {
   },
 };
 function spawn(env, state, i, born) {
-  const x = hash2(i, 11) * env.w, y = hash2(i, 23) * env.h;
-  return stain(env, x, y, 0.7 + hash2(i, 37) * 0.8, born, Math.floor(hash2(i, 41) * 5));
+  // The salt is new on every mount: the stains fall in a new order after each reload.
+  const j = i + env.salt;
+  const x = hash2(j, 11) * env.w, y = hash2(j, 23) * env.h;
+  return stain(env, x, y, 0.7 + hash2(j, 37) * 0.8, born, Math.floor(hash2(j, 41) * 5));
 }
 function stain(env, x, y, size, born, ink) {
   const R = Math.min(env.w, env.h) * 0.22 * size * (0.6 + env.values.intensity / 200);
@@ -153,6 +156,9 @@ export function mount(host, settings, context = {}) {
   const env = {ctx, w: 1, h: 1, values: {...settings}, scheme: context.scheme ?? SCENE.home, tones: null, state: null, pointer: {x: 0.5, y: 0.5, on: false, down: false, px: 0, py: 0}, still: false};
   env.tones = readTones(host, env.scheme);
   env.still = Boolean(context.reducedMotion) || Boolean(motion?.matches);
+  // A scene marked fresh lays a new pattern on every mount while it moves; a still frame keeps the
+  // seeded one, so a reduced-motion page and the checks that sample it see the same picture.
+  env.salt = SCENE.fresh && !env.still ? Math.floor(Math.random() * 1e6) : 0;
   let paused = false;
   let visible = true;
   let frame = 0;

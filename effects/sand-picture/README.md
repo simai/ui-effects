@@ -1,6 +1,6 @@
 # Sand picture (`sand-picture`)
 
-Coloured sand between two panes runs down in streams into layered hills; the picture turns over and the landscape is new each time.
+Sand runs down from above in streams and settles in smooth dunes of the theme's two colours; the picture sinks slowly, and the landscape keeps changing.
 
 - **Russian name:** Песочная картина
 - **Version:** 0.1.0, simai.effect 1.1.0
@@ -15,8 +15,7 @@ Coloured sand between two panes runs down in streams into layered hills; the pic
 | `speed` | integer | 10–300 % | `100` | Speed |
 | `intensity` | integer | 10–100 % | `70` | Intensity |
 | `density` | integer | 10–100 % | `50` | Density |
-| `colours` | integer | 2–5 | `3` | Sand colours |
-| `interactive` | boolean | — | `true` | React to the pointer. A click turns the picture over |
+| `interactive` | boolean | — | `true` | React to the pointer. A click lets sand run down above the pointer |
 
 ## Schemes
 
