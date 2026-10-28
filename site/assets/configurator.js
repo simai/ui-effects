@@ -328,10 +328,16 @@ setInterval(() => { if (!state.paused && !document.hidden) measure(); }, 2500);
 // a new text goes in through SF.Highlight.refresh, or as plain text without it.
 // The Loader does not find the blocks inside the tabs by itself, so the
 // component is asked for by name.
+// The plugin is asked for as soon as the Loader is there: this module can run before it.
 const highlighter = new Promise((resolve) => {
-  globalThis.SF?.Loader?.ensurePlugin?.('highlight');
   const started = Date.now();
-  const tick = () => (globalThis.SF?.Highlight?.refresh ? resolve(globalThis.SF.Highlight) : Date.now() - started > 60000 ? resolve(null) : setTimeout(tick, 100));
+  let asked = false;
+  const tick = () => {
+    if (!asked && globalThis.SF?.Loader?.ensurePlugin) { asked = true; globalThis.SF.Loader.ensurePlugin('highlight'); }
+    if (globalThis.SF?.Highlight?.refresh) resolve(globalThis.SF.Highlight);
+    else if (Date.now() - started > 60000) resolve(null);
+    else setTimeout(tick, 100);
+  };
   tick();
 });
 function setCode(name, source) {
