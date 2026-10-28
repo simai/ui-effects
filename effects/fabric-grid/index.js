@@ -1,4 +1,4 @@
-// Spacetime fabric (simai.effect 1.1.0; schemes dark and light): a grid in perspective sinks into funnels under spherical masses; the pointer is a heavy body, a click a gravitational wave.
+// Spacetime fabric (simai.effect 1.1.0; schemes dark and light): a sun and its planets sink funnels into the grid of spacetime; a click sends a gravitational wave.
 //
 // The lifecycle is the catalogue template's: one canvas in the host, devicePixelRatio capped at 2,
 // a seeded scene (the same picture on every mount at the defaults), one still frame for reduced
@@ -45,27 +45,31 @@ function readTones(host, scheme) {
   return tones;
 }
 
-// The fabric of spacetime, seen at an angle: a grid in perspective that sinks into round wells under
-// masses, like the textbook picture. Two planets orbit and dimple it. The pointer is a glowing sphere
-// that presses a funnel into the grid; a click sends a gravitational wave out in clean rings; holding
-// the button grows a black hole whose funnel deepens, and letting go rings out a strong wave.
+// The fabric of spacetime, seen from above at an angle: a grid in perspective that sinks into round
+// funnels under masses. A sun sits in the deepest one; planets go round it on Kepler's orbits, the
+// inner ones faster, each dimpling the grid as it passes, one with rings. Moving the pointer turns
+// the view slowly round the sun; a click sends a gravitational wave out in clean rings; holding the
+// button grows a black hole whose funnel deepens, and letting go rings out a strong wave.
+const BODIES = [[0.12, 'moon', 0.08], [0.17, 'deep', 0.12], [0.19, 'planet', 0.14], [0.15, 'red', 0.1], [0.36, 'warm', 0.3], [0.3, 'sand', 0.24, true], [0.24, 'cool', 0.18], [0.23, 'planet', 0.17]];
 const SCENE = {
-  home: 'dark', seed: 141, reseed: ['density'],
+  home: 'dark', seed: 141, reseed: ['density', 'planets'],
   tones: (read, scheme) => scheme === 'light'
-    ? {ground: read('--sf-neutral-98', '#faf9fe'), line: read('--sf-primary-40', '#005bbe'), deep: read('--sf-tertiary-40', '#7c4c86'), sun: read('--sf-warning-80', '#ffb95c'), core: read('--sf-warning-95', '#ffeee1'), planet: read('--sf-primary-60', '#4a8eff'), moon: read('--sf-tertiary-60', '#ac7eb2'), star: read('--sf-neutral-60', '#90909a')}
-    : {ground: read('--sf-neutral-5', '#111318'), line: read('--sf-primary-70', '#7fabff'), deep: read('--sf-tertiary-70', '#c798cd'), sun: read('--sf-warning-70', '#e08f2c'), core: read('--sf-warning-95', '#ffeee1'), planet: read('--sf-primary-60', '#4a8eff'), moon: read('--sf-tertiary-60', '#ac7eb2'), star: read('--sf-neutral-80', '#c6c6cf')},
+    ? {ground: read('--sf-neutral-98', '#faf9fe'), line: read('--sf-primary-40', '#005bbe'), deep: read('--sf-tertiary-40', '#7c4c86'), sun: read('--sf-warning-80', '#ffb95c'), core: read('--sf-warning-95', '#ffeee1'), planet: read('--sf-primary-60', '#4a8eff'), moon: read('--sf-neutral-60', '#90909a'), red: read('--sf-error-60', '#ff5449'), warm: read('--sf-warning-60', '#c0780a'), sand: read('--sf-warning-80', '#ffb95c'), cool: read('--sf-secondary-60', '#00a2b0'), star: read('--sf-neutral-60', '#90909a')}
+    : {ground: read('--sf-neutral-5', '#111318'), line: read('--sf-primary-70', '#7fabff'), deep: read('--sf-tertiary-70', '#c798cd'), sun: read('--sf-warning-70', '#e08f2c'), core: read('--sf-warning-95', '#ffeee1'), planet: read('--sf-primary-60', '#4a8eff'), moon: read('--sf-neutral-70', '#abaab4'), red: read('--sf-error-60', '#ff5449'), warm: read('--sf-warning-60', '#c0780a'), sand: read('--sf-warning-80', '#ffb95c'), cool: read('--sf-secondary-60', '#00a2b0'), star: read('--sf-neutral-80', '#c6c6cf')},
   setup(env, random) {
     const {w, h} = env;
-    // The camera stands above the fabric and looks down at it, so the wells open towards us.
-    const f = h * 0.9, pitch = 0.45, lift = 4;
+    // The camera stands above the fabric and looks down at it, so the funnels open towards us.
+    const f = h * 0.9, pitch = 0.45, lift = 4.2;
     const horizon = h / 2 - f * Math.tan(pitch);
-    const state = {f, pitch, lift, horizon, sin: Math.sin(pitch), cos: Math.cos(pitch), waves: [], hole: null, ball: null};
-    state.near = toPlane({w, h, state}, w / 2, h)[1];
-    state.far = state.near + 16;
+    const state = {f, pitch, lift, horizon, sin: Math.sin(pitch), cos: Math.cos(pitch), yaw: 0, waves: [], hole: null};
+    state.centre = toPlane({w, h, state}, w * 0.62, h * 0.56)[1];
     state.cell = 0.95 - env.values.density / 200;
-    state.span = Math.min(30, Math.abs(toPlane({w, h, state}, 0, horizon + h * 0.05)?.[0] ?? 20));
-    state.centre = state.near + 4.2;
-    state.stars = Array.from({length: 40}, () => [random() * w, random() * Math.max(0, horizon) * 0.9]);
+    const planets = Math.round(env.values.planets);
+    state.planets = BODIES.slice(0, planets).map(([r, colour, m, rings], i) => {
+      const orbit = 1.3 + i * 0.85;
+      return {r, colour, m, rings, orbit, spin: 0.9 * (1.3 / orbit) ** 1.5, phase: random() * Math.PI * 2};
+    });
+    state.stars = Array.from({length: 50}, () => [random() * w, random() * Math.max(0, horizon) * 0.95]);
     return state;
   },
   click(env, x, y) { const at = toPlane(env, x, y); if (at) env.state.waves.push({x: at[0], z: at[1], born: env.time ?? 0, strength: 1}); },
@@ -82,45 +86,44 @@ const SCENE = {
     ctx.fillStyle = rgba(tones.ground);
     ctx.fillRect(0, 0, w, h);
     for (const [x, y] of state.stars) { ctx.fillStyle = rgba(tones.star, 0.35 * k); ctx.fillRect(x, y, 1.2, 1.2); }
-    // The masses on the plane: two planets on orbits, the pointer's sphere, a black hole while held.
-    const masses = [
-      {x: Math.cos(t * 0.13) * 3.2, z: state.centre + Math.sin(t * 0.13) * 2, m: 0.42, r: 0.42, kind: 'planet'},
-      {x: Math.cos(-t * 0.2 + 2) * 1.8, z: state.centre - 0.4 + Math.sin(-t * 0.2 + 2) * 1.2, m: 0.24, r: 0.26, kind: 'moon'},
-    ];
-    const at = pointer.on ? toPlane(env, pointer.x * w, pointer.y * h) : null;
-    if (at && !state.hole) {
-      state.ball = state.ball ? [mix(state.ball[0], at[0], 0.15), mix(state.ball[1], at[1], 0.15)] : at;
-    } else state.ball = null;
-    if (state.ball) masses.push({x: state.ball[0], z: state.ball[1], m: 0.55, r: 0.42, kind: 'sun'});
+    // The pointer turns the view round the sun, a little and slowly.
+    state.yaw = mix(state.yaw, pointer.on && !state.hole ? (pointer.x - 0.5) * 0.7 : 0, 0.03);
+    const cy = Math.cos(state.yaw), sy = Math.sin(state.yaw), Z = state.centre;
+    const masses = [{x: 0, z: Z, m: 1.7, r: 0.6, s: 0.5, reach: 7, kind: 'sun'}];
+    for (const p of state.planets) {
+      const a = p.phase + t * p.spin;
+      masses.push({x: Math.cos(a) * p.orbit, z: Z + Math.sin(a) * p.orbit, m: p.m, r: p.r, s: 0.15, reach: 1.4, kind: p.colour, rings: p.rings});
+    }
     if (state.hole) {
       state.hole.mass = Math.min(1, state.hole.mass + 0.005);
+      const at = pointer.on ? toPlane(env, pointer.x * w, pointer.y * h) : null;
       if (at) { state.hole.x = mix(state.hole.x, at[0], 0.1); state.hole.z = mix(state.hole.z, at[1], 0.1); }
-      masses.push({x: state.hole.x, z: state.hole.z, m: 0.45 + state.hole.mass * 0.5, r: 0.14 + state.hole.mass * 0.18, kind: 'hole'});
+      masses.push({x: state.hole.x, z: state.hole.z, m: 0.45 + state.hole.mass * 0.6, r: 0.14 + state.hole.mass * 0.18, s: 0.25, reach: 4, kind: 'hole'});
     }
     state.waves = state.waves.filter((wave) => t - wave.born < 7);
-    // Height of the fabric: a round well under each mass, and rings of passing waves.
+    // Height of the fabric: a funnel under each mass, flat again past its reach, and passing rings.
     const height = (x, z) => {
       let y = 0;
-      // A funnel: deep and narrow at the mass, flat again a few cells away, like the textbook picture.
-      for (const m of masses) { const d = Math.hypot(x - m.x, z - m.z); if (d < 3.2) y -= m.m * (1 / (d + 0.28) - 1 / 3.48); }
+      for (const m of masses) { const d = Math.hypot(x - m.x, z - m.z); if (d < m.reach) y -= m.m * (1 / (d + m.s) - 1 / (m.reach + m.s)); }
       for (const wave of state.waves) {
-        // A ring: a smooth crest and trough travelling out from the point, fading as it spreads.
         const age = t - wave.born, d = Math.hypot(x - wave.x, z - wave.z), band = d - age * 2.2;
         if (Math.abs(band) < 2.4) y += Math.sin(band * 2.2) * Math.exp(-(band * band) / 0.9) * 0.22 * wave.strength * (1 - age / 7) / (1 + age * 0.4);
       }
       return y * 0.85;
     };
+    // World to screen: turned by the yaw about the sun, then through the pitched camera.
     const project = (x, y, z) => {
-      const dy = y - state.lift, zc = z * state.cos - dy * state.sin, yc = dy * state.cos + z * state.sin;
-      return [w / 2 + x * state.f / zc, h / 2 - yc * state.f / zc, zc];
+      const rx = x * cy - (z - Z) * sy, rz = x * sy + (z - Z) * cy + Z;
+      const dy = y - state.lift, zc = rz * state.cos - dy * state.sin, yc = dy * state.cos + rz * state.sin;
+      return [w / 2 + rx * state.f / zc, h / 2 - yc * state.f / zc, zc];
     };
     const alpha = (scheme === 'light' ? 0.5 : 0.48) * k;
-    const span = state.span;
     // One path per run of segments of the same shade: the shade steps with distance and depth.
-    const segment = (points) => {
+    const run = (points) => {
       let shade = -1;
       for (let i = 1; i < points.length; i += 1) {
-        const [x0, y0, z0, d0] = points[i - 1], [x1, y1] = points[i];
+        const [x0, y0, z0, d0] = points[i - 1], [x1, y1, z1] = points[i];
+        if (z0 < 0.5 || z1 < 0.5) { if (shade >= 0) ctx.stroke(); shade = -1; continue; }
         const next = Math.round(Math.min(1, 7 / z0) * 8) * 16 + Math.round(Math.min(1, Math.max(0, d0) * 1.4) * 8);
         if (next !== shade) {
           if (shade >= 0) ctx.stroke();
@@ -138,54 +141,81 @@ const SCENE = {
       const points = [];
       for (let i = 0; i <= steps; i += 1) {
         const x = mix(fromX, toX, i / steps), z = mix(fromZ, toZ, i / steps), y = height(x, z);
-        const [sx, sy, zc] = project(x, y, z);
-        points.push([sx, sy, zc, -y]);
+        const [sx, sy2, zc] = project(x, y, z);
+        points.push([sx, sy2, zc, -y]);
       }
-      segment(points);
+      run(points);
     };
+    // The grid reaches far past every edge, so no corner is left empty.
     ctx.lineWidth = 1;
-    const cell = state.cell;
-    for (let z = state.near; z <= state.far + 1e-6; z += cell) line(-span, z, span, z, Math.round(60 + span * 8));
-    const across = Math.round(span * 2 / cell);
-    for (let i = 0; i <= across; i += 1) { const x = -span + i * (span * 2 / across); line(x, state.near, x, state.far, 130); }
-    // The bodies, drawn over the fabric, far ones first.
-    for (const m of masses.sort((a, b) => b.z - a.z)) {
-      const y = height(m.x, m.z) + m.r * 0.9;
-      const [sx, sy, zc] = project(m.x, y, m.z);
+    const R = 26, cell = state.cell, n = Math.ceil(R / cell);
+    for (let i = -n; i <= n; i += 1) {
+      line(-R, Z + i * cell, R, Z + i * cell, 170);
+      line(i * cell, Z - R, i * cell, Z + R, 170);
+    }
+    // Faint orbits on the fabric.
+    for (const p of state.planets) {
+      const points = [];
+      for (let i = 0; i <= 96; i += 1) {
+        const a = i / 96 * Math.PI * 2, x = Math.cos(a) * p.orbit, z = Z + Math.sin(a) * p.orbit;
+        const [sx, sy2, zc] = project(x, height(x, z) + 0.02, z);
+        points.push([sx, sy2, zc]);
+      }
+      ctx.strokeStyle = rgba(tones[p.colour], 0.22 * k);
+      ctx.beginPath();
+      points.forEach(([x, y], i) => (i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)));
+      ctx.stroke();
+    }
+    // The bodies, far ones first.
+    const placed = masses.map((m) => { const [sx, sy2, zc] = project(m.x, height(m.x, m.z) + m.r * 0.9, m.z); return {m, sx, sy: sy2, zc}; }).sort((a, b) => b.zc - a.zc);
+    for (const {m, sx, sy: by, zc} of placed) {
+      if (zc < 0.5) continue;
       const r = m.r * state.f / zc;
       if (m.kind === 'hole') {
         ctx.fillStyle = rgba([0, 0, 0]);
-        ctx.beginPath(); ctx.arc(sx, sy, r, 0, Math.PI * 2); ctx.fill();
+        ctx.beginPath(); ctx.arc(sx, by, r, 0, Math.PI * 2); ctx.fill();
         ctx.strokeStyle = rgba(tones.deep, 0.7 * k);
         ctx.lineWidth = 2;
-        ctx.beginPath(); ctx.ellipse(sx, sy, r * 1.8, r * 0.5, 0, 0, Math.PI * 2); ctx.stroke();
+        ctx.beginPath(); ctx.ellipse(sx, by, r * 1.8, r * 0.5, 0, 0, Math.PI * 2); ctx.stroke();
         ctx.lineWidth = 1;
         continue;
       }
-      const colour = m.kind === 'sun' ? tones.sun : m.kind === 'planet' ? tones.planet : tones.moon;
+      const colour = tones[m.kind];
       if (m.kind === 'sun') {
-        const glow = ctx.createRadialGradient(sx, sy, r * 0.8, sx, sy, r * 2.2);
-        glow.addColorStop(0, rgba(colour, 0.3 * k)); glow.addColorStop(1, rgba(colour, 0));
-        ctx.fillStyle = glow; ctx.beginPath(); ctx.arc(sx, sy, r * 2.2, 0, Math.PI * 2); ctx.fill();
+        const glow = ctx.createRadialGradient(sx, by, r * 0.7, sx, by, r * 3);
+        glow.addColorStop(0, rgba(colour, 0.35 * k)); glow.addColorStop(1, rgba(colour, 0));
+        ctx.fillStyle = glow; ctx.beginPath(); ctx.arc(sx, by, r * 3, 0, Math.PI * 2); ctx.fill();
       }
-      const body = ctx.createRadialGradient(sx - r * 0.35, sy - r * 0.35, r * 0.1, sx, sy, r);
+      const ring = (front) => {
+        ctx.strokeStyle = rgba(mixc(colour, [255, 255, 255], 0.3), 0.7 * k);
+        ctx.lineWidth = Math.max(1, r * 0.18);
+        ctx.beginPath(); ctx.ellipse(sx, by, r * 2, r * 0.55, -0.25, front ? 0 : Math.PI, front ? Math.PI : Math.PI * 2); ctx.stroke();
+        ctx.lineWidth = 1;
+      };
+      if (m.rings) ring(false);
+      // Lit from the sun's side: the highlight leans towards it.
+      const sun = placed.find((p) => p.m.kind === 'sun');
+      const lx = m.kind === 'sun' ? -0.35 : Math.max(-0.5, Math.min(0.5, (sun.sx - sx) / (Math.abs(sun.sx - sx) + 40))), ly = -0.35;
+      const body = ctx.createRadialGradient(sx + lx * r, by + ly * r, r * 0.1, sx, by, r);
       body.addColorStop(0, rgba(m.kind === 'sun' ? tones.core : mixc(colour, [255, 255, 255], 0.35)));
-      body.addColorStop(1, rgba(mixc(colour, tones.ground, 0.35)));
+      body.addColorStop(1, rgba(mixc(colour, tones.ground, m.kind === 'sun' ? 0.1 : 0.45)));
       ctx.fillStyle = body;
-      ctx.beginPath(); ctx.arc(sx, sy, r, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(sx, by, r, 0, Math.PI * 2); ctx.fill();
+      if (m.rings) ring(true);
     }
   },
 };
-// A point of the screen to the flat plane (before it sinks), or null above the horizon.
+// A point of the screen to the flat plane (before it sinks and before the view turns), or null above the horizon.
 function toPlane(env, x, y) {
   const {state} = env;
   // The ray through the pixel, from the camera, down to the plane y = 0.
   const u = (x - env.w / 2) / state.f, v = -(y - env.h / 2) / state.f;
   const dy = -state.sin + v * state.cos, dz = state.cos + v * state.sin;
   if (dy >= -1e-3) return null;
-  const t = state.lift / -dy, z = t * dz;
-  if (state.near !== undefined && (z < state.near - 0.5 || z > state.far)) return null;
-  return [t * u, z];
+  const t = state.lift / -dy, rx = t * u, rz = t * dz;
+  if (state.centre === undefined) return [rx, rz];
+  const c = Math.cos(state.yaw), s = Math.sin(state.yaw), Z = state.centre;
+  return [rx * c + (rz - Z) * s, -rx * s + (rz - Z) * c + Z];
 }
 
 export function mount(host, settings, context = {}) {

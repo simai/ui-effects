@@ -74,7 +74,7 @@ const noise2 = (x, y) => {
 const FX = {
   seed: 11,
   t0: 40,
-  settings: {speed: [100, 10, 300], intensity: [60, 10, 100], curtains: [3, 1, 4], interactive: true},
+  settings: {speed: [100, 10, 300], intensity: [60, 10, 100], contrast: [35, 0, 100], curtains: [3, 1, 4], interactive: true},
   init(env, rand) {
     const st = {rand, stars: null, sprites: [], sway: 0};
     this.resize(env, st);
@@ -142,6 +142,8 @@ const FX = {
     lc.clearRect(0, 0, cols, rows);
     lc.globalCompositeOperation = 'lighter';
     const gain = S.intensity / 100;
+    // Contrast is how far the rays stand out from the glow between them.
+    const sharp = 1 + S.contrast / 25;
     for (let i = 0; i < n; i += 1) {
       const sprite = st.sprites[i % st.sprites.length];
       const base = h * (n === 1 ? 0.55 : 0.3 + (0.52 * i) / (n - 1));
@@ -158,7 +160,9 @@ const FX = {
         const patch = noise2(u * 1.7 + k - tt * 0.5, k + tt * 0.3);
         const lit = patch < 0.3 ? 0 : patch > 0.75 ? 1 : (patch - 0.3) / 0.45;
         // Rays: bright folds with dark gaps between them, rather than an even haze.
-        const a = gain * 0.92 * (0.02 + rays ** 3 * 3.2) * lit * lit;
+        const glow = 0.92 * (0.04 + rays ** sharp * (0.6 + sharp * 0.85)) * lit * lit;
+        // Intensity dims the brightest light most: a soft knee that lowers as the intensity does.
+        const a = 1.4 * Math.sqrt(gain) * glow / (1 + glow / (gain * 0.7));
         if (a < 0.01) continue;
         lc.globalAlpha = Math.min(1, a);
         lc.drawImage(sprite, 1, 0, 2, 256, col, (y - len) / 2, 1, len * 0.6);

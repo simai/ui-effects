@@ -1,9 +1,9 @@
 # Rain on glass (`rain-glass`)
 
-A fogged window at night: a street in bokeh behind it, oncoming headlights and receding tail lights; you can write on the glass.
+A fogged window at night: a street in bokeh behind it, a car going by now and then; drops on the glass, and you can write on it.
 
 - **Russian name:** Дождь на стекле
-- **Version:** 2.0.0, simai.effect 1.1.0
+- **Version:** 2.1.0, simai.effect 1.1.0
 - **Surfaces:** hero, section, dashboard, sign-in
 - **Tags:** water, glow
 - **Role:** A cosy evening behind a window. Dark scheme only.
@@ -16,6 +16,7 @@ A fogged window at night: a street in bokeh behind it, oncoming headlights and r
 | `intensity` | integer | 10–100 % | `60` | Intensity |
 | `density` | integer | 10–100 % | `55` | Density |
 | `fog` | integer | 0–100 % | `70` | Fog |
+| `traffic` | integer | 0–100 % | `40` | Traffic. How often cars go by |
 | `interactive` | boolean | — | `true` | React to the pointer. Press and drag to write on the fogged glass with a finger |
 
 ## Schemes

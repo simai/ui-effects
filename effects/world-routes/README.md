@@ -1,12 +1,12 @@
-# Signals (`signals`)
+# World routes (`world-routes`)
 
-A dotted world map; pulses fly along arcs between cities.
+A dotted world map; signals or planes travel between the capitals.
 
-- **Russian name:** Сигналы
+- **Russian name:** Маршруты мира
 - **Version:** 0.1.0, simai.effect 1.1.0
 - **Surfaces:** hero, section, dashboard, sign-in
 - **Tags:** lines, particles
-- **Role:** Networks and integrations. Dark scheme only.
+- **Role:** Networks, logistics, travel. Dark scheme only.
 
 ## Settings
 
@@ -15,6 +15,7 @@ A dotted world map; pulses fly along arcs between cities.
 | `speed` | integer | 10–300 % | `100` | Speed |
 | `intensity` | integer | 10–100 % | `70` | Intensity |
 | `density` | integer | 10–100 % | `50` | Density |
+| `show` | choice | `signals`, `flights` | `"signals"` | Show |
 | `interactive` | boolean | — | `true` | React to the pointer. The pointer lights the nearest city, a click adds a node, a press-drag draws a link |
 
 ## Schemes

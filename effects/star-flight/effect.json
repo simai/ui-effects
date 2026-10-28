@@ -2,7 +2,7 @@
   "schema": "simai.effect",
   "schema_version": 1,
   "id": "star-flight",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "label": {
     "ru": "Звёздный полёт",
     "en": "Star flight"
@@ -64,6 +64,19 @@
       "hint": {
         "ru": "Сколько газа видно между звёздами",
         "en": "How much gas shows between the stars"
+      }
+    },
+    {
+      "key": "interactive",
+      "type": "boolean",
+      "label": {
+        "ru": "Реагировать на указатель",
+        "en": "React to the pointer"
+      },
+      "default": true,
+      "hint": {
+        "ru": "Клик — газ на несколько секунд, удержание — разгон и варп-прыжок",
+        "en": "A click opens the throttle for a few seconds, holding accelerates into warp"
       }
     }
   ],

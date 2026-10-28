@@ -8,6 +8,10 @@
 // palette. The scene is deterministic: the clock starts at a fixed time, and the 2D stars come from
 // a seeded generator. Reduced motion draws one still frame; a hidden tab or an area off screen asks
 // for no frames.
+//
+// A click opens the throttle for a moment; holding the button keeps accelerating and, after a
+// second, goes to warp: the stars stretch into streaks rushing past, as in the films. Letting go
+// drops back to cruising speed.
 
 const VERTEX = 'attribute vec2 p; void main(){ gl_Position = vec4(p, 0.0, 1.0); }';
 const FRAGMENT = `
@@ -16,6 +20,8 @@ uniform vec2 res;
 uniform float time;
 uniform float intensity;
 uniform float nebula;
+uniform float travel;
+uniform float warp;
 float hash(vec2 p) { p = fract(p * vec2(123.34, 456.21)); p += dot(p, p + 45.32); return fract(p.x * p.y); }
 vec2 hash2(vec2 p) { float n = hash(p); return vec2(n, hash(p + n)); }
 float noise(vec2 p) {
@@ -81,7 +87,7 @@ col += stars(uv * 70.0, 91.0) * (0.2 + band * 0.9) * 0.45; // distant stars, den
 vec2 lightDir = normalize(vec2(-0.6, 0.8));
 const float N = 5.0;
 for (float i = 0.0; i < 1.0; i += 1.0 / N) {
-float depth = fract(i + t * 0.035);
+float depth = fract(i + travel * 0.035);
 float scale = mix(5.0, 0.45, depth);
 float fade = smoothstep(0.0, 0.35, depth) * smoothstep(1.0, 0.75, depth);
 vec2 p = uv * rot(i * 6.2831 + t * 0.01) * scale + i * 31.7;
@@ -115,10 +121,31 @@ col = col * (1.0 - 0.6 * dust * fade) + vec3(0.08, 0.03, 0.012) * dust * fade * 
 // Star layers, flying past.
 const float S = 4.0;
 for (float i = 0.0; i < 1.0; i += 1.0 / S) {
-float depth = fract(i + t * 0.05);
+float depth = fract(i + travel * 0.05);
 float scale = mix(28.0, 1.2, depth);
 float fade = depth * smoothstep(1.0, 0.85, depth);
-col += stars(uv * scale + i * 453.2, i * 17.0) * fade;
+col += stars(uv * scale + i * 453.2, i * 17.0) * fade * (1.0 - warp * 0.7);
+}
+// Warp: thin streaks running out from the centre, each a star stretched by the speed. Every
+// narrow sector of angle holds one streak at its own angle, phase and length.
+if (warp > 0.001) {
+float r = length(uv), ang = atan(uv.y, uv.x), lr = log(r + 1e-4);
+for (float ring = 0.0; ring < 3.0; ring += 1.0) {
+float count = 90.0 + ring * 70.0;
+float a = (ang + 3.14159) / 6.28318 * count + ring * 0.37;
+float sect = floor(a);
+float h1 = hash(vec2(sect, ring * 7.1)), h2 = hash(vec2(sect + 3.3, ring)), h3 = hash(vec2(ring, sect * 1.7));
+float off = (fract(a) - (0.2 + 0.6 * h1)) / count * 6.28318 * r;
+float head = mix(-3.2, 0.7, fract(h2 - travel * (0.05 + 0.03 * h3)));
+float len = mix(0.25, 1.6, warp) * (0.5 + h3);
+float along = head - lr;
+float body = step(0.0, along) * smoothstep(len, 0.0, along) * smoothstep(0.0, 0.04, along + 0.04);
+float thin = smoothstep(0.004 + 0.002 * h1, 0.0, abs(off));
+vec3 hue = mix(vec3(0.62, 0.78, 1.0), vec3(1.0, 0.95, 0.9), h1);
+col += hue * body * thin * smoothstep(-3.2, -1.6, lr) * (0.5 + h2) * warp * 1.4;
+}
+// A cold glow ahead, where the streaks come from.
+col += vec3(0.35, 0.5, 1.0) * exp(-length(uv) * 9.0) * warp * 0.35;
 }
 // Deep backdrop, vignette, a filmic curve that keeps colour in the bright parts, and grain.
 col += mix(vec3(0.012, 0.01, 0.03), vec3(0.03, 0.012, 0.04), uv.y + 0.5) * 0.6;
@@ -172,15 +199,19 @@ function webglRenderer(canvas) {
   const uTime = u('time');
   const uIntensity = u('intensity');
   const uNebula = u('nebula');
+  const uTravel = u('travel');
+  const uWarp = u('warp');
   return {
     // The scene is soft, so it is drawn below screen resolution and scaled up.
     scale: 0.6,
-    draw(clock, values) {
+    draw(clock, values, flight) {
       gl.viewport(0, 0, canvas.width, canvas.height);
       gl.uniform2f(uRes, canvas.width, canvas.height);
       gl.uniform1f(uTime, clock);
       gl.uniform1f(uIntensity, values.intensity / 100);
       gl.uniform1f(uNebula, values.nebula / 100);
+      gl.uniform1f(uTravel, flight.travel);
+      gl.uniform1f(uWarp, flight.warp);
       gl.drawArrays(gl.TRIANGLES, 0, 3);
     },
     destroy() {
@@ -226,7 +257,7 @@ function canvasRenderer(canvas, doc) {
   const stars = Array.from({length: 600}, () => ({x: random() * 2 - 1, y: random() * 2 - 1, z0: random(), c: random()}));
   return {
     scale: 0.75,
-    draw(clock, values) {
+    draw(clock, values, flight) {
       const w = canvas.width, h = canvas.height, base = Math.max(w, h);
       ctx.globalCompositeOperation = 'source-over';
       ctx.globalAlpha = 1;
@@ -235,7 +266,7 @@ function canvasRenderer(canvas, doc) {
       ctx.globalCompositeOperation = 'lighter';
       const light = values.intensity / 100;
       for (const l of layers) {
-        const depth = (l.phase + clock * 0.035) % 1;
+        const depth = (l.phase + flight.travel * 0.035) % 1;
         const fade = Math.min(1, depth / 0.35) * Math.min(1, (1 - depth) / 0.25);
         const size = base * (0.6 + depth * depth * 3.2);
         ctx.save();
@@ -247,11 +278,23 @@ function canvasRenderer(canvas, doc) {
       }
       // Each star's depth is a function of the clock, so a frame depends on the time alone.
       for (const s of stars) {
-        const z = 0.02 + (((s.z0 - clock * 0.05) % 0.98) + 0.98) % 0.98;
+        const z = 0.02 + (((s.z0 - flight.travel * 0.05) % 0.98) + 0.98) % 0.98;
         const px = w / 2 + (s.x / z) * base * 0.35, py = h / 2 + (s.y / z) * base * 0.35;
         if (px < 0 || py < 0 || px > w || py > h) continue;
         const b = Math.min(1, (1 - z) * 1.3) * light, r = Math.max(0.5, (1 - z) * 1.8);
-        ctx.fillStyle = s.c > 0.7 ? `rgba(255,225,200,${b})` : `rgba(210,230,255,${b})`;
+        const colour = s.c > 0.7 ? `rgba(255,225,200,${b})` : `rgba(210,230,255,${b})`;
+        if (flight.warp > 0.01) {
+          // At warp a star is a streak back towards the centre.
+          const back = z * (1 + flight.warp * 2.5);
+          ctx.strokeStyle = colour;
+          ctx.lineWidth = r;
+          ctx.beginPath();
+          ctx.moveTo(w / 2 + (s.x / back) * base * 0.35, h / 2 + (s.y / back) * base * 0.35);
+          ctx.lineTo(px, py);
+          ctx.stroke();
+          continue;
+        }
+        ctx.fillStyle = colour;
         ctx.beginPath();
         ctx.arc(px, py, r, 0, Math.PI * 2);
         ctx.fill();
@@ -277,12 +320,25 @@ export function mount(host, settings, context = {}) {
   let frame = 0;
   let last = 0;
   let clock = START;
+  // The flight: travel is the distance flown; boost and warp raise its rate for a while.
+  const flight = {travel: START, boost: 0, warp: 0, held: 0, down: false};
 
-  const draw = () => renderer.draw(clock, values);
+  const draw = () => renderer.draw(clock, values, flight);
   const loop = (now) => {
     frame = 0;
-    clock += clamp((now - (last || now)) / 1000, 0, 0.05) * (values.speed / 100);
+    const dt = clamp((now - (last || now)) / 1000, 0, 0.05);
     last = now;
+    if (flight.down) {
+      flight.held += dt;
+      flight.boost = Math.min(1, flight.boost + dt * 1.5);
+      if (flight.held > 1) flight.warp = Math.min(1, flight.warp + dt * 0.7);
+    } else {
+      flight.boost = Math.max(0, flight.boost - dt * 0.6);
+      flight.warp = Math.max(0, flight.warp - dt * 0.8);
+    }
+    const rate = values.speed / 100;
+    clock += dt * rate;
+    flight.travel += dt * rate * (1 + flight.boost * 4 + flight.warp * 22);
     draw();
     schedule();
   };
@@ -310,6 +366,25 @@ export function mount(host, settings, context = {}) {
   doc.addEventListener('visibilitychange', onVisibility);
   const onMotion = () => { still = Boolean(context.reducedMotion) || motion.matches; if (still) { stop(); draw(); } else schedule(); };
   motion?.addEventListener?.('change', onMotion);
+  // The throttle reads presses on the window inside the area, never from a link, a button or a
+  // field over it: the area itself takes no pointer events.
+  const inside = (event) => {
+    if (values.interactive === false || still || paused || event.button !== 0) return false;
+    if (event.target instanceof Element && event.target.closest('a,button,input,textarea,select,label,[role="button"],[contenteditable]')) return false;
+    const box = host.getBoundingClientRect();
+    return event.clientX >= box.left && event.clientX <= box.right && event.clientY >= box.top && event.clientY <= box.bottom;
+  };
+  const onDown = (event) => {
+    if (!inside(event)) return;
+    flight.down = true;
+    flight.held = 0;
+    flight.boost = Math.max(flight.boost, 0.6);
+    schedule();
+  };
+  const onUp = () => { flight.down = false; };
+  win.addEventListener('pointerdown', onDown, {passive: true});
+  win.addEventListener('pointerup', onUp, {passive: true});
+  win.addEventListener('pointercancel', onUp, {passive: true});
 
   resize();
   schedule();
@@ -327,6 +402,9 @@ export function mount(host, settings, context = {}) {
       screen.disconnect();
       doc.removeEventListener('visibilitychange', onVisibility);
       motion?.removeEventListener?.('change', onMotion);
+      win.removeEventListener('pointerdown', onDown);
+      win.removeEventListener('pointerup', onUp);
+      win.removeEventListener('pointercancel', onUp);
       renderer.destroy();
       canvas.remove();
     },

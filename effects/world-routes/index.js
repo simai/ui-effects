@@ -1,4 +1,4 @@
-// Signals (simai.effect 1.1.0; dark scheme only): a dotted world map; pulses fly along arcs between cities.
+// World routes (simai.effect 1.1.0; dark scheme only): a dotted world map; signals or planes travel between the capitals.
 //
 // The lifecycle is the catalogue template's: one canvas in the host, devicePixelRatio capped at 2,
 // a seeded scene (the same picture on every mount at the defaults), one still frame for reduced
@@ -45,11 +45,27 @@ function readTones(host, scheme) {
   return tones;
 }
 
-// A dotted world map (Natural Earth land, public domain, 180x72 cells, -180..180 by 80..-58 degrees),
-// with cities as nodes and pulses flying along arcs between them.
+// A dotted world map (Natural Earth land, public domain, 180x72 cells, -180..180 by 80..-58 degrees)
+// with world capitals as nodes, and on the routes between them either data pulses flying along arcs
+// or planes on their flights, each trailing a fading contrail.
 // Pointer: the nearest city lights up and sends to its links; a click opens a new node that pings its
 // three nearest; a press-drag draws a link of your own.
 const MASK_W = 180, MASK_H = 72;
+// A plane seen from above, nose along +x: fuselage, wings and tail, mirrored about the axis.
+const PLANE = [[1, 0], [0.75, 0.09], [0.2, 0.11], [-0.15, 0.95], [-0.32, 0.95], [-0.18, 0.12], [-0.72, 0.1], [-0.92, 0.42], [-1.02, 0.42], [-0.95, 0]];
+function plane(ctx, x, y, angle, size, colour) {
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.rotate(angle);
+  ctx.scale(size, size);
+  ctx.beginPath();
+  PLANE.forEach(([px, py], i) => (i ? ctx.lineTo(px, py) : ctx.moveTo(px, py)));
+  for (let i = PLANE.length - 2; i > 0; i -= 1) ctx.lineTo(PLANE[i][0], -PLANE[i][1]);
+  ctx.closePath();
+  ctx.fillStyle = colour;
+  ctx.fill();
+  ctx.restore();
+}
 // World capitals by weight, as [longitude, latitude]: the first ones are always shown.
 const CAPITALS = [[-0.13, 51.51], [-77.04, 38.91], [37.62, 55.76], [116.4, 39.9], [139.69, 35.69], [2.35, 48.86], [13.4, 52.52], [77.21, 28.61],
   [-47.93, -15.78], [31.24, 30.04], [151.21, -33.87], [-99.13, 19.43], [-75.7, 45.42], [54.37, 24.45], [103.82, 1.35], [126.98, 37.57],
@@ -130,22 +146,37 @@ const SCENE = {
       if (state.hover >= 0) state.nodes[state.hover].glow = 1;
     }
     state.arcs = state.arcs.filter((arc) => arc.life === Infinity || t - arc.born < arc.life);
+    const flights = values.show === 'flights';
     for (const arc of state.arcs) {
       const A = state.nodes[arc.a], B = state.nodes[arc.b];
       if (!A || !B) continue;
-      const [ax, ay] = A.at, [bx, by] = B.at;
+      // Half the planes fly each route the other way.
+      const [ax, ay] = flights && arc.phase > 0.5 ? B.at : A.at, [bx, by] = flights && arc.phase > 0.5 ? A.at : B.at;
       const mx = (ax + bx) / 2, my = (ay + by) / 2 - Math.hypot(bx - ax, by - ay) * arc.lift;
       const lit = arc.a === state.hover || arc.b === state.hover || arc.life !== Infinity;
-      ctx.strokeStyle = rgba(tones.node, (lit ? 0.35 : 0.12) * k);
+      ctx.strokeStyle = rgba(tones.node, (lit ? 0.35 : flights ? 0.08 : 0.12) * k);
       ctx.lineWidth = 1;
+      if (flights) ctx.setLineDash([2, 4]);
       ctx.beginPath();
       ctx.moveTo(ax, ay);
       ctx.quadraticCurveTo(mx, my, bx, by);
       ctx.stroke();
-      const speed = lit ? arc.speed * 2.2 : arc.speed;
+      ctx.setLineDash([]);
+      const speed = (lit ? arc.speed * 2.2 : arc.speed) * (flights ? 0.35 : 1);
+      const point = (q) => [(1 - q) * (1 - q) * ax + 2 * (1 - q) * q * mx + q * q * bx, (1 - q) * (1 - q) * ay + 2 * (1 - q) * q * my + q * q * by];
       const q = (arc.phase + t * speed) % 1;
-      const qx = (1 - q) * (1 - q) * ax + 2 * (1 - q) * q * mx + q * q * bx;
-      const qy = (1 - q) * (1 - q) * ay + 2 * (1 - q) * q * my + q * q * by;
+      const [qx, qy] = point(q);
+      if (flights) {
+        // A contrail fading behind the plane, then the plane turned along its course.
+        for (let i = 1; i <= 8; i += 1) {
+          const [x0, y0] = point(Math.max(0, q - (i - 1) * 0.012)), [x1, y1] = point(Math.max(0, q - i * 0.012));
+          ctx.strokeStyle = rgba(tones.hot, 0.4 * (1 - i / 9) * k);
+          ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(x1, y1); ctx.stroke();
+        }
+        const [nx, ny] = point(Math.min(1, q + 0.005));
+        plane(ctx, qx, qy, Math.atan2(ny - qy, nx - qx), lit ? 6.5 : 5, rgba(lit ? tones.hot : tones.node, 0.95 * k));
+        continue;
+      }
       ctx.fillStyle = rgba(lit ? tones.hot : tones.pulse, 0.9 * k);
       ctx.beginPath();
       ctx.arc(qx, qy, lit ? 2.6 : 2, 0, Math.PI * 2);

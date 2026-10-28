@@ -12,13 +12,13 @@
   },
   "effects": {
     "aurora-curtain": {
-      "digest": "2961c916a243638d8d6216b2c375ab5568199c23e300b93af164a1456ab3bdf3",
+      "digest": "e36d620395a1cbd5f933d8c495d790202f99b66ef85860f3a0498af231bb1dea",
       "passed": 14,
       "total": 14,
       "failed": []
     },
     "star-flight": {
-      "digest": "70b32526dd476a02cc0b17a1591397ce71a84fe746b82800054687fec0a7857c",
+      "digest": "f3a8cb936768fe5cb68e1b65f2100c8a2edfcf133b35c682a677a5bc6764b31b",
       "passed": 14,
       "total": 14,
       "failed": []
@@ -66,7 +66,7 @@
       "failed": []
     },
     "rain-glass": {
-      "digest": "1be0dae68ec9cc41248c594444c0ad75c9526addc09c70de250daebfe46c0712",
+      "digest": "3448f30dbdd9faafce8027bff68228c97a0166a48812e6652a1ceec8fdf4f2b0",
       "passed": 14,
       "total": 14,
       "failed": []
@@ -114,13 +114,7 @@
       "failed": []
     },
     "city-lights": {
-      "digest": "5958b7643c810c394d3f4dd34c05dbc3ea57155f043565ad9a4318eadf8a3336",
-      "passed": 14,
-      "total": 14,
-      "failed": []
-    },
-    "signals": {
-      "digest": "6095d49b0b898d13c63deb9561b657027cec05b075dd92a73182a8cd3c812158",
+      "digest": "456421fb9971f503de1d24f9f391c322fe568ada9e1360f1f464d100c1c99976",
       "passed": 14,
       "total": 14,
       "failed": []
@@ -132,7 +126,7 @@
       "failed": []
     },
     "fabric-grid": {
-      "digest": "cc5f9343dffc4efc270cad2005e49c32259659b8b6ada1189a1fbf0acc5d2f2e",
+      "digest": "55bec8aa598c7d0746e2afed869ac377d0869c29e5b1dd21f009ee2a2c8f2703",
       "passed": 17,
       "total": 17,
       "failed": []
@@ -150,7 +144,19 @@
       "failed": []
     },
     "particle-shapes": {
-      "digest": "6dfe91ce9e049372c8ed1f1c439fa5eb2f40c37508d3b6d48bf9f92930d679e1",
+      "digest": "a15052fc903ac14b4b207d2178cda146c7a9707e45673861c3bcd80b03dedb91",
+      "passed": 17,
+      "total": 17,
+      "failed": []
+    },
+    "world-routes": {
+      "digest": "ae7d2fe96d28319a83968ff29283b12f069a12288e75e8e7045b58cb12278ffc",
+      "passed": 14,
+      "total": 14,
+      "failed": []
+    },
+    "sand-picture": {
+      "digest": "29cb54d9a1de7540a4835a86c34ea6e46c1a17a95d9990c0fcaa4435f74abafb",
       "passed": 17,
       "total": 17,
       "failed": []

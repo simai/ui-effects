@@ -103,8 +103,8 @@
       },
       "default": true,
       "hint": {
-        "ru": "Клик рассыпает часть текста, удержание закручивает вихрь",
-        "en": "A click scatters part of the text, holding whirls it"
+        "ru": "Клик нагревает частицы вокруг, удержание греет постоянно",
+        "en": "A click heats the particles round it, holding keeps heating"
       }
     }
   ],

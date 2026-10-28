@@ -1,6 +1,6 @@
 # Particle text (`particle-shapes`)
 
-Particles hold a text, scatter from a click and come back.
+Particles in Brownian motion write a text and dissolve into gas again.
 
 - **Russian name:** Узор частиц
 - **Version:** 0.1.0, simai.effect 1.1.0
@@ -17,7 +17,7 @@ Particles hold a text, scatter from a click and come back.
 | `density` | integer | 10–100 % | `50` | Density |
 | `size` | integer | 30–100 % | `100` | Text size. 100 % fits the text to the area |
 | `text` | text | up to 80 characters | `"SIMAI"` | Text. Up to four lines |
-| `interactive` | boolean | — | `true` | React to the pointer. A click scatters part of the text, holding whirls it |
+| `interactive` | boolean | — | `true` | React to the pointer. A click heats the particles round it, holding keeps heating |
 
 ## Schemes
 

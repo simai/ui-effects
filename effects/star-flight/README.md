@@ -3,7 +3,7 @@
 A slow flight through stars and nebulae.
 
 - **Russian name:** Звёздный полёт
-- **Version:** 1.0.0, simai.effect 1.1.0
+- **Version:** 1.1.0, simai.effect 1.1.0
 - **Author:** Rim Zabarov / SIMAI
 - **Surfaces:** sign-in, hero, section, dashboard
 - **Tags:** glow, sky, depth
@@ -16,6 +16,7 @@ A slow flight through stars and nebulae.
 | `speed` | integer | 10–300 % | `100` | Speed |
 | `intensity` | integer | 10–100 % | `70` | Intensity |
 | `nebula` | integer | 0–100 % | `60` | Nebulae. How much gas shows between the stars |
+| `interactive` | boolean | — | `true` | React to the pointer. A click opens the throttle for a few seconds, holding accelerates into warp |
 
 ## Schemes
 

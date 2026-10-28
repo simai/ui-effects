@@ -1,4 +1,4 @@
-// Particle text (simai.effect 1.1.0; schemes dark and light): particles hold a text, scatter from a click and come back.
+// Particle text (simai.effect 1.1.0; schemes dark and light): particles in Brownian motion write a text and dissolve into gas again.
 //
 // The lifecycle is the catalogue template's: one canvas in the host, devicePixelRatio capped at 2,
 // a seeded scene (the same picture on every mount at the defaults), one still frame for reduced
@@ -45,15 +45,19 @@ function readTones(host, scheme) {
   return tones;
 }
 
-// Particles hold a text of one or more lines, breathing a little, and now and then scatter and gather
-// again. The text fits the area by itself (size 100 % fills it comfortably). A click scatters the part
-// of the text it lands on, and the particles fly back; holding the button whirls the ones nearby.
+// Particles in Brownian motion that write a text and let it go again. They jitter and wander as a
+// warm gas; then the text writes itself from left to right, each particle pulled to its place while
+// still trembling a little; it holds, and dissolves again from left to right, and the gas wanders on
+// from wherever it is, so no two gatherings look the same. A share of the particles never joins and
+// stays gas. The text fits the area by itself. A click heats the particles round it: they shake
+// loose and settle back as they cool; holding the button keeps heating them.
 const SCENE = {
   home: 'dark', seed: 177, reseed: ['density', 'text', 'size'],
   tones: (read, scheme) => scheme === 'light'
     ? {ground: read('--sf-neutral-98', '#faf9fe'), dot: read('--sf-primary-40', '#005bbe'), alt: read('--sf-tertiary-40', '#7c4c86')}
     : {ground: read('--sf-neutral-5', '#111318'), dot: read('--sf-primary-80', '#acc7ff'), alt: read('--sf-tertiary-80', '#e9b4f2')},
   setup(env, random) {
+    const {w, h} = env;
     const lines = String(env.values.text || 'SIMAI').split(/\r?\n/).map((line) => line.trim()).filter(Boolean).slice(0, 4);
     if (!lines.length) lines.push('SIMAI');
     // Fit: the widest line takes about 70 % of the width and the block at most 55 % of the height,
@@ -61,8 +65,8 @@ const SCENE = {
     const probe = new OffscreenCanvas(8, 8).getContext('2d');
     probe.font = '700 100px system-ui, sans-serif';
     const widest = Math.max(...lines.map((line) => probe.measureText(line).width), 1);
-    const lineHeight = Math.max(12, Math.min(env.w * 0.7 / widest * 100, env.h * 0.55 / (lines.length * 1.12)) * (env.values.size / 100));
-    const off = new OffscreenCanvas(Math.ceil(env.w), Math.ceil(lineHeight * lines.length * 1.15 + 8));
+    const lineHeight = Math.max(12, Math.min(w * 0.7 / widest * 100, h * 0.55 / (lines.length * 1.12)) * (env.values.size / 100));
+    const off = new OffscreenCanvas(Math.ceil(w), Math.ceil(lineHeight * lines.length * 1.15 + 8));
     const o = off.getContext('2d');
     o.fillStyle = '#fff';
     o.font = `700 ${lineHeight}px system-ui, sans-serif`;
@@ -70,53 +74,67 @@ const SCENE = {
     o.textBaseline = 'middle';
     lines.forEach((line, i) => o.fillText(line, off.width / 2, lineHeight * 0.6 + i * lineHeight * 1.12));
     const pixels = o.getImageData(0, 0, off.width, off.height).data;
-    const step = Math.max(2, Math.round(lineHeight / 28 * (1.6 - env.values.density / 100)));
-    const top = (env.h - off.height) / 2;
+    const step = Math.max(3, Math.round(lineHeight / 22 * (1.6 - env.values.density / 100)));
+    const top = (h - off.height) / 2;
     const particles = [];
+    const free = () => [random() * w, random() * h];
     for (let y = 0; y < off.height; y += step) for (let x = 0; x < off.width; x += step) {
       if (pixels[(y * off.width + x) * 4 + 3] < 128) continue;
-      const home = [random() * env.w, random() * env.h];
-      particles.push({target: [x, y + top], home, x: x, y: y + top, vx: 0, vy: 0, phase: random() * 6, alt: random() < 0.2});
+      // A still frame shows the text; a moving one starts as gas.
+      const [fx, fy] = env.still ? [x, y + top] : free();
+      particles.push({target: [x, y + top], x: fx, y: fy, vx: 0, vy: 0, heat: 0, alt: random() < 0.2});
     }
-    return {particles, size: 1.6, whirl: false, reach: Math.min(env.w, env.h) * 0.16};
-  },
-  click(env, x, y) {
-    // Only the part of the text under the click comes apart.
-    const reach = env.state.reach;
-    for (const p of env.state.particles) {
-      const ex = p.x - x, ey = p.y - y, d = Math.hypot(ex, ey) || 1;
-      if (d > reach) continue;
-      const kick = 14 * (1 - d / reach) + 4;
-      p.vx += ex / d * kick + (hash2(p.x, p.y) - 0.5) * 3; p.vy += ey / d * kick + (hash2(p.y, p.x) - 0.5) * 3;
+    for (let i = 0, n = Math.round(particles.length * 0.25); i < n; i += 1) {
+      const [fx, fy] = free();
+      particles.push({target: null, x: fx, y: fy, vx: 0, vy: 0, heat: 0, alt: random() < 0.3});
     }
+    return {particles, random, reach: Math.min(w, h) * 0.18, last: null};
   },
-  press(env) { env.state.whirl = true; },
-  release(env) { env.state.whirl = false; },
+  click(env, x, y) { heat(env.state, x, y, 4); },
   draw(env, t) {
     const {ctx, w, h, tones, state, values, pointer, scheme} = env;
     const k = values.intensity / 100;
+    const dt = state.last === null ? 0 : Math.min(0.05, Math.max(0, t - state.last));
+    state.last = t;
+    const frames = dt * 60;
     ctx.fillStyle = rgba(tones.ground);
     ctx.fillRect(0, 0, w, h);
-    // Every 24 seconds the text comes apart for a while and gathers again.
-    const c = (t / 24) % 1;
-    const form = c < 0.8 ? 1 : c < 0.9 ? 1 - smooth((c - 0.8) / 0.1) : smooth((c - 0.9) / 0.1);
-    const px = pointer.x * w, py = pointer.y * h;
+    if (pointer.down && pointer.on) heat(state, pointer.x * w, pointer.y * h, 0.25 * frames);
+    // The cycle: wander, gather (written left to right), hold, dissolve (left to right).
+    const c = (t / 18) % 1;
+    const random = state.random, size = 2;
     for (const p of state.particles) {
-      const tx = mix(p.home[0], p.target[0], form) + Math.sin(t * 0.7 + p.phase) * 1.2;
-      const ty = mix(p.home[1], p.target[1], form) + Math.cos(t * 0.6 + p.phase) * 1.2;
-      // A spring back to its place, damped.
-      p.vx += (tx - p.x) * 0.02; p.vy += (ty - p.y) * 0.02;
-      if (state.whirl && pointer.down) {
-        const ex = p.x - px, ey = p.y - py, d = Math.hypot(ex, ey) || 1;
-        if (d < state.reach * 1.4) { const f = (1 - d / (state.reach * 1.4)) * 2.2; p.vx += -ey / d * f - ex / d * f * 0.3; p.vy += ex / d * f - ey / d * f * 0.3; }
-      }
-      p.vx *= 0.9; p.vy *= 0.9;
-      p.x += p.vx; p.y += p.vy;
-      ctx.fillStyle = rgba(p.alt ? tones.alt : tones.dot, (scheme === 'light' ? 0.6 : 0.7) * k * (0.45 + 0.55 * form));
-      ctx.fillRect(p.x - state.size / 2, p.y - state.size / 2, state.size, state.size);
+      let pull = 0;
+      if (p.target && !env.still) {
+        const lag = p.target[0] / w * 0.18;
+        pull = c < 0.62 ? smooth(clamp((c - 0.22 - lag) / 0.2, 0, 1)) : c < 0.8 ? 1 : 1 - smooth(clamp((c - 0.8 - lag) / 0.08, 0, 1));
+      } else if (p.target) pull = 1;
+      pull /= 1 + p.heat * 2;
+      // Brownian kicks, weaker while held in the text, stronger while hot.
+      const jolt = (1 - pull * 0.7) * 0.55 * (1 + p.heat * 3) * Math.sqrt(frames);
+      p.vx += (random() + random() + random() - 1.5) * jolt;
+      p.vy += (random() + random() + random() - 1.5) * jolt;
+      if (p.target) { p.vx += (p.target[0] - p.x) * 0.006 * pull * frames; p.vy += (p.target[1] - p.y) * 0.006 * pull * frames; }
+      // Soft walls keep the gas in the area.
+      if (p.x < 0) p.vx += 0.05 * frames; else if (p.x > w) p.vx -= 0.05 * frames;
+      if (p.y < 0) p.vy += 0.05 * frames; else if (p.y > h) p.vy -= 0.05 * frames;
+      const damp = Math.pow(0.9 - pull * 0.06, frames);
+      p.vx *= damp; p.vy *= damp;
+      p.x += p.vx * frames; p.y += p.vy * frames;
+      p.heat *= Math.pow(0.975, frames);
+      const bright = p.target ? 0.4 + 0.6 * pull : 0.35;
+      ctx.fillStyle = rgba(p.alt ? tones.alt : tones.dot, (scheme === 'light' ? 0.75 : 0.8) * k * bright);
+      ctx.fillRect(p.x - size / 2, p.y - size / 2, size, size);
     }
   },
 };
+// Heat the particles round a point: the closer, the hotter.
+function heat(state, x, y, amount) {
+  for (const p of state.particles) {
+    const d = Math.hypot(p.x - x, p.y - y);
+    if (d < state.reach) p.heat = Math.min(6, p.heat + amount * (1 - d / state.reach));
+  }
+}
 
 export function mount(host, settings, context = {}) {
   const doc = host.ownerDocument;

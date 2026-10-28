@@ -2,7 +2,7 @@
   "schema": "simai.effect",
   "schema_version": 1,
   "id": "rain-glass",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "label": {
     "ru": "Дождь на стекле",
     "en": "Rain on glass"
@@ -74,6 +74,23 @@
       "max": 100,
       "step": 5,
       "unit": "%"
+    },
+    {
+      "key": "traffic",
+      "type": "integer",
+      "label": {
+        "ru": "Машины",
+        "en": "Traffic"
+      },
+      "default": 40,
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "hint": {
+        "ru": "Как часто проезжают машины",
+        "en": "How often cars go by"
+      }
     },
     {
       "key": "interactive",

@@ -2,7 +2,7 @@
   "schema": "simai.effect",
   "schema_version": 1,
   "id": "aurora-curtain",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "label": {
     "ru": "Полярное сияние",
     "en": "Aurora curtain"
@@ -48,6 +48,23 @@
       "max": 100,
       "step": 5,
       "unit": "%"
+    },
+    {
+      "key": "contrast",
+      "type": "integer",
+      "label": {
+        "ru": "Контрастность",
+        "en": "Contrast"
+      },
+      "default": 35,
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "hint": {
+        "ru": "Насколько лучи выделяются на фоне сияния",
+        "en": "How far the rays stand out from the glow"
+      }
     },
     {
       "key": "curtains",

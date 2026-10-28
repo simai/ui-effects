@@ -1,6 +1,6 @@
 # Spacetime fabric (`fabric-grid`)
 
-A grid in perspective sinks into funnels under spherical masses; the pointer is a heavy body, a click a gravitational wave.
+A sun and its planets sink funnels into the grid of spacetime; a click sends a gravitational wave.
 
 - **Russian name:** Ткань пространства-времени
 - **Version:** 0.1.0, simai.effect 1.1.0
@@ -15,7 +15,8 @@ A grid in perspective sinks into funnels under spherical masses; the pointer is 
 | `speed` | integer | 10–300 % | `100` | Speed |
 | `intensity` | integer | 10–100 % | `70` | Intensity |
 | `density` | integer | 10–100 % | `50` | Density |
-| `interactive` | boolean | — | `true` | React to the pointer. The pointer is a heavy sphere, a click sends a gravitational wave, holding grows a black hole |
+| `planets` | integer | 1–8 | `6` | Planets |
+| `interactive` | boolean | — | `true` | React to the pointer. The pointer turns the view, a click sends a gravitational wave, holding grows a black hole |
 
 ## Schemes
 

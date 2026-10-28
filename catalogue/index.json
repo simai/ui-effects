@@ -10,15 +10,15 @@
     "ui_source": "d0d01841fc765fb62b2748cd22949dc6723caa17"
   },
   "counts": {
-    "effects": 24,
-    "dual": 12,
+    "effects": 25,
+    "dual": 13,
     "dark": 9,
     "light": 3
   },
   "effects": [
     {
       "id": "aurora-curtain",
-      "version": "1.2.0",
+      "version": "1.3.0",
       "label": {
         "ru": "Полярное сияние",
         "en": "Aurora curtain"
@@ -51,23 +51,23 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "d94c13330270c88467088a5e3db44f1f36c2a238c154a92edd82ea919dee0920",
-          "size": 1518
+          "sha256": "b5bdc934d7b1b2c5560e08cd37d9da2d14f0bcdaf4bfe17db5acc28207056d57",
+          "size": 1941
         },
         {
           "path": "index.js",
-          "sha256": "4715dce61d8aa794ae5a93b91c9dbb648c046c5f21b9f5e25c6f5b61070b7e24",
-          "size": 14270
+          "sha256": "e32d87ed3da0afc4bf84d06b3245b0240338810f693ac36c9484bba806f8fd05",
+          "size": 14599
         },
         {
           "path": "preview.png",
-          "sha256": "ee8e3a5b7f5c2e6a50b4d0815a14586e41c91273f499808381ebcc4fcd525b9e",
-          "size": 110776
+          "sha256": "40980b80f43caf9968906699ad1aa73150e28b27d343b8093a39d267b4431c77",
+          "size": 106997
         },
         {
           "path": "README.md",
-          "sha256": "a90bc1935e95c11cec0b4b9bd7a94ab8df383adde0021090be4278d3117b5e62",
-          "size": 1388
+          "sha256": "3cde1bf661ccbad9ecd115d8d422698ecba9c8a15ff0b1f1c1dc361b363cc61e",
+          "size": 1485
         }
       ],
       "kit": {
@@ -79,7 +79,7 @@
     },
     {
       "id": "star-flight",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "label": {
         "ru": "Звёздный полёт",
         "en": "Star flight"
@@ -113,23 +113,23 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "a0643ba3690ac0906d7310746e2f5381b5b74d04274778c3f6f8f27bf0f52c1c",
-          "size": 1347
+          "sha256": "e617df5d1198e601204d0be3b26d51d1018453bac3bb994137eaec38ceb46bd9",
+          "size": 1815
         },
         {
           "path": "index.js",
-          "sha256": "3934d2756459fde57c2d7731bb01da8d3a95a92d41c93c698bcafc4fa74eef50",
-          "size": 15011
+          "sha256": "52278c6d5a52a41a1aa92fc1bbc96f932f627c3f382ceeb8373ab5a98c9be7e0",
+          "size": 18898
         },
         {
           "path": "preview.png",
-          "sha256": "6d637dd4cc8ce3ce6527a6937a309547ee9f1bd874dfc957068d6fc85e2aa6cf",
-          "size": 213764
+          "sha256": "250a55e71b1c4c81c83ed8aceb3ae584f1dd8469d316a502873bdf860c0bd08b",
+          "size": 213697
         },
         {
           "path": "README.md",
-          "sha256": "6de8c6e3701b13933b8890e193d28835bd960e7c6fb25bdcf4c4429613d1533c",
-          "size": 1294
+          "sha256": "f176a9c353a42931effbaeb89be8f5e0855d81b202c65ef20c0938bd0a0a04f3",
+          "size": 1437
         }
       ],
       "kit": {
@@ -571,13 +571,13 @@
     },
     {
       "id": "rain-glass",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "label": {
         "ru": "Дождь на стекле",
         "en": "Rain on glass"
       },
       "description": {
-        "ru": "Запотевшее окно ночью: за стеклом улица в боке — встречные фары и уезжающие стоп-сигналы; по стеклу можно писать пальцем."
+        "ru": "Запотевшее окно ночью: за стеклом улица в боке, изредка проезжают машины; на стекле капли, по нему можно писать пальцем."
       },
       "role": {
         "ru": "Уютный вечер за окном. Только тёмная схема."
@@ -604,23 +604,23 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "1d948a901ca4a1efafc214f2af408805cdeecf30e16127ca791d0f60f49c1986",
-          "size": 1859
+          "sha256": "bf20186c35f9070dcf36449eccd5d4ab84af0d137fddf09d3f6264bc93707835",
+          "size": 2220
         },
         {
           "path": "index.js",
-          "sha256": "7fda1164fcd6f8d0dee0098a315e855002ec194dcbe2aa186eae111b90719eae",
-          "size": 17703
+          "sha256": "51d56882ed6ab29cf1869c40df8839d07d8f699711dcf62de03d6113a98bcd78",
+          "size": 19945
         },
         {
           "path": "preview.png",
-          "sha256": "b847d6aecd62afb127eade74993df600c5d2a93c9302fa376a80a4ae84a4dac1",
-          "size": 240736
+          "sha256": "4783dfb3a8645fe21b8c95b7a1189c835d597588b32fb44b7b45cfe698fb27f9",
+          "size": 152057
         },
         {
           "path": "README.md",
-          "sha256": "4f29eba21bdbedcf0fc6b73d5b00b136df53adaf6ce76605cb8f89dccc131bb4",
-          "size": 1370
+          "sha256": "5e32754efb597e14e11f4ec29c9b70539e6a6efda145703abaa7a4097eaa032d",
+          "size": 1445
         }
       ],
       "kit": {
@@ -1092,79 +1092,18 @@
         },
         {
           "path": "index.js",
-          "sha256": "8648861d9f3daaad2ea36f44978a5974c7e83291318a73a09fec635e73496ccb",
-          "size": 16937
+          "sha256": "dd07b97a2ee4a7b6bf2f4ff68f162ab9825aa3f669fc276bde3432feaa22bec8",
+          "size": 18489
         },
         {
           "path": "preview.png",
-          "sha256": "41e97c4ddd8f6a42c9d877b75cf17e2859b6a0b3b496ceed40325988b26270b8",
-          "size": 288205
+          "sha256": "8433b015b721e0c5e895d2953ce9f4c8b3508b234fccf6b6169c599ff75234df",
+          "size": 223775
         },
         {
           "path": "README.md",
           "sha256": "d9388e77657134b415754c602491417de98665db1d41822d13560bdd26f88f29",
           "size": 1172
-        }
-      ],
-      "kit": {
-        "status": "pass",
-        "framework": "ui-3521193e0c6b",
-        "passed": 14,
-        "total": 14
-      }
-    },
-    {
-      "id": "signals",
-      "version": "0.1.0",
-      "label": {
-        "ru": "Сигналы",
-        "en": "Signals"
-      },
-      "description": {
-        "ru": "Точечная карта мира; между городами по дугам летят импульсы."
-      },
-      "role": {
-        "ru": "Сеть и интеграции. Только тёмная схема."
-      },
-      "schemes": [
-        "dark"
-      ],
-      "pair": null,
-      "capabilities": [
-        "windows"
-      ],
-      "tags": [
-        "lines",
-        "particles"
-      ],
-      "surfaces": [
-        "hero",
-        "section",
-        "dashboard",
-        "sign-in"
-      ],
-      "path": "effects/signals/",
-      "entry": "index.js",
-      "files": [
-        {
-          "path": "effect.json",
-          "sha256": "67f8735d8832e3478e1111a0f1e11c8a5290242c2194cfc276f9c54b8f3a0ba5",
-          "size": 1674
-        },
-        {
-          "path": "index.js",
-          "sha256": "b0bbc7b02a8a78ab68663b82e57fc18e1c9d3e0611ea2912362749051bb88b31",
-          "size": 16664
-        },
-        {
-          "path": "preview.png",
-          "sha256": "e30114ebc48fc4d9ac055790211a24ecddc00bae01eee5c46592488475e6ce4d",
-          "size": 25303
-        },
-        {
-          "path": "README.md",
-          "sha256": "f2b772b6d99a523b3f531c69822a68927ed408db7542ac3cf49c2040622ada6e",
-          "size": 1257
         }
       ],
       "kit": {
@@ -1243,7 +1182,7 @@
         "en": "Spacetime fabric"
       },
       "description": {
-        "ru": "Сетка в перспективе прогибается воронками под шарами-массами; указатель — тяжёлое тело, клик — гравитационная волна."
+        "ru": "Солнце и планеты продавливают воронки в сетке пространства-времени; клик пускает гравитационную волну."
       },
       "role": {
         "ru": "Наука и глубина: светлая и тёмная схемы."
@@ -1271,23 +1210,23 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "b0fcb3ab19364333428915bde0eb34328d325e535ba94cef35692766c5bb4962",
-          "size": 1748
+          "sha256": "b4b2ae3133b7267a1e383be66c77c56065442af17fa64d672d527cbb9539d8d6",
+          "size": 1963
         },
         {
           "path": "index.js",
-          "sha256": "c369e8b757dd6d5afe2d999f8da2d03bb574f81b4a16f5a89cdab24c8304cca1",
-          "size": 16309
+          "sha256": "d599da91e2544e6ccf482fc73559ddcc4664df0649809477e60c7768e9d99368",
+          "size": 18324
         },
         {
           "path": "preview.png",
-          "sha256": "8bcbe67bac4902386fb18996089a568ef7b1095ff232073fe4a7d0090bc64b63",
-          "size": 74547
+          "sha256": "0d85ec633525b8fe41df88768294d434088bf48f08b3990025e4dd50fb356d2c",
+          "size": 135258
         },
         {
           "path": "README.md",
-          "sha256": "69990a6f32f6d4c8d1ede1f44f7206fe548c5ac2b91bc6ca5cf70d001c8f35de",
-          "size": 1410
+          "sha256": "ba86679ad4a361a622d779083ecbd4266c7b3a3b1dabbb24bdc57ed0176666fc",
+          "size": 1430
         }
       ],
       "kit": {
@@ -1429,7 +1368,7 @@
         "en": "Particle text"
       },
       "description": {
-        "ru": "Частицы держат текст, разлетаются от клика и возвращаются."
+        "ru": "Частицы в броуновском движении то складываются в надпись, то рассыпаются в газ."
       },
       "role": {
         "ru": "Фон с надписью продукта: светлый или тёмный."
@@ -1457,23 +1396,146 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "254b409c29c0b86fdb83e2a995c7006ee8ed7ec3ea2414822e3eaea0dfc39956",
-          "size": 2291
+          "sha256": "f901d10e4462aa07064167ea6f391d16ac8f0d342b4b9b766a10b5ebcc3c3254",
+          "size": 2298
         },
         {
           "path": "index.js",
-          "sha256": "05a2a63257bf2a0ef3188d89f65ce3dae449acad7d78ccb45666ecfe8bf70ec5",
-          "size": 12104
+          "sha256": "b3d299e5354ba18cb9e640121884b222688fb5153ab114b32e9d84399207dbfc",
+          "size": 13133
         },
         {
           "path": "preview.png",
-          "sha256": "9cb9da16b2b78ea928e2b3085bb28cca6ad48943af6cf1adc217637d7f8e4333",
-          "size": 22280
+          "sha256": "ad58667f7eda1d457704ed2ccc3955f325d647b8ea991b9d6c8f6ab213c0f906",
+          "size": 19436
         },
         {
           "path": "README.md",
-          "sha256": "5dac5cfcf17d65d7963525338aa050a2da5b69375751a41b82d2fb77d7e0090c",
-          "size": 1453
+          "sha256": "c24bec1f8533f2cf8d078b9eade06698972a61877f3e1b5b8d35d26988c77a88",
+          "size": 1472
+        }
+      ],
+      "kit": {
+        "status": "pass",
+        "framework": "ui-3521193e0c6b",
+        "passed": 17,
+        "total": 17
+      }
+    },
+    {
+      "id": "world-routes",
+      "version": "0.1.0",
+      "label": {
+        "ru": "Маршруты мира",
+        "en": "World routes"
+      },
+      "description": {
+        "ru": "Точечная карта мира; между столицами летят сигналы или самолёты."
+      },
+      "role": {
+        "ru": "Сеть, логистика, путешествия. Только тёмная схема."
+      },
+      "schemes": [
+        "dark"
+      ],
+      "pair": null,
+      "capabilities": [
+        "windows"
+      ],
+      "tags": [
+        "lines",
+        "particles"
+      ],
+      "surfaces": [
+        "hero",
+        "section",
+        "dashboard",
+        "sign-in"
+      ],
+      "path": "effects/world-routes/",
+      "entry": "index.js",
+      "files": [
+        {
+          "path": "effect.json",
+          "sha256": "f979d7d267087bd98caf351e9a2f6854489a1061c07aadb440fb34afd26f4f82",
+          "size": 2189
+        },
+        {
+          "path": "index.js",
+          "sha256": "169d735c70732565a114fd56080185f1e1e239e74fef4bb72acae13266f3145c",
+          "size": 18357
+        },
+        {
+          "path": "preview.png",
+          "sha256": "be164b0ec4427af988ce459d2feb59e17d427eb4cdeacac408c55bcbaa51ca98",
+          "size": 25304
+        },
+        {
+          "path": "README.md",
+          "sha256": "f763fbd6a1155e41907658bfff2054ca470467cf813124801ed39ae557bbe3f6",
+          "size": 1353
+        }
+      ],
+      "kit": {
+        "status": "pass",
+        "framework": "ui-3521193e0c6b",
+        "passed": 14,
+        "total": 14
+      }
+    },
+    {
+      "id": "sand-picture",
+      "version": "0.1.0",
+      "label": {
+        "ru": "Песочная картина",
+        "en": "Sand picture"
+      },
+      "description": {
+        "ru": "Цветной песок между стёклами сыплется струйками и насыпает слоистые горы; картина переворачивается, и пейзаж каждый раз новый."
+      },
+      "role": {
+        "ru": "Спокойный рукотворный фон: светлая и тёмная схемы."
+      },
+      "schemes": [
+        "light",
+        "dark"
+      ],
+      "pair": null,
+      "capabilities": [
+        "windows"
+      ],
+      "tags": [
+        "particles",
+        "paper"
+      ],
+      "surfaces": [
+        "hero",
+        "section",
+        "dashboard",
+        "sign-in"
+      ],
+      "path": "effects/sand-picture/",
+      "entry": "index.js",
+      "files": [
+        {
+          "path": "effect.json",
+          "sha256": "8ffe33835e18056cdf46548142adfb4d0af6f6a1d7ef3b4048ca4414c1fdac37",
+          "size": 1775
+        },
+        {
+          "path": "index.js",
+          "sha256": "86a3099debab0106a4825940cbc7cf1e3e78e995a984b17997535f88c229e682",
+          "size": 15039
+        },
+        {
+          "path": "preview.png",
+          "sha256": "c39e0dfe9f15c37262db0b49a947294c3f0e8bcefa50ff1d7d1a3366347f0b62",
+          "size": 93363
+        },
+        {
+          "path": "README.md",
+          "sha256": "609915915fa009ca9d483b386964c9fa14ad7dad01c030288b7bde7fe9b4a81e",
+          "size": 1397
         }
       ],
       "kit": {

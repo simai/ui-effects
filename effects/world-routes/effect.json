@@ -1,11 +1,11 @@
 {
   "schema": "simai.effect",
   "schema_version": 1,
-  "id": "signals",
+  "id": "world-routes",
   "version": "0.1.0",
   "label": {
-    "ru": "Сигналы",
-    "en": "Signals"
+    "ru": "Маршруты мира",
+    "en": "World routes"
   },
   "author": "SIMAI",
   "entry": "index.js",
@@ -61,6 +61,31 @@
       "max": 100,
       "step": 5,
       "unit": "%"
+    },
+    {
+      "key": "show",
+      "type": "choice",
+      "label": {
+        "ru": "Показывать",
+        "en": "Show"
+      },
+      "default": "signals",
+      "options": [
+        {
+          "value": "signals",
+          "label": {
+            "ru": "Сигналы",
+            "en": "Signals"
+          }
+        },
+        {
+          "value": "flights",
+          "label": {
+            "ru": "Самолёты",
+            "en": "Planes"
+          }
+        }
+      ]
     },
     {
       "key": "interactive",

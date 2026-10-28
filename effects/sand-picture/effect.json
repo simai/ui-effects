@@ -1,0 +1,95 @@
+{
+  "schema": "simai.effect",
+  "schema_version": 1,
+  "id": "sand-picture",
+  "version": "0.1.0",
+  "label": {
+    "ru": "Песочная картина",
+    "en": "Sand picture"
+  },
+  "author": "SIMAI",
+  "entry": "index.js",
+  "preview": "preview.png",
+  "surfaces": [
+    "hero",
+    "section",
+    "dashboard",
+    "sign-in"
+  ],
+  "schemes": [
+    "light",
+    "dark"
+  ],
+  "capabilities": [
+    "windows"
+  ],
+  "settings": [
+    {
+      "key": "speed",
+      "type": "integer",
+      "label": {
+        "ru": "Скорость",
+        "en": "Speed"
+      },
+      "default": 100,
+      "min": 10,
+      "max": 300,
+      "step": 10,
+      "unit": "%"
+    },
+    {
+      "key": "intensity",
+      "type": "integer",
+      "label": {
+        "ru": "Яркость",
+        "en": "Intensity"
+      },
+      "default": 70,
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "%"
+    },
+    {
+      "key": "density",
+      "type": "integer",
+      "label": {
+        "ru": "Плотность",
+        "en": "Density"
+      },
+      "default": 50,
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "%"
+    },
+    {
+      "key": "colours",
+      "type": "integer",
+      "label": {
+        "ru": "Цвета песка",
+        "en": "Sand colours"
+      },
+      "default": 3,
+      "min": 2,
+      "max": 5,
+      "step": 1
+    },
+    {
+      "key": "interactive",
+      "type": "boolean",
+      "label": {
+        "ru": "Реагировать на указатель",
+        "en": "React to the pointer"
+      },
+      "default": true,
+      "hint": {
+        "ru": "Клик переворачивает картину",
+        "en": "A click turns the picture over"
+      }
+    }
+  ],
+  "needs": {
+    "network": false
+  }
+}
