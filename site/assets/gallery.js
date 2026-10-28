@@ -3,7 +3,6 @@ import {badges, groupOf, loadCatalogue, onSiteColour, onSiteTheme, root, text} f
 import {outcomeOf, place} from './place.js';
 
 const list = document.querySelector('[data-cards]');
-const shown = document.querySelector('[data-shown]');
 const filters = document.querySelector('[data-filters]');
 
 const catalogue = await loadCatalogue();
@@ -32,13 +31,8 @@ for (const entry of catalogue.effects) {
   const description = document.createElement('p');
   description.className = 'card__desc small';
   description.textContent = text(entry.description);
-  const pair = document.createElement('p');
-  pair.className = 'card__pair small';
-  pair.textContent = entry.schemes.length > 1
-    ? 'Рисует обе схемы.'
-    : entry.schemes[0] === 'dark' ? 'На светлой странице остаётся тёмным.' : 'На тёмной странице не показывается.';
   const marks = badges(entry);
-  body.append(title, marks, description, pair);
+  body.append(title, marks, description);
   item.append(image, body);
   list.append(item);
 }
@@ -50,13 +44,10 @@ filters.setAttribute('items', JSON.stringify(FILTERS.map(([value, label]) => ({v
 
 const applyFilter = (filter) => {
   if (filters.getAttribute('value') !== filter) filters.setAttribute('value', filter);
-  let visible = 0;
   for (const card of list.children) {
     const on = filter === 'all' || card.dataset.group === filter;
     card.hidden = !on;
-    if (on) visible += 1;
   }
-  shown.textContent = `Показано ${visible} из ${counts.all}.`;
   const url = new URL(location.href);
   if (filter === 'all') url.searchParams.delete('schemes'); else url.searchParams.set('schemes', filter);
   history.replaceState(null, '', url);
@@ -67,11 +58,8 @@ applyFilter(['dual', 'dark', 'light'].includes(initial) ? initial : 'all');
 
 // The intro is itself a placement: hex-conduits in auto mode, drawn in the page's scheme.
 const intro = document.querySelector('[data-intro]');
-const note = document.querySelector('[data-intro-note]');
 const describeIntro = (handle) => {
-  const state = outcomeOf(handle, {id: 'hex-conduits', mode: 'auto'});
-  intro.dataset.state = state.outcome;
-  note.textContent = `Фон этого блока — «${text(byId.get('hex-conduits').label)}»: эффект рисует обе схемы, сейчас ${state.drawn === 'light' ? 'светлую' : 'тёмную'}, и меняется вместе с темой страницы.`;
+  intro.dataset.state = outcomeOf(handle, {id: 'hex-conduits', mode: 'auto'}).outcome;
 };
 let introHandle = null;
 const placeIntro = () => place(intro, {id: 'hex-conduits', themeMode: 'auto'}).then((handle) => {

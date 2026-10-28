@@ -1,0 +1,171 @@
+{
+  "schema": "simai.effect",
+  "schema_version": 1,
+  "id": "text-flow",
+  "version": "1.0.0",
+  "label": {
+    "ru": "Текстовый поток",
+    "en": "Text flow"
+  },
+  "author": "Rim Zabarov / SIMAI",
+  "entry": "index.js",
+  "preview": "preview.png",
+  "surfaces": [
+    "sign-in",
+    "hero",
+    "section",
+    "dashboard"
+  ],
+  "schemes": [
+    "dark"
+  ],
+  "capabilities": [
+    "windows"
+  ],
+  "settings": [
+    {
+      "key": "speed",
+      "type": "integer",
+      "label": {
+        "ru": "Скорость",
+        "en": "Speed"
+      },
+      "default": 100,
+      "min": 10,
+      "max": 200,
+      "step": 10,
+      "unit": "%"
+    },
+    {
+      "key": "intensity",
+      "type": "integer",
+      "label": {
+        "ru": "Свет",
+        "en": "Light"
+      },
+      "default": 52,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "hint": {
+        "ru": "Яркость световых складок",
+        "en": "Brightness of the folds of light"
+      }
+    },
+    {
+      "key": "theme",
+      "type": "choice",
+      "label": {
+        "ru": "Текст",
+        "en": "Text"
+      },
+      "default": "javascript",
+      "options": [
+        {
+          "value": "symbols",
+          "label": {
+            "ru": "Символы",
+            "en": "Symbols"
+          }
+        },
+        {
+          "value": "javascript",
+          "label": {
+            "ru": "JavaScript",
+            "en": "JavaScript"
+          }
+        },
+        {
+          "value": "html",
+          "label": {
+            "ru": "HTML",
+            "en": "HTML"
+          }
+        },
+        {
+          "value": "terminal",
+          "label": {
+            "ru": "Терминал",
+            "en": "Terminal"
+          }
+        },
+        {
+          "value": "easter",
+          "label": {
+            "ru": "С секретами",
+            "en": "With secrets"
+          }
+        }
+      ]
+    },
+    {
+      "key": "size",
+      "type": "integer",
+      "label": {
+        "ru": "Размер букв",
+        "en": "Letter size"
+      },
+      "default": 12,
+      "min": 8,
+      "max": 18,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "key": "base",
+      "type": "integer",
+      "label": {
+        "ru": "Текст в тени",
+        "en": "Text in the dark"
+      },
+      "default": 5,
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "unit": "%"
+    },
+    {
+      "key": "scale",
+      "type": "integer",
+      "label": {
+        "ru": "Размер складок",
+        "en": "Fold size"
+      },
+      "default": 65,
+      "min": 50,
+      "max": 200,
+      "step": 5,
+      "unit": "%"
+    },
+    {
+      "key": "hue",
+      "type": "integer",
+      "label": {
+        "ru": "Оттенок",
+        "en": "Hue"
+      },
+      "default": 190,
+      "min": 0,
+      "max": 360,
+      "step": 5,
+      "unit": "°"
+    },
+    {
+      "key": "interactive",
+      "type": "boolean",
+      "label": {
+        "ru": "Волна по клику",
+        "en": "Wave on click"
+      },
+      "default": true,
+      "hint": {
+        "ru": "Щелчок в области запускает волну света",
+        "en": "A click in the area sends a wave of light"
+      }
+    }
+  ],
+  "needs": {
+    "network": false
+  }
+}

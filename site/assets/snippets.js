@@ -80,7 +80,7 @@ const area = document.querySelector('[data-effect-area]');
 const placement = await SF.Effects.placeEffect(area, {
   effect: ${quote(entry.id)},
   themeMode: ${quote(mode)}, // 'auto' — как у страницы${mode === 'auto' ? '' : '; задан автором'}
-  settings: ${indent(JSON.stringify(values, null, 2), '  ').trimStart()},${windows ? "\n  windows: true, // эффект виден только через карточки [data-sf-effect-window]" : ''}
+  settings: ${indent(JSON.stringify(values, null, 2), '  ').trimStart()},${windows ? "\n  windows: true, // эффект виден только через карточки [data-sf-effect-window]" : "\n  // windows: true — эффект за карточками [data-sf-effect-window]"}
 });
 if (!placement) console.warn('Эффект не запущен:', area.dataset.sfEffectReason);`;
 }

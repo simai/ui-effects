@@ -10,9 +10,9 @@
     "ui_source": "d0d01841fc765fb62b2748cd22949dc6723caa17"
   },
   "counts": {
-    "effects": 17,
+    "effects": 18,
     "dual": 4,
-    "dark": 8,
+    "dark": 9,
     "light": 5
   },
   "effects": [
@@ -68,6 +68,129 @@
           "path": "README.md",
           "sha256": "81a24ccd54650f9ff69eab470c5e8cd784def06665c78a1c329bc0e2fb0c0333",
           "size": 1388
+        }
+      ],
+      "kit": {
+        "status": "pass",
+        "framework": "ui-3521193e0c6b",
+        "passed": 14,
+        "total": 14
+      }
+    },
+    {
+      "id": "star-flight",
+      "version": "1.0.0",
+      "label": {
+        "ru": "Звёздный полёт",
+        "en": "Star flight"
+      },
+      "description": {
+        "ru": "Медленный полёт сквозь звёзды и туманности."
+      },
+      "role": {
+        "ru": "Глубокий космос: звёзды пролетают мимо, газ туманностей светится. Только тёмная схема."
+      },
+      "schemes": [
+        "dark"
+      ],
+      "pair": null,
+      "capabilities": [
+        "windows"
+      ],
+      "tags": [
+        "glow",
+        "sky",
+        "depth"
+      ],
+      "surfaces": [
+        "sign-in",
+        "hero",
+        "section",
+        "dashboard"
+      ],
+      "path": "effects/star-flight/",
+      "entry": "index.js",
+      "files": [
+        {
+          "path": "effect.json",
+          "sha256": "a0643ba3690ac0906d7310746e2f5381b5b74d04274778c3f6f8f27bf0f52c1c",
+          "size": 1347
+        },
+        {
+          "path": "index.js",
+          "sha256": "3934d2756459fde57c2d7731bb01da8d3a95a92d41c93c698bcafc4fa74eef50",
+          "size": 15011
+        },
+        {
+          "path": "preview.png",
+          "sha256": "6d637dd4cc8ce3ce6527a6937a309547ee9f1bd874dfc957068d6fc85e2aa6cf",
+          "size": 213764
+        },
+        {
+          "path": "README.md",
+          "sha256": "6de8c6e3701b13933b8890e193d28835bd960e7c6fb25bdcf4c4429613d1533c",
+          "size": 1294
+        }
+      ],
+      "kit": {
+        "status": "pass",
+        "framework": "ui-3521193e0c6b",
+        "passed": 14,
+        "total": 14
+      }
+    },
+    {
+      "id": "text-flow",
+      "version": "1.0.0",
+      "label": {
+        "ru": "Текстовый поток",
+        "en": "Text flow"
+      },
+      "description": {
+        "ru": "Строки кода бегут в темноте, их подсвечивают медленные складки света."
+      },
+      "role": {
+        "ru": "Код в темноте для продуктов для разработчиков. Только тёмная схема."
+      },
+      "schemes": [
+        "dark"
+      ],
+      "pair": null,
+      "capabilities": [
+        "windows"
+      ],
+      "tags": [
+        "type",
+        "flow"
+      ],
+      "surfaces": [
+        "sign-in",
+        "hero",
+        "section",
+        "dashboard"
+      ],
+      "path": "effects/text-flow/",
+      "entry": "index.js",
+      "files": [
+        {
+          "path": "effect.json",
+          "sha256": "d762fb24c8e35a5db7db7524b4a3cd58fb5f04a2c5a87f93ef00f2e880a9b151",
+          "size": 3331
+        },
+        {
+          "path": "index.js",
+          "sha256": "c42ec0c6324d97a1e5e5629f45eb6e731217d91ca5a4c2070cf77af1df0a0fbe",
+          "size": 12856
+        },
+        {
+          "path": "preview.png",
+          "sha256": "d01e92573d01bb16d6468dde3e8b342eefb9a633307efc420752abe703cee27b",
+          "size": 75705
+        },
+        {
+          "path": "README.md",
+          "sha256": "c42d6c796b1da0e1822baa04f7a56a0099db2e5d23b60d52544c5d33b002012e",
+          "size": 1619
         }
       ],
       "kit": {
@@ -557,65 +680,6 @@
           "path": "README.md",
           "sha256": "37a8e30f2893696bf5f42783f19fdfec7043a7e9bff40a5f7181fbe9b2fb4bc2",
           "size": 1454
-        }
-      ],
-      "kit": {
-        "status": "pass",
-        "framework": "ui-3521193e0c6b",
-        "passed": 14,
-        "total": 14
-      }
-    },
-    {
-      "id": "liquid-chrome",
-      "version": "1.2.0",
-      "label": {
-        "ru": "Жидкий металл",
-        "en": "Liquid metal"
-      },
-      "description": {
-        "ru": "Медленные складки тёмного жидкого металла с узкими цветными бликами."
-      },
-      "role": {
-        "ru": "Тёмный металл, по которому ходит свет."
-      },
-      "schemes": [
-        "dark"
-      ],
-      "pair": null,
-      "capabilities": [
-        "windows"
-      ],
-      "tags": [
-        "material"
-      ],
-      "surfaces": [
-        "sign-in",
-        "hero",
-        "section"
-      ],
-      "path": "effects/liquid-chrome/",
-      "entry": "index.js",
-      "files": [
-        {
-          "path": "effect.json",
-          "sha256": "cdf3a4653f536c198e4995e80107e672020d38009174eb04954d1f45fc17c624",
-          "size": 1706
-        },
-        {
-          "path": "index.js",
-          "sha256": "949512a9876db505d00958cc54d8384a7c69cbb787fb1563ed6f5bb5fa67a397",
-          "size": 13389
-        },
-        {
-          "path": "preview.png",
-          "sha256": "5466333b32e5ca719ad9be481e4c92515f385be5139bb3faa83b049679d829bd",
-          "size": 116716
-        },
-        {
-          "path": "README.md",
-          "sha256": "0a9787c078a632f6cfb71fd7f129e15f50b6c80fee53f12474d08b84caeab898",
-          "size": 1363
         }
       ],
       "kit": {

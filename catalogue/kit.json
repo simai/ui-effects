@@ -17,6 +17,18 @@
       "total": 14,
       "failed": []
     },
+    "star-flight": {
+      "digest": "70b32526dd476a02cc0b17a1591397ce71a84fe746b82800054687fec0a7857c",
+      "passed": 14,
+      "total": 14,
+      "failed": []
+    },
+    "text-flow": {
+      "digest": "a12398b618eb38288ca5532bd32db1f7ed1316c5c199f57961a6598591d7ddb4",
+      "passed": 14,
+      "total": 14,
+      "failed": []
+    },
     "constellation-net": {
       "digest": "4b3ac31883c42d65301d3cb6e72291f9a8b6e9d35f087e27a1afde70697e79cc",
       "passed": 14,
@@ -61,12 +73,6 @@
     },
     "rain-glass": {
       "digest": "45226b29e8a498543ce8ed434ea55af5d395b6462ddb8d232779bd351b889a42",
-      "passed": 14,
-      "total": 14,
-      "failed": []
-    },
-    "liquid-chrome": {
-      "digest": "10893d5bd0f5ed9f914669c7c5490d659080bf2c8c31acbc30f07a120594a2df",
       "passed": 14,
       "total": 14,
       "failed": []

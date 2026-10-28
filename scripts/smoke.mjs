@@ -168,7 +168,8 @@ const chromeContrast = (page) => page.evaluate(() => {
     const element = node.parentElement;
     if (!node.textContent.trim() || seen.has(element)) continue;
     seen.add(element);
-    if (element.closest('[data-effect-area], [hidden], .visually-hidden, .skip, script, style')) continue;
+    // Text over an effect is the contrast readout's: the banner and the window cards are left out here.
+    if (element.closest('[data-effect-area], [data-sf-effect-state], [hidden], .visually-hidden, .skip, script, style')) continue;
     const box = element.getBoundingClientRect();
     if (!box.width || !box.height) continue;
     const style = getComputedStyle(element);
@@ -298,9 +299,9 @@ try {
         }
         let windows = null;
         if (viewport.width === 1440) {
-          await page.click('[data-layouts] [data-sf-button-group-value="windows"]');
+          // The windows are placed at once with the banner.
           windows = await checkLayout('windows');
-          if (shots && ['comet-flow', 'mist-gradient', 'constellation-net'].includes(entry.id)) {
+          if (shots && ['comet-flow', 'mist-gradient', 'star-flight'].includes(entry.id)) {
             await page.evaluate(() => document.querySelector('[data-cards]').scrollIntoView({block: 'center'}));
             await page.screenshot({path: join(shots, `effect-${entry.id}-${tag}-windows.png`)});
           }
@@ -390,10 +391,9 @@ try {
     await context.route('https://blank.test/**', (route) => route.fulfill({status: 200, headers: {'content-type': 'text/html; charset=utf-8'}, body: blank}));
     const page = await context.newPage();
     const configurator = await context.newPage();
-    const codeOf = async (id, layout) => {
+    const codeOf = async (id) => {
       await configurator.goto(`${base}effect/${id}/`);
       await configurator.waitForFunction(() => document.documentElement.dataset.ready === 'true');
-      if (layout === 'windows') await configurator.click('[data-layouts] [data-sf-button-group-value="windows"]');
       return configurator.evaluate(() => Object.fromEntries([...document.querySelectorAll('[data-code]')].map((block) => [block.dataset.code, block.textContent])));
     };
     const open = async (body, head) => {
@@ -424,7 +424,7 @@ try {
     for (const entry of effects) {
       const expected = resolveTheme(reference(entry), 'light', 'auto');
       // HTML tab, hero layout.
-      let code = await codeOf(entry.id, 'hero');
+      const code = await codeOf(entry.id);
       let flush = watch(page, `snippet html ${entry.id}`);
       await open(code.html, code.connect);
       let ok = await settle();
@@ -439,20 +439,27 @@ try {
         return {invalid, keys: Object.keys(json).sort().join(), expected: manifest.settings.map((setting) => setting.key).sort().join()};
       }, {url: `${EFFECTS_CDN}${entry.path}effect.json`, json});
       if (settings.invalid.length || settings.keys !== settings.expected) fail(`snippet json ${entry.id}`, JSON.stringify(settings));
-      // JS tab, windows layout, in a page with its own windows.
-      code = await codeOf(entry.id, 'windows');
-      flush = watch(page, `snippet js ${entry.id}`);
-      await open(`<ul data-effect-area style="list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:0">${'<li data-sf-effect-window style="min-height:160px;border-radius:12px"><b>Окно</b></li>'.repeat(2)}<li style="min-height:160px">Без окна</li></ul><script type="module">\n${code.js}\n</script>`, code.connect);
+      // HTML tab, the windows block: one effect behind the window cards.
+      flush = watch(page, `snippet windows ${entry.id}`);
+      await open(code['html-windows'], code.connect);
       ok = await settle();
       facts = await placed();
-      if (!ok || (expected.shown && (facts.effect !== expected.shown.id || facts.clip !== 'path(')) || facts.windows.some((value) => value !== expected.drawn)) fail(`snippet js ${entry.id}`, `mounted ${JSON.stringify(facts)}`);
+      if (!ok || (expected.shown && (facts.effect !== expected.shown.id || facts.clip !== 'path(')) || facts.windows.some((value) => value !== expected.drawn)) fail(`snippet windows ${entry.id}`, `mounted ${JSON.stringify(facts)}`);
       flush();
-      report.snippets.push({effect: entry.id, html: expected.shown?.id ?? 'hidden', js: facts});
-      console.log(`ok   snippets ${entry.id}: html, json, js (windows)`);
+      const windowsFacts = facts;
+      // JS tab, in a page with its own banner area.
+      flush = watch(page, `snippet js ${entry.id}`);
+      await open(`<section data-effect-area style="min-height:320px;background:var(--sf-surface-0)"><h1>Заголовок</h1></section><script type="module">\n${code.js}\n</script>`, code.connect);
+      ok = await settle();
+      facts = await placed();
+      if (!ok || facts.drawn !== expected.drawn || (expected.shown ? facts.effect !== expected.shown.id : facts.state !== 'hidden')) fail(`snippet js ${entry.id}`, `mounted ${JSON.stringify(facts)}`);
+      flush();
+      report.snippets.push({effect: entry.id, html: expected.shown?.id ?? 'hidden', windows: windowsFacts, js: facts});
+      console.log(`ok   snippets ${entry.id}: html, windows, json, js`);
     }
     // A file that differs from its SHA-256 never runs.
     const victim = effects.find((entry) => entry.schemes.includes('light')) ?? effects[0];
-    const code = await codeOf(victim.id, 'hero');
+    const code = await codeOf(victim.id);
     tamper = `${victim.path}index.js`;
     await open(code.html, code.connect);
     await settle();
@@ -471,5 +478,5 @@ try {
 for (const url of new Set(external)) fail('network', `request outside the allowed hosts: ${url}`);
 report.failures = failures;
 if (jsonOut) writeFileSync(resolve(jsonOut), `${JSON.stringify(report, null, 2)}\n`);
-console.log(`smoke: ${report.pages.length} page views, ${report.snippets.length * 3 + 1} snippet checks, ${failures.length} failing`);
+console.log(`smoke: ${report.pages.length} page views, ${report.snippets.length * 4 + 1} snippet checks, ${failures.length} failing`);
 process.exit(failures.length ? 1 : 0);

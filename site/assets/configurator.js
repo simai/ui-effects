@@ -1,14 +1,14 @@
-// Effect page: a live stage (hero or windows), the theme mode limited to what
-// the effect can draw, settings built from the manifest, a contrast readout,
-// motion controls and «Получить код».
-import {TAGS, badges, config, formatRatio, loadCatalogue, luminance, modeName, onSiteColour, onSiteTheme, ratio, root, schemeName, siteTheme, text} from './common.js';
+// Effect page: a live stage (a banner and a group of windows, both placed at
+// once), the theme mode limited to what the effect can draw, settings built
+// from the manifest, a contrast readout, motion controls on the banner and the
+// code.
+import {badges, config, formatRatio, loadCatalogue, luminance, modeName, onSiteColour, onSiteTheme, ratio, schemeName, text} from './common.js';
 import {loadWithPair, outcomeOf, place} from './place.js';
 import {connectSnippet, htmlSnippet, jsSnippet, jsonSnippet} from './snippets.js';
 
 const html = document.documentElement;
 const id = html.dataset.effect;
 const $ = (selector) => document.querySelector(selector);
-const stage = $('[data-stage]');
 const hero = $('[data-hero]');
 const cards = $('[data-cards]');
 const form = $('[data-form]');
@@ -23,16 +23,13 @@ const entry = byId.get(id);
 const {Effects, main} = await loadWithPair(id);
 const modes = Effects.allowedModes(main.manifest);
 
-const state = {mode: 'auto', layout: 'hero', values: {}, paused: false, reduced: false, placement: null, last: null};
+// Two placements of the same effect: the banner and the windows.
+const state = {mode: 'auto', values: {}, paused: false, reduced: false, placements: [], last: null};
+const forEachPlacement = (call) => state.placements.forEach(call);
 
 // --- Head --------------------------------------------------------------------------
 const facts = $('[data-facts]');
 facts.append(badges(entry));
-const tagLine = document.createElement('span');
-tagLine.className = 'small muted';
-tagLine.textContent = entry.tags.map((tag) => TAGS[tag] || tag).join(' · ');
-facts.append(tagLine);
-$('[data-role]').textContent = text(entry.role);
 
 // --- Theme mode: only the modes the effect can draw ------------------------------------
 // A segmented Button Group of the Framework; a choice arrives as its change event.
@@ -43,7 +40,7 @@ modeGroup.addEventListener('change', (event) => { if (modes.includes(event.detai
 const setMode = (mode) => {
   state.mode = mode;
   if (modeGroup.getAttribute('value') !== mode) modeGroup.setAttribute('value', mode);
-  state.placement?.update(state.values, {themeMode: mode});
+  forEachPlacement((placement) => placement.update(state.values, {themeMode: mode}));
   settleSoon();
   renderCode();
 };
@@ -147,7 +144,7 @@ function buildForm() {
       }
       state.values = {...state.values, [setting.key]: checked.value};
       if (output.isConnected) output.textContent = `${checked.value}${unit}`;
-      state.placement?.update(state.values);
+      forEachPlacement((placement) => placement.update(state.values));
       renderCode();
       scheduleMeasure(300);
     });
@@ -158,54 +155,39 @@ buildForm();
 $('[data-reset]').addEventListener('click', () => {
   state.values = defaults();
   buildForm();
-  state.placement?.update(state.values);
+  forEachPlacement((placement) => placement.update(state.values));
   renderCode();
   scheduleMeasure(300);
 });
 
 // --- Mounting -----------------------------------------------------------------------
-const outcomeText = (current) => {
+// One short line, only when the effect is not drawn as the page asks.
+const policyText = (current) => {
   switch (current.outcome) {
-    case 'pair': return `заменён парой «${text(byId.get(current.shown).label)}» в ${current.drawn === 'light' ? 'светлой' : 'тёмной'} схеме`;
-    case 'dark-kept': return 'показан тёмным: светлой схемы у него нет';
-    case 'hidden': return state.mode === 'auto' ? 'не показан: светлый фон на тёмной странице, вместо него ровная поверхность' : 'не показан';
-    default: return entry.schemes.length > 1 ? `показан в ${current.drawn === 'light' ? 'светлой' : 'тёмной'} схеме` : 'показан как есть';
+    case 'dark-kept': return 'Показан тёмным: светлой версии нет.';
+    case 'hidden': return 'На тёмной странице не показывается: тёмной версии нет.';
+    default: return '';
   }
 };
-
 function describe(current) {
-  const box = $('[data-policy]');
-  box.dataset.outcome = current.outcome;
-  const outcome = $('[data-policy-outcome]');
-  outcome.replaceChildren();
-  const strong = document.createElement('b');
-  strong.textContent = `«${text(entry.label)}»`;
-  outcome.append(strong, ` — ${outcomeText(current)}.`);
-  const missing = ['dark', 'light'].filter((scheme) => !modes.includes(scheme));
-  const where = state.layout === 'windows' ? 'Окна-карточки' : 'Первый экран';
-  $('[data-policy-facts]').textContent = [
-    `Страница ${schemeName(siteTheme())}, режим «${modeName(state.mode)}».`,
-    current.shown ? `${where} в теме theme-${current.drawn}: текст и кнопки над эффектом берут роли этой темы.` : `${where} — ровная поверхность theme-${current.drawn}.`,
-    missing.length ? `«${modeName(missing[0])}» не предлагается: эффект не рисует ${missing[0] === 'light' ? 'светлую' : 'тёмную'} схему.` : '',
-  ].filter(Boolean).join(' ');
+  const line = $('[data-policy]');
+  line.dataset.outcome = current.outcome;
+  line.textContent = policyText(current);
   const note = $('[data-settings-note]');
-  const foreign = current.shown && current.shown !== entry.id;
-  note.hidden = !foreign && current.shown;
-  note.textContent = !current.shown
-    ? 'Сейчас эффект не показан. Настройки сохранятся и применятся, когда он появится.'
-    : foreign ? `Сейчас показана пара «${text(byId.get(current.shown).label)}»: из этих настроек она берёт те, что есть у неё. Настройки относятся к «${text(entry.label)}».` : '';
+  note.hidden = Boolean(current.shown);
+  note.textContent = current.shown ? '' : 'Эффект сейчас не показан; настройки применятся, когда он появится.';
 }
 
-// What the placement shows now: the core follows the page theme on its own,
+// What the placements show now: the core follows the page theme on its own,
 // so this is read again after every change the site makes or sees.
 function settle() {
   const current = state.error
     ? {shown: null, drawn: Effects.pageScheme(), outcome: 'hidden', error: state.error}
-    : state.placement ? outcomeOf(state.placement, {id, pairId: entry.pair, mode: state.mode}) : null;
+    : state.placements[0] ? outcomeOf(state.placements[0], {id, pairId: entry.pair, mode: state.mode}) : null;
   if (!current) return;
   state.last = current;
   errorBox.hidden = !current.error;
-  errorBox.textContent = current.error ? `Эффект не запустился: ${current.error}. Показана ровная поверхность темы.` : '';
+  errorBox.textContent = current.error ? `Эффект не запустился: ${current.error}.` : '';
   html.dataset.outcome = current.outcome;
   html.dataset.drawn = current.drawn;
   html.dataset.shown = current.shown ?? '';
@@ -219,39 +201,33 @@ const settleSoon = () => setTimeout(settle, 60);
 let mounting = 0;
 async function mount() {
   const mine = ++mounting;
-  state.placement?.destroy();
-  state.placement = null;
+  forEachPlacement((placement) => placement.destroy());
+  state.placements = [];
   state.error = null;
-  const windows = state.layout === 'windows';
-  stage.dataset.layout = state.layout;
   html.dataset.mounted = 'pending';
   readout.dataset.measured = 'false';
-  let placement = null;
+  let placements = [];
   try {
-    placement = await place(windows ? cards : hero, {id, themeMode: state.mode, settings: state.values, windows, reducedMotion: state.reduced});
+    const options = {id, themeMode: state.mode, settings: state.values, reducedMotion: state.reduced};
+    placements = await Promise.all([place(hero, options), place(cards, {...options, windows: true})]);
   } catch (error) {
     if (mine !== mounting) return;
     state.error = error?.reason ?? String(error?.message ?? error);
   }
-  if (mine !== mounting) { placement?.destroy(); return; }
-  state.placement = placement;
-  if (state.paused) state.placement?.pause();
+  if (mine !== mounting) { placements.forEach((placement) => placement?.destroy()); return; }
+  state.placements = placements;
+  if (state.paused) forEachPlacement((placement) => placement.pause());
   settle();
 }
 
-$('[data-layouts]').addEventListener('change', (event) => {
-  const layout = event.detail?.value;
-  if (!['hero', 'windows'].includes(layout) || state.layout === layout) return;
-  state.layout = layout;
-  mount();
-  renderCode();
-});
+// The motion controls sit on the banner and act on both placements.
 const pause = $('[data-pause]');
 pause.addEventListener('click', () => {
   state.paused = !state.paused;
   pause.setAttribute('aria-pressed', String(state.paused));
-  pause.classList.toggle('active', state.paused);
-  if (state.paused) state.placement?.pause(); else state.placement?.resume();
+  pause.setAttribute('aria-label', state.paused ? 'Продолжить' : 'Пауза');
+  pause.title = pause.getAttribute('aria-label');
+  forEachPlacement((placement) => (state.paused ? placement.pause() : placement.resume()));
 });
 const reduced = $('[data-reduced]');
 reduced.addEventListener('click', () => {
@@ -309,20 +285,11 @@ const setReadout = (status, message, p5 = null) => {
   readout.dataset.measured = 'true';
   $('[data-readout-text]').textContent = message;
 };
-function measure() {
-  const current = state.last;
-  if (!current) return;
-  const windows = state.layout === 'windows';
-  const area = windows ? cards : hero;
+// Ratios of every text over one area's effect to the pixels under it.
+function ratiosOver(area, selector) {
   const host = area.querySelector(':scope > [data-sf-effect-layer]');
-  const texts = [...area.querySelectorAll(windows ? '[data-effect-window] [data-text]' : '[data-text]')];
-  if (!current.shown || !host) {
-    const worst = Math.min(...texts.map((element) => ratio(luminance(rgba(getComputedStyle(element).color)), luminance(groundOf(element)))));
-    setReadout(worst >= 4.5 ? 'ok' : 'warn', `Эффект не показан: текст на ровной поверхности темы, контраст ${formatRatio(worst)}.`, worst);
-    return;
-  }
-  const canvas = host.querySelector('canvas');
-  if (!canvas || !canvas.width) { setReadout('none', 'Эффект рисует не на canvas — контраст не измерен.'); return; }
+  const canvas = host?.querySelector('canvas');
+  if (!canvas || !canvas.width) return null;
   const box = canvas.getBoundingClientRect();
   const sx = canvas.width / box.width;
   const sy = canvas.height / box.height;
@@ -330,10 +297,10 @@ function measure() {
   copy.width = canvas.width;
   copy.height = canvas.height;
   const context = copy.getContext('2d', {willReadFrequently: true});
-  try { context.drawImage(canvas, 0, 0); } catch (error) { setReadout('none', 'Кадр не читается — контраст не измерен.'); return; }
+  try { context.drawImage(canvas, 0, 0); } catch (error) { return null; }
   const ground = rgba(getComputedStyle(host).backgroundColor);
   const ratios = [];
-  for (const element of texts) {
+  for (const element of area.querySelectorAll(selector)) {
     const ink = luminance(rgba(getComputedStyle(element).color));
     const veil = veilOf(element, area);
     const range = document.createRange();
@@ -354,12 +321,25 @@ function measure() {
       }
     }
   }
-  if (!ratios.length) { setReadout('none', 'Текста над эффектом не видно — контраст не измерен.'); return; }
-  ratios.sort((a, b) => a - b);
+  return ratios;
+}
+// The banner's text and the windows' captions together; the figure is the 5th
+// percentile: 95 % of the text area is at least that.
+function measure() {
+  const current = state.last;
+  if (!current) return;
+  if (!current.shown) {
+    const texts = [...hero.querySelectorAll('[data-text]'), ...cards.querySelectorAll('[data-effect-window] [data-text]')];
+    const worst = Math.min(...texts.map((element) => ratio(luminance(rgba(getComputedStyle(element).color)), luminance(groundOf(element)))));
+    setReadout(worst >= 4.5 ? 'ok' : 'warn', `Контраст текста ${formatRatio(worst)}`, worst);
+    return;
+  }
+  const parts = [ratiosOver(hero, '[data-text]'), ratiosOver(cards, '[data-effect-window] [data-text]')];
+  if (parts.some((part) => part === null)) { setReadout('none', 'Контраст не измерен: эффект рисует не на canvas.'); return; }
+  const ratios = parts.flat().sort((a, b) => a - b);
+  if (!ratios.length) { setReadout('none', 'Контраст не измерен.'); return; }
   const p5 = ratios[Math.floor(ratios.length * 0.05)];
-  const where = windows ? 'подписей окон' : 'текста первого экрана';
-  const figures = `95 % площади ${where} — не ниже ${formatRatio(p5)}, худшая точка ${formatRatio(ratios[0])}`;
-  setReadout(p5 >= 4.5 ? 'ok' : 'warn', `${p5 >= 4.5 ? 'Контраст в норме' : 'Контраст ниже 4,5:1'}: ${figures}.`, p5);
+  setReadout(p5 >= 4.5 ? 'ok' : 'warn', `Контраст текста ${formatRatio(p5)}${p5 >= 4.5 ? '' : ' — ниже 4,5:1'}`, p5);
 }
 setInterval(() => { if (!state.paused && !document.hidden) measure(); }, 2500);
 
@@ -385,10 +365,11 @@ $('[role="tablist"]').addEventListener('keydown', (event) => {
 });
 
 function renderCode() {
-  const options = {config, catalogue, entry, mode: state.mode, layout: state.layout, values: state.values};
-  $('[data-code="html"]').textContent = htmlSnippet(options);
+  const options = {config, catalogue, entry, mode: state.mode, values: state.values};
+  $('[data-code="html"]').textContent = htmlSnippet({...options, layout: 'hero'});
+  $('[data-code="html-windows"]').textContent = htmlSnippet({...options, layout: 'windows'});
   $('[data-code="connect"]').textContent = connectSnippet(config);
-  $('[data-code="js"]').textContent = jsSnippet(options);
+  $('[data-code="js"]').textContent = jsSnippet({...options, layout: 'hero'});
   $('[data-code="json"]').textContent = jsonSnippet(options);
 }
 const copyStatus = $('[data-copied]');

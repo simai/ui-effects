@@ -8,20 +8,17 @@
 <main id="main">
   <section class="intro" data-intro aria-labelledby="intro-title">
     <div class="wrap intro__body">
-      <h1 id="intro-title">Фоновые эффекты для SIMAI Framework</h1>
-      <p class="intro__lead">Анимированные фоны для первых экранов, страниц входа и дашбордов. Каждый эффект проверен набором Framework, закреплён по коммиту и SHA-256 и подключается одним фрагментом кода.</p>
-      <p class="intro__note" data-intro-note>Фон этого блока — «Световоды»: эффект рисует обе схемы и меняется вместе с темой страницы.</p>
+      <h1 id="intro-title">Фоновые эффекты</h1>
+      <p class="intro__lead">Живые фоны для SIMAI Framework. Подключаются одной строкой.</p>
     </div>
   </section>
 
   <section class="wrap gallery" aria-labelledby="gallery-title">
-    <h2 id="gallery-title">Галерея</h2>
+    <h2 id="gallery-title" class="visually-hidden">Галерея</h2>
     <div class="gallery__bar">
       <sf-button-group appearance="segmented" aria-label="Фильтр по схемам" value="all" data-filters
         items='[{"value":"all","label":"Все"},{"value":"dual","label":"Двухтемные"},{"value":"dark","label":"Тёмные"},{"value":"light","label":"Светлые"}]'></sf-button-group>
-      <p class="small muted" data-shown aria-live="polite"></p>
     </div>
-    <p class="small muted">Двухтемные рисуют и тёмную, и светлую схему. Тёмные и светлые рисуют одну: тёмный эффект на светлой странице остаётся тёмным, светлый на тёмной странице не показывается.</p>
     <ul class="cards" data-cards></ul>
   </section>
 </main>
