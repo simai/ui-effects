@@ -8,6 +8,7 @@
     "node": ">=20.19"
   },
   "scripts": {
+    "dev": "node scripts/dev.mjs",
     "catalogue": "node scripts/build-catalogue.mjs",
     "check": "node scripts/build-catalogue.mjs --check && node scripts/check-hygiene.mjs",
     "kit": "node scripts/kit.mjs",

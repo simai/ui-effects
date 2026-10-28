@@ -130,6 +130,12 @@ UI_ROOT=../ui node scripts/smoke.mjs
 node scripts/serve.mjs                      # http://127.0.0.1:4173/
 ```
 
+For quick local work, `node scripts/dev.mjs` (`npm run dev`) builds the
+catalogue and the site into `dist/` and rebuilds them within a second of any
+change under `effects/` or `site/`. Point a local web server at `dist/` (or run
+`scripts/serve.mjs` beside it) and reload the page after a save. A changed
+effect has no kit result yet, so run the kit and the gates before a commit.
+
 `kit.mjs` and `smoke.mjs` read `simai/ui` and `simai/ui-source` with
 `git archive` / `git show` at the commits of `framework.lock.json`; they never
 check out or write in those clones. `CHROME_PATH` runs a given Chrome in the
