@@ -25,16 +25,10 @@ export async function loadWithPair(id) {
   return {Effects, main, pair};
 }
 
-// A single-scheme effect keeps its scheme on a page of the other theme (owner,
-// 2026-10-28): a light effect stays light on a dark page, as a dark one stays
-// dark on a light page. «As the page» is therefore its own scheme.
-export const effectiveMode = (schemes, themeMode) => (themeMode === 'auto' && schemes?.length === 1 ? schemes[0] : themeMode);
-
 // Places an effect on an area: under its content, or with `windows` behind
 // the area's [data-effect-window] cards. Answers the core's handle.
 export async function place(area, {id, themeMode = 'auto', settings = {}, windows = false, reducedMotion = false}) {
   const {Effects, main, pair} = await loadWithPair(id);
-  themeMode = effectiveMode(Effects.effectSchemes(main.manifest), themeMode);
   const wrap = (module) => (reducedMotion ? still(module) : module);
   const common = {
     manifest: main.manifest,

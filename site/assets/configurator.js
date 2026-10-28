@@ -3,7 +3,7 @@
 // from the manifest, a contrast readout, motion controls on the banner and the
 // code.
 import {badges, config, formatRatio, loadCatalogue, luminance, modeName, onSiteColour, onSiteTheme, ratio, schemeName, text} from './common.js';
-import {effectiveMode, loadWithPair, outcomeOf, place} from './place.js';
+import {loadWithPair, outcomeOf, place} from './place.js';
 import {connectSnippet, examplePage, htmlSnippet, jsSnippet, jsonSnippet} from './snippets.js';
 
 const html = document.documentElement;
@@ -40,7 +40,7 @@ modeGroup.addEventListener('change', (event) => { if (modes.includes(event.detai
 const setMode = (mode) => {
   state.mode = mode;
   if (modeGroup.getAttribute('value') !== mode) modeGroup.setAttribute('value', mode);
-  forEachPlacement((placement) => placement.update(state.values, {themeMode: effectiveMode(entry.schemes, mode)}));
+  forEachPlacement((placement) => placement.update(state.values, {themeMode: mode}));
   settleSoon();
   renderCode();
 };
