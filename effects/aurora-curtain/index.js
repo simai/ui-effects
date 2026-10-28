@@ -128,16 +128,27 @@ const FX = {
     ctx.drawImage(st.stars, 0, 0, w, h);
     const target = S.interactive && env.pointer.on ? (env.pointer.x - 0.5) * 2 : 0;
     st.sway += (target - st.sway) * 0.02;
-    ctx.globalCompositeOperation = 'lighter';
+    // The curtains go on a small layer, one pixel per stroke column at half height, which is then
+    // stretched over the area with smoothing: neighbouring columns blend, so no stripes show.
     const n = Math.round(S.curtains);
     const step = w > 900 ? 3 : 2;
+    const cols = Math.ceil(w / step) + 3, rows = Math.max(1, Math.ceil(h / 2));
+    if (!st.layer || st.layer.width !== cols || st.layer.height !== rows) {
+      st.layer = document.createElement('canvas');
+      st.layer.width = cols; st.layer.height = rows;
+    }
+    const lc = st.layer.getContext('2d');
+    lc.globalCompositeOperation = 'source-over';
+    lc.clearRect(0, 0, cols, rows);
+    lc.globalCompositeOperation = 'lighter';
     const gain = S.intensity / 100;
     for (let i = 0; i < n; i += 1) {
       const sprite = st.sprites[i % st.sprites.length];
       const base = h * (n === 1 ? 0.55 : 0.3 + (0.52 * i) / (n - 1));
       const k = i * 17.3;
       const tt = time * 0.05;
-      for (let x = -step; x < w + step; x += step) {
+      for (let col = 0; col < cols; col += 1) {
+        const x = (col - 1) * step;
         const u = x / Math.max(w, 600);
         // The ribbon folds: a slow wave plus noise; the hem rises and falls with it.
         const fold = noise2(u * 2.2 + tt + k + st.sway * 0.4, tt * 0.7 + k);
@@ -147,14 +158,17 @@ const FX = {
         const patch = noise2(u * 1.7 + k - tt * 0.5, k + tt * 0.3);
         const lit = patch < 0.3 ? 0 : patch > 0.75 ? 1 : (patch - 0.3) / 0.45;
         // Rays: bright folds with dark gaps between them, rather than an even haze.
-        const a = gain * 0.46 * (0.02 + rays ** 3 * 3.2) * lit * lit;
+        const a = gain * 0.92 * (0.02 + rays ** 3 * 3.2) * lit * lit;
         if (a < 0.01) continue;
-        ctx.globalAlpha = Math.min(0.85, a);
-        // Each stroke is two steps wide and starts on a whole step, so every column is covered evenly.
-        ctx.drawImage(sprite, 1, 0, 2, 256, x - step * 0.5, y - len, step * 2, len * 1.2);
+        lc.globalAlpha = Math.min(1, a);
+        lc.drawImage(sprite, 1, 0, 2, 256, col, (y - len) / 2, 1, len * 0.6);
       }
     }
-    ctx.globalAlpha = 1;
+    lc.globalAlpha = 1;
+    ctx.globalCompositeOperation = 'lighter';
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
+    ctx.drawImage(st.layer, 0, 0, cols, rows, -step * 0.5, 0, cols * step, rows * 2);
     ctx.globalCompositeOperation = 'source-over';
   },
 };
