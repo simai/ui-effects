@@ -1,12 +1,12 @@
-# Morning mist (`mist-gradient`)
+# Colour haze (`mist-gradient`)
 
-A mesh gradient of five soft theme-colour patches drifting on Lissajous paths, with fine grain against banding.
+Soft colour fields drift into one another like haze.
 
-- **Russian name:** Утренняя дымка
-- **Version:** 1.2.0, simai.effect 1.1.0
+- **Russian name:** Цветная дымка
+- **Version:** 2.0.0, simai.effect 1.1.0
 - **Surfaces:** sign-in, hero, docs, dashboard, product
 - **Tags:** gradient
-- **Role:** A soft light mesh gradient.
+- **Role:** A calm colour gradient for any theme: light and dark schemes.
 
 ## Settings
 
@@ -20,15 +20,11 @@ A mesh gradient of five soft theme-colour patches drifting on Lissajous paths, w
 
 ## Schemes
 
-The manifest declares `"schemes": ["light"]`, and `"capabilities": ["windows"]`. The module reads the scheme it draws in from `context.scheme`; a switch arrives as `update(settings, context)`.
+The manifest declares `"schemes": ["light", "dark"]`, and `"capabilities": ["windows"]`. The module reads the scheme it draws in from `context.scheme`; a switch arrives as `update(settings, context)`.
 
-Draws in the **light** scheme only.
+Draws in both schemes: **light** (home, the default) and **dark**. Each scheme is designed from its own palette tones; it is not an inverted picture.
 
-Theme modes a placement may choose: `auto`, `light`.
-
-## On a dark page
-
-In the `auto` theme mode the effect is not shown; the area is a plain dark surface (`theme-dark`).
+Theme modes a placement may choose: `auto`, `dark`, `light`.
 
 ## Files
 

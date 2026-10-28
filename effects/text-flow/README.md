@@ -1,13 +1,12 @@
 # Text flow (`text-flow`)
 
-Rows of code scroll in the dark, lit by slow folds of light.
+Rows of code scroll, lit by slow folds of light; the text takes the theme colour.
 
 - **Russian name:** Текстовый поток
-- **Version:** 1.0.0, simai.effect 1.1.0
-- **Author:** Rim Zabarov / SIMAI
+- **Version:** 2.0.0, simai.effect 1.1.0
 - **Surfaces:** sign-in, hero, section, dashboard
 - **Tags:** type, flow
-- **Role:** Code in the dark, for developer products. A click in the area sends a wave of light. From the Larena sign-in picture.
+- **Role:** Code for developer products: light and dark schemes. From the Larena sign-in picture.
 
 ## Settings
 
@@ -19,20 +18,15 @@ Rows of code scroll in the dark, lit by slow folds of light.
 | `size` | integer | 8–18 px | `12` | Letter size |
 | `base` | integer | 0–30 % | `5` | Text in the dark |
 | `scale` | integer | 50–200 % | `65` | Fold size |
-| `hue` | integer | 0–360 ° | `190` | Hue |
 | `interactive` | boolean | — | `true` | Wave on click. A click in the area sends a wave of light |
 
 ## Schemes
 
-The manifest declares `"schemes": ["dark"]`, and `"capabilities": ["windows"]`.
+The manifest declares `"schemes": ["dark", "light"]`, and `"capabilities": ["windows"]`. The module reads the scheme it draws in from `context.scheme`; a switch arrives as `update(settings, context)`.
 
-Draws in the **dark** scheme only.
+Draws in both schemes: **dark** (home, the default) and **light**. Each scheme is designed from its own palette tones; it is not an inverted picture.
 
-Theme modes a placement may choose: `auto`, `dark`.
-
-## On a light page
-
-In the `auto` theme mode the effect stays dark, and its area keeps `theme-dark`.
+Theme modes a placement may choose: `auto`, `dark`, `light`.
 
 ## Files
 

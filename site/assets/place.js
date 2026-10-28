@@ -25,10 +25,16 @@ export async function loadWithPair(id) {
   return {Effects, main, pair};
 }
 
+// A single-scheme effect keeps its scheme on a page of the other theme (owner,
+// 2026-10-28): a light effect stays light on a dark page, as a dark one stays
+// dark on a light page. «As the page» is therefore its own scheme.
+export const effectiveMode = (schemes, themeMode) => (themeMode === 'auto' && schemes?.length === 1 ? schemes[0] : themeMode);
+
 // Places an effect on an area: under its content, or with `windows` behind
 // the area's [data-effect-window] cards. Answers the core's handle.
 export async function place(area, {id, themeMode = 'auto', settings = {}, windows = false, reducedMotion = false}) {
   const {Effects, main, pair} = await loadWithPair(id);
+  themeMode = effectiveMode(Effects.effectSchemes(main.manifest), themeMode);
   const wrap = (module) => (reducedMotion ? still(module) : module);
   const common = {
     manifest: main.manifest,
@@ -58,12 +64,12 @@ export async function place(area, {id, themeMode = 'auto', settings = {}, window
 }
 
 // What a placement shows now, in the site's words:
-// {shown: <id> | null, drawn: 'dark' | 'light', outcome: 'as-is' | 'pair' | 'dark-kept' | 'hidden'}.
+// {shown: <id> | null, drawn: 'dark' | 'light', outcome: 'as-is' | 'pair' | 'kept' | 'hidden'}.
 export function outcomeOf(handle, {id, pairId, mode}) {
   const Effects = globalThis.SF.Effects;
   const target = mode === 'auto' ? Effects.pageScheme() : mode;
   const resolution = handle.resolution;
   if (!resolution || resolution.hidden) return {shown: null, drawn: target, outcome: 'hidden', reason: resolution?.reason ?? null};
   if (resolution.effect === 'pair') return {shown: pairId, drawn: resolution.scheme, outcome: 'pair'};
-  return {shown: id, drawn: resolution.scheme, outcome: resolution.scheme === target ? 'as-is' : 'dark-kept'};
+  return {shown: id, drawn: resolution.scheme, outcome: resolution.scheme === target ? 'as-is' : 'kept'};
 }

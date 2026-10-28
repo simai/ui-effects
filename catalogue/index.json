@@ -10,10 +10,10 @@
     "ui_source": "d0d01841fc765fb62b2748cd22949dc6723caa17"
   },
   "counts": {
-    "effects": 32,
-    "dual": 9,
-    "dark": 14,
-    "light": 9
+    "effects": 29,
+    "dual": 13,
+    "dark": 10,
+    "light": 6
   },
   "effects": [
     {
@@ -141,19 +141,20 @@
     },
     {
       "id": "text-flow",
-      "version": "1.0.0",
+      "version": "2.0.0",
       "label": {
         "ru": "Текстовый поток",
         "en": "Text flow"
       },
       "description": {
-        "ru": "Строки кода бегут в темноте, их подсвечивают медленные складки света."
+        "ru": "Строки кода бегут, их подсвечивают медленные складки света; цвет текста — цвет темы."
       },
       "role": {
-        "ru": "Код в темноте для продуктов для разработчиков. Только тёмная схема."
+        "ru": "Код для продуктов для разработчиков: светлая и тёмная схемы."
       },
       "schemes": [
-        "dark"
+        "dark",
+        "light"
       ],
       "pair": null,
       "capabilities": [
@@ -174,30 +175,30 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "d762fb24c8e35a5db7db7524b4a3cd58fb5f04a2c5a87f93ef00f2e880a9b151",
-          "size": 3331
+          "sha256": "170148863413f4081890c4912443bfda87b5d2410a0bd09cee00d478662e5a6e",
+          "size": 3116
         },
         {
           "path": "index.js",
-          "sha256": "c42ec0c6324d97a1e5e5629f45eb6e731217d91ca5a4c2070cf77af1df0a0fbe",
-          "size": 12856
+          "sha256": "455e25ad1b861065147cfdbb2ca4d11033949bd4b81bd3c62a02be9e448df72b",
+          "size": 13872
         },
         {
           "path": "preview.png",
-          "sha256": "d01e92573d01bb16d6468dde3e8b342eefb9a633307efc420752abe703cee27b",
-          "size": 75705
+          "sha256": "28bbe0f0a19b590eeb410bb99cc1d9a946b09ee2d8e16f9a2be2a983dc9f5c57",
+          "size": 77067
         },
         {
           "path": "README.md",
-          "sha256": "c42d6c796b1da0e1822baa04f7a56a0099db2e5d23b60d52544c5d33b002012e",
-          "size": 1619
+          "sha256": "4b5b2b59c05cdfddff3535565a28933b6e290bd32077ce536b62659aa884e230",
+          "size": 1670
         }
       ],
       "kit": {
         "status": "pass",
         "framework": "ui-3521193e0c6b",
-        "passed": 14,
-        "total": 14
+        "passed": 17,
+        "total": 17
       }
     },
     {
@@ -376,66 +377,6 @@
           "path": "README.md",
           "sha256": "2000ed88f0c3b8ee53600cc8b12acabc0e20dfcc575f1c636786a023d8dcb1b7",
           "size": 1400
-        }
-      ],
-      "kit": {
-        "status": "pass",
-        "framework": "ui-3521193e0c6b",
-        "passed": 14,
-        "total": 14
-      }
-    },
-    {
-      "id": "nebula-mesh",
-      "version": "1.2.0",
-      "label": {
-        "ru": "Глубинный градиент",
-        "en": "Nebula mesh"
-      },
-      "description": {
-        "ru": "Крупные цветовые пятна темы медленно перетекают на почти чёрном фоне с тонким зерном."
-      },
-      "role": {
-        "ru": "Глубокий меш-градиент на тёмном."
-      },
-      "schemes": [
-        "dark"
-      ],
-      "pair": null,
-      "capabilities": [
-        "windows"
-      ],
-      "tags": [
-        "gradient"
-      ],
-      "surfaces": [
-        "sign-in",
-        "hero",
-        "section",
-        "dashboard"
-      ],
-      "path": "effects/nebula-mesh/",
-      "entry": "index.js",
-      "files": [
-        {
-          "path": "effect.json",
-          "sha256": "a52d6241a0f62d0cb0cb6cb3c24419dfa84517f157d3539476c66ff0169b7e1b",
-          "size": 1738
-        },
-        {
-          "path": "index.js",
-          "sha256": "8838797c98f0db4703169a3f7d2c6b21493a4c8288f29637f42edb3f6cb2f143",
-          "size": 11996
-        },
-        {
-          "path": "preview.png",
-          "sha256": "6a780d6365683a0e1f3e7fa60f6dc8fea5e912c65687e9dc216ddecd680d20d9",
-          "size": 184711
-        },
-        {
-          "path": "README.md",
-          "sha256": "a0166c4469128d9a5e30d5e0e1fb6ddc25d27015353e349479051f2f75c1e48a",
-          "size": 1393
         }
       ],
       "kit": {
@@ -630,16 +571,16 @@
     },
     {
       "id": "rain-glass",
-      "version": "1.2.0",
+      "version": "2.0.0",
       "label": {
         "ru": "Дождь на стекле",
         "en": "Rain on glass"
       },
       "description": {
-        "ru": "Капли на ночном стекле, за ним размытые огни города; крупные капли сползают и оставляют дорожку."
+        "ru": "Запотевшее окно ночью: за стеклом фонари и проезжающие машины, по стеклу можно провести пальцем."
       },
       "role": {
-        "ru": "Ночное окно под дождём."
+        "ru": "Уютный вечер за окном. Только тёмная схема."
       },
       "schemes": [
         "dark"
@@ -650,36 +591,36 @@
       ],
       "tags": [
         "water",
-        "depth"
+        "glow"
       ],
       "surfaces": [
-        "sign-in",
         "hero",
         "section",
-        "dashboard"
+        "dashboard",
+        "sign-in"
       ],
       "path": "effects/rain-glass/",
       "entry": "index.js",
       "files": [
         {
           "path": "effect.json",
-          "sha256": "71d9a49f7426072521f186ffe1e1fbb84218f793e9785f89ccfa265a9d201269",
-          "size": 1890
+          "sha256": "5b7d23865d9e3109bdeb3bc7e4c224d4624766f41c3922f8b174db170d79a5d7",
+          "size": 1800
         },
         {
           "path": "index.js",
-          "sha256": "cc4c25282c767bf7400fc58f3de1ff03efd6ce9c4f7761a968b4d55d6cda126c",
-          "size": 15092
+          "sha256": "04548c7cfc86b4f7df0f748b41d550680594db879b53cd303a08658424acaccf",
+          "size": 10323
         },
         {
           "path": "preview.png",
-          "sha256": "896469e16edb4b0badddba628a07bc04936af3b0b5ea0bee5ffbd5f98c28dde6",
-          "size": 80755
+          "sha256": "12018b61c7a088ca40759d422cdd9ebbed984495176f07f5d969861bd878a24b",
+          "size": 52960
         },
         {
           "path": "README.md",
-          "sha256": "37a8e30f2893696bf5f42783f19fdfec7043a7e9bff40a5f7181fbe9b2fb4bc2",
-          "size": 1454
+          "sha256": "cdbfeb76a5bc0be55862aa9d99359af167799d2e790d937dea7b57586237f492",
+          "size": 1324
         }
       ],
       "kit": {
@@ -691,19 +632,20 @@
     },
     {
       "id": "mist-gradient",
-      "version": "1.2.0",
+      "version": "2.0.0",
       "label": {
-        "ru": "Утренняя дымка",
-        "en": "Morning mist"
+        "ru": "Цветная дымка",
+        "en": "Colour haze"
       },
       "description": {
-        "ru": "Меш-градиент из пяти мягких цветовых пятен темы, медленно дрейфующих по кривым Лиссажу; тонкое зерно против полос."
+        "ru": "Мягкие цветные пятна медленно перетекают друг в друга, как дымка."
       },
       "role": {
-        "ru": "Мягкий светлый меш-градиент."
+        "ru": "Спокойный цветной градиент для любой темы: светлая и тёмная схемы."
       },
       "schemes": [
-        "light"
+        "light",
+        "dark"
       ],
       "pair": null,
       "capabilities": [
@@ -724,13 +666,13 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "7736e6e6716f581b40748c4f3d85ddce94c976b090dd9e2ba27e92b188ece9eb",
-          "size": 2147
+          "sha256": "c5ac3655a70b2f03c8392f6c69e9bf24ec089666a9c9e65fa7182bcecde50d05",
+          "size": 2156
         },
         {
           "path": "index.js",
-          "sha256": "e5ce6e33aac397fb188f506185661c0bdbcebb9950faadaadbae25f93c6c150b",
-          "size": 13434
+          "sha256": "8737dfcdb31498f10c6dfbb0013b3b5c578802b45413ccdf3388e2d3b9bcc1a0",
+          "size": 13935
         },
         {
           "path": "preview.png",
@@ -739,15 +681,15 @@
         },
         {
           "path": "README.md",
-          "sha256": "046abe647f4726a4fa19c312aec0851c9f9b05d0c9396a6bd158d65b9445414f",
-          "size": 1442
+          "sha256": "b4aa74dd32f8bd69310e750d4f74b4b1e198fa3ca96c72b8f7ee6797c96cfd4b",
+          "size": 1425
         }
       ],
       "kit": {
         "status": "pass",
         "framework": "ui-3521193e0c6b",
-        "passed": 14,
-        "total": 14
+        "passed": 17,
+        "total": 17
       }
     },
     {
@@ -798,8 +740,8 @@
         },
         {
           "path": "README.md",
-          "sha256": "e01d007428ba9a7cd0008edeb23875a198375aec1386ea55ec3f27cc1ab63e6c",
-          "size": 1469
+          "sha256": "8ffede90c36e6393aa115357e209e17b61361d15dac6e66308101910905372c0",
+          "size": 1453
         }
       ],
       "kit": {
@@ -811,19 +753,20 @@
     },
     {
       "id": "leaf-shadows",
-      "version": "1.2.0",
+      "version": "2.0.0",
       "label": {
         "ru": "Тень листвы",
         "en": "Leaf shadows"
       },
       "description": {
-        "ru": "Размытые тени веток на освещённой стене качаются от ветра; утро, полдень или вечер."
+        "ru": "Тени листвы колышутся на стене: днём в солнечном свете, ночью в лунном."
       },
       "role": {
-        "ru": "Тени листвы на освещённой стене."
+        "ru": "Природа и тишина: светлая и тёмная схемы."
       },
       "schemes": [
-        "light"
+        "light",
+        "dark"
       ],
       "pair": null,
       "capabilities": [
@@ -842,13 +785,13 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "261146a7163ae2ad3485bddcfffdb63e06f4364f6fdca90a957185dd0797642d",
-          "size": 2034
+          "sha256": "7d33275c0bc3e28d22fd8247308b60439fddc86165c051d652e7dfd86d37fdfc",
+          "size": 2046
         },
         {
           "path": "index.js",
-          "sha256": "a9a2d901a9021339c24d990cbb3d309aec21865fcec750d254dec000bfefc2ee",
-          "size": 13918
+          "sha256": "bb34fe5fc92073540eb86d847de17a7c1a69643d24a1cda1c7b958673a4b3cc2",
+          "size": 14789
         },
         {
           "path": "preview.png",
@@ -857,15 +800,15 @@
         },
         {
           "path": "README.md",
-          "sha256": "9549a7f5197d5434213570d5f0074da5219d294587ed36bcdae747104760638d",
-          "size": 1407
+          "sha256": "a29cba301b3e1b780a319492933ddbc1bfbe58b88c99fb2fcd336d67acca0b01",
+          "size": 1412
         }
       ],
       "kit": {
         "status": "pass",
         "framework": "ui-3521193e0c6b",
-        "passed": 14,
-        "total": 14
+        "passed": 17,
+        "total": 17
       }
     },
     {
@@ -917,8 +860,8 @@
         },
         {
           "path": "README.md",
-          "sha256": "2d020332263415e7bec4cb554c08e7eb081d457da0955653141ef13aee83a80b",
-          "size": 1448
+          "sha256": "7073ea200c16d38cc0e917462b90b500c1d0ccc8f66bf18c4fab03f4ff86eaef",
+          "size": 1432
         }
       ],
       "kit": {
@@ -1050,19 +993,20 @@
     },
     {
       "id": "paper-hills",
-      "version": "1.2.0",
+      "version": "2.0.0",
       "label": {
         "ru": "Бумажные холмы",
         "en": "Paper hills"
       },
       "description": {
-        "ru": "Слои бумажных холмов в воздушной перспективе: дальние светлее и медленнее, в долинах туман."
+        "ru": "Слои бумажных холмов уходят вдаль: днём в светлой дымке, ночью под тёмным небом."
       },
       "role": {
-        "ru": "Бумажные холмы в дымке."
+        "ru": "Глубина и простор: светлая и тёмная схемы."
       },
       "schemes": [
-        "light"
+        "light",
+        "dark"
       ],
       "pair": null,
       "capabilities": [
@@ -1082,13 +1026,13 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "03fe7810c88f6e569deeb649b6c9eb21cdafc8d1328af11d81512ecfaf9fd130",
-          "size": 1957
+          "sha256": "2503468b92fceba69b276b6366fcac95208c6c91740ea0d45902861228c95a46",
+          "size": 1969
         },
         {
           "path": "index.js",
-          "sha256": "ca1289bc3781f54142656914af318025bf085fdc6616e3ddfc2812bcc7899375",
-          "size": 11854
+          "sha256": "8ca8ba9295238552bd311b367a1d08e579af698aca2b7ef643dcee096cadf946",
+          "size": 12624
         },
         {
           "path": "preview.png",
@@ -1097,76 +1041,15 @@
         },
         {
           "path": "README.md",
-          "sha256": "840ba714aedacfa56f3f1fbffee4c81598eb717c44f7ff443337b7cf488fddca",
-          "size": 1380
+          "sha256": "284044a447cd6bbd45f4e4a3e2bab0d888e2ca1b4e01f6667db21b242bbe3130",
+          "size": 1411
         }
       ],
       "kit": {
         "status": "pass",
         "framework": "ui-3521193e0c6b",
-        "passed": 14,
-        "total": 14
-      }
-    },
-    {
-      "id": "wind-lines",
-      "version": "0.1.0",
-      "label": {
-        "ru": "Северный ветер",
-        "en": "North wind"
-      },
-      "description": {
-        "ru": "Тонкие линии ветра текут по невидимым потокам и огибают препятствия."
-      },
-      "role": {
-        "ru": "Карта потоков ночью. Только тёмная схема."
-      },
-      "schemes": [
-        "dark"
-      ],
-      "pair": null,
-      "capabilities": [
-        "windows"
-      ],
-      "tags": [
-        "lines",
-        "flow"
-      ],
-      "surfaces": [
-        "hero",
-        "section",
-        "dashboard",
-        "sign-in"
-      ],
-      "path": "effects/wind-lines/",
-      "entry": "index.js",
-      "files": [
-        {
-          "path": "effect.json",
-          "sha256": "41339fb9fe41db4029f5e8a3976048f71f3d2e225663bfec48af6a13d7c73078",
-          "size": 1524
-        },
-        {
-          "path": "index.js",
-          "sha256": "77883f0c7e0804c0fc04093aca68dd234ee3eb2091635936c3c434089dc3ec74",
-          "size": 8204
-        },
-        {
-          "path": "preview.png",
-          "sha256": "bdbf906ca9dfbc67651c1081bb4b376dc149316e1ed56a56236177d58624d608",
-          "size": 39170
-        },
-        {
-          "path": "README.md",
-          "sha256": "02ad6b82c75c393e3acf0fba19816702eecb1abed5efebf592bf3fe887d3e29d",
-          "size": 1233
-        }
-      ],
-      "kit": {
-        "status": "pass",
-        "framework": "ui-3521193e0c6b",
-        "passed": 14,
-        "total": 14
+        "passed": 17,
+        "total": 17
       }
     },
     {
@@ -1177,7 +1060,7 @@
         "en": "City lights"
       },
       "description": {
-        "ru": "Ночной город сверху: сетка улиц, бегущие огни машин, тёплые окна."
+        "ru": "Ночной город сверху: светящаяся сетка улиц, широкие авеню, парк, реки и потоки машин."
       },
       "role": {
         "ru": "Ночной город с высоты. Только тёмная схема."
@@ -1209,79 +1092,18 @@
         },
         {
           "path": "index.js",
-          "sha256": "1355d739990460c95153dcb5ef3d297be98d287aba4c223e5cbf49d59b8705d1",
-          "size": 8995
+          "sha256": "48b0f9cc629faf5697218392fb0eeda124fbac280e741bc5b522fb3cf1fd42f6",
+          "size": 10918
         },
         {
           "path": "preview.png",
-          "sha256": "043a6750a722073e0f6d7ca8491a906c49762bf281992f50ac2b1f912070403f",
-          "size": 16795
+          "sha256": "dd83585028f0fdb42cf81d2a39c2b15a1668e3c69bdb1ce56e079755d05c3ac8",
+          "size": 193762
         },
         {
           "path": "README.md",
-          "sha256": "5f1983a80d79fa3576e70185c9df01522878c0eea67eeeeea40788dbb5231437",
-          "size": 1157
-        }
-      ],
-      "kit": {
-        "status": "pass",
-        "framework": "ui-3521193e0c6b",
-        "passed": 14,
-        "total": 14
-      }
-    },
-    {
-      "id": "deep-ocean",
-      "version": "0.1.0",
-      "label": {
-        "ru": "Глубина океана",
-        "en": "Deep ocean"
-      },
-      "description": {
-        "ru": "Медленно всплывают пузыри, мерцает планктон, сверху падает слабый свет."
-      },
-      "role": {
-        "ru": "Толща воды. Только тёмная схема."
-      },
-      "schemes": [
-        "dark"
-      ],
-      "pair": null,
-      "capabilities": [
-        "windows"
-      ],
-      "tags": [
-        "water",
-        "depth"
-      ],
-      "surfaces": [
-        "hero",
-        "section",
-        "dashboard",
-        "sign-in"
-      ],
-      "path": "effects/deep-ocean/",
-      "entry": "index.js",
-      "files": [
-        {
-          "path": "effect.json",
-          "sha256": "a0ad0fe4c2d323755a01f96a4d4208f873be51921caac6b8ddad448840b4c96a",
-          "size": 1524
-        },
-        {
-          "path": "index.js",
-          "sha256": "3b83016374c5f3d1e9ceb69b983cddf0804643c7f0eabd0bdcb5722407bdbb20",
-          "size": 8529
-        },
-        {
-          "path": "preview.png",
-          "sha256": "888919d1257c5b969b733f6eae0a3ea5446d3827f3001156de6d0a585d325bc3",
-          "size": 25498
-        },
-        {
-          "path": "README.md",
-          "sha256": "4283a7e0c3c3e9cd8db30311bdda51b07b42096e3aa7249f8dee3077225afe92",
-          "size": 1224
+          "sha256": "10a1a2c8f76fb2d3f8c5c8e750a9903ca27e8c5055c53680548335000e537ebf",
+          "size": 1169
         }
       ],
       "kit": {
@@ -1341,8 +1163,8 @@
         },
         {
           "path": "README.md",
-          "sha256": "fc95c30d3a19ade650ded79393045a0438a830516f28cd39f67123d1690323e1",
-          "size": 1128
+          "sha256": "8dd9e92c2da07167bd26bedc4b4faa9c03a4d47c04039d7af1d931b349cb9fb9",
+          "size": 1120
         }
       ],
       "kit": {
@@ -1402,8 +1224,8 @@
         },
         {
           "path": "README.md",
-          "sha256": "a72353d7c1685c488c2c68e68c45d817281fead093e980f68673a9a6ec526ce2",
-          "size": 1214
+          "sha256": "f08f78632e60b38627501aa72e3fd8528bf6106d394f5b1c15f07fba39a5478c",
+          "size": 1206
         }
       ],
       "kit": {
@@ -1463,8 +1285,8 @@
         },
         {
           "path": "README.md",
-          "sha256": "8c54bb6894173a4e49f432e797c04b85ab3dcc8f31536ba6533d632c97185d8b",
-          "size": 1147
+          "sha256": "237059b47af1710a58ac2e06fd80b0d08bd404fec4732624fa844788eba6ba28",
+          "size": 1123
         }
       ],
       "kit": {
@@ -1524,8 +1346,8 @@
         },
         {
           "path": "README.md",
-          "sha256": "faff58c3de6eb65d3b0e25345c4a94b48024794eba127adf4072ccda2fddc233",
-          "size": 1221
+          "sha256": "f9aae08eef4731e781b8145874f0c91d9f39ad121b0dd83fa4ca21dd6137c622",
+          "size": 1197
         }
       ],
       "kit": {
@@ -1585,8 +1407,8 @@
         },
         {
           "path": "README.md",
-          "sha256": "88839e51089af9974fed192a10ffbb019cd0cf48b8e1e350251ff4655e765d2c",
-          "size": 1122
+          "sha256": "59dfd007d33b0fd6c0ee2b8ab96e934b7b26d25d5b1df52932391887ec1de020",
+          "size": 1098
         }
       ],
       "kit": {
@@ -1646,8 +1468,8 @@
         },
         {
           "path": "README.md",
-          "sha256": "757510607fdf34846e0d17e744ed16e2c480f0212f4d0357ce6d59ad8ed02c91",
-          "size": 1135
+          "sha256": "5dfeb2bdccd6003e9befd52b8ceceea7d41459e6a0df612f60ac13a91af724f0",
+          "size": 1111
         }
       ],
       "kit": {
@@ -1708,8 +1530,8 @@
         },
         {
           "path": "README.md",
-          "sha256": "0fd73a95bc3a21fe5dbdcf36c3f3d9fd7a685d990195e48b1f9265e76fa4c63b",
-          "size": 1183
+          "sha256": "245c31eb5bc35c1103cbff4461791f7093d18b59084b86e2e2e8a62dfdad2f1c",
+          "size": 1175
         }
       ],
       "kit": {
@@ -1770,8 +1592,8 @@
         },
         {
           "path": "README.md",
-          "sha256": "cc8d5e9259c1a0a5982bb2657305213f154a90ac5d1b5723f3038c81d6c961c9",
-          "size": 1259
+          "sha256": "fffd57ef383138390d7c676b0a454a749dabc5bf33c9cc63c360c52e01cea958",
+          "size": 1251
         }
       ],
       "kit": {
@@ -1832,8 +1654,8 @@
         },
         {
           "path": "README.md",
-          "sha256": "544a05b28bd40cdfe472c80a87d70963ebce4ba2141187b84a947b357869bb7c",
-          "size": 1127
+          "sha256": "055fbb7e11c7ee26d9acbcb185b7d75923592ca44e8998eb0c0fe7ad5de05e5a",
+          "size": 1119
         }
       ],
       "kit": {
@@ -1894,8 +1716,8 @@
         },
         {
           "path": "README.md",
-          "sha256": "490dd0c9966fa179da881a9c46ddd293bea1ba9bd5448030dc29acbda86bf673",
-          "size": 1164
+          "sha256": "9cfdd874cbd92266036a7a096a10c63ed046f2c03d1545a76631582cadbdf4c9",
+          "size": 1156
         }
       ],
       "kit": {
@@ -1956,8 +1778,8 @@
         },
         {
           "path": "README.md",
-          "sha256": "81cd076fc8c67fcb550e04a1d86ffad5c410f6bfdbad382972fd48454ffe5693",
-          "size": 1250
+          "sha256": "6e2376d9429f6d511cb98b7ebd7573bdecf93a25bd92c78b260faf25b10b80fb",
+          "size": 1242
         }
       ],
       "kit": {

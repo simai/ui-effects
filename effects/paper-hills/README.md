@@ -1,12 +1,12 @@
 # Paper hills (`paper-hills`)
 
-Layers of paper hills in aerial perspective: far ones paler and slower, mist in the valleys.
+Layers of paper hills fade into the distance: in a light haze by day, under a dark sky by night.
 
 - **Russian name:** Бумажные холмы
-- **Version:** 1.2.0, simai.effect 1.1.0
+- **Version:** 2.0.0, simai.effect 1.1.0
 - **Surfaces:** sign-in, hero, product
 - **Tags:** paper, depth
-- **Role:** Paper hills in the haze.
+- **Role:** Depth and space: light and dark schemes.
 
 ## Settings
 
@@ -20,15 +20,11 @@ Layers of paper hills in aerial perspective: far ones paler and slower, mist in 
 
 ## Schemes
 
-The manifest declares `"schemes": ["light"]`, and `"capabilities": ["windows"]`. The module reads the scheme it draws in from `context.scheme`; a switch arrives as `update(settings, context)`.
+The manifest declares `"schemes": ["light", "dark"]`, and `"capabilities": ["windows"]`. The module reads the scheme it draws in from `context.scheme`; a switch arrives as `update(settings, context)`.
 
-Draws in the **light** scheme only.
+Draws in both schemes: **light** (home, the default) and **dark**. Each scheme is designed from its own palette tones; it is not an inverted picture.
 
-Theme modes a placement may choose: `auto`, `light`.
-
-## On a dark page
-
-In the `auto` theme mode the effect is not shown; the area is a plain dark surface (`theme-dark`).
+Theme modes a placement may choose: `auto`, `dark`, `light`.
 
 ## Files
 

@@ -3,7 +3,7 @@
 Particles gather into a word and scatter again.
 
 - **Russian name:** Узор частиц
-- **Version:** 0.1.0 (draft), simai.effect 1.1.0
+- **Version:** 0.1.0, simai.effect 1.1.0
 - **Surfaces:** hero, section, dashboard, sign-in
 - **Tags:** particles, type
 - **Role:** A background that spells a product name: light or dark.

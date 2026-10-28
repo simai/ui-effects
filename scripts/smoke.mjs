@@ -59,7 +59,8 @@ function resolveTheme(effect, pageTheme, mode = 'auto') {
   const target = mode === 'auto' ? pageTheme : mode;
   if (effect.schemes.includes(target)) return {shown: effect, drawn: target, outcome: 'as-is', target};
   if (effect.pair?.schemes.includes(target)) return {shown: effect.pair, drawn: target, outcome: 'pair', target};
-  if (mode === 'auto' && target === 'light' && effect.schemes.includes('dark')) return {shown: effect, drawn: 'dark', outcome: 'dark-kept', target};
+  // In auto a single-scheme effect keeps its scheme (owner, 2026-10-28).
+  if (mode === 'auto' && effect.schemes.length === 1) return {shown: effect, drawn: effect.schemes[0], outcome: 'kept', target};
   return {shown: null, drawn: target, outcome: 'hidden', target};
 }
 const catalogue = JSON.parse(readFileSync(join(distDir, 'catalogue', 'index.json'), 'utf8'));

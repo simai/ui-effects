@@ -1,22 +1,22 @@
-// Text flow (simai.effect 1.1.0; dark scheme only): rows of code or symbols scroll on a dark ground,
-// lit by slow folds of light that bend and split; a click in the area sends a wave of light. From the
-// Larena sign-in picture by Rim Zabarov / SIMAI.
+// Text flow (simai.effect 1.1.0; schemes dark and light): rows of code or symbols scroll on a quiet
+// ground, lit by slow folds of light that bend and split; a click in the area sends a wave of light.
+// From the Larena sign-in picture by Rim Zabarov / SIMAI.
 //
-// The text keeps its own hue (the hue setting), drawn over a fixed dark ground. Rows come from a seeded
+// The text takes the theme's primary colour: pale on a dark ground, or ink on paper. Rows come from a seeded
 // generator, so a mount draws the same scene at the defaults; only a click's wave is random. Reduced
 // motion draws one still frame; a hidden tab or an area off screen asks for no frames.
 const instances = new WeakMap();
 const textSources={"javascript": ["const light = await findSomethingBeautiful();", "function breathe(time) { return Math.sin(time * 0.5); }", "const leaves = points.map(point => wind.carry(point));", "if (curiosity) { explore(); }", "const wave = { shape: randomShape(), life: 4 };", "for (const letter of story) { reveal(letter); }", "requestAnimationFrame(() => makeRoomForWonder());", "const answer = 42; // a small secret in the dark", "export const quiet = () => new Promise(resolve => dawn(resolve));", "// sometimes the background has something to say"], "html": ["<!doctype html> <html lang=\"ru\">", "<main class=\"quiet\"> <section> hello, human. </section> </main>", ":root { --light: #74b4d5; --curiosity: 1; }", ".leaf { transform: rotate(var(--wind)); }", "@keyframes breathe { 50% { opacity: 0.42; } }", "<canvas aria-hidden=\"true\"></canvas>", ".wave { animation: grow 4s ease-out; }", "<!-- Ты нашёл маленькую пасхалку. -->", "@media (prefers-reduced-motion: reduce) { .leaf { animation: none; } }", "body { margin: 0; background: #141414; }"], "terminal": ["$ git status --short", "$ npm run build", "✓ build complete   ✓ no errors   ✓ ready for another idea", "$ echo \"hello, human.\"", "$ git log --oneline --max-count=5", "42c0ffe add a little wonder", "$ node explore.js --curiosity=high", "[info] listening for the next small discovery", "$ printf \"keep looking\\n\"", "// not all secrets need a password"], "easter": ["// hello, human. you found the quiet part.", "// Ты нашёл эту строку. Значит, свет был здесь.", "const answer = 42;", "// SIMAI — маленькие детали тоже имеют значение.", "while (curiosity) { explore(); }", "// Здесь могла быть ещё одна хорошая идея."]};
 
-const defaults = {theme:'javascript', fontSize:12, speed:100, light:52, base:5, scale:65, hue:190, clicks:true};
-const ranges = {fontSize:[8,18],speed:[0,200],light:[0,100],base:[0,30],scale:[50,200],hue:[0,360]};
+const defaults = {theme:'javascript', fontSize:12, speed:100, light:52, base:5, scale:65, clicks:true, ground:'#141414', ink:'#74b4d5'};
+const ranges = {fontSize:[8,18],speed:[0,200],light:[0,100],base:[0,30],scale:[50,200]};
 function mountTextFlow(host, options={}, still=false) {
  if (!(host instanceof HTMLElement)) throw new TypeError('Text Flow requires an HTMLElement');
  if (instances.has(host)) return instances.get(host);
  const cfg={...defaults};
- function applyOptions(patch){for(const key of Object.keys(ranges)){if(patch[key]!==undefined&&Number.isFinite(Number(patch[key]))){const [min,max]=ranges[key];cfg[key]=Math.max(min,Math.min(max,Number(patch[key])))}}if(patch.theme!==undefined)cfg.theme=['symbols','javascript','html','terminal','easter'].includes(patch.theme)?patch.theme:'symbols';if(patch.clicks!==undefined)cfg.clicks=Boolean(patch.clicks)}
+ function applyOptions(patch){for(const key of Object.keys(ranges)){if(patch[key]!==undefined&&Number.isFinite(Number(patch[key]))){const [min,max]=ranges[key];cfg[key]=Math.max(min,Math.min(max,Number(patch[key])))}}if(patch.theme!==undefined)cfg.theme=['symbols','javascript','html','terminal','easter'].includes(patch.theme)?patch.theme:'symbols';if(patch.clicks!==undefined)cfg.clicks=Boolean(patch.clicks);if(typeof patch.ground==='string')cfg.ground=patch.ground;if(typeof patch.ink==='string')cfg.ink=patch.ink}
  applyOptions(options);
- const canvas=document.createElement('canvas');canvas.style.cssText='position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none;background:#141414';canvas.setAttribute('aria-hidden','true');host.prepend(canvas);
+ const canvas=document.createElement('canvas');canvas.style.cssText='position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none;';canvas.setAttribute('aria-hidden','true');host.prepend(canvas);
  const ctx=canvas.getContext('2d'),texture=document.createElement('canvas'),tx=texture.getContext('2d'),lit=document.createElement('canvas'),lx=lit.getContext('2d'),mask=document.createElement('canvas'),mx=mask.getContext('2d');
  let visible=true,width=0,height=0,dpr=0,lineHeight,rows=[],time=0,last=0,lastDraw=0,textureDirty=true,maskData,pulses=[],frame=0,raf=0,destroyed=false,manualPaused=false,textBuilds=0,previousKind=-1;
  const motion=matchMedia('(prefers-reduced-motion: reduce)');
@@ -31,8 +31,8 @@ function noise(x,y){const ix=Math.floor(x),iy=Math.floor(y),fx=smooth(x-ix),fy=s
 function fbm(x,y){return noise(x,y)*.65+noise(x*2.03+19,y*2.03+7)*.25+noise(x*4.07,y*4.07)*.1}
 function drawText(context,color){textBuilds++;context.clearRect(0,0,context.canvas.width,context.canvas.height);context.font=cfg.fontSize+'px monospace';context.letterSpacing='1.5px';context.fillStyle=color;rows.forEach((r,i)=>{const tileWidth=context.measureText(r.text).width;const offset=r.offset%tileWidth;context.fillText(r.text,offset-tileWidth,i*lineHeight+cfg.fontSize+2);context.fillText(r.text,offset,i*lineHeight+cfg.fontSize+2)})}
 function drawFrame(){
- if(textureDirty){drawText(tx,`hsl(${cfg.hue} 85% 63%)`);textureDirty=false;}
- ctx.fillStyle='#141414';ctx.fillRect(0,0,width,height);ctx.globalAlpha=cfg.base/100;ctx.drawImage(texture,0,0);ctx.globalAlpha=1;
+ if(textureDirty){drawText(tx,cfg.ink);textureDirty=false;}
+ ctx.fillStyle=cfg.ground;ctx.fillRect(0,0,width,height);ctx.globalAlpha=cfg.base/100;ctx.drawImage(texture,0,0);ctx.globalAlpha=1;
  const mw=mask.width,mh=mask.height,data=maskData,size=300*cfg.scale/100;
  for(let y=0;y<mh;y++)for(let x=0;x<mw;x++){
   const px=x/mw*width,py=y/mh*height,u=px/size,v=py/size;
@@ -76,23 +76,41 @@ function createWaveMask(kind,rng){
  function visibility(){last=0;lastDraw=performance.now();if(still||motion.matches)render();wake()}
  const observer=new ResizeObserver(resize);observer.observe(host);const screen=new IntersectionObserver(([entry])=>{visible=entry.isIntersecting;if(visible)wake()});screen.observe(host);document.addEventListener('pointerdown',click);document.addEventListener('visibilitychange',visibility);window.addEventListener('resize',resize);motion.addEventListener('change',visibility);
  const api={
-  update(patch={}){if(destroyed)return;const previous={...cfg};applyOptions(patch);if(cfg.fontSize!==previous.fontSize||cfg.theme!==previous.theme)rebuildRows();if(cfg.hue!==previous.hue)textureDirty=true;render()},
+  update(patch={}){if(destroyed)return;const previous={...cfg};applyOptions(patch);if(cfg.fontSize!==previous.fontSize||cfg.theme!==previous.theme)rebuildRows();if(cfg.ink!==previous.ink)textureDirty=true;render()},
   pause(){manualPaused=true},
   resume(){manualPaused=false;visibility()},
   destroy(){if(destroyed)return;destroyed=true;cancelAnimationFrame(raf);observer.disconnect();screen.disconnect();document.removeEventListener('pointerdown',click);document.removeEventListener('visibilitychange',visibility);window.removeEventListener('resize',resize);motion.removeEventListener('change',visibility);canvas.remove();pulses=[];rows=[];for(const c of [canvas,texture,lit,mask]){c.width=0;c.height=0}instances.delete(host)}
  };instances.set(host,api);resize();wake();return api;
 }
 
+// Palette tones of the theme, read through a probe so var() chains settle: never roles.
+function readTones(host, scheme) {
+  const probe = host.ownerDocument.createElement('i');
+  probe.style.cssText = 'position:absolute;width:0;height:0;overflow:hidden;visibility:hidden';
+  host.append(probe);
+  const read = (name, fallback) => { probe.style.color = `var(${name}, ${fallback})`; return getComputedStyle(probe).color || fallback; };
+  const tones = scheme === 'light'
+    ? {ground: read('--sf-neutral-98', '#faf9fe'), ink: read('--sf-primary-40', '#005bbe')}
+    : {ground: read('--sf-neutral-5', '#111318'), ink: read('--sf-primary-80', '#acc7ff')};
+  probe.remove();
+  return tones;
+}
+
 // The settings by the catalogue's names: size is the font size, intensity the light of the folds,
-// base the text left visible in the dark, interactive the waves on a click.
+// base the text left visible in the shade, interactive the waves on a click.
 const options = (settings) => ({theme: settings.theme, fontSize: settings.size, speed: settings.speed, light: settings.intensity,
-  base: settings.base, scale: settings.scale, hue: settings.hue, clicks: settings.interactive !== false});
+  base: settings.base, scale: settings.scale, clicks: settings.interactive !== false});
 
 export function mount(host, settings = {}, context = {}) {
   const still = context.reducedMotion === true;
-  const flow = mountTextFlow(host, {...options(settings), clicks: settings.interactive !== false && !still}, still);
+  let scheme = context.scheme ?? 'dark';
+  const flow = mountTextFlow(host, {...options(settings), ...readTones(host, scheme), clicks: settings.interactive !== false && !still}, still);
   return {
-    update(next = {}) { flow.update({...options(next), clicks: next.interactive !== false && !still}); },
+    update(next = {}, nextContext = {}) {
+      if (nextContext.scheme) scheme = nextContext.scheme;
+      flow.update({...options(next), ...readTones(host, scheme), clicks: next.interactive !== false && !still});
+    },
+    refreshTheme() { flow.update(readTones(host, scheme)); },
     pause() { flow.pause(); },
     resume() { flow.resume(); },
     destroy() { flow.destroy(); },

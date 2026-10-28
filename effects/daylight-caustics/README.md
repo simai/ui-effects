@@ -28,7 +28,7 @@ Theme modes a placement may choose: `auto`, `light`.
 
 ## On a dark page
 
-In the `auto` theme mode the effect is not shown; the area is a plain dark surface (`theme-dark`).
+In the `auto` theme mode the effect stays light, and its area keeps `theme-light`.
 
 ## Files
 

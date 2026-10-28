@@ -3,7 +3,7 @@
 // from the manifest, a contrast readout, motion controls on the banner and the
 // code.
 import {badges, config, formatRatio, loadCatalogue, luminance, modeName, onSiteColour, onSiteTheme, ratio, schemeName, text} from './common.js';
-import {loadWithPair, outcomeOf, place} from './place.js';
+import {effectiveMode, loadWithPair, outcomeOf, place} from './place.js';
 import {connectSnippet, htmlSnippet, jsSnippet, jsonSnippet} from './snippets.js';
 
 const html = document.documentElement;
@@ -40,7 +40,7 @@ modeGroup.addEventListener('change', (event) => { if (modes.includes(event.detai
 const setMode = (mode) => {
   state.mode = mode;
   if (modeGroup.getAttribute('value') !== mode) modeGroup.setAttribute('value', mode);
-  forEachPlacement((placement) => placement.update(state.values, {themeMode: mode}));
+  forEachPlacement((placement) => placement.update(state.values, {themeMode: effectiveMode(entry.schemes, mode)}));
   settleSoon();
   renderCode();
 };
@@ -164,8 +164,8 @@ $('[data-reset]').addEventListener('click', () => {
 // One short line, only when the effect is not drawn as the page asks.
 const policyText = (current) => {
   switch (current.outcome) {
-    case 'dark-kept': return 'Показан тёмным: светлой версии нет.';
-    case 'hidden': return 'На тёмной странице не показывается: тёмной версии нет.';
+    case 'kept': return current.drawn === 'light' ? 'Показан светлым: тёмной версии нет.' : 'Показан тёмным: светлой версии нет.';
+    case 'hidden': return 'Не показан.';
     default: return '';
   }
 };

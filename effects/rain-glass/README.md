@@ -1,25 +1,26 @@
 # Rain on glass (`rain-glass`)
 
-Drops on a night window with blurred city lights behind; large drops slide down and leave a trail.
+A fogged window at night: street lamps and passing cars behind the glass; a finger can wipe the fog.
 
 - **Russian name:** Дождь на стекле
-- **Version:** 1.2.0, simai.effect 1.1.0
-- **Surfaces:** sign-in, hero, section, dashboard
-- **Tags:** water, depth
-- **Role:** A night window in the rain.
+- **Version:** 2.0.0, simai.effect 1.1.0
+- **Surfaces:** hero, section, dashboard, sign-in
+- **Tags:** water, glow
+- **Role:** A cosy evening behind a window. Dark scheme only.
 
 ## Settings
 
 | Key | Type | Range or options | Default | Meaning |
 |:---|:---|:---|:---|:---|
 | `speed` | integer | 10–300 % | `100` | Speed |
-| `density` | integer | 10–100 % | `55` | Droplet density. How many droplets cover the glass |
-| `lights` | integer | 10–100 % | `50` | City lights. How many blurred lights shine behind the glass |
-| `interactive` | boolean | — | `true` | React to the pointer. A moving pointer shakes drops loose |
+| `intensity` | integer | 10–100 % | `70` | Intensity |
+| `density` | integer | 10–100 % | `55` | Density |
+| `fog` | integer | 0–100 % | `70` | Fog |
+| `interactive` | boolean | — | `true` | React to the pointer. The pointer wipes the fog like a finger |
 
 ## Schemes
 
-The manifest declares `"schemes": ["dark"]`, and `"capabilities": ["windows"]`. The module reads the scheme it draws in from `context.scheme`; a switch arrives as `update(settings, context)`.
+The manifest declares `"schemes": ["dark"]`, and `"capabilities": ["windows"]`.
 
 Draws in the **dark** scheme only.
 

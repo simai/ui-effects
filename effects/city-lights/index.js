@@ -1,4 +1,4 @@
-// City lights (simai.effect 1.1.0; dark scheme only): a city at night from above: a grid of streets, running car lights, warm windows.
+// City lights (simai.effect 1.1.0; dark scheme only): a city at night from above: a glowing street grid, wide avenues, a park, rivers and streams of cars.
 //
 // The lifecycle is the catalogue template's: one canvas in the host, devicePixelRatio capped at 2,
 // a seeded scene (the same picture on every mount at the defaults), one still frame for reduced
@@ -45,64 +45,106 @@ function readTones(host, scheme) {
   return tones;
 }
 
+// A night city seen from above, after Manhattan: a street grid turned about 29 degrees, wide avenues
+// every few blocks and dense cross streets, all glowing sodium orange; a dark park; rivers along two
+// sides; lit windows in the blocks; and streams of car lights running the avenues.
 const SCENE = {
   home: 'dark', seed: 33, reseed: ['density'],
-  tones: (read) => ({ground: read('--sf-neutral-5', '#111318'), street: read('--sf-neutral-15', '#1d2025'), warm: read('--sf-warning-80', '#ffb95c'), cold: read('--sf-primary-90', '#d7e2ff'), red: read('--sf-error-70', '#ff8a7a')}),
+  tones: (read) => ({ground: read('--sf-neutral-5', '#111318'), water: read('--sf-primary-10', '#001a41'), sodium: read('--sf-warning-70', '#e08f2c'), lamp: read('--sf-warning-80', '#ffb95c'), white: read('--sf-neutral-95', '#f0f0f7'), red: read('--sf-error-60', '#ff5449'), window: read('--sf-warning-90', '#ffddb6')}),
   setup(env, random) {
-    const cell = 46;
-    const cols = Math.ceil(env.w / cell) + 1, rows = Math.ceil(env.h / cell) + 1;
-    const windows = [];
-    for (let c = 0; c < cols; c += 1) for (let r = 0; r < rows; r += 1) {
-      if (random() < 0.55) continue;
-      const count = 2 + Math.floor(random() * 5);
-      for (let i = 0; i < count; i += 1) windows.push({x: c * cell + 8 + random() * (cell - 18), y: r * cell + 8 + random() * (cell - 18), phase: random() * 50, rate: 0.02 + random() * 0.08});
+    const {w, h, tones} = env;
+    const angle = -0.5;
+    const span = Math.hypot(w, h) * 1.2;
+    const street = 8, avenue = street * 4.5;
+    const map = new OffscreenCanvas(Math.ceil(w), Math.ceil(h));
+    // The lights are drawn on a clear layer first, so their haze holds light only; the ground goes under them after.
+    const m = map.getContext('2d');
+    m.save();
+    m.translate(w * 0.5, h * 0.5);
+    m.rotate(angle);
+    // The island's edges: water beyond them.
+    const left = -span * 0.34, right = span * 0.38;
+    const park = {x: left + avenue * 6, y: -span * 0.3, w: avenue * 1.6, h: span * 0.16};
+    const lit = (x, y) => noise2(x / 160 + 4, y / 160) * 0.7 + noise2(x / 50, y / 50 + 3) * 0.3;
+    // Streets are chains of lamps, brighter in busy districts, dimmer and broken in quiet ones.
+    m.globalCompositeOperation = 'lighter';
+    const lamps = (x0, y0, x1, y1, gap, bright, size) => {
+      const length = Math.hypot(x1 - x0, y1 - y0), n = Math.floor(length / gap);
+      for (let i = 0; i <= n; i += 1) {
+        const x = x0 + (x1 - x0) * i / n, y = y0 + (y1 - y0) * i / n;
+        const d = lit(x, y);
+        if (random() > d * 1.6) continue;
+        m.fillStyle = rgba(random() < 0.85 ? tones.sodium : tones.window, bright * (0.35 + d) * (0.6 + random() * 0.4));
+        m.fillRect(x, y, size, size);
+      }
+    };
+    for (let y = -span / 2; y < span / 2; y += street) lamps(left, y, right, y, 4, 0.5, 1);
+    const avenues = [];
+    for (let x = left; x < right; x += avenue) {
+      avenues.push(x);
+      lamps(x, -span / 2, x, span / 2, 3, 0.9, 1.5);
     }
-    const cars = Array.from({length: Math.round((cols + rows) * env.values.density / 25)}, () => {
-      const horizontal = random() < 0.5;
-      return {horizontal, lane: Math.floor(random() * (horizontal ? rows : cols)) * cell, pos: random(), speed: 0.02 + random() * 0.05, dir: random() < 0.5 ? 1 : -1};
-    });
-    return {cell, windows, cars};
+    // A diagonal like Broadway.
+    lamps(left + avenue, -span / 2, right - avenue, span / 2, 3, 0.8, 1.5);
+    // Lit windows: tiny points in the blocks, denser where the district is busy.
+    const count = Math.round(w * h / 40 * (0.3 + env.values.density / 100));
+    for (let i = 0; i < count; i += 1) {
+      const x = left + random() * (right - left), y = -span / 2 + random() * span;
+      if (random() > lit(x, y) * 1.3) continue;
+      m.fillStyle = rgba(random() < 0.7 ? tones.window : tones.white, 0.25 + random() * 0.35);
+      m.fillRect(x, y, 1, 1);
+    }
+    // A haze of light over the city: the lamps blurred and laid over themselves.
+    const haze = new OffscreenCanvas(map.width, map.height);
+    const hz = haze.getContext('2d');
+    hz.filter = 'blur(5px)';
+    hz.drawImage(map, 0, 0);
+    m.restore();
+    m.save();
+    m.globalCompositeOperation = 'lighter';
+    m.globalAlpha = 0.9;
+    m.drawImage(haze, 0, 0);
+    m.restore();
+    m.save();
+    m.globalCompositeOperation = 'destination-over';
+    m.fillStyle = rgba(tones.ground);
+    m.fillRect(0, 0, w, h);
+    m.restore();
+    m.save();
+    m.translate(w * 0.5, h * 0.5);
+    m.rotate(angle);
+    m.globalCompositeOperation = 'source-over';
+    // The park: dark, a few path lamps.
+    m.fillStyle = rgba(tones.ground);
+    m.fillRect(park.x, park.y, park.w, park.h);
+    for (let i = 0; i < 14; i += 1) { m.fillStyle = rgba(tones.lamp, 0.4); m.fillRect(park.x + random() * park.w, park.y + random() * park.h, 1, 1); }
+    // The rivers.
+    m.fillStyle = rgba(tones.water);
+    m.fillRect(-span, -span, left + span, span * 2);
+    m.fillRect(right, -span, span, span * 2);
+    m.restore();
+    const cars = [];
+    for (const x of avenues) {
+      const n = Math.round(4 + env.values.density / 12);
+      for (let i = 0; i < n; i += 1) cars.push({x: x + (random() < 0.5 ? -1.5 : 1.5), pos: random(), speed: 0.012 + random() * 0.02, dir: random() < 0.5 ? 1 : -1});
+    }
+    return {map, angle, span, cars};
   },
   draw(env, t) {
     const {ctx, w, h, tones, state, values} = env;
     const k = values.intensity / 100;
-    ctx.fillStyle = rgba(tones.ground);
-    ctx.fillRect(0, 0, w, h);
-    ctx.strokeStyle = rgba(tones.street, 0.7);
-    ctx.lineWidth = 2;
-    ctx.beginPath();
-    for (let x = 0; x < w + state.cell; x += state.cell) { ctx.moveTo(x, 0); ctx.lineTo(x, h); }
-    for (let y = 0; y < h + state.cell; y += state.cell) { ctx.moveTo(0, y); ctx.lineTo(w, y); }
-    ctx.stroke();
-    // Windows: warm squares that light and go dark on their own slow clocks.
-    for (const win of state.windows) {
-      const on = Math.sin(win.phase + t * win.rate) > -0.2;
-      if (!on) continue;
-      ctx.fillStyle = rgba(tones.warm, 0.12 * k);
-      ctx.fillRect(win.x - 2, win.y - 2, 7, 7);
-      ctx.fillStyle = rgba(tones.warm, 0.6 * k);
-      ctx.fillRect(win.x, win.y, 3, 3);
-    }
-    // Cars: a white head and a red tail running along the streets.
+    ctx.globalAlpha = 1;
+    ctx.drawImage(state.map, 0, 0, w, h);
+    ctx.save();
+    ctx.translate(w * 0.5, h * 0.5);
+    ctx.rotate(state.angle);
+    // Car lights: white heading one way, red the other, each a short streak.
     for (const car of state.cars) {
-      const length = car.horizontal ? w : h;
-      const p = ((car.pos + t * car.speed * car.dir) % 1 + 1) % 1 * length;
-      const x = car.horizontal ? p : car.lane, y = car.horizontal ? car.lane : p;
-      const tail = car.dir * 10;
-      ctx.fillStyle = rgba(car.dir > 0 ? tones.cold : tones.red, 0.75 * k);
-      ctx.beginPath();
-      ctx.arc(x, y, 1.6, 0, Math.PI * 2);
-      ctx.fill();
-      const g = car.horizontal ? ctx.createLinearGradient(x, y, x - tail, y) : ctx.createLinearGradient(x, y, x, y - tail);
-      g.addColorStop(0, rgba(car.dir > 0 ? tones.cold : tones.red, 0.35 * k));
-      g.addColorStop(1, rgba(tones.ground, 0));
-      ctx.strokeStyle = g;
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-      ctx.moveTo(x, y);
-      ctx.lineTo(car.horizontal ? x - tail : x, car.horizontal ? y : y - tail);
-      ctx.stroke();
+      const y = (((car.pos + t * car.speed * car.dir) % 1 + 1) % 1 - 0.5) * state.span;
+      ctx.fillStyle = rgba(car.dir > 0 ? tones.white : tones.red, 0.75 * k);
+      ctx.fillRect(car.x - 0.6, y, 1.2, 4);
     }
+    ctx.restore();
   },
 };
 

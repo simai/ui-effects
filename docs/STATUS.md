@@ -13,7 +13,7 @@ The state of the catalogue, the decisions behind it and what waits on the Framew
 - **Theme policy.**
   - Each effect declares `schemes`. **No pairs** (owner, 2026-10-19): an effect that works well in both themes is dual, the rest draw one scheme.
   - A placement has a theme mode: `auto` (the default), `dark` or `light`.
-  - In `auto`, if the effect lacks the page's scheme, a dark-only effect stays dark, and a light-only effect is not shown on a dark page.
+  - In `auto`, a single-scheme effect keeps its scheme on a page of the other theme: dark stays dark, light stays light (owner, 2026-10-28; the core still hides a light effect on a dark page, so the site and snippets pass the effect's own scheme until the Framework changes `resolveTheme`).
   - **A fixed mode the effect cannot draw is never offered.**
   - The effect's area takes the drawn theme.
 - **Windows mode is part of the standard.** One scene sits behind a group of cards and is seen only through them. Every effect here is safe for it.
@@ -37,6 +37,6 @@ Nothing. The core ships the standard, SF.Effects, the kit, the segmented Button 
 
 ## Effects
 
-There are 18 effects: 4 draw both schemes, 9 dark only and 5 light only. `star-flight` and `text-flow` come from the Larena sign-in picture (owner, 2026-10-28); `liquid-chrome` was removed the same day. `constellation-net` is dark only (owner, 2026-10-28: a light starry sky reads as a mistake). `ink-threads`, `foam-cells` and `guilloche` were removed (owner, 2026-10-19). Schemes are in the manifests; the order, descriptions and tags are in `effects/policy.json`; the per-effect kit results are in `catalogue/kit.json`.
+There are 29 effects: 13 draw both schemes, 10 dark only and 6 light only. Thirteen came in on 2026-10-28 from the owner's list of ideas; `wind-lines`, `deep-ocean` and `nebula-mesh` were dropped, `mist-gradient` became the two-scheme «Цветная дымка», and `rain-glass` became a fogged window. `star-flight` and `text-flow` come from the Larena sign-in picture (owner, 2026-10-28); `liquid-chrome` was removed the same day. `constellation-net` is dark only (owner, 2026-10-28: a light starry sky reads as a mistake). `ink-threads`, `foam-cells` and `guilloche` were removed (owner, 2026-10-19). Schemes are in the manifests; the order, descriptions and tags are in `effects/policy.json`; the per-effect kit results are in `catalogue/kit.json`.
 
 Every effect's defaults pass the 1.1 contrast rule in each scheme it draws. `scripts/contrast-probe.mjs` measures it the way the kit does and takes other defaults with `--set`, for tuning.

@@ -3,7 +3,7 @@
 Contour lines of a relief, with a slow wave of height running over them.
 
 - **Russian name:** Волна рельефа
-- **Version:** 0.1.0 (draft), simai.effect 1.1.0
+- **Version:** 0.1.0, simai.effect 1.1.0
 - **Surfaces:** hero, section, dashboard, sign-in
 - **Tags:** lines, geometry
 - **Role:** A moving topographic map: a night one or a paper one.

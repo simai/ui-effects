@@ -27,7 +27,7 @@ there will be many. The Framework ships only the core: `SF.Effects`, the
 | `docs/AUTHORING.md` | The author guide |
 | `scripts/` | Catalogue build and check, kit runner, site build, browser smoke, hygiene check |
 
-18 effects today: 4 draw both schemes, 9 are dark only, 5 light only. The
+29 effects today: 13 draw both schemes, 10 are dark only, 6 light only. The
 catalogue uses no pairs: an effect that works well in both themes is dual.
 
 ## Theme policy
@@ -36,9 +36,11 @@ catalogue uses no pairs: an effect that works well in both themes is dual.
   The catalogue names no pairs.
 - A placement has a **theme mode**: `auto` (follow the page, the default),
   `dark` or `light`. A fixed mode the effect cannot draw is never offered.
-- In `auto`, when the effect lacks the page's scheme: a dark effect stays
-  dark, and a light effect is not shown (the
-  reader chose dark to avoid glare; the area is a plain dark surface).
+- In `auto`, an effect that draws one scheme keeps it on a page of the
+  other theme: a dark effect stays dark, and a light effect stays light
+  (owner, 2026-10-28). The SIMAI Framework core is asked to do the same; until
+  it does, the site and the snippets give such an effect its own scheme as
+  the theme mode.
 - The effect's area takes the theme it is drawn in (`theme-dark` or
   `theme-light`), so text and controls over it keep 4.5:1.
 - **Windows mode:** one effect is drawn behind a group of cards and seen only

@@ -1,322 +1,236 @@
-// Rain on glass (simai.effect 1.1.0, dark set): a night city out of focus behind a wet window.
-// Each droplet is a lens holding the lights above it; larger drops slide down and wipe a track.
+// Rain on glass (simai.effect 1.1.0; dark scheme only): a fogged window at night: street lamps and passing cars behind the glass; a finger can wipe the fog.
+//
+// The lifecycle is the catalogue template's: one canvas in the host, devicePixelRatio capped at 2,
+// a seeded scene (the same picture on every mount at the defaults), one still frame for reduced
+// motion, no frames while the tab is hidden or the area is off screen, and nothing left behind.
+// Colours are palette tones of the theme, read through a probe so var() chains settle.
 
-// ---- runtime shared by the dark set (simai.effect 1.1.0) ----
 const clamp = (v, a, b) => (v < a ? a : v > b ? b : v);
-const mixc = (a, b, k) => [a[0] + (b[0] - a[0]) * k, a[1] + (b[1] - a[1]) * k, a[2] + (b[2] - a[2]) * k];
-const rgba = (c, a = 1) => `rgba(${c[0] | 0},${c[1] | 0},${c[2] | 0},${clamp(a, 0, 1).toFixed(3)})`;
-// Pushes a colour away from grey, so pale theme tones still glow on a dark ground.
-const vivid = (c, k = 1.6) => { const m = (c[0] + c[1] + c[2]) / 3; return c.map((v) => clamp(m + (v - m) * k, 0, 255)); };
+const mix = (a, b, t) => a + (b - a) * t;
+const mixc = (a, b, t) => [mix(a[0], b[0], t), mix(a[1], b[1], t), mix(a[2], b[2], t)];
+const rgba = (c, a = 1) => `rgba(${c[0] | 0},${c[1] | 0},${c[2] | 0},${a})`;
 const rng = (seed) => () => {
   seed = (seed + 0x6d2b79f5) | 0;
   let x = Math.imul(seed ^ (seed >>> 15), 1 | seed);
   x = (x + Math.imul(x ^ (x >>> 7), 61 | x)) ^ x;
   return ((x ^ (x >>> 14)) >>> 0) / 4294967296;
 };
+const hash2 = (x, y) => {
+  let n = Math.imul(x | 0, 374761393) + Math.imul(y | 0, 668265263);
+  n = Math.imul(n ^ (n >>> 13), 1274126177);
+  return ((n ^ (n >>> 16)) >>> 0) / 4294967295;
+};
+const smooth = (t) => t * t * (3 - 2 * t);
+const noise2 = (x, y) => {
+  const ix = Math.floor(x), iy = Math.floor(y), fx = smooth(x - ix), fy = smooth(y - iy);
+  return mix(mix(hash2(ix, iy), hash2(ix + 1, iy), fx), mix(hash2(ix, iy + 1), hash2(ix + 1, iy + 1), fx), fy);
+};
 
-// Palette tones of the theme, resolved through a short-lived probe so light-dark() and var() chains settle.
-function readTheme(host) {
+function readTones(host, scheme) {
   const doc = host.ownerDocument;
   const probe = doc.createElement('i');
-  probe.style.cssText = 'position:absolute;inline-size:0;block-size:0;overflow:hidden;visibility:hidden';
-  const pix = doc.createElement('canvas').getContext('2d', {willReadFrequently: true});
+  probe.style.cssText = 'position:absolute;width:0;height:0;overflow:hidden;visibility:hidden';
   host.append(probe);
-  const own = getComputedStyle(host);
-  const read = (names, fallback) => {
-    for (const name of names) {
-      if (!own.getPropertyValue(name).trim()) continue;
-      probe.style.color = '';
-      probe.style.color = `var(${name})`;
-      const value = getComputedStyle(probe).color;
-      pix.fillStyle = '#010203';
-      pix.fillStyle = value;
-      if (pix.fillStyle === '#010203') continue;
-      pix.clearRect(0, 0, 1, 1);
-      pix.fillRect(0, 0, 1, 1);
-      const d = pix.getImageData(0, 0, 1, 1).data;
-      if (d[3]) return [d[0], d[1], d[2]];
-    }
-    return fallback;
+  const pixel = doc.createElement('canvas').getContext('2d', {willReadFrequently: true});
+  const read = (name, fallback) => {
+    probe.style.color = `var(${name}, ${fallback})`;
+    pixel.fillStyle = fallback;
+    pixel.fillStyle = getComputedStyle(probe).color;
+    pixel.fillRect(0, 0, 1, 1);
+    const d = pixel.getImageData(0, 0, 1, 1).data;
+    return [d[0], d[1], d[2]];
   };
-  const p = read(['--sf-primary-70', '--sf-primary-80'], [118, 150, 255]);
-  const s = read(['--sf-secondary-70', '--sf-secondary-80'], [72, 214, 226]);
-  const t = read(['--sf-tertiary-70', '--sf-tertiary-80'], [222, 122, 255]);
-  const pDeep = read(['--sf-primary-20', '--sf-primary-30'], mixc(p, [0, 0, 0], 0.8));
-  const light = read(['--sf-primary-90', '--sf-primary-95'], mixc(p, [255, 255, 255], 0.6));
+  const tones = SCENE.tones(read, scheme);
   probe.remove();
-  // Palette tones only, never theme roles: a tone keeps its value in both themes,
-  // so this dark effect draws the same deep ground on a light or a dark page.
-  // The host forces its area into .theme-dark for the text over it.
-  const bg = mixc([5, 6, 11], pDeep, 0.22);
-  return {p, s, t, pDeep, light, bg};
+  return tones;
 }
 
-
-const layer = (w, h) => { const c = document.createElement('canvas'); c.width = Math.max(1, w); c.height = Math.max(1, h); return c; };
-const TAU = Math.PI * 2;
-
-const FX = {
-  seed: 53,
-  t0: 4,
-  settings: {speed: [100, 10, 300], density: [55, 10, 100], lights: [50, 10, 100], interactive: true},
-  init(env, rand) {
-    const st = {rand, wait: 1, spawn: 0, px: -1e3, py: -1e3};
-    this.build(env, st);
-    return st;
+// A fogged window at night. Behind the glass, out of focus: street lamps and the lights of passing
+// cars. On the glass: fog, a few drops, and now and then a drop that runs down and clears a track.
+// The pointer is a finger: where it moves the fog is wiped away, and the fog slowly comes back.
+const SCENE = {
+  home: 'dark', seed: 61, reseed: ['density'],
+  tones: (read) => ({ground: read('--sf-neutral-5', '#111318'), street: read('--sf-primary-10', '#001a41'), lamp: read('--sf-warning-80', '#ffb95c'), head: read('--sf-neutral-95', '#f0f0f7'), tail: read('--sf-error-60', '#ff5449'), fog: read('--sf-neutral-30', '#45464f'), cool: read('--sf-primary-70', '#7fabff')}),
+  setup(env, random) {
+    const {w, h} = env;
+    const lamps = Array.from({length: 7}, () => ({x: random(), y: 0.15 + random() * 0.35, r: 18 + random() * 40, warm: random() < 0.75}));
+    const cars = Array.from({length: Math.round(2 + env.values.density / 20)}, () => ({lane: 0.62 + random() * 0.22, pos: random(), speed: 0.035 + random() * 0.04, dir: random() < 0.5 ? 1 : -1}));
+    const drops = Array.from({length: Math.round(w * h / 9000)}, () => ({x: random() * w, y: random() * h, r: 1 + random() * 2.5}));
+    const runs = Array.from({length: 4}, () => ({x: random() * w, phase: random(), period: 9 + random() * 9}));
+    const fog = new OffscreenCanvas(Math.ceil(w), Math.ceil(h));
+    const f = fog.getContext('2d');
+    const state = {lamps, cars, drops, runs, fog, f, last: null, seeded: false};
+    return state;
   },
-  build(env, st) {
-    const {w, h, S} = env, r = st.rand, area = w * h;
-    // City lights out of focus, a little denser and larger low in the frame.
-    st.lights = [];
-    const nl = Math.round(clamp(area / 7000, 45, 170) * S.lights / 60), u = Math.sqrt(Math.min(w, 1600) / 1440 + 0.15);
-    for (let i = 0; i < nl; i += 1) {
-      const y = h * (1.05 - r() ** 1.3 * 1.1), k = r() ** 2.2, low = clamp(y / h, 0, 1);
-      st.lights.push({x: r() * w, y, rad: (5 + k * 60) * (0.55 + low * 0.6) * u, tone: r(),
-        a: (0.8 - k ** 0.5 * 0.6) * (0.6 + low * 0.5), g: r() < 0.5 ? 0 : 1});
+  draw(env, t) {
+    const {ctx, w, h, tones, state, values, pointer} = env;
+    const k = values.intensity / 100;
+    const fogLevel = values.fog / 100;
+    // Behind the glass.
+    const g = ctx.createLinearGradient(0, 0, 0, h);
+    g.addColorStop(0, rgba(tones.ground));
+    g.addColorStop(1, rgba(tones.street));
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, w, h);
+    ctx.globalCompositeOperation = 'lighter';
+    const blob = (x, y, r, colour, a) => {
+      const b = ctx.createRadialGradient(x, y, 0, x, y, r);
+      b.addColorStop(0, rgba(colour, a));
+      b.addColorStop(1, rgba(colour, 0));
+      ctx.fillStyle = b;
+      ctx.beginPath();
+      ctx.arc(x, y, r, 0, Math.PI * 2);
+      ctx.fill();
+    };
+    for (const lamp of state.lamps) blob(lamp.x * w, lamp.y * h, lamp.r, lamp.warm ? tones.lamp : tones.cool, 0.35 * k);
+    for (const car of state.cars) {
+      const x = ((car.pos + t * car.speed * car.dir) % 1 + 1) % 1 * (w + 200) - 100;
+      const y = car.lane * h;
+      const colour = car.dir > 0 ? tones.head : tones.tail;
+      blob(x, y, 26, colour, 0.4 * k);
+      blob(x + 22 * car.dir * -1, y, 26, colour, 0.4 * k);
     }
-    st.drops = [];
-    const nd = Math.round(area / 700 * S.density / 55);
-    for (let i = 0, k; i < nd; i += 1) k = r(), st.drops.push({x: r() * w, y: r() * h, r: k < 0.65 ? 0.6 + k * 2.2 : 2 + (k - 0.65) ** 1.4 * 18});
-    st.sliders = [];
-    this.theme(env, st);
-  },
-  resize(env, st) { this.build(env, st); },
-  update(env, st, before) { if (before.density !== env.S.density || before.lights !== env.S.lights) this.build(env, st); },
-  theme(env, st) {
-    const {w, h, dpr, C} = env, W = Math.round(w * dpr), H = Math.round(h * dpr);
-    const bg = layer(W, H), g = bg.getContext('2d');
-    g.setTransform(dpr, 0, 0, dpr, 0, 0);
-    const grd = g.createLinearGradient(0, 0, 0, h);
-    [[0, C.bg], [0.55, mixc(C.bg, C.pDeep, 0.2)], [1, mixc(C.bg, mixc(C.pDeep, C.t, 0.3), 0.4)]].forEach(([o, c]) => grd.addColorStop(o, rgba(c)));
-    g.fillStyle = grd;
-    g.fillRect(0, 0, w, h);
-    const tones = [C.p, C.s, C.t, mixc(C.p, C.t, 0.5)].map((c) => vivid(c, 2.1));
-    // Two groups of lights breathe in turn; soft anyway, so they are kept at half resolution.
-    st.groups = [0, 1].map((gi) => {
-      const c = layer(Math.ceil(w / 2), Math.ceil(h / 2)), x = c.getContext('2d');
-      x.scale(0.5, 0.5);
-      x.globalCompositeOperation = 'lighter';
-      for (const l of st.lights) {
-        if (l.g !== gi) continue;
-        const col = tones[l.tone < 0.45 ? 0 : l.tone < 0.62 ? 1 : l.tone < 0.82 ? 2 : 3];
-        const rg = x.createRadialGradient(l.x, l.y, 0, l.x, l.y, l.rad);
-        [[0, 0.75], [0.82, 1], [0.9, 0.9], [1, 0]].forEach(([o, a]) => rg.addColorStop(o, rgba(col, l.a * a)));
-        x.fillStyle = rg;
-        x.beginPath(); x.arc(l.x, l.y, l.rad, 0, TAU); x.fill();
-      }
-      return c;
-    });
-    // A small colour map of the lights: each drop shows the lights it refracts.
-    const mx = layer(48, 30).getContext('2d', {willReadFrequently: true});
-    mx.drawImage(bg, 0, 0, 48, 30);
-    for (const c of st.groups) mx.drawImage(c, 0, 0, 48, 30);
-    st.map = mx.getImageData(0, 0, 48, 30).data;
-    st.bg = bg;
-    st.glass = layer(W, H);
-    const gl = st.glass.getContext('2d');
-    gl.scale(dpr, dpr);
-    for (const d of st.drops) this.paint(env, st, gl, d.x, d.y, d.r);
-  },
-  // A drop is a small lens: it gathers the light from above it (the image flips), with a dark rim and a glint.
-  paint(env, st, g, x, y, r) {
-    const i = (clamp(((y - r * 6 - 30) / env.h) * 30 | 0, 0, 29) * 48 + clamp((x / env.w) * 48 | 0, 0, 47)) * 4;
-    const inside = mixc(vivid([st.map[i], st.map[i + 1], st.map[i + 2]], 1.8).map((v) => Math.min(255, v * 2.6 + 6)), env.C.light, 0.2);
-    const lens = g.createLinearGradient(x, y - r, x, y + r);
-    [[0, mixc(inside, [0, 0, 0], 0.55), 0.55], [0.7, inside, 0.55], [1, mixc(inside, [255, 255, 255], 0.3), 0.75]].forEach(([o, c, a]) => lens.addColorStop(o, rgba(c, a)));
-    g.fillStyle = lens;
-    g.beginPath(); g.arc(x, y, r, 0, TAU); g.fill();
-    if (r > 1.4) {
-      g.strokeStyle = 'rgba(0,0,0,.28)';
-      g.lineWidth = Math.min(1.2, r * 0.25);
-      g.beginPath(); g.arc(x, y, r, 3.6, 5.8); g.stroke();
-      g.fillStyle = 'rgba(255,255,255,.55)';
-      g.beginPath(); g.arc(x - r * 0.35, y - r * 0.4, Math.max(0.5, r * 0.18), 0, TAU); g.fill();
+    ctx.globalCompositeOperation = 'source-over';
+    // The fog: laid once, then it creeps back over what the finger and the drops wiped.
+    const f = state.f;
+    if (!state.seeded) {
+      f.fillStyle = rgba(tones.fog, 0.62 * fogLevel);
+      f.fillRect(0, 0, w, h);
+      state.seeded = true;
+    } else {
+      f.globalCompositeOperation = 'source-over';
+      f.fillStyle = rgba(tones.fog, 0.004 * fogLevel);
+      f.fillRect(0, 0, w, h);
     }
-  },
-  launch(st, x, y) { if (st.sliders.length < 10) st.sliders.push({x, y, r: 3 + st.rand() * 2.6, v: 0, stick: 0, wob: st.rand() * 9}); },
-  step(env, st, dt) {
-    const {w, h, S, pointer: p} = env, r = st.rand;
-    const gl = st.glass.getContext('2d');
-    gl.setTransform(env.dpr, 0, 0, env.dpr, 0, 0);
-    st.wait -= dt;
-    if (st.wait <= 0) { st.wait = (1.2 + r() * 2.6) * 1400 / Math.max(500, w); this.launch(st, r() * w, r() * h * 0.7); }
-    // A moving pointer shakes drops loose.
-    if (S.interactive && p.on && Math.hypot(p.x * w - st.px, p.y * h - st.py) > 40) this.launch(st, st.px = p.x * w, st.py = p.y * h);
-    // As many new drops settle on the glass as the tracks wiped away.
-    for (; st.spawn >= 1; st.spawn -= 1) this.paint(env, st, gl, r() * w, r() * h, 0.6 + r() * 1.6);
-    gl.lineCap = 'round';
-    for (let i = st.sliders.length - 1; i >= 0; i -= 1) {
-      const d = st.sliders[i];
-      // Stick and slip: a drop waits, runs, then catches again.
-      if (d.stick > 0) d.stick -= dt;
-      else if (r() < dt * 0.6) { d.stick = 0.2 + r() * 0.9; d.v = 8; }
-      else d.v = Math.min(140, d.v + dt * 160);
-      const dy = d.v * dt;
-      if (dy > 0) {
-        d.wob += dy * 0.015;
-        const nx = d.x + Math.sin(d.wob) * dy * 0.1;
-        gl.globalCompositeOperation = 'destination-out';
-        gl.lineWidth = d.r * 2.1;
-        st.spawn += d.r * 2.1 * dy * st.drops.length / (w * h);
-        gl.beginPath(); gl.moveTo(d.x, d.y); gl.lineTo(nx, d.y + dy); gl.stroke();
-        gl.globalCompositeOperation = 'source-over';
-        // The wet track keeps a faint sheen.
-        gl.strokeStyle = rgba(env.C.light, 0.035);
-        gl.lineWidth = d.r;
-        gl.stroke();
-        if (r() < dy * 0.05) this.paint(env, st, gl, d.x + (r() - 0.5) * d.r, d.y - d.r * 1.5, 0.6 + r() * 0.9);
-        d.x = nx; d.y += dy;
-      }
-      if (d.y - d.r > h) st.sliders.splice(i, 1);
+    f.globalCompositeOperation = 'destination-out';
+    f.lineCap = 'round';
+    f.lineJoin = 'round';
+    if (pointer.on) {
+      const x = pointer.x * w, y = pointer.y * h;
+      f.strokeStyle = 'rgba(0,0,0,0.9)';
+      f.lineWidth = 26;
+      f.beginPath();
+      f.moveTo(state.last?.[0] ?? x, state.last?.[1] ?? y);
+      f.lineTo(x, y);
+      f.stroke();
+      state.last = [x, y];
+    } else {
+      state.last = null;
     }
-  },
-  draw(env, st, time, dt) {
-    const {ctx, w, h} = env;
-    if (dt > 0) this.step(env, st, dt);
-    const k = 0.5 + 0.5 * Math.sin(time * 0.55);
-    ctx.drawImage(st.bg, 0, 0, w, h);
-    st.groups.forEach((c, i) => { ctx.globalAlpha = i ? 1 - 0.4 * k : 0.6 + 0.4 * k; ctx.drawImage(c, 0, 0, w, h); });
-    ctx.globalAlpha = 1;
-    ctx.drawImage(st.glass, 0, 0, w, h);
-    for (const d of st.sliders) this.paint(env, st, ctx, d.x, d.y, d.r);
+    // A drop now and then runs down and clears a thin track.
+    for (const run of state.runs) {
+      const p = (t / run.period + run.phase) % 1;
+      if (p > 0.6) continue;
+      const y = p / 0.6 * h;
+      f.strokeStyle = 'rgba(0,0,0,0.5)';
+      f.lineWidth = 3;
+      f.beginPath();
+      f.moveTo(run.x + Math.sin(y * 0.03) * 3, Math.max(0, y - 6));
+      f.lineTo(run.x + Math.sin(y * 0.03) * 3, y);
+      f.stroke();
+    }
+    f.globalCompositeOperation = 'source-over';
+    ctx.drawImage(state.fog, 0, 0, w, h);
+    // Drops on the glass catch a little light.
+    for (const d of state.drops) {
+      ctx.fillStyle = rgba(tones.head, 0.1 * k);
+      ctx.beginPath();
+      ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
+      ctx.fill();
+    }
   },
 };
 
-export function mount(host, settings = {}, context = {}) {
+export function mount(host, settings, context = {}) {
   const doc = host.ownerDocument;
-  const win = doc.defaultView || globalThis;
+  const win = doc.defaultView;
   const canvas = doc.createElement('canvas');
   canvas.setAttribute('aria-hidden', 'true');
-  canvas.style.cssText = 'position:absolute;inset:0;inline-size:100%;block-size:100%;display:block;pointer-events:none';
-  const oldPosition = host.style.position;
-  if (getComputedStyle(host).position === 'static') host.style.position = 'relative';
+  canvas.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none';
   host.append(canvas);
   const ctx = canvas.getContext('2d', {alpha: false});
-  const norm = (v) => {
-    const out = {};
-    for (const [k, d] of Object.entries(FX.settings)) {
-      const x = v && v[k];
-      if (Array.isArray(d)) out[k] = Number.isFinite(+x) && x !== '' && x !== null && x !== undefined ? clamp(+x, d[1], d[2]) : d[0];
-      else if (typeof d === 'boolean') out[k] = x === undefined || x === null ? d : x === true || x === 'true' || x === 1 || x === '1';
-      else out[k] = typeof x === 'string' && x ? x : d;
-    }
-    return out;
-  };
-  const mq = win.matchMedia ? win.matchMedia('(prefers-reduced-motion: reduce)') : null;
-  const env = {ctx, canvas, w: 1, h: 1, dpr: 1, S: norm(settings), C: readTheme(host), still: false,
-    pointer: {x: 0.5, y: 0.5, on: false}};
-  env.still = context.reducedMotion === true || Boolean(mq && mq.matches);
-  let state = null;
-  let raf = 0;
-  let last = 0;
-  let t = FX.t0 || 0;
+  const motion = win.matchMedia?.('(prefers-reduced-motion: reduce)');
+  const env = {ctx, w: 1, h: 1, values: {...settings}, scheme: context.scheme ?? SCENE.home, tones: null, state: null, pointer: {x: 0.5, y: 0.5, on: false}, still: false};
+  env.tones = readTones(host, env.scheme);
+  env.still = Boolean(context.reducedMotion) || Boolean(motion?.matches);
   let paused = false;
-  let inView = true;
-  let dead = false;
-  let themeTimer = 0;
-  const canRun = () => !dead && !paused && inView && !doc.hidden && !env.still && state !== null;
-  const paint = (dt = 0) => {
-    if (dead || doc.hidden || state === null) return;
-    ctx.setTransform(env.dpr, 0, 0, env.dpr, 0, 0);
-    ctx.globalCompositeOperation = 'source-over';
-    ctx.globalAlpha = 1;
-    FX.draw(env, state, t, dt);
-  };
-  const tick = (now) => {
-    raf = 0;
-    if (!canRun()) return;
-    const dt = Math.min(0.05, Math.max(0, (now - last) / 1000)) * env.S.speed / 100;
+  let visible = true;
+  let frame = 0;
+  let last = 0;
+  let t = SCENE.start ?? 0;
+
+  const setup = () => { env.state = SCENE.setup(env, rng(SCENE.seed ?? 7)); };
+  const draw = () => SCENE.draw(env, t);
+  const loop = (now) => {
+    frame = 0;
+    t += clamp((now - (last || now)) / 1000, 0, 0.05) * (env.values.speed / 100);
     last = now;
-    t += dt;
-    paint(dt);
-    raf = win.requestAnimationFrame(tick);
-  };
-  const schedule = () => {
-    if (raf || !canRun()) return;
-    last = performance.now();
-    raf = win.requestAnimationFrame(tick);
-  };
-  const halt = () => { if (raf) win.cancelAnimationFrame(raf); raf = 0; };
-  const resize = () => {
-    if (dead) return;
-    const box = host.getBoundingClientRect();
-    const w = Math.max(1, Math.round(box.width)), h = Math.max(1, Math.round(box.height));
-    const dpr = Math.min(win.devicePixelRatio || 1, 2);
-    if (state !== null && w === env.w && h === env.h && dpr === env.dpr) return;
-    env.w = w; env.h = h; env.dpr = dpr;
-    canvas.width = Math.round(w * dpr);
-    canvas.height = Math.round(h * dpr);
-    if (state === null) state = FX.init(env, rng(FX.seed || 7));
-    else if (FX.resize) FX.resize(env, state);
-    paint();
+    draw();
     schedule();
   };
-  const refreshTheme = () => {
-    if (dead) return;
-    env.C = readTheme(host);
-    if (FX.theme && state !== null) FX.theme(env, state);
-    paint();
+  const schedule = () => {
+    if (frame || env.still || paused || !visible || doc.hidden) return;
+    frame = win.requestAnimationFrame(loop);
   };
-  const onVisibility = () => { if (doc.hidden) halt(); else { paint(); schedule(); } };
-  const onMotion = () => {
-    env.still = context.reducedMotion === true || Boolean(mq && mq.matches);
-    if (env.still) { halt(); paint(); } else schedule();
+  const stop = () => {
+    if (frame) win.cancelAnimationFrame(frame);
+    frame = 0;
+    last = 0;
   };
-  const onPointer = (event) => {
-    if (!env.S.interactive) return;
+  const resize = () => {
     const box = host.getBoundingClientRect();
-    if (!box.width || !box.height) return;
-    env.pointer.x = (event.clientX - box.left) / box.width;
-    env.pointer.y = (event.clientY - box.top) / box.height;
-    env.pointer.on = env.pointer.x > -0.2 && env.pointer.x < 1.2 && env.pointer.y > -0.2 && env.pointer.y < 1.2;
+    const ratio = Math.min(2, win.devicePixelRatio || 1);
+    env.w = Math.max(1, box.width);
+    env.h = Math.max(1, box.height);
+    canvas.width = Math.round(env.w * ratio);
+    canvas.height = Math.round(env.h * ratio);
+    ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+    setup();
+    draw();
   };
-  const onLeave = (event) => { if (!event.relatedTarget) env.pointer.on = false; };
-  const ro = new ResizeObserver(resize);
-  ro.observe(host);
-  const io = typeof IntersectionObserver === 'function' ? new IntersectionObserver((entries) => {
-    inView = entries[entries.length - 1].isIntersecting;
-    if (inView) schedule(); else halt();
-  }) : null;
-  if (io) io.observe(host);
-  const mo = new MutationObserver(() => { clearTimeout(themeTimer); themeTimer = setTimeout(refreshTheme, 60); });
-  mo.observe(doc.documentElement, {attributes: true, attributeFilter: ['class', 'style', 'data-theme', 'data-sf-theme']});
-  if (doc.body) mo.observe(doc.body, {attributes: true, attributeFilter: ['class', 'data-theme', 'data-sf-theme']});
+  const sizes = new ResizeObserver(resize);
+  sizes.observe(host);
+  const screen = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; if (visible) schedule(); else stop(); });
+  screen.observe(host);
+  const onVisibility = () => (doc.hidden ? stop() : schedule());
   doc.addEventListener('visibilitychange', onVisibility);
-  if (mq && mq.addEventListener) mq.addEventListener('change', onMotion);
+  const onMotion = () => { env.still = Boolean(context.reducedMotion) || motion.matches; if (env.still) { stop(); draw(); } else schedule(); };
+  motion?.addEventListener?.('change', onMotion);
+  // Pointer reactions listen on the window, passively: the host takes no pointer events.
+  const onPointer = (event) => {
+    const box = host.getBoundingClientRect();
+    env.pointer.x = (event.clientX - box.left) / Math.max(1, box.width);
+    env.pointer.y = (event.clientY - box.top) / Math.max(1, box.height);
+    env.pointer.on = env.values.interactive !== false && env.pointer.x >= 0 && env.pointer.x <= 1 && env.pointer.y >= 0 && env.pointer.y <= 1;
+  };
   win.addEventListener('pointermove', onPointer, {passive: true});
-  win.addEventListener('pointerout', onLeave, {passive: true});
+
   resize();
+  schedule();
+
   return {
-    update(next = {}) {
-      if (dead) return;
-      const before = env.S;
-      env.S = norm(next);
-      env.C = readTheme(host);
-      if (FX.update && state !== null) FX.update(env, state, before);
-      if (FX.theme && state !== null) FX.theme(env, state);
-      if (!env.S.interactive) env.pointer.on = false;
-      paint();
-      schedule();
+    update(next, nextContext = {}) {
+      const before = env.values;
+      env.values = {...next};
+      if (nextContext.scheme !== undefined && nextContext.scheme !== env.scheme) {
+        env.scheme = nextContext.scheme;
+        env.tones = readTones(host, env.scheme);
+      }
+      if ((SCENE.reseed ?? []).some((key) => before[key] !== env.values[key]) || nextContext.scheme !== undefined) setup();
+      if (!env.values.interactive) env.pointer.on = false;
+      draw();
     },
-    refreshTheme,
-    pause() { paused = true; halt(); },
+    refreshTheme() { env.tones = readTones(host, env.scheme); draw(); },
+    pause() { paused = true; stop(); },
     resume() { paused = false; schedule(); },
     destroy() {
-      if (dead) return;
-      dead = true;
-      halt();
-      clearTimeout(themeTimer);
-      ro.disconnect();
-      if (io) io.disconnect();
-      mo.disconnect();
+      stop();
+      sizes.disconnect();
+      screen.disconnect();
       doc.removeEventListener('visibilitychange', onVisibility);
-      if (mq && mq.removeEventListener) mq.removeEventListener('change', onMotion);
+      motion?.removeEventListener?.('change', onMotion);
       win.removeEventListener('pointermove', onPointer);
-      win.removeEventListener('pointerout', onLeave);
-      canvas.width = canvas.height = 0;
       canvas.remove();
-      host.style.position = oldPosition;
-      state = null;
     },
   };
 }

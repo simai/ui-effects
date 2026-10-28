@@ -7,6 +7,11 @@ const indent = (code, prefix) => code.split('\n').map((line) => (line ? prefix +
 const quote = (value) => `'${String(value).replace(/\\/gu, '\\\\').replace(/'/gu, "\\'")}'`;
 const attr = (value) => String(value).replace(/&/gu, '&amp;').replace(/'/gu, '&#39;').replace(/</gu, '&lt;');
 
+// A single-scheme effect keeps its scheme on any page, so «as the page» is
+// written as that scheme.
+const themeOf = (entry, mode) => (mode === 'auto' && entry.schemes.length === 1 ? entry.schemes[0] : mode);
+const themeNote = (entry, mode) => (mode !== 'auto' ? 'задан автором' : entry.schemes.length === 1 ? `у эффекта одна схема, ${entry.schemes[0] === 'light' ? 'светлая' : 'тёмная'}` : 'как у страницы');
+
 // The Framework, with SF_BOOT_CONFIG.effects naming the catalogue at this commit:
 // the core loads every effect from there and checks each file against its index.
 export function connectSnippet(config) {
@@ -38,8 +43,6 @@ const windowsStyle = `<style>
   .effect-card h3, .effect-card p { margin: 0; }
   /* Окно своего фона не рисует: сквозь него виден эффект. */
   [data-sf-effect-state="running"] [data-sf-effect-window] { background: transparent; }
-  /* Подпись над эффектом — на вуали поверхности темы окна. */
-  [data-sf-effect-state="running"] [data-sf-effect-window] .effect-card__text { margin: -1rem; padding: 0.75rem 1rem; border-radius: 0 0 0.75rem 0.75rem; background: color-mix(in srgb, var(--sf-surface-0) 84%, transparent); }
 </style>`;
 const windowsCards = `  <li class="effect-card" data-sf-effect-window><div class="effect-card__text"><h3>Аналитика</h3><p>Показатели за неделю.</p></div></li>
   <li class="effect-card" data-sf-effect-window><div class="effect-card__text"><h3>Заявки</h3><p>Новые и в работе.</p></div></li>
@@ -54,7 +57,7 @@ export function htmlSnippet({config, entry, mode, layout, values}) {
     return `${head}
 <ul class="effect-windows"
     data-sf-effect-windows="${entry.id}"
-    data-sf-effect-theme="${mode}"
+    data-sf-effect-theme="${themeOf(entry, mode)}"
     data-sf-effect-settings='${settings}'>
 ${windowsCards}
 </ul>
@@ -63,7 +66,7 @@ ${windowsStyle}`;
   return `${head}
 <section class="effect-hero"
          data-sf-effect="${entry.id}"
-         data-sf-effect-theme="${mode}"
+         data-sf-effect-theme="${themeOf(entry, mode)}"
          data-sf-effect-settings='${settings}'>
 ${heroBody}
 </section>
@@ -79,7 +82,7 @@ export function jsSnippet({config, entry, mode, layout, values}) {
 const area = document.querySelector('[data-effect-area]');
 const placement = await SF.Effects.placeEffect(area, {
   effect: ${quote(entry.id)},
-  themeMode: ${quote(mode)}, // 'auto' — как у страницы${mode === 'auto' ? '' : '; задан автором'}
+  themeMode: ${quote(themeOf(entry, mode))}, // ${themeNote(entry, mode)}
   settings: ${indent(JSON.stringify(values, null, 2), '  ').trimStart()},${windows ? "\n  windows: true, // эффект виден только через карточки [data-sf-effect-window]" : "\n  // windows: true — эффект за карточками [data-sf-effect-window]"}
 });
 if (!placement) console.warn('Эффект не запущен:', area.dataset.sfEffectReason);`;

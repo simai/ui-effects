@@ -24,7 +24,7 @@ function run(host, settings, context, spec) {
   host.append(canvas);
   const ctx = canvas.getContext('2d', {alpha: false});
   const api = {canvas, ctx, doc, w: 1, h: 1, ratio: 1, quality: 1, t: 0, still: false,
-    values: {...settings}, colors: null, pointer: {x: 0.5, y: 0.5, on: 0, tx: 0.5, ty: 0.5, to: 0}};
+    values: {...settings, scheme: context?.scheme ?? 'light'}, colors: null, pointer: {x: 0.5, y: 0.5, on: 0, tx: 0.5, ty: 0.5, to: 0}};
   const motion = win.matchMedia ? win.matchMedia('(prefers-reduced-motion: reduce)') : null;
   const scheme = win.matchMedia ? win.matchMedia('(prefers-color-scheme: dark)') : null;
   let reduced = Boolean(context && context.reducedMotion) || Boolean(motion && motion.matches);
@@ -56,7 +56,11 @@ function run(host, settings, context, spec) {
     // Palette tones only, never theme roles: a tone keeps its value in both
     // themes, so this light effect looks the same on a light or a dark page.
     // The host forces its area into .theme-light for the text over it.
-    api.colors = {
+    // Each scheme is its own design, from its own palette tones.
+    api.dark = api.values.scheme === 'dark';
+    api.colors = api.dark
+      ? {surface: read('--sf-neutral-5', '#111318'), ink: read('--sf-neutral-90', '#e2e2e9'), primary: read('--sf-primary-40', '#005bbe'), secondary: read('--sf-secondary-40', '#535e77'), tertiary: read('--sf-tertiary-40', '#7c4c86'), primary80: read('--sf-primary-20', '#002f66')}
+      : {
       surface: read('--sf-neutral-98', '#faf9fe'),
       ink: read('--sf-neutral-10', '#1a1b1f'),
       primary: read('--sf-primary-40', '#005bbe'),
@@ -190,9 +194,9 @@ function run(host, settings, context, spec) {
   sync();
 
   return {
-    update(next) {
+    update(next, context) {
       if (destroyed) return;
-      api.values = {...api.values, ...next};
+      api.values = {...api.values, ...next, scheme: context?.scheme ?? api.values.scheme};
       readTheme();
       listen();
       if (spec.resize) spec.resize(api);
@@ -269,8 +273,9 @@ export function mount(host, settings, context) {
       const {ctx, w, h, t, values, colors} = api;
       const mood = MOODS[values.mood] || MOODS.day;
       const land = colors[mood.land];
-      const sky = mood.sky || colors.primary80;
-      const haze = mood.haze || mix(colors.surface, [255, 255, 255], 0.6);
+      // At night the sky and the haze are deep tones of the palette; by day, the mood's own light colours.
+      const sky = api.dark ? (mood.land === 'tertiary' ? colors.tertiary : colors.primary80) : (mood.sky || colors.primary80);
+      const haze = api.dark ? mix(colors.surface, colors.primary80, 0.35) : (mood.haze || mix(colors.surface, [255, 255, 255], 0.6));
       const k = 0.55 + 0.45 * (values.intensity / 100);
       const g = ctx.createLinearGradient(0, 0, 0, h * 0.6);
       g.addColorStop(0, css(mix(colors.surface, sky, 0.3 * k)));
@@ -288,7 +293,7 @@ export function mount(host, settings, context) {
         const amp = h * (0.08 + 0.1 * depth);
         const scale = 1 / (260 + 340 * (1 - depth));
         const off = t * (4 + 22 * depth) - shift * 40 * depth;
-        const col = mix(colors.surface, land, (0.05 + 0.27 * depth * depth) * k);
+        const col = mix(colors.surface, land, (0.05 + 0.27 * depth * depth) * k * (api.dark ? 2.6 : 1));
         const deep = mix(col, haze, 0.55);
         ctx.beginPath();
         ctx.moveTo(0, h);

@@ -3,7 +3,7 @@
 Points on a dark world map, with pulses flying between them along arcs.
 
 - **Russian name:** Сигналы
-- **Version:** 0.1.0 (draft), simai.effect 1.1.0
+- **Version:** 0.1.0, simai.effect 1.1.0
 - **Surfaces:** hero, section, dashboard, sign-in
 - **Tags:** lines, particles
 - **Role:** Networks and integrations. Dark scheme only.

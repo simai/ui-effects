@@ -3,7 +3,7 @@
 A fine grid ripples like cloth and gives under the pointer.
 
 - **Russian name:** Сетка-ткань
-- **Version:** 0.1.0 (draft), simai.effect 1.1.0
+- **Version:** 0.1.0, simai.effect 1.1.0
 - **Surfaces:** hero, section, dashboard, sign-in
 - **Tags:** lines, geometry
 - **Role:** A calm grid for interfaces: light or dark.

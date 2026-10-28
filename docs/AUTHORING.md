@@ -74,7 +74,7 @@ What a placement shows (theme mode `auto` | `dark` | `light`):
 |:---|:---|:---|
 | draws the target scheme | any | the effect, in that scheme |
 | dark only | light, in `auto` | the effect, still dark; the area is `theme-dark` |
-| light only | dark, in `auto` | nothing: a plain dark surface |
+| light only | dark, in `auto` | the effect, still light; the area is `theme-light` |
 
 An editor never offers a fixed mode the effect cannot draw. The effect's area takes the theme it is drawn in. The core sends the
 scheme as `context.scheme`, through `mount` and `update(settings, context)`;

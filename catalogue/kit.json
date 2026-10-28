@@ -24,9 +24,9 @@
       "failed": []
     },
     "text-flow": {
-      "digest": "a12398b618eb38288ca5532bd32db1f7ed1316c5c199f57961a6598591d7ddb4",
-      "passed": 14,
-      "total": 14,
+      "digest": "6719e094dfff4eaf637a1e13dca7dfc900af6b81b406e4d5b4ce0277633f6892",
+      "passed": 17,
+      "total": 17,
       "failed": []
     },
     "constellation-net": {
@@ -43,12 +43,6 @@
     },
     "comet-flow": {
       "digest": "25036376565f1966a45ca050d4eeebf58c291aa5b879fdfb56e85eace8dfc4f9",
-      "passed": 14,
-      "total": 14,
-      "failed": []
-    },
-    "nebula-mesh": {
-      "digest": "1fc2cd325aae8e61fda465d91fa428ff137295a071784a1f73cfe470ba5be325",
       "passed": 14,
       "total": 14,
       "failed": []
@@ -72,15 +66,15 @@
       "failed": []
     },
     "rain-glass": {
-      "digest": "45226b29e8a498543ce8ed434ea55af5d395b6462ddb8d232779bd351b889a42",
+      "digest": "df88a814e0f83ef560db6f716a9aa87cb201c05d6d2244419462f46978e047bb",
       "passed": 14,
       "total": 14,
       "failed": []
     },
     "mist-gradient": {
-      "digest": "d316e7e7e5b55f83ae88093b21ef11dbfa583ad9df41dd6a914a086cd44302c6",
-      "passed": 14,
-      "total": 14,
+      "digest": "802a584f1c0daa24c1fc9f68e5893b0896656b551a0e0ae03f0a866a6f8416f6",
+      "passed": 17,
+      "total": 17,
       "failed": []
     },
     "daylight-caustics": {
@@ -90,9 +84,9 @@
       "failed": []
     },
     "leaf-shadows": {
-      "digest": "3c2e7cecf59aabec626542b345e0c3cc182a90edc1e5f9499c1507ccfb349a4c",
-      "passed": 14,
-      "total": 14,
+      "digest": "e367db5d65b2930d54a00d87c148972d509f670a2765a59b2f5db75aa18642fa",
+      "passed": 17,
+      "total": 17,
       "failed": []
     },
     "paper-facets": {
@@ -114,25 +108,13 @@
       "failed": []
     },
     "paper-hills": {
-      "digest": "dbc4a5301ea13e7cc5d3ef1bbfba2c53c99ba43160db7a2cd7a5650c0046432c",
-      "passed": 14,
-      "total": 14,
-      "failed": []
-    },
-    "wind-lines": {
-      "digest": "a9ace10fd4f13801573d3cd0eb4e3ccf6a1835f6e74cf117392b9cf538f38c0e",
-      "passed": 14,
-      "total": 14,
+      "digest": "801b6a7f840afbfee200beca9ff128c86a9f85f47e95d03432b29080c4a98126",
+      "passed": 17,
+      "total": 17,
       "failed": []
     },
     "city-lights": {
-      "digest": "f28549930d13c628cecd58231151abb73155ac86aafa23a40db872b78773a689",
-      "passed": 14,
-      "total": 14,
-      "failed": []
-    },
-    "deep-ocean": {
-      "digest": "a89e6f43fc12e8ac6db5e264f1b04fd3ab983c611bd26ac555c621bb31f50a28",
+      "digest": "e67850ba7d5806cf6ff80be6348c8f78be879a366b5c923d8ac22af02686d766",
       "passed": 14,
       "total": 14,
       "failed": []

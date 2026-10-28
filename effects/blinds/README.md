@@ -3,7 +3,7 @@
 Bands of sunlight on a wall sway a little.
 
 - **Russian name:** Тени жалюзи
-- **Version:** 0.1.0 (draft), simai.effect 1.1.0
+- **Version:** 0.1.0, simai.effect 1.1.0
 - **Surfaces:** hero, section, dashboard, sign-in
 - **Tags:** nature, geometry
 - **Role:** A sunlit room. Light scheme only.
@@ -27,7 +27,7 @@ Theme modes a placement may choose: `auto`, `light`.
 
 ## On a dark page
 
-In the `auto` theme mode the effect is not shown; the area is a plain dark surface (`theme-dark`).
+In the `auto` theme mode the effect stays light, and its area keeps `theme-light`.
 
 ## Files
 

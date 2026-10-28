@@ -24,7 +24,7 @@ function run(host, settings, context, spec) {
   host.append(canvas);
   const ctx = canvas.getContext('2d', {alpha: false});
   const api = {canvas, ctx, doc, w: 1, h: 1, ratio: 1, quality: 1, t: 0, still: false,
-    values: {...settings}, colors: null, pointer: {x: 0.5, y: 0.5, on: 0, tx: 0.5, ty: 0.5, to: 0}};
+    values: {...settings, scheme: context?.scheme ?? 'light'}, colors: null, pointer: {x: 0.5, y: 0.5, on: 0, tx: 0.5, ty: 0.5, to: 0}};
   const motion = win.matchMedia ? win.matchMedia('(prefers-reduced-motion: reduce)') : null;
   const scheme = win.matchMedia ? win.matchMedia('(prefers-color-scheme: dark)') : null;
   let reduced = Boolean(context && context.reducedMotion) || Boolean(motion && motion.matches);
@@ -56,7 +56,11 @@ function run(host, settings, context, spec) {
     // Palette tones only, never theme roles: a tone keeps its value in both
     // themes, so this light effect looks the same on a light or a dark page.
     // The host forces its area into .theme-light for the text over it.
-    api.colors = {
+    // Each scheme is its own design, from its own palette tones.
+    api.dark = api.values.scheme === 'dark';
+    api.colors = api.dark
+      ? {surface: read('--sf-neutral-10', '#1a1b1f'), ink: read('--sf-neutral-5', '#111318'), primary: read('--sf-primary-30', '#00458f'), secondary: read('--sf-secondary-30', '#3b475e'), tertiary: read('--sf-tertiary-30', '#62356d'), primary80: read('--sf-primary-80', '#acc7ff')}
+      : {
       surface: read('--sf-neutral-98', '#faf9fe'),
       ink: read('--sf-neutral-10', '#1a1b1f'),
       primary: read('--sf-primary-40', '#005bbe'),
@@ -190,9 +194,9 @@ function run(host, settings, context, spec) {
   sync();
 
   return {
-    update(next) {
+    update(next, context) {
       if (destroyed) return;
-      api.values = {...api.values, ...next};
+      api.values = {...api.values, ...next, scheme: context?.scheme ?? api.values.scheme};
       readTheme();
       listen();
       if (spec.resize) spec.resize(api);
@@ -311,7 +315,8 @@ export function mount(host, settings, context) {
   };
   const build = (api) => {
     const day = DAY[api.values.daytime] || DAY.morning;
-    const shadow = mix(api.colors.ink, api.colors.primary, 0.35);
+    // A shadow is always darker than the wall: tinted ink by day, near black at night.
+    const shadow = api.dark ? mix(api.colors.ink, [0, 0, 0], 0.6) : mix(api.colors.ink, api.colors.primary, 0.35);
     const key = `${api.values.daytime}|${shadow.join()}`;
     if (key !== shadeKey) {
       shadeKey = key;
@@ -336,8 +341,11 @@ export function mount(host, settings, context) {
     draw(api) {
       const {ctx, w, h, t, values, colors} = api;
       const day = DAY[values.daytime] || DAY.morning;
-      const glowA = mix(colors.surface, day.warm, 0.22);
-      const glowB = mix(colors.surface, day.warm, 0.06);
+      // At night the light on the wall is the moon's: a cool patch on a dark wall, crossed by
+      // deeper shadows.
+      const light = api.dark ? colors.primary80 : day.warm;
+      const glowA = mix(colors.surface, light, api.dark ? 0.16 : 0.22);
+      const glowB = mix(colors.surface, light, api.dark ? 0.03 : 0.06);
       const g = ctx.createLinearGradient(day.lean < 0 ? 0 : w, 0, day.lean < 0 ? w : 0, h);
       g.addColorStop(0, css(glowA));
       g.addColorStop(1, css(glowB));
@@ -345,7 +353,7 @@ export function mount(host, settings, context) {
       ctx.fillRect(0, 0, w, h);
       const p = api.pointer;
       const gust = values.interactive ? p.on : 0;
-      const depthAlpha = 0.05 + 0.2 * (values.intensity / 100);
+      const depthAlpha = (0.05 + 0.2 * (values.intensity / 100)) * (api.dark ? 3 : 1);
       for (const c of clusters) {
         let sway = 0.05 * Math.sin(t * 0.8 + c.phase) + 0.025 * Math.sin(t * 1.9 + c.phase * 1.7);
         if (gust > 0) {

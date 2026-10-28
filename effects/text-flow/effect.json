@@ -2,7 +2,7 @@
   "schema": "simai.effect",
   "schema_version": 1,
   "id": "text-flow",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "label": {
     "ru": "Текстовый поток",
     "en": "Text flow"
@@ -17,7 +17,8 @@
     "dashboard"
   ],
   "schemes": [
-    "dark"
+    "dark",
+    "light"
   ],
   "capabilities": [
     "windows"
@@ -137,19 +138,6 @@
       "max": 200,
       "step": 5,
       "unit": "%"
-    },
-    {
-      "key": "hue",
-      "type": "integer",
-      "label": {
-        "ru": "Оттенок",
-        "en": "Hue"
-      },
-      "default": 190,
-      "min": 0,
-      "max": 360,
-      "step": 5,
-      "unit": "°"
     },
     {
       "key": "interactive",

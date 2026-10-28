@@ -3,7 +3,7 @@
 Sparks rise from below, swirl and fade over a warm glow.
 
 - **Russian name:** Тлеющие угли
-- **Version:** 0.1.0 (draft), simai.effect 1.1.0
+- **Version:** 0.1.0, simai.effect 1.1.0
 - **Surfaces:** hero, section, dashboard, sign-in
 - **Tags:** glow, particles
 - **Role:** A warm dark background. Dark scheme only.
