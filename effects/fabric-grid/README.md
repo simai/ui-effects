@@ -15,7 +15,7 @@ Gravitational waves run through the grid of spacetime; a click sends one of your
 | `speed` | integer | 10–300 % | `100` | Speed |
 | `intensity` | integer | 10–100 % | `70` | Intensity |
 | `density` | integer | 10–100 % | `50` | Density |
-| `interactive` | boolean | — | `true` | React to the pointer. A click sends a gravitational wave, holding grows a black hole |
+| `interactive` | boolean | — | `true` | React to the pointer. A click sends a gravitational wave; holding sets down a body that grows heavier, and letting go rings out a stronger wave |
 
 ## Schemes
 

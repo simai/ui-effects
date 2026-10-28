@@ -66,7 +66,7 @@
       "failed": []
     },
     "rain-glass": {
-      "digest": "0fb18bbdf0b6160f43cd5cc43777ca9c27bf7798bb6df5e3847c480e0329f4c6",
+      "digest": "886df92ba9643c52a62e460669e1837d82a1c44a74309efd22dd6c68de135ca9",
       "passed": 14,
       "total": 14,
       "failed": []
@@ -90,9 +90,9 @@
       "failed": []
     },
     "paper-facets": {
-      "digest": "4cadc431a322b075ac6224f6eb22562c38b3c6cfd7cc59a80720af442d5e46c5",
-      "passed": 14,
-      "total": 14,
+      "digest": "5b2933037190e9a22a6a2881d07c1ad99bf67c042fec97f1773097f751274ee3",
+      "passed": 17,
+      "total": 17,
       "failed": []
     },
     "contour-map": {
@@ -126,7 +126,7 @@
       "failed": []
     },
     "fabric-grid": {
-      "digest": "2528dfa8dfca1e4efa321d1b5097443c2ae88778eb3eadd2ad1751430d80781a",
+      "digest": "2144d3c08ad14df67dc86409e8b8dcfc24d61bf9a16c194da32c896c3b64abd0",
       "passed": 17,
       "total": 17,
       "failed": []
@@ -144,7 +144,7 @@
       "failed": []
     },
     "particle-shapes": {
-      "digest": "ca438afe950c99dfe64685d247964b0b9227e2d70a46fba77db6e9d719be2594",
+      "digest": "6eaa4b11021722fb67cfacb8dca50f1e3d035b6efe3c97e2e75ae4500f12ffe6",
       "passed": 17,
       "total": 17,
       "failed": []
@@ -156,7 +156,7 @@
       "failed": []
     },
     "sand-picture": {
-      "digest": "349383bc1e260488cbb27de6ca741c1a48a6a61cad78f34bf174136289f15cd5",
+      "digest": "eb67f02063e24c4e1bee19101668cc7c8e52f8a8107604e17b4772343fc742b0",
       "passed": 17,
       "total": 17,
       "failed": []

@@ -340,6 +340,12 @@ const highlighter = new Promise((resolve) => {
   };
   tick();
 });
+// Long lines wrap inside the blocks while the switch is on; the choice is kept in this browser.
+const WRAP_KEY = 'ui-effects-code-wrap';
+const wrapSwitch = $('[data-code-wrap]');
+const setWrap = (on) => { document.documentElement.classList.toggle('code-wrap', on); try { localStorage.setItem(WRAP_KEY, on ? '1' : ''); } catch (error) { /* storage blocked */ } };
+try { if (localStorage.getItem(WRAP_KEY)) { wrapSwitch.setAttribute('checked', ''); document.documentElement.classList.add('code-wrap'); } } catch (error) { /* storage blocked */ }
+wrapSwitch.addEventListener('change', (event) => { if (event.target === wrapSwitch) setWrap(Boolean(wrapSwitch.checked)); });
 function setCode(name, source) {
   const code = $(`[data-code="${name}"]`);
   code.textContent = source;

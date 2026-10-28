@@ -47,8 +47,9 @@ function readTones(host, scheme) {
 
 // The fabric of spacetime, seen from above at an angle: a grid in perspective that covers the whole
 // area, edge to edge. Gravitational waves run through it in clean rings from places of their own
-// choosing, now here, now there. A click sends a wave from the point; holding the button grows a
-// black hole whose funnel deepens and follows the pointer, and letting go rings out a strong wave.
+// choosing, now here, now there. A click sends a wave from the point. Holding the button sets a
+// body down on the fabric: the longer it is held, the heavier the body, the deeper and wider the
+// well it sinks, and the stronger the wave it rings out when let go, as it drops out of sight.
 const SCENE = {
   home: 'dark', seed: 141, reseed: ['density'],
   tones: (read, scheme) => scheme === 'light'
@@ -70,7 +71,8 @@ const SCENE = {
   press(env, x, y) { const at = toPlane(env, x, y); env.state.hole = {x: at[0], z: at[1], mass: 0}; },
   release(env) {
     const {state} = env;
-    if (state.hole) state.waves.push({x: state.hole.x, z: state.hole.z, born: env.time ?? 0, strength: 1 + state.hole.mass * 2.5});
+    const hole = state.hole;
+    if (hole) { state.waves.push({x: hole.x, z: hole.z, born: env.time ?? 0, strength: 1 + hole.mass * 3}); state.gone = {...hole, born: env.time ?? 0}; }
     state.hole = null;
     state.quiet = (env.time ?? 0) + 4;
   },
@@ -88,15 +90,17 @@ const SCENE = {
       state.next = t + 2.2 + r() * 2.6;
     }
     if (state.hole) {
-      state.hole.mass = Math.min(1, state.hole.mass + 0.005);
+      state.hole.mass = Math.min(1, state.hole.mass + 0.007);
       if (pointer.on) { const at = toPlane(env, pointer.x * w, pointer.y * h); state.hole.x = mix(state.hole.x, at[0], 0.1); state.hole.z = mix(state.hole.z, at[1], 0.1); }
     }
     state.waves = state.waves.filter((wave) => t - wave.born < 9);
-    const hole = state.hole;
-    // Height of the fabric: a slow swell, the funnel of the hole, and passing rings.
+    // The body as it is, or as it springs back out of sight after release.
+    const gone = state.gone && t - state.gone.born < 0.5 ? state.gone : null;
+    const hole = state.hole ?? (gone && {...gone, mass: gone.mass * (1 - (t - gone.born) / 0.5)});
+    // Height of the fabric: a slow swell, the smooth well under the body, and passing rings.
     const height = (x, z) => {
       let y = (noise2(x * 0.18 + t * 0.05, z * 0.18) - 0.5) * 0.16;
-      if (hole) { const d = Math.hypot(x - hole.x, z - hole.z), m = 0.45 + hole.mass * 0.6; if (d < 4) y -= m * (1 / (d + 0.25) - 1 / 4.25); }
+      if (hole) { const d2 = (x - hole.x) ** 2 + (z - hole.z) ** 2, s = 0.7 + hole.mass * 1.3; y -= (0.25 + hole.mass * 1.9) / (1 + d2 / (s * s)); }
       for (const wave of state.waves) {
         const age = t - wave.born, d = Math.hypot(x - wave.x, z - wave.z), band = d - age * 2.2;
         if (Math.abs(band) < 2.4) y += Math.sin(band * 2.2) * Math.exp(-(band * band) / 0.9) * 0.24 * wave.strength * (1 - age / 9) / (1 + age * 0.3);
@@ -139,15 +143,13 @@ const SCENE = {
     const cell = state.cell;
     for (let z = Math.floor(z0 / cell) * cell; z <= z1; z += cell) line(x0, z, x1, z, 120);
     for (let x = Math.floor(x0 / cell) * cell; x <= x1; x += cell) line(x, z0, x, z1, 120);
-    if (hole) {
-      const [sx, sy, zc] = project(hole.x, height(hole.x, hole.z) + 0.1, hole.z);
-      const r = (0.14 + hole.mass * 0.18) * state.f / zc;
-      ctx.fillStyle = rgba(tones.ground);
+    if (hole && hole.mass > 0.02) {
+      const size = 0.12 + hole.mass * 0.32, [sx, sy, zc] = project(hole.x, height(hole.x, hole.z) + size, hole.z);
+      const r = size * state.f / zc, ball = ctx.createRadialGradient(sx - r * 0.35, sy - r * 0.4, r * 0.1, sx, sy, r);
+      ball.addColorStop(0, rgba(mixc(tones.line, scheme === 'light' ? tones.ground : [255, 255, 255], 0.35), 0.95 * k + 0.05));
+      ball.addColorStop(1, rgba(mixc(tones.line, tones.ground, 0.55), 0.95 * k + 0.05));
+      ctx.fillStyle = ball;
       ctx.beginPath(); ctx.arc(sx, sy, r, 0, Math.PI * 2); ctx.fill();
-      ctx.strokeStyle = rgba(tones.deep, 0.7 * k);
-      ctx.lineWidth = 2;
-      ctx.beginPath(); ctx.ellipse(sx, sy, r * 1.8, r * 0.5, 0, 0, Math.PI * 2); ctx.stroke();
-      ctx.lineWidth = 1;
     }
   },
 };

@@ -95,6 +95,45 @@
       }
     },
     {
+      "key": "style",
+      "type": "choice",
+      "label": {
+        "ru": "Движение",
+        "en": "Motion"
+      },
+      "default": "brownian",
+      "options": [
+        {
+          "value": "brownian",
+          "label": {
+            "ru": "Броуновское",
+            "en": "Brownian"
+          }
+        },
+        {
+          "value": "wind",
+          "label": {
+            "ru": "Песчаный ветер",
+            "en": "Sand wind"
+          }
+        },
+        {
+          "value": "swirl",
+          "label": {
+            "ru": "Вихрь",
+            "en": "Vortex"
+          }
+        },
+        {
+          "value": "snow",
+          "label": {
+            "ru": "Снегопад",
+            "en": "Snowfall"
+          }
+        }
+      ]
+    },
+    {
       "key": "interactive",
       "type": "boolean",
       "label": {

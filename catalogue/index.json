@@ -11,9 +11,9 @@
   },
   "counts": {
     "effects": 25,
-    "dual": 13,
+    "dual": 14,
     "dark": 9,
-    "light": 3
+    "light": 2
   },
   "effects": [
     {
@@ -571,7 +571,7 @@
     },
     {
       "id": "rain-glass",
-      "version": "2.2.0",
+      "version": "2.3.0",
       "label": {
         "ru": "Дождь на стекле",
         "en": "Rain on glass"
@@ -604,23 +604,23 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "42b082500a72a1453a47a5799d3e3edc98afa4d43955b7f061fa3d2e9f6dae62",
-          "size": 2971
+          "sha256": "8c56a9e312ce73bad70d0441ec6254e15a8f2ed44d250760d5534e62118629cf",
+          "size": 3870
         },
         {
           "path": "index.js",
-          "sha256": "825008e6f3aff4eb44fc81d9f2d7f04f38162623fd3e8a05f580da8aed8dfd83",
-          "size": 20378
+          "sha256": "6af5d398a20dc087279338ee4db6bcd7af40c01ca99f8f212ba672e9a503cea1",
+          "size": 21409
         },
         {
           "path": "preview.png",
-          "sha256": "b3799a6bf938fa0d0a15c0b35702cb2748389217324773b637524be9209133b2",
-          "size": 160184
+          "sha256": "13cffe6f4b5f0ff7fbd5537c1d63d5665e1ac203971dba28d5a555bfec5464c6",
+          "size": 152795
         },
         {
           "path": "README.md",
-          "sha256": "2646c28b766344e22457e7a4b912fba9475d96792dad70dc791ff7c0124cc28c",
-          "size": 1536
+          "sha256": "7114123d3969cc8b9f4c262b125e11a570bc6e117aacc65c722773cb42a1fbec",
+          "size": 1763
         }
       ],
       "kit": {
@@ -813,19 +813,20 @@
     },
     {
       "id": "paper-facets",
-      "version": "1.3.0",
+      "version": "1.4.0",
       "label": {
         "ru": "Бумажные грани",
         "en": "Paper facets"
       },
       "description": {
-        "ru": "Смятый лист из треугольных граней; свет медленно обходит его, и складки то ловят, то теряют свет."
+        "ru": "Смятый лист из треугольных граней; свет медленно обходит его, грани неспешно переливаются, а под указателем быстрее."
       },
       "role": {
-        "ru": "Смятая бумага, свет обходит грани."
+        "ru": "Смятая бумага: светлая и тёмная схемы."
       },
       "schemes": [
-        "light"
+        "light",
+        "dark"
       ],
       "pair": null,
       "capabilities": [
@@ -845,30 +846,30 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "53fc20a25d83493c51d7a7764dbebf4d32692f07be83ea1ce50ad84721ddcbef",
-          "size": 2510
+          "sha256": "31a2d320ad520ebdc0fde63f9b26cfd3817a2df7f22852478665d70defc25fe3",
+          "size": 2522
         },
         {
           "path": "index.js",
-          "sha256": "d41a7134fe90960932c52bb625093b57d2a5e833af26adc8861df48bc571115b",
-          "size": 14617
+          "sha256": "1e41dc09d2d40c9cd28c72bdae21aa3b9290f90389c29b4c2f7b30b1a6084e53",
+          "size": 15348
         },
         {
           "path": "preview.png",
-          "sha256": "e8e00e2cd09e6efa52c39aa057ea5e7b0e150e34d0030f4948f5564e8fc82988",
-          "size": 33612
+          "sha256": "e36e39f974f1523fef2f731e0db129e2fe42486c09dc717a259335cffd644787",
+          "size": 30567
         },
         {
           "path": "README.md",
-          "sha256": "91a0166963c7f7e682fc6f42f61512c53afc999ed87036a42cc279c88bbd86d9",
-          "size": 1529
+          "sha256": "aab78b41082b3a0b71aef7cb49c59f722810943a95de7dcca301c909e4349277",
+          "size": 1637
         }
       ],
       "kit": {
         "status": "pass",
         "framework": "ui-519fa0814a02",
-        "passed": 14,
-        "total": 14
+        "passed": 17,
+        "total": 17
       }
     },
     {
@@ -1210,13 +1211,13 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "ffa7ff497a2f1e16fcbeb18adbffc3bfc609d04b7bf00e70ce335ba035c91082",
-          "size": 1671
+          "sha256": "708604f101255f348b619bf859c6dc8923038d802680adf5a64514523d611531",
+          "size": 1822
         },
         {
           "path": "index.js",
-          "sha256": "f4915e9ddfc22da05d81fb1cc9af2e0033a33c22e6fe7dc72216dbfd57e2908a",
-          "size": 14337
+          "sha256": "25352fc6008929637c73b2d4f3a4d9f4d263e4409e2f57974d9fc8d7fd72979d",
+          "size": 14841
         },
         {
           "path": "preview.png",
@@ -1225,8 +1226,8 @@
         },
         {
           "path": "README.md",
-          "sha256": "42255149118fe19017324058a24893ef32c0d4be601b65d50c77ad7543a0fb26",
-          "size": 1341
+          "sha256": "4eb150fcba5ca273cdc4ed0279dc83bbe991735af9fd794910a94b18054a63dd",
+          "size": 1400
         }
       ],
       "kit": {
@@ -1396,13 +1397,13 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "f901d10e4462aa07064167ea6f391d16ac8f0d342b4b9b766a10b5ebcc3c3254",
-          "size": 2298
+          "sha256": "19e0f3ca3c12855d4b8cd9ce061db581cbadfdce6c26ab6e118397ae51cf2c14",
+          "size": 3102
         },
         {
           "path": "index.js",
-          "sha256": "e5415c4e69a2bcbb20feee500b251cb5b43cab2ac72a1108778562b1c2fd31cd",
-          "size": 13730
+          "sha256": "4ecb5a5b458b49fbde375a9e5585e385c9293cef4a965191ab58bfe5ca9f4086",
+          "size": 14685
         },
         {
           "path": "preview.png",
@@ -1411,8 +1412,8 @@
         },
         {
           "path": "README.md",
-          "sha256": "c24bec1f8533f2cf8d078b9eade06698972a61877f3e1b5b8d35d26988c77a88",
-          "size": 1472
+          "sha256": "4f99e3018b1827ea0fe5d82b846f8effc0c64024863dda101fa934bb270c4866",
+          "size": 1555
         }
       ],
       "kit": {
@@ -1524,13 +1525,13 @@
         },
         {
           "path": "index.js",
-          "sha256": "18b4980e95e461e5068a0a71bb551436f34e9833b0af585434942a31757c2d5a",
-          "size": 15079
+          "sha256": "a183652ae0588046f6fe13c36c2b8f3b14d523356607a9cb139035543ec5d00e",
+          "size": 15513
         },
         {
           "path": "preview.png",
-          "sha256": "58add44813eddcc0e6b1506a4df86e128fce26bc6aef1ed90842d72d331899c1",
-          "size": 28848
+          "sha256": "683e5b4d635f85cc4b1c674d320d2f828415de17430dbc343682013a9b644a6d",
+          "size": 25037
         },
         {
           "path": "README.md",

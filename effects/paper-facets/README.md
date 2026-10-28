@@ -3,7 +3,7 @@
 A crumpled sheet of triangular facets; light circles it slowly, the folds catch and lose it, and each facet shimmers lighter and darker on its own clock.
 
 - **Russian name:** Бумажные грани
-- **Version:** 1.3.0, simai.effect 1.1.0
+- **Version:** 1.4.0, simai.effect 1.1.0
 - **Surfaces:** hero, product, sign-in
 - **Tags:** paper, geometry
 - **Role:** Crumpled paper, the light moving round its facets.
@@ -20,15 +20,11 @@ A crumpled sheet of triangular facets; light circles it slowly, the folds catch 
 
 ## Schemes
 
-The manifest declares `"schemes": ["light"]`, and `"capabilities": ["windows"]`. The module reads the scheme it draws in from `context.scheme`; a switch arrives as `update(settings, context)`.
+The manifest declares `"schemes": ["light", "dark"]`, and `"capabilities": ["windows"]`. The module reads the scheme it draws in from `context.scheme`; a switch arrives as `update(settings, context)`.
 
-Draws in the **light** scheme only.
+Draws in both schemes: **light** (home, the default) and **dark**. Each scheme is designed from its own palette tones; it is not an inverted picture. Every mount lays a new sheet while it moves; a still frame keeps the seeded one.
 
-Theme modes a placement may choose: `auto`, `light`.
-
-## On a dark page
-
-In the `auto` theme mode the effect stays light, and its area keeps `theme-light`.
+Theme modes a placement may choose: `auto`, `light`, `dark`.
 
 ## Files
 

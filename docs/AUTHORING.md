@@ -133,7 +133,8 @@ must reach 4.5:1, in the hero and in the windows layout.
 - About **3 ms** of JavaScript per frame at 1440×900, smooth at 60 fps on a
   laptop. Heavy per-pixel work runs in a small buffer and is scaled up.
 - Degrade gracefully: if frames stay slow, lower the internal resolution.
-- A module stays under about **15 KB**; the catalogue check fails above 20 KB.
+- A module stays under about **15 KB**; a rich scene with many options may
+  reach 24 KB, and the catalogue check fails above that.
   No dependencies.
 
 ## 6. Windows safety

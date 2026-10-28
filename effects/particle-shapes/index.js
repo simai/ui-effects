@@ -49,8 +49,9 @@ function readTones(host, scheme) {
 // warm gas; then the text writes itself from left to right, each particle pulled to its place while
 // still trembling a little; it holds, and dissolves again from left to right, and the gas wanders on
 // from wherever it is, so no two gatherings look the same. A share of the particles never joins and
-// stays gas. The text fits the area by itself. A click heats the particles round it: they shake
-// loose and settle back as they cool; holding the button keeps heating them.
+// stays gas. The text fits the area by itself. How the gas moves is a setting: Brownian jitter,
+// a sand wind blowing across, a slow vortex round the middle, or a snowfall. A click heats the
+// particles round it: they shake loose and settle back as they cool; holding keeps heating them.
 const SCENE = {
   home: 'dark', seed: 177, reseed: ['density', 'text', 'size'],
   tones: (read, scheme) => scheme === 'light'
@@ -106,7 +107,7 @@ const SCENE = {
     // The cycle: wander, gather (written left to right), hold, dissolve (left to right).
     if (state.born === null) state.born = t - 18 * 0.2;
     const c = ((t - state.born) / 18) % 1;
-    const random = state.random, size = 2;
+    const random = state.random, size = 2, style = values.style;
     for (const p of state.particles) {
       let pull = 0;
       if (p.target && !env.still) {
@@ -119,9 +120,14 @@ const SCENE = {
       p.vx += (random() + random() + random() - 1.5) * jolt;
       p.vy += (random() + random() + random() - 1.5) * jolt;
       if (p.target) { p.vx += (p.target[0] - p.x) * 0.006 * pull * frames; p.vy += (p.target[1] - p.y) * 0.006 * pull * frames; }
-      // Soft walls keep the gas in the area.
-      if (p.x < 0) p.vx += 0.05 * frames; else if (p.x > w) p.vx -= 0.05 * frames;
-      if (p.y < 0) p.vy += 0.05 * frames; else if (p.y > h) p.vy -= 0.05 * frames;
+      // The gas's own motion, gone where the particle is held in the text.
+      const free = (1 - pull) * frames;
+      if (style === 'wind') { p.vx += (0.12 + (noise2(p.y * 0.012, t * 0.3) - 0.5) * 0.12) * free; p.vy += (noise2(p.x * 0.01, t * 0.4 + 9) - 0.5) * 0.1 * free; }
+      else if (style === 'swirl') { const dx = p.x - w / 2, dy = p.y - h / 2, d = Math.hypot(dx, dy) + 1, out = 0.03 * (d / (Math.min(w, h) * 0.42) - 1); p.vx += (-dy / d * 0.1 - dx / d * out) * free; p.vy += (dx / d * 0.1 - dy / d * out) * free; }
+      else if (style === 'snow') { p.vy += 0.07 * free; p.vx += (noise2(p.y * 0.01, t * 0.2) - 0.5) * 0.05 * free; }
+      // Soft walls keep the gas in the area; the wind and the snow carry it round instead.
+      if (style === 'wind') { if (p.x > w + 8) p.x -= w + 16; } else if (p.x < 0) p.vx += 0.05 * frames; else if (p.x > w) p.vx -= 0.05 * frames;
+      if (style === 'snow') { if (p.y > h + 8) p.y -= h + 16; } else if (p.y < 0) p.vy += 0.05 * frames; else if (p.y > h) p.vy -= 0.05 * frames;
       const damp = Math.pow(0.9 - pull * 0.06, frames);
       p.vx *= damp; p.vy *= damp;
       p.x += p.vx * frames; p.y += p.vy * frames;

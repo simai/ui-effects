@@ -1,4 +1,4 @@
-// Paper facets (paper-facets) -- SIMAI Framework light background effect, simai.effect 1.1.0.
+// Paper facets (paper-facets) -- SIMAI Framework background effect, light and dark, simai.effect 1.1.0.
 // One module, no imports, no network. Generated from the effects-lab light sources.
 
 // Shared runtime of the light set, copied into every module so each stays one file with no imports.
@@ -23,7 +23,7 @@ function run(host, settings, context, spec) {
   }
   host.append(canvas);
   const ctx = canvas.getContext('2d', {alpha: false});
-  const api = {canvas, ctx, doc, w: 1, h: 1, ratio: 1, quality: 1, t: 0, still: false,
+  const api = {canvas, ctx, doc, w: 1, h: 1, ratio: 1, quality: 1, t: 0, still: false, scheme: (context && context.scheme) || 'light',
     values: {...settings}, colors: null, pointer: {x: 0.5, y: 0.5, on: 0, tx: 0.5, ty: 0.5, to: 0}};
   const motion = win.matchMedia ? win.matchMedia('(prefers-reduced-motion: reduce)') : null;
   const scheme = win.matchMedia ? win.matchMedia('(prefers-color-scheme: dark)') : null;
@@ -54,11 +54,13 @@ function run(host, settings, context, spec) {
       return [d[0], d[1], d[2]];
     };
     // Palette tones only, never theme roles: a tone keeps its value in both
-    // themes, so this light effect looks the same on a light or a dark page.
-    // The host forces its area into .theme-light for the text over it.
+    // themes, so each scheme looks the same on a light or a dark page. The
+    // core puts the area in the theme of the scheme drawn, for the text over it.
+    const dark = api.scheme === 'dark';
     api.colors = {
-      surface: read('--sf-neutral-98', '#faf9fe'),
-      ink: read('--sf-neutral-10', '#1a1b1f'),
+      surface: dark ? read('--sf-neutral-10', '#1a1b1f') : read('--sf-neutral-98', '#faf9fe'),
+      ink: dark ? read('--sf-neutral-0', '#000000') : read('--sf-neutral-10', '#1a1b1f'),
+      light: dark ? read('--sf-neutral-30', '#45464f') : [255, 255, 255],
       primary: read('--sf-primary-40', '#005bbe'),
       secondary: read('--sf-secondary-40', '#535e77'),
       tertiary: read('--sf-tertiary-40', '#7c4c86'),
@@ -190,9 +192,10 @@ function run(host, settings, context, spec) {
   sync();
 
   return {
-    update(next) {
+    update(next, nextContext) {
       if (destroyed) return;
       api.values = {...api.values, ...next};
+      if (nextContext && nextContext.scheme) api.scheme = nextContext.scheme;
       readTheme();
       listen();
       if (spec.resize) spec.resize(api);
@@ -259,7 +262,9 @@ const valueNoise = (seed) => {
 const FACET = {large: 150, medium: 104, small: 70};
 
 export function mount(host, settings, context) {
-  const noise = valueNoise(13);
+  // A new sheet on every mount while it moves; a still frame keeps the seeded one.
+  const salt = (Math.random() * 1e9) | 0;
+  let noise = null;
   let pts = null;
   let cols = 0;
   let rows = 0;
@@ -273,7 +278,9 @@ export function mount(host, settings, context) {
       step = (FACET[api.values.facet] || FACET.medium) / Math.sqrt(api.quality);
       cols = Math.ceil(api.w / step) + 3;
       rows = Math.ceil(api.h / step) + 3;
-      const r = rng(5);
+      const seed = api.still ? 0 : salt;
+      const r = rng(5 + seed);
+      noise = valueNoise(13 + seed);
       pts = new Float32Array(cols * rows * 2);
       for (let j = 0; j < rows; j += 1) {
         for (let i = 0; i < cols; i += 1) {
@@ -304,9 +311,11 @@ export function mount(host, settings, context) {
       const ln = Math.hypot(lx, ly, lz);
       lx /= ln; ly /= ln;
       const lzn = lz / ln;
-      const base = values.tint === 'primary' ? mix(colors.surface, colors.primary, 0.07) : mix(colors.surface, [250, 246, 238], 0.5);
-      const dark = mix(base, colors.ink, 0.13);
-      const lite = mix(base, [255, 255, 255], 0.85);
+      const night = api.scheme === 'dark';
+      const warm = night ? [44, 40, 36] : [250, 246, 238];
+      const base = values.tint === 'primary' ? mix(colors.surface, night ? colors.primary80 : colors.primary, night ? 0.06 : 0.07) : mix(colors.surface, warm, night ? 0.3 : 0.5);
+      const dark = mix(base, colors.ink, night ? 0.45 : 0.13);
+      const lite = mix(base, colors.light, night ? 0.75 : 0.85);
       const z = new Float32Array(cols * rows);
       const drift = t * 0.04;
       for (let j = 0; j < rows; j += 1) {

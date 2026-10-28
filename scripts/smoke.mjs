@@ -124,7 +124,9 @@ async function routeAll(context) {
 // and the theme (with the generator's script for SF.ThemePalette), the settings
 // controls (range slider, switch, dropdown, text fields) with the parts they
 // bring, the code tabs and the code highlight with its copy button.
-const SITE_MODULES = /^(component|smart)\/(button-group|buttons?|icons?|icon-buttons|theme|theme-generator|color|inputs?|close|range-slider|switch|dropdown|list-item|context-menu|checkbox|sortable|tags|avatars|tooltip|textarea|tabs|highlight|clipboard|scrollbar|doc)\//u;
+// Since ui-519fa0814a02 the Loader also brings the Smart icon button and the
+// badges as dependencies of those parts.
+const SITE_MODULES = /^(component|smart)\/(button-group|buttons?|icons?|icon-buttons|theme|theme-generator|color|inputs?|close|range-slider|switch|dropdown|list-item|context-menu|checkbox|sortable|tags|avatars|tooltip|textarea|tabs|highlight|clipboard|scrollbar|doc|icon-button|badges)\//u;
 function watch(page, where) {
   const problems = [];
   page.on('pageerror', (error) => problems.push(`page error: ${error.message}`));
@@ -234,6 +236,8 @@ try {
       if (scheme === 'light') {
         await page.goto(base);
         await page.waitForFunction(() => document.documentElement.dataset.ready === 'true' && document.body.style.opacity !== '0');
+        // The button group draws its segments after the page is ready.
+        await page.waitForSelector('[data-filters] .sf-button-group-segment');
         const stops = [];
         for (let index = 0; index < 14; index += 1) {
           await page.keyboard.press('Tab');
@@ -265,6 +269,7 @@ try {
         const checkLayout = async (layout) => {
           await page.waitForFunction(() => ['yes', 'hidden', 'error'].includes(document.documentElement.dataset.mounted), null, {timeout: 20000});
           await page.waitForFunction(() => document.querySelector('[data-readout]').dataset.measured === 'true', null, {timeout: 20000});
+          await page.waitForSelector('[data-modes] [data-sf-button-group-value]', {timeout: 20000});
           await wait(400);
           const facts = await page.evaluate((windows) => {
             const area = document.querySelector(windows ? '[data-cards]' : '[data-hero]');

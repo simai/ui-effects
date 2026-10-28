@@ -72,8 +72,8 @@
       },
       "default": true,
       "hint": {
-        "ru": "Клик пускает гравитационную волну, удержание растит чёрную дыру",
-        "en": "A click sends a gravitational wave, holding grows a black hole"
+        "ru": "Клик пускает гравитационную волну; удержание кладёт тело, и чем дольше держите, тем оно тяжелее и тем сильнее волна",
+        "en": "A click sends a gravitational wave; holding sets down a body that grows heavier, and letting go rings out a stronger wave"
       }
     }
   ],

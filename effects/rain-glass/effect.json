@@ -2,7 +2,7 @@
   "schema": "simai.effect",
   "schema_version": 1,
   "id": "rain-glass",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "label": {
     "ru": "Дождь на стекле",
     "en": "Rain on glass"
@@ -130,6 +130,45 @@
           }
         }
       ]
+    },
+    {
+      "key": "signal",
+      "type": "boolean",
+      "label": {
+        "ru": "Светофор",
+        "en": "Traffic light"
+      },
+      "default": false,
+      "hint": {
+        "ru": "Переключается и окрашивает дорогу",
+        "en": "Changes and tints the road"
+      }
+    },
+    {
+      "key": "neon",
+      "type": "boolean",
+      "label": {
+        "ru": "Неоновая вывеска",
+        "en": "Neon sign"
+      },
+      "default": false,
+      "hint": {
+        "ru": "Мигает у дороги",
+        "en": "Blinks by the road"
+      }
+    },
+    {
+      "key": "storm",
+      "type": "boolean",
+      "label": {
+        "ru": "Молнии",
+        "en": "Lightning"
+      },
+      "default": false,
+      "hint": {
+        "ru": "Редкие вспышки в небе",
+        "en": "Rare flashes in the sky"
+      }
     },
     {
       "key": "interactive",

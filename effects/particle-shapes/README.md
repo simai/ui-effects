@@ -17,6 +17,7 @@ Particles in Brownian motion write a text and dissolve into gas again.
 | `density` | integer | 10–100 % | `50` | Density |
 | `size` | integer | 30–100 % | `100` | Text size. 100 % fits the text to the area |
 | `text` | text | up to 80 characters | `"SIMAI"` | Text. Up to four lines |
+| `style` | choice | `brownian`, `wind`, `swirl`, `snow` | `"brownian"` | Motion |
 | `interactive` | boolean | — | `true` | React to the pointer. A click heats the particles round it, holding keeps heating |
 
 ## Schemes

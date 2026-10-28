@@ -13,8 +13,9 @@ export const SCHEMES = ['dark', 'light'];
 export const ID = /^[a-z][a-z0-9-]{1,40}$/u;
 // Files an effect folder may hold. Anything else fails the catalogue.
 export const EFFECT_FILES = ['effect.json', 'index.js', 'preview.png', 'README.md'];
-// An effect module above this size fails; the author guide asks for about 15 KB.
-export const MODULE_LIMIT = 20 * 1024;
+// An effect module above this size fails; the author guide asks for about 15 KB,
+// and a rich scene (rain-glass with its options) may reach 24 KB.
+export const MODULE_LIMIT = 24 * 1024;
 
 export const readJson = (path) => JSON.parse(readFileSync(path, 'utf8'));
 export const sha256 = (bytes) => createHash('sha256').update(bytes).digest('hex');

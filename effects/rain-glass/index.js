@@ -45,13 +45,13 @@ function readTones(host, scheme) {
   return tones;
 }
 
-// A fogged window on a rainy street at night: street lamps in two rows (warm, white or mixed), signs
-// as soft discs, and now and then a car, white headlights coming or red tail lights going, all of
-// them glowing on the wet road.
-// Beads and drops on the glass, each drop a lens. Press and drag to write; drips run, fog returns.
+// A fogged window on a rainy night: a sky over a darker road, two rows of street lamps fading into
+// the distance, signs as soft discs, cars now and then (white lights coming, red going), and, if
+// asked, a traffic light that tints the road, a blinking neon sign and rare lightning. Drops on the
+// glass are lenses. Press and drag to write; drips run, fog returns.
 const SCENE = {
   home: 'dark', seed: 61, reseed: ['density', 'lamps'],
-  tones: (read) => ({ground: read('--sf-neutral-5', '#111318'), sky: read('--sf-primary-10', '#001a41'), lamp: read('--sf-warning-80', '#ffb95c'), head: read('--sf-neutral-95', '#f0f0f7'), tail: read('--sf-error-60', '#ff5449'), fog: read('--sf-neutral-30', '#45464f'), cool: read('--sf-primary-70', '#7fabff'), sign: read('--sf-tertiary-70', '#c798cd')}),
+  tones: (read) => ({go: read('--sf-success-70', '#4cbb6f'), ground: read('--sf-neutral-5', '#111318'), sky: read('--sf-primary-10', '#001a41'), lamp: read('--sf-warning-80', '#ffb95c'), head: read('--sf-neutral-95', '#f0f0f7'), tail: read('--sf-error-60', '#ff5449'), fog: read('--sf-neutral-30', '#45464f'), cool: read('--sf-primary-70', '#7fabff'), sign: read('--sf-tertiary-70', '#c798cd')}),
   setup(env, random) {
     const {w, h} = env;
     const f = Math.max(h * 1.1, w * 0.55), cx = w * 0.5, horizon = h * 0.48;
@@ -62,10 +62,8 @@ const SCENE = {
     const busy = env.values.traffic / 100;
     if (random() < busy + 0.2) cars.push({way: -1, z: 8 + random() * 30, speed: 7 + random() * 5, lane: -2 - random() * 1.4});
     if (random() < busy) cars.push({way: 1, z: 4 + random() * 20, speed: 6 + random() * 5, lane: 2 + random() * 1.4});
-    // Condensation beads, drawn once; the mask says where the glass is fogged.
     const beads = new OffscreenCanvas(Math.ceil(w), Math.ceil(h));
     const b = beads.getContext('2d');
-    // Each bead lets through the light behind it: a mask the blurred street shows through, brighter.
     for (let i = 0, count = w * h / 14; i < count; i += 1) {
       const x = random() * w, y = random() * h, r = 0.4 + random() ** 4 * 2.2;
       b.fillStyle = `rgba(255,255,255,${0.35 + random() * 0.65})`;
@@ -107,9 +105,15 @@ const SCENE = {
     state.cars = state.cars.filter((car) => car.z > 1.2 && car.z < 60);
     const at = (X, Y, z) => [state.cx + X * state.f / z, state.horizon + (1.6 - Y) * state.f / z];
     const lights = [];
-    for (const l of state.lamps) lights.push({p: at(l.X, l.Y, l.z), z: l.z, colour: tones[l.colour], a: 0.6, size: 0.3});
+    // Lamps fade with distance; the extras the settings ask for join them.
+    const fall = (z) => (7 / z) ** 0.9, cyc = t % 14;
+    for (const l of state.lamps) lights.push({p: at(l.X, l.Y, l.z), z: l.z, colour: tones[l.colour], a: 0.6 * fall(l.z), size: 0.3});
+    const signal = values.signal ? (cyc < 6 ? 'go' : cyc < 7.5 ? 'lamp' : 'tail') : null;
+    const neon = values.neon && (t % 5 < 4.1) && !(t % 5 > 3.5 && t % 0.24 < 0.1);
+    if (neon) lights.push({p: at(-6.2, 2.4, 11), z: 6, colour: tones.sign, a: 1.3, size: 1.2});
     for (const sign of state.signs) lights.push({p: at(sign.X, sign.Y, sign.z), z: sign.z, colour: tones[sign.colour], a: 0.5, size: 0.8});
-    const lamps = state.lamps.map((l) => ({p: at(l.X, l.Y, l.z), z: l.z, colour: tones[l.colour], a: 0.45}));
+    const lamps = state.lamps.map((l) => ({p: at(l.X, l.Y, l.z), z: l.z, colour: tones[l.colour], a: 0.45 * fall(l.z)}));
+    if (signal) lamps.push({p: at(3.2, 3, 13), z: 6, colour: tones[signal], a: 1.4});
     for (const car of state.cars) {
       const toward = car.way < 0;
       const fade = Math.min(1, (car.z - 1.2) / 1.5) * Math.min(1, (60 - car.z) / 8);
@@ -152,11 +156,18 @@ const SCENE = {
       const g = c.createLinearGradient(0, 0, 0, h * scale);
       g.addColorStop(0, rgba(tones.ground));
       g.addColorStop(0.46, rgba(tones.sky));
-      g.addColorStop(1, rgba(mixc(tones.ground, tones.sky, 0.4)));
+      g.addColorStop(0.5, rgba(mixc(tones.ground, tones.sky, 0.45)));
+      g.addColorStop(1, rgba(mixc(tones.ground, [0, 0, 0], 0.35)));
       c.fillStyle = g;
       c.fillRect(0, 0, w * scale, h * scale);
     };
     street(ctx, 1);
+    // Lightning: a flash and an echo every so often, mostly in the sky.
+    if (values.storm) {
+      if (!state.bolt || t > state.bolt + 18) state.bolt = t + 6 + state.random() * 14;
+      const d = t - state.bolt, flash = d > 0 && d < 0.6 ? Math.exp(-d * 9) + (d > 0.18 ? 0.6 * Math.exp(-(d - 0.18) * 9) : 0) : 0;
+      if (flash > 0.01) { const g = ctx.createLinearGradient(0, 0, 0, state.horizon); g.addColorStop(0, rgba(tones.head, 0.22 * flash)); g.addColorStop(1, rgba(tones.cool, 0.05 * flash)); ctx.fillStyle = g; ctx.fillRect(0, 0, w, h); }
+    }
     ctx.globalCompositeOperation = 'lighter';
     for (const light of lights) bokeh(ctx, 1, light.p[0], light.p[1], 2 + light.size * state.f / light.z, light.colour, 0.85 * k * light.a * near(light.z));
     for (const lamp of lamps) glow(ctx, 1, lamp.p[0], lamp.p[1], Math.max(1.5, 0.14 * state.f / lamp.z), lamp.colour, 1.1 * k * lamp.a * Math.min(1, 9 / lamp.z), 5);

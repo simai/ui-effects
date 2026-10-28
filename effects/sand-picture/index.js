@@ -48,7 +48,7 @@ function readTones(host, scheme) {
 // A sand picture: liquid between two panes, the upper half of the frame out of sight above the area.
 // Sand breaks away from it in curtains and runs down in thin streams that wander and stop, settles
 // in the liquid and lands on smooth, broad dunes, so the colours lie in wavy bands, now one, now the
-// other, now mixed into grey. Two colours: the theme's main one and the text colour, held soft.
+// other, each band one colour. Two colours: the theme's main one and the text colour, held soft.
 // When the dunes reach two fifths of the height, the whole picture sinks slowly, as if the sand
 // drained to the hidden half, and new layers keep landing on top: the landscape is new all the
 // time. A click lets sand run down above the pointer.
@@ -125,8 +125,9 @@ function paletteOf(env, state) {
   const {tones, values} = env;
   const k = values.intensity / 100;
   const pack = (c) => (255 << 24) | ((c[2] | 0) << 16) | ((c[1] | 0) << 8) | (c[0] | 0);
-  const tonesOf = (c) => Array.from({length: 6}, (_, i) => mixc(tones.ground, c, (0.07 + i * 0.03) * (0.5 + k * 0.7)));
-  const list = [...tonesOf(tones.a), ...tonesOf(tones.b)];
+  // Each colour in six close shades, so a band reads as one colour with the grain of sand in it.
+  const tonesOf = (c, s) => Array.from({length: 6}, (_, i) => mixc(tones.ground, c, s * (0.82 + i * 0.05) * (0.5 + k * 0.7)));
+  const list = [...tonesOf(tones.a, 0.3), ...tonesOf(tones.b, 0.17)];
   const packed = list.map(pack), styles = list.map((c) => rgba(c));
   const old = state.colours;
   state.colours = {ground: pack(tones.ground), list: packed, css: (i) => styles[i]};
@@ -139,9 +140,10 @@ function paletteOf(env, state) {
   }
 }
 function stream(state, x, i) { return {x, seed: i * 17.3 + 5, width: 2 + state.random() * 5}; }
-// A grain's tone: the band the stream lays now (more of one colour or the other), and a shade.
+// A grain's tone: the band the stream lays now, one colour or the other, mixed only for the moment
+// it changes, and one of the colour's close shades.
 function grain(state, sv, t) {
-  const share = smooth(clamp((noise2(t * 0.05, sv.seed * 0.1 + 9) - 0.5) * 7 + 0.5, 0, 1));
+  const share = clamp((noise2(t * 0.05, sv.seed * 0.1 + 9) - 0.5) * 24 + 0.5, 0, 1);
   return (state.random() < share ? 0 : 6) + Math.floor(state.random() * 6);
 }
 // A grain lands on a column, then slides down whichever side is steeper, so the dunes stay smooth.
@@ -158,6 +160,12 @@ function land(state, col, c) {
     const to = l + l1 > r + r1 || (l + l1 === r + r1 && random() < 0.5) ? x - 1 : x + 1;
     const step = to < x ? l1 : r1, slope = to < x ? l : r;
     if (step < 1 || (step < 2 && slope < 2)) break;
+    x = to;
+  }
+  // Then it creeps a little along the surface, never uphill: the liquid rounds the crests.
+  for (let i = 0; i < 6; i += 1) {
+    const to = x + (random() < 0.5 ? -1 : 1);
+    if (to < 0 || to >= cols || height[to] > height[x] - 1 + random()) break;
     x = to;
   }
   height[x] += 1;
