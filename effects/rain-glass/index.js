@@ -58,7 +58,7 @@ const SCENE = {
     const f = Math.max(h * 1.1, w * 0.55), cx = w * 0.5, horizon = h * 0.48;
     const lamps = [];
     for (let z = 3; z < 45; z += 3 + random() * 2.5) for (const side of [-1, 1]) if (random() < 0.8) lamps.push({X: side * (4 + random() * 3.5), Y: 2.4 + random() * 2.4, z, colour: random() < 0.8 ? 'lamp' : 'cool'});
-    const signs = Array.from({length: 18}, () => ({X: (random() < 0.5 ? -1 : 1) * (5 + random() * 4), Y: 0.6 + random() * 3, z: 3 + random() * 30, colour: ['sign', 'cool', 'lamp'][Math.floor(random() * 3)]}));
+    const signs = Array.from({length: 46}, () => ({X: (random() < 0.5 ? -1 : 1) * (4.5 + random() * 5), Y: 0.5 + random() * 3.5, z: 2.5 + random() * 28, colour: ['sign', 'cool', 'lamp'][Math.floor(random() * 3)]}));
     const n = Math.round(2 + env.values.density / 18);
     const toward = Array.from({length: n}, (_, i) => ({z: 2 + (i + random()) * 50 / n, speed: 7 + random() * 5, lane: -1.9 - random() * 1.6}));
     const away = Array.from({length: n}, (_, i) => ({z: 2 + (i + random()) * 50 / n, speed: 6 + random() * 5, lane: 1.9 + random() * 1.6}));
@@ -90,7 +90,8 @@ const SCENE = {
   release(env) { env.state.last = null; },
   draw(env, t) {
     const {ctx, w, h, tones, state, values, pointer} = env;
-    const k = values.intensity / 100, fogLevel = values.fog / 100;
+    // Many soft lights add up where they overlap, so each one is kept faint.
+    const k = values.intensity / 100 * 0.6, fogLevel = values.fog / 100;
     const dt = state.t === null ? 0 : Math.max(0, Math.min(0.05, t - state.t));
     state.t = t;
     // The traffic moves: towards us on the left, away on the right.
@@ -111,7 +112,7 @@ const SCENE = {
     }
     // A disc of light out of focus: the same light spread wider, so a bigger disc is a dimmer one.
     const bokeh = (c, scale, x, y, r, colour, a) => {
-      a *= Math.min(1, 26 / r);
+      a = Math.min(0.32, a * Math.min(1, 26 / r));
       if (a <= 0.01) return;
       const g = c.createRadialGradient(x * scale, y * scale, 0, x * scale, y * scale, r * scale);
       g.addColorStop(0, rgba(colour, a * 0.6));
@@ -130,13 +131,13 @@ const SCENE = {
       c.fillRect(0, 0, w * scale, h * scale);
     };
     // Far lights are fainter, so the many of them at the end of the street do not pile up into a glare.
-    const near = (z) => Math.min(1, 4 / z) ** 1.3;
+    const near = (z) => Math.min(1, 6 / z);
     // The street seen through cleared glass: soft but smaller lights, and their reflections on the wet road.
     street(ctx, 1);
     ctx.globalCompositeOperation = 'lighter';
     for (const light of lights) {
       const r = 2 + light.size * state.f / light.z;
-      bokeh(ctx, 1, light.p[0], light.p[1], r, light.colour, 0.6 * k * light.a * near(light.z));
+      bokeh(ctx, 1, light.p[0], light.p[1], r, light.colour, 0.85 * k * light.a * near(light.z));
       if (light.road) bokeh(ctx, 1, light.p[0], light.p[1] + r * 2.5, r * 1.3, light.colour, 0.12 * k * light.a);
     }
     // The street through fog: a half-size picture, so it comes out soft, with big bokeh.
@@ -146,7 +147,7 @@ const SCENE = {
     fr.globalCompositeOperation = 'lighter';
     for (const light of lights) {
       const r = 6 + (2 + light.size * state.f / light.z) * 2.8;
-      bokeh(fr, q, light.p[0], light.p[1], r, light.colour, 0.5 * k * light.a * near(light.z));
+      bokeh(fr, q, light.p[0], light.p[1], r, light.colour, 0.55 * k * light.a * near(light.z));
       if (light.road) bokeh(fr, q, light.p[0], light.p[1] + r * 1.4, r * 1.2, light.colour, 0.1 * k * light.a);
     }
     fr.globalCompositeOperation = 'source-over';

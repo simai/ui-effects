@@ -90,7 +90,7 @@ const SCENE = {
     // Streets: the glow on the light layer, lamps as bright points along them.
     for (const s of streets) {
       const b = busy(s.x + s.w / 2, s.y + s.h / 2);
-      const strength = (s.width > 5 ? 0.42 : s.width > 3 ? 0.32 : 0.22) * (0.5 + b * 0.8);
+      const strength = (s.width > 5 ? 0.55 : s.width > 3 ? 0.4 : 0.26) * (0.5 + b * 0.8);
       l.fillStyle = rgba(tones.sodium, Math.min(1, strength));
       l.fillRect(s.x, s.y, s.w, s.h);
       const length = s.upright ? s.h : s.w, gap = s.width > 5 ? 7 : 11;
@@ -103,16 +103,16 @@ const SCENE = {
     }
     // Blocks: a park now and then, otherwise lots of buildings in one or two rows.
     const tree = (c, x, y, r) => {
-      c.fillStyle = rgba(mixc(tones.tree, tones.ground, 0.2));
+      c.fillStyle = rgba(mixc(tones.tree, tones.ground, 0.45));
       c.beginPath(); c.arc(x, y, r, 0, Math.PI * 2); c.fill();
-      c.fillStyle = rgba(mixc(tones.tree, tones.sodium, 0.12), 0.7);
+      c.fillStyle = rgba(mixc(tones.tree, tones.sodium, 0.18), 0.55);
       c.beginPath(); c.arc(x - r * 0.25, y - r * 0.25, r * 0.55, 0, Math.PI * 2); c.fill();
     };
     for (const b of blocks) {
       if (b.w < 6 || b.h < 6) continue;
       const quiet = busy(b.x + b.w / 2, b.y + b.h / 2);
       if (random() < 0.07 + (0.5 - quiet) * 0.12) {
-        m.fillStyle = rgba(mixc(tones.tree, tones.ground, 0.55));
+        m.fillStyle = rgba(mixc(tones.tree, tones.ground, 0.8));
         m.fillRect(b.x + 1, b.y + 1, b.w - 2, b.h - 2);
         const n = Math.round(b.w * b.h / 14);
         for (let i = 0; i < n; i += 1) tree(m, b.x + 2 + random() * (b.w - 4), b.y + 2 + random() * (b.h - 4), 1.2 + random() * 2);
@@ -169,7 +169,7 @@ const SCENE = {
     hz.filter = 'blur(4px)';
     hz.drawImage(light, 0, 0);
     m.globalCompositeOperation = 'lighter';
-    m.globalAlpha = 0.6;
+    m.globalAlpha = 0.4;
     m.drawImage(haze, 0, 0);
     m.globalAlpha = 1;
     m.drawImage(light, 0, 0);

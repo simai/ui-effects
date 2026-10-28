@@ -90,12 +90,12 @@ const SCENE = {
     const at = pointer.on ? toPlane(env, pointer.x * w, pointer.y * h) : null;
     if (at && !state.hole) {
       state.ball = state.ball ? [mix(state.ball[0], at[0], 0.15), mix(state.ball[1], at[1], 0.15)] : at;
-    } else if (!at) state.ball = null;
+    } else state.ball = null;
     if (state.ball) masses.push({x: state.ball[0], z: state.ball[1], m: 0.55, r: 0.42, kind: 'sun'});
     if (state.hole) {
       state.hole.mass = Math.min(1, state.hole.mass + 0.005);
       if (at) { state.hole.x = mix(state.hole.x, at[0], 0.1); state.hole.z = mix(state.hole.z, at[1], 0.1); }
-      masses.push({x: state.hole.x, z: state.hole.z, m: 0.5 + state.hole.mass * 1.2, r: 0.1 + state.hole.mass * 0.2, kind: 'hole'});
+      masses.push({x: state.hole.x, z: state.hole.z, m: 0.45 + state.hole.mass * 0.5, r: 0.14 + state.hole.mass * 0.18, kind: 'hole'});
     }
     state.waves = state.waves.filter((wave) => t - wave.born < 7);
     // Height of the fabric: a round well under each mass, and rings of passing waves.
@@ -104,8 +104,9 @@ const SCENE = {
       // A funnel: deep and narrow at the mass, flat again a few cells away, like the textbook picture.
       for (const m of masses) { const d = Math.hypot(x - m.x, z - m.z); if (d < 3.2) y -= m.m * (1 / (d + 0.28) - 1 / 3.48); }
       for (const wave of state.waves) {
-        const age = t - wave.born, d = Math.hypot(x - wave.x, z - wave.z), front = age * 2.2, band = d - front;
-        if (Math.abs(band) < 1.4) y += Math.sin(band / 1.4 * Math.PI * 2) * Math.exp(-(band * band) / 0.5) * 0.28 * wave.strength * (1 - age / 7);
+        // A ring: a smooth crest and trough travelling out from the point, fading as it spreads.
+        const age = t - wave.born, d = Math.hypot(x - wave.x, z - wave.z), band = d - age * 2.2;
+        if (Math.abs(band) < 2.4) y += Math.sin(band * 2.2) * Math.exp(-(band * band) / 0.9) * 0.22 * wave.strength * (1 - age / 7) / (1 + age * 0.4);
       }
       return y * 0.85;
     };
@@ -115,13 +116,23 @@ const SCENE = {
     };
     const alpha = (scheme === 'light' ? 0.5 : 0.48) * k;
     const span = state.span;
+    // One path per run of segments of the same shade: the shade steps with distance and depth.
     const segment = (points) => {
+      let shade = -1;
       for (let i = 1; i < points.length; i += 1) {
         const [x0, y0, z0, d0] = points[i - 1], [x1, y1] = points[i];
-        const fade = Math.min(1, 7 / z0);
-        ctx.strokeStyle = rgba(mixc(tones.line, tones.deep, Math.min(1, d0 * 1.4)), alpha * fade * (1 + Math.min(1, d0) * 0.8));
-        ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(x1, y1); ctx.stroke();
+        const next = Math.round(Math.min(1, 7 / z0) * 8) * 16 + Math.round(Math.min(1, Math.max(0, d0) * 1.4) * 8);
+        if (next !== shade) {
+          if (shade >= 0) ctx.stroke();
+          shade = next;
+          const fade = Math.floor(next / 16) / 8, deep = (next % 16) / 8;
+          ctx.strokeStyle = rgba(mixc(tones.line, tones.deep, deep), alpha * fade * (1 + deep * 0.6));
+          ctx.beginPath();
+          ctx.moveTo(x0, y0);
+        }
+        ctx.lineTo(x1, y1);
       }
+      if (shade >= 0) ctx.stroke();
     };
     const line = (fromX, fromZ, toX, toZ, steps) => {
       const points = [];
@@ -134,9 +145,9 @@ const SCENE = {
     };
     ctx.lineWidth = 1;
     const cell = state.cell;
-    for (let z = state.near; z <= state.far + 1e-6; z += cell) line(-span, z, span, z, Math.round(40 + span * 6));
+    for (let z = state.near; z <= state.far + 1e-6; z += cell) line(-span, z, span, z, Math.round(60 + span * 8));
     const across = Math.round(span * 2 / cell);
-    for (let i = 0; i <= across; i += 1) { const x = -span + i * (span * 2 / across); line(x, state.near, x, state.far, 90); }
+    for (let i = 0; i <= across; i += 1) { const x = -span + i * (span * 2 / across); line(x, state.near, x, state.far, 130); }
     // The bodies, drawn over the fabric, far ones first.
     for (const m of masses.sort((a, b) => b.z - a.z)) {
       const y = height(m.x, m.z) + m.r * 0.9;
