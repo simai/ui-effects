@@ -3,10 +3,10 @@
 Stars in three depth layers drift and link with fine lines, like a living network.
 
 - **Russian name:** Созвездия
-- **Version:** 1.1.0, simai.effect 1.1.0
+- **Version:** 2.0.0, simai.effect 1.1.0
 - **Surfaces:** sign-in, hero, section, dashboard
 - **Tags:** particles, lines, sky
-- **Role:** Points and lines: stars on dark, a printed star atlas on light.
+- **Role:** A night sky of stars linked into constellations. It draws the dark scheme only: a light starry sky reads as a mistake.
 
 ## Settings
 
@@ -19,11 +19,15 @@ Stars in three depth layers drift and link with fine lines, like a living networ
 
 ## Schemes
 
-The manifest declares `"schemes": ["dark", "light"]`, and `"capabilities": ["windows"]`. The module reads the scheme it draws in from `context.scheme`; a switch arrives as `update(settings, context)`.
+The manifest declares `"schemes": ["dark"]`, and `"capabilities": ["windows"]`. The module reads the scheme it draws in from `context.scheme`; a switch arrives as `update(settings, context)`.
 
-Draws in both schemes: **dark** (home, the default) and **light**. Each scheme is designed from its own palette tones; it is not an inverted picture.
+Draws in the **dark** scheme only.
 
-Theme modes a placement may choose: `auto`, `dark`, `light`.
+Theme modes a placement may choose: `auto`, `dark`.
+
+## On a light page
+
+In the `auto` theme mode the effect stays dark, and its area keeps `theme-dark`.
 
 ## Files
 

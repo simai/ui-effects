@@ -1,4 +1,4 @@
-// Constellations (simai.effect 1.1.0; schemes dark and light): stars in three depth layers drift slowly and link to
+// Constellations (simai.effect 1.1.0; dark scheme only: a night sky): stars in three depth layers drift slowly and link to
 // their near neighbours with faint lines; nearer layers move more, and follow the pointer in parallax.
 
 // ---- runtime shared by the dark set (simai.effect 1.1.0) ----
@@ -38,19 +38,6 @@ function readTheme(host, scheme) {
     }
     return fallback;
   };
-  if (scheme === 'light') {
-    // The light scheme is its own design, not an inversion: a paper ground (neutral-98 tinted
-    // with primary-90), 40 tones for lines and a 30 tone as the strongest accent (`light` is
-    // the highlight colour of either scheme). The host gives the area .theme-light.
-    const p = read(['--sf-primary-40'], [0, 91, 190]);
-    const s = read(['--sf-secondary-40'], [83, 94, 119]);
-    const t = read(['--sf-tertiary-40'], [124, 76, 134]);
-    const pDeep = read(['--sf-primary-90', '--sf-primary-95'], [215, 226, 255]);
-    const light = read(['--sf-primary-30', '--sf-primary-20'], [0, 68, 148]);
-    const paper = read(['--sf-neutral-98'], [250, 249, 254]);
-    probe.remove();
-    return {p, s, t, pDeep, light, bg: mixc(paper, pDeep, 0.16), paper: true};
-  }
   const p = read(['--sf-primary-70', '--sf-primary-80'], [118, 150, 255]);
   const s = read(['--sf-secondary-70', '--sf-secondary-80'], [72, 214, 226]);
   const t = read(['--sf-tertiary-70', '--sf-tertiary-80'], [222, 122, 255]);

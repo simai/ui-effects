@@ -37,6 +37,6 @@ Nothing. The core ships the standard, SF.Effects, the kit, the segmented Button 
 
 ## Effects
 
-There are 17 effects: 5 draw both schemes, 7 dark only and 5 light only. `ink-threads`, `foam-cells` and `guilloche` were removed (owner, 2026-10-19). Schemes are in the manifests; the order, descriptions and tags are in `effects/policy.json`; the per-effect kit results are in `catalogue/kit.json`.
+There are 17 effects: 4 draw both schemes, 8 dark only and 5 light only. `constellation-net` is dark only (owner, 2026-10-28: a light starry sky reads as a mistake). `ink-threads`, `foam-cells` and `guilloche` were removed (owner, 2026-10-19). Schemes are in the manifests; the order, descriptions and tags are in `effects/policy.json`; the per-effect kit results are in `catalogue/kit.json`.
 
 Every effect's defaults pass the 1.1 contrast rule in each scheme it draws. `scripts/contrast-probe.mjs` measures it the way the kit does and takes other defaults with `--set`, for tuning.

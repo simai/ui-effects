@@ -11,8 +11,8 @@
   },
   "counts": {
     "effects": 17,
-    "dual": 5,
-    "dark": 7,
+    "dual": 4,
+    "dark": 8,
     "light": 5
   },
   "effects": [
@@ -79,7 +79,7 @@
     },
     {
       "id": "constellation-net",
-      "version": "1.1.0",
+      "version": "2.0.0",
       "label": {
         "ru": "Созвездия",
         "en": "Constellations"
@@ -88,11 +88,10 @@
         "ru": "Звёзды в трёх слоях глубины дрейфуют и связываются тонкими линиями, как живая сеть."
       },
       "role": {
-        "ru": "Сеть точек и линий: на тёмном — звёзды, на светлом — печатный звёздный атлас."
+        "ru": "Ночное звёздное небо с созвездиями. Только тёмная схема: светлое звёздное небо выглядит ошибкой."
       },
       "schemes": [
-        "dark",
-        "light"
+        "dark"
       ],
       "pair": null,
       "capabilities": [
@@ -114,13 +113,13 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "093acc3fe18f5d526d3f96c9f9093004e1e073843fbec26cf3b27cdf54e5c94b",
-          "size": 1569
+          "sha256": "a1f3664a17ac6cdef0cfe4902f7e439c54bf2faa561c8619268ad816cb0f288d",
+          "size": 1556
         },
         {
           "path": "index.js",
-          "sha256": "1155080ba0e7bb5eef44482a28ca15ff6a961c3abbf5cfc976a21a78b3db2fe7",
-          "size": 15973
+          "sha256": "f13af8a96f389ec0026c8d70666490c703d48b1bb2de22132e7a5266e643a7ed",
+          "size": 15183
         },
         {
           "path": "preview.png",
@@ -129,15 +128,15 @@
         },
         {
           "path": "README.md",
-          "sha256": "370b9bb1eecaaa7a24fce5aa15b2c37ef90c2a7019cf97b441b809fe516066ab",
-          "size": 1429
+          "sha256": "1b30c46c149a78b83023bcb0cdc3d78b248cae554b956bced3e682587216b49f",
+          "size": 1453
         }
       ],
       "kit": {
         "status": "pass",
         "framework": "ui-3521193e0c6b",
-        "passed": 17,
-        "total": 17
+        "passed": 14,
+        "total": 14
       }
     },
     {

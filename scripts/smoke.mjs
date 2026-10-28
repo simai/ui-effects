@@ -208,7 +208,7 @@ try {
       await wait(1500);
       const gallery = await page.evaluate(() => ({cards: document.querySelectorAll('.card').length, intro: document.querySelector('[data-intro]').dataset.state, introTheme: document.querySelector('[data-intro]').className}));
       if (gallery.cards !== catalogue.effects.length) fail(`gallery ${tag}`, `${gallery.cards} cards`);
-      const introExpected = resolveTheme(reference(byId.get('constellation-net')), scheme, 'auto').outcome;
+      const introExpected = resolveTheme(reference(byId.get('hex-conduits')), scheme, 'auto').outcome;
       if (gallery.intro !== introExpected) fail(`gallery ${tag}`, `intro outcome ${gallery.intro}, expected ${introExpected}`);
       if (!await noHorizontalScroll(page)) fail(`gallery ${tag}`, 'horizontal scroll');
       const galleryContrast = await chromeContrast(page);

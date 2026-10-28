@@ -65,16 +65,16 @@ filters.addEventListener('change', (event) => { if (FILTERS.some(([value]) => va
 const initial = new URL(location.href).searchParams.get('schemes');
 applyFilter(['dual', 'dark', 'light'].includes(initial) ? initial : 'all');
 
-// The intro is itself a placement: constellation-net in auto mode, drawn in the page's scheme.
+// The intro is itself a placement: hex-conduits in auto mode, drawn in the page's scheme.
 const intro = document.querySelector('[data-intro]');
 const note = document.querySelector('[data-intro-note]');
 const describeIntro = (handle) => {
-  const state = outcomeOf(handle, {id: 'constellation-net', mode: 'auto'});
+  const state = outcomeOf(handle, {id: 'hex-conduits', mode: 'auto'});
   intro.dataset.state = state.outcome;
-  note.textContent = `Фон этого блока — «${text(byId.get('constellation-net').label)}»: эффект рисует обе схемы, сейчас ${state.drawn === 'light' ? 'светлую' : 'тёмную'}, и меняется вместе с темой страницы.`;
+  note.textContent = `Фон этого блока — «${text(byId.get('hex-conduits').label)}»: эффект рисует обе схемы, сейчас ${state.drawn === 'light' ? 'светлую' : 'тёмную'}, и меняется вместе с темой страницы.`;
 };
 let introHandle = null;
-const placeIntro = () => place(intro, {id: 'constellation-net', themeMode: 'auto'}).then((handle) => {
+const placeIntro = () => place(intro, {id: 'hex-conduits', themeMode: 'auto'}).then((handle) => {
   introHandle?.destroy();
   introHandle = handle;
   describeIntro(handle);

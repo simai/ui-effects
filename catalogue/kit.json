@@ -18,9 +18,9 @@
       "failed": []
     },
     "constellation-net": {
-      "digest": "44bb446b3ebc41300fa95b41d6140e61dade84863a8b879e9921f5328811fb12",
-      "passed": 17,
-      "total": 17,
+      "digest": "4b3ac31883c42d65301d3cb6e72291f9a8b6e9d35f087e27a1afde70697e79cc",
+      "passed": 14,
+      "total": 14,
       "failed": []
     },
     "hex-conduits": {
