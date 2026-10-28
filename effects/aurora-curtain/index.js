@@ -102,7 +102,8 @@ const FX = {
     const sets = [[vivid(s), vivid(p), vivid(t)], [vivid(p), vivid(s), vivid(t)], [vivid(mixc(s, light, 0.3)), vivid(t), vivid(p)], [vivid(t), vivid(p), vivid(s)]];
     st.sprites = sets.map(([hem, mid, top]) => {
       const c = document.createElement('canvas');
-      c.width = 1; c.height = 256;
+      // Four columns wide: strokes take the inner two, so their side edges never fade into stripes.
+      c.width = 4; c.height = 256;
       const g = c.getContext('2d');
       const grad = g.createLinearGradient(0, 256, 0, 0);
       // The hem is a thin bright edge, as on a real aurora; above it the colour thins out quickly.
@@ -113,7 +114,7 @@ const FX = {
       grad.addColorStop(0.7, rgba(top, 0.08));
       grad.addColorStop(1, rgba(top, 0));
       g.fillStyle = grad;
-      g.fillRect(0, 0, 1, 256);
+      g.fillRect(0, 0, 4, 256);
       return c;
     });
   },
@@ -149,7 +150,8 @@ const FX = {
         const a = gain * 0.46 * (0.02 + rays ** 3 * 3.2) * lit * lit;
         if (a < 0.01) continue;
         ctx.globalAlpha = Math.min(0.85, a);
-        ctx.drawImage(sprite, x - step * 0.6, y - len, step * 2.2, len * 1.2);
+        // Each stroke is two steps wide and starts on a whole step, so every column is covered evenly.
+        ctx.drawImage(sprite, 1, 0, 2, 256, x - step * 0.5, y - len, step * 2, len * 1.2);
       }
     }
     ctx.globalAlpha = 1;
