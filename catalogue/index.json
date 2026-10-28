@@ -18,7 +18,7 @@
   "effects": [
     {
       "id": "aurora-curtain",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "label": {
         "ru": "Полярное сияние",
         "en": "Aurora curtain"
@@ -51,22 +51,22 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "651637e4a1b5dd21665d455876f2dc0b2811f54a6ab5a2c0560adfeeef9155bd",
+          "sha256": "d94c13330270c88467088a5e3db44f1f36c2a238c154a92edd82ea919dee0920",
           "size": 1518
         },
         {
           "path": "index.js",
-          "sha256": "8a800780c0ea3ffa269284d9972cae0d68a0a7dc3922484e11dfd50a793af8ae",
-          "size": 13120
+          "sha256": "19758e8f680f4972a636cf1114ef79eeebb77935d8f4bceaf71b93b7abffde9e",
+          "size": 13348
         },
         {
           "path": "preview.png",
-          "sha256": "038b4ad2cf6a48548fa0449a3085f02b43790f2ba8edce330dc2e684dce86eeb",
-          "size": 127267
+          "sha256": "93a4ef2fddbb67a6ab6afb36c160db7eefad7870a4fe11733cdd08b129ed5130",
+          "size": 99769
         },
         {
           "path": "README.md",
-          "sha256": "81a24ccd54650f9ff69eab470c5e8cd784def06665c78a1c329bc0e2fb0c0333",
+          "sha256": "a90bc1935e95c11cec0b4b9bd7a94ab8df383adde0021090be4278d3117b5e62",
           "size": 1388
         }
       ],

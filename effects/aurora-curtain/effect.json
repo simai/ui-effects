@@ -2,7 +2,7 @@
   "schema": "simai.effect",
   "schema_version": 1,
   "id": "aurora-curtain",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "label": {
     "ru": "Полярное сияние",
     "en": "Aurora curtain"
@@ -43,7 +43,7 @@
         "ru": "Яркость",
         "en": "Intensity"
       },
-      "default": 40,
+      "default": 60,
       "min": 10,
       "max": 100,
       "step": 5,

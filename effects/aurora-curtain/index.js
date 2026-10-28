@@ -74,7 +74,7 @@ const noise2 = (x, y) => {
 const FX = {
   seed: 11,
   t0: 40,
-  settings: {speed: [100, 10, 300], intensity: [40, 10, 100], curtains: [3, 1, 4], interactive: true},
+  settings: {speed: [100, 10, 300], intensity: [60, 10, 100], curtains: [3, 1, 4], interactive: true},
   init(env, rand) {
     const st = {rand, stars: null, sprites: [], sway: 0};
     this.resize(env, st);
@@ -105,10 +105,12 @@ const FX = {
       c.width = 1; c.height = 256;
       const g = c.getContext('2d');
       const grad = g.createLinearGradient(0, 256, 0, 0);
+      // The hem is a thin bright edge, as on a real aurora; above it the colour thins out quickly.
       grad.addColorStop(0, rgba(hem, 0));
-      grad.addColorStop(0.16, rgba(mixc(hem, [255, 255, 255], 0.2), 0.95));
-      grad.addColorStop(0.32, rgba(hem, 0.6));
-      grad.addColorStop(0.55, rgba(mid, 0.32));
+      grad.addColorStop(0.05, rgba(mixc(hem, [255, 255, 255], 0.35), 1));
+      grad.addColorStop(0.13, rgba(hem, 0.7));
+      grad.addColorStop(0.36, rgba(mid, 0.26));
+      grad.addColorStop(0.7, rgba(top, 0.08));
       grad.addColorStop(1, rgba(top, 0));
       g.fillStyle = grad;
       g.fillRect(0, 0, 1, 256);
@@ -143,10 +145,11 @@ const FX = {
         const rays = noise2(u * 38 + k, tt * 2.2);
         const patch = noise2(u * 1.7 + k - tt * 0.5, k + tt * 0.3);
         const lit = patch < 0.3 ? 0 : patch > 0.75 ? 1 : (patch - 0.3) / 0.45;
-        const a = gain * 0.62 * (0.06 + rays * rays * 1.7) * lit * lit;
+        // Rays: bright folds with dark gaps between them, rather than an even haze.
+        const a = gain * 0.88 * (0.02 + rays ** 3 * 3.2) * lit * lit;
         if (a < 0.01) continue;
         ctx.globalAlpha = Math.min(0.85, a);
-        ctx.drawImage(sprite, x - step * 0.4, y - len, step * 1.8, len * 1.2);
+        ctx.drawImage(sprite, x - step * 0.2, y - len, step * 1.3, len * 1.2);
       }
     }
     ctx.globalAlpha = 1;
