@@ -1524,13 +1524,13 @@
         },
         {
           "path": "index.js",
-          "sha256": "86a3099debab0106a4825940cbc7cf1e3e78e995a984b17997535f88c229e682",
-          "size": 15039
+          "sha256": "82485f6779c08911738d5dbd0172e8943d26c1759d988bb8c600924874b2ae71",
+          "size": 15725
         },
         {
           "path": "preview.png",
-          "sha256": "c39e0dfe9f15c37262db0b49a947294c3f0e8bcefa50ff1d7d1a3366347f0b62",
-          "size": 93363
+          "sha256": "1bc39227b235a9cea99edf8be0416c905abc364a78ca9093e0c8233751247657",
+          "size": 85346
         },
         {
           "path": "README.md",

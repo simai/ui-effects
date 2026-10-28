@@ -59,7 +59,7 @@ const SCENE = {
     const {w, h, values} = env;
     // One cell is a few pixels: the grid is small enough to run every frame.
     const cell = 2, cols = Math.max(8, Math.ceil(w / cell)), rows = Math.max(8, Math.ceil(h / cell));
-    const state = {cell, cols, rows, mid: Math.floor(rows / 2), colour: new Uint8Array(cols * rows), shade: new Uint8Array(cols * rows), random, flip: null, idle: 0, image: new ImageData(cols, rows), canvas: new OffscreenCanvas(cols, rows)};
+    const state = {cell, cols, rows, mid: Math.floor(rows / 2), colour: new Uint8Array(cols * rows), shade: new Uint8Array(cols * rows), moving: new Uint8Array(cols * rows), random, flip: null, idle: 0, image: new ImageData(cols, rows), canvas: new OffscreenCanvas(cols, rows)};
     state.ctx = state.canvas.getContext('2d');
     fill(state, Math.round(values.colours), values.density / 100);
     // Start part way through, so the first frame already holds hills.
@@ -77,7 +77,7 @@ const SCENE = {
     let turn = 0;
     if (state.flip) {
       turn = Math.min(1, (t - state.flip.born) / 1.5);
-      if (turn >= 1) { state.colour.reverse(); state.shade.reverse(); holes(state); state.flip = null; state.idle = 0; turn = 0; }
+      if (turn >= 1) { state.colour.reverse(); state.shade.reverse(); state.moving.fill(0); holes(state); state.flip = null; state.idle = 0; turn = 0; }
     } else {
       for (let i = 0, n = dt > 0 ? 2 : 0; i < n; i += 1) step(state);
       // Once the upper half has run out, wait a little and turn over.
@@ -89,7 +89,7 @@ const SCENE = {
       const liquid = mixc(tones.liquid, tones.deep, y / rows);
       for (let x = 0; x < cols; x += 1) {
         const i = y * cols + x, o = i * 4, c = colour[i];
-        const rgb = c ? sand[c - 1] : liquid, s = c ? 0.86 + shade[i] / 255 * 0.28 : 1;
+        const rgb = c ? sand[c - 1] : liquid, s = c ? 0.93 + shade[i] / 255 * 0.14 : 1;
         data[o] = rgb[0] * s; data[o + 1] = rgb[1] * s; data[o + 2] = rgb[2] * s; data[o + 3] = 255;
       }
     }
@@ -99,11 +99,12 @@ const SCENE = {
     ctx.save();
     ctx.imageSmoothingEnabled = false;
     if (turn > 0) {
-      // While it turns, the picture shrinks so its corners stay inside the area.
-      const a = smooth(turn) * Math.PI, fit = Math.min(1, h / Math.hypot(w * Math.abs(Math.sin(a)) + h * Math.abs(Math.cos(a)), 1) * 1.0);
+      // While it turns, the picture shrinks just enough for its turned box to stay inside the area.
+      const a = smooth(turn) * Math.PI, sin = Math.abs(Math.sin(a)), cos = Math.abs(Math.cos(a));
+      const fit = Math.min(1, h / (w * sin + h * cos), w / (w * cos + h * sin));
       ctx.translate(w / 2, h / 2);
       ctx.rotate(a);
-      ctx.scale(Math.min(1, fit * (w > h ? Math.max(1, Math.abs(Math.cos(a)) * w / h) : 1)), Math.min(1, fit * (w > h ? Math.max(1, Math.abs(Math.cos(a)) * w / h) : 1)));
+      ctx.scale(fit, fit);
       ctx.translate(-w / 2, -h / 2);
     }
     ctx.drawImage(state.canvas, 0, 0, cols * state.cell, rows * state.cell);
@@ -150,28 +151,41 @@ function upper(state) {
 }
 // One step of falling sand, bottom row first, each grain at most one cell: straight down if it can,
 // else down and to one side, so it piles into hills. The middle holds except at the gaps, and a gap
-// now and then widens, so the streams wander.
+// now and then widens, so the streams wander. Above the middle the sand is wet and hangs together:
+// a grain falls only once the grain under it has gone (so shafts drain from below), or now and then
+// drops off the underside as a drip.
 function step(state) {
-  const {cols, rows, mid, colour, shade, gaps, random} = state;
+  const {cols, rows, mid, colour, shade, moving, gaps, random} = state;
   if (random() < 0.02) { const x = Math.floor(random() * cols); gaps[x] = 1; }
-  const move = (from, to) => { colour[to] = colour[from]; shade[to] = shade[from]; colour[from] = 0; };
+  const move = (from, to) => {
+    colour[to] = colour[from]; shade[to] = shade[from]; moving[to] = 1;
+    colour[from] = 0; moving[from] = 0;
+    if (from >= cols && colour[from - cols]) moving[from - cols] = 1;
+  };
   for (let y = rows - 2; y >= 0; y -= 1) {
     const blocked = y === mid - 1;
     const left = (y & 1) === 0;
     for (let n = 0; n < cols; n += 1) {
       const x = left ? n : cols - 1 - n, i = y * cols + x;
       if (!colour[i]) continue;
-      if (blocked && !gaps[x]) continue;
+      if (blocked && !gaps[x]) {
+        // On the middle the sand creeps sideways into an empty neighbour, and so on to a gap.
+        const side = random() < 0.5 ? -1 : 1;
+        if (x + side >= 0 && x + side < cols && !colour[i + side] && random() < 0.3) move(i, i + side); else moving[i] = 0;
+        continue;
+      }
       if (random() < 0.12) continue;
-      const below = i + cols;
+      const below = i + cols, wet = y < mid - 1;
+      if (wet && !moving[i] && random() > 0.0025) continue;
       if (!colour[below]) { move(i, below); continue; }
       const side = random() < 0.5 ? -1 : 1;
       for (const dx of [side, -side]) {
         const nx = x + dx;
         if (nx < 0 || nx >= cols || (blocked && !gaps[nx])) continue;
         // Wet sand above the middle holds together: it slides aside only now and then, so it caves in narrow funnels.
-        if (!colour[below + dx] && random() < (y < mid ? 0.07 : 0.6)) { move(i, below + dx); break; }
+        if (!colour[below + dx] && random() < (y < mid ? 0.25 : 0.6)) { move(i, below + dx); break; }
       }
+      if (colour[i]) moving[i] = 0;
     }
   }
 }
