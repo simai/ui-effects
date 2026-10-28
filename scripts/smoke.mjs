@@ -327,7 +327,7 @@ try {
     }
   }
 
-  // Code tabs follow the arrow keys.
+  // Code tabs (Framework sf-tabs): the JS tab shows its block, highlighted, with a copy button.
   {
     const context = await browser.newContext({viewport: {width: 1440, height: 900}});
     await routeAll(context);
@@ -335,12 +335,15 @@ try {
     const flush = watch(page, 'tabs');
     await page.goto(`${base}effect/${effects[0].id}/`);
     await page.waitForFunction(() => document.documentElement.dataset.ready === 'true');
-    await page.focus('#tab-html');
-    await page.keyboard.press('ArrowRight');
-    const selected = await page.evaluate(() => [document.activeElement.id, document.querySelector('[data-panel="js"]').hidden]);
-    if (selected[0] !== 'tab-js' || selected[1]) fail('tabs', `ArrowRight left ${selected[0]} focused, JS panel hidden ${selected[1]}`);
-    await page.keyboard.press('End');
-    if (await page.evaluate(() => document.activeElement.id) !== 'tab-json') fail('tabs', 'End does not reach the last tab');
+    await page.locator('[data-code-tabs] [role="tab"]').nth(1).click();
+    await page.waitForFunction(() => document.querySelector('[data-code="js"]')?.closest('.sf-highlight'), null, {timeout: 15000}).catch(() => {});
+    const shown = await page.evaluate(() => {
+      const code = document.querySelector('[data-code="js"]');
+      const box = code?.getBoundingClientRect();
+      return {visible: Boolean(box && box.width > 0 && box.height > 0), text: code?.textContent.length ?? 0, copy: Boolean(code?.closest('.sf-highlight')?.querySelector('button'))};
+    });
+    if (!shown.visible || !shown.text) fail('tabs', `the JS tab does not show its code (${JSON.stringify(shown)})`);
+    if (!shown.copy) fail('tabs', 'the code block has no copy button');
     flush();
     await context.close();
   }
