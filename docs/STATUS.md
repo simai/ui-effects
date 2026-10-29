@@ -33,11 +33,7 @@ The state of the catalogue, the decisions behind it and what waits on the Framew
 
 ## Waiting on the Framework
 
-Ordered by the bus for the catalogue site; each has a commented workaround in `site/`:
-
-- **Code highlight**: a line-wrap control in the block's head (the site has one switch over the code tabs).
-
-Delivered and in use since `ui-3464018a5c94`: the site header (`sf-site-header` with `sf-menu`), the theme colour button (`sf-color variant="theme"`), the theme button's own glyph, `options` as an attribute, highlight inside `sf-tabs`, and one focus ring on `sf-dropdown`.
+Nothing ordered for the catalogue site is open. Delivered and in use since `ui-3464018a5c94`: the line-wrap toggle in each code block's head, the site header (`sf-site-header` with `sf-menu`), the theme colour button (`sf-color variant="theme"`), the theme button's own glyph, `options` as an attribute, highlight inside `sf-tabs`, and one focus ring on `sf-dropdown`.
 
 Beyond those, the core ships the standard, SF.Effects, the kit, the segmented Button Group and the sandbox runner for foreign effects. Community submissions stay closed until the owner decides.
 

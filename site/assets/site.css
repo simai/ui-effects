@@ -220,7 +220,6 @@ h3 { font-size: 1.0625rem; line-height: 1.4; font-weight: 700; }
    comments drop to 2.6:1 in the dark theme and its keywords to 4.45:1 in the light one.
    On surface-0 every token holds 4.5:1 (reported to the Framework). */
 .panel .sf-code-surface { background: var(--sf-surface-0); }
-.code-wrap .code-stack pre, .code-wrap .code-stack code { white-space: pre-wrap; overflow-wrap: anywhere; }
 [data-download] { justify-self: start; }
 .facts { display: grid; gap: 0.375rem; margin: 0; }
 .facts div { display: grid; grid-template-columns: minmax(8rem, 12rem) minmax(0, 1fr); gap: 0.25rem 1rem; }
