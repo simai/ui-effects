@@ -48,15 +48,25 @@ function readTones(host, scheme) {
 // A sand picture: liquid between two panes, the upper half of the frame out of sight above the area.
 // Sand breaks away from it in curtains and runs down in thin streams that wander and stop, settles
 // in the liquid and lands on smooth, broad dunes, so the colours lie in wavy bands, now one, now the
-// other, each band one colour. Two colours: the theme's main one and the text colour, held soft.
+// other, each band one colour. Two sands, held soft, as in a real frame: by default a dark and a
+// light grey; the palette setting gives black and white, desert sand or the theme's main colour.
 // When the dunes reach two fifths of the height, the whole picture sinks slowly, as if the sand
 // drained to the hidden half, and new layers keep landing on top: the landscape is new all the
 // time. A click lets sand run down above the pointer.
 const SCENE = {
   home: 'light', seed: 23, reseed: ['density'],
+  // Each palette: two sands and how strongly each shows over the liquid.
   tones: (read, scheme) => scheme === 'light'
-    ? {ground: read('--sf-neutral-98', '#faf9fe'), a: read('--sf-primary-40', '#005bbe'), b: read('--sf-neutral-10', '#1a1b21')}
-    : {ground: read('--sf-neutral-5', '#111318'), a: read('--sf-primary-80', '#adc6ff'), b: read('--sf-neutral-90', '#e2e2e9')},
+    ? {ground: read('--sf-neutral-98', '#faf9fe'),
+      greys: {a: read('--sf-neutral-30', '#45464d'), b: read('--sf-neutral-60', '#909099'), sa: 0.34, sb: 0.3},
+      classic: {a: read('--sf-neutral-10', '#1a1b21'), b: read('--sf-neutral-80', '#c6c6cf'), sa: 0.3, sb: 0.5},
+      desert: {a: read('--sf-warning-40', '#8b5000'), b: read('--sf-neutral-20', '#2f3036'), sa: 0.3, sb: 0.18},
+      theme: {a: read('--sf-primary-40', '#005bbe'), b: read('--sf-neutral-10', '#1a1b21'), sa: 0.3, sb: 0.17}}
+    : {ground: read('--sf-neutral-5', '#111318'),
+      greys: {a: read('--sf-neutral-90', '#e2e2e9'), b: read('--sf-neutral-50', '#76777f'), sa: 0.26, sb: 0.36},
+      classic: {a: read('--sf-neutral-98', '#faf9fe'), b: read('--sf-neutral-30', '#45464d'), sa: 0.24, sb: 0.5},
+      desert: {a: read('--sf-warning-70', '#f19d47'), b: read('--sf-neutral-60', '#909099'), sa: 0.26, sb: 0.26},
+      theme: {a: read('--sf-primary-80', '#adc6ff'), b: read('--sf-neutral-90', '#e2e2e9'), sa: 0.3, sb: 0.17}},
   setup(env, random) {
     const {w, h, values} = env;
     const cell = 2, cols = Math.max(8, Math.ceil(w / cell)), rows = Math.max(8, Math.ceil(h / cell));
@@ -81,7 +91,7 @@ const SCENE = {
     const {cols, rows, cell, random, height} = state;
     const dt = state.last === null ? 0 : Math.max(0, Math.min(0.05, t - state.last));
     state.last = t;
-    if (state.k !== values.intensity) paletteOf(env, state);
+    if (state.k !== values.intensity || state.p !== values.palette) paletteOf(env, state);
     // Streams wander, break off and start again; a clicked one runs out.
     const flow = 300 * (0.4 + values.density / 100) / Math.max(1, state.streams.length) * cols / 400;
     state.streams = state.streams.filter((sv) => sv.life === undefined || (sv.life -= dt) > 0);
@@ -123,15 +133,17 @@ const SCENE = {
 // The theme's colours as packed pixels; each grain is one of twelve soft tones of the two colours.
 function paletteOf(env, state) {
   const {tones, values} = env;
+  const sand = tones[values.palette] ?? tones.greys;
   const k = values.intensity / 100;
   const pack = (c) => (255 << 24) | ((c[2] | 0) << 16) | ((c[1] | 0) << 8) | (c[0] | 0);
   // Each colour in six close shades, so a band reads as one colour with the grain of sand in it.
   const tonesOf = (c, s) => Array.from({length: 6}, (_, i) => mixc(tones.ground, c, s * (0.82 + i * 0.05) * (0.5 + k * 0.7)));
-  const list = [...tonesOf(tones.a, 0.3), ...tonesOf(tones.b, 0.17)];
+  const list = [...tonesOf(sand.a, sand.sa), ...tonesOf(sand.b, sand.sb)];
   const packed = list.map(pack), styles = list.map((c) => rgba(c));
   const old = state.colours;
   state.colours = {ground: pack(tones.ground), list: packed, css: (i) => styles[i]};
   state.k = values.intensity;
+  state.p = values.palette;
   // A new intensity recolours what is already laid: every pixel keeps its tone index.
   if (old) {
     const map = new Map(old.list.map((v, i) => [v, packed[i]]));

@@ -23,7 +23,7 @@ The state of the catalogue, the decisions behind it and what waits on the Framew
 
 ## Today
 
-- **Framework.** Release `ui-519fa0814a02` (npm `@simai-studio/ui@5.20261028.1745`, simai.effect 1.2.0), pinned in `framework.lock.json` and loaded from jsDelivr's npm form: `SF.Effects`, which keeps a single-scheme effect in its own scheme on a page of the other theme (theme policy, windows mode, declarative mount, integrity loading, the sandbox for foreign effects, the effect area's ink) and the segmented Button Group.
+- **Framework.** Release `ui-3464018a5c94` (npm `@simai-studio/ui@5.20261029.1739`, simai.effect 1.2.0), pinned in `framework.lock.json` and loaded from jsDelivr's npm form: `SF.Effects`, which keeps a single-scheme effect in its own scheme on a page of the other theme (theme policy, windows mode, declarative mount, integrity loading, the sandbox for foreign effects, the effect area's ink) and the segmented Button Group.
 - **Manifests** declare `schemes` (home scheme first) and `capabilities: ["windows"]`. The modules read the scheme from `context.scheme`. `effects/policy.json` holds only order, Russian descriptions and roles, and tags.
 - **Kit.** The 1.1 kit runs per scheme, the scheme switch, contrast (4.5:1 on-surface, 3:1 on-surface-variant, at defaults) and windows. Every effect passes all checks the lock expects for it: 14 for one scheme, 17 for both.
 - **Site and snippets** place effects through the core: the site reads its own copy of the catalogue, and «Получить код» gives the declarative markup and the `SF.Effects.placeEffect` script, pinned by commit. `site/assets/place.js` only adds the configurator's still-frame switch and names what is shown.
@@ -35,10 +35,9 @@ The state of the catalogue, the decisions behind it and what waits on the Framew
 
 Ordered by the bus for the catalogue site; each has a commented workaround in `site/`:
 
-- **Theme colour button**: one icon-only primary button that opens the colour picker and rebuilds the theme while the colour moves (the site lays a transparent colour input over an `sf-button`);
-- **sf-dropdown** draws a second focus ring on its read-only input inside the field;
-- **Code highlight**: a line-wrap control in the block's head (the site has one switch over the code tabs);
-- earlier orders: a site header, a theme button that draws its own glyph, `options` as an attribute, highlight inside `sf-tabs` (the `.source` collision is gone in `ui-519fa0814a02`).
+- **Code highlight**: a line-wrap control in the block's head (the site has one switch over the code tabs).
+
+Delivered and in use since `ui-3464018a5c94`: the site header (`sf-site-header` with `sf-menu`), the theme colour button (`sf-color variant="theme"`), the theme button's own glyph, `options` as an attribute, highlight inside `sf-tabs`, and one focus ring on `sf-dropdown`.
 
 Beyond those, the core ships the standard, SF.Effects, the kit, the segmented Button Group and the sandbox runner for foreign effects. Community submissions stay closed until the owner decides.
 

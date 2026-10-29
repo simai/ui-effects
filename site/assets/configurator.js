@@ -120,8 +120,8 @@ function buildForm() {
       scheduleMeasure(300);
     };
     // A text field applies as it is typed, after a short pause. A switch and a dropdown report their
-    // change from the field inside them (since ui-519fa0814a02 the switch no longer repeats it on the
-    // host), so any change within them counts and the value is read from the component. A range
+    // change from the field inside them: the native event bubbles to the host, as their contracts say),
+    // so any change within them counts and the value is read from the component. A range
     // slider reports its committed value on the host itself; its inner events carry other details.
     let typing = 0;
     if (live) {

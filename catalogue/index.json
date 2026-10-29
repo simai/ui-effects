@@ -5,9 +5,9 @@
   "repository": "simai/ui-effects",
   "standard": "simai.effect 1.2.0",
   "framework": {
-    "pair": "ui-519fa0814a02",
-    "ui": "519fa0814a02374aae3f0662833ad87c13314b58",
-    "ui_source": "7389e4d84d8104c8c9bda816c0255f0f9b623bfb"
+    "pair": "ui-3464018a5c94",
+    "ui": "3464018a5c94dfbfecc3747bd75c21140c0d083e",
+    "ui_source": "2f9a405c6677dce34ccd79a0f615df77146e702f"
   },
   "counts": {
     "effects": 31,
@@ -72,7 +72,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-519fa0814a02",
+        "framework": "ui-3464018a5c94",
         "passed": 14,
         "total": 14
       }
@@ -134,7 +134,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-519fa0814a02",
+        "framework": "ui-3464018a5c94",
         "passed": 14,
         "total": 14
       }
@@ -196,7 +196,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-519fa0814a02",
+        "framework": "ui-3464018a5c94",
         "passed": 17,
         "total": 17
       }
@@ -258,7 +258,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-519fa0814a02",
+        "framework": "ui-3464018a5c94",
         "passed": 14,
         "total": 14
       }
@@ -320,7 +320,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-519fa0814a02",
+        "framework": "ui-3464018a5c94",
         "passed": 17,
         "total": 17
       }
@@ -381,7 +381,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-519fa0814a02",
+        "framework": "ui-3464018a5c94",
         "passed": 14,
         "total": 14
       }
@@ -442,7 +442,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-519fa0814a02",
+        "framework": "ui-3464018a5c94",
         "passed": 14,
         "total": 14
       }
@@ -503,7 +503,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-519fa0814a02",
+        "framework": "ui-3464018a5c94",
         "passed": 14,
         "total": 14
       }
@@ -564,7 +564,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-519fa0814a02",
+        "framework": "ui-3464018a5c94",
         "passed": 17,
         "total": 17
       }
@@ -625,7 +625,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-519fa0814a02",
+        "framework": "ui-3464018a5c94",
         "passed": 14,
         "total": 14
       }
@@ -687,7 +687,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-519fa0814a02",
+        "framework": "ui-3464018a5c94",
         "passed": 17,
         "total": 17
       }
@@ -746,7 +746,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-519fa0814a02",
+        "framework": "ui-3464018a5c94",
         "passed": 14,
         "total": 14
       }
@@ -806,7 +806,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-519fa0814a02",
+        "framework": "ui-3464018a5c94",
         "passed": 17,
         "total": 17
       }
@@ -867,7 +867,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-519fa0814a02",
+        "framework": "ui-3464018a5c94",
         "passed": 17,
         "total": 17
       }
@@ -927,7 +927,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-519fa0814a02",
+        "framework": "ui-3464018a5c94",
         "passed": 17,
         "total": 17
       }
@@ -987,7 +987,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-519fa0814a02",
+        "framework": "ui-3464018a5c94",
         "passed": 17,
         "total": 17
       }
@@ -1048,7 +1048,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-519fa0814a02",
+        "framework": "ui-3464018a5c94",
         "passed": 17,
         "total": 17
       }
@@ -1109,7 +1109,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-519fa0814a02",
+        "framework": "ui-3464018a5c94",
         "passed": 14,
         "total": 14
       }
@@ -1170,7 +1170,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-519fa0814a02",
+        "framework": "ui-3464018a5c94",
         "passed": 14,
         "total": 14
       }
@@ -1232,7 +1232,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-519fa0814a02",
+        "framework": "ui-3464018a5c94",
         "passed": 17,
         "total": 17
       }
@@ -1294,7 +1294,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-519fa0814a02",
+        "framework": "ui-3464018a5c94",
         "passed": 17,
         "total": 17
       }
@@ -1356,7 +1356,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-519fa0814a02",
+        "framework": "ui-3464018a5c94",
         "passed": 17,
         "total": 17
       }
@@ -1418,7 +1418,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-519fa0814a02",
+        "framework": "ui-3464018a5c94",
         "passed": 17,
         "total": 17
       }
@@ -1479,7 +1479,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-519fa0814a02",
+        "framework": "ui-3464018a5c94",
         "passed": 14,
         "total": 14
       }
@@ -1520,28 +1520,28 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "42540e326593f6d1ec8606a1b5e5f2e94f37f7becf96a8791580aaf8ddfd22ed",
-          "size": 1575
+          "sha256": "151527dbc83ef3a32242a0c8c6f90d73ad670952d539ac10a1d488595afbb766",
+          "size": 2378
         },
         {
           "path": "index.js",
-          "sha256": "a183652ae0588046f6fe13c36c2b8f3b14d523356607a9cb139035543ec5d00e",
-          "size": 15513
+          "sha256": "7852b8c7320fba6aa1086e1ffb8c44d27876a93a32606ae6b7d489f0c6ec5b2c",
+          "size": 16548
         },
         {
           "path": "preview.png",
-          "sha256": "683e5b4d635f85cc4b1c674d320d2f828415de17430dbc343682013a9b644a6d",
-          "size": 25037
+          "sha256": "2735e35d84dc1001422f03ad2920d00890254e5dc6369333cec7ee2498cdf4c5",
+          "size": 23735
         },
         {
           "path": "README.md",
-          "sha256": "e740a5f731170dec12945f019d449daec6cadaecd4c5d40e210b893f626e76ff",
-          "size": 1379
+          "sha256": "48c46fd2befa7bc2325a956b2f9386600c9be46c6f14f29630ac41c7c9a8e457",
+          "size": 1464
         }
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-519fa0814a02",
+        "framework": "ui-3464018a5c94",
         "passed": 17,
         "total": 17
       }
@@ -1603,7 +1603,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-519fa0814a02",
+        "framework": "ui-3464018a5c94",
         "passed": 17,
         "total": 17
       }
@@ -1665,7 +1665,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-519fa0814a02",
+        "framework": "ui-3464018a5c94",
         "passed": 17,
         "total": 17
       }
@@ -1706,28 +1706,28 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "fddc762513dfc8efdbe4c9a63eee2829ebd9d7819c1f2f960a09c449d18dfae0",
-          "size": 2888
+          "sha256": "ef0053eb688060568fbc84b033e56f2f7de0784d8cb565f766dcec5c8c65050b",
+          "size": 5047
         },
         {
           "path": "index.js",
-          "sha256": "f4a381d0b6c1ac9794db759775b2b57192057f370c36dfa7b2e3518bacfb97c9",
-          "size": 15602
+          "sha256": "091a127c41cdb10fffad92452979f58c3a770a6e4f1d06b473bedbdf8c303ae1",
+          "size": 19845
         },
         {
           "path": "preview.png",
-          "sha256": "85e943eda6622a0b56492fbf5ffef0678dfc13a994ed7a06379e2147ac89d5bd",
-          "size": 100341
+          "sha256": "5890f7d52f78aff33e7d5fdf27157668d942ba5ac1fa6cbfaa3a80dbfada4caa",
+          "size": 90190
         },
         {
           "path": "README.md",
-          "sha256": "221663f80065c5864b702e5fa288f5ce62f01fda8c8949cfbcb982b5134d0fec",
-          "size": 1530
+          "sha256": "150c82738367855b96d111503a3164c3834d67fcf9ef8eda4e43bb6c0fc487e9",
+          "size": 1716
         }
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-519fa0814a02",
+        "framework": "ui-3464018a5c94",
         "passed": 17,
         "total": 17
       }
@@ -1789,7 +1789,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-519fa0814a02",
+        "framework": "ui-3464018a5c94",
         "passed": 17,
         "total": 17
       }
@@ -1850,7 +1850,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-519fa0814a02",
+        "framework": "ui-3464018a5c94",
         "passed": 14,
         "total": 14
       }
@@ -1912,7 +1912,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-519fa0814a02",
+        "framework": "ui-3464018a5c94",
         "passed": 17,
         "total": 17
       }

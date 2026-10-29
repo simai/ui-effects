@@ -23,64 +23,31 @@ function themeChanged() {
 }
 window.addEventListener('sf-theme-change', themeChanged);
 
-// --- Theme button -------------------------------------------------------------------
-// The Framework's sf-theme-button switches light and dark; its glyph is the
-// project's: the theme it would switch to (documented in the Theme component).
-const glyph = document.querySelector('[data-theme-glyph]');
-const showGlyph = () => { if (glyph) glyph.setAttribute('icon', siteTheme() === 'dark' ? 'light_mode' : 'dark_mode'); };
-window.addEventListener('sf-theme-change', showGlyph);
-showGlyph();
-
 // --- Main colour -------------------------------------------------------------------
-// The header's primary palette button opens the platform colour picker; the
-// whole theme is built from the colour by SF.ThemePalette, which ships with the
-// theme generator's script, loaded here without its panel. The theme follows
-// the picker while it moves (a short pause keeps a drag from rebuilding it on
-// every step); effects read palette tones when they mount, so they are placed
-// again once the colour is committed. The choice is kept in this browser.
+// The header's sf-color (theme variant) opens the platform colour picker and builds the whole theme
+// from the colour while it moves; it stores nothing, so the choice is kept here, in this browser, and
+// given back as its value. Effects read palette tones when they mount, so they are placed again once
+// a colour is committed or cleared.
 const COLOUR_KEY = 'ui-effects-colour';
-const FRAMEWORK_COLOUR = '#005bbe';
 const colourListeners = new Set();
 export const onSiteColour = (listener) => colourListeners.add(listener);
-let palette = null;
-const loadPalette = () => palette ??= new Promise((resolve) => {
-  if (globalThis.SF?.ThemePalette) { resolve(globalThis.SF.ThemePalette); return; }
-  const script = document.createElement('script');
-  script.src = `${globalThis.sfPath}smart/theme-generator/js/theme-generator.min.js`;
-  script.onload = () => resolve(globalThis.SF?.ThemePalette ?? null);
-  script.onerror = () => resolve(null);
-  document.head.append(script);
-});
-// The theme goes on <html> as inline custom properties; clearing them returns the Framework's own.
-async function applyColour(value) {
-  const tools = value ? await loadPalette() : null;
-  const root = document.documentElement;
-  for (const name of [...root.style]) if (name.startsWith('--sf-')) root.style.removeProperty(name);
-  if (value && tools?.isThemeColor(value)) tools.applyTheme(tools.themeFromColor(value));
-}
 const picker = document.querySelector('[data-site-colour]');
-const reset = document.querySelector('[data-site-colour-reset]');
 let chosen = '';
 try { chosen = localStorage.getItem(COLOUR_KEY) ?? ''; } catch (error) { chosen = ''; }
-const show = () => { if (picker) picker.value = chosen || FRAMEWORK_COLOUR; if (reset) reset.hidden = !chosen; };
-const commit = async (value) => {
-  chosen = value;
+if (picker && chosen) {
+  picker.setAttribute('value', chosen);
+  // The control applies the kept colour once the theme palette is there; effects are placed again after it.
+  const told = () => requestAnimationFrame(() => colourListeners.forEach((listener) => listener(chosen)));
+  window.addEventListener('theme-palette:ready', told, {once: true});
+}
+picker?.addEventListener('change', (event) => {
+  if (event.target !== picker) return;
+  chosen = picker.value ?? '';
   try {
-    if (value) localStorage.setItem(COLOUR_KEY, value); else localStorage.removeItem(COLOUR_KEY);
+    if (chosen) localStorage.setItem(COLOUR_KEY, chosen); else localStorage.removeItem(COLOUR_KEY);
   } catch (error) { /* storage blocked: the colour lasts for this page */ }
-  show();
-  await applyColour(value);
-  colourListeners.forEach((listener) => listener(value));
-};
-show();
-if (chosen) applyColour(chosen).then(() => colourListeners.forEach((listener) => listener(chosen)));
-let moving = 0;
-picker?.addEventListener('input', () => {
-  clearTimeout(moving);
-  moving = setTimeout(() => applyColour(picker.value), 120);
+  colourListeners.forEach((listener) => listener(chosen));
 });
-picker?.addEventListener('change', () => { clearTimeout(moving); commit(picker.value); });
-reset?.addEventListener('click', () => commit(''));
 
 // --- Catalogue ------------------------------------------------------------------
 let catalogue = null;

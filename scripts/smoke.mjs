@@ -124,9 +124,10 @@ async function routeAll(context) {
 // and the theme (with the generator's script for SF.ThemePalette), the settings
 // controls (range slider, switch, dropdown, text fields) with the parts they
 // bring, the code tabs and the code highlight with its copy button.
-// Since ui-519fa0814a02 the Loader also brings the Smart icon button and the
-// badges as dependencies of those parts.
-const SITE_MODULES = /^(component|smart)\/(button-group|buttons?|icons?|icon-buttons|theme|theme-generator|color|inputs?|close|range-slider|switch|dropdown|list-item|context-menu|checkbox|sortable|tags|avatars|tooltip|textarea|tabs|highlight|clipboard|scrollbar|doc|icon-button|badges)\//u;
+// The Loader also brings the Smart icon button and the badges as dependencies of
+// those parts; the header is the site header, and the theme colour asks for the
+// theme palette on its own.
+const SITE_MODULES = /^(component|smart)\/(button-group|buttons?|icons?|icon-buttons|theme|theme-generator|theme-palette|site-header|menu|color|inputs?|close|range-slider|switch|dropdown|list-item|context-menu|checkbox|sortable|tags|avatars|tooltip|textarea|tabs|highlight|clipboard|scrollbar|doc|icon-button|badges)\//u;
 function watch(page, where) {
   const problems = [];
   page.on('pageerror', (error) => problems.push(`page error: ${error.message}`));

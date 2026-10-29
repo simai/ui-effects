@@ -15,6 +15,7 @@ Sand runs down from above in streams and settles in smooth dunes of the theme's 
 | `speed` | integer | 10–300 % | `100` | Speed |
 | `intensity` | integer | 10–100 % | `70` | Intensity |
 | `density` | integer | 10–100 % | `50` | Density |
+| `palette` | choice | `greys`, `classic`, `desert`, `theme` | `"greys"` | Palette |
 | `interactive` | boolean | — | `true` | React to the pointer. A click lets sand run down above the pointer |
 
 ## Schemes

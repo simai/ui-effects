@@ -64,6 +64,45 @@
       "unit": "%"
     },
     {
+      "key": "palette",
+      "type": "choice",
+      "label": {
+        "ru": "Палитра",
+        "en": "Palette"
+      },
+      "default": "greys",
+      "options": [
+        {
+          "value": "greys",
+          "label": {
+            "ru": "Серая",
+            "en": "Greys"
+          }
+        },
+        {
+          "value": "classic",
+          "label": {
+            "ru": "Чёрная и белая",
+            "en": "Black and white"
+          }
+        },
+        {
+          "value": "desert",
+          "label": {
+            "ru": "Пустыня",
+            "en": "Desert"
+          }
+        },
+        {
+          "value": "theme",
+          "label": {
+            "ru": "Цвет темы",
+            "en": "Theme colour"
+          }
+        }
+      ]
+    },
+    {
       "key": "interactive",
       "type": "boolean",
       "label": {

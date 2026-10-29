@@ -63,23 +63,6 @@ h3 { font-size: 1.0625rem; line-height: 1.4; font-weight: 700; }
   box-sizing: border-box;
 }
 
-/* Header */
-.top { border-block-end: 1px solid var(--sf-outline-variant); background: var(--sf-surface-0); }
-.top__row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.5rem; padding-block: 0.75rem; }
-.brand { display: inline-flex; align-items: center; gap: 0.625rem; color: var(--sf-on-surface); text-decoration: none; font-weight: 700; }
-.brand__mark { inline-size: 1.75rem; block-size: 1.75rem; flex: none; }
-.top__tools { display: flex; align-items: center; gap: 0.5rem; }
-/* The palette button: the native colour input lies over it, transparent, so a click and the keyboard reach the picker. */
-.top__colour { position: relative; cursor: pointer; }
-.top__colour-input { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; opacity: 0; cursor: pointer; border: 0; padding: 0; }
-.top__colour:has(.top__colour-input:focus-visible) { outline: 2px solid var(--sf-primary); outline-offset: 2px; }
-.top__nav { display: flex; flex-wrap: wrap; gap: 0.25rem 1rem; margin-inline-start: auto; }
-.top__nav a { color: var(--sf-on-surface); text-decoration: none; padding-block: 0.5rem; }
-.top__nav a:hover { color: var(--sf-primary); text-decoration: underline; }
-@media (max-width: 40rem) {
-  .top__nav { margin-inline-start: 0; order: 3; inline-size: 100%; }
-  .top__tools { margin-inline-start: auto; }
-}
 
 .count { font-variant-numeric: tabular-nums; }
 
@@ -258,7 +241,3 @@ h3 { font-size: 1.0625rem; line-height: 1.4; font-weight: 700; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
 }
-
-/* Framework defect (ordered): sf-dropdown draws its focus ring on the field and the global
-   :focus-visible ring on the read-only input inside it, two frames one in the other. */
-.sf-dropdown-field input:focus-visible { outline: none; }

@@ -2,9 +2,9 @@
   "schema": "simai.ui-effects.kit",
   "version": 2,
   "framework": {
-    "pair": "ui-519fa0814a02",
-    "ui": "519fa0814a02374aae3f0662833ad87c13314b58",
-    "ui_source": "7389e4d84d8104c8c9bda816c0255f0f9b623bfb"
+    "pair": "ui-3464018a5c94",
+    "ui": "3464018a5c94dfbfecc3747bd75c21140c0d083e",
+    "ui_source": "2f9a405c6677dce34ccd79a0f615df77146e702f"
   },
   "kit": {
     "script": "scripts/effect-kit.mjs",
@@ -156,7 +156,7 @@
       "failed": []
     },
     "sand-picture": {
-      "digest": "eb67f02063e24c4e1bee19101668cc7c8e52f8a8107604e17b4772343fc742b0",
+      "digest": "9638e7acc46a0e9571019f2f82f4296b0c2b836cc861d8e0d0c7b04e0a6d907d",
       "passed": 17,
       "total": 17,
       "failed": []
@@ -174,7 +174,7 @@
       "failed": []
     },
     "chladni": {
-      "digest": "527042af6260dec07965f57d66c5c8a3ecc770b391a61195e741be5458963557",
+      "digest": "a74ce4e64fcb8c6c20eb4e6209f47d3a8a5e63f1c9c06e4d25dc842620c735f0",
       "passed": 17,
       "total": 17,
       "failed": []
