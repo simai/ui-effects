@@ -88,15 +88,26 @@ const SCENE = {
     g.addColorStop(1, rgba(tones.low));
     ctx.fillStyle = g;
     ctx.fillRect(0, 0, w, h);
-    // Each bird a short dark stroke along its heading: dense where the flock folds.
-    ctx.strokeStyle = rgba(tones.bird, (scheme === 'light' ? 0.5 : 0.45) * (0.5 + k * 0.7));
-    ctx.lineWidth = 1.6;
+    // Each bird a starling seen from below: swept-back wings that beat, a short body and tail.
+    // Birds nearer the eye are a little bigger; each beats its wings in its own rhythm.
+    ctx.strokeStyle = rgba(tones.bird, (scheme === 'light' ? 0.3 : 0.26) * (0.5 + k * 0.7));
+    ctx.lineWidth = 1.1;
     ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
     ctx.beginPath();
+    const span = 3.2 * (0.8 + flockSize(env) * 0.3), beat = state.time * 13;
     for (let i = 0; i < n; i += 1) {
       const o = i * 4, x = birds[o], y = birds[o + 1];
-      ctx.moveTo(x, y);
-      ctx.lineTo(x - birds[o + 2] * 0.9, y - birds[o + 3] * 0.9);
+      const v = Math.hypot(birds[o + 2], birds[o + 3]) || 1, ux = birds[o + 2] / v, uy = birds[o + 3] / v;
+      const s = span * (0.75 + ((i * 7919) % 100) / 200), flap = Math.sin(beat * (0.85 + (i % 7) * 0.05) + i);
+      // A downstroke spreads the wings wide; an upstroke folds them back and in.
+      const out = s * (0.75 + flap * 0.3), back = s * (0.45 - flap * 0.25);
+      const hx = x + ux * s * 0.35, hy = y + uy * s * 0.35;
+      ctx.moveTo(x - ux * back - uy * out, y - uy * back + ux * out);
+      ctx.lineTo(hx, hy);
+      ctx.lineTo(x - ux * back + uy * out, y - uy * back - ux * out);
+      ctx.moveTo(hx, hy);
+      ctx.lineTo(x - ux * s * 0.55, y - uy * s * 0.55);
     }
     ctx.stroke();
   },

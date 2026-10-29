@@ -53,7 +53,7 @@ function readTones(host, scheme) {
 const SCENE = {
   home: 'light', seed: 57, fresh: true, reseed: ['density'],
   tones: (read, scheme) => scheme === 'light'
-    ? {ground: read('--sf-warning-95', '#ffeee1'), front: read('--sf-primary-50', '#0074ec'), tail: read('--sf-tertiary-80', '#e7b6ea')}
+    ? {ground: read('--sf-neutral-98', '#faf9fe'), front: read('--sf-primary-50', '#0074ec'), tail: read('--sf-tertiary-80', '#e7b6ea')}
     : {ground: read('--sf-neutral-5', '#111318'), front: read('--sf-primary-70', '#7aabff'), tail: read('--sf-tertiary-30', '#563e5a')},
   setup(env, random) {
     const {w, h, values} = env;

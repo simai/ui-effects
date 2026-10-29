@@ -1649,13 +1649,13 @@
         },
         {
           "path": "index.js",
-          "sha256": "7b964ee79469d48061b3792baa914db0acd4895f100c55cf389786add7dba958",
-          "size": 14512
+          "sha256": "6908b768001a984e6c71f9e41407973426d04645acb575357feccac68c4a511a",
+          "size": 15311
         },
         {
           "path": "preview.png",
-          "sha256": "999b5dee651a86806f028978ac648b3e941b1db0a2e95c1baa28dd1e414add32",
-          "size": 63435
+          "sha256": "c6dccfe158d0d5c3a2e9cf8ced1a237ff592f92f4f51ba76bc36b5ce165e0321",
+          "size": 92262
         },
         {
           "path": "README.md",
@@ -1706,23 +1706,23 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "221ca9709c7af2d285b6f9d4221e34845719f255597999a231ae76d78c32de6e",
-          "size": 2087
+          "sha256": "fddc762513dfc8efdbe4c9a63eee2829ebd9d7819c1f2f960a09c449d18dfae0",
+          "size": 2888
         },
         {
           "path": "index.js",
-          "sha256": "1e593242f9e5d8813243263fa355051132623b437558e308717a51ae647fed74",
-          "size": 13551
+          "sha256": "f4a381d0b6c1ac9794db759775b2b57192057f370c36dfa7b2e3518bacfb97c9",
+          "size": 15602
         },
         {
           "path": "preview.png",
-          "sha256": "5c2f31979066f9408707ab0758d8f5c44250f0f67aa6418658b9384c5bb1fc0f",
-          "size": 99894
+          "sha256": "85e943eda6622a0b56492fbf5ffef0678dfc13a994ed7a06379e2147ac89d5bd",
+          "size": 100341
         },
         {
           "path": "README.md",
-          "sha256": "6b3ba9c8f4d2d45cf14b1e234cb647abbaf0c9633d45f28ab2dcce93795ee791",
-          "size": 1441
+          "sha256": "221663f80065c5864b702e5fa288f5ce62f01fda8c8949cfbcb982b5134d0fec",
+          "size": 1530
         }
       ],
       "kit": {
@@ -1773,13 +1773,13 @@
         },
         {
           "path": "index.js",
-          "sha256": "760b1312f0ebc48f7d0c8475cfbac6f5deffdc3404d6dd8cdd444b5f20189ae4",
+          "sha256": "e8b6e2fe27c2f2e365ac337c727d3173977cb93a9ac863faf7e64f647e8ca023",
           "size": 14600
         },
         {
           "path": "preview.png",
-          "sha256": "160b6d2b65b307fb8157bac43d6fe056b6552939eab62eedb5a6afb1220c9914",
-          "size": 69464
+          "sha256": "85697210ba31a8301a2fd81e0efb8080f28cea153351898c8f9973b63fe38f2c",
+          "size": 69630
         },
         {
           "path": "README.md",

@@ -49,11 +49,25 @@ function readTones(host, scheme) {
 // walk off to the lines that stay still, so the sand draws the plate's standing wave. Every few
 // seconds the note changes: the old figure breaks up into a shimmer and the grains run to the
 // new one. The grains may be sand or the marks of a text file: hashes, brackets, arrows.
+// Real sand is never one colour: every grain takes one of three shades, so the lines have grain.
+// The palettes follow how sand is shown for real: graphite is grey sand on a grey plate; brass a
+// bronze plate with brown sand; lightbox is sand animation, dark sand on a warm backlit glass;
+// ink takes the theme's primary colour.
 const SCENE = {
   home: 'light', seed: 43, fresh: true, reseed: ['density', 'grains'],
   tones: (read, scheme) => scheme === 'light'
-    ? {plate: read('--sf-neutral-98', '#faf9fe'), edge: read('--sf-neutral-95', '#f1f0f5'), grain: read('--sf-neutral-30', '#45464d'), mark: read('--sf-primary-40', '#005bbe')}
-    : {plate: read('--sf-neutral-6', '#16181d'), edge: read('--sf-neutral-4', '#0c0e13'), grain: read('--sf-neutral-80', '#c6c6cf'), mark: read('--sf-primary-80', '#adc6ff')},
+    ? {
+      graphite: {plate: read('--sf-neutral-98', '#faf9fe'), edge: read('--sf-neutral-95', '#f1f0f5'), grains: [read('--sf-neutral-20', '#2f3036'), read('--sf-neutral-40', '#5d5e66'), read('--sf-neutral-60', '#909099')]},
+      brass: {plate: read('--sf-warning-95', '#ffeee1'), edge: read('--sf-warning-90', '#ffdcc2'), grains: [read('--sf-warning-20', '#4f2500'), read('--sf-warning-40', '#8b5000'), read('--sf-neutral-40', '#5d5e66')]},
+      lightbox: {plate: read('--sf-warning-98', '#fff8f5'), edge: read('--sf-warning-90', '#ffdcc2'), grains: [read('--sf-neutral-10', '#1a1b21'), read('--sf-neutral-20', '#2f3036'), read('--sf-warning-20', '#4f2500')]},
+      ink: {plate: read('--sf-neutral-98', '#faf9fe'), edge: read('--sf-neutral-95', '#f1f0f5'), grains: [read('--sf-primary-40', '#005bbe'), read('--sf-primary-60', '#4d8eff'), read('--sf-neutral-50', '#76777f')]},
+    }
+    : {
+      graphite: {plate: read('--sf-neutral-10', '#1a1b21'), edge: read('--sf-neutral-4', '#0c0e13'), grains: [read('--sf-neutral-90', '#e2e2eb'), read('--sf-neutral-70', '#aaabb4'), read('--sf-neutral-50', '#76777f')]},
+      brass: {plate: read('--sf-warning-10', '#2f1500'), edge: read('--sf-neutral-4', '#0c0e13'), grains: [read('--sf-warning-80', '#ffb77a'), read('--sf-warning-60', '#d1872c'), read('--sf-neutral-70', '#aaabb4')]},
+      lightbox: {plate: read('--sf-warning-20', '#4f2500'), edge: read('--sf-neutral-4', '#0c0e13'), grains: [read('--sf-neutral-4', '#0c0e13'), read('--sf-neutral-6', '#16181d'), read('--sf-neutral-10', '#1a1b21')]},
+      ink: {plate: read('--sf-neutral-6', '#16181d'), edge: read('--sf-neutral-4', '#0c0e13'), grains: [read('--sf-primary-80', '#adc6ff'), read('--sf-primary-60', '#4d8eff'), read('--sf-neutral-60', '#909099')]},
+    },
   setup(env, random) {
     const {w, h, values} = env;
     const glyphs = values.grains === 'marks';
@@ -71,7 +85,8 @@ const SCENE = {
   },
   click(env) { const s = env.state; s.at = (s.at + 1) % s.modes.length; s.since = 0; s.shake = 0.5; },
   draw(env, t) {
-    const {ctx, w, h, tones, state, values, scheme} = env;
+    const {ctx, w, h, state, values, scheme} = env;
+    const tones = env.tones[values.palette] ?? env.tones.graphite;
     const k = values.intensity / 100;
     const dt = state.last === null ? 0 : Math.max(0, Math.min(0.05, t - state.last));
     state.last = t;
@@ -87,16 +102,22 @@ const SCENE = {
     ctx.fillRect(0, 0, w, h);
     const {n, grains} = state;
     if (state.glyphs) {
-      ctx.fillStyle = rgba(tones.mark, (scheme === 'light' ? 0.42 : 0.32) * (0.45 + k * 0.6));
       ctx.font = '600 9px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      for (let i = 0; i < n; i += 1) ctx.fillText(MARKS[grains[i * 3 + 2]], grains[i * 3], grains[i * 3 + 1]);
+      for (let s = 0; s < 3; s += 1) {
+        ctx.fillStyle = rgba(tones.grains[s], (scheme === 'light' ? 0.42 : 0.32) * (0.45 + k * 0.6));
+        for (let i = s; i < n; i += 3) ctx.fillText(MARKS[grains[i * 3 + 2]], grains[i * 3], grains[i * 3 + 1]);
+      }
     } else {
-      ctx.fillStyle = rgba(tones.grain, (scheme === 'light' ? 0.55 : 0.6) * (0.45 + k * 0.6));
-      ctx.beginPath();
-      for (let i = 0; i < n; i += 1) ctx.rect(grains[i * 3], grains[i * 3 + 1], 1.4, 1.4);
-      ctx.fill();
+      // Three shades and three sizes of grain: every third grain is the same kind.
+      for (let s = 0; s < 3; s += 1) {
+        const size = 1.1 + s * 0.3;
+        ctx.fillStyle = rgba(tones.grains[s], (scheme === 'light' ? 0.6 : 0.65) * (0.45 + k * 0.6));
+        ctx.beginPath();
+        for (let i = s; i < n; i += 3) ctx.rect(grains[i * 3], grains[i * 3 + 1], size, size);
+        ctx.fill();
+      }
     }
   },
 };

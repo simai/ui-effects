@@ -16,6 +16,7 @@ Sand on a singing plate gathers on the lines that stay still; the note changes, 
 | `intensity` | integer | 10–100 % | `70` | Intensity |
 | `density` | integer | 10–100 % | `50` | Density |
 | `grains` | choice | `sand`, `marks` | `"sand"` | Grains |
+| `palette` | choice | `graphite`, `brass`, `lightbox`, `ink` | `"graphite"` | Palette |
 | `interactive` | boolean | — | `true` | React to the pointer. The pointer stirs the sand, a click changes the note |
 
 ## Schemes

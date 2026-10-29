@@ -168,19 +168,19 @@
       "failed": []
     },
     "murmuration": {
-      "digest": "c6106216d63a253a9f4380adfe55c9c8b318bfe00d976c2e62e841103750772b",
+      "digest": "44daff98841025333fc4499fd519da67dd8923a3d6794631af208c748960ce9a",
       "passed": 17,
       "total": 17,
       "failed": []
     },
     "chladni": {
-      "digest": "013ab4b459b5d7190354b35e97d8298bbababc524739b8eced139c691959fd7a",
+      "digest": "527042af6260dec07965f57d66c5c8a3ecc770b391a61195e741be5458963557",
       "passed": 17,
       "total": 17,
       "failed": []
     },
     "bz-waves": {
-      "digest": "7d0f959595d7426dc5d283352be65fd5a5f68a96a5eac3778b710686c1b0fca1",
+      "digest": "b75e4769f8457e338e5b835c91118d30d393d6856db5cac5d02f239d7edb6f29",
       "passed": 17,
       "total": 17,
       "failed": []

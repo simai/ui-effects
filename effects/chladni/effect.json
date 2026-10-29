@@ -89,6 +89,45 @@
       ]
     },
     {
+      "key": "palette",
+      "type": "choice",
+      "label": {
+        "ru": "Палитра",
+        "en": "Palette"
+      },
+      "default": "graphite",
+      "options": [
+        {
+          "value": "graphite",
+          "label": {
+            "ru": "Графит",
+            "en": "Graphite"
+          }
+        },
+        {
+          "value": "brass",
+          "label": {
+            "ru": "Латунь",
+            "en": "Brass"
+          }
+        },
+        {
+          "value": "lightbox",
+          "label": {
+            "ru": "Световой стол",
+            "en": "Lightbox"
+          }
+        },
+        {
+          "value": "ink",
+          "label": {
+            "ru": "Цвет темы",
+            "en": "Theme colour"
+          }
+        }
+      ]
+    },
+    {
       "key": "interactive",
       "type": "boolean",
       "label": {
