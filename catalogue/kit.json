@@ -162,13 +162,37 @@
       "failed": []
     },
     "confetti": {
-      "digest": "ce96256c6f89c5e4fc9d0a76a8d5e10e4d4a1fec1c02d1bd24ef713d40fc72f0",
+      "digest": "db2c64f77273ec46082a6f810882c42170e43942d86f48f2680ff3124b92b819",
       "passed": 17,
       "total": 17,
       "failed": []
     },
     "murmuration": {
-      "digest": "0b3acf16e1df17926afa5f5a5340c4f69faf774cba700b840e467757b52c8a7a",
+      "digest": "c6106216d63a253a9f4380adfe55c9c8b318bfe00d976c2e62e841103750772b",
+      "passed": 17,
+      "total": 17,
+      "failed": []
+    },
+    "chladni": {
+      "digest": "013ab4b459b5d7190354b35e97d8298bbababc524739b8eced139c691959fd7a",
+      "passed": 17,
+      "total": 17,
+      "failed": []
+    },
+    "bz-waves": {
+      "digest": "7d0f959595d7426dc5d283352be65fd5a5f68a96a5eac3778b710686c1b0fca1",
+      "passed": 17,
+      "total": 17,
+      "failed": []
+    },
+    "cloud-chamber": {
+      "digest": "05e25f2a00dc3d3fa92df25ae1b0021b426018ecf08e6181a9e77716b6640428",
+      "passed": 14,
+      "total": 14,
+      "failed": []
+    },
+    "benard-cells": {
+      "digest": "e34fe5fbed6556d6fa60136dc6ba9579d01efd473f6d3b011ef5d74b4ed452ef",
       "passed": 17,
       "total": 17,
       "failed": []

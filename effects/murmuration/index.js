@@ -51,18 +51,20 @@ function readTones(host, scheme) {
 // falcon the flock swerves round, opening a hole that closes behind it; a click startles the birds
 // near it into a burst.
 const SCENE = {
-  home: 'light', seed: 91, reseed: ['density'],
+  home: 'light', seed: 91, reseed: ['density', 'size'],
   tones: (read, scheme) => scheme === 'light'
     ? {top: read('--sf-primary-95', '#ecf0ff'), low: read('--sf-warning-95', '#ffeee1'), bird: read('--sf-neutral-20', '#2f3036')}
     : {top: read('--sf-neutral-5', '#111318'), low: read('--sf-primary-10', '#001a41'), bird: read('--sf-neutral-80', '#c6c6cf')},
   setup(env, random) {
     const {w, h} = env;
     // Fewer birds on a small area, so the cloud keeps its size against the frame.
-    const n = Math.round((700 + env.values.density * 16) * clamp(w * h / 600000, 0.35, 1.5));
+    // A bigger flock is both wider and more birds, so it keeps its density.
+    const f = flockSize(env);
+    const n = Math.round((700 + env.values.density * 16) * clamp(w * h / 600000, 0.35, 1.5) * (0.6 + f * 2.2));
     const birds = new Float32Array(n * 4);
     for (let i = 0; i < n; i += 1) {
-      const a = random() * 6.28, r = random() * Math.min(w, h) * 0.2;
-      birds[i * 4] = w * 0.5 + Math.cos(a) * r * 1.6; birds[i * 4 + 1] = h * 0.4 + Math.sin(a) * r;
+      const a = random() * 6.28, r = Math.sqrt(random());
+      birds[i * 4] = w * 0.5 + Math.cos(a) * r * w * 0.42 * f; birds[i * 4 + 1] = h * 0.5 + Math.sin(a) * r * h * 0.44 * f;
       birds[i * 4 + 2] = Math.cos(a + 1.6) * 2; birds[i * 4 + 3] = Math.sin(a + 1.6) * 2;
     }
     const state = {n, birds, random, last: null, startle: [], cell: 24, time: 0};
@@ -103,8 +105,12 @@ const SCENE = {
 function fly(env, state, t, frames) {
   const {w, h, pointer} = env;
   const {n, birds, cell} = state;
-  // The lead the flock follows: a slow loop through the area, kept off its edges.
-  const lx = w * (0.5 + 0.3 * Math.sin(t * 0.13) * Math.cos(t * 0.05)), ly = h * (0.48 + 0.14 * Math.sin(t * 0.21 + 1));
+  // The lead the flock follows: a slow loop through the area, kept off its edges. The flock holds
+  // to an ellipse round it, as wide as the size setting asks; inside it the birds are free.
+  const f = flockSize(env), rx = w * 0.42 * f, ry = h * 0.44 * f;
+  const lx = w * (0.5 + (0.5 - 0.42 * f) * Math.sin(t * 0.13) * Math.cos(t * 0.05)), ly = h * (0.5 + (0.48 - 0.44 * f) * Math.sin(t * 0.21 + 1));
+  // Birds keep wider room in a bigger flock.
+  const room = 64 * (0.7 + f * 0.8) ** 2;
   const fx = pointer.on ? pointer.x * w : -1e4, fy = pointer.on ? pointer.y * h : -1e4;
   state.startle = state.startle.filter((s) => t - s.born < 1.2);
   // A grid of buckets: each bird looks only at the birds in its own and the next cells.
@@ -126,12 +132,16 @@ function fly(env, state, t, frames) {
         if (d2 > cell * cell) continue;
         seen += 1; m += 1;
         cx += dx; cy += dy; ax += birds[j * 4 + 2]; ay += birds[j * 4 + 3];
-        if (d2 < 64) { sx -= dx / (d2 + 1); sy -= dy / (d2 + 1); }
+        if (d2 < room) { sx -= dx / (d2 + 1); sy -= dy / (d2 + 1); }
       }
     }
     if (m) { vx += (cx / m) * 0.012 + (ax / m - vx) * 0.08 + sx * 1.2; vy += (cy / m) * 0.012 + (ay / m - vy) * 0.08 + sy * 1.2; }
     // Towards the lead, gently, and away from the edges.
-    vx += (lx - x) * 0.0005 * (1 + (x < 0 || x > w ? 4 : 0)); vy += (ly - y) * 0.0007 * (1 + (y < 0 || y > h ? 4 : 0));
+    const ex = (x - lx) / rx, ey = (y - ly) / ry, e = Math.hypot(ex, ey) || 1;
+    if (e > 1) { const pull = Math.min(1.5, (e - 1) * 0.5); vx -= ex / e * pull; vy -= ey / e * pull * (ry / rx) ** 0.5; }
+    vx += (lx - x) * 0.00012; vy += (ly - y) * 0.00018;
+    if (x < 0 || x > w) vx += (w / 2 - x) * 0.002;
+    if (y < 0 || y > h) vy += (h / 2 - y) * 0.002;
     // The falcon and the startles push the birds away, hard.
     const px = x - fx, py = y - fy, pd = px * px + py * py, reach = 90;
     if (pd < reach * reach) { const f = (1 - Math.sqrt(pd) / reach) * 0.9; vx += px / Math.sqrt(pd + 1) * f; vy += py / Math.sqrt(pd + 1) * f; }
@@ -141,6 +151,8 @@ function fly(env, state, t, frames) {
     birds[o] = x + vx * frames; birds[o + 1] = y + vy * frames; birds[o + 2] = vx; birds[o + 3] = vy;
   }
 }
+// The size setting as a share: 0.3 to 1.
+function flockSize(env) { return clamp((env.values.size ?? 85) / 100, 0.3, 1); }
 
 export function mount(host, settings, context = {}) {
   const doc = host.ownerDocument;

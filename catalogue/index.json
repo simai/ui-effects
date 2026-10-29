@@ -10,9 +10,9 @@
     "ui_source": "7389e4d84d8104c8c9bda816c0255f0f9b623bfb"
   },
   "counts": {
-    "effects": 27,
-    "dual": 16,
-    "dark": 9,
+    "effects": 31,
+    "dual": 19,
+    "dark": 10,
     "light": 2
   },
   "effects": [
@@ -1587,13 +1587,13 @@
         },
         {
           "path": "index.js",
-          "sha256": "20478a9b46ecac6d1f2a74eeebfcc0f459180b0a6842db9999daca917e5f792f",
-          "size": 12697
+          "sha256": "b2028f1232bdf6f0d9f6f16cadc46adeb51e63594b4a2efce9bebf8843d373fa",
+          "size": 12707
         },
         {
           "path": "preview.png",
-          "sha256": "0795bfe93d6aa49c82f9a35baf88ee7b60e85f2b2038a64b675af2216e76c9ff",
-          "size": 30300
+          "sha256": "5e94742c9cd58cba1ff1b9e82d149bd1a75859208aa3ad44c32215544277c761",
+          "size": 19234
         },
         {
           "path": "README.md",
@@ -1644,23 +1644,270 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "077491df0574bab791d015bc57c7f2216171422bd6a351c8781ec6658c1ae562",
-          "size": 1635
+          "sha256": "b93faf2e9db1e7dc6a5320aaf07906339fc90de86b0a56d14d7a46370ec32229",
+          "size": 2035
         },
         {
           "path": "index.js",
-          "sha256": "fd96c2a11cb919775443c18cce5810b94a90aaa1810c4008abb6b07660257469",
-          "size": 13714
+          "sha256": "7b964ee79469d48061b3792baa914db0acd4895f100c55cf389786add7dba958",
+          "size": 14512
         },
         {
           "path": "preview.png",
-          "sha256": "0e754a41b08ac989ea3841b0a59b7ec3f41c34bd712540a41cc8160c8970a358",
-          "size": 23450
+          "sha256": "999b5dee651a86806f028978ac648b3e941b1db0a2e95c1baa28dd1e414add32",
+          "size": 63435
         },
         {
           "path": "README.md",
-          "sha256": "e0d20d4b2c4c210cb316812faa108d04f7ad4eb378b29992f2531fe16081c40b",
-          "size": 1332
+          "sha256": "a19b5bbbd70f639d0345c2f47c7aebaccfb444e948b60f2d79c89a03ed8d36af",
+          "size": 1424
+        }
+      ],
+      "kit": {
+        "status": "pass",
+        "framework": "ui-519fa0814a02",
+        "passed": 17,
+        "total": 17
+      }
+    },
+    {
+      "id": "chladni",
+      "version": "0.1.0",
+      "label": {
+        "ru": "Фигуры Хладни",
+        "en": "Chladni figures"
+      },
+      "description": {
+        "ru": "Песок на звучащей пластине собирается в линии, где она не дрожит; нота меняется — узор рассыпается и складывается в новый."
+      },
+      "role": {
+        "ru": "Из хаоса — в порядок: документация, сборка, структура. Светлая и тёмная схемы."
+      },
+      "schemes": [
+        "light",
+        "dark"
+      ],
+      "pair": null,
+      "capabilities": [
+        "windows"
+      ],
+      "tags": [
+        "particles",
+        "geometry"
+      ],
+      "surfaces": [
+        "hero",
+        "section",
+        "dashboard",
+        "sign-in"
+      ],
+      "path": "effects/chladni/",
+      "entry": "index.js",
+      "files": [
+        {
+          "path": "effect.json",
+          "sha256": "221ca9709c7af2d285b6f9d4221e34845719f255597999a231ae76d78c32de6e",
+          "size": 2087
+        },
+        {
+          "path": "index.js",
+          "sha256": "1e593242f9e5d8813243263fa355051132623b437558e308717a51ae647fed74",
+          "size": 13551
+        },
+        {
+          "path": "preview.png",
+          "sha256": "5c2f31979066f9408707ab0758d8f5c44250f0f67aa6418658b9384c5bb1fc0f",
+          "size": 99894
+        },
+        {
+          "path": "README.md",
+          "sha256": "6b3ba9c8f4d2d45cf14b1e234cb647abbaf0c9633d45f28ab2dcce93795ee791",
+          "size": 1441
+        }
+      ],
+      "kit": {
+        "status": "pass",
+        "framework": "ui-519fa0814a02",
+        "passed": 17,
+        "total": 17
+      }
+    },
+    {
+      "id": "bz-waves",
+      "version": "0.1.0",
+      "label": {
+        "ru": "Химические волны",
+        "en": "Chemical waves"
+      },
+      "description": {
+        "ru": "Реакция Белоусова — Жаботинского: по чашке бегут кольца и закручиваются спирали; встречные волны гасят друг друга."
+      },
+      "role": {
+        "ru": "Живой спокойный узор: светлая и тёмная схемы."
+      },
+      "schemes": [
+        "light",
+        "dark"
+      ],
+      "pair": null,
+      "capabilities": [
+        "windows"
+      ],
+      "tags": [
+        "geometry",
+        "gradient"
+      ],
+      "surfaces": [
+        "hero",
+        "section",
+        "dashboard",
+        "sign-in"
+      ],
+      "path": "effects/bz-waves/",
+      "entry": "index.js",
+      "files": [
+        {
+          "path": "effect.json",
+          "sha256": "7dcae85eb08b41d5d778b4e0072a06806e7587006f6cff4bbc0a4d44c3aeb654",
+          "size": 1674
+        },
+        {
+          "path": "index.js",
+          "sha256": "760b1312f0ebc48f7d0c8475cfbac6f5deffdc3404d6dd8cdd444b5f20189ae4",
+          "size": 14600
+        },
+        {
+          "path": "preview.png",
+          "sha256": "160b6d2b65b307fb8157bac43d6fe056b6552939eab62eedb5a6afb1220c9914",
+          "size": 69464
+        },
+        {
+          "path": "README.md",
+          "sha256": "7a3f7b379ac112fb5f6103090c43d4c4758a0837ff97550b7911312fae12466e",
+          "size": 1381
+        }
+      ],
+      "kit": {
+        "status": "pass",
+        "framework": "ui-519fa0814a02",
+        "passed": 17,
+        "total": 17
+      }
+    },
+    {
+      "id": "cloud-chamber",
+      "version": "0.1.0",
+      "label": {
+        "ru": "Камера Вильсона",
+        "en": "Cloud chamber"
+      },
+      "description": {
+        "ru": "Следы частиц в тумане: короткие толстые альфа-треки, длинные закрученные электроны, редкие мюоны насквозь; каждый след вспыхивает и тает."
+      },
+      "role": {
+        "ru": "Наука, точность, связи: минималистичный тёмный фон. Только тёмная схема."
+      },
+      "schemes": [
+        "dark"
+      ],
+      "pair": null,
+      "capabilities": [
+        "windows"
+      ],
+      "tags": [
+        "lines",
+        "particles"
+      ],
+      "surfaces": [
+        "hero",
+        "section",
+        "dashboard",
+        "sign-in"
+      ],
+      "path": "effects/cloud-chamber/",
+      "entry": "index.js",
+      "files": [
+        {
+          "path": "effect.json",
+          "sha256": "86cd801b2cfd77c02ce1527d68c4e61c11fbfa956671370a217d149fabef8f04",
+          "size": 1959
+        },
+        {
+          "path": "index.js",
+          "sha256": "1aa21d19375ab1240b7b20aa2e12b79f2978aac56957b060cb2e54523bb898f9",
+          "size": 14811
+        },
+        {
+          "path": "preview.png",
+          "sha256": "d3641874f34f0f0c9a410e19b00bfdbf069e32c216734fc83016fee6d3ff1c9d",
+          "size": 86523
+        },
+        {
+          "path": "README.md",
+          "sha256": "ca884d0da3fee3b0e3636ff520eb1c30f362c7b4deaad4a52ec23cf81b1c02c4",
+          "size": 1463
+        }
+      ],
+      "kit": {
+        "status": "pass",
+        "framework": "ui-519fa0814a02",
+        "passed": 14,
+        "total": 14
+      }
+    },
+    {
+      "id": "benard-cells",
+      "version": "0.1.0",
+      "label": {
+        "ru": "Ячейки Бенара",
+        "en": "Bénard cells"
+      },
+      "description": {
+        "ru": "Слой масла, подогретый снизу, складывается в живые соты: из центра каждой ячейки течёт поток к краям; ячейки дышат и перестраиваются."
+      },
+      "role": {
+        "ru": "Спокойный технологичный фон: светлая и тёмная схемы."
+      },
+      "schemes": [
+        "light",
+        "dark"
+      ],
+      "pair": null,
+      "capabilities": [
+        "windows"
+      ],
+      "tags": [
+        "geometry",
+        "particles"
+      ],
+      "surfaces": [
+        "hero",
+        "section",
+        "dashboard",
+        "sign-in"
+      ],
+      "path": "effects/benard-cells/",
+      "entry": "index.js",
+      "files": [
+        {
+          "path": "effect.json",
+          "sha256": "f70591fe91e19078a9dc0cf61ee4897d77b61bfd7da210e0ebe76e8244bdef08",
+          "size": 1613
+        },
+        {
+          "path": "index.js",
+          "sha256": "2df365e84571afce8c706dc513448c69b0e0a4830b9187ae53a81d5d5e3068a9",
+          "size": 16233
+        },
+        {
+          "path": "preview.png",
+          "sha256": "1aaffba99eacac9529d539e4cefb5f9bafdc6555c2b8fdc0b05b26720e17348d",
+          "size": 143889
+        },
+        {
+          "path": "README.md",
+          "sha256": "cd88c102a088fffdf7088219dda308f3c16826b1cbfdd4ba3d8d83d625bc0648",
+          "size": 1370
         }
       ],
       "kit": {

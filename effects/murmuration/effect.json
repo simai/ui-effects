@@ -64,6 +64,23 @@
       "unit": "%"
     },
     {
+      "key": "size",
+      "type": "integer",
+      "label": {
+        "ru": "Размер стаи",
+        "en": "Flock size"
+      },
+      "default": 85,
+      "min": 30,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "hint": {
+        "ru": "Какую часть баннера занимает стая",
+        "en": "How much of the area the flock takes"
+      }
+    },
+    {
       "key": "interactive",
       "type": "boolean",
       "label": {

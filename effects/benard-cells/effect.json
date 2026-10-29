@@ -1,0 +1,83 @@
+{
+  "schema": "simai.effect",
+  "schema_version": 1,
+  "id": "benard-cells",
+  "version": "0.1.0",
+  "label": {
+    "ru": "Ячейки Бенара",
+    "en": "Bénard cells"
+  },
+  "author": "SIMAI",
+  "entry": "index.js",
+  "preview": "preview.png",
+  "surfaces": [
+    "hero",
+    "section",
+    "dashboard",
+    "sign-in"
+  ],
+  "schemes": [
+    "light",
+    "dark"
+  ],
+  "capabilities": [
+    "windows"
+  ],
+  "settings": [
+    {
+      "key": "speed",
+      "type": "integer",
+      "label": {
+        "ru": "Скорость",
+        "en": "Speed"
+      },
+      "default": 100,
+      "min": 10,
+      "max": 300,
+      "step": 10,
+      "unit": "%"
+    },
+    {
+      "key": "intensity",
+      "type": "integer",
+      "label": {
+        "ru": "Яркость",
+        "en": "Intensity"
+      },
+      "default": 70,
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "%"
+    },
+    {
+      "key": "density",
+      "type": "integer",
+      "label": {
+        "ru": "Плотность",
+        "en": "Density"
+      },
+      "default": 50,
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "%"
+    },
+    {
+      "key": "interactive",
+      "type": "boolean",
+      "label": {
+        "ru": "Реагировать на указатель",
+        "en": "React to the pointer"
+      },
+      "default": true,
+      "hint": {
+        "ru": "Клик подогревает масло — там открывается новая ячейка",
+        "en": "A click warms the oil, and a new cell opens there"
+      }
+    }
+  ],
+  "needs": {
+    "network": false
+  }
+}

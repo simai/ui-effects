@@ -58,7 +58,7 @@ const SCENE = {
     const {w, h} = env;
     const state = {pieces: [], random, last: null, rain: 0};
     // The air is already full of falling pieces on the first frame.
-    for (let i = 0, n = rate(env) * 9; i < n; i += 1) state.pieces.push(piece(env, random, random() * w, random() * h, 0, 30 + random() * 40));
+    for (let i = 0, n = rate(env) * h / 35; i < n; i += 1) state.pieces.push(piece(env, random, random() * w, random() * h, 0, 20 + random() * 25));
     return state;
   },
   press(env, x, y) {
@@ -79,7 +79,7 @@ const SCENE = {
     const random = state.random;
     // New pieces enter from above the area.
     state.rain += rate(env) * dt;
-    for (; state.rain >= 1; state.rain -= 1) state.pieces.push(piece(env, random, random() * w, -10 - random() * 20, 0, 40 + random() * 30, random() < 0.06));
+    for (; state.rain >= 1; state.rain -= 1) state.pieces.push(piece(env, random, random() * w, -10 - random() * 20, 0, 25 + random() * 20, random() < 0.06));
     const kept = [];
     for (const p of state.pieces) {
       // Paper in air: gravity, a strong drag that rises as the piece turns flat, and a sway.
@@ -88,13 +88,13 @@ const SCENE = {
       // A popper piece flies almost free for its first half second, then the air takes it.
       p.age += dt;
       const drag = (1.2 + flat * 2.2) * Math.min(1, 0.12 + p.age * 1.6);
-      p.vx += (Math.sin(t * p.sway + p.seed) * 40 - p.vx) * Math.min(1, drag * dt * 0.5);
+      p.vx += (Math.sin(t * p.sway + p.seed) * 26 - p.vx) * Math.min(1, drag * dt * 0.5);
       p.vy += 420 * dt;
       p.vx *= Math.exp(-drag * dt * 0.6);
       p.vy *= Math.exp(-drag * dt);
       if (p.vy > p.fall) p.vy += (p.fall - p.vy) * Math.min(1, dt * 4);
       p.x += p.vx * dt; p.y += p.vy * dt;
-      p.roll += p.vx * dt * 0.02;
+      p.roll += p.vx * dt * 0.012;
       if (p.y > h + 30) continue;
       kept.push(p);
       const colour = tones.paper[p.colour];
@@ -120,9 +120,9 @@ const SCENE = {
   },
 };
 // Pieces per second from above: the density setting.
-function rate(env) { return env.w * (0.02 + env.values.density / 100 * 0.06); }
+function rate(env) { return env.w * (0.01 + env.values.density / 100 * 0.03); }
 function piece(env, random, x, y, vx, vy, ribbon = false) {
-  return {x, y, vx, vy, ribbon, round: random() < 0.18, colour: Math.floor(random() * 6), size: 6 + random() * 6, spin: random() * 6.28, turn: 3 + random() * 7, roll: random() * 6.28, sway: 0.8 + random() * 1.4, seed: random() * 9, fall: 45 + random() * 35, alpha: 0.8 + random() * 0.2, age: vy < 0 ? 0 : 1};
+  return {x, y, vx, vy, ribbon, round: random() < 0.18, colour: Math.floor(random() * 6), size: 6 + random() * 6, spin: random() * 6.28, turn: 1.2 + random() * 2.8, roll: random() * 6.28, sway: 0.4 + random() * 0.7, seed: random() * 9, fall: 26 + random() * 22, alpha: 0.8 + random() * 0.2, age: vy < 0 ? 0 : 1};
 }
 
 export function mount(host, settings, context = {}) {

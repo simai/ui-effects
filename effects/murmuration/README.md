@@ -15,6 +15,7 @@ A great flock of starlings moves as one: it stretches, folds and thickens again.
 | `speed` | integer | 10–300 % | `100` | Speed |
 | `intensity` | integer | 10–100 % | `70` | Intensity |
 | `density` | integer | 10–100 % | `50` | Density |
+| `size` | integer | 30–100 % | `85` | Flock size. How much of the area the flock takes |
 | `interactive` | boolean | — | `true` | React to the pointer. The pointer is a falcon the flock swerves round; a click startles the birds |
 
 ## Schemes

@@ -1,0 +1,95 @@
+{
+  "schema": "simai.effect",
+  "schema_version": 1,
+  "id": "cloud-chamber",
+  "version": "0.1.0",
+  "label": {
+    "ru": "Камера Вильсона",
+    "en": "Cloud chamber"
+  },
+  "author": "SIMAI",
+  "entry": "index.js",
+  "preview": "preview.png",
+  "surfaces": [
+    "hero",
+    "section",
+    "dashboard",
+    "sign-in"
+  ],
+  "schemes": [
+    "dark"
+  ],
+  "capabilities": [
+    "windows"
+  ],
+  "settings": [
+    {
+      "key": "speed",
+      "type": "integer",
+      "label": {
+        "ru": "Скорость",
+        "en": "Speed"
+      },
+      "default": 100,
+      "min": 10,
+      "max": 300,
+      "step": 10,
+      "unit": "%"
+    },
+    {
+      "key": "intensity",
+      "type": "integer",
+      "label": {
+        "ru": "Яркость",
+        "en": "Intensity"
+      },
+      "default": 70,
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "%"
+    },
+    {
+      "key": "density",
+      "type": "integer",
+      "label": {
+        "ru": "Плотность",
+        "en": "Density"
+      },
+      "default": 50,
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "%"
+    },
+    {
+      "key": "field",
+      "type": "boolean",
+      "label": {
+        "ru": "Магнитное поле",
+        "en": "Magnetic field"
+      },
+      "default": true,
+      "hint": {
+        "ru": "Электроны закручиваются в спирали",
+        "en": "Electrons curl into spirals"
+      }
+    },
+    {
+      "key": "interactive",
+      "type": "boolean",
+      "label": {
+        "ru": "Реагировать на указатель",
+        "en": "React to the pointer"
+      },
+      "default": true,
+      "hint": {
+        "ru": "Указатель — радиоактивный образец, клик — ливень частиц",
+        "en": "The pointer is a radioactive sample, a click is a particle shower"
+      }
+    }
+  ],
+  "needs": {
+    "network": false
+  }
+}
