@@ -141,7 +141,7 @@
     },
     {
       "id": "text-flow",
-      "version": "2.0.0",
+      "version": "3.0.0",
       "label": {
         "ru": "Текстовый поток",
         "en": "Text flow"
@@ -175,23 +175,23 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "8bcb3b880f3c8ddff0007788ab24b3de5feb668c4a92522969ce76276b1e2f06",
-          "size": 3735
+          "sha256": "939bc4f3615e0fad64a57c8e841fe64b495dc9caf2fd999b95860376cfefec0c",
+          "size": 5213
         },
         {
           "path": "index.js",
-          "sha256": "e515c3239a1f4b091f16cb903c2d299fa32204d310fe8a02eaeaf75f015cca69",
-          "size": 14135
+          "sha256": "03a20d41b4523853ee67152b6152cbcae2e24f3bf7f1cd399aaf9d6021fca4c5",
+          "size": 16689
         },
         {
           "path": "preview.png",
-          "sha256": "dfd7be635a493d4abd6e778339aed54425463acaa268dbe72ba24b54d4f13a4f",
-          "size": 77018
+          "sha256": "578d1687435c50207ae95f9e0d039161b9960cda18e7301aaac74526850f601d",
+          "size": 76946
         },
         {
           "path": "README.md",
-          "sha256": "0a2a94e85c9bbc6e85c949fabdb7091f9f164c750ef018d33501f593b40a50c1",
-          "size": 1706
+          "sha256": "c77513aedc4b566bad1af8378c2f972238b4a7c905a89f43e4a15f11f34977f3",
+          "size": 2137
         }
       ],
       "kit": {
@@ -510,7 +510,7 @@
     },
     {
       "id": "glyph-tide",
-      "version": "1.1.0",
+      "version": "2.0.0",
       "label": {
         "ru": "Знаковый прилив",
         "en": "Glyph tide"
@@ -543,23 +543,23 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "dd4681b949f1b48940c91042ce515a7ce97bbe68577e6a0637f1f49ac2115250",
-          "size": 2466
+          "sha256": "b296021e4caa815191508d968fc3dca649a05aea1426ef7fe3e4e7c3e7482e2a",
+          "size": 4679
         },
         {
           "path": "index.js",
-          "sha256": "3cbad8089c8813bab0123572256b3a1a629c0487181b20329f8fad0afc224b8e",
-          "size": 14942
+          "sha256": "a145b9464f65cbb63e99289f200a00e49147bfdd0becbf2a25437c33548128d2",
+          "size": 19882
         },
         {
           "path": "preview.png",
-          "sha256": "57aa0eab69fb716bccc2683738d5e088a033e217a49133ef2d8fc369883273b4",
-          "size": 71752
+          "sha256": "ecc8d08f726b658e9170e51adcd2983d33772249c033dfc85b4c3dbb5162a9ee",
+          "size": 71991
         },
         {
           "path": "README.md",
-          "sha256": "a4d74582a98825ef845c050659e61cd8b3291d95b13c106712701dc3b9ed0f49",
-          "size": 1509
+          "sha256": "67325892fc5909c099e6163656ac3cf27268ab1bbb22b2ee3d91678a3f77798f",
+          "size": 2131
         }
       ],
       "kit": {

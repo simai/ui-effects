@@ -14,9 +14,13 @@ A field of monospaced glyphs that a slow wave of light passes over.
 |:---|:---|:---|:---|:---|
 | `speed` | integer | 10–300 % | `100` | Speed |
 | `density` | integer | 10–100 % | `55` | Density. Share of filled cells |
-| `charset` | choice | `hex`, `binary`, `digits`, `symbols` | `"hex"` | Characters |
+| `charset` | choice | `javascript`, `html`, `terminal`, `easter`, `prose`, `custom`, `letters`, `hex`, `binary`, `digits`, `signs` | `"hex"` | Text. The same list as in text flow; `prose` is words that sound meaningful and say nothing, in the page's language |
+| `text` | text | up to 600 characters | `""` | Own text. For `custom`: sentences, or one per line |
+| `language` | choice | `auto`, `en`, `ru` | `"auto"` | Words language. For `prose`; `auto` follows the page |
 | `size` | integer | 10–24 px | `14` | Glyph size |
 | `interactive` | boolean | — | `true` | React to the pointer. Glyphs light up near the pointer |
+
+Since 2.0.0 the old `symbols` value is called `signs` (it is still read as signs). Text is laid in reading order and keeps its letters; an alphabet is scattered as thick as `density` asks, and the tide turns its glyphs into others.
 
 ## Schemes
 

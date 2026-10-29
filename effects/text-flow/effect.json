@@ -2,7 +2,7 @@
   "schema": "simai.effect",
   "schema_version": 1,
   "id": "text-flow",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "label": {
     "ru": "Текстовый поток",
     "en": "Text flow"
@@ -73,8 +73,8 @@
         {
           "value": "html",
           "label": {
-            "ru": "HTML",
-            "en": "HTML"
+            "ru": "HTML и CSS",
+            "en": "HTML and CSS"
           }
         },
         {
@@ -92,7 +92,21 @@
           }
         },
         {
-          "value": "symbols",
+          "value": "prose",
+          "label": {
+            "ru": "Слова",
+            "en": "Words"
+          }
+        },
+        {
+          "value": "custom",
+          "label": {
+            "ru": "Свой текст",
+            "en": "Own text"
+          }
+        },
+        {
+          "value": "letters",
           "label": {
             "ru": "Буквы и цифры",
             "en": "Letters and digits"
@@ -127,6 +141,56 @@
           }
         }
       ]
+    },
+    {
+      "key": "text",
+      "type": "text",
+      "label": {
+        "ru": "Свой текст",
+        "en": "Own text"
+      },
+      "default": "",
+      "max": 600,
+      "hint": {
+        "ru": "Для варианта «Свой текст»: фразы через точку или с новой строки",
+        "en": "For «Own text»: sentences, or one per line"
+      }
+    },
+    {
+      "key": "language",
+      "type": "choice",
+      "label": {
+        "ru": "Язык слов",
+        "en": "Words language"
+      },
+      "default": "auto",
+      "options": [
+        {
+          "value": "auto",
+          "label": {
+            "ru": "Как у страницы",
+            "en": "As the page"
+          }
+        },
+        {
+          "value": "en",
+          "label": {
+            "ru": "Английский",
+            "en": "English"
+          }
+        },
+        {
+          "value": "ru",
+          "label": {
+            "ru": "Русский",
+            "en": "Russian"
+          }
+        }
+      ],
+      "hint": {
+        "ru": "Для варианта «Слова»",
+        "en": "For «Words»"
+      }
     },
     {
       "key": "size",

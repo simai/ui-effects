@@ -24,7 +24,7 @@
       "failed": []
     },
     "text-flow": {
-      "digest": "f1c74f58520fb495bea480ae3f167bd31b5215b485857e13ada937725c109909",
+      "digest": "82723cedc738a84c7ee8cb72337474c1c41e70fcf3b78092200af8f7e0ccbbc7",
       "passed": 17,
       "total": 17,
       "failed": []
@@ -60,7 +60,7 @@
       "failed": []
     },
     "glyph-tide": {
-      "digest": "3d5cf28538a95ff713214f6793fdb4ea3cfd7ff645c6e1c85aef6f7c9125dcb9",
+      "digest": "aeef9be0fa00f938fb631994e9d0bada092c744f4a787c3fea4d59c4a49d36ba",
       "passed": 17,
       "total": 17,
       "failed": []

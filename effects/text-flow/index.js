@@ -6,25 +6,51 @@
 // generator, so a mount draws the same scene at the defaults; only a click's wave is random. Reduced
 // motion draws one still frame; a hidden tab or an area off screen asks for no frames.
 const instances = new WeakMap();
-const textSources={"javascript": ["const light = await findSomethingBeautiful();", "function breathe(time) { return Math.sin(time * 0.5); }", "const leaves = points.map(point => wind.carry(point));", "if (curiosity) { explore(); }", "const wave = { shape: randomShape(), life: 4 };", "for (const letter of story) { reveal(letter); }", "requestAnimationFrame(() => makeRoomForWonder());", "const answer = 42; // a small secret in the dark", "export const quiet = () => new Promise(resolve => dawn(resolve));", "// sometimes the background has something to say"], "html": ["<!doctype html> <html lang=\"ru\">", "<main class=\"quiet\"> <section> hello, human. </section> </main>", ":root { --light: #74b4d5; --curiosity: 1; }", ".leaf { transform: rotate(var(--wind)); }", "@keyframes breathe { 50% { opacity: 0.42; } }", "<canvas aria-hidden=\"true\"></canvas>", ".wave { animation: grow 4s ease-out; }", "<!-- Ты нашёл маленькую пасхалку. -->", "@media (prefers-reduced-motion: reduce) { .leaf { animation: none; } }", "body { margin: 0; background: #141414; }"], "terminal": ["$ git status --short", "$ npm run build", "✓ build complete   ✓ no errors   ✓ ready for another idea", "$ echo \"hello, human.\"", "$ git log --oneline --max-count=5", "42c0ffe add a little wonder", "$ node explore.js --curiosity=high", "[info] listening for the next small discovery", "$ printf \"keep looking\\n\"", "// not all secrets need a password"], "easter": ["// hello, human. you found the quiet part.", "// Ты нашёл эту строку. Значит, свет был здесь.", "const answer = 42;", "// SIMAI — маленькие детали тоже имеют значение.", "while (curiosity) { explore(); }", "// Здесь могла быть ещё одна хорошая идея."]};
+// The texts glyph tide and text flow share: code, a terminal, lines with secrets, words that sound
+// meaningful and say nothing (in the page's language), the reader's own text, and alphabets.
+const TEXTS = {
+  javascript: ['const light = await findSomethingBeautiful();', 'function breathe(time) { return Math.sin(time * 0.5); }', 'const leaves = points.map(point => wind.carry(point));', 'if (curiosity) { explore(); }', 'const wave = { shape: randomShape(), life: 4 };', 'for (const letter of story) { reveal(letter); }', 'requestAnimationFrame(() => makeRoomForWonder());', 'const answer = 42; // a small secret in the dark', 'export const quiet = () => new Promise(resolve => dawn(resolve));', '// sometimes the background has something to say'],
+  html: ['<!doctype html> <html lang="ru">', '<main class="quiet"> <section> hello, human. </section> </main>', ':root { --light: #74b4d5; --curiosity: 1; }', '.leaf { transform: rotate(var(--wind)); }', '@keyframes breathe { 50% { opacity: 0.42; } }', '<canvas aria-hidden="true"></canvas>', '.wave { animation: grow 4s ease-out; }', '<!-- Ты нашёл маленькую пасхалку. -->', '@media (prefers-reduced-motion: reduce) { .leaf { animation: none; } }', 'body { margin: 0; background: #141414; }'],
+  terminal: ['$ git status --short', '$ npm run build', '✓ build complete   ✓ no errors   ✓ ready for another idea', '$ echo "hello, human."', '$ git log --oneline --max-count=5', '42c0ffe add a little wonder', '$ node explore.js --curiosity=high', '[info] listening for the next small discovery', '$ printf "keep looking\\n"', '// not all secrets need a password'],
+  easter: ['// hello, human. you found the quiet part.', '// Ты нашёл эту строку. Значит, свет был здесь.', 'const answer = 42;', '// SIMAI — маленькие детали тоже имеют значение.', 'while (curiosity) { explore(); }', '// Здесь могла быть ещё одна хорошая идея.'],
+  prose: {
+    ru: ['Всё начинается с тишины, в которой уже слышен ответ.', 'Форма следует за смыслом, а смысл — за светом.', 'Каждая деталь знает, зачем она здесь.', 'Мы строим не страницы, а места, куда хочется вернуться.', 'Простота — это сложность, которая нашла покой.', 'Время идёт быстрее там, где интересно.', 'Хороший интерфейс отвечает раньше, чем его спросят.', 'Свет ложится туда, где его ждут.', 'Важное редко бывает громким.', 'Путь становится ясным, когда по нему идут.'],
+    en: ['Everything begins with a silence that already holds the answer.', 'Form follows meaning, and meaning follows the light.', 'Every detail knows why it is here.', 'We build not pages but places worth returning to.', 'Simplicity is complexity at rest.', 'Time runs faster where things are interesting.', 'A good interface answers before it is asked.', 'Light falls where it is awaited.', 'What matters is rarely loud.', 'The way grows clear as it is walked.'],
+  },
+};
+const ALPHABETS = {letters: 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', hex: '0123456789ABCDEF', binary: '01', digits: '0123456789', signs: '+-×÷=<>/\\|*#%&~^:;·°§'};
+// Lines for a kind of text, or an alphabet. The own text breaks into sentences; empty, it is the words.
+function textSource(kind, own, lang) {
+  if (ALPHABETS[kind]) return {alphabet: ALPHABETS[kind]};
+  if (kind === 'custom') {
+    const lines = String(own ?? '').split(/(?<=[.!?…])\s+|\n+/u).map((line) => line.trim()).filter(Boolean);
+    if (lines.length) return {lines};
+    kind = 'prose';
+  }
+  const lines = TEXTS[kind] ?? TEXTS.javascript;
+  return {lines: Array.isArray(lines) ? lines : lines[lang] ?? lines.en};
+}
+// The words' language: the setting's, or the page's around the area.
+function pageLang(node, choice) {
+  if (choice === 'ru' || choice === 'en') return choice;
+  return (node?.closest?.('[lang]')?.lang || node?.ownerDocument?.documentElement?.lang || 'en').slice(0, 2).toLowerCase() === 'ru' ? 'ru' : 'en';
+}
 
-const defaults = {theme:'javascript', fontSize:12, speed:100, light:52, base:5, scale:65, clicks:true, ground:'#141414', ink:'#74b4d5'};
+const defaults = {theme:'javascript', text:'', language:'auto', fontSize:12, speed:100, light:52, base:5, scale:65, clicks:true, ground:'#141414', ink:'#74b4d5'};
 const ranges = {fontSize:[8,18],speed:[0,200],light:[0,100],base:[0,30],scale:[50,200]};
 function mountTextFlow(host, options={}, still=false) {
  if (!(host instanceof HTMLElement)) throw new TypeError('Text Flow requires an HTMLElement');
  if (instances.has(host)) return instances.get(host);
  const cfg={...defaults};
- function applyOptions(patch){for(const key of Object.keys(ranges)){if(patch[key]!==undefined&&Number.isFinite(Number(patch[key]))){const [min,max]=ranges[key];cfg[key]=Math.max(min,Math.min(max,Number(patch[key])))}}if(patch.theme!==undefined)cfg.theme=['symbols','hex','binary','digits','signs','javascript','html','terminal','easter'].includes(patch.theme)?patch.theme:'symbols';if(patch.clicks!==undefined)cfg.clicks=Boolean(patch.clicks);if(typeof patch.ground==='string')cfg.ground=patch.ground;if(typeof patch.ink==='string')cfg.ink=patch.ink}
+ function applyOptions(patch){for(const key of Object.keys(ranges)){if(patch[key]!==undefined&&Number.isFinite(Number(patch[key]))){const [min,max]=ranges[key];cfg[key]=Math.max(min,Math.min(max,Number(patch[key])))}}if(patch.theme!==undefined)cfg.theme=patch.theme==='symbols'?'letters':TEXTS[patch.theme]||ALPHABETS[patch.theme]||patch.theme==='custom'?patch.theme:'letters';if(patch.text!==undefined)cfg.text=String(patch.text);if(patch.language!==undefined)cfg.language=patch.language;if(patch.clicks!==undefined)cfg.clicks=Boolean(patch.clicks);if(typeof patch.ground==='string')cfg.ground=patch.ground;if(typeof patch.ink==='string')cfg.ink=patch.ink}
  applyOptions(options);
  const canvas=document.createElement('canvas');canvas.style.cssText='position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none;';canvas.setAttribute('aria-hidden','true');host.prepend(canvas);
  const ctx=canvas.getContext('2d'),texture=document.createElement('canvas'),tx=texture.getContext('2d'),lit=document.createElement('canvas'),lx=lit.getContext('2d'),mask=document.createElement('canvas'),mx=mask.getContext('2d');
  let visible=true,width=0,height=0,dpr=0,lineHeight,rows=[],time=0,last=0,lastDraw=0,textureDirty=true,maskData,pulses=[],frame=0,raf=0,destroyed=false,manualPaused=false,textBuilds=0,previousKind=-1;
  const motion=matchMedia('(prefers-reduced-motion: reduce)');
- // Rows of random characters, by set (the sets of glyph tide among them).
- const ALPHABETS={symbols:'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789',hex:'0123456789ABCDEF',binary:'01',digits:'0123456789',signs:'+-×÷=<>/\\|*#%&~^:;·°§'};
  let seed=4739;function random(){seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296}
  function waveRandom(){return Math.random()}
- function rebuildRows(){seed=4739;lineHeight=Math.round(cfg.fontSize*1.6);const count=Math.ceil((width+320)/(cfg.fontSize*.6+1.5)),lines=textSources[cfg.theme];rows=Array.from({length:Math.ceil(height/lineHeight)+1},(_,i)=>{let text;const alphabet=ALPHABETS[cfg.theme]||ALPHABETS.symbols;if(ALPHABETS[cfg.theme]||(cfg.theme==='easter'&&i%6!==2))text=Array.from({length:count},()=>alphabet[Math.floor(random()*alphabet.length)]).join('');else{const line=lines[cfg.theme==='easter'?Math.floor(i/6)%lines.length:i%lines.length]+'    ';text=line.repeat(Math.ceil(count/line.length)+1)}return{text,offset:random()*160}});textureDirty=true}
+ function rebuildRows(){seed=4739;lineHeight=Math.round(cfg.fontSize*1.6);const count=Math.ceil((width+320)/(cfg.fontSize*.6+1.5)),source=textSource(cfg.theme,cfg.text,pageLang(host,cfg.language)),lines=source.lines;rows=Array.from({length:Math.ceil(height/lineHeight)+1},(_,i)=>{let text;const alphabet=source.alphabet||ALPHABETS.letters;if(source.alphabet||(cfg.theme==='easter'&&i%6!==2))text=Array.from({length:count},()=>alphabet[Math.floor(random()*alphabet.length)]).join('');else{const line=lines[cfg.theme==='easter'?Math.floor(i/6)%lines.length:i%lines.length]+'    ';text=line.repeat(Math.ceil(count/line.length)+1)}return{text,offset:random()*160}});textureDirty=true}
  function resize(){if(destroyed)return;const w=Math.max(1,host.clientWidth),h=Math.max(1,host.clientHeight),ratio=Math.min(devicePixelRatio||1,2);if(w===width&&h===height&&ratio===dpr)return;width=w;height=h;dpr=ratio;canvas.width=Math.round(width*dpr);canvas.height=Math.round(height*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);texture.width=Math.ceil(width+320);texture.height=height;lit.width=width;lit.height=height;mask.width=Math.ceil(width/9);mask.height=Math.ceil(height/9);maskData=mx.createImageData(mask.width,mask.height);rebuildRows();render()}
 const smooth=x=>x*x*(3-2*x),mix=(a,b,t)=>a+(b-a)*t;
 function hash(x,y){let n=Math.imul(x,374761393)+Math.imul(y,668265263);n=Math.imul(n^(n>>>13),1274126177);return((n^(n>>>16))>>>0)/4294967295}
@@ -77,7 +103,7 @@ function createWaveMask(kind,rng){
  function visibility(){last=0;lastDraw=performance.now();if(still||motion.matches)render();wake()}
  const observer=new ResizeObserver(resize);observer.observe(host);const screen=new IntersectionObserver(([entry])=>{visible=entry.isIntersecting;if(visible)wake()});screen.observe(host);document.addEventListener('pointerdown',click);document.addEventListener('visibilitychange',visibility);window.addEventListener('resize',resize);motion.addEventListener('change',visibility);
  const api={
-  update(patch={}){if(destroyed)return;const previous={...cfg};applyOptions(patch);if(cfg.fontSize!==previous.fontSize||cfg.theme!==previous.theme)rebuildRows();if(cfg.ink!==previous.ink)textureDirty=true;render()},
+  update(patch={}){if(destroyed)return;const previous={...cfg};applyOptions(patch);if(cfg.fontSize!==previous.fontSize||cfg.theme!==previous.theme||cfg.text!==previous.text||cfg.language!==previous.language)rebuildRows();if(cfg.ink!==previous.ink)textureDirty=true;render()},
   pause(){manualPaused=true},
   resume(){manualPaused=false;visibility()},
   destroy(){if(destroyed)return;destroyed=true;cancelAnimationFrame(raf);observer.disconnect();screen.disconnect();document.removeEventListener('pointerdown',click);document.removeEventListener('visibilitychange',visibility);window.removeEventListener('resize',resize);motion.removeEventListener('change',visibility);canvas.remove();pulses=[];rows=[];for(const c of [canvas,texture,lit,mask]){c.width=0;c.height=0}instances.delete(host)}
@@ -99,7 +125,7 @@ function readTones(host, scheme) {
 
 // The settings by the catalogue's names: size is the font size, intensity the light of the folds,
 // base the text left visible in the shade, interactive the waves on a click.
-const options = (settings) => ({theme: settings.theme, fontSize: settings.size, speed: settings.speed, light: settings.intensity,
+const options = (settings) => ({theme: settings.theme, text: settings.text, language: settings.language, fontSize: settings.size, speed: settings.speed, light: settings.intensity,
   base: settings.base, scale: settings.scale, clicks: settings.interactive !== false});
 
 export function mount(host, settings = {}, context = {}) {

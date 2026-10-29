@@ -85,12 +85,40 @@ const noise2 = (x, y) => {
   return a + (b - a) * u + (c - a) * v + (a - b - c + d) * u * v;
 };
 
-const SETS = {hex: '0123456789ABCDEF', binary: '01', digits: '0123456789', symbols: '+-×÷=<>/\\|*#%&~^:;·°§'};
+// The texts glyph tide and text flow share: code, a terminal, lines with secrets, words that sound
+// meaningful and say nothing (in the page's language), the reader's own text, and alphabets.
+const TEXTS = {
+  javascript: ['const light = await findSomethingBeautiful();', 'function breathe(time) { return Math.sin(time * 0.5); }', 'const leaves = points.map(point => wind.carry(point));', 'if (curiosity) { explore(); }', 'const wave = { shape: randomShape(), life: 4 };', 'for (const letter of story) { reveal(letter); }', 'requestAnimationFrame(() => makeRoomForWonder());', 'const answer = 42; // a small secret in the dark', 'export const quiet = () => new Promise(resolve => dawn(resolve));', '// sometimes the background has something to say'],
+  html: ['<!doctype html> <html lang="ru">', '<main class="quiet"> <section> hello, human. </section> </main>', ':root { --light: #74b4d5; --curiosity: 1; }', '.leaf { transform: rotate(var(--wind)); }', '@keyframes breathe { 50% { opacity: 0.42; } }', '<canvas aria-hidden="true"></canvas>', '.wave { animation: grow 4s ease-out; }', '<!-- Ты нашёл маленькую пасхалку. -->', '@media (prefers-reduced-motion: reduce) { .leaf { animation: none; } }', 'body { margin: 0; background: #141414; }'],
+  terminal: ['$ git status --short', '$ npm run build', '✓ build complete   ✓ no errors   ✓ ready for another idea', '$ echo "hello, human."', '$ git log --oneline --max-count=5', '42c0ffe add a little wonder', '$ node explore.js --curiosity=high', '[info] listening for the next small discovery', '$ printf "keep looking\\n"', '// not all secrets need a password'],
+  easter: ['// hello, human. you found the quiet part.', '// Ты нашёл эту строку. Значит, свет был здесь.', 'const answer = 42;', '// SIMAI — маленькие детали тоже имеют значение.', 'while (curiosity) { explore(); }', '// Здесь могла быть ещё одна хорошая идея.'],
+  prose: {
+    ru: ['Всё начинается с тишины, в которой уже слышен ответ.', 'Форма следует за смыслом, а смысл — за светом.', 'Каждая деталь знает, зачем она здесь.', 'Мы строим не страницы, а места, куда хочется вернуться.', 'Простота — это сложность, которая нашла покой.', 'Время идёт быстрее там, где интересно.', 'Хороший интерфейс отвечает раньше, чем его спросят.', 'Свет ложится туда, где его ждут.', 'Важное редко бывает громким.', 'Путь становится ясным, когда по нему идут.'],
+    en: ['Everything begins with a silence that already holds the answer.', 'Form follows meaning, and meaning follows the light.', 'Every detail knows why it is here.', 'We build not pages but places worth returning to.', 'Simplicity is complexity at rest.', 'Time runs faster where things are interesting.', 'A good interface answers before it is asked.', 'Light falls where it is awaited.', 'What matters is rarely loud.', 'The way grows clear as it is walked.'],
+  },
+};
+const ALPHABETS = {letters: 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', hex: '0123456789ABCDEF', binary: '01', digits: '0123456789', signs: '+-×÷=<>/\\|*#%&~^:;·°§'};
+// Lines for a kind of text, or an alphabet. The own text breaks into sentences; empty, it is the words.
+function textSource(kind, own, lang) {
+  if (ALPHABETS[kind]) return {alphabet: ALPHABETS[kind]};
+  if (kind === 'custom') {
+    const lines = String(own ?? '').split(/(?<=[.!?…])\s+|\n+/u).map((line) => line.trim()).filter(Boolean);
+    if (lines.length) return {lines};
+    kind = 'prose';
+  }
+  const lines = TEXTS[kind] ?? TEXTS.javascript;
+  return {lines: Array.isArray(lines) ? lines : lines[lang] ?? lines.en};
+}
+// The words' language: the setting's, or the page's around the area.
+function pageLang(node, choice) {
+  if (choice === 'ru' || choice === 'en') return choice;
+  return (node?.closest?.('[lang]')?.lang || node?.ownerDocument?.documentElement?.lang || 'en').slice(0, 2).toLowerCase() === 'ru' ? 'ru' : 'en';
+}
 
 const FX = {
   seed: 83,
   t0: 10,
-  settings: {speed: [100, 10, 300], density: [55, 10, 100], charset: 'hex', size: [14, 10, 24], interactive: true, scheme: 'dark'},
+  settings: {speed: [100, 10, 300], density: [55, 10, 100], charset: 'hex', text: '', language: 'auto', size: [14, 10, 24], interactive: true, scheme: 'dark'},
   init(env, rand) {
     const st = {rand, glow: 0};
     this.build(env, st);
@@ -98,13 +126,24 @@ const FX = {
   },
   build(env, st) {
     const {S, w, h} = env;
-    const chars = SETS[S.charset] || SETS.hex;
+    // The old name "symbols" is the signs.
+    const source = textSource(S.charset === 'symbols' ? 'signs' : S.charset, S.text, pageLang(env.canvas, S.language));
     const size = S.size, cw = Math.ceil(size * 0.78), ch = Math.ceil(size * 1.45);
-    st.chars = chars; st.cw = cw; st.ch = ch;
+    st.cw = cw; st.ch = ch;
     st.cols = Math.ceil(w / cw) + 1; st.rows = Math.ceil(h / ch) + 1;
     const n = st.cols * st.rows;
     st.glyph = new Int16Array(n);
-    for (let i = 0; i < n; i += 1) st.glyph[i] = st.rand() * 100 < S.density ? (st.rand() * chars.length) | 0 : -1;
+    // Text is laid in reading order, cell after cell, and keeps its letters; an alphabet is scattered
+    // as thick as the density asks, and the tide turns its glyphs into others.
+    st.words = !source.alphabet;
+    if (st.words) {
+      const stream = [...source.lines.join('   ') + '   '], skip = (st.rand() * stream.length) | 0;
+      st.chars = [...new Set(stream)].filter((c) => c !== ' ');
+      for (let i = 0; i < n; i += 1) st.glyph[i] = st.chars.indexOf(stream[(i + skip) % stream.length]);
+    } else {
+      st.chars = [...source.alphabet];
+      for (let i = 0; i < n; i += 1) st.glyph[i] = st.rand() * 100 < S.density ? (st.rand() * st.chars.length) | 0 : -1;
+    }
     this.theme(env, st);
   },
   atlas(env, st, colour) {
@@ -142,7 +181,7 @@ const FX = {
   },
   resize(env, st) { this.build(env, st); },
   update(env, st, before) {
-    if (before.charset !== env.S.charset || before.size !== env.S.size || before.density !== env.S.density) this.build(env, st);
+    if (['charset', 'text', 'language', 'size', 'density'].some((key) => before[key] !== env.S[key])) this.build(env, st);
   },
   draw(env, st, time, dt) {
     const {ctx, w, h, S, C, dpr} = env;
@@ -169,7 +208,7 @@ const FX = {
           if (d2 < 1) b += (1 - d2) * 0.75 * st.glow;
         }
         if (b <= 0.02) continue;
-        if (change > 0 && st.rand() < change * b) {
+        if (!st.words && change > 0 && st.rand() < change * b) {
           glyph[i] = (st.rand() * st.chars.length) | 0;
           this.cell(env, st, i, true);
         }

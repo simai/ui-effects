@@ -14,11 +14,15 @@ Rows of code scroll, lit by slow folds of light; the text takes the theme colour
 |:---|:---|:---|:---|:---|
 | `speed` | integer | 10–200 % | `100` | Speed |
 | `intensity` | integer | 0–100 % | `52` | Light. Brightness of the folds of light |
-| `theme` | choice | `javascript`, `html`, `terminal`, `easter`, `symbols`, `hex`, `binary`, `digits`, `signs` | `"javascript"` | Text |
+| `theme` | choice | `javascript`, `html`, `terminal`, `easter`, `prose`, `custom`, `letters`, `hex`, `binary`, `digits`, `signs` | `"javascript"` | Text. The same list as in glyph tide; `prose` is words that sound meaningful and say nothing, in the page's language |
+| `text` | text | up to 600 characters | `""` | Own text. For `custom`: sentences, or one per line |
+| `language` | choice | `auto`, `en`, `ru` | `"auto"` | Words language. For `prose`; `auto` follows the page |
 | `size` | integer | 8–18 px | `12` | Letter size |
 | `base` | integer | 0–30 % | `5` | Text in the dark |
 | `scale` | integer | 50–200 % | `65` | Fold size |
 | `interactive` | boolean | — | `true` | Wave on click. A click in the area sends a wave of light |
+
+Since 3.0.0 the old `symbols` value is called `letters` (it is still read as letters).
 
 ## Schemes
 
