@@ -365,13 +365,13 @@ try {
     const flush = watch(page, 'settings');
     await page.goto(`${base}effect/rain-glass/`);
     await page.waitForFunction(() => document.documentElement.dataset.mounted === 'yes', null, {timeout: 20000});
-    await page.locator('[data-key="signal"] input').first().check({force: true});
+    await page.locator('[data-key="signal"] input').first().uncheck({force: true});
     await page.locator('[data-key="lamps"] .sf-dropdown-field').click();
-    await page.getByText('Белые', {exact: true}).last().click();
+    await page.getByText('Тёплые', {exact: true}).last().click();
     await page.waitForTimeout(500);
     const values = await page.evaluate(() => JSON.parse(document.querySelector('[data-code="json"]').textContent));
-    if (values.signal !== true) fail('settings', `the switch did not apply (signal ${values.signal})`);
-    if (values.lamps !== 'white') fail('settings', `the dropdown did not apply (lamps ${values.lamps})`);
+    if (values.signal !== false) fail('settings', `the switch did not apply (signal ${values.signal})`);
+    if (values.lamps !== 'warm') fail('settings', `the dropdown did not apply (lamps ${values.lamps})`);
     else console.log('ok   settings: a switch and a dropdown apply');
     flush();
     await context.close();
