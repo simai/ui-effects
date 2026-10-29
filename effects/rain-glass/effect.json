@@ -2,7 +2,7 @@
   "schema": "simai.effect",
   "schema_version": 1,
   "id": "rain-glass",
-  "version": "2.3.0",
+  "version": "3.0.0",
   "label": {
     "ru": "Дождь на стекле",
     "en": "Rain on glass"
@@ -138,10 +138,10 @@
         "ru": "Светофор",
         "en": "Traffic light"
       },
-      "default": false,
+      "default": true,
       "hint": {
-        "ru": "Переключается и окрашивает дорогу",
-        "en": "Changes and tints the road"
+        "ru": "Красный, жёлтый, зелёный — сверху вниз; отражается в дороге",
+        "en": "Red, amber, green from top to bottom, mirrored in the road"
       }
     },
     {
@@ -151,10 +151,10 @@
         "ru": "Неоновая вывеска",
         "en": "Neon sign"
       },
-      "default": false,
+      "default": true,
       "hint": {
-        "ru": "Мигает у дороги",
-        "en": "Blinks by the road"
+        "ru": "Красно-оранжевая CAFE справа, иногда мигает",
+        "en": "A red-orange CAFE on the right that flickers now and then"
       }
     },
     {

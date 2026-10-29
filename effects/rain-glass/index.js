@@ -1,4 +1,4 @@
-// Rain on glass (simai.effect 1.1.0; dark scheme only): a fogged window at night: a lamp-lit street in bokeh behind it, a car going by now and then; drops on the glass, and you can write on it.
+// Rain on glass (simai.effect 1.1.0; dark scheme only): a fogged window on a rainy night: behind it a wet street goes off into the haze, its lamps, shop windows, neon signs, traffic light and cars mirrored in the road. Wipe the glass with a finger, and the street comes sharp.
 //
 // The lifecycle is the catalogue template's: one canvas in the host, devicePixelRatio capped at 2,
 // a seeded scene (the same picture on every mount at the defaults), one still frame for reduced
@@ -45,23 +45,29 @@ function readTones(host, scheme) {
   return tones;
 }
 
-// A fogged window on a rainy night: a sky over a darker road, two rows of street lamps fading into
-// the distance, signs as soft discs, cars now and then (white lights coming, red going), and, if
-// asked, a traffic light that tints the road, a blinking neon sign and rare lightning. Drops on the
-// glass are lenses. Press and drag to write; drips run, fog returns.
+// A fogged window on a rainy night. Behind it a street goes off into the haze: the sky glows warm
+// over the city and the far road melts into it; sodium lamps fade in two rows, shop windows and
+// neon signs (a red-orange CAFE on the right, a few smaller ones) burn on the facades, a traffic
+// light changes red, amber, green from top to bottom, and cars pass, white lights coming, red going.
+// Every light streaks straight down the wet road, broken by ripples, and lights the rain in front of
+// it. On the glass the fog blurs it all into soft discs; where a finger wipes the fog, and through
+// the drops, the street shows sharp. Press and drag to write; drips run, fog returns.
 const SCENE = {
-  home: 'dark', seed: 61, reseed: ['density', 'lamps'],
-  tones: (read) => ({go: read('--sf-success-70', '#4cbb6f'), ground: read('--sf-neutral-5', '#111318'), sky: read('--sf-primary-10', '#001a41'), lamp: read('--sf-warning-80', '#ffb95c'), head: read('--sf-neutral-95', '#f0f0f7'), tail: read('--sf-error-60', '#ff5449'), fog: read('--sf-neutral-30', '#45464f'), cool: read('--sf-primary-70', '#7fabff'), sign: read('--sf-tertiary-70', '#c798cd')}),
+  home: 'dark', seed: 61, reseed: ['density', 'lamps', 'signal', 'neon', 'intensity'],
+  tones: (read) => ({
+    sky: read('--sf-neutral-6', '#16181d'), glowSky: read('--sf-warning-10', '#2f1500'), haze: read('--sf-warning-20', '#4f2500'), road: read('--sf-neutral-4', '#0c0e13'),
+    facade: read('--sf-neutral-5', '#111318'), lamp: read('--sf-warning-80', '#ffb95c'), white: read('--sf-neutral-95', '#f0f0f7'), cool: read('--sf-primary-80', '#adc6ff'),
+    pane: read('--sf-warning-90', '#ffdcbe'), neon: read('--sf-error-60', '#ff5449'), core: read('--sf-warning-95', '#ffeee1'), pink: read('--sf-tertiary-70', '#c798cd'),
+    amber: read('--sf-warning-70', '#f19d47'), go: read('--sf-success-70', '#4cbb6f'), stop: read('--sf-error-50', '#de3730'), head: read('--sf-neutral-98', '#faf9fe'),
+    tail: read('--sf-error-60', '#ff5449'), fog: read('--sf-neutral-30', '#45464f'),
+  }),
   setup(env, random) {
     const {w, h} = env;
-    const f = Math.max(h * 1.1, w * 0.55), cx = w * 0.5, horizon = h * 0.48;
-    const lamps = [], kind = env.values.lamps;
-    if (kind !== 'none') for (let z = 7; z < 60; z += 5) for (const side of [-1, 1]) lamps.push({X: side * 4.2, Y: 3.4, z: z + (side + 1) * 1.2, colour: kind === 'white' ? 'head' : kind === 'mixed' && random() < 0.5 ? 'cool' : 'lamp'});
-    const signs = Array.from({length: Math.round(20 + env.values.density / 2)}, () => ({X: (random() < 0.5 ? -1 : 1) * (4.5 + random() * 5), Y: 0.5 + random() * 3.5, z: 2.5 + random() * 28, colour: ['sign', 'cool', 'lamp'][Math.floor(random() * 3)]}));
+    const f = Math.min(h * 1.05, w * 0.75), cx = w * 0.47, horizon = h * 0.5;
     const cars = [];
     const busy = env.values.traffic / 100;
-    if (random() < busy + 0.2) cars.push({way: -1, z: 8 + random() * 30, speed: 7 + random() * 5, lane: -2 - random() * 1.4});
-    if (random() < busy) cars.push({way: 1, z: 4 + random() * 20, speed: 6 + random() * 5, lane: 2 + random() * 1.4});
+    if (random() < busy + 0.3) cars.push({way: 1, z: 9 + random() * 8, speed: 3 + random() * 2, lane: 1.8 + random() * 0.4});
+    if (random() < busy + 0.1) cars.push({way: -1, z: 18 + random() * 20, speed: 5 + random() * 3, lane: -2 - random() * 0.4});
     const beads = new OffscreenCanvas(Math.ceil(w), Math.ceil(h));
     const b = beads.getContext('2d');
     for (let i = 0, count = w * h / 14; i < count; i += 1) {
@@ -80,110 +86,122 @@ const SCENE = {
     mk.globalCompositeOperation = 'destination-out';
     for (const d of drops) { mk.beginPath(); mk.ellipse(d.x, d.y, d.r * 1.15, d.r * d.stretch * 1.15, 0, 0, Math.PI * 2); mk.fill(); }
     mk.globalCompositeOperation = 'source-over';
-    const frost = new OffscreenCanvas(Math.max(1, Math.ceil(w / 2)), Math.max(1, Math.ceil(h / 2))), glows = new OffscreenCanvas(frost.width, frost.height);
-    const glass = new OffscreenCanvas(Math.ceil(w), Math.ceil(h)), lit = new OffscreenCanvas(Math.ceil(w), Math.ceil(h));
-    return {f, cx, horizon, lamps, signs, cars, beads, drops, mask, mk, frost, fr: frost.getContext('2d'), glows, go: glows.getContext('2d'), glass, gl: glass.getContext('2d'), lt: lit.getContext('2d'), lit, trails: [], last: null, t: null, random};
+    // Rain: one tile of slanted streaks, scrolled down every frame.
+    const rain = new OffscreenCanvas(Math.ceil(w), Math.ceil(h)), rc = rain.getContext('2d');
+    rc.strokeStyle = '#fff'; rc.lineCap = 'round';
+    for (let i = 0, count = w * h / 260; i < count; i += 1) {
+      const x = random() * w * 1.1, y = random() * h, len = 8 + random() ** 2 * h * 0.06;
+      rc.globalAlpha = 0.25 + random() * 0.6; rc.lineWidth = 0.5 + random();
+      rc.beginPath(); rc.moveTo(x, y); rc.lineTo(x - len * 0.12, y + len); rc.stroke();
+    }
+    const frost = new OffscreenCanvas(Math.max(1, Math.ceil(w / 2)), Math.max(1, Math.ceil(h / 2)));
+    const tiny = new OffscreenCanvas(Math.max(1, Math.ceil(w / 12)), Math.max(1, Math.ceil(h / 12)));
+    const small = new OffscreenCanvas(Math.max(1, Math.ceil(w / 4)), Math.max(1, Math.ceil(h / 4)));
+    const glass = new OffscreenCanvas(Math.ceil(w), Math.ceil(h)), lit = new OffscreenCanvas(Math.ceil(w), Math.ceil(h)), wet = new OffscreenCanvas(Math.ceil(w), Math.ceil(h)), beadLit = new OffscreenCanvas(Math.ceil(w), Math.ceil(h));
+    const state = {f, cx, horizon, cars, beads, drops, mask, mk, rain, frost, fr: frost.getContext('2d'), tiny, ti: tiny.getContext('2d'), small, sm: small.getContext('2d'),
+      glass, gl: glass.getContext('2d'), lt: lit.getContext('2d'), lit, wet, beadLit, bc: beadLit.getContext('2d'), wt: wet.getContext('2d'), trails: [], last: null, t: null, random, city: null, tonesOf: null};
+    state.plan = plan(env, state, random);
+    return state;
   },
   press(env, x, y) {
     const {state} = env;
     state.mk.globalCompositeOperation = 'destination-out';
     state.mk.fillStyle = 'rgba(0,0,0,0.95)';
-    state.mk.beginPath(); state.mk.arc(x, y, 8, 0, Math.PI * 2); state.mk.fill();
+    state.mk.beginPath(); state.mk.arc(x, y, 15, 0, Math.PI * 2); state.mk.fill();
     state.last = [x, y];
   },
   release(env) { env.state.last = null; },
   draw(env, t) {
     const {ctx, w, h, tones, state, values, pointer} = env;
-    const k = values.intensity / 100 * 0.7, fogLevel = values.fog / 100;
+    const k = values.intensity / 100, fogLevel = values.fog / 100;
     const dt = state.t === null ? 0 : Math.max(0, Math.min(0.05, t - state.t));
     state.t = t;
+    // The still street is drawn once, and again when the theme's tones change.
+    if (!state.city || state.tonesOf !== tones) { state.city = city(env, state); state.tonesOf = tones; }
     // Cars come by at random; the traffic setting is how often.
     const rate = values.traffic / 100 * 0.3;
-    if (state.random() < rate * dt) state.cars.push({way: -1, z: 52, speed: 7 + state.random() * 5, lane: -2 - state.random() * 1.4});
-    if (state.random() < rate * dt * 0.8) state.cars.push({way: 1, z: 1.6, speed: 6 + state.random() * 5, lane: 2 + state.random() * 1.4});
+    if (state.random() < rate * dt) state.cars.push({way: -1, z: 60, speed: 5 + state.random() * 3, lane: -2 - state.random() * 0.4});
+    if (state.random() < rate * dt * 0.8) state.cars.push({way: 1, z: 2.6, speed: 3 + state.random() * 2, lane: 1.8 + state.random() * 0.4});
     for (const car of state.cars) car.z += car.way * car.speed * dt;
-    state.cars = state.cars.filter((car) => car.z > 1.2 && car.z < 60);
-    const at = (X, Y, z) => [state.cx + X * state.f / z, state.horizon + (1.6 - Y) * state.f / z];
+    state.cars = state.cars.filter((car) => car.z > 2.4 && car.z < 62);
+    state.cars.sort((a, b) => b.z - a.z);
+    const at = project(state);
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.drawImage(state.city, 0, 0, w, h);
+    // What moves: the signal, the blinking sign, the cars; each light also lies on the wet road.
     const lights = [];
-    // Lamps fade with distance; the extras the settings ask for join them.
-    const fall = (z) => (7 / z) ** 0.9, cyc = t % 14;
-    for (const l of state.lamps) lights.push({p: at(l.X, l.Y, l.z), z: l.z, colour: tones[l.colour], a: 0.6 * fall(l.z), size: 0.3});
-    const signal = values.signal ? (cyc < 6 ? 'go' : cyc < 7.5 ? 'lamp' : 'tail') : null;
-    const neon = values.neon && (t % 5 < 4.1) && !(t % 5 > 3.5 && t % 0.24 < 0.1);
-    for (const sign of state.signs) lights.push({p: at(sign.X, sign.Y, sign.z), z: sign.z, colour: tones[sign.colour], a: 0.5, size: 0.8});
-    const lamps = state.lamps.map((l) => ({p: at(l.X, l.Y, l.z), z: l.z, colour: tones[l.colour], a: 0.45 * fall(l.z)}));
-    if (signal) lamps.push({p: at(3.2, 3, 13), z: 6, colour: tones[signal], a: 1.4});
-    // The sign: a row of tubes, each a glow of its own.
-    if (neon) for (let i = 0; i < 5; i += 1) lamps.push({p: at(-6.4 + i * 0.35, 2.6, 10), z: 6, colour: tones[i % 2 ? 'cool' : 'sign'], a: 1.1});
-    for (const car of state.cars) {
-      const toward = car.way < 0;
-      const fade = Math.min(1, (car.z - 1.2) / 1.5) * Math.min(1, (60 - car.z) / 8);
-      for (const side of [-0.75, 0.75]) lamps.push({p: at(car.lane + side, toward ? 0.7 : 0.9, car.z), z: car.z, colour: toward ? tones.head : tones.tail, a: fade * (toward ? 1 : 0.85)});
+    const cyc = t % 14, phase = cyc < 6 ? 0 : cyc < 12 ? 2 : 1;
+    if (values.signal) for (const pole of state.plan.signals) {
+      const s = state.f / pole.z, [tx, ty] = at(pole.X, 4.6, pole.z), [, gy] = at(pole.X, 0, pole.z), bh = 1.25 * s, bw = 0.42 * s;
+      const colour = [tones.stop, tones.amber, tones.go][phase], ly = ty - bh + bh * (0.2 + phase * 0.3);
+      ctx.fillStyle = rgba(colour, 1); ctx.beginPath(); ctx.arc(tx, ly, bw * 0.3, 0, Math.PI * 2); ctx.fill();
+      lights.push({x: tx, y: ly, gy, colour, r: bw * 1.4, a: 0.7});
     }
-    const near = (z) => Math.min(1, 6 / z);
-    // An out-of-focus disc: the bigger, the dimmer.
-    const bokeh = (c, scale, x, y, r, colour, a) => {
-      a = Math.min(0.32, a * Math.min(1, 26 / r));
-      if (a <= 0.01) return;
-      const g = c.createRadialGradient(x * scale, y * scale, 0, x * scale, y * scale, r * scale);
-      g.addColorStop(0, rgba(colour, a * 0.6));
-      g.addColorStop(0.8, rgba(colour, a));
-      g.addColorStop(0.9, rgba(colour, a * 0.85));
-      g.addColorStop(1, rgba(colour, 0));
-      c.fillStyle = g;
-      c.beginPath(); c.arc(x * scale, y * scale, r * scale, 0, Math.PI * 2); c.fill();
-    };
-    // A car light: a core, a soft halo and a streak on the wet road.
-    const glow = (c, scale, x, y, core, colour, a, spread) => {
-      if (a <= 0.01) return;
-      const r = (core * spread + 6) * scale;
-      const g = c.createRadialGradient(x * scale, y * scale, 0, x * scale, y * scale, r);
-      g.addColorStop(0, rgba(mixc(colour, [255, 255, 255], 0.5), Math.min(0.9, a)));
-      g.addColorStop(Math.min(0.5, core * scale / r), rgba(colour, a * 0.45));
-      g.addColorStop(0.45, rgba(colour, a * 0.12));
-      g.addColorStop(1, rgba(colour, 0));
-      c.fillStyle = g;
-      c.beginPath(); c.arc(x * scale, y * scale, r, 0, Math.PI * 2); c.fill();
-      const down = (h - y) * 0.7 * scale;
-      if (down > 4) {
-        const s = c.createLinearGradient(0, y * scale, 0, y * scale + down);
-        s.addColorStop(0, rgba(colour, a * 0.16));
-        s.addColorStop(1, rgba(colour, 0));
-        c.fillStyle = s;
-        c.beginPath(); c.ellipse(x * scale, y * scale + down / 2, Math.max(1.5, core * 1.4 * scale), down / 2, 0, 0, Math.PI * 2); c.fill();
+    if (values.neon) {
+      const sign = state.plan.cafe, blink = (t % 7 < 6.2) && !(t % 7 > 5.6 && t % 0.22 < 0.09);
+      if (blink) { tubes(ctx, sign, tones.neon, tones.core, k); for (const l of sign.lights) lights.push({...l, colour: tones.neon, a: 0.5}); }
+    }
+    for (const car of state.cars) {
+      const coming = car.way < 0, fade = Math.min(1, (car.z - 2.4) / 1.5) * Math.min(1, (62 - car.z) / 8);
+      const s = state.f / car.z, X = car.lane, gy = at(X, 0, car.z)[1];
+      const [x0, y0] = at(X - 0.92, 0.28, car.z), [x1, y1] = at(X + 0.92, 0.95, car.z), [c0, c1] = at(X - 0.65, 1.45, car.z), [c2] = at(X + 0.65, 1.45, car.z), [d0] = at(X - 0.8, 0.95, car.z), [d1] = at(X + 0.8, 0.95, car.z);
+      ctx.fillStyle = rgba(mixc(tones.road, [0, 0, 0], 0.5), fade);
+      ctx.beginPath(); ctx.roundRect(x0, y1, x1 - x0, y0 - y1, 0.18 * s); ctx.fill();
+      ctx.beginPath(); ctx.moveTo(d0, y1 + 1); ctx.lineTo(c0, c1); ctx.lineTo(c2, c1); ctx.lineTo(d1, y1 + 1); ctx.closePath(); ctx.fill();
+      ctx.strokeStyle = rgba(tones.lamp, 0.12 * fade); ctx.lineWidth = Math.max(0.5, 0.03 * s); ctx.beginPath(); ctx.moveTo(c0, c1 + 0.5); ctx.lineTo(c2, c1 + 0.5); ctx.stroke();
+      const colour = coming ? tones.head : tones.tail;
+      for (const side of [-0.7, 0.7]) {
+        const [x, y] = at(X + side, 0.8, car.z);
+        ctx.fillStyle = rgba(colour, fade); ctx.beginPath();
+        if (coming) ctx.ellipse(x, y, 0.14 * s, 0.07 * s, 0, 0, Math.PI * 2); else ctx.roundRect(x - 0.2 * s, y - 0.035 * s, 0.4 * s, 0.07 * s, 0.03 * s);
+        ctx.fill();
+        lights.push({x, y, gy, colour, r: 0.5 * s, a: (coming ? 0.9 : 0.6) * fade});
       }
-    };
-    const street = (c, scale) => {
-      const g = c.createLinearGradient(0, 0, 0, h * scale);
-      g.addColorStop(0, rgba(tones.ground));
-      g.addColorStop(0.46, rgba(tones.sky));
-      g.addColorStop(0.5, rgba(mixc(tones.ground, tones.sky, 0.45)));
-      g.addColorStop(1, rgba(mixc(tones.ground, [0, 0, 0], 0.35)));
-      c.fillStyle = g;
-      c.fillRect(0, 0, w * scale, h * scale);
-    };
-    street(ctx, 1);
+    }
+    // Their glows and streaks go on a layer of their own, softened through a small copy.
+    const wt = state.wt;
+    wt.globalCompositeOperation = 'source-over';
+    wt.clearRect(0, 0, w, h);
+    wt.globalCompositeOperation = 'lighter';
+    for (const l of lights) { halo(wt, l.x, l.y, l.r, l.colour, l.a * k); streak(wt, state, l.x, 2 * l.gy - l.y, l.r, l.colour, l.a * k * 1.2, l.x * 0.013); }
+    ctx.globalCompositeOperation = 'lighter';
+    ctx.drawImage(state.wet, 0, 0, w, h);
+    soften(state, state.wet, w, h);
+    ctx.globalAlpha = 0.5; ctx.drawImage(state.small, 0, 0, w, h); ctx.globalAlpha = 1;
     // Lightning: a flash and an echo every so often, mostly in the sky.
     if (values.storm) {
       if (!state.bolt || t > state.bolt + 18) state.bolt = t + 6 + state.random() * 14;
       const d = t - state.bolt, flash = d > 0 && d < 0.6 ? Math.exp(-d * 9) + (d > 0.18 ? 0.6 * Math.exp(-(d - 0.18) * 9) : 0) : 0;
-      if (flash > 0.01) { const g = ctx.createLinearGradient(0, 0, 0, state.horizon); g.addColorStop(0, rgba(tones.head, 0.22 * flash)); g.addColorStop(1, rgba(tones.cool, 0.05 * flash)); ctx.fillStyle = g; ctx.fillRect(0, 0, w, h); }
+      if (flash > 0.01) { const g = ctx.createLinearGradient(0, 0, 0, state.horizon * 1.2); g.addColorStop(0, rgba(tones.head, 0.2 * flash)); g.addColorStop(1, rgba(tones.cool, 0.04 * flash)); ctx.fillStyle = g; ctx.fillRect(0, 0, w, h); }
     }
-    ctx.globalCompositeOperation = 'lighter';
-    for (const light of lights) bokeh(ctx, 1, light.p[0], light.p[1], 2 + light.size * state.f / light.z, light.colour, 0.85 * k * light.a * near(light.z));
-    for (const lamp of lamps) glow(ctx, 1, lamp.p[0], lamp.p[1], Math.max(1.5, 0.14 * state.f / lamp.z), lamp.colour, 1.1 * k * lamp.a * Math.min(1, 9 / lamp.z), 5);
-    // Through fog: a half-size picture with bigger discs and glows.
-    // The lights alone go on their own layer: the beads light up from them, not from the dark sky.
-    const fr = state.fr, go = state.go, q = 0.5;
-    go.clearRect(0, 0, w, h);
-    go.globalCompositeOperation = 'lighter';
-    for (const light of lights) bokeh(go, q, light.p[0], light.p[1], 6 + (2 + light.size * state.f / light.z) * 2.8, light.colour, 0.55 * k * light.a * near(light.z));
-    for (const lamp of lamps) glow(go, q, lamp.p[0], lamp.p[1], Math.max(2, 0.14 * state.f / lamp.z), lamp.colour, 0.75 * k * lamp.a * Math.min(1, 9 / lamp.z), 11);
+    // Rain in front of the street, seen only where a light catches it.
+    const lt = state.lt, fall = (t * h * 1.6) % h;
+    lt.globalCompositeOperation = 'source-over';
+    lt.clearRect(0, 0, w, h);
+    lt.drawImage(state.plan.glow, 0, 0, w, h);
+    lt.globalCompositeOperation = 'lighter';
+    lt.drawImage(state.small, 0, 0, w, h);
+    lt.fillStyle = 'rgba(70,74,90,0.25)'; lt.fillRect(0, 0, w, h);
+    lt.globalCompositeOperation = 'destination-in';
+    lt.drawImage(state.rain, 0, fall - h, w, h); lt.drawImage(state.rain, 0, fall, w, h);
+    ctx.globalAlpha = 0.55 * k + 0.2;
+    ctx.drawImage(state.lit, 0, 0, w, h);
+    ctx.globalAlpha = 1;
+    ctx.globalCompositeOperation = 'source-over';
+    // Beads on the glass catch the lights behind them, not the dark between.
+    const bc = state.bc;
+    bc.globalCompositeOperation = 'source-over';
+    bc.clearRect(0, 0, w, h);
+    bc.drawImage(state.plan.glow, 0, 0, w, h);
+    bc.globalCompositeOperation = 'lighter';
+    bc.drawImage(state.small, 0, 0, w, h);
+    bc.globalCompositeOperation = 'destination-in';
+    bc.drawImage(state.beads, 0, 0, w, h);
+    // The fog: the street blurred into soft discs, a little greyed.
+    const fr = state.fr, q = 0.5;
+    soften(state, ctx.canvas, w, h);
     fr.globalCompositeOperation = 'source-over';
-    street(fr, q);
-    fr.globalCompositeOperation = 'lighter';
-    fr.drawImage(state.glows, 0, 0);
-    fr.globalCompositeOperation = 'source-over';
+    fr.drawImage(state.small, 0, 0, w * q, h * q);
     fr.fillStyle = rgba(tones.fog, 0.2);
     fr.fillRect(0, 0, w * q, h * q);
     // Writing only while the button is held; drips run from the track.
@@ -198,7 +216,7 @@ const SCENE = {
     if (pointer.down && state.last) {
       const x = pointer.x * w, y = pointer.y * h, [lx, ly] = state.last;
       mk.strokeStyle = 'rgba(0,0,0,0.95)';
-      mk.lineWidth = 16;
+      mk.lineWidth = 30;
       mk.beginPath(); mk.moveTo(lx, ly); mk.lineTo(x, y); mk.stroke();
       const moved = Math.hypot(x - lx, y - ly);
       if (moved > 0 && state.random() < Math.min(0.5, moved / 60)) state.trails.push({x: x + (state.random() - 0.5) * 10, y: y + 6, v: 0, left: 30 + state.random() * 140});
@@ -218,17 +236,12 @@ const SCENE = {
     gl.clearRect(0, 0, w, h);
     gl.imageSmoothingQuality = 'high';
     gl.drawImage(state.frost, 0, 0, w, h);
-    const lt = state.lt;
-    lt.globalCompositeOperation = 'source-over';
-    lt.clearRect(0, 0, w, h);
-    lt.drawImage(state.glows, 0, 0, w, h);
-    lt.globalCompositeOperation = 'destination-in';
-    lt.drawImage(state.beads, 0, 0, w, h);
     gl.globalCompositeOperation = 'lighter';
-    gl.drawImage(state.lit, 0, 0, w, h);
+    gl.globalAlpha = 0.8;
+    gl.drawImage(state.beadLit, 0, 0, w, h);
+    gl.globalAlpha = 1;
     gl.globalCompositeOperation = 'destination-in';
     gl.drawImage(state.mask, 0, 0, w, h);
-    ctx.globalCompositeOperation = 'source-over';
     ctx.globalAlpha = Math.min(1, 0.15 + fogLevel);
     ctx.drawImage(state.glass, 0, 0, w, h);
     ctx.globalAlpha = 1;
@@ -259,6 +272,186 @@ const SCENE = {
     state.trails = state.trails.filter((drip) => drip.left > 0 && drip.y < h);
   },
 };
+// From street space (X across, Y up, z away, in metres) to the picture.
+function project(state) { return (X, Y, z) => [state.cx + X * state.f / z, state.horizon + (1.7 - Y) * state.f / z]; }
+// The street's layout, drawn the same way on every mount: facades, windows, lamps, signs, signal poles.
+function plan(env, state, random) {
+  const {values} = env;
+  const at = project(state);
+  const facades = [];
+  for (const side of [-1, 1]) for (let z = 60; z > 3; z -= 3 + random() * 3) facades.push({side, z, d: 3 + random() * 3, top: 8 + random() * 16});
+  facades.sort((a, b) => b.z - a.z);
+  const lit = values.density / 100;
+  const windows = [];
+  for (const fc of facades) for (let fy = 1.2; fy < fc.top - 0.8; fy += 1.4) for (let fz = 0.3; fz < fc.d - 0.3; fz += 0.9) {
+    const on = random() < 0.15 + lit * 0.3, pick = random(), dim = random();
+    if (on) windows.push({X: fc.side * 7.5, Y: fy, z: fc.z + fz, kind: pick < 0.6 ? 'pane' : pick < 0.85 ? 'lamp' : 'cool', dim});
+  }
+  const shops = [];
+  for (const side of [-1, 1]) for (let z = 4; z < 50; z += 2.2 + random() * 3) {
+    const d = 1 + random() * 1.4, kind = random() < 0.7 ? 'pane' : 'cool', bright = random();
+    if (random() < 0.55 - lit * 0.3) continue;
+    shops.push({X: side * 7.5, z, d, kind, bright});
+  }
+  const lamps = [];
+  if (values.lamps !== 'none') for (let z = 5; z < 70; z += 6.5) for (const side of [-1, 1]) lamps.push({side, z, kind: values.lamps === 'white' ? 'white' : values.lamps === 'mixed' && random() < 0.5 ? 'cool' : 'lamp'});
+  const signs = [
+    {text: 'OPEN 24', X: -7.3, Y: 3.4, z: 16, kind: 'cool', size: 0.7},
+    {text: 'BAR', X: 7.3, Y: 3.2, z: 30, kind: 'pink', size: 0.9},
+    {text: 'HOTEL', X: -7.3, Y: 7.5, z: 34, kind: 'amber', size: 0.9},
+  ].slice(0, 1 + Math.round(lit * 2));
+  const cafe = {text: 'CAFE', X: 7.3, Y: 4.6, z: 14, size: 1.05};
+  const signals = [{X: 4.9, z: 12}, {X: -5.2, z: 22}];
+  return {facades, windows, shops, lamps, signs, cafe, signals, glow: null};
+}
+// The still street: one gradient from the sky to the road, so the far road melts into the haze;
+// facades, windows and shop windows; lamps; signs; their glows, blooms and streaks on the wet road.
+function city(env, state) {
+  const {w, h, tones, values} = env;
+  const k = values.intensity / 100, ratio = Math.max(1, Math.min(2, env.ctx.canvas.width / w));
+  const at = project(state), P = state.plan, hor = state.horizon;
+  const out = new OffscreenCanvas(Math.ceil(w * ratio), Math.ceil(h * ratio)), c = out.getContext('2d');
+  c.scale(ratio, ratio);
+  const lights = [];
+  let g = c.createLinearGradient(0, 0, 0, h);
+  g.addColorStop(0, rgba(tones.sky)); g.addColorStop(0.36, rgba(mixc(tones.sky, tones.glowSky, 0.8)));
+  g.addColorStop(0.5, rgba(mixc(tones.glowSky, tones.haze, 0.45))); g.addColorStop(0.56, rgba(mixc(tones.glowSky, tones.haze, 0.25)));
+  g.addColorStop(1, rgba(tones.road));
+  c.fillStyle = g; c.fillRect(0, 0, w, h);
+  for (const fc of P.facades) {
+    const X = fc.side * 7.5, z0 = fc.z, z1 = fc.z + fc.d;
+    const [x0, y0] = at(X, 0, z0), [x1, y1] = at(X, 0, z1), [, t0] = at(X, fc.top, z0), [, t1] = at(X, fc.top, z1);
+    c.fillStyle = rgba(mixc(tones.facade, tones.haze, Math.min(1, z0 / 55) * 0.55));
+    c.beginPath(); c.moveTo(x0, y0); c.lineTo(x1, y1); c.lineTo(x1, t1); c.lineTo(x0, t0); c.closePath(); c.fill();
+  }
+  for (const win of P.windows) {
+    const [wx, wy] = at(win.X, win.Y + 1, win.z), [wx2, wy2] = at(win.X, win.Y, win.z + 0.5);
+    const fog = Math.min(1, win.z / 55), a = (0.14 + win.dim * 0.32) * (1 - fog * 0.8) * (0.5 + k * 0.6);
+    c.fillStyle = rgba(tones[win.kind], a);
+    c.fillRect(Math.min(wx, wx2), wy, Math.abs(wx2 - wx) * 0.6 + 0.6, (wy2 - wy) * 0.7);
+  }
+  for (const shop of P.shops) {
+    const [x0, y0] = at(shop.X, 0.3, shop.z), [x1, y1] = at(shop.X, 0.3, shop.z + shop.d), [, t0] = at(shop.X, 2.3, shop.z), [, t1] = at(shop.X, 2.3, shop.z + shop.d);
+    const a = (0.3 + shop.bright * 0.3) * (1 - Math.min(1, shop.z / 50) * 0.6) * (0.5 + k * 0.6), colour = tones[shop.kind];
+    const sg = c.createLinearGradient(0, t0, 0, y0);
+    sg.addColorStop(0, rgba(colour, a * 0.7)); sg.addColorStop(1, rgba(colour, a));
+    c.fillStyle = sg; c.beginPath(); c.moveTo(x0, y0); c.lineTo(x1, y1); c.lineTo(x1, t1); c.lineTo(x0, t0); c.closePath(); c.fill();
+    lights.push({x: (x0 + x1) / 2, y: (y0 + t0) / 2, gy: at(shop.X, 0, shop.z + shop.d / 2)[1], colour, r: Math.abs(x1 - x0) * 0.9 + 6, a: a * 0.5});
+  }
+  c.strokeStyle = rgba(tones.white, 0.05); c.lineWidth = 1;
+  for (const side of [-1, 1]) { const [a1, a2] = at(side * 5, 0, 2.5), [b1, b2] = at(side * 5, 0, 70); c.beginPath(); c.moveTo(a1, a2); c.lineTo(b1, b2); c.stroke(); }
+  for (let i = -4; i <= 4; i += 1) {
+    const [a1, a2] = at(i * 1.1 - 0.3, 0, 9), [b1] = at(i * 1.1 + 0.3, 0, 9), [, c2] = at(0, 0, 11);
+    c.fillStyle = rgba(tones.white, 0.05); c.fillRect(a1, c2, b1 - a1, a2 - c2);
+  }
+  for (const lamp of P.lamps) {
+    const z = lamp.z, [px, py] = at(lamp.side * 5.6, 0, z), [hx, hy] = at(lamp.side * 5.6, 6, z), [ax] = at(lamp.side * 4.6, 6, z), fog = Math.min(1, z / 60);
+    c.strokeStyle = `rgba(0,0,0,${0.7 * (1 - fog)})`; c.lineWidth = Math.max(0.5, 0.25 * state.f / z / 10);
+    c.beginPath(); c.moveTo(px, py); c.lineTo(hx, hy); c.lineTo(ax, hy); c.stroke();
+    const colour = tones[lamp.kind];
+    c.fillStyle = rgba(colour, 1); c.beginPath(); c.ellipse(ax, hy + 0.2 * state.f / z / 10, Math.max(1, 0.09 * state.f / z), Math.max(0.6, 0.04 * state.f / z), 0, 0, Math.PI * 2); c.fill();
+    lights.push({x: ax, y: hy + 0.3 * state.f / z / 10, gy: at(lamp.side * 4.6, 0, z)[1], colour, r: 2.6 * state.f / z / 10 + 4, a: (1 - fog * 0.5) * 1.1});
+  }
+  if (values.signal) for (const pole of P.signals) {
+    const s = state.f / pole.z, [px, py] = at(pole.X, 0, pole.z), [tx, ty] = at(pole.X, 4.6, pole.z), bw = 0.42 * s, bh = 1.25 * s;
+    c.strokeStyle = 'rgba(0,0,0,0.9)'; c.lineWidth = Math.max(1, 0.18 * s);
+    c.beginPath(); c.moveTo(px, py); c.lineTo(tx, ty); c.stroke();
+    c.fillStyle = 'rgba(0,0,0,0.92)'; c.fillRect(tx - bw / 2, ty - bh, bw, bh);
+    [tones.stop, tones.amber, tones.go].forEach((colour, i) => { c.fillStyle = rgba(colour, 0.08); c.beginPath(); c.arc(tx, ty - bh + bh * (0.2 + i * 0.3), bw * 0.3, 0, Math.PI * 2); c.fill(); });
+  }
+  for (const sign of P.signs) {
+    placeSign(state, sign);
+    tubes(c, sign, tones[sign.kind], mixc(tones[sign.kind], tones.head, 0.7), k);
+    for (const l of sign.lights) lights.push({...l, colour: tones[sign.kind], a: 0.35});
+  }
+  placeSign(state, P.cafe);
+  if (values.neon) { c.fillStyle = 'rgba(0,0,0,0.55)'; const s = P.cafe; c.fillRect(s.x - s.tw / 2 - s.s * 0.3, s.y - s.s * 0.75, s.tw + s.s * 0.6, s.s * 1.5); }
+  // The lights: streaks on the wet road, a hot point, a glow, then a wide bloom.
+  const glow = new OffscreenCanvas(Math.ceil(w), Math.ceil(h)), gc = glow.getContext('2d');
+  gc.globalCompositeOperation = 'lighter';
+  for (const l of lights) halo(gc, l.x, l.y, l.r, l.colour, l.a * k);
+  const wet = new OffscreenCanvas(Math.ceil(w), Math.ceil(h)), wc = wet.getContext('2d');
+  wc.globalCompositeOperation = 'lighter';
+  for (const l of lights) streak(wc, state, l.x, 2 * l.gy - l.y, l.r, l.colour, l.a * k, l.x * 0.017 + l.y * 0.03);
+  c.save(); c.beginPath(); c.rect(0, hor, w, h - hor); c.clip();
+  c.globalCompositeOperation = 'lighter';
+  c.drawImage(wet, 0, 0, w, h);
+  c.restore();
+  c.globalCompositeOperation = 'lighter';
+  c.drawImage(glow, 0, 0, w, h);
+  // Blooms through ever smaller copies: the wider, the fainter.
+  const bloom = [[8, 0.45], [24, 0.28], [64, 0.2]];
+  for (const [by, a] of bloom) {
+    const s = new OffscreenCanvas(Math.max(1, Math.ceil(w / by)), Math.max(1, Math.ceil(h / by))), sc = s.getContext('2d');
+    sc.imageSmoothingQuality = 'high'; sc.drawImage(glow, 0, 0, s.width, s.height); sc.drawImage(wet, 0, 0, s.width, s.height);
+    c.globalAlpha = a; c.imageSmoothingQuality = 'high'; c.drawImage(s, 0, 0, w, h);
+  }
+  c.globalAlpha = 1;
+  // Haze at the horizon swallows the far street.
+  g = c.createLinearGradient(0, hor - h * 0.16, 0, hor + h * 0.1);
+  g.addColorStop(0, rgba(tones.haze, 0)); g.addColorStop(0.55, rgba(tones.haze, 0.25)); g.addColorStop(1, rgba(tones.haze, 0));
+  c.globalCompositeOperation = 'screen'; c.fillStyle = g; c.fillRect(0, 0, w, h);
+  c.globalCompositeOperation = 'source-over';
+  // Corners a little darker, as through a lens.
+  g = c.createRadialGradient(w / 2, h * 0.48, Math.min(w, h) * 0.3, w / 2, h / 2, Math.max(w, h) * 0.75);
+  g.addColorStop(0, 'rgba(0,0,0,0.08)'); g.addColorStop(1, 'rgba(0,0,0,0.55)');
+  c.fillStyle = g; c.fillRect(0, 0, w, h);
+  // The glow that lights the rain: the lamps and signs, wide and soft.
+  const soft = new OffscreenCanvas(Math.max(1, Math.ceil(w / 16)), Math.max(1, Math.ceil(h / 16)));
+  soft.getContext('2d').drawImage(glow, 0, 0, soft.width, soft.height);
+  P.glow = soft;
+  return out;
+}
+// Where a sign sits in the picture, its size and the lights its letters give.
+function placeSign(state, sign) {
+  const [x, y] = project(state)(sign.X, sign.Y, sign.z), s = state.f / sign.z * sign.size;
+  const tw = s * 0.62 * sign.text.length;
+  const [, gy] = project(state)(sign.X, 0, sign.z);
+  const letters = sign.text.replace(/ /g, '').length;
+  Object.assign(sign, {x, y, s, tw, lights: Array.from({length: letters}, (_, i) => ({x: x - tw / 2 + tw * (i + 0.5) / letters, y, gy, r: s * 0.9}))});
+}
+// A neon sign: tubes of letters, a wide faint glow, a narrower one and a hot core.
+function tubes(c, sign, colour, core, k) {
+  c.save();
+  c.font = `600 ${sign.s}px "Helvetica Neue", Arial, sans-serif`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.lineJoin = 'round';
+  for (const [wdt, a, tone] of [[0.22, 0.25, colour], [0.12, 0.6, colour], [0.05, 1, core]]) {
+    c.strokeStyle = rgba(tone, a * (0.5 + k * 0.6)); c.lineWidth = sign.s * wdt; c.strokeText(sign.text, sign.x, sign.y);
+  }
+  c.restore();
+}
+// A light's own glow: white-hot at the centre, its colour around.
+function halo(c, x, y, r, colour, a) {
+  if (a <= 0.01 || r <= 0) return;
+  const g = c.createRadialGradient(x, y, 0, x, y, r);
+  g.addColorStop(0, rgba(mixc(colour, [255, 255, 255], 0.35), Math.min(1, a)));
+  g.addColorStop(0.12, rgba(colour, 0.75 * Math.min(1, a))); g.addColorStop(1, rgba(colour, 0));
+  c.fillStyle = g; c.beginPath(); c.arc(x, y, r, 0, Math.PI * 2); c.fill();
+}
+// A light's reflection on the wet road: from its mirror point, a little up and far down towards
+// the eye, shifted and broken into dashes by the ripples.
+function streak(c, state, x, ry, r, colour, a, seed) {
+  const {horizon} = state, h = c.canvas.height;
+  if (a <= 0.01 || ry <= horizon) return;
+  const top = Math.max(horizon + 1, ry - (ry - horizon) * 0.5), len = Math.min(h - top, (ry - horizon) * 2.2 + 30), wdt = Math.max(1.2, Math.min(24, r * 0.28));
+  const slices = 48;
+  for (let i = 0; i < slices; i += 1) {
+    const y0 = top + len * i / slices, jx = (Math.sin(i * 0.9 + seed) * 0.6 + Math.sin(i * 3.1 + seed * 2.3) * 0.4) * wdt * 0.2;
+    const dash = 0.35 + 0.65 * (0.5 + 0.5 * Math.sin(i * 2.1 + seed * 5.7)) ** 2;
+    const al = a * 0.5 * (1 - i / slices) ** 1.1 * dash;
+    const g = c.createLinearGradient(x + jx - wdt, 0, x + jx + wdt, 0);
+    g.addColorStop(0, rgba(colour, 0)); g.addColorStop(0.5, rgba(colour, al)); g.addColorStop(1, rgba(colour, 0));
+    c.fillStyle = g; c.fillRect(x + jx - wdt, y0, wdt * 2, len / slices + 1);
+  }
+}
+// A soft copy of a picture: down to a twelfth, back up to a quarter.
+function soften(state, source, w, h) {
+  state.ti.imageSmoothingQuality = 'high';
+  state.ti.clearRect(0, 0, state.tiny.width, state.tiny.height);
+  state.ti.drawImage(source, 0, 0, state.tiny.width, state.tiny.height);
+  state.sm.imageSmoothingQuality = 'high';
+  state.sm.clearRect(0, 0, state.small.width, state.small.height);
+  state.sm.drawImage(state.tiny, 0, 0, state.small.width, state.small.height);
+}
 
 export function mount(host, settings, context = {}) {
   const doc = host.ownerDocument;

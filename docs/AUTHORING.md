@@ -134,7 +134,7 @@ must reach 4.5:1, in the hero and in the windows layout.
   laptop. Heavy per-pixel work runs in a small buffer and is scaled up.
 - Degrade gracefully: if frames stay slow, lower the internal resolution.
 - A module stays under about **15 KB**; a rich scene with many options may
-  reach 24 KB, and the catalogue check fails above that.
+  reach 36 KB (about 11 KB compressed), and the catalogue check fails above that.
   No dependencies.
 
 ## 6. Windows safety

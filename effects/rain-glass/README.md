@@ -1,9 +1,9 @@
 # Rain on glass (`rain-glass`)
 
-A fogged window at night: a lamp-lit street in bokeh behind it, a car going by now and then; drops on the glass, and you can write on it.
+A fogged window on a rainy night: behind it a wet street goes off into the haze, its lamps, shop windows, neon signs, traffic light and cars mirrored in the road. Wipe the glass with a finger, and the street comes sharp.
 
 - **Russian name:** Дождь на стекле
-- **Version:** 2.3.0, simai.effect 1.1.0
+- **Version:** 3.0.0, simai.effect 1.1.0
 - **Surfaces:** hero, section, dashboard, sign-in
 - **Tags:** water, glow
 - **Role:** A cosy evening behind a window. Dark scheme only.
@@ -18,8 +18,8 @@ A fogged window at night: a lamp-lit street in bokeh behind it, a car going by n
 | `fog` | integer | 0–100 % | `70` | Fog |
 | `traffic` | integer | 0–100 % | `40` | Traffic. How often cars go by |
 | `lamps` | choice | `warm`, `white`, `mixed`, `none` | `"warm"` | Street lamps |
-| `signal` | boolean | — | `false` | Traffic light. Changes and tints the road |
-| `neon` | boolean | — | `false` | Neon sign. Blinks by the road |
+| `signal` | boolean | — | `true` | Traffic light. Red, amber, green from top to bottom, mirrored in the road |
+| `neon` | boolean | — | `true` | Neon sign. A red-orange CAFE on the right that flickers now and then |
 | `storm` | boolean | — | `false` | Lightning. Rare flashes in the sky |
 | `interactive` | boolean | — | `true` | React to the pointer. Press and drag to write on the fogged glass with a finger |
 
