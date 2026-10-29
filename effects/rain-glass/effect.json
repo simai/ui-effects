@@ -99,7 +99,7 @@
         "ru": "Фонари",
         "en": "Street lamps"
       },
-      "default": "warm",
+      "default": "white",
       "options": [
         {
           "value": "warm",
@@ -153,21 +153,8 @@
       },
       "default": true,
       "hint": {
-        "ru": "Красно-оранжевая CAFE справа, иногда мигает",
-        "en": "A red-orange CAFE on the right that flickers now and then"
-      }
-    },
-    {
-      "key": "storm",
-      "type": "boolean",
-      "label": {
-        "ru": "Молнии",
-        "en": "Lightning"
-      },
-      "default": false,
-      "hint": {
-        "ru": "Редкие вспышки в небе",
-        "en": "Rare flashes in the sky"
+        "ru": "Розовая CAFE справа, иногда мигает",
+        "en": "A pink CAFE on the right that flickers now and then"
       }
     },
     {
