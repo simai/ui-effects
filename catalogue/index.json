@@ -10,9 +10,9 @@
     "ui_source": "2f9a405c6677dce34ccd79a0f615df77146e702f"
   },
   "counts": {
-    "effects": 31,
+    "effects": 32,
     "dual": 19,
-    "dark": 10,
+    "dark": 11,
     "light": 2
   },
   "effects": [
@@ -1915,6 +1915,67 @@
         "framework": "ui-3464018a5c94",
         "passed": 17,
         "total": 17
+      }
+    },
+    {
+      "id": "rain-glass-classic",
+      "version": "2.3.0",
+      "label": {
+        "ru": "Дождь на стекле (прежний)",
+        "en": "Rain on glass (earlier)"
+      },
+      "description": {
+        "ru": "Прежняя версия «Дождя на стекле» для сравнения: запотевшее окно ночью, за стеклом улица с фонарями в боке, изредка проезжают машины; на стекле капли, по нему можно писать пальцем."
+      },
+      "role": {
+        "ru": "Уютный вечер за окном. Только тёмная схема."
+      },
+      "schemes": [
+        "dark"
+      ],
+      "pair": null,
+      "capabilities": [
+        "windows"
+      ],
+      "tags": [
+        "water",
+        "glow"
+      ],
+      "surfaces": [
+        "hero",
+        "section",
+        "dashboard",
+        "sign-in"
+      ],
+      "path": "effects/rain-glass-classic/",
+      "entry": "index.js",
+      "files": [
+        {
+          "path": "effect.json",
+          "sha256": "ad5a44ad9a701c347e10321696db4e56046c606a09a3092575407965ae2343ba",
+          "size": 3905
+        },
+        {
+          "path": "index.js",
+          "sha256": "bf4f5d1aef2c673e3054da58eb776b70e68882f1970636ddf5a8f671402fe068",
+          "size": 21516
+        },
+        {
+          "path": "preview.png",
+          "sha256": "13cffe6f4b5f0ff7fbd5537c1d63d5665e1ac203971dba28d5a555bfec5464c6",
+          "size": 152795
+        },
+        {
+          "path": "README.md",
+          "sha256": "becde327eb606261dc0f8fe7fae0c02307a948817be4f2ddeba95394804579dc",
+          "size": 1901
+        }
+      ],
+      "kit": {
+        "status": "pass",
+        "framework": "ui-3464018a5c94",
+        "passed": 14,
+        "total": 14
       }
     }
   ]

@@ -196,6 +196,12 @@
       "passed": 17,
       "total": 17,
       "failed": []
+    },
+    "rain-glass-classic": {
+      "digest": "0981db527c8d1ff185de3a23adafeabe8911784192a3831bf8491cbe433020d7",
+      "passed": 14,
+      "total": 14,
+      "failed": []
     }
   }
 }

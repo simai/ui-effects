@@ -27,7 +27,7 @@ there will be many. The Framework ships only the core: `SF.Effects`, the
 | `docs/AUTHORING.md` | The author guide |
 | `scripts/` | Catalogue build and check, kit runner, site build, browser smoke, hygiene check |
 
-31 effects today: 19 draw both schemes, 10 are dark only, 2 light only. The
+32 effects today: 19 draw both schemes, 11 are dark only, 2 light only. The
 catalogue uses no pairs: an effect that works well in both themes is dual.
 
 ## Theme policy
