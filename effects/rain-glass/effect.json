@@ -93,68 +93,80 @@
       }
     },
     {
-      "key": "lamps",
+      "key": "view",
       "type": "choice",
       "label": {
-        "ru": "Фонари",
-        "en": "Street lamps"
+        "ru": "Вид",
+        "en": "View"
       },
-      "default": "white",
+      "default": "street",
       "options": [
         {
-          "value": "warm",
+          "value": "street",
           "label": {
-            "ru": "Тёплые",
-            "en": "Warm"
+            "ru": "Улица",
+            "en": "Street"
           }
         },
         {
-          "value": "white",
+          "value": "low",
           "label": {
-            "ru": "Белые",
-            "en": "White"
-          }
-        },
-        {
-          "value": "mixed",
-          "label": {
-            "ru": "Разные",
-            "en": "Mixed"
-          }
-        },
-        {
-          "value": "none",
-          "label": {
-            "ru": "Нет",
-            "en": "None"
+            "ru": "У самого асфальта",
+            "en": "Down at the road"
           }
         }
       ]
     },
     {
-      "key": "signal",
-      "type": "boolean",
+      "key": "palette",
+      "type": "choice",
       "label": {
-        "ru": "Светофор",
-        "en": "Traffic light"
+        "ru": "Палитра",
+        "en": "Palette"
       },
-      "default": true,
-      "hint": {
-        "ru": "Красный, жёлтый, зелёный — сверху вниз; отражается в дороге",
-        "en": "Red, amber, green from top to bottom, mirrored in the road"
-      }
+      "default": "blue",
+      "options": [
+        {
+          "value": "blue",
+          "label": {
+            "ru": "Синяя",
+            "en": "Blue"
+          }
+        },
+        {
+          "value": "neon",
+          "label": {
+            "ru": "Неон",
+            "en": "Neon"
+          }
+        },
+        {
+          "value": "amber",
+          "label": {
+            "ru": "Янтарная",
+            "en": "Amber"
+          }
+        },
+        {
+          "value": "mono",
+          "label": {
+            "ru": "Монохром",
+            "en": "Monochrome"
+          }
+        }
+      ]
     },
     {
-      "key": "neon",
+      "key": "rain",
       "type": "boolean",
       "label": {
-        "ru": "Неоновая вывеска",
-        "en": "Neon sign"
+        "ru": "Дождь за окном",
+        "en": "Rain outside"
       },
       "default": true,
       "hint": {
-        "ru": "Розовая CAFE справа, иногда мигает",
-        "en": "A pink CAFE on the right that flickers now and then"
+        "ru": "Струи дождя видны в свете огней",
+        "en": "Rain shows where the lights catch it"
       }
     },
     {
@@ -166,8 +178,8 @@
       },
       "default": true,
       "hint": {
-        "ru": "Зажмите кнопку и ведите — пишете пальцем по запотевшему стеклу",
-        "en": "Press and drag to write on the fogged glass with a finger"
+        "ru": "Зажмите кнопку и ведите — стираете запотевание и капли",
+        "en": "Press and drag to wipe the fog and the drops"
       }
     }
   ],

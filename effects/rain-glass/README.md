@@ -1,6 +1,6 @@
 # Rain on glass (`rain-glass`)
 
-A fogged window on a rainy night: behind it a wet street runs off into a cold haze, its lamps, neon sign, traffic light and cars mirrored in the road. Wipe the glass with a finger, and the street comes sharp.
+A fogged window on a rainy night: the street behind it out of focus, only its lights. Lamps run off, neon shifts and flickers, a traffic light at the crossing stops and lets the cars go, every light trembles as a streak on the wet road. Drops run down the glass; wipe it with a finger, and it fogs again.
 
 - **Russian name:** Дождь на стекле
 - **Version:** 3.0.0, simai.effect 1.1.0
@@ -17,10 +17,10 @@ A fogged window on a rainy night: behind it a wet street runs off into a cold ha
 | `density` | integer | 10–100 % | `55` | Density |
 | `fog` | integer | 0–100 % | `70` | Fog |
 | `traffic` | integer | 0–100 % | `40` | Traffic. How often cars go by |
-| `lamps` | choice | `warm`, `white`, `mixed`, `none` | `"white"` | Street lamps |
-| `signal` | boolean | — | `true` | Traffic light. Red, amber, green from top to bottom, mirrored in the road |
-| `neon` | boolean | — | `true` | Neon sign. A pink CAFE on the right that flickers now and then |
-| `interactive` | boolean | — | `true` | React to the pointer. Press and drag to write on the fogged glass with a finger |
+| `view` | choice | `street`, `low` | `"street"` | View |
+| `palette` | choice | `blue`, `neon`, `amber`, `mono` | `"blue"` | Palette |
+| `rain` | boolean | — | `true` | Rain outside. Rain shows where the lights catch it |
+| `interactive` | boolean | — | `true` | React to the pointer. Press and drag to wipe the fog and the drops |
 
 ## Schemes
 
