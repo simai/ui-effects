@@ -68,7 +68,10 @@ const SCENE = {
     const sheet = () => new OffscreenCanvas(cols, rows);
     const st = {cols, rows, rho: new Float32Array(cols * rows), soft: new Float32Array(cols * rows), image: new ImageData(cols, rows), web: sheet(), dim: sheet(), lit: sheet(), mask: sheet(), glow: new OffscreenCanvas(Math.ceil(cols / 3), Math.ceil(rows / 3)), cycle: null, extra: [], pull: 0};
     st.px = new Uint32Array(st.image.data.buffer);
-    st.gap = 2.8 - values.density / 100 * 1.4;
+    // Density (in sixteenths of the even gas) to a white pixel's opacity, worked out once.
+    st.light = Uint32Array.from({length: 512}, (_, i) => ((170 * (1 - Math.exp(-0.15 * (i / 16) ** 1.35))) << 24 | 0xffffff) >>> 0);
+    // As fine as the density asks, but no more than about 90 000 grains on any area.
+    st.gap = Math.max(2.8 - values.density / 100 * 1.4, Math.sqrt(w * h * 1.6 / 90000));
     st.L = Math.min(w, h * 1.7) * (0.1 + values.scale / 100 * 0.6);
     return st;
   },
@@ -97,8 +100,8 @@ const SCENE = {
     const soft = st.soft;
     for (let y = 1; y < rows - 1; y += 1) for (let x = 1, o = y * cols + 1; x < cols - 1; x += 1, o += 1) soft[o] = (rho[o] * 4 + (rho[o - 1] + rho[o + 1] + rho[o - cols] + rho[o + cols]) * 2 + rho[o - cols - 1] + rho[o - cols + 1] + rho[o + cols - 1] + rho[o + cols + 1]) / 16;
     // Density to light: a thin gas stays faint, a filament is bright.
-    const base = 4 / (st.gap * st.gap);
-    for (let i = 0; i < px.length; i += 1) px[i] = soft[i] === 0 ? 0 : (170 * (1 - Math.exp(-0.15 * (soft[i] / base) ** 1.35)) << 24) | 0xffffff;
+    const scale = 16 / (4 / (st.gap * st.gap)), light = st.light;
+    for (let i = 0; i < px.length; i += 1) { const v = soft[i] * scale | 0; px[i] = light[v > 511 ? 511 : v]; }
     st.web.getContext('2d').putImageData(st.image, 0, 0);
     const tint = (sheet, colour) => {
       const c = sheet.getContext('2d');
