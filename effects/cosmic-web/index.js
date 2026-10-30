@@ -82,8 +82,8 @@ const SCENE = {
     st.t = t;
     const cycle = Math.floor(t / PERIOD), u = t / PERIOD - cycle;
     if (cycle !== st.cycle) { st.cycle = cycle; st.extra = []; lay(env, st, 71 + env.salt + cycle * 13); }
-    // Gravity's clock: quick at first, then only a slow thickening. The cycle fades in and out.
-    const D = smooth(clamp(u / 0.6, 0, 1)) + Math.max(0, u - 0.6) * 0.15, fade = Math.min(1, u / 0.05, (1 - u) / 0.07);
+    // Gravity's clock: first threads already showing, quick at first, then a slow thickening. The cycle fades in and out.
+    const D = 0.3 + 0.7 * smooth(clamp(u / 0.6, 0, 1)) + Math.max(0, u - 0.6) * 0.15, fade = Math.min(1, u / 0.05, (1 - u) / 0.07);
     st.pull += ((pointer.on ? 1 : 0) - st.pull) * 0.06;
     const {rho, n, qx, qy, dx, dy, cols, rows, px} = st, mx = pointer.x * w, my = pointer.y * h, reach = st.L * 0.5, pull = st.pull * 0.45;
     rho.fill(0);
