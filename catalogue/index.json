@@ -10,9 +10,9 @@
     "ui_source": "2f9a405c6677dce34ccd79a0f615df77146e702f"
   },
   "counts": {
-    "effects": 32,
+    "effects": 33,
     "dual": 19,
-    "dark": 11,
+    "dark": 12,
     "light": 2
   },
   "effects": [
@@ -1969,6 +1969,67 @@
           "path": "README.md",
           "sha256": "becde327eb606261dc0f8fe7fae0c02307a948817be4f2ddeba95394804579dc",
           "size": 1901
+        }
+      ],
+      "kit": {
+        "status": "pass",
+        "framework": "ui-3464018a5c94",
+        "passed": 14,
+        "total": 14
+      }
+    },
+    {
+      "id": "digital-rain",
+      "version": "0.1.0",
+      "label": {
+        "ru": "Цифровой дождь",
+        "en": "Digital rain"
+      },
+      "description": {
+        "ru": "Столбцы символов стекают по тёмному экрану: яркая голова с ореолом и гаснущий хвост, символы в хвосте меняются. Три глубины: дальние мелкие и медленные, ближние крупные и размытые."
+      },
+      "role": {
+        "ru": "Технологии, данные, код. Только тёмная схема."
+      },
+      "schemes": [
+        "dark"
+      ],
+      "pair": null,
+      "capabilities": [
+        "windows"
+      ],
+      "tags": [
+        "type",
+        "particles"
+      ],
+      "surfaces": [
+        "hero",
+        "section",
+        "dashboard",
+        "sign-in"
+      ],
+      "path": "effects/digital-rain/",
+      "entry": "index.js",
+      "files": [
+        {
+          "path": "effect.json",
+          "sha256": "3e44986321a975fd8e9484c2843d4fe32ba5a1fd17934a5e6fbdefbc244c2347",
+          "size": 6032
+        },
+        {
+          "path": "index.js",
+          "sha256": "5bcf9a7ed0dce1077cb885ede4c1259814100d699e86fa57690bf8d30405496e",
+          "size": 19327
+        },
+        {
+          "path": "preview.png",
+          "sha256": "db51c3b8c2e4b1e3efecb95901b1cee4d248970dd12d3434d140337f21166b6e",
+          "size": 147818
+        },
+        {
+          "path": "README.md",
+          "sha256": "0be4ae224cc8772a7c071062612b01598d0611941c92d0cc3142c2ed3a87fcc2",
+          "size": 1960
         }
       ],
       "kit": {

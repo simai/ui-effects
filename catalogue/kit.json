@@ -202,6 +202,12 @@
       "passed": 14,
       "total": 14,
       "failed": []
+    },
+    "digital-rain": {
+      "digest": "b4d285797c6cdeb784553feafd6aa5de971b1320b28e06acc88420419c4e0658",
+      "passed": 14,
+      "total": 14,
+      "failed": []
     }
   }
 }

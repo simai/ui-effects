@@ -1,0 +1,285 @@
+{
+  "schema": "simai.effect",
+  "schema_version": 1,
+  "id": "digital-rain",
+  "version": "0.1.0",
+  "label": {
+    "ru": "Цифровой дождь",
+    "en": "Digital rain"
+  },
+  "author": "SIMAI",
+  "entry": "index.js",
+  "preview": "preview.png",
+  "surfaces": [
+    "hero",
+    "section",
+    "dashboard",
+    "sign-in"
+  ],
+  "schemes": [
+    "dark"
+  ],
+  "capabilities": [
+    "windows"
+  ],
+  "settings": [
+    {
+      "key": "speed",
+      "type": "integer",
+      "label": {
+        "ru": "Скорость",
+        "en": "Speed"
+      },
+      "default": 100,
+      "min": 10,
+      "max": 300,
+      "step": 10,
+      "unit": "%"
+    },
+    {
+      "key": "intensity",
+      "type": "integer",
+      "label": {
+        "ru": "Яркость",
+        "en": "Intensity"
+      },
+      "default": 70,
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "%"
+    },
+    {
+      "key": "density",
+      "type": "integer",
+      "label": {
+        "ru": "Плотность",
+        "en": "Density"
+      },
+      "default": 50,
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "%"
+    },
+    {
+      "key": "source",
+      "type": "choice",
+      "label": {
+        "ru": "Текст",
+        "en": "Text"
+      },
+      "default": "letters",
+      "options": [
+        {
+          "value": "javascript",
+          "label": {
+            "ru": "JavaScript",
+            "en": "JavaScript"
+          }
+        },
+        {
+          "value": "html",
+          "label": {
+            "ru": "HTML и CSS",
+            "en": "HTML and CSS"
+          }
+        },
+        {
+          "value": "terminal",
+          "label": {
+            "ru": "Терминал",
+            "en": "Terminal"
+          }
+        },
+        {
+          "value": "easter",
+          "label": {
+            "ru": "С секретами",
+            "en": "With secrets"
+          }
+        },
+        {
+          "value": "prose",
+          "label": {
+            "ru": "Слова",
+            "en": "Words"
+          }
+        },
+        {
+          "value": "custom",
+          "label": {
+            "ru": "Свой текст",
+            "en": "Own text"
+          }
+        },
+        {
+          "value": "letters",
+          "label": {
+            "ru": "Буквы и цифры",
+            "en": "Letters and digits"
+          }
+        },
+        {
+          "value": "hex",
+          "label": {
+            "ru": "Шестнадцатеричные",
+            "en": "Hexadecimal"
+          }
+        },
+        {
+          "value": "binary",
+          "label": {
+            "ru": "Двоичные",
+            "en": "Binary"
+          }
+        },
+        {
+          "value": "digits",
+          "label": {
+            "ru": "Цифры",
+            "en": "Digits"
+          }
+        },
+        {
+          "value": "signs",
+          "label": {
+            "ru": "Знаки",
+            "en": "Signs"
+          }
+        }
+      ]
+    },
+    {
+      "key": "text",
+      "type": "text",
+      "label": {
+        "ru": "Свой текст",
+        "en": "Own text"
+      },
+      "default": "",
+      "max": 600,
+      "hint": {
+        "ru": "Для варианта «Свой текст»: фразы через точку или с новой строки",
+        "en": "For «Own text»: sentences, or one per line"
+      }
+    },
+    {
+      "key": "language",
+      "type": "choice",
+      "label": {
+        "ru": "Язык слов",
+        "en": "Words language"
+      },
+      "default": "auto",
+      "options": [
+        {
+          "value": "auto",
+          "label": {
+            "ru": "Как у страницы",
+            "en": "As the page"
+          }
+        },
+        {
+          "value": "en",
+          "label": {
+            "ru": "Английский",
+            "en": "English"
+          }
+        },
+        {
+          "value": "ru",
+          "label": {
+            "ru": "Русский",
+            "en": "Russian"
+          }
+        }
+      ],
+      "hint": {
+        "ru": "Для варианта «Слова»",
+        "en": "For «Words»"
+      }
+    },
+    {
+      "key": "palette",
+      "type": "choice",
+      "label": {
+        "ru": "Палитра",
+        "en": "Palette"
+      },
+      "default": "green",
+      "options": [
+        {
+          "value": "green",
+          "label": {
+            "ru": "Зелёная",
+            "en": "Green"
+          }
+        },
+        {
+          "value": "theme",
+          "label": {
+            "ru": "Цвет темы",
+            "en": "Theme colour"
+          }
+        },
+        {
+          "value": "amber",
+          "label": {
+            "ru": "Янтарная",
+            "en": "Amber"
+          }
+        },
+        {
+          "value": "ice",
+          "label": {
+            "ru": "Ледяная",
+            "en": "Ice"
+          }
+        }
+      ]
+    },
+    {
+      "key": "size",
+      "type": "integer",
+      "label": {
+        "ru": "Размер символов",
+        "en": "Glyph size"
+      },
+      "default": 16,
+      "min": 10,
+      "max": 28,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "key": "depth",
+      "type": "boolean",
+      "label": {
+        "ru": "Глубина",
+        "en": "Depth"
+      },
+      "default": true,
+      "hint": {
+        "ru": "Дальние и ближние столбцы, ближние размыты",
+        "en": "Far and near columns, the near ones out of focus"
+      }
+    },
+    {
+      "key": "interactive",
+      "type": "boolean",
+      "label": {
+        "ru": "Реагировать на указатель",
+        "en": "React to the pointer"
+      },
+      "default": true,
+      "hint": {
+        "ru": "Символы у указателя разгораются, клик пускает пучок струек",
+        "en": "Glyphs light up round the pointer; a click lets a sheaf of runs fall"
+      }
+    }
+  ],
+  "needs": {
+    "network": false
+  }
+}
