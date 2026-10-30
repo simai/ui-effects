@@ -46,7 +46,7 @@ function readTones(host, scheme) {
 }
 
 // A fogged window on a rainy night, the street behind it out of focus: only its lights, as soft
-// discs. Lamps run off in rows, a cross street brings a row of its own, neon bars change colour and
+// discs. Lamps run off in rows, a cross street brings a row of its own, neon lights change colour and
 // flicker, the city glows far off; each light trembles as a long streak on the wet road. At the
 // crossing a traffic light turns: on red the cars on this street wait and the cross traffic goes.
 // On the glass, drops gather and now and then one runs down; a finger wipes fog and drops away, and
@@ -80,7 +80,7 @@ const SCENE = {
       r.beginPath(); r.moveTo(x, y); r.lineTo(x - len * 0.1, y + len); r.stroke();
     }
     for (let i = 0; i < w * h / 2600; i += 1) st.drops.push(drop(st, random() * w, random() * h));
-    // The lights of the street: lamps both sides and across the crossing, neon bars on the facades,
+    // The lights of the street: lamps both sides and across the crossing, neon on the facades,
     // and the far city as a scatter of small dim points.
     const L = st.lights = [], d = values.density / 100;
     for (let z = low ? 16 : 5; z < 80; z += 4 + random() * 5) for (const s of [-1, 1]) if (random() < 0.8) L.push({X: s * (4.6 + random()), Y: 5 + random() * 2, z: z + random() * 3, c: 'lamp', s: 0.3 + random() * 0.5, ph: random() * 9});
@@ -88,7 +88,7 @@ const SCENE = {
     for (let i = 0; i < 8 + d * 14; i += 1) {
       const s = random() < 0.5 ? -1 : 1, z = 7 + random() * 45;
       if (z > 19 && z < 25) continue;
-      L.push({X: s * (6.5 + random() * 2), Y: 2.5 + random() * 4, z, c: Math.floor(random() * 3), s: 0.35, bar: 1.2 + random() * 3, ph: random() * 40, kind: Math.floor(random() * 3)});
+      L.push({X: s * (6.5 + random() * 2), Y: 2.5 + random() * 4, z, c: Math.floor(random() * 3), s: 0.7 + random() * 1.3, ph: random() * 40, kind: Math.floor(random() * 3)});
     }
     for (let i = 0; i < 20 + d * 40; i += 1) L.push({X: (random() - 0.5) * 60, Y: 1 + random() ** 2 * 12, z: 50 + random() * 60, c: random() < 0.6 ? 'lamp' : Math.floor(random() * 3), s: 0.4, ph: random() * 40, dim: 0.15 + random() * 0.3});
     return st;
@@ -122,29 +122,29 @@ const SCENE = {
     g.addColorStop(0, rgba(tones.sky)); g.addColorStop(st.hor / h, rgba(mixc(tones.sky, P.glow, 0.6))); g.addColorStop(Math.min(1, st.hor / h + 0.08), rgba(mixc(tones.ground, P.glow, 0.3))); g.addColorStop(1, rgba(tones.ground));
     s.fillStyle = g; s.fillRect(0, 0, w, h);
     s.globalCompositeOperation = 'lighter';
-    const blob = (X, Y, z, colour, size, a, bar = 0) => {
-      const [x, y] = at(X, Y, z), p = st.f / z, r = size * p * 0.5 + st.blur, tall = bar * p;
+    const blob = (X, Y, z, colour, size, a) => {
+      const [x, y] = at(X, Y, z), p = st.f / z, r = size * p * 0.5 + st.blur * 1.6;
       // Bigger discs are dimmer; the left, under a banner's text, is quieter.
       a *= k * Math.min(1, ((size * p + 2) / r) ** 0.5) * (0.35 + 0.65 * smooth(clamp((x / w - 0.15) / 0.4, 0, 1)));
       if (a < 0.01 || x < -r * 2 || x > w + r * 2) return;
       const sp = sprite(st, colour);
       s.globalAlpha = Math.min(1, a);
-      s.drawImage(sp.disc, x - r, y - r - tall / 2, r * 2, r * 2 + tall);
-      // Its reflection: from the mirror point down towards the eye, trembling with the ripples.
+      s.drawImage(sp.disc, x - r, y - r, r * 2, r * 2);
+      // Its reflection: from the mirror point down towards the eye; it stays put and only trembles.
       const gy = at(X, 0, z)[1], ry = 2 * gy - y;
       if (ry <= st.hor) return;
-      const len = (ry - st.hor) * (st.low ? 3 : 2) + r * 2 + tall, off = (t * 40 + X * 31 + z * 7) % (sp.streak.height / 2);
-      s.globalAlpha = Math.min(1, a * 0.85);
-      s.drawImage(sp.streak, 0, off, sp.streak.width, sp.streak.height / 2, x - r * 0.9 + Math.sin(t * 3 + z) * r * 0.08, ry - r - tall / 2, r * 1.8, len);
+      const len = (ry - st.hor) * (st.low ? 3 : 2) + r * 2;
+      s.globalAlpha = Math.min(1, a * (0.55 + 0.08 * Math.sin(t * 2 + X + z)));
+      s.drawImage(sp.streak, x - r * 0.9 + Math.sin(t * 3 + z) * r * 0.06, ry - r, r * 1.8, len);
     };
     for (const l of st.lights) {
       let colour = l.c === 'lamp' ? P.lamp : P.neon[l.c], a = l.dim ?? 1;
-      // Neon: one bar drifts through the palette, one flickers now and then, one blinks.
+      // Neon: one light drifts through the palette, one flickers now and then, one blinks.
       if (l.kind === 0) { const u = (t * 0.05 + l.ph) % 3, i = Math.floor(u); colour = mixc(P.neon[i], P.neon[(i + 1) % 3], Math.round(smooth(u - i) * 12) / 12); }
       if (l.kind === 1 && (t + l.ph) % 9 > 8.2 && (t * 20) % 2 < 1) a *= 0.15;
       if (l.kind === 2) a *= (t + l.ph) % 4 < 2.6 ? 1 : 0.08;
       if (l.c === 'lamp') a *= 0.85 + 0.15 * Math.sin(t * 0.7 + l.ph);
-      blob(l.X, l.Y, l.z, colour, l.s, a * (st.low ? 0.4 : 0.65), l.bar);
+      blob(l.X, l.Y, l.z, colour, l.s, a * (st.low ? 0.45 : 0.78));
     }
     for (const X of [-5.5, 5.5]) for (let i = 0; i < 3; i += 1) {
       const on = i === (go ? 2 : red ? 0 : 1);
@@ -235,20 +235,19 @@ function wipe(st, x0, y0, x1, y1) {
     return Math.hypot(d.x - x0 - u * dx, d.y - y0 - u * dy) > 15 + d.r;
   });
 }
-// A light's out-of-focus disc, brighter at the rim as a lens draws it, and its streak on the wet
-// road, broken into dashes by ripples; one pair per colour.
+// A light: a round glow, opaque in the middle and clear at the edge, and its streak on the wet
+// road; one pair per colour.
 function sprite(st, colour) {
   const key = colour.map(Math.round).join();
   let sp = st.sprites.get(key);
   if (sp) return sp;
   const disc = new OffscreenCanvas(64, 64), d = disc.getContext('2d'), g = d.createRadialGradient(32, 32, 0, 32, 32, 32);
-  g.addColorStop(0, rgba(mixc(colour, [255, 255, 255], 0.25), 0.7)); g.addColorStop(0.8, rgba(colour, 0.75)); g.addColorStop(0.92, rgba(colour, 0.9)); g.addColorStop(1, rgba(colour, 0));
+  g.addColorStop(0, rgba(colour, 1)); g.addColorStop(1, rgba(colour, 0));
   d.fillStyle = g; d.fillRect(0, 0, 64, 64);
-  const streak = new OffscreenCanvas(16, 256), c = streak.getContext('2d');
-  for (let y = 0; y < 256; y += 2) {
-    const fade = 1 - (y % 128) / 128, dash = 0.3 + 0.7 * (0.5 + 0.5 * Math.sin(y * 0.37) * Math.sin(y * 0.11 + 1)) ** 2, x = Math.sin(y * 0.2) * 1.5;
-    const s = c.createLinearGradient(x, 0, 16 + x, 0);
-    s.addColorStop(0, rgba(colour, 0)); s.addColorStop(0.5, rgba(colour, fade ** 1.3 * dash)); s.addColorStop(1, rgba(colour, 0));
+  const streak = new OffscreenCanvas(16, 128), c = streak.getContext('2d');
+  for (let y = 0; y < 128; y += 2) {
+    const s = c.createLinearGradient(0, 0, 16, 0);
+    s.addColorStop(0, rgba(colour, 0)); s.addColorStop(0.5, rgba(colour, Math.min(1, y / 24) ** 1.5 * (1 - y / 128) ** 1.3)); s.addColorStop(1, rgba(colour, 0));
     c.fillStyle = s; c.fillRect(0, y, 16, 2);
   }
   sp = {disc, streak};

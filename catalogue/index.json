@@ -609,13 +609,13 @@
         },
         {
           "path": "index.js",
-          "sha256": "a7d66815ecc86ddc02148f6691383adde36fbec10763be745b4875189902440a",
-          "size": 22932
+          "sha256": "085c89b7f064fd686d429979cea40acdc6e77f1022e845d05d71fc42834aa0d0",
+          "size": 22526
         },
         {
           "path": "preview.png",
-          "sha256": "97db2587533590e8ebc2f9f3c392a599fdd9997111db4bb64b9da97964f59a72",
-          "size": 120871
+          "sha256": "3be741b400ee5e24407dc02fe768aa231ae98e4b98ae78b96aaef05582db4a73",
+          "size": 120985
         },
         {
           "path": "README.md",
