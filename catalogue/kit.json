@@ -208,6 +208,12 @@
       "passed": 14,
       "total": 14,
       "failed": []
+    },
+    "cosmic-web": {
+      "digest": "77323f0267e0d94029569d04be1986edd34b82cc8763d10d329ac7a2ff3f5f19",
+      "passed": 14,
+      "total": 14,
+      "failed": []
     }
   }
 }

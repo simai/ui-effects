@@ -10,9 +10,9 @@
     "ui_source": "2f9a405c6677dce34ccd79a0f615df77146e702f"
   },
   "counts": {
-    "effects": 33,
+    "effects": 34,
     "dual": 19,
-    "dark": 12,
+    "dark": 13,
     "light": 2
   },
   "effects": [
@@ -2030,6 +2030,67 @@
           "path": "README.md",
           "sha256": "0be4ae224cc8772a7c071062612b01598d0611941c92d0cc3142c2ed3a87fcc2",
           "size": 1960
+        }
+      ],
+      "kit": {
+        "status": "pass",
+        "framework": "ui-3464018a5c94",
+        "passed": 14,
+        "total": 14
+      }
+    },
+    {
+      "id": "cosmic-web",
+      "version": "0.1.0",
+      "label": {
+        "ru": "Космическая паутина",
+        "en": "Cosmic web"
+      },
+      "description": {
+        "ru": "Тёмный газ стягивается в нити и узлы, в самых плотных узлах загораются первые звёзды, вокруг них растут пузыри света и сливаются, пока не засветится вся сеть. Затем она гаснет, и начинается новая."
+      },
+      "role": {
+        "ru": "Наука, данные, связи. Только тёмная схема."
+      },
+      "schemes": [
+        "dark"
+      ],
+      "pair": null,
+      "capabilities": [
+        "windows"
+      ],
+      "tags": [
+        "particles",
+        "lines"
+      ],
+      "surfaces": [
+        "hero",
+        "section",
+        "dashboard",
+        "sign-in"
+      ],
+      "path": "effects/cosmic-web/",
+      "entry": "index.js",
+      "files": [
+        {
+          "path": "effect.json",
+          "sha256": "23cbacaf07fcd9db8e46d0de628ad56550f50a969c8e4897837f2601b3e0d956",
+          "size": 2615
+        },
+        {
+          "path": "index.js",
+          "sha256": "e8796ca2c67aadbfd65a02f2494e100394399451437cfe41c989eaa825f7a06f",
+          "size": 17138
+        },
+        {
+          "path": "preview.png",
+          "sha256": "3ac8dcaf0b5b00ae522b8d7ce0f4c2ee2c012acb5cd6b8e0d2a7401f4c20b326",
+          "size": 205020
+        },
+        {
+          "path": "README.md",
+          "sha256": "06baee9537224666f8e1b9d33c635543a562f2defd612e015ad2dfd8b1bac985",
+          "size": 1538
         }
       ],
       "kit": {
