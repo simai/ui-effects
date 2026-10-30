@@ -31,6 +31,8 @@ The state of the catalogue, the decisions behind it and what waits on the Framew
 
 - **Address.** The site is https://effects.simai.io/ (owner decision: one third-level domain per SIMAI site; simai.io is the navigator and links here). GitHub Pages serves it; simai.github.io/ui-effects/ redirects. The portal artifact releases v1.0.0 and v2.0.0 stay as history; no more are cut.
 
+The gallery's pictures follow the theme: each card in view draws its effect once as a still frame in the page's scheme and colour, keeps it as an image and lets the effect go, one card at a time; the stored `preview.png` shows first and stays if a frame cannot be drawn.
+
 ## Waiting on the Framework
 
 Nothing ordered for the catalogue site is open. Delivered and in use since `ui-3464018a5c94`: the line-wrap toggle in each code block's head, the site header (`sf-site-header` with `sf-menu`), the theme colour button (`sf-color variant="theme"`), the theme button's own glyph, `options` as an attribute, highlight inside `sf-tabs`, and one focus ring on `sf-dropdown`.
