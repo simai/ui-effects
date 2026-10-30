@@ -48,14 +48,13 @@ function readTones(host, scheme) {
 // Chladni figures: sand on a plate that sings. Where the plate shakes the grains jump, and they
 // walk off to the lines that stay still, so the sand draws the plate's standing wave. Every few
 // seconds the note changes: the old figure breaks up into a shimmer and the grains run to the
-// new one. The grains may be sand, or text: the marks of a text file, the alphabets and words of the
-// text flow, or the words of a manual (Install, Step 1, Note…) in the page's language.
+// new one.
 // Real sand is never one colour: every grain takes one of three shades, so the lines have grain.
 // The palettes follow how sand is shown for real: graphite is grey sand on a grey plate; brass a
 // bronze plate with brown sand; lightbox is sand animation, dark sand on a warm backlit glass;
 // ink takes the theme's primary colour.
 const SCENE = {
-  home: 'light', seed: 43, fresh: true, reseed: ['density', 'grains', 'language'],
+  home: 'light', seed: 43, fresh: true, reseed: ['density'],
   tones: (read, scheme) => scheme === 'light'
     ? {
       graphite: {plate: read('--sf-neutral-98', '#faf9fe'), edge: read('--sf-neutral-95', '#f1f0f5'), grains: [read('--sf-neutral-20', '#2f3036'), read('--sf-neutral-40', '#5d5e66'), read('--sf-neutral-60', '#909099')]},
@@ -71,32 +70,23 @@ const SCENE = {
     },
   setup(env, random) {
     const {w, h, values} = env;
-    const tokens = tokensOf(env), glyphs = tokens !== null;
-    // Words are wider than one mark: fewer of them draw the same lines.
-    const words = glyphs && tokens.some((token) => token.length > 2);
     const area = clamp(w * h / 450000, 0.4, 1.6);
-    const n = Math.round((words ? 110 + values.density * 2.2 : glyphs ? 1100 + values.density * 16 : 2400 + values.density * 50) * area);
+    const n = Math.round((2400 + values.density * 50) * area);
     const own = rng(43 + env.salt);
     // The notes in a new order on every mount; the still frame keeps the first.
     const modes = MODES.map((m) => [m, own()]).sort((a, b) => a[1] - b[1]).map((m) => m[0]);
-    const grains = new Float32Array(n * 3);
-    for (let i = 0; i < n; i += 1) { grains[i * 3] = random() * w; grains[i * 3 + 1] = random() * h; grains[i * 3 + 2] = glyphs ? Math.floor(random() * tokens.length) : 0; }
-    const state = {n, grains, glyphs, words, tokens, modes, at: 0, since: 0, random, last: null, shake: 0, dust: null};
-    // Words are few: a fine dust of sand under them draws the figure they are lettered on.
-    if (words) {
-      const m = Math.round((1400 + values.density * 24) * area), dust = new Float32Array(m * 3);
-      for (let i = 0; i < m; i += 1) { dust[i * 3] = random() * w; dust[i * 3 + 1] = random() * h; }
-      state.dust = {n: m, grains: dust, random, glyphs: false, words: false, get modes() { return state.modes; }, get at() { return state.at; }, get shake() { return state.shake; }};
-    }
+    const grains = new Float32Array(n * 2);
+    for (let i = 0; i < n; i += 1) { grains[i * 2] = random() * w; grains[i * 2 + 1] = random() * h; }
+    const state = {n, grains, modes, at: 0, since: 0, random, last: null, shake: 0};
     // The plate has been singing its first note for a while: the figure is already drawn.
-    for (let i = 0; i < (words ? 700 : glyphs ? 420 : 260); i += 1) { step(env, state, 1 / 60, 1); if (state.dust && i < 300) step(env, state.dust, 1 / 60, 1); }
+    for (let i = 0; i < 260; i += 1) step(env, state, 1 / 60, 1);
     return state;
   },
   click(env) { const s = env.state; s.at = (s.at + 1) % s.modes.length; s.since = 0; s.shake = 0.5; },
   draw(env, t) {
-    const {ctx, w, h, state, values, scheme} = env;
+    const {ctx, w, h, state, values} = env;
     const tones = env.tones[values.palette] ?? env.tones.graphite;
-    const k = values.intensity / 100;
+    const clear = 1 - values.transparency / 100;
     const dt = state.last === null ? 0 : Math.max(0, Math.min(0.05, t - state.last));
     state.last = t;
     // A new note every nine seconds.
@@ -104,92 +94,24 @@ const SCENE = {
     if (state.since > 9) { state.since = 0; state.at = (state.at + 1) % state.modes.length; state.shake = 0.6; }
     state.shake = Math.max(0, state.shake - dt);
     step(env, state, dt, dt * 60);
-    if (state.dust) step(env, state.dust, dt, dt * 60);
     const g = ctx.createRadialGradient(w / 2, h / 2, 0, w / 2, h / 2, Math.hypot(w, h) / 2);
     g.addColorStop(0, rgba(tones.plate));
     g.addColorStop(1, rgba(tones.edge));
     ctx.fillStyle = g;
     ctx.fillRect(0, 0, w, h);
     const {n, grains} = state;
-    if (state.glyphs) {
-      ctx.font = '600 9px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace';
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      if (state.dust) {
-        ctx.fillStyle = rgba(tones.grains[1], (scheme === 'light' ? 0.4 : 0.42) * (0.45 + k * 0.6));
-        ctx.beginPath();
-        for (let i = 0; i < state.dust.n; i += 1) ctx.rect(state.dust.grains[i * 3], state.dust.grains[i * 3 + 1], 1.1, 1.1);
-        ctx.fill();
-      }
-      // Words are written along the still line they lie on, as if the figure were lettered.
-      const along = state.words ? lineAngle(env, state) : null;
-      for (let s = 0; s < 3; s += 1) {
-        ctx.fillStyle = rgba(tones.grains[s], (scheme === 'light' ? 0.42 : state.words ? 0.26 : 0.32) * (0.45 + k * 0.6));
-        for (let i = s; i < n; i += 3) {
-          const x = grains[i * 3], y = grains[i * 3 + 1], word = state.tokens[grains[i * 3 + 2]];
-          if (!along) { ctx.fillText(word, x, y); continue; }
-          ctx.save();
-          ctx.translate(x, y);
-          ctx.rotate(along(x, y));
-          ctx.fillText(word, 0, 0);
-          ctx.restore();
-        }
-      }
-    } else {
-      // Three shades and three sizes of grain: every third grain is the same kind.
-      for (let s = 0; s < 3; s += 1) {
-        const size = 1.1 + s * 0.3;
-        ctx.fillStyle = rgba(tones.grains[s], (scheme === 'light' ? 0.6 : 0.65) * (0.45 + k * 0.6));
-        ctx.beginPath();
-        for (let i = s; i < n; i += 3) ctx.rect(grains[i * 3], grains[i * 3 + 1], size, size);
-        ctx.fill();
-      }
+    // Three shades and three sizes of grain: every third grain is the same kind.
+    for (let s = 0; s < 3; s += 1) {
+      const size = 1.1 + s * 0.3;
+      ctx.fillStyle = rgba(tones.grains[s], clear);
+      ctx.beginPath();
+      for (let i = s; i < n; i += 3) ctx.rect(grains[i * 2], grains[i * 2 + 1], size, size);
+      ctx.fill();
     }
   },
 };
 // Mode pairs of a square plate: (n, m) and the sign that joins the two standing waves.
 const MODES = [[2, 5, 1], [3, 7, -1], [1, 4, 1], [4, 7, 1], [2, 7, -1], [3, 5, 1], [5, 8, -1], [1, 6, -1], [4, 9, 1], [3, 8, 1], [2, 9, -1], [6, 9, 1]];
-// The text a plate can carry: single marks, the text flow's alphabets and words, a manual's words.
-const TEXT = {
-  marks: ['#', '{', '}', '[', ']', '<', '>', '/', '*', ':', '=', '-', '`', '|'],
-  symbols: [...'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'],
-  hex: [...'0123456789ABCDEF'],
-  binary: ['0', '1'],
-  digits: [...'0123456789'],
-  signs: [...'+-×÷=<>/\\|*#%&~^:;·°§'],
-  javascript: ['const', 'let', '=>', '()', '{}', 'return', 'await', 'import', 'export', 'if', 'for', '[]', '===', 'null', 'true', '//'],
-  html: ['<div>', '</p>', '<a>', 'class', 'href', '<h1>', ':root', '--sf', '<main>', '/>', 'rem', '@media', '{}', '<li>'],
-  terminal: ['$', 'npm', 'git', 'build', '✓', 'run', 'cd', 'ls', '--help', '>', '~/', 'push', 'ok', 'init'],
-};
-const MANUAL = {
-  en: ['Install', 'Configure', 'Build', 'Publish', 'Step 1', 'Step 2', 'Step 3', 'Note', 'Example', '## Usage', '> Tip', '1.', '2.', '- [x]', 'See also', 'API', 'Guide', '→', 'README.md', 'docara build', 'npm i'],
-  ru: ['Установка', 'Настройка', 'Сборка', 'Публикация', 'Шаг 1', 'Шаг 2', 'Шаг 3', 'Примечание', 'Пример', '## Начало', '> Совет', '1.', '2.', '- [x]', 'См. также', 'API', 'Руководство', '→', 'README.md', 'docara build', 'npm i'],
-};
-// The direction of the still line at a point: across the slope of the shaking, kept within a
-// quarter turn either way so words never stand upside down.
-function lineAngle(env, state) {
-  const {w, h} = env;
-  const [a, b, sign] = state.modes[state.at];
-  const L = Math.min(h, w), ox = w / 2 - L / 2, oy = h / 2 - L / 2, P = Math.PI;
-  return (x, y) => {
-    const u = (x - ox) / L, v = (y - oy) / L;
-    const fu = -a * P * Math.sin(a * P * u) * Math.cos(b * P * v) - sign * b * P * Math.sin(b * P * u) * Math.cos(a * P * v);
-    const fv = -b * P * Math.cos(a * P * u) * Math.sin(b * P * v) - sign * a * P * Math.cos(b * P * u) * Math.sin(a * P * v);
-    let angle = Math.atan2(fu, -fv);
-    if (angle > P / 2) angle -= P; else if (angle < -P / 2) angle += P;
-    return angle;
-  };
-}
-// The grains' text, or null for sand. The manual speaks the page's language unless the setting names one.
-function tokensOf(env) {
-  const kind = env.values.grains;
-  if (kind === 'manual') {
-    let lang = env.values.language;
-    if (lang !== 'en' && lang !== 'ru') lang = (env.ctx.canvas?.closest?.('[lang]')?.lang ?? globalThis.document?.documentElement?.lang ?? 'en').slice(0, 2).toLowerCase();
-    return MANUAL[lang] ?? MANUAL.en;
-  }
-  return TEXT[kind] ?? null;
-}
 // One step of the sand: each grain jumps as hard as the plate shakes under it, and slides down
 // the shaking towards the still lines.
 function step(env, state, dt, frames) {
@@ -200,10 +122,10 @@ function step(env, state, dt, frames) {
   // The plate is the square in the middle of the area, and the figure carries on beyond it.
   const L = Math.min(h, w), ox = w / 2 - L / 2, oy = h / 2 - L / 2, P = Math.PI;
   // Marks are bigger than grains: they jump less, so their lines stay readable.
-  const jump = (state.words ? 1 : state.glyphs ? 1.4 : 2.4) * (1 + state.shake * 5), pull = 0.1 * L / 400;
+  const jump = 2.4 * (1 + state.shake * 5), pull = 0.1 * L / 400;
   const px = pointer.on ? pointer.x * w : -1e4, py = pointer.on ? pointer.y * h : -1e4;
   for (let i = 0; i < n; i += 1) {
-    const o = i * 3;
+    const o = i * 2;
     let x = grains[o], y = grains[o + 1];
     const u = (x - ox) / L, v = (y - oy) / L;
     const cau = Math.cos(a * P * u), sau = Math.sin(a * P * u), cbu = Math.cos(b * P * u), sbu = Math.sin(b * P * u);

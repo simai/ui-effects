@@ -1706,23 +1706,23 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "ef0053eb688060568fbc84b033e56f2f7de0784d8cb565f766dcec5c8c65050b",
-          "size": 5047
+          "sha256": "3312cc9b1eb1c079cef66569feb1845dc5da316af7a103ca86f37ac72e3c8b78",
+          "size": 2420
         },
         {
           "path": "index.js",
-          "sha256": "091a127c41cdb10fffad92452979f58c3a770a6e4f1d06b473bedbdf8c303ae1",
-          "size": 19845
+          "sha256": "6941856900fb0d05b56383afec8007abe9b028b4f8cbf0d7ce8c1b1c8cf30cb0",
+          "size": 14722
         },
         {
           "path": "preview.png",
-          "sha256": "5890f7d52f78aff33e7d5fdf27157668d942ba5ac1fa6cbfaa3a80dbfada4caa",
-          "size": 90190
+          "sha256": "9ea0d2a836d8b9c90bf601f162a1e3bb1520380482610f18c3e956df242f0a0f",
+          "size": 84567
         },
         {
           "path": "README.md",
-          "sha256": "150c82738367855b96d111503a3164c3834d67fcf9ef8eda4e43bb6c0fc487e9",
-          "size": 1716
+          "sha256": "e8c583680202f8869d6c9a77bc226d8dd41aea796ee96074d3ee0120915722f8",
+          "size": 1479
         }
       ],
       "kit": {

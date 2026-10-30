@@ -38,15 +38,15 @@
       "unit": "%"
     },
     {
-      "key": "intensity",
+      "key": "transparency",
       "type": "integer",
       "label": {
-        "ru": "Яркость",
-        "en": "Intensity"
+        "ru": "Прозрачность песка",
+        "en": "Sand transparency"
       },
       "default": 70,
-      "min": 10,
-      "max": 100,
+      "min": 0,
+      "max": 95,
       "step": 5,
       "unit": "%"
     },
@@ -57,135 +57,11 @@
         "ru": "Плотность",
         "en": "Density"
       },
-      "default": 50,
+      "default": 30,
       "min": 10,
       "max": 100,
       "step": 5,
       "unit": "%"
-    },
-    {
-      "key": "grains",
-      "type": "choice",
-      "label": {
-        "ru": "Частицы",
-        "en": "Grains"
-      },
-      "default": "sand",
-      "options": [
-        {
-          "value": "sand",
-          "label": {
-            "ru": "Песок",
-            "en": "Sand"
-          }
-        },
-        {
-          "value": "marks",
-          "label": {
-            "ru": "Символы разметки",
-            "en": "Markup marks"
-          }
-        },
-        {
-          "value": "manual",
-          "label": {
-            "ru": "Слова инструкции",
-            "en": "Manual words"
-          }
-        },
-        {
-          "value": "javascript",
-          "label": {
-            "ru": "JavaScript",
-            "en": "JavaScript"
-          }
-        },
-        {
-          "value": "html",
-          "label": {
-            "ru": "HTML и CSS",
-            "en": "HTML and CSS"
-          }
-        },
-        {
-          "value": "terminal",
-          "label": {
-            "ru": "Терминал",
-            "en": "Terminal"
-          }
-        },
-        {
-          "value": "symbols",
-          "label": {
-            "ru": "Буквы и цифры",
-            "en": "Letters and digits"
-          }
-        },
-        {
-          "value": "hex",
-          "label": {
-            "ru": "Шестнадцатеричные",
-            "en": "Hexadecimal"
-          }
-        },
-        {
-          "value": "binary",
-          "label": {
-            "ru": "Двоичные",
-            "en": "Binary"
-          }
-        },
-        {
-          "value": "digits",
-          "label": {
-            "ru": "Цифры",
-            "en": "Digits"
-          }
-        },
-        {
-          "value": "signs",
-          "label": {
-            "ru": "Знаки",
-            "en": "Signs"
-          }
-        }
-      ]
-    },
-    {
-      "key": "language",
-      "type": "choice",
-      "label": {
-        "ru": "Язык слов",
-        "en": "Words language"
-      },
-      "default": "auto",
-      "options": [
-        {
-          "value": "auto",
-          "label": {
-            "ru": "Как у страницы",
-            "en": "As the page"
-          }
-        },
-        {
-          "value": "en",
-          "label": {
-            "ru": "Английский",
-            "en": "English"
-          }
-        },
-        {
-          "value": "ru",
-          "label": {
-            "ru": "Русский",
-            "en": "Russian"
-          }
-        }
-      ],
-      "hint": {
-        "ru": "Для слов инструкции",
-        "en": "For the manual words"
-      }
     },
     {
       "key": "palette",

@@ -13,10 +13,8 @@ Sand on a singing plate gathers on the lines that stay still; the note changes, 
 | Key | Type | Range or options | Default | Meaning |
 |:---|:---|:---|:---|:---|
 | `speed` | integer | 10–300 % | `100` | Speed |
-| `intensity` | integer | 10–100 % | `70` | Intensity |
-| `density` | integer | 10–100 % | `50` | Density |
-| `grains` | choice | `sand`, `marks`, `manual`, `javascript`, `html`, `terminal`, `symbols`, `hex`, `binary`, `digits`, `signs` | `"sand"` | Grains |
-| `language` | choice | `auto`, `en`, `ru` | `"auto"` | Words language. For the manual words |
+| `transparency` | integer | 0–95 % | `70` | Sand transparency |
+| `density` | integer | 10–100 % | `30` | Density |
 | `palette` | choice | `graphite`, `brass`, `lightbox`, `ink` | `"graphite"` | Palette |
 | `interactive` | boolean | — | `true` | React to the pointer. The pointer stirs the sand, a click changes the note |
 
