@@ -94,17 +94,22 @@ void main() {
   vec3 col = G + (W * haze * .2 * gap + L * pow(min(line, 1.4), 1.7) * (.3 + .7 * gap) * .42 + H * pow(min(line, 1.), 5.) * gap * .25) * K * (1. + glow * 1.4);
   gl_FragColor = vec4(col, 1.);
 }`;
+// The palettes: the mass of the threads, the bright threads, their junctions and the dark between.
+const PALETTES = {
+  turquoise: {web: [12, 72, 90], lit: [66, 178, 202], hot: [216, 246, 255], ground: [6, 11, 15]},
+  ocean: {web: [16, 50, 118], lit: [76, 148, 244], hot: [214, 232, 255], ground: [5, 9, 18]},
+  violet: {web: [58, 28, 122], lit: [162, 116, 252], hot: [238, 226, 255], ground: [10, 7, 20]},
+  rose: {web: [104, 22, 74], lit: [246, 104, 160], hot: [255, 226, 238], ground: [15, 6, 12]},
+  emerald: {web: [8, 76, 62], lit: [56, 190, 142], hot: [216, 255, 238], ground: [5, 13, 12]},
+  sunset: {web: [84, 26, 74], lit: [244, 146, 98], hot: [255, 236, 214], ground: [14, 7, 14]},
+  gold: {web: [74, 54, 20], lit: [226, 176, 82], hot: [255, 242, 208], ground: [12, 10, 6]},
+  silver: {web: [42, 50, 60], lit: [148, 166, 186], hot: [242, 247, 255], ground: [8, 10, 13]},
+};
 const SCENE = {
   home: 'dark', seed: 71, fresh: true, start: 30,
-  tones: (read) => {
-    const r = (name, tone, hex) => read(`--sf-${name}-${tone}`, hex);
-    return {
-      ground: r('neutral', 4, '#0c0e13'),
-      cyan: {web: mixc(r('primary', 40, '#005bbe'), r('success', 40, '#006d34'), 0.5), lit: mixc(r('primary', 60, '#4d8eff'), r('success', 60, '#3ea05a'), 0.45), hot: r('neutral', 98, '#faf9fe')},
-      fire: {web: r('warning', 30, '#6f3800'), lit: r('warning', 60, '#d1872c'), hot: r('warning', 95, '#ffeee1')},
-      theme: {web: r('primary', 30, '#00458f'), lit: r('primary', 70, '#7aabff'), hot: r('primary', 95, '#ecf0ff')},
-    };
-  },
+  tones: (read) => ({
+    theme: {web: read('--sf-primary-30', '#00458f'), lit: read('--sf-primary-70', '#7aabff'), hot: read('--sf-primary-95', '#ecf0ff'), ground: read('--sf-neutral-4', '#0c0e13')},
+  }),
   setup(env) {
     const ratio = env.ctx.canvas.width / env.w, st = {rings: [], pull: 0};
     env.gl ??= card();
@@ -116,7 +121,7 @@ const SCENE = {
   },
   click(env, x, y) { const st = env.state; st.rings.push({x: x * st.ratio, y: y * st.ratio, t: st.t ?? 0}); st.rings = st.rings.slice(-4); },
   draw(env, t) {
-    const {ctx, w, h, tones, state: st, values, pointer} = env, k = values.intensity / 100, P = tones[values.palette] ?? tones.cyan, g = env.gl;
+    const {ctx, w, h, tones, state: st, values, pointer} = env, k = values.intensity / 100, P = values.palette === 'theme' ? tones.theme : PALETTES[values.palette] ?? PALETTES.turquoise, g = env.gl;
     st.t = t;
     st.pull += ((pointer.on ? 0.9 : 0) - st.pull) * 0.08;
     if (!g) { flat(env, st, P, k); return; }
@@ -129,7 +134,7 @@ const SCENE = {
     gl.uniform1f(u.K, (0.13 + k * 0.35) * (5 / st.octaves) ** 1.5 * Math.min(1, st.cell / st.ratio / 160) ** 0.3);
     gl.uniform1f(u.O, st.octaves);
     gl.uniform1f(u.V, 0.42 - values.density / 100 * 0.08);
-    gl.uniform3fv(u.G, unit(tones.ground)); gl.uniform3fv(u.W, unit(P.web)); gl.uniform3fv(u.L, unit(P.lit)); gl.uniform3fv(u.H, unit(P.hot));
+    gl.uniform3fv(u.G, unit(P.ground)); gl.uniform3fv(u.W, unit(P.web)); gl.uniform3fv(u.L, unit(P.lit)); gl.uniform3fv(u.H, unit(P.hot));
     gl.uniform3f(u.M, pointer.x * w * st.ratio, pointer.y * h * st.ratio, st.pull);
     const rings = new Float32Array(12).fill(-1);
     st.rings.forEach((one, i) => { rings[i * 3] = one.x; rings[i * 3 + 1] = one.y; rings[i * 3 + 2] = (t - one.t) * 0.9; });
@@ -164,13 +169,13 @@ function card() {
 }
 // Without a video card: the same kind of web as one still picture, drawn once in a small buffer.
 function flat(env, st, P, k) {
-  const {ctx, w, h, tones} = env;
+  const {ctx, w, h} = env;
   if (!st.picture) {
     const cols = Math.ceil(w / 3), rows = Math.ceil(h / 3), image = new ImageData(cols, rows), cell = st.cell / st.ratio / 3;
     for (let y = 0; y < rows; y += 1) for (let x = 0; x < cols; x += 1) {
       let a = 0.5, s = 0, weight = 1, px = x / cell + noise2(x / cell, y / cell), py = y / cell + noise2(y / cell + 7, x / cell);
       for (let i = 0; i < st.octaves; i += 1) { const r = (1 - Math.abs(2 * noise2(px, py) - 1)) ** 2; s += a * r * weight; weight = clamp(r * 1.7, 0, 1); px = px * 1.62 - py * 1.22; py = px * 0.4 + py * 1.62; a *= 0.58; }
-      const c = mixc(mixc(tones.ground, P.web, smooth(clamp((s - 0.12) / 0.5, 0, 1)) * (0.25 + k * 0.6)), P.lit, smooth(clamp((s - 0.42) / 0.53, 0, 1)) ** 2.2 * (0.25 + k * 0.6)), o = (y * cols + x) * 4;
+      const c = mixc(mixc(P.ground, P.web, smooth(clamp((s - 0.12) / 0.5, 0, 1)) * (0.25 + k * 0.6)), P.lit, smooth(clamp((s - 0.42) / 0.53, 0, 1)) ** 2.2 * (0.25 + k * 0.6)), o = (y * cols + x) * 4;
       image.data[o] = c[0]; image.data[o + 1] = c[1]; image.data[o + 2] = c[2]; image.data[o + 3] = 255;
     }
     st.picture = new OffscreenCanvas(cols, rows);

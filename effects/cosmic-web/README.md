@@ -16,7 +16,7 @@ Fine, sharp filaments fill the area round dark voids and slowly part, join and f
 | `intensity` | integer | 10–100 % | `70` | Intensity |
 | `density` | integer | 10–100 % | `50` | Thread density. How many fine threads, and how few voids |
 | `scale` | integer | 10–100 % | `40` | Scale. A fine web or a large one |
-| `palette` | choice | `cyan`, `fire`, `theme` | `"cyan"` | Palette |
+| `palette` | choice | `turquoise`, `ocean`, `violet`, `rose`, `emerald`, `sunset`, `gold`, `silver`, `theme` | `"turquoise"` | Palette. `theme` follows the theme colour; the others stay as they are |
 | `interactive` | boolean | — | `true` | React to the pointer. The pointer lights the web; a click sends a ring of light through it |
 
 ## Schemes
