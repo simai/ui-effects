@@ -53,14 +53,18 @@
       "key": "density",
       "type": "integer",
       "label": {
-        "ru": "Плотность",
-        "en": "Density"
+        "ru": "Плотность нитей",
+        "en": "Thread density"
       },
       "default": 50,
       "min": 10,
       "max": 100,
       "step": 5,
-      "unit": "%"
+      "unit": "%",
+      "hint": {
+        "ru": "Сколько мелких нитей и как мало пустот",
+        "en": "How many fine threads, and how few voids"
+      }
     },
     {
       "key": "scale",
@@ -120,8 +124,8 @@
       },
       "default": true,
       "hint": {
-        "ru": "Указатель притягивает вещество, клик зажигает звезду",
-        "en": "The pointer draws matter to itself; a click lights a star"
+        "ru": "Указатель подсвечивает сеть, клик пускает по ней кольцо света",
+        "en": "The pointer lights the web; a click sends a ring of light through it"
       }
     }
   ],

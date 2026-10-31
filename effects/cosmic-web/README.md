@@ -1,6 +1,6 @@
 # Cosmic web (`cosmic-web`)
 
-A dark, nearly even gas gathers into filaments and nodes; stars light up in the densest nodes and bubbles of light grow and merge until the web is lit. Then it fades and a new web begins.
+Fine, sharp filaments fill the area round dark voids and slowly part, join and find a new shape. Drawn on the video card; without one it is a still picture.
 
 - **Russian name:** Космическая паутина
 - **Version:** 0.1.0, simai.effect 1.1.0
@@ -14,10 +14,10 @@ A dark, nearly even gas gathers into filaments and nodes; stars light up in the 
 |:---|:---|:---|:---|:---|
 | `speed` | integer | 10–300 % | `100` | Speed |
 | `intensity` | integer | 10–100 % | `70` | Intensity |
-| `density` | integer | 10–100 % | `50` | Density |
+| `density` | integer | 10–100 % | `50` | Thread density. How many fine threads, and how few voids |
 | `scale` | integer | 10–100 % | `40` | Scale. A fine web or a large one |
 | `palette` | choice | `cyan`, `fire`, `theme` | `"cyan"` | Palette |
-| `interactive` | boolean | — | `true` | React to the pointer. The pointer draws matter to itself; a click lights a star |
+| `interactive` | boolean | — | `true` | React to the pointer. The pointer lights the web; a click sends a ring of light through it |
 
 ## Schemes
 

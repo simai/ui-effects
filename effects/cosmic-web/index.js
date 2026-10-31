@@ -1,4 +1,4 @@
-// Cosmic web (simai.effect 1.1.0; dark scheme only): a dark gas gathers into filaments and nodes, stars light up in the nodes, and bubbles of light grow until the web is lit.
+// Cosmic web (simai.effect 1.1.0; dark scheme only): fine, sharp filaments fill the area round dark voids and slowly change their shape.
 //
 // The lifecycle is the catalogue template's: one canvas in the host, devicePixelRatio capped at 2,
 // a seeded scene (the same picture on every mount at the defaults), one still frame for reduced
@@ -45,144 +45,139 @@ function readTones(host, scheme) {
   return tones;
 }
 
-// The cosmic web: a dark, nearly even gas gathers along the flows of a random field; where the flows
-// cross, filaments and nodes form by themselves (the Zel'dovich approximation of how matter clumps).
-// In the densest nodes the first stars light up, and round them bubbles of light grow and merge until
-// the whole web is lit. Then it fades, and a new web begins. The pointer is a mass that draws matter
-// to itself; a click lights a new star.
-const PERIOD = 44;
+// The cosmic web: fine, sharp filaments on several scales fill the area, round dark voids. They are
+// the edges between cells whose points slowly move, so the threads part, join and find a new shape.
+// Drawn on the video card, sharp at any size; without one it stays a still picture.
+// The pointer lights the web round it; a click sends a ring of light through it.
+const FRAGMENT = `precision highp float;
+uniform vec2 R; uniform float T, S, K, O, V; uniform vec3 G, W, L, H, M; uniform vec3 P[4];
+const mat2 Q = mat2(.8, .6, -.6, .8);
+float h(vec2 p) { p = fract(p * vec2(123.34, 456.21)); p += dot(p, p + 45.32); return fract(p.x * p.y); }
+float n(vec2 p) {
+  vec2 i = floor(p), f = fract(p); f = f * f * f * (f * (f * 6. - 15.) + 10.);
+  return mix(mix(h(i), h(i + vec2(1, 0)), f.x), mix(h(i + vec2(0, 1)), h(i + vec2(1, 1)), f.x), f.y);
+}
+vec2 g2(vec2 p) { return vec2(h(p), h(p + 17.3)); }
+// The edge between two cells: near zero on a thread. The points of the cells move, so the threads do.
+float edge(vec2 p, float t) {
+  vec2 i = floor(p), f = fract(p);
+  float a = 9., b = 9.;
+  for (float y = -1.; y < 2.; y += 1.) for (float x = -1.; x < 2.; x += 1.) {
+    vec2 c = vec2(x, y), o = g2(i + c), r = c + .5 + .42 * sin(t + 6.283 * o) - f;
+    float d = dot(r, r);
+    if (d < a) { b = a; a = d; } else if (d < b) b = d;
+  }
+  return sqrt(b) - sqrt(a);
+}
+void main() {
+  vec2 c = vec2(gl_FragCoord.x, R.y - gl_FragCoord.y), p = c / S;
+  float a = .8, b = 1., line = 0., haze = 0., t = T * .16;
+  vec2 q = p + 137.;
+  for (float i = 0.; i < 6.; i += 1.) {
+    if (i >= O) break;
+    // Each layer's threads wander a little, so no thread runs straight.
+    vec2 w = q + (vec2(n(q * 2.3), n(q * 2.3 + 9.)) - .5) * .5;
+    float e = edge(w, t * (1. + i * .35) + i * 3.);
+    line += a * (1. - smoothstep(.0, .022 * b, e));
+    haze += a * (1. - smoothstep(.0, .35, e));
+    q = Q * q * 2.13 + 11.;
+    b *= 2.13;
+    a *= .84;
+  }
+  float gap = smoothstep(V - .22, V + .22, n(p * .55 - T * .012) * .65 + n(p * 1.4 + 3. + T * .017) * .35);
+  float glow = 0.;
+  if (M.z > 0.) glow += M.z * exp(-dot(c - M.xy, c - M.xy) / (S * S * 1.2));
+  for (int i = 0; i < 4; i += 1) if (P[i].z >= 0.) {
+    float d = length(c - P[i].xy) - P[i].z * S * 2.2;
+    glow += exp(-d * d / (S * S * .15)) * max(0., 1. - P[i].z / 3.);
+  }
+  vec3 col = G + (W * haze * .2 * gap + L * pow(min(line, 1.4), 1.7) * (.3 + .7 * gap) * .42 + H * pow(min(line, 1.), 5.) * gap * .25) * K * (1. + glow * 1.4);
+  gl_FragColor = vec4(col, 1.);
+}`;
 const SCENE = {
-  home: 'dark', seed: 71, fresh: true, start: PERIOD * 0.72, reseed: ['density', 'scale'],
+  home: 'dark', seed: 71, fresh: true, start: 30,
   tones: (read) => {
     const r = (name, tone, hex) => read(`--sf-${name}-${tone}`, hex);
     return {
-      ground: r('neutral', 4, '#0c0e13'), deep: r('neutral', 0, '#000000'),
-      cyan: {web: mixc(r('primary', 50, '#0074ec'), r('success', 60, '#3ea05a'), 0.45), lit: mixc(r('primary', 70, '#7aabff'), r('success', 70, '#4cbb6f'), 0.45), hot: r('neutral', 98, '#faf9fe')},
-      fire: {web: r('warning', 30, '#6f3800'), lit: r('warning', 70, '#f19d47'), hot: r('warning', 95, '#ffeee1')},
-      theme: {web: r('primary', 40, '#005bbe'), lit: r('primary', 70, '#7aabff'), hot: r('primary', 95, '#ecf0ff')},
+      ground: r('neutral', 4, '#0c0e13'),
+      cyan: {web: mixc(r('primary', 40, '#005bbe'), r('success', 40, '#006d34'), 0.5), lit: mixc(r('primary', 60, '#4d8eff'), r('success', 60, '#3ea05a'), 0.45), hot: r('neutral', 98, '#faf9fe')},
+      fire: {web: r('warning', 30, '#6f3800'), lit: r('warning', 60, '#d1872c'), hot: r('warning', 95, '#ffeee1')},
+      theme: {web: r('primary', 30, '#00458f'), lit: r('primary', 70, '#7aabff'), hot: r('primary', 95, '#ecf0ff')},
     };
   },
   setup(env) {
-    const {w, h, values} = env;
-    const cols = Math.max(1, Math.ceil(w / 2)), rows = Math.max(1, Math.ceil(h / 2));
-    const sheet = () => new OffscreenCanvas(cols, rows);
-    const st = {cols, rows, rho: new Float32Array(cols * rows), soft: new Float32Array(cols * rows), image: new ImageData(cols, rows), web: sheet(), dim: sheet(), lit: sheet(), mask: sheet(), glow: new OffscreenCanvas(Math.ceil(cols / 3), Math.ceil(rows / 3)), cycle: null, extra: [], pull: 0};
-    st.px = new Uint32Array(st.image.data.buffer);
-    // Density (in sixteenths of the even gas) to a white pixel's opacity, worked out once.
-    st.light = Uint32Array.from({length: 512}, (_, i) => ((170 * (1 - Math.exp(-0.15 * (i / 16) ** 1.35))) << 24 | 0xffffff) >>> 0);
-    // As fine as the density asks, but no more than about 90 000 grains on any area.
-    st.gap = Math.max(2.8 - values.density / 100 * 1.4, Math.sqrt(w * h * 1.6 / 90000));
-    st.L = Math.min(w, h * 1.7) * (0.1 + values.scale / 100 * 0.6);
+    const ratio = env.ctx.canvas.width / env.w, st = {rings: [], pull: 0};
+    env.gl ??= card();
+    if (env.gl) { env.gl.gl.canvas.width = env.ctx.canvas.width; env.gl.gl.canvas.height = env.ctx.canvas.height; }
+    st.ratio = ratio;
+    st.cell = (40 + env.values.scale * 3) * ratio;
+    st.octaves = 3 + Math.round(env.values.density / 100 * 3);
     return st;
   },
-  click(env, x, y) { const st = env.state; st.extra.push({x, y, t: st.t ?? 0}); },
+  click(env, x, y) { const st = env.state; st.rings.push({x: x * st.ratio, y: y * st.ratio, t: st.t ?? 0}); st.rings = st.rings.slice(-4); },
   draw(env, t) {
-    const {ctx, w, h, tones, state: st, values, pointer} = env;
-    const k = values.intensity / 100, P = tones[values.palette] ?? tones.cyan;
+    const {ctx, w, h, tones, state: st, values, pointer} = env, k = values.intensity / 100, P = tones[values.palette] ?? tones.cyan, g = env.gl;
     st.t = t;
-    const cycle = Math.floor(t / PERIOD), u = t / PERIOD - cycle;
-    if (cycle !== st.cycle) { st.cycle = cycle; st.extra = []; lay(env, st, 71 + env.salt + cycle * 13); }
-    // Gravity's clock: first threads already showing, quick at first, then a slow thickening. The cycle fades in and out.
-    const D = 0.3 + 0.7 * smooth(clamp(u / 0.6, 0, 1)) + Math.max(0, u - 0.6) * 0.15, fade = Math.min(1, u / 0.05, (1 - u) / 0.07);
-    st.pull += ((pointer.on ? 1 : 0) - st.pull) * 0.06;
-    const {rho, n, qx, qy, dx, dy, cols, rows, px} = st, mx = pointer.x * w, my = pointer.y * h, reach = st.L * 0.5, pull = st.pull * 0.45;
-    rho.fill(0);
-    for (let i = 0; i < n; i += 1) {
-      let x = qx[i] + dx[i] * D, y = qy[i] + dy[i] * D;
-      if (pull > 0.01) {
-        const ax = mx - x, ay = my - y, d = Math.abs(ax) + Math.abs(ay);
-        if (d < reach) { const g = pull * (1 - d / reach); x += ax * g; y += ay * g; }
-      }
-      if (x < 0 || y < 0 || x >= w || y >= h) continue;
-      rho[(y >> 1) * cols + (x >> 1)] += 1;
-    }
-    // Each cell shares with its neighbours, so the gas has no grain.
-    const soft = st.soft;
-    for (let y = 1; y < rows - 1; y += 1) for (let x = 1, o = y * cols + 1; x < cols - 1; x += 1, o += 1) soft[o] = (rho[o] * 4 + (rho[o - 1] + rho[o + 1] + rho[o - cols] + rho[o + cols]) * 2 + rho[o - cols - 1] + rho[o - cols + 1] + rho[o + cols - 1] + rho[o + cols + 1]) / 16;
-    // Density to light: a thin gas stays faint, a filament is bright.
-    const scale = 16 / (4 / (st.gap * st.gap)), light = st.light;
-    for (let i = 0; i < px.length; i += 1) { const v = soft[i] * scale | 0; px[i] = light[v > 511 ? 511 : v]; }
-    st.web.getContext('2d').putImageData(st.image, 0, 0);
-    const tint = (sheet, colour) => {
-      const c = sheet.getContext('2d');
-      c.globalCompositeOperation = 'copy'; c.drawImage(st.web, 0, 0);
-      c.globalCompositeOperation = 'source-in'; c.fillStyle = rgba(colour); c.fillRect(0, 0, cols, rows);
-    };
-    tint(st.dim, P.web); tint(st.lit, P.lit);
-    // Bubbles of light round the stars: they grow from their birth and merge.
-    const m = st.mask.getContext('2d'), stars = [];
-    m.clearRect(0, 0, cols, rows);
-    const bubble = (x, y, r, a) => {
-      const g = m.createRadialGradient(x / 2, y / 2, 0, x / 2, y / 2, r / 2);
-      g.addColorStop(0, `rgba(0,0,0,${a})`); g.addColorStop(0.6, `rgba(0,0,0,${a * 0.75})`); g.addColorStop(1, 'rgba(0,0,0,0)');
-      m.fillStyle = g; m.fillRect(x / 2 - r / 2, y / 2 - r / 2, r, r);
-    };
-    for (const node of st.nodes) {
-      const age = u - node.born;
-      if (age <= 0) continue;
-      const x = node.x, y = node.y;
-      bubble(x, y, st.L * (0.12 + age * 2.6), 1);
-      stars.push([x, y, Math.min(1, age * 30)]);
-    }
-    for (const one of st.extra) { const age = (t - one.t) / PERIOD; bubble(one.x, one.y, st.L * (0.12 + age * 2.6), 1); stars.push([one.x, one.y, Math.min(1, age * 30)]); }
-    const l = st.lit.getContext('2d');
-    l.globalCompositeOperation = 'destination-in'; l.drawImage(st.mask, 0, 0);
-    // The picture: the dark web, the lit part over it, a soft bloom, the stars.
-    const g = ctx.createLinearGradient(0, 0, 0, h);
-    g.addColorStop(0, rgba(tones.deep)); g.addColorStop(1, rgba(tones.ground));
-    ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = 1;
-    ctx.fillStyle = g; ctx.fillRect(0, 0, w, h);
-    ctx.imageSmoothingQuality = 'high';
-    ctx.globalCompositeOperation = 'lighter';
-    ctx.globalAlpha = fade * (0.2 + k * 0.3); ctx.drawImage(st.dim, 0, 0, w, h);
-    ctx.globalAlpha = fade * (0.12 + k * 0.33); ctx.drawImage(st.lit, 0, 0, w, h);
-    const b = st.glow.getContext('2d');
-    b.globalCompositeOperation = 'copy'; b.imageSmoothingQuality = 'high'; b.drawImage(st.lit, 0, 0, st.glow.width, st.glow.height);
-    ctx.globalAlpha = fade * k * 0.3; ctx.drawImage(st.glow, 0, 0, w, h);
-    ctx.globalAlpha = 1;
-    for (const [x, y, a] of stars) {
-      const r = Math.max(5, st.L * 0.035), s = ctx.createRadialGradient(x, y, 0, x, y, r);
-      s.addColorStop(0, rgba(P.hot, a * fade * 0.9 * k)); s.addColorStop(0.2, rgba(P.lit, a * fade * 0.4 * k)); s.addColorStop(1, rgba(P.lit, 0));
-      ctx.fillStyle = s; ctx.fillRect(x - r, y - r, r * 2, r * 2);
-    }
+    st.pull += ((pointer.on ? 0.9 : 0) - st.pull) * 0.08;
+    if (!g) { flat(env, st, P, k); return; }
+    const {gl, u} = g, unit = (c) => c.map((v) => v / 255);
+    gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
+    gl.uniform2f(u.R, gl.canvas.width, gl.canvas.height);
+    gl.uniform1f(u.T, t + env.salt % 1000);
+    gl.uniform1f(u.S, st.cell);
+    // More threads, or finer ones, light more of the area: each is dimmer.
+    gl.uniform1f(u.K, (0.13 + k * 0.35) * (5 / st.octaves) ** 1.5 * Math.min(1, st.cell / st.ratio / 160) ** 0.3);
+    gl.uniform1f(u.O, st.octaves);
+    gl.uniform1f(u.V, 0.42 - values.density / 100 * 0.08);
+    gl.uniform3fv(u.G, unit(tones.ground)); gl.uniform3fv(u.W, unit(P.web)); gl.uniform3fv(u.L, unit(P.lit)); gl.uniform3fv(u.H, unit(P.hot));
+    gl.uniform3f(u.M, pointer.x * w * st.ratio, pointer.y * h * st.ratio, st.pull);
+    const rings = new Float32Array(12).fill(-1);
+    st.rings.forEach((one, i) => { rings[i * 3] = one.x; rings[i * 3 + 1] = one.y; rings[i * 3 + 2] = (t - one.t) * 0.9; });
+    gl.uniform3fv(u.P, rings);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+    ctx.globalCompositeOperation = 'copy';
+    const frame = gl.canvas.transferToImageBitmap();
+    ctx.drawImage(frame, 0, 0, w, h);
+    frame.close();
     ctx.globalCompositeOperation = 'source-over';
   },
 };
-// A new web: a field of three scales on a coarse lattice, each grain of gas moved along its slope;
-// the densest places where they end up are where the stars will be.
-function lay(env, st, seed) {
-  const {w, h} = env, random = rng(seed), L = st.L, gap = st.gap, margin = L * 0.6, ox = random() * 1000, oy = random() * 1000;
-  const cell = 6, lw = Math.ceil((w + margin * 2) / cell) + 3, lh = Math.ceil((h + margin * 2) / cell) + 3, phi = new Float32Array(lw * lh);
-  for (let j = 0; j < lh; j += 1) for (let i = 0; i < lw; i += 1) {
-    const x = i * cell / L + ox, y = j * cell / L + oy;
-    phi[j * lw + i] = noise2(x, y) + 0.5 * noise2(x * 2.1 + 7, y * 2.1 + 3) + 0.25 * noise2(x * 4.3 + 1, y * 4.3 + 9);
+// The video card's side: one program on its own canvas, kept for the life of the area.
+function card() {
+  const canvas = new OffscreenCanvas(1, 1), gl = canvas.getContext('webgl', {antialias: false, alpha: false, powerPreference: 'low-power'});
+  if (!gl) return null;
+  const shader = (type, code) => { const s = gl.createShader(type); gl.shaderSource(s, code); gl.compileShader(s); return s; };
+  const program = gl.createProgram();
+  gl.attachShader(program, shader(gl.VERTEX_SHADER, 'attribute vec2 a; void main() { gl_Position = vec4(a, 0., 1.); }'));
+  gl.attachShader(program, shader(gl.FRAGMENT_SHADER, FRAGMENT));
+  gl.linkProgram(program);
+  if (!gl.getProgramParameter(program, gl.LINK_STATUS)) return null;
+  gl.useProgram(program);
+  gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+  const a = gl.getAttribLocation(program, 'a');
+  gl.enableVertexAttribArray(a);
+  gl.vertexAttribPointer(a, 2, gl.FLOAT, false, 0, 0);
+  const u = {};
+  for (const name of ['R', 'T', 'S', 'K', 'O', 'V', 'G', 'W', 'L', 'H', 'M', 'P']) u[name] = gl.getUniformLocation(program, name);
+  return {gl, u};
+}
+// Without a video card: the same kind of web as one still picture, drawn once in a small buffer.
+function flat(env, st, P, k) {
+  const {ctx, w, h, tones} = env;
+  if (!st.picture) {
+    const cols = Math.ceil(w / 3), rows = Math.ceil(h / 3), image = new ImageData(cols, rows), cell = st.cell / st.ratio / 3;
+    for (let y = 0; y < rows; y += 1) for (let x = 0; x < cols; x += 1) {
+      let a = 0.5, s = 0, weight = 1, px = x / cell + noise2(x / cell, y / cell), py = y / cell + noise2(y / cell + 7, x / cell);
+      for (let i = 0; i < st.octaves; i += 1) { const r = (1 - Math.abs(2 * noise2(px, py) - 1)) ** 2; s += a * r * weight; weight = clamp(r * 1.7, 0, 1); px = px * 1.62 - py * 1.22; py = px * 0.4 + py * 1.62; a *= 0.58; }
+      const c = mixc(mixc(tones.ground, P.web, smooth(clamp((s - 0.12) / 0.5, 0, 1)) * (0.25 + k * 0.6)), P.lit, smooth(clamp((s - 0.42) / 0.53, 0, 1)) ** 2.2 * (0.25 + k * 0.6)), o = (y * cols + x) * 4;
+      image.data[o] = c[0]; image.data[o + 1] = c[1]; image.data[o + 2] = c[2]; image.data[o + 3] = 255;
+    }
+    st.picture = new OffscreenCanvas(cols, rows);
+    st.picture.getContext('2d').putImageData(image, 0, 0);
   }
-  const n = Math.ceil((w + margin * 2) / gap) * Math.ceil((h + margin * 2) / gap);
-  if (st.n !== n) { st.n = n; st.qx = new Float32Array(n); st.qy = new Float32Array(n); st.dx = new Float32Array(n); st.dy = new Float32Array(n); }
-  const per = Math.ceil((w + margin * 2) / gap), push = L * L / (2 * cell) * 0.24;
-  for (let i = 0; i < n; i += 1) {
-    const x = (i % per + random()) * gap, y = (Math.floor(i / per) + random()) * gap;
-    const fx = x / cell, fy = y / cell, a = Math.min(lw - 3, Math.max(1, Math.floor(fx))), b = Math.min(lh - 3, Math.max(1, Math.floor(fy))), tx = fx - a, ty = fy - b;
-    // The slope at a lattice point, blended between the four round the grain.
-    const slope = (o, step) => phi[o + step] - phi[o - step];
-    const at = (step) => mix(mix(slope(b * lw + a, step), slope(b * lw + a + 1, step), tx), mix(slope((b + 1) * lw + a, step), slope((b + 1) * lw + a + 1, step), tx), ty);
-    st.qx[i] = x - margin; st.qy[i] = y - margin;
-    st.dx[i] = -at(1) * push; st.dy[i] = -at(lw) * push;
-  }
-  // Where the matter ends up: the densest cells, kept apart from each other.
-  const size = 16, gw = Math.ceil(w / size), gh = Math.ceil(h / size), count = new Float32Array(gw * gh);
-  for (let i = 0; i < n; i += 1) {
-    const x = st.qx[i] + st.dx[i], y = st.qy[i] + st.dy[i];
-    if (x >= 0 && y >= 0 && x < w && y < h) count[Math.floor(y / size) * gw + Math.floor(x / size)] += 1;
-  }
-  const order = Array.from(count.keys()).sort((p, q) => count[q] - count[p]), nodes = [], apart = L * 0.32, most = 12 + Math.round(w * h / 60000);
-  for (const c of order) {
-    const x = (c % gw + 0.5) * size, y = (Math.floor(c / gw) + 0.5) * size;
-    if (nodes.some((one) => Math.hypot(one.x - x, one.y - y) < apart)) continue;
-    nodes.push({x, y, born: 0.5 + nodes.length / most * 0.32});
-    if (nodes.length >= most) break;
-  }
-  st.nodes = nodes;
+  ctx.imageSmoothingQuality = 'high';
+  ctx.drawImage(st.picture, 0, 0, w, h);
 }
 
 export function mount(host, settings, context = {}) {
@@ -306,6 +301,7 @@ export function mount(host, settings, context = {}) {
     pause() { paused = true; stop(); },
     resume() { paused = false; schedule(); },
     destroy() {
+      env.gl?.gl.getExtension('WEBGL_lose_context')?.loseContext();
       stop();
       sizes.disconnect();
       screen.disconnect();
