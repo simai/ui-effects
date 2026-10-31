@@ -2,7 +2,7 @@
   "schema": "simai.effect",
   "schema_version": 1,
   "id": "text-flow",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "label": {
     "ru": "Текстовый поток",
     "en": "Text flow"
@@ -230,6 +230,80 @@
       "max": 200,
       "step": 5,
       "unit": "%"
+    },
+    {
+      "key": "palette",
+      "type": "choice",
+      "label": {
+        "ru": "Палитра",
+        "en": "Palette"
+      },
+      "default": "theme",
+      "options": [
+        {
+          "value": "theme",
+          "label": {
+            "ru": "Цвет темы",
+            "en": "Theme colour"
+          }
+        },
+        {
+          "value": "turquoise",
+          "label": {
+            "ru": "Бирюзовая",
+            "en": "Turquoise"
+          }
+        },
+        {
+          "value": "ocean",
+          "label": {
+            "ru": "Океан",
+            "en": "Ocean"
+          }
+        },
+        {
+          "value": "violet",
+          "label": {
+            "ru": "Фиолетовая",
+            "en": "Violet"
+          }
+        },
+        {
+          "value": "rose",
+          "label": {
+            "ru": "Роза",
+            "en": "Rose"
+          }
+        },
+        {
+          "value": "emerald",
+          "label": {
+            "ru": "Изумруд",
+            "en": "Emerald"
+          }
+        },
+        {
+          "value": "sunset",
+          "label": {
+            "ru": "Закат",
+            "en": "Sunset"
+          }
+        },
+        {
+          "value": "gold",
+          "label": {
+            "ru": "Золото",
+            "en": "Gold"
+          }
+        },
+        {
+          "value": "silver",
+          "label": {
+            "ru": "Серебро",
+            "en": "Silver"
+          }
+        }
+      ]
     },
     {
       "key": "interactive",

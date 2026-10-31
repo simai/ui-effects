@@ -3,7 +3,7 @@
 A dotted world map; signals or planes travel between the capitals.
 
 - **Russian name:** Маршруты мира
-- **Version:** 0.1.0, simai.effect 1.1.0
+- **Version:** 0.2.0, simai.effect 1.1.0
 - **Surfaces:** hero, section, dashboard, sign-in
 - **Tags:** lines, particles
 - **Role:** Networks, logistics, travel. Dark scheme only.
@@ -16,6 +16,7 @@ A dotted world map; signals or planes travel between the capitals.
 | `intensity` | integer | 10–100 % | `70` | Intensity |
 | `density` | integer | 10–100 % | `50` | Density |
 | `show` | choice | `signals`, `flights` | `"signals"` | Show |
+| `palette` | choice | `theme`, `turquoise`, `ocean`, `violet`, `rose`, `emerald`, `sunset`, `gold`, `silver` | `"theme"` | Palette. `theme` follows the theme colour; the others stay as they are |
 | `interactive` | boolean | — | `true` | React to the pointer. The pointer lights the nearest city, a click adds a node, a press-drag draws a link |
 
 ## Schemes

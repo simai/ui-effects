@@ -2,7 +2,7 @@
   "schema": "simai.effect",
   "schema_version": 1,
   "id": "halftone-tide",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "label": {
     "ru": "Растровая волна",
     "en": "Halftone tide"
@@ -128,6 +128,80 @@
           "label": {
             "ru": "Цвет текста",
             "en": "Text colour"
+          }
+        }
+      ]
+    },
+    {
+      "key": "palette",
+      "type": "choice",
+      "label": {
+        "ru": "Палитра",
+        "en": "Palette"
+      },
+      "default": "theme",
+      "options": [
+        {
+          "value": "theme",
+          "label": {
+            "ru": "Цвет темы",
+            "en": "Theme colour"
+          }
+        },
+        {
+          "value": "turquoise",
+          "label": {
+            "ru": "Бирюзовая",
+            "en": "Turquoise"
+          }
+        },
+        {
+          "value": "ocean",
+          "label": {
+            "ru": "Океан",
+            "en": "Ocean"
+          }
+        },
+        {
+          "value": "violet",
+          "label": {
+            "ru": "Фиолетовая",
+            "en": "Violet"
+          }
+        },
+        {
+          "value": "rose",
+          "label": {
+            "ru": "Роза",
+            "en": "Rose"
+          }
+        },
+        {
+          "value": "emerald",
+          "label": {
+            "ru": "Изумруд",
+            "en": "Emerald"
+          }
+        },
+        {
+          "value": "sunset",
+          "label": {
+            "ru": "Закат",
+            "en": "Sunset"
+          }
+        },
+        {
+          "value": "gold",
+          "label": {
+            "ru": "Золото",
+            "en": "Gold"
+          }
+        },
+        {
+          "value": "silver",
+          "label": {
+            "ru": "Серебро",
+            "en": "Silver"
           }
         }
       ]

@@ -3,7 +3,7 @@
 Particles in Brownian motion write a text and dissolve into gas again.
 
 - **Russian name:** Узор частиц
-- **Version:** 0.1.0, simai.effect 1.1.0
+- **Version:** 0.2.0, simai.effect 1.1.0
 - **Surfaces:** hero, section, dashboard, sign-in
 - **Tags:** particles, type
 - **Role:** A background that spells a product name: light or dark.
@@ -18,6 +18,7 @@ Particles in Brownian motion write a text and dissolve into gas again.
 | `size` | integer | 30–100 % | `100` | Text size. 100 % fits the text to the area |
 | `text` | text | up to 80 characters | `"SIMAI"` | Text. Up to four lines |
 | `style` | choice | `brownian`, `wind`, `swirl`, `snow` | `"brownian"` | Motion |
+| `palette` | choice | `theme`, `turquoise`, `ocean`, `violet`, `rose`, `emerald`, `sunset`, `gold`, `silver` | `"theme"` | Palette. `theme` follows the theme colour; the others stay as they are |
 | `interactive` | boolean | — | `true` | React to the pointer. A click heats the particles round it, holding keeps heating |
 
 ## Schemes

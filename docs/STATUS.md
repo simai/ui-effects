@@ -33,6 +33,8 @@ The state of the catalogue, the decisions behind it and what waits on the Framew
 
 The gallery's pictures follow the theme: each card in view draws its effect once as a still frame in the page's scheme and colour, keeps it as an image and lets the effect go, one card at a time; the stored `preview.png` shows first and stays if a frame cannot be drawn.
 
+Eighteen effects share eight fixed palettes (turquoise, ocean, violet, rose, emerald, sunset, gold, silver) beside the theme colour, the default: a small block in each module sets the palette as the theme's primary, secondary and tertiary scales on the effect's own layer, so the effect reads it like the theme and the area's content keeps the theme. `digital-rain` and `cosmic-web` use the same colours directly. Every palette holds 3:1 and 4.5:1 in every scheme of these effects.
+
 ## Waiting on the Framework
 
 Nothing ordered for the catalogue site is open. Delivered and in use since `ui-3464018a5c94`: the line-wrap toggle in each code block's head, the site header (`sf-site-header` with `sf-menu`), the theme colour button (`sf-color variant="theme"`), the theme button's own glyph, `options` as an attribute, highlight inside `sf-tabs`, and one focus ring on `sf-dropdown`.

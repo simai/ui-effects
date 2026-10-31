@@ -3,7 +3,7 @@
 Glowing aurora curtains fold slowly over a dark starry sky.
 
 - **Russian name:** Полярное сияние
-- **Version:** 1.3.0, simai.effect 1.1.0
+- **Version:** 1.4.0, simai.effect 1.1.0
 - **Surfaces:** sign-in, hero, section, dashboard
 - **Tags:** glow, sky
 - **Role:** A night sky with glowing curtains. The glow needs the dark, so it draws the dark scheme only.
@@ -16,6 +16,7 @@ Glowing aurora curtains fold slowly over a dark starry sky.
 | `intensity` | integer | 10–100 % | `60` | Intensity |
 | `contrast` | integer | 0–100 % | `35` | Contrast. How far the rays stand out from the glow |
 | `curtains` | integer | 1–4 | `3` | Curtains |
+| `palette` | choice | `theme`, `turquoise`, `ocean`, `violet`, `rose`, `emerald`, `sunset`, `gold`, `silver` | `"theme"` | Palette. `theme` follows the theme colour; the others stay as they are |
 | `interactive` | boolean | — | `true` | React to the pointer. Curtains lean towards the pointer |
 
 ## Schemes

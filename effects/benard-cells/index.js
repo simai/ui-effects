@@ -199,7 +199,7 @@ function shade(env, k) {
   state.buffer.getContext('2d').putImageData(state.image, 0, 0);
 }
 
-export function mount(host, settings, context = {}) {
+function mountScene(host, settings, context = {}) {
   const doc = host.ownerDocument;
   const win = doc.defaultView;
   const canvas = doc.createElement('canvas');
@@ -331,5 +331,44 @@ export function mount(host, settings, context = {}) {
       win.removeEventListener('pointercancel', onCancel);
       canvas.remove();
     },
+  };
+}
+
+// The fixed palettes: on the effect's own layer they stand in for the theme's colour scales, so the
+// effect reads them as it reads the theme. Each is a dark ground, the threads' mass, the bright
+// colour and the hot one; the tones between are blended. 'theme' leaves the theme's scales alone.
+const PALETTES = {
+  turquoise: [[6, 11, 15], [12, 72, 90], [66, 178, 202], [216, 246, 255]],
+  ocean: [[5, 9, 18], [16, 50, 118], [76, 148, 244], [214, 232, 255]],
+  violet: [[10, 7, 20], [58, 28, 122], [162, 116, 252], [238, 226, 255]],
+  rose: [[15, 6, 12], [104, 22, 74], [246, 104, 160], [255, 226, 238]],
+  emerald: [[5, 13, 12], [8, 76, 62], [56, 190, 142], [216, 255, 238]],
+  sunset: [[14, 7, 14], [84, 26, 74], [244, 146, 98], [255, 236, 214]],
+  gold: [[12, 10, 6], [74, 54, 20], [226, 176, 82], [255, 242, 208]],
+  silver: [[8, 10, 13], [42, 50, 60], [148, 166, 186], [242, 247, 255]],
+};
+const SCALE_TONES = [0, 4, 5, 6, 10, 20, 30, 40, 50, 60, 70, 80, 90, 95, 98, 99, 100];
+function paintLayer(host, name) {
+  const stops = PALETTES[name], at = [4, 30, 65, 95];
+  for (const family of ['primary', 'secondary', 'tertiary']) for (const tone of SCALE_TONES) {
+    const key = `--sf-${family}-${tone}`;
+    if (!stops) { host.style.removeProperty(key); continue; }
+    let i = 0;
+    while (i < 2 && tone > at[i + 1]) i += 1;
+    const u = Math.max(0, Math.min(1, (tone - at[i]) / (at[i + 1] - at[i])));
+    host.style.setProperty(key, `rgb(${stops[i].map((v, c) => Math.round(v + (stops[i + 1][c] - v) * u)).join(' ')})`);
+  }
+}
+export function mount(host, settings = {}, context = {}) {
+  let palette = settings.palette;
+  paintLayer(host, palette);
+  const scene = mountScene(host, settings, context);
+  return {
+    ...scene,
+    update(next = {}, nextContext = {}) {
+      scene.update(next, nextContext);
+      if (next.palette !== palette) { palette = next.palette; paintLayer(host, palette); scene.refreshTheme?.(); }
+    },
+    destroy() { scene.destroy(); paintLayer(host); },
   };
 }

@@ -224,17 +224,59 @@
           }
         },
         {
-          "value": "amber",
+          "value": "turquoise",
           "label": {
-            "ru": "Янтарная",
-            "en": "Amber"
+            "ru": "Бирюзовая",
+            "en": "Turquoise"
           }
         },
         {
-          "value": "ice",
+          "value": "ocean",
           "label": {
-            "ru": "Ледяная",
-            "en": "Ice"
+            "ru": "Океан",
+            "en": "Ocean"
+          }
+        },
+        {
+          "value": "violet",
+          "label": {
+            "ru": "Фиолетовая",
+            "en": "Violet"
+          }
+        },
+        {
+          "value": "rose",
+          "label": {
+            "ru": "Роза",
+            "en": "Rose"
+          }
+        },
+        {
+          "value": "emerald",
+          "label": {
+            "ru": "Изумруд",
+            "en": "Emerald"
+          }
+        },
+        {
+          "value": "sunset",
+          "label": {
+            "ru": "Закат",
+            "en": "Sunset"
+          }
+        },
+        {
+          "value": "gold",
+          "label": {
+            "ru": "Золото",
+            "en": "Gold"
+          }
+        },
+        {
+          "value": "silver",
+          "label": {
+            "ru": "Серебро",
+            "en": "Silver"
           }
         }
       ]

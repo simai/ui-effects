@@ -3,7 +3,7 @@
 Gravitational waves run through the grid of spacetime; a click sends one of your own.
 
 - **Russian name:** Ткань пространства-времени
-- **Version:** 0.1.0, simai.effect 1.1.0
+- **Version:** 0.2.0, simai.effect 1.1.0
 - **Surfaces:** hero, section, dashboard, sign-in
 - **Tags:** lines, geometry
 - **Role:** Science and depth: light and dark schemes.
@@ -15,6 +15,7 @@ Gravitational waves run through the grid of spacetime; a click sends one of your
 | `speed` | integer | 10–300 % | `100` | Speed |
 | `intensity` | integer | 10–100 % | `70` | Intensity |
 | `density` | integer | 10–100 % | `50` | Density |
+| `palette` | choice | `theme`, `turquoise`, `ocean`, `violet`, `rose`, `emerald`, `sunset`, `gold`, `silver` | `"theme"` | Palette. `theme` follows the theme colour; the others stay as they are |
 | `interactive` | boolean | — | `true` | React to the pointer. A click sends a gravitational wave; holding sets down a body that grows heavier, and letting go rings out a stronger wave |
 
 ## Schemes

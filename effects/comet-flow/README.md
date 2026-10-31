@@ -3,7 +3,7 @@
 Glowing particles follow an invisible flow field and leave soft tails.
 
 - **Russian name:** Кометные потоки
-- **Version:** 1.2.0, simai.effect 1.1.0
+- **Version:** 1.3.0, simai.effect 1.1.0
 - **Surfaces:** sign-in, hero, section, dashboard
 - **Tags:** particles, flow
 - **Role:** A stream of glowing particles on the dark.
@@ -16,6 +16,7 @@ Glowing particles follow an invisible flow field and leave soft tails.
 | `density` | integer | 10–100 % | `55` | Density |
 | `trail` | integer | 20–95 % | `70` | Trail length |
 | `turbulence` | integer | 0–100 % | `50` | Turbulence |
+| `palette` | choice | `theme`, `turquoise`, `ocean`, `violet`, `rose`, `emerald`, `sunset`, `gold`, `silver` | `"theme"` | Palette. `theme` follows the theme colour; the others stay as they are |
 | `interactive` | boolean | — | `true` | React to the pointer. The pointer stirs a vortex |
 
 ## Schemes

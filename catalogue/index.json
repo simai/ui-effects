@@ -18,7 +18,7 @@
   "effects": [
     {
       "id": "aurora-curtain",
-      "version": "1.3.0",
+      "version": "1.4.0",
       "label": {
         "ru": "Полярное сияние",
         "en": "Aurora curtain"
@@ -51,13 +51,13 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "b5bdc934d7b1b2c5560e08cd37d9da2d14f0bcdaf4bfe17db5acc28207056d57",
-          "size": 1941
+          "sha256": "561b062f0d599b17df4504cdf1a4d9c82c972049b30146fd31bc84f5d1d0de25",
+          "size": 3450
         },
         {
           "path": "index.js",
-          "sha256": "e32d87ed3da0afc4bf84d06b3245b0240338810f693ac36c9484bba806f8fd05",
-          "size": 14599
+          "sha256": "535e379434584288f098b4afbb96ef0dd57c6ed68bfdc6d7c76890d224365d2d",
+          "size": 16599
         },
         {
           "path": "preview.png",
@@ -66,8 +66,8 @@
         },
         {
           "path": "README.md",
-          "sha256": "3cde1bf661ccbad9ecd115d8d422698ecba9c8a15ff0b1f1c1dc361b363cc61e",
-          "size": 1485
+          "sha256": "8f2eb7f6ff0528226a69918794a9a80b34d236408a5d6b198fcce4d545559b00",
+          "size": 1682
         }
       ],
       "kit": {
@@ -141,7 +141,7 @@
     },
     {
       "id": "text-flow",
-      "version": "3.0.0",
+      "version": "3.1.0",
       "label": {
         "ru": "Текстовый поток",
         "en": "Text flow"
@@ -175,13 +175,13 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "939bc4f3615e0fad64a57c8e841fe64b495dc9caf2fd999b95860376cfefec0c",
-          "size": 5213
+          "sha256": "b6beb45f7a5d9dadfa31733b91ef70f98648b05ac74d13ba35b5d13f2ea435cd",
+          "size": 6722
         },
         {
           "path": "index.js",
-          "sha256": "03a20d41b4523853ee67152b6152cbcae2e24f3bf7f1cd399aaf9d6021fca4c5",
-          "size": 16689
+          "sha256": "cb1f433ac938c6e99af8a6d882b2885a43574b75d82353afcec50b81088482f2",
+          "size": 18689
         },
         {
           "path": "preview.png",
@@ -190,8 +190,8 @@
         },
         {
           "path": "README.md",
-          "sha256": "c77513aedc4b566bad1af8378c2f972238b4a7c905a89f43e4a15f11f34977f3",
-          "size": 2137
+          "sha256": "9ca9e5615267c5784df4c763cc973754310f0266259957f9c5b0f407ac7973dc",
+          "size": 2334
         }
       ],
       "kit": {
@@ -203,7 +203,7 @@
     },
     {
       "id": "constellation-net",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "label": {
         "ru": "Созвездия",
         "en": "Constellations"
@@ -237,13 +237,13 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "a1f3664a17ac6cdef0cfe4902f7e439c54bf2faa561c8619268ad816cb0f288d",
-          "size": 1556
+          "sha256": "62f91d3c5f374efbc36ec3e705e891332c68f8ff33871acfd6c42510fca1a39c",
+          "size": 3065
         },
         {
           "path": "index.js",
-          "sha256": "f13af8a96f389ec0026c8d70666490c703d48b1bb2de22132e7a5266e643a7ed",
-          "size": 15183
+          "sha256": "a6998666a34e19dc94277e252fadd6ebf3aed90d2295a4362c670d2489bfaf56",
+          "size": 17183
         },
         {
           "path": "preview.png",
@@ -252,8 +252,8 @@
         },
         {
           "path": "README.md",
-          "sha256": "1b30c46c149a78b83023bcb0cdc3d78b248cae554b956bced3e682587216b49f",
-          "size": 1453
+          "sha256": "cfe61c7e75692aef9b3798b12d21a89ccfba1139f40308592d35ee1bdf232c92",
+          "size": 1650
         }
       ],
       "kit": {
@@ -265,7 +265,7 @@
     },
     {
       "id": "hex-conduits",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "label": {
         "ru": "Световоды",
         "en": "Light conduits"
@@ -299,13 +299,13 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "8697ddecd6a0be8b257c56babce141ee11326e07b72a9c5c8757554535f9d168",
-          "size": 1679
+          "sha256": "f40e5b8fa5a1bec9e8c01e8542824277b8ff26f53ae1e39ab3abab52c3dbce88",
+          "size": 3188
         },
         {
           "path": "index.js",
-          "sha256": "d4c6b29de43b682f6f4830950901e1e5f5ad79e67f044555ca3f4159e6cf0bf3",
-          "size": 15953
+          "sha256": "1cee4169bd9b5ab64e0b8c72e54cc452c59a98b867b4a7e3c761fed135944156",
+          "size": 17953
         },
         {
           "path": "preview.png",
@@ -314,8 +314,8 @@
         },
         {
           "path": "README.md",
-          "sha256": "c7f36a19193a5c806e836d0bd4e7d9e3f5971969bd2c08e2375cb4eabc17c706",
-          "size": 1438
+          "sha256": "9e1fa03e35bf9c4bbb9e05a8cf1f63286efe2ca91bfd0b4b7a6de953debf2535",
+          "size": 1635
         }
       ],
       "kit": {
@@ -327,7 +327,7 @@
     },
     {
       "id": "comet-flow",
-      "version": "1.2.0",
+      "version": "1.3.0",
       "label": {
         "ru": "Кометные потоки",
         "en": "Comet flow"
@@ -360,13 +360,13 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "49ad5a56c25a861cc4e22ab6388d7f3f8f4c90a55f35cd16912e5c0dcdd82e28",
-          "size": 1785
+          "sha256": "f31214b0e3bccae34a392f44caaf5ed5d8dc79862d5b71102976252453ef8e66",
+          "size": 3294
         },
         {
           "path": "index.js",
-          "sha256": "c76ad207024e3140f2f80f4e1a691e9f51023877b4574e17a668447a2897f767",
-          "size": 13857
+          "sha256": "e13d462f49786e8f00b9dee42b86e87a8b54ecd5a4b9a096c6ebaa59855b2abf",
+          "size": 15857
         },
         {
           "path": "preview.png",
@@ -375,8 +375,8 @@
         },
         {
           "path": "README.md",
-          "sha256": "2000ed88f0c3b8ee53600cc8b12acabc0e20dfcc575f1c636786a023d8dcb1b7",
-          "size": 1400
+          "sha256": "7ce959912ca6ac4ace473e3d064d178c62d20abf5238220d038d6d888258c67b",
+          "size": 1597
         }
       ],
       "kit": {
@@ -388,7 +388,7 @@
     },
     {
       "id": "neon-horizon",
-      "version": "1.2.0",
+      "version": "1.3.0",
       "label": {
         "ru": "Неоновый горизонт",
         "en": "Neon horizon"
@@ -421,13 +421,13 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "265ce1aaccac9bfb63f79d3355f3ebd8272508489c220d521a8fcee3d6aad37c",
-          "size": 1578
+          "sha256": "f54c6722f263a34ce0650e9105618a11a760ce0d88fd2d1aa2bc8684fa3caa72",
+          "size": 3087
         },
         {
           "path": "index.js",
-          "sha256": "df897bc6f812bbf1c7894a4f8c56087915c5a6147a702b5355f17de7dc81e697",
-          "size": 12432
+          "sha256": "5806f885435d43a0b0e79ce9c5e4f15907583d2838d10d2bf0d2958f05fa66c4",
+          "size": 14581
         },
         {
           "path": "preview.png",
@@ -436,8 +436,8 @@
         },
         {
           "path": "README.md",
-          "sha256": "28457becb3f67bf20ab025eb24482a40fb8fe6d0bc90b15e8ee3805cd586fa78",
-          "size": 1376
+          "sha256": "db3558a4f4cf64a0dffd71ba73ae1658986b4a80e11ad62f99bcf7e27e14ef74",
+          "size": 1573
         }
       ],
       "kit": {
@@ -449,7 +449,7 @@
     },
     {
       "id": "abyss-caustics",
-      "version": "1.2.0",
+      "version": "1.3.0",
       "label": {
         "ru": "Глубоководные блики",
         "en": "Abyss caustics"
@@ -482,13 +482,13 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "95793e7ee8456400cd8e080fd9b606ff0d07af9d7e9a1baa0e1f650b3b579253",
-          "size": 1733
+          "sha256": "73ad20c7c12c27ce023e1edea8119a6885b31fd41b235c1057fc5173af6f5f0b",
+          "size": 3242
         },
         {
           "path": "index.js",
-          "sha256": "3e3452c2bfde3b08d02e4325918ba424b10bbb2a00877cc4e5676ccd9f6e25a9",
-          "size": 13315
+          "sha256": "db2bb917029d49ff8a7763bb3ed32e42cf34ed884e262936263d63b90e3d728d",
+          "size": 15464
         },
         {
           "path": "preview.png",
@@ -497,8 +497,8 @@
         },
         {
           "path": "README.md",
-          "sha256": "4b8e34faff808a1465033083e4e7e9224758e453aa6a083b9c4a4edae6296bf2",
-          "size": 1406
+          "sha256": "3307668d1052192248ee08b6e00b892a5753fb8919528bf9c6afef2266dec984",
+          "size": 1603
         }
       ],
       "kit": {
@@ -510,7 +510,7 @@
     },
     {
       "id": "glyph-tide",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "label": {
         "ru": "Знаковый прилив",
         "en": "Glyph tide"
@@ -543,13 +543,13 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "b296021e4caa815191508d968fc3dca649a05aea1426ef7fe3e4e7c3e7482e2a",
-          "size": 4679
+          "sha256": "34c07c3caf36e21b2b787a0f0519c805e2335d550b307102d7e0782484b3528b",
+          "size": 6188
         },
         {
           "path": "index.js",
-          "sha256": "a145b9464f65cbb63e99289f200a00e49147bfdd0becbf2a25437c33548128d2",
-          "size": 19882
+          "sha256": "27b66f5bc45801205a363db9278545cca8fdda3def7daefbc6f541ad72aa65cb",
+          "size": 21882
         },
         {
           "path": "preview.png",
@@ -558,8 +558,8 @@
         },
         {
           "path": "README.md",
-          "sha256": "67325892fc5909c099e6163656ac3cf27268ab1bbb22b2ee3d91678a3f77798f",
-          "size": 2131
+          "sha256": "1eef5411133e0d57f9a719b0992605c7e83f2d5f295d48f8b4f84bf17bb6e7ff",
+          "size": 2328
         }
       ],
       "kit": {
@@ -874,7 +874,7 @@
     },
     {
       "id": "contour-map",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "label": {
         "ru": "Горизонтали",
         "en": "Contour map"
@@ -906,13 +906,13 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "19f3967ffa804b4ed9dc738db832a296a978f51c3b9468bf8a26899d7f7bc7d1",
-          "size": 2247
+          "sha256": "8809afcb5c3eae9ec08097a0638b956f49aa5b17546fed9e75f19acd53ed65ef",
+          "size": 3756
         },
         {
           "path": "index.js",
-          "sha256": "485915b62d3b2877c0254b8cae3e0685c7ac28c8492e88e0dfece8aa14bf05ca",
-          "size": 13570
+          "sha256": "80dca0ad76b949a4ee0a93665ba7fbac1eefdbc0b6e4486f1233be35f859004d",
+          "size": 15570
         },
         {
           "path": "preview.png",
@@ -921,8 +921,8 @@
         },
         {
           "path": "README.md",
-          "sha256": "be0a90fbeac9f12fbc4e50900c7ad5305063d2beed15d879db29ba087e9711a0",
-          "size": 1450
+          "sha256": "e075389db3c438f2ca0085eb66866bf176fa8986d6cf1cb3324b555b2ab736ce",
+          "size": 1647
         }
       ],
       "kit": {
@@ -934,7 +934,7 @@
     },
     {
       "id": "halftone-tide",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "label": {
         "ru": "Растровая волна",
         "en": "Halftone tide"
@@ -966,13 +966,13 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "7edcd34dafba2805bc72b032ddc50f9d0f7e0d6f5a3b04e76e6df90e12059b21",
-          "size": 2899
+          "sha256": "2d7c51110073a84cfca9165254decf5cde70ce64e0e0ab4cf39424ac08d6fadf",
+          "size": 4408
         },
         {
           "path": "index.js",
-          "sha256": "8c539d5a2cfdc56b0e4df64c4999b00b42757aee1de6fdb278aaa580380b4836",
-          "size": 12359
+          "sha256": "1fe97b140f2422ff63cf58cd5476ea121c57e8ac3a6797be1048544d28de08f8",
+          "size": 14359
         },
         {
           "path": "preview.png",
@@ -981,8 +981,8 @@
         },
         {
           "path": "README.md",
-          "sha256": "69e8fbaa438a523f9bce38b510a038a1016f5ce5db272fb98b0b787a8e6cb55a",
-          "size": 1541
+          "sha256": "0e9844ecee1297ccc5540fbfa449509a3ef6bcba2cae220d1c2fcb7416713f33",
+          "size": 1738
         }
       ],
       "kit": {
@@ -1177,7 +1177,7 @@
     },
     {
       "id": "fabric-grid",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "label": {
         "ru": "Ткань пространства-времени",
         "en": "Spacetime fabric"
@@ -1211,13 +1211,13 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "708604f101255f348b619bf859c6dc8923038d802680adf5a64514523d611531",
-          "size": 1822
+          "sha256": "63b229b1b72fb864f58f12c09257b7a50f929fccc996841d8dc3eb9a6b1caf56",
+          "size": 3331
         },
         {
           "path": "index.js",
-          "sha256": "25352fc6008929637c73b2d4f3a4d9f4d263e4409e2f57974d9fc8d7fd72979d",
-          "size": 14841
+          "sha256": "d042e2ced536d89d99e239e45cb17e055ef95f981d39c94d938e3e45f80a2aae",
+          "size": 16841
         },
         {
           "path": "preview.png",
@@ -1226,8 +1226,8 @@
         },
         {
           "path": "README.md",
-          "sha256": "4eb150fcba5ca273cdc4ed0279dc83bbe991735af9fd794910a94b18054a63dd",
-          "size": 1400
+          "sha256": "916e13b9c034b1908270d32f6a53d3e3fc95cc9fbc29dc1bc478ff8a5ab977cf",
+          "size": 1597
         }
       ],
       "kit": {
@@ -1239,7 +1239,7 @@
     },
     {
       "id": "ripples",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "label": {
         "ru": "Круги на воде",
         "en": "Ripples"
@@ -1273,13 +1273,13 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "9414ce6e05fddbc132ac464766168b5fbe02aaddca04954d26fc6489ec752e72",
-          "size": 1177
+          "sha256": "80893b5ef7f2384723a2dbbcd0ebc6d4ecd201976c6bbd587a7159cc46604dce",
+          "size": 2686
         },
         {
           "path": "index.js",
-          "sha256": "d23e28d1216fd46f0892f3122e2815253fd64bbaf3ea4ffff44de78bfad33c25",
-          "size": 9631
+          "sha256": "e4192b89b17b8ac76136dd6516f56ac75002c3894f410fc6c3e98e0872e992f6",
+          "size": 11631
         },
         {
           "path": "preview.png",
@@ -1288,8 +1288,8 @@
         },
         {
           "path": "README.md",
-          "sha256": "055fbb7e11c7ee26d9acbcb185b7d75923592ca44e8998eb0c0fe7ad5de05e5a",
-          "size": 1119
+          "sha256": "d0ff009dd12d18c1ce9b90ced201d07c83b14576ecbd86e671bb74650f318e5c",
+          "size": 1316
         }
       ],
       "kit": {
@@ -1301,7 +1301,7 @@
     },
     {
       "id": "blueprint",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "label": {
         "ru": "Чертёж",
         "en": "Blueprint"
@@ -1335,13 +1335,13 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "7e2bf6559f9107fd1f1b920b11d992ed38441a2980b7d9bdc32e2bc4f317122b",
-          "size": 1641
+          "sha256": "8eeb885197a89c4e619b16b711940f070e125abab67ff3f302343127f6aaceff",
+          "size": 3150
         },
         {
           "path": "index.js",
-          "sha256": "53647ae7c6c16991dce2209b32287a6112ce1aaa6176b941b35f5b0104f40056",
-          "size": 14551
+          "sha256": "b74ab80c2567978c5df6ee8e27608ca37a2d13db0933be66a6e2eb58c8ecb3a9",
+          "size": 16551
         },
         {
           "path": "preview.png",
@@ -1350,8 +1350,8 @@
         },
         {
           "path": "README.md",
-          "sha256": "51969e6a26bc5b7403a9c2ce9403354bd0814555b214fe7b47328600b03c7162",
-          "size": 1306
+          "sha256": "677c826b391d9e15b50e2ec7da4ae2ee3e35a386778648e7c1b4bc8bd7da246c",
+          "size": 1503
         }
       ],
       "kit": {
@@ -1363,7 +1363,7 @@
     },
     {
       "id": "particle-shapes",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "label": {
         "ru": "Узор частиц",
         "en": "Particle text"
@@ -1397,13 +1397,13 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "19e0f3ca3c12855d4b8cd9ce061db581cbadfdce6c26ab6e118397ae51cf2c14",
-          "size": 3102
+          "sha256": "192b764cc3f7356c440fe64b463f561903a530eabfa9ca64593f00bc3465e729",
+          "size": 4611
         },
         {
           "path": "index.js",
-          "sha256": "4ecb5a5b458b49fbde375a9e5585e385c9293cef4a965191ab58bfe5ca9f4086",
-          "size": 14685
+          "sha256": "53aaa46e81f05a3e381ee5562a00bb562f65707533d8efea9d3b6fb072004f7c",
+          "size": 16685
         },
         {
           "path": "preview.png",
@@ -1412,8 +1412,8 @@
         },
         {
           "path": "README.md",
-          "sha256": "4f99e3018b1827ea0fe5d82b846f8effc0c64024863dda101fa934bb270c4866",
-          "size": 1555
+          "sha256": "7350789474398bd48a82dcb5447e79c84749e9215a56ab376fb31f67ef0ed639",
+          "size": 1752
         }
       ],
       "kit": {
@@ -1425,7 +1425,7 @@
     },
     {
       "id": "world-routes",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "label": {
         "ru": "Маршруты мира",
         "en": "World routes"
@@ -1458,13 +1458,13 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "f979d7d267087bd98caf351e9a2f6854489a1061c07aadb440fb34afd26f4f82",
-          "size": 2189
+          "sha256": "91a531112fa56731598bd7a81104a4542535db2d927d13407f87bcfb33a5e4c1",
+          "size": 3698
         },
         {
           "path": "index.js",
-          "sha256": "45d8fcc60f6fe2e3112e8e653878059f6580387f45c9bb91906f4fcb6608ef1f",
-          "size": 18925
+          "sha256": "627185e3e1b789741e6ad7833150de4b9394a87bf30c2e53befcb77e393bc50b",
+          "size": 20925
         },
         {
           "path": "preview.png",
@@ -1473,8 +1473,8 @@
         },
         {
           "path": "README.md",
-          "sha256": "f763fbd6a1155e41907658bfff2054ca470467cf813124801ed39ae557bbe3f6",
-          "size": 1353
+          "sha256": "8480c2bddd5cb108e6f0ed16d6bfbbc1287fbff3724a05898ebe83d74a22e9da",
+          "size": 1550
         }
       ],
       "kit": {
@@ -1734,7 +1734,7 @@
     },
     {
       "id": "bz-waves",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "label": {
         "ru": "Химические волны",
         "en": "Chemical waves"
@@ -1768,13 +1768,13 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "7dcae85eb08b41d5d778b4e0072a06806e7587006f6cff4bbc0a4d44c3aeb654",
-          "size": 1674
+          "sha256": "0f252ea6aa5278bb1f644f2f70a2dc4f6d5caffe69cd1126b6e7cd48c575546c",
+          "size": 3183
         },
         {
           "path": "index.js",
-          "sha256": "e8b6e2fe27c2f2e365ac337c727d3173977cb93a9ac863faf7e64f647e8ca023",
-          "size": 14600
+          "sha256": "46f38e2ce5bc8c3d7c0c3ab7ed4e8487cf335d2f1538c956e4ab53111c95bccb",
+          "size": 16600
         },
         {
           "path": "preview.png",
@@ -1783,8 +1783,8 @@
         },
         {
           "path": "README.md",
-          "sha256": "7a3f7b379ac112fb5f6103090c43d4c4758a0837ff97550b7911312fae12466e",
-          "size": 1381
+          "sha256": "4399d4d3f70cb59b8fa02cfce6fea0513c8df95509e91ecc7a20523c6f812478",
+          "size": 1578
         }
       ],
       "kit": {
@@ -1857,7 +1857,7 @@
     },
     {
       "id": "benard-cells",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "label": {
         "ru": "Ячейки Бенара",
         "en": "Bénard cells"
@@ -1891,13 +1891,13 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "f70591fe91e19078a9dc0cf61ee4897d77b61bfd7da210e0ebe76e8244bdef08",
-          "size": 1613
+          "sha256": "2a618caaf19edec919a2ef79fb344054cf1d9b5dd04d84dcbae51afc5cb3dc4c",
+          "size": 3122
         },
         {
           "path": "index.js",
-          "sha256": "2df365e84571afce8c706dc513448c69b0e0a4830b9187ae53a81d5d5e3068a9",
-          "size": 16233
+          "sha256": "abb91fe8a7730d4b15167226affcffda7f58875aa7f7d0774bb06ef63587e9d3",
+          "size": 18233
         },
         {
           "path": "preview.png",
@@ -1906,8 +1906,8 @@
         },
         {
           "path": "README.md",
-          "sha256": "cd88c102a088fffdf7088219dda308f3c16826b1cbfdd4ba3d8d83d625bc0648",
-          "size": 1370
+          "sha256": "0cd5f1cd14eddf29614cf76d8cd708039f0a77a9fcc0a821c74f058c7beb599d",
+          "size": 1567
         }
       ],
       "kit": {
@@ -2013,13 +2013,13 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "3e44986321a975fd8e9484c2843d4fe32ba5a1fd17934a5e6fbdefbc244c2347",
-          "size": 6032
+          "sha256": "55b83df71a791d80cfb40849d2e14293da8aec0510a0588331faf8610f3e7254",
+          "size": 6906
         },
         {
           "path": "index.js",
-          "sha256": "5bcf9a7ed0dce1077cb885ede4c1259814100d699e86fa57690bf8d30405496e",
-          "size": 19327
+          "sha256": "febb35968bd500ecae8db6cc7d490eae0046f4b3e228d6c88f80fd6cc46ab75e",
+          "size": 19654
         },
         {
           "path": "preview.png",
@@ -2028,8 +2028,8 @@
         },
         {
           "path": "README.md",
-          "sha256": "0be4ae224cc8772a7c071062612b01598d0611941c92d0cc3142c2ed3a87fcc2",
-          "size": 1960
+          "sha256": "b4ffef4658d79fcf5f27a5eee51b39fc69dbae42475ed05e3cc9b754da261c50",
+          "size": 2023
         }
       ],
       "kit": {

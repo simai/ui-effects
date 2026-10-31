@@ -3,7 +3,7 @@
 A neon perspective grid runs to a glowing horizon under sparse stars.
 
 - **Russian name:** Неоновый горизонт
-- **Version:** 1.2.0, simai.effect 1.1.0
+- **Version:** 1.3.0, simai.effect 1.1.0
 - **Surfaces:** sign-in, hero, section, dashboard
 - **Tags:** geometry, depth
 - **Role:** A neon horizon and a grid running into the depth.
@@ -15,6 +15,7 @@ A neon perspective grid runs to a glowing horizon under sparse stars.
 | `speed` | integer | 10–300 % | `100` | Speed |
 | `intensity` | integer | 10–100 % | `50` | Intensity |
 | `horizon` | integer | 20–70 % | `42` | Horizon height |
+| `palette` | choice | `theme`, `turquoise`, `ocean`, `violet`, `rose`, `emerald`, `sunset`, `gold`, `silver` | `"theme"` | Palette. `theme` follows the theme colour; the others stay as they are |
 | `interactive` | boolean | — | `true` | React to the pointer. The vanishing point follows the pointer |
 
 ## Schemes

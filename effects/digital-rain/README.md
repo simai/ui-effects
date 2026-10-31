@@ -18,7 +18,7 @@ Columns of glyphs run down a dark screen: a bright head with a glow and a fading
 | `source` | choice | `javascript`, `html`, `terminal`, `easter`, `prose`, `custom`, `letters`, `hex`, `binary`, `digits`, `signs` | `"letters"` | Text |
 | `text` | text | up to 600 characters | `""` | Own text. For «Own text»: sentences, or one per line |
 | `language` | choice | `auto`, `en`, `ru` | `"auto"` | Words language. For «Words» |
-| `palette` | choice | `green`, `theme`, `amber`, `ice` | `"green"` | Palette |
+| `palette` | choice | `green`, `theme`, `turquoise`, `ocean`, `violet`, `rose`, `emerald`, `sunset`, `gold`, `silver` | `"green"` | Palette |
 | `size` | integer | 10–28 px | `16` | Glyph size |
 | `depth` | boolean | — | `true` | Depth. Far and near columns, the near ones out of focus |
 | `interactive` | boolean | — | `true` | React to the pointer. Glyphs light up round the pointer; a click lets a sheaf of runs fall |

@@ -50,6 +50,8 @@ function readTones(host, scheme) {
 // small, dim and slow; near ones large, fast and out of focus. The text comes from the list glyph
 // tide and text flow share: in code or words a column reads from the top down. The pointer lights
 // the glyphs round it; a click lets a sheaf of new runs fall from there.
+// The fixed palettes the catalogue shares: a run's trail and its head.
+const PALETTES = {turquoise: [[66, 178, 202], [216, 246, 255]], ocean: [[76, 148, 244], [214, 232, 255]], violet: [[162, 116, 252], [238, 226, 255]], rose: [[246, 104, 160], [255, 226, 238]], emerald: [[56, 190, 142], [216, 255, 238]], sunset: [[244, 146, 98], [255, 236, 214]], gold: [[226, 176, 82], [255, 242, 208]], silver: [[148, 166, 186], [242, 247, 255]]};
 const SCENE = {
   home: 'dark', seed: 29, fresh: true, reseed: ['density', 'size', 'source', 'text', 'language', 'depth'],
   tones: (read) => {
@@ -57,7 +59,6 @@ const SCENE = {
     return {
       ground: r('neutral', 4, '#0c0e13'), deep: r('neutral', 0, '#000000'),
       green: [r('success', 60, '#3ea05a'), r('success', 95, '#c8ffc9')], theme: [r('primary', 60, '#4d8eff'), r('primary', 95, '#ecf0ff')],
-      amber: [r('warning', 60, '#d1872c'), r('warning', 95, '#ffeee1')], ice: [r('neutral', 70, '#aaabb4'), r('neutral', 99, '#fdfbff')],
     };
   },
   setup(env, random) {
@@ -87,7 +88,7 @@ const SCENE = {
   },
   draw(env, t) {
     const {ctx, w, h, tones, state: st, values, pointer} = env;
-    const k = values.intensity / 100, ink = tones[values.palette] ?? tones.green;
+    const k = values.intensity / 100, ink = PALETTES[values.palette] ?? tones[values.palette] ?? tones.green;
     const dt = st.last === undefined ? 0 : Math.max(0, Math.min(0.05, t - st.last));
     st.last = t;
     if (st.inkOf !== ink || st.sizeOf !== w) { st.atlas = st.layers.map((l) => atlas(st.chars, l, ink)); st.inkOf = ink; st.sizeOf = w; }
