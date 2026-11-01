@@ -2,19 +2,19 @@
   "schema": "simai.ui-effects.framework-lock",
   "version": 1,
   "note": "The Framework release the catalogue is checked and served against. The site loads the Framework from jsDelivr's npm form at ui.npm.version (the release's package; its package.json \"simai\" names the release and commit, and the gh/ form exceeds jsDelivr's size limit); the kit runs scripts/effect-kit.mjs from ui-source at ui_source.commit against ui's distr/core at ui.commit. The kit runs every check below that applies to a manifest: the base checks always, the per-scheme checks for each declared scheme, the dual checks when it draws both, pair when it names one, and a capability's checks when it declares it. A repin changes this file only.",
-  "pair": "ui-1bc55b4763ee",
+  "pair": "ui-76c3b120303e",
   "standard": "simai.effect 1.2.0",
   "ui": {
     "repository": "simai/ui",
-    "commit": "1bc55b4763eea4fbdb5cee14fa251bf7f7719b8d",
+    "commit": "76c3b120303e1fef56a536309732cfe5c0d18d00",
     "npm": {
       "package": "@simai-studio/ui",
-      "version": "5.20261101.59"
+      "version": "5.20261101.1544"
     }
   },
   "ui_source": {
     "repository": "simai/ui-source",
-    "commit": "001d27c6f2a610721998f0ce9716c9cd88a9a50c"
+    "commit": "bafeaffe0ddbb06ce92193c2d9b8806a0fcaf658"
   },
   "kit": {
     "script": "scripts/effect-kit.mjs",
