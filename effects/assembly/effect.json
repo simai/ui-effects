@@ -1,0 +1,192 @@
+{
+  "schema": "simai.effect",
+  "schema_version": 1,
+  "id": "assembly",
+  "version": "0.1.0",
+  "label": {
+    "ru": "Сборка",
+    "en": "Assembly"
+  },
+  "author": "SIMAI",
+  "entry": "index.js",
+  "preview": "preview.png",
+  "surfaces": [
+    "hero",
+    "section",
+    "docs"
+  ],
+  "schemes": [
+    "light",
+    "dark"
+  ],
+  "capabilities": [
+    "windows"
+  ],
+  "settings": [
+    {
+      "key": "speed",
+      "type": "integer",
+      "label": {
+        "ru": "Скорость",
+        "en": "Speed"
+      },
+      "default": 100,
+      "min": 10,
+      "max": 300,
+      "step": 10,
+      "unit": "%"
+    },
+    {
+      "key": "intensity",
+      "type": "integer",
+      "label": {
+        "ru": "Яркость",
+        "en": "Intensity"
+      },
+      "default": 80,
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "%"
+    },
+    {
+      "key": "size",
+      "type": "integer",
+      "label": {
+        "ru": "Размер фигур",
+        "en": "Shape size"
+      },
+      "default": 100,
+      "min": 40,
+      "max": 140,
+      "step": 5,
+      "unit": "%"
+    },
+    {
+      "key": "shapes",
+      "type": "choice",
+      "label": {
+        "ru": "Что собирается",
+        "en": "What is built"
+      },
+      "default": "mix",
+      "options": [
+        {
+          "value": "mix",
+          "label": {
+            "ru": "Интерфейс и картинки",
+            "en": "Interface and pictures"
+          }
+        },
+        {
+          "value": "interface",
+          "label": {
+            "ru": "Только интерфейс",
+            "en": "Interface only"
+          }
+        },
+        {
+          "value": "objects",
+          "label": {
+            "ru": "Только картинки",
+            "en": "Pictures only"
+          }
+        }
+      ],
+      "hint": {
+        "ru": "Интерфейс: кнопка, карточка, форма, страница; картинки: дом, ёлка, ракета и другие",
+        "en": "Interface: a button, a card, a form, a page; pictures: a house, a tree, a rocket and more"
+      }
+    },
+    {
+      "key": "palette",
+      "type": "choice",
+      "label": {
+        "ru": "Палитра",
+        "en": "Palette"
+      },
+      "default": "theme",
+      "options": [
+        {
+          "value": "theme",
+          "label": {
+            "ru": "Цвет темы",
+            "en": "Theme colour"
+          }
+        },
+        {
+          "value": "turquoise",
+          "label": {
+            "ru": "Бирюзовая",
+            "en": "Turquoise"
+          }
+        },
+        {
+          "value": "ocean",
+          "label": {
+            "ru": "Океан",
+            "en": "Ocean"
+          }
+        },
+        {
+          "value": "violet",
+          "label": {
+            "ru": "Фиолетовая",
+            "en": "Violet"
+          }
+        },
+        {
+          "value": "rose",
+          "label": {
+            "ru": "Роза",
+            "en": "Rose"
+          }
+        },
+        {
+          "value": "emerald",
+          "label": {
+            "ru": "Изумруд",
+            "en": "Emerald"
+          }
+        },
+        {
+          "value": "sunset",
+          "label": {
+            "ru": "Закат",
+            "en": "Sunset"
+          }
+        },
+        {
+          "value": "gold",
+          "label": {
+            "ru": "Золото",
+            "en": "Gold"
+          }
+        },
+        {
+          "value": "silver",
+          "label": {
+            "ru": "Серебро",
+            "en": "Silver"
+          }
+        }
+      ]
+    },
+    {
+      "key": "interactive",
+      "type": "boolean",
+      "label": {
+        "ru": "Реагировать на указатель",
+        "en": "React to the pointer"
+      },
+      "default": true,
+      "hint": {
+        "ru": "Клик расталкивает детали, они возвращаются на место",
+        "en": "A click knocks the parts apart; they spring back"
+      }
+    }
+  ],
+  "needs": {
+    "network": false
+  }
+}

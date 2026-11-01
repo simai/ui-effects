@@ -79,6 +79,25 @@
       ]
     },
     {
+      "id": "assembly",
+      "categories": [
+        "abstract",
+        "tech"
+      ],
+      "description": {
+        "ru": "Детали падают сверху, соединяются линиями и собираются то в кнопку или страницу, то в дом или ракету.",
+        "en": "Parts fall from above, join with lines and build a button or a page, then a house or a rocket."
+      },
+      "role": {
+        "ru": "Баннер о том, как из мелких деталей собирается интерфейс: для документации и рассказа о системе компонентов. Светлая и тёмная схема.",
+        "en": "A banner about building an interface from small parts: for documentation and a component system's story. Light and dark."
+      },
+      "tags": [
+        "geometry",
+        "interface"
+      ]
+    },
+    {
       "id": "hex-conduits",
       "categories": [
         "tech",

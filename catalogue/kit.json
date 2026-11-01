@@ -35,6 +35,12 @@
       "total": 14,
       "failed": []
     },
+    "assembly": {
+      "digest": "b702fc9b010d0bdd6c10d8f3bddeba5290f13bdae165d1411f042d481190f6e5",
+      "passed": 17,
+      "total": 17,
+      "failed": []
+    },
     "hex-conduits": {
       "digest": "46dfcd23d5075ccb6b8c35e750598da526b2af3656b73029865cf268e7195f92",
       "passed": 17,

@@ -10,8 +10,8 @@
     "ui_source": "001d27c6f2a610721998f0ce9716c9cd88a9a50c"
   },
   "counts": {
-    "effects": 34,
-    "dual": 19,
+    "effects": 35,
+    "dual": 20,
     "dark": 13,
     "light": 2
   },
@@ -50,7 +50,7 @@
         "ru": "Сети, схемы, огни, улицы, карты",
         "en": "Networks, circuits, lights, streets, maps"
       },
-      "count": 8
+      "count": 9
     },
     {
       "id": "text",
@@ -98,7 +98,7 @@
         "ru": "Градиенты, частицы, геометрия",
         "en": "Gradients, particles, geometry"
       },
-      "count": 10
+      "count": 11
     }
   ],
   "effects": [
@@ -367,6 +367,73 @@
         "framework": "ui-1bc55b4763ee",
         "passed": 14,
         "total": 14
+      }
+    },
+    {
+      "id": "assembly",
+      "version": "0.1.0",
+      "label": {
+        "ru": "Сборка",
+        "en": "Assembly"
+      },
+      "description": {
+        "ru": "Детали падают сверху, соединяются линиями и собираются то в кнопку или страницу, то в дом или ракету.",
+        "en": "Parts fall from above, join with lines and build a button or a page, then a house or a rocket."
+      },
+      "role": {
+        "ru": "Баннер о том, как из мелких деталей собирается интерфейс: для документации и рассказа о системе компонентов. Светлая и тёмная схема.",
+        "en": "A banner about building an interface from small parts: for documentation and a component system's story. Light and dark."
+      },
+      "categories": [
+        "abstract",
+        "tech"
+      ],
+      "schemes": [
+        "light",
+        "dark"
+      ],
+      "pair": null,
+      "capabilities": [
+        "windows"
+      ],
+      "tags": [
+        "geometry",
+        "interface"
+      ],
+      "surfaces": [
+        "hero",
+        "section",
+        "docs"
+      ],
+      "path": "effects/assembly/",
+      "entry": "index.js",
+      "files": [
+        {
+          "path": "effect.json",
+          "sha256": "b88be3d022f1fa983ad9e1ff89158900a4501f3c4a4d155c0e048f39839e6f86",
+          "size": 4112
+        },
+        {
+          "path": "index.js",
+          "sha256": "a46d6056f87a03597fad1425ded5aac06ca762e1aef7aadc7ea84b71415dbe62",
+          "size": 22951
+        },
+        {
+          "path": "preview.png",
+          "sha256": "828e09b2151ba2622e5a2c3ccaa2a602e482824d86c5fbe39699d48d585b7f2a",
+          "size": 9693
+        },
+        {
+          "path": "README.md",
+          "sha256": "b977dd0bf225c6e9f608c2e50eac470171481875394b7bc9dc31d7119a1a9feb",
+          "size": 2553
+        }
+      ],
+      "kit": {
+        "status": "pass",
+        "framework": "ui-1bc55b4763ee",
+        "passed": 17,
+        "total": 17
       }
     },
     {
