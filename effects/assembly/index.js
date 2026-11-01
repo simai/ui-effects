@@ -138,7 +138,8 @@ function deckFor(set, random) {
 
 // --- The scene -----------------------------------------------------------------------------------
 // One shape at a time, in the right part of a wide area (the left stays calm for a heading) or,
-// smaller and softer, in the upper right corner of a tall one, whose text fills the rest. Its
+// smaller and softer, in the upper right corner of a tall one, whose text fills the rest; in a
+// right-to-left page, where the heading starts on the right, it moves to the left and reads the other way. Its
 // atoms fall from above one after another and snap into place; the lines draw themselves between
 // them; the shape holds, breathing a little; then the lines go and the atoms drop away. A few loose atoms drift down behind all of it. A click knocks the atoms
 // near it away; they spring back.
@@ -151,9 +152,13 @@ const SCENE = {
   setup(env, random) {
     const {w, h} = env;
     const wide = w > h * 1.15;
+    const view = env.ctx.canvas;
+    const rtl = view.ownerDocument.defaultView.getComputedStyle(view).direction === 'rtl';
     const zone = wide
       ? {x: w * 0.72, y: h * 0.52, s: Math.min(w * 0.2, h * 0.34)}
       : {x: w * 0.76, y: h * 0.17, s: Math.min(w * 0.18, h * 0.13)};
+    if (rtl) zone.x = w - zone.x;
+    zone.flip = rtl ? -1 : 1;
     zone.soft = wide ? 1 : 0.7;
     zone.s *= env.values.size / 100;
     const drift = Array.from({length: Math.round(10 + w * h / 60000)}, () => ({x: random() * w, y: random() * h, v: 6 + random() * 10, r: 1 + random() * 1.6, c: Math.floor(random() * 3), p: random() * 6}));
@@ -165,10 +170,13 @@ const SCENE = {
     const {state, h} = env;
     const random = rng(1000 + k * 7919 + (env.values.shapes === 'objects' ? 3 : env.values.shapes === 'interface' ? 5 : 0));
     const b = builder();
-    SHAPES[state.deck[k % state.deck.length]](b);
+    const name = state.deck[k % state.deck.length];
+    SHAPES[name](b);
     const {zone} = state;
+    // Right to left, the shapes read the other way too (a card's lines start on the right); the mark stays.
+    const flip = name === 'mark' ? 1 : zone.flip;
     state.atoms = b.nodes.map((node, i) => {
-      const tx = zone.x + node.x * zone.s, ty = zone.y + node.y * zone.s;
+      const tx = zone.x + node.x * flip * zone.s, ty = zone.y + node.y * zone.s;
       return {
         tx, ty, r: node.r,
         sx: tx + (random() - 0.5) * zone.s * 1.4, sy: -16 - random() * h * 0.35,

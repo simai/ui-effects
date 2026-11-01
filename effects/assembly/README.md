@@ -8,7 +8,7 @@ Parts fall from above, join with lines and build a button or a page, then a hous
 - **Tags:** geometry, interface
 - **Role:** A banner about building an interface from small parts, for documentation and the story of a component system. It has a light and a dark scheme.
 
-One shape at a time gathers in the right part of a wide area, so the left part stays calm for a heading. In a tall area the shape gathers in the lower part.
+One shape at a time gathers in the right part of a wide area, so the left part stays calm for a heading. In a tall area the shape is smaller and softer, in the upper right corner. On a right-to-left page (`dir="rtl"` on the area or above it) the shape takes the left side instead and reads the other way (the SIMAI mark stays as it is), so it never sits under the text.
 
 Each cycle runs in four steps:
 
