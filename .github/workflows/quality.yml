@@ -62,9 +62,13 @@ jobs:
         run: node scripts/kit.mjs --template
       - name: Kit results reproduce the committed ones
         run: git diff --exit-code -- catalogue/
-      - name: Build the site
-        run: UI_EFFECTS_COMMIT="$GITHUB_SHA" node scripts/build-site.mjs
-      - name: Browser smoke at the site root, as effects.simai.io serves it
+      - name: Votes service tests
+        run: node scripts/votes-test.mjs
+      - name: Build the site with the votes service at /api/, as effects.simai.io serves it
+        run: UI_EFFECTS_COMMIT="$GITHUB_SHA" node scripts/build-site.mjs --votes /api/
+      - name: Server release layout passes
+        run: node scripts/server-release.mjs --out "$RUNNER_TEMP/release"
+      - name: Browser smoke at the site root, with the votes service, as effects.simai.io serves it
         timeout-minutes: 20
         run: node scripts/smoke.mjs --shots "$RUNNER_TEMP/shots" --json "$RUNNER_TEMP/smoke.json"
       - name: Keep the smoke evidence

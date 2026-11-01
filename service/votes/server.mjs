@@ -11,10 +11,14 @@
 // POST /api/vote {effect, voter, value}    value 1 (like), -1 (dislike) or 0 (taken back)
 // POST /api/use  {effect, voter, kind}     kind copy or download, counted once per browser
 //
-// VOTES_PORT (8787), VOTES_HOST (127.0.0.1), VOTES_STATE_DIR (./state),
+// VOTES_PORT (else PORT, else 8787), VOTES_HOST (else HOST, else 127.0.0.1),
+// VOTES_STATE_DIR (else SIMAI_STATE_DIR, the state simai-env keeps across
+// releases, else ./state),
 // VOTES_CATALOGUE (catalogue/index.json beside this repository's service/: the
 // effects that may be voted for), VOTES_ORIGINS (pages allowed to call, comma
-// separated; empty answers any origin, for local work).
+// separated; empty answers any origin, for local work), VOTES_TRUST_PROXY (1
+// behind the server's nginx: the client address for the write limit is its
+// X-Real-IP, not the proxy's).
 import {readFileSync} from 'node:fs';
 import {createServer} from 'node:http';
 import {dirname, join, resolve} from 'node:path';
@@ -23,7 +27,7 @@ import {KINDS, openStore} from './store.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 
-export function createVotesServer({stateDir, catalogue, origins = []}) {
+export function createVotesServer({stateDir, catalogue, origins = [], trustProxy = false}) {
   const ids = new Set(JSON.parse(readFileSync(catalogue, 'utf8')).effects.map((effect) => effect.id));
   const store = openStore(stateDir);
   // Writes per client address per minute; the address is kept in memory only.
@@ -77,7 +81,8 @@ export function createVotesServer({stateDir, catalogue, origins = []}) {
     if (request.method === 'GET' && path === '/api/health') return send(response, 200, {ok: true, effects: ids.size}, cors);
     if (request.method === 'GET' && path === '/api/stats') return send(response, 200, {effects: store.stats()}, {...cors, 'cache-control': 'public, max-age=30'});
     if (request.method !== 'POST' || (path !== '/api/vote' && path !== '/api/use')) return send(response, 404, {error: 'not found'}, cors);
-    if (limited(request.socket.remoteAddress ?? '')) return send(response, 429, {error: 'slow down'}, cors);
+    const address = (trustProxy && request.headers['x-real-ip']) || request.socket.remoteAddress || '';
+    if (limited(address)) return send(response, 429, {error: 'slow down'}, cors);
     let body;
     try { body = await readBody(request); } catch { return send(response, 400, {error: 'body'}, cors); }
     const {effect, voter} = body ?? {};
@@ -99,11 +104,12 @@ export function createVotesServer({stateDir, catalogue, origins = []}) {
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   const env = process.env;
   const {server, store} = createVotesServer({
-    stateDir: resolve(env.VOTES_STATE_DIR || 'state'),
+    stateDir: resolve(env.VOTES_STATE_DIR || env.SIMAI_STATE_DIR || 'state'),
     catalogue: resolve(env.VOTES_CATALOGUE || join(here, '..', '..', 'catalogue', 'index.json')),
     origins: (env.VOTES_ORIGINS || '').split(',').map((value) => value.trim()).filter(Boolean),
+    trustProxy: env.VOTES_TRUST_PROXY === '1',
   });
-  const port = Number(env.VOTES_PORT || 8787), host = env.VOTES_HOST || '127.0.0.1';
+  const port = Number(env.VOTES_PORT || env.PORT || 8787), host = env.VOTES_HOST || env.HOST || '127.0.0.1';
   server.listen(port, host, () => console.log(`votes: http://${host}:${port}/api/`));
   const stop = () => { store.compact(); process.exit(0); };
   process.on('SIGTERM', stop);

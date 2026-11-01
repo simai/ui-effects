@@ -56,4 +56,19 @@ This serves the site at http://127.0.0.1:4173/ with the service under `/api/`.
 
 ## Deploying
 
-The service is not deployed yet. Deploying it, and choosing its host and backups, needs the owner's approval.
+effects.simai.io runs on the simai-env server. A release holds two things:
+
+- the site under `public/`, served by nginx;
+- the votes service, which answers `/api/` on the same address.
+
+`scripts/server-release.mjs` lays the release out and writes `.simai/app.json`. The manifest declares:
+
+- profile `node` with a static root, and `/api/` routed to the service;
+- health at `/api/health`;
+- state in the site's shared `state/`, so the votes outlive every release;
+- only `https://effects.simai.io` may write;
+- the client address for the write limit comes from nginx (`X-Real-IP`).
+
+`.github/workflows/deploy-server.yml` builds the site with `--votes /api/`, lays out the release and hands it to the server's deploy gate. Quality runs the same build, the service tests and the smoke with the service.
+
+Before the first such release, the server's site needs the node profile, so that it has a port and a service unit. Its shared `state/` also needs to be in the server backups. GitHub Pages stays as the fallback, without likes.

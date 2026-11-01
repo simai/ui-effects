@@ -2,11 +2,15 @@ name: Deploy to the simai server
 
 # Builds the catalogue site and deploys it to the simai-env server
 # (201.51.24.222) as effects.simai.io, after Quality passes on main or on a
-# manual run. It does nothing until the repository variable
-# SIMAI_SERVER_DEPLOY is "true" and the environment simai-server holds
-# SIMAI_DEPLOY_KEY (a key the server's deploy gate lets deploy
-# effects.simai.io only) and SIMAI_DEPLOY_KNOWN_HOSTS. GitHub Pages stays as
-# the fallback.
+# manual run. The release is the site (public/) and the votes service at
+# /api/ (scripts/server-release.mjs, profile node with a static root); the
+# votes live in the site's shared state and outlive every release. The
+# server's site must have the node profile (a port for the service).
+#
+# It does nothing until the repository variable SIMAI_SERVER_DEPLOY is "true"
+# and the environment simai-server holds SIMAI_DEPLOY_KEY (a key the server's
+# deploy gate lets deploy effects.simai.io only) and SIMAI_DEPLOY_KNOWN_HOSTS.
+# GitHub Pages stays as the fallback, without likes.
 on:
   workflow_run:
     workflows: [Quality]
@@ -40,19 +44,19 @@ jobs:
           node-version: "20.19.5"
       - run: npm ci --no-audit --no-fund
       - run: node scripts/build-catalogue.mjs --check
-      - name: Build the site (every URL in it is relative)
-        run: UI_EFFECTS_COMMIT="$DEPLOY_SHA" node scripts/build-site.mjs
+      - name: Build the site (every URL in it is relative) with the votes service at /api/
+        run: UI_EFFECTS_COMMIT="$DEPLOY_SHA" node scripts/build-site.mjs --votes /api/
+      - name: Lay out the release
+        run: node scripts/server-release.mjs --out "$RUNNER_TEMP/release"
       - name: Deploy the artifact
         env:
           DEPLOY_KEY: ${{ secrets.SIMAI_DEPLOY_KEY }}
           DEPLOY_KNOWN_HOSTS: ${{ secrets.SIMAI_DEPLOY_KNOWN_HOSTS }}
         run: |
           set -euo pipefail
-          mkdir -p dist/.simai
-          printf '%s\n' '{"schema":"simai-app/1","profile":"static","health":{"path":"/"}}' > dist/.simai/app.json
           install -m 600 /dev/null "$RUNNER_TEMP/key" && printf '%s\n' "$DEPLOY_KEY" > "$RUNNER_TEMP/key"
           printf '%s\n' "$DEPLOY_KNOWN_HOSTS" > "$RUNNER_TEMP/known_hosts"
-          tar -C dist -czf "$RUNNER_TEMP/site.tgz" .
+          tar -C "$RUNNER_TEMP/release" -czf "$RUNNER_TEMP/site.tgz" .
           sum=$(sha256sum "$RUNNER_TEMP/site.tgz" | cut -d' ' -f1)
           echo "artifact sha256 $sum"
           ssh -i "$RUNNER_TEMP/key" -o UserKnownHostsFile="$RUNNER_TEMP/known_hosts" -o StrictHostKeyChecking=yes \
