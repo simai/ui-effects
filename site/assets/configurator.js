@@ -2,7 +2,7 @@
 // once), the theme mode limited to what the effect can draw, settings built
 // from the manifest, a contrast readout, motion controls on the banner and the
 // code.
-import {badges, config, formatRatio, loadCatalogue, luminance, modeName, onSiteColour, onSiteTheme, ratio, schemeName, text} from './common.js';
+import {badges, config, formatNumber, formatRatio, loadCatalogue, luminance, modeName, onSiteColour, onSiteTheme, ratio, schemesName, t, text} from './common.js';
 import {loadWithPair, outcomeOf, place} from './place.js';
 import {connectSnippet, examplePage, htmlSnippet, jsSnippet, jsonSnippet} from './snippets.js';
 
@@ -110,7 +110,7 @@ function buildForm() {
       if (!checked.ok) {
         const note = document.createElement('p');
         note.className = 'invalid';
-        note.textContent = 'Значение вне допустимого — эффект его не получит.';
+        note.textContent = t('effect.invalid');
         field.append(note);
         return;
       }
@@ -148,8 +148,8 @@ $('[data-reset]').addEventListener('click', () => {
 // One short line, only when the effect is not drawn as the page asks.
 const policyText = (current) => {
   switch (current.outcome) {
-    case 'kept': return current.drawn === 'light' ? 'Показан светлым: тёмной версии нет.' : 'Показан тёмным: светлой версии нет.';
-    case 'hidden': return 'Не показан.';
+    case 'kept': return t(current.drawn === 'light' ? 'effect.kept.light' : 'effect.kept.dark');
+    case 'hidden': return t('effect.hidden');
     default: return '';
   }
 };
@@ -159,7 +159,7 @@ function describe(current) {
   line.textContent = policyText(current);
   const note = $('[data-settings-note]');
   note.hidden = Boolean(current.shown);
-  note.textContent = current.shown ? '' : 'Эффект сейчас не показан; настройки применятся, когда он появится.';
+  note.textContent = current.shown ? '' : t('effect.not-shown');
 }
 
 // What the placements show now: the core follows the page theme on its own,
@@ -171,7 +171,7 @@ function settle() {
   if (!current) return;
   state.last = current;
   errorBox.hidden = !current.error;
-  errorBox.textContent = current.error ? `Эффект не запустился: ${current.error}.` : '';
+  errorBox.textContent = current.error ? t('effect.failed', {reason: current.error}) : '';
   html.dataset.outcome = current.outcome;
   html.dataset.drawn = current.drawn;
   html.dataset.shown = current.shown ?? '';
@@ -209,7 +209,7 @@ const pause = $('[data-pause]');
 pause.addEventListener('click', () => {
   state.paused = !state.paused;
   pause.setAttribute('aria-pressed', String(state.paused));
-  pause.setAttribute('aria-label', state.paused ? 'Продолжить' : 'Пауза');
+  pause.setAttribute('aria-label', t(state.paused ? 'demo.resume' : 'demo.pause'));
   pause.title = pause.getAttribute('aria-label');
   forEachPlacement((placement) => (state.paused ? placement.pause() : placement.resume()));
 });
@@ -315,15 +315,15 @@ function measure() {
   if (!current.shown) {
     const texts = [...hero.querySelectorAll('[data-text]'), ...cards.querySelectorAll('[data-effect-window] [data-text]')];
     const worst = Math.min(...texts.map((element) => ratio(luminance(rgba(getComputedStyle(element).color)), luminance(groundOf(element)))));
-    setReadout(worst >= 4.5 ? 'ok' : 'warn', `Контраст текста ${formatRatio(worst)}`, worst);
+    setReadout(worst >= 4.5 ? 'ok' : 'warn', t('effect.contrast', {ratio: formatRatio(worst)}), worst);
     return;
   }
   const parts = [ratiosOver(hero, '[data-text]'), ratiosOver(cards, '[data-effect-window] [data-text]')];
-  if (parts.some((part) => part === null)) { setReadout('none', 'Контраст не измерен: эффект рисует не на canvas.'); return; }
+  if (parts.some((part) => part === null)) { setReadout('none', t('effect.contrast.no-canvas')); return; }
   const ratios = parts.flat().sort((a, b) => a - b);
-  if (!ratios.length) { setReadout('none', 'Контраст не измерен.'); return; }
+  if (!ratios.length) { setReadout('none', t('effect.contrast.none')); return; }
   const p5 = ratios[Math.floor(ratios.length * 0.05)];
-  setReadout(p5 >= 4.5 ? 'ok' : 'warn', `Контраст текста ${formatRatio(p5)}${p5 >= 4.5 ? '' : ' — ниже 4,5:1'}`, p5);
+  setReadout(p5 >= 4.5 ? 'ok' : 'warn', t(p5 >= 4.5 ? 'effect.contrast' : 'effect.contrast.low', {ratio: formatRatio(p5)}), p5);
 }
 setInterval(() => { if (!state.paused && !document.hidden) measure(); }, 2500);
 
@@ -363,7 +363,7 @@ function renderCode() {
 // banner, the cards or both, with the current settings and theme mode.
 const layoutPicker = $('[data-download-layout]');
 if (!config.published) $('[data-draft-note]').hidden = false;
-layoutPicker.options = [{text: 'Баннер и карточки', value: 'both'}, {text: 'Только баннер', value: 'hero'}, {text: 'Только карточки', value: 'windows'}];
+layoutPicker.options = ['both', 'hero', 'windows'].map((value) => ({text: t(`panel.download.${value}`), value}));
 $('[data-download]').addEventListener('click', () => {
   const options = {config, catalogue, entry, mode: state.mode, values: state.values};
   const layout = layoutPicker?.value || 'both';
@@ -389,12 +389,13 @@ const fact = (term, value) => {
   row.append(dt, dd);
   aboutList.append(row);
 };
-const SURFACES = {'sign-in': 'страница входа', hero: 'первый экран', section: 'раздел', dashboard: 'дашборд', docs: 'документация', product: 'страница продукта'};
-fact('Темы', entry.schemes.length > 1 ? 'тёмная и светлая' : schemeName(entry.schemes[0]));
-fact('Где уместен', manifest.surfaces.map((surface) => SURFACES[surface] ?? surface).join(', '));
-fact('Проверки Framework', entry.kit.status === 'pass' ? `пройдены все ${entry.kit.total}` : `не пройдены (${entry.kit.passed} из ${entry.kit.total})`);
-fact('Размер', `${(entry.files.find((file) => file.path === 'index.js').size / 1024).toFixed(1).replace('.', ',')} КБ, без зависимостей и сети`);
-fact('Версия', `${entry.version}, стандарт ${catalogue.standard}`);
+const categoryNames = new Map(catalogue.categories.map((category) => [category.id, text(category.label)]));
+fact(t('fact.categories'), entry.categories.map((category) => categoryNames.get(category) ?? category).join(', '));
+fact(t('fact.schemes'), schemesName(entry));
+fact(t('fact.surfaces'), manifest.surfaces.map((surface) => (config.strings[`surface.${surface}`] ? t(`surface.${surface}`) : surface)).join(', '));
+fact(t('fact.kit'), t(entry.kit.status === 'pass' ? 'fact.kit.pass' : 'fact.kit.fail', entry.kit));
+fact(t('fact.size'), t('fact.size.value', {size: formatNumber(entry.files.find((file) => file.path === 'index.js').size / 1024, 1)}));
+fact(t('fact.version'), t('fact.version.value', {version: entry.version, standard: catalogue.standard}));
 $('[data-source]').href = `https://github.com/simai/ui-effects/tree/${config.commit}/${entry.path}`;
 
 renderCode();

@@ -160,8 +160,13 @@ Then:
 1. set `id`, `label`, `surfaces` and the settings in `effect.json`;
 2. replace `draw()` in `index.js`; keep the lifecycle code;
 3. set `schemes` and `capabilities` in `effect.json`, and add the entry
-   to `effects/policy.json` (`description.ru`, `role.ru`, `tags`) at its place
-   in the catalogue order;
+   to `effects/policy.json` (`categories`, `description.ru` and `.en`,
+   `role.ru` and `.en`, `tags`) at its place in the catalogue order. Take one
+   or two `categories` from `catalogue/categories.json` (what the background
+   shows: space, nature, tech, text, science, material, abstract); the set is
+   closed, so a new effect finds its place there instead of adding one. Give
+   `label`, setting labels and hints in `effect.json` in Russian and English too:
+   the site is built in both languages;
 4. write `README.md` (every setting key in backticks) and `preview.png`.
 
 ## 8. Run the checks

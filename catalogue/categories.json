@@ -1,0 +1,15 @@
+{
+  "$schema": "./categories.schema.json",
+  "schema": "simai.ui-effects.categories",
+  "version": 1,
+  "note": "The fixed subjects an effect is filed under: what the background shows. Every effect takes one or two; the set is meant to stay closed, so a new effect finds its place here instead of adding a category. Real subjects first (space, nature, technology and the city, text, science), then the two that take everything drawn for its own sake (materials, abstraction). Order here is the order on the site.",
+  "categories": [
+    {"id": "space", "label": {"ru": "Космос", "en": "Space"}, "hint": {"ru": "Небо, звёзды, сияние, вселенная", "en": "Sky, stars, aurora, the universe"}},
+    {"id": "nature", "label": {"ru": "Природа", "en": "Nature"}, "hint": {"ru": "Вода, свет, листва, погода, птицы", "en": "Water, light, leaves, weather, birds"}},
+    {"id": "tech", "label": {"ru": "Технологии и город", "en": "Tech and city"}, "hint": {"ru": "Сети, схемы, огни, улицы, карты", "en": "Networks, circuits, lights, streets, maps"}},
+    {"id": "text", "label": {"ru": "Текст и код", "en": "Text and code"}, "hint": {"ru": "Буквы, знаки, строки кода", "en": "Letters, glyphs, lines of code"}},
+    {"id": "science", "label": {"ru": "Наука", "en": "Science"}, "hint": {"ru": "Физика, химия, рельеф, данные", "en": "Physics, chemistry, terrain, data"}},
+    {"id": "material", "label": {"ru": "Материалы", "en": "Materials"}, "hint": {"ru": "Бумага, краска, печать, песок", "en": "Paper, paint, print, sand"}},
+    {"id": "abstract", "label": {"ru": "Абстракция", "en": "Abstract"}, "hint": {"ru": "Градиенты, частицы, геометрия", "en": "Gradients, particles, geometry"}}
+  ]
+}

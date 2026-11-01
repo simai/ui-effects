@@ -1,5 +1,9 @@
 #!/usr/bin/env node
-// Builds the catalogue site from site/ into dist/.
+// Builds the catalogue site from site/ into dist/, once per language: Russian at
+// the root, every other language in its own folder (en/). Pages take their texts
+// from site/i18n/<lang>.json ({{t:key}} in a template, t() in a script) and the
+// effects' names and descriptions from the catalogue; assets, the catalogue and
+// the effects are shared at the root.
 //
 //   node scripts/build-site.mjs [--out dist]
 //
@@ -45,45 +49,79 @@ rmSync(out, {recursive: true, force: true});
 mkdirSync(out, {recursive: true});
 const partial = (name) => readFileSync(join(ROOT, 'site', 'partials', `${name}.html`), 'utf8');
 const escape = (value) => String(value).replace(/&/gu, '&amp;').replace(/"/gu, '&quot;').replace(/</gu, '&lt;').replace(/>/gu, '&gt;');
-const render = (template, values) => {
+// Languages: the first is the default and sits at the root. Every dictionary holds
+// the same keys; a text of the catalogue missing in a language falls back to English.
+const LOCALES = [{lang: 'ru', dir: ''}, {lang: 'en', dir: 'en/'}];
+const dictionaries = Object.fromEntries(LOCALES.map(({lang}) => [lang, readJson(join(ROOT, 'site', 'i18n', `${lang}.json`))]));
+const keys = Object.keys(dictionaries[LOCALES[0].lang]).sort().join();
+for (const {lang} of LOCALES) if (Object.keys(dictionaries[lang]).sort().join() !== keys) throw new Error(`build-site: site/i18n/${lang}.json does not hold the same keys as ${LOCALES[0].lang}.json`);
+const pick = (value, lang) => (value && (value[lang] || value.en || value.ru)) || '';
+const fill = (line, values = {}) => line.replace(/\{(\w+)\}/gu, (match, name) => (name in values ? String(values[name]) : match));
+const render = (template, values, lang) => {
   let page = template.replace('{{HEAD}}', partial('head')).replace('{{HEADER}}', partial('header')).replace('{{FOOTER}}', partial('footer'));
   for (const [key, value] of Object.entries(values)) page = page.replaceAll(`{{${key}}}`, value);
-  const left = page.match(/\{\{[A-Z_]+\}\}/u);
+  page = page.replace(/\{\{t:([a-z0-9.-]+)\}\}/gu, (match, key) => {
+    if (!(key in dictionaries[lang])) throw new Error(`build-site: no text ${key} in site/i18n/${lang}.json`);
+    return escape(dictionaries[lang][key]);
+  });
+  const left = page.match(/\{\{[A-Za-z_:.-]+\}\}/u);
   if (left) throw new Error(`build-site: ${left[0]} left in a page`);
   return page;
 };
-const siteConfig = (rootPath) => JSON.stringify({
+// The same page in every language, for the switch and for search engines. `page`
+// is the page's path under a language folder ('' or 'effect/<id>/').
+const up = (path) => '../'.repeat(path.split('/').filter(Boolean).length);
+const alternates = (locale, page) => LOCALES.map((other) => ({lang: other.lang, name: dictionaries[other.lang]['lang.name'], href: `${up(locale.dir + page)}${other.dir}${page}`}));
+const languageLinks = (locale, page) => alternates(locale, page).filter((other) => other.lang !== locale.lang)
+  .map((other) => `<a slot="tools" class="sf-button sf-button--size-1/2 sf-button--link sf-button--on-surface flex items-cross-center lang-switch" href="${other.href || './'}" hreflang="${other.lang}" lang="${other.lang}" title="${escape(other.name)}" aria-label="${escape(dictionaries[locale.lang]['lang.switch'])}: ${escape(other.name)}"><span class="sf-button-text-container">${other.lang.toUpperCase()}</span></a>`).join('\n  ');
+const alternateTags = (locale, page) => alternates(locale, page).map((other) => `<link rel="alternate" hreflang="${other.lang}" href="${other.href || './'}">`).join('\n');
+const siteConfig = (rootPath, locale, page) => JSON.stringify({
   root: rootPath,
+  home: up(page) || './',
+  lang: locale.lang,
+  strings: dictionaries[locale.lang],
   commit,
   commit_source: source,
   cdn: `https://cdn.jsdelivr.net/gh/simai/ui-effects@${commit}/`,
   published: isPublished(),
   framework: {pair: framework.pair, commit: framework.ui.commit, base: frameworkBase(framework)},
 }).replace(/</gu, '\\u003c');
-const common = (rootPath) => ({
-  ROOT: rootPath,
-  CONFIG: siteConfig(rootPath),
+const common = (locale, page) => ({
+  ROOT: up(locale.dir + page) || './',
+  HOME: up(page) || './',
+  LANG: locale.lang,
+  LANGUAGES: languageLinks(locale, page),
+  ALTERNATES: alternateTags(locale, page),
+  CONFIG: siteConfig(up(locale.dir + page) || './', locale, page),
   FRAMEWORK_BASE: frameworkBase(framework),
   PAIR: framework.pair,
   COMMIT_SHORT: commit.slice(0, 12),
 });
 
-writeFileSync(join(out, 'index.html'), render(readFileSync(join(ROOT, 'site', 'index.html'), 'utf8'), {
-  ...common('./'),
-  TITLE: 'Фоновые эффекты SIMAI Framework',
-  DESCRIPTION: `Каталог фоновых эффектов для SIMAI Framework: ${catalogue.effects.length} эффектов, живой пример, настройки и код подключения.`,
-}));
+const galleryTemplate = readFileSync(join(ROOT, 'site', 'index.html'), 'utf8');
 const effectTemplate = readFileSync(join(ROOT, 'site', 'effect.html'), 'utf8');
+for (const locale of LOCALES) {
+  const strings = dictionaries[locale.lang];
+  mkdirSync(join(out, locale.dir), {recursive: true});
+  writeFileSync(join(out, locale.dir, 'index.html'), render(galleryTemplate, {
+    ...common(locale, ''),
+    TITLE: escape(strings['site.title']),
+    DESCRIPTION: escape(fill(strings['site.description'], {n: catalogue.effects.length})),
+  }, locale.lang));
+  for (const effect of catalogue.effects) {
+    const page = `effect/${effect.id}/`;
+    mkdirSync(join(out, locale.dir, page), {recursive: true});
+    writeFileSync(join(out, locale.dir, page, 'index.html'), render(effectTemplate, {
+      ...common(locale, page),
+      TITLE: escape(fill(strings['effect.title'], {label: pick(effect.label, locale.lang)})),
+      DESCRIPTION: escape(pick(effect.description, locale.lang)),
+      EFFECT_ID: effect.id,
+      EFFECT_LABEL: escape(pick(effect.label, locale.lang)),
+      EFFECT_DESCRIPTION: escape(pick(effect.description, locale.lang)),
+    }, locale.lang));
+  }
+}
 for (const effect of catalogue.effects) {
-  mkdirSync(join(out, 'effect', effect.id), {recursive: true});
-  writeFileSync(join(out, 'effect', effect.id, 'index.html'), render(effectTemplate, {
-    ...common('../../'),
-    TITLE: `${escape(effect.label.ru)} — фоновые эффекты SIMAI Framework`,
-    DESCRIPTION: escape(effect.description.ru),
-    EFFECT_ID: effect.id,
-    EFFECT_LABEL: escape(effect.label.ru),
-    EFFECT_DESCRIPTION: escape(effect.description.ru),
-  }));
   mkdirSync(join(out, effect.path), {recursive: true});
   for (const file of effect.files) if (file.path !== 'README.md') cpSync(join(ROOT, effect.path, file.path), join(out, effect.path, file.path));
 }
@@ -93,4 +131,4 @@ cpSync(join(CATALOGUE, 'index.json'), join(out, 'catalogue', 'index.json'));
 cpSync(join(CATALOGUE, 'index.schema.json'), join(out, 'catalogue', 'index.schema.json'));
 writeFileSync(join(out, '.nojekyll'), '');
 if (!existsSync(join(out, 'assets', 'configurator.js'))) throw new Error('build-site: assets missing');
-console.log(`build-site: ${catalogue.effects.length + 1} pages in ${out}; snippets pinned to ${commit.slice(0, 12)} (${source}); Framework ${framework.pair}`);
+console.log(`build-site: ${(catalogue.effects.length + 1) * LOCALES.length} pages (${LOCALES.map(({lang}) => lang).join(', ')}) in ${out}; snippets pinned to ${commit.slice(0, 12)} (${source}); Framework ${framework.pair}`);

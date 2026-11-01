@@ -5,7 +5,8 @@
 //   node scripts/build-catalogue.mjs           # write catalogue/index.json
 //   node scripts/build-catalogue.mjs --check   # fail unless the committed file is current and every effect passes
 //
-// Sources: effects/policy.json (order, Russian description and role, tags),
+// Sources: effects/policy.json (order, categories, description and role, tags),
+// catalogue/categories.json (the closed set of subjects),
 // effects/<id>/ (manifest with schemes, pair and capabilities; module,
 // preview, README), catalogue/kit.json
 // (written by scripts/kit.mjs) and framework.lock.json. A kit result counts
@@ -21,6 +22,11 @@ const framework = lock();
 const {policy, entries, problems: policyProblems} = loadPolicy();
 problems.push(...policyProblems);
 problems.push(...validate(readJson(join(CATALOGUE, 'policy.schema.json')), policy).map((problem) => `effects/policy.json ${problem}`));
+
+const categoryList = readJson(join(CATALOGUE, 'categories.json'));
+problems.push(...validate(readJson(join(CATALOGUE, 'categories.schema.json')), categoryList).map((problem) => `catalogue/categories.json ${problem}`));
+const categoryIds = new Set(categoryList.categories.map((category) => category.id));
+for (const entry of entries) for (const id of entry.categories ?? []) if (!categoryIds.has(id)) problems.push(`${entry.id}: category ${id} is not in catalogue/categories.json`);
 
 const kitPath = join(CATALOGUE, 'kit.json');
 const kit = existsSync(kitPath) ? readJson(kitPath) : {effects: {}};
@@ -50,6 +56,7 @@ const effects = entries.map((entry) => {
     label: manifest.label,
     description: entry.description,
     role: entry.role,
+    categories: entry.categories,
     schemes: entry.schemes,
     pair: entry.pair ?? null,
     capabilities: manifest.capabilities ?? [],
@@ -65,7 +72,7 @@ const effects = entries.map((entry) => {
 const catalogue = {
   $schema: './index.schema.json',
   schema: 'simai.ui-effects.catalogue',
-  version: 3,
+  version: 4,
   repository: 'simai/ui-effects',
   standard: framework.standard,
   framework: {pair: framework.pair, ui: framework.ui.commit, ui_source: framework.ui_source.commit},
@@ -75,6 +82,7 @@ const catalogue = {
     dark: effects.filter((effect) => effect.schemes.join() === 'dark').length,
     light: effects.filter((effect) => effect.schemes.join() === 'light').length,
   },
+  categories: categoryList.categories.map((category) => ({...category, count: effects.filter((effect) => effect.categories.includes(category.id)).length})),
   effects,
 };
 problems.push(...validate(readJson(join(CATALOGUE, 'index.schema.json')), catalogue).map((problem) => `catalogue ${problem}`));

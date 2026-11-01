@@ -223,11 +223,18 @@ try {
       const galleryContrast = await chromeContrast(page);
       galleryContrast.failing.forEach((item) => fail(`gallery ${tag}`, `contrast ${item}`));
       if (shots) await page.screenshot({path: join(shots, `gallery-${tag}.png`)});
-      for (const filter of ['dual', 'dark', 'light', 'all']) {
-        await page.click(`[data-filters] [data-sf-button-group-value="${filter}"]`);
-        const visible = await page.evaluate(() => [...document.querySelectorAll('.card')].filter((card) => !card.hidden).length);
-        const expected = filter === 'all' ? catalogue.effects.length : catalogue.counts[filter];
-        if (visible !== expected) fail(`gallery ${tag}`, `filter ${filter} shows ${visible}, expected ${expected}`);
+      const visibleCards = () => page.evaluate(() => [...document.querySelectorAll('.card')].filter((card) => !card.hidden).length);
+      for (const category of [...catalogue.categories, {id: 'all', count: catalogue.effects.length}]) {
+        await page.click(`[data-categories] [data-sf-button-group-value="${category.id}"]`);
+        const visible = await visibleCards();
+        if (visible !== category.count) fail(`gallery ${tag}`, `category ${category.id} shows ${visible}, expected ${category.count}`);
+      }
+      // The theme filter is kept in the address: a link to it opens filtered.
+      for (const schemes of ['dual', 'dark', 'light']) {
+        await page.goto(`${base}?schemes=${schemes}`);
+        await page.waitForFunction(() => document.documentElement.dataset.ready === 'true');
+        const visible = await visibleCards();
+        if (visible !== catalogue.counts[schemes]) fail(`gallery ${tag}`, `theme ${schemes} shows ${visible}, expected ${catalogue.counts[schemes]}`);
       }
       if (shots && viewport.width === 1440) await page.screenshot({path: join(shots, `gallery-${tag}-full.png`), fullPage: true});
       flush();
@@ -238,14 +245,15 @@ try {
         await page.goto(base);
         await page.waitForFunction(() => document.documentElement.dataset.ready === 'true' && document.body.style.opacity !== '0');
         // The button group draws its segments after the page is ready.
-        await page.waitForSelector('[data-filters] .sf-button-group-segment');
+        await page.waitForSelector('[data-categories] .sf-button-group-segment');
         const stops = [];
         for (let index = 0; index < 14; index += 1) {
           await page.keyboard.press('Tab');
           stops.push(await page.evaluate(() => {
             const element = document.activeElement;
-            // A card shows the ring for its link, which covers the whole card.
-            const style = getComputedStyle(element.closest('.card') ?? element);
+            // A card shows the ring for its link, which covers the whole card, on its picture;
+            // a Framework dropdown draws it on its field around the control.
+            const style = getComputedStyle(element.closest('.card')?.querySelector('.card__media') ?? element.closest('.sf-dropdown-field') ?? element);
             return {text: (element.textContent || '').trim().slice(0, 30), cls: element.className, ring: style.outlineStyle !== 'none' && parseFloat(style.outlineWidth) >= 2};
           }));
         }
@@ -333,6 +341,35 @@ try {
       }
       await context.close();
     }
+  }
+
+  // Every other language: the gallery and one effect page carry no Russian text,
+  // name their language, and link to the same page in Russian.
+  {
+    const context = await browser.newContext({viewport: {width: 1440, height: 900}});
+    await routeAll(context);
+    const page = await context.newPage();
+    const flush = watch(page, 'en');
+    for (const path of ['en/', `en/effect/${effects[0].id}/`]) {
+      await page.goto(`${base}${path}`);
+      await page.waitForFunction(() => document.documentElement.dataset.ready === 'true', null, {timeout: 20000});
+      await wait(1500);
+      const facts = await page.evaluate(() => {
+        const russian = /[\u0400-\u04ff]/u;
+        const labels = [...document.querySelectorAll('[aria-label], [title], [label]')].map((element) => element.getAttribute('aria-label') || element.getAttribute('title') || element.getAttribute('label'));
+        return {
+          lang: document.documentElement.lang,
+          russian: [...document.body.innerText.split('\n'), ...labels, document.title].filter((line) => line && russian.test(line) && !/Language: Русский/u.test(line)).slice(0, 5),
+          other: document.querySelector('.lang-switch[hreflang="ru"]')?.getAttribute('href') ?? null,
+        };
+      });
+      if (facts.lang !== 'en') fail(`en ${path}`, `lang is ${facts.lang}`);
+      if (facts.russian.length) fail(`en ${path}`, `Russian text: ${facts.russian.join(' | ')}`);
+      if (!facts.other) fail(`en ${path}`, 'no link to the Russian page');
+      report.pages.push({page: path, viewport: '1440-en'});
+    }
+    flush();
+    await context.close();
   }
 
   // Code tabs (Framework sf-tabs): the JS tab shows its block, highlighted. (The highlight's copy

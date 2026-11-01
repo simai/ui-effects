@@ -1,8 +1,17 @@
-// Shared parts of the catalogue site: configuration, the site theme, the
-// catalogue and the Russian names.
+// Shared parts of the catalogue site: configuration, the page language and its
+// texts, the site theme and the catalogue.
 
 export const config = JSON.parse(document.getElementById('site-config').textContent);
+// root: the shared assets, catalogue and effects; home: this language's gallery.
 export const root = new URL(config.root, document.baseURI);
+export const home = new URL(config.home, document.baseURI);
+
+// --- Language --------------------------------------------------------------------
+// The page's texts come with its configuration (site/i18n/<lang>.json); a text of
+// the catalogue is taken in the page language, else in English.
+export const lang = config.lang;
+export const t = (key, values = {}) => (config.strings[key] ?? key).replace(/\{(\w+)\}/gu, (match, name) => (name in values ? String(values[name]) : match));
+export const formatNumber = (value, digits) => new Intl.NumberFormat(lang, {minimumFractionDigits: digits, maximumFractionDigits: digits}).format(value);
 
 // --- Site theme -----------------------------------------------------------------
 // The Framework's Loader keeps the theme: the header's theme button calls it, it stores the choice and puts
@@ -60,14 +69,10 @@ export async function loadCatalogue() {
   return catalogue;
 }
 
-export const text = (value) => (value && (value.ru || value.en || Object.values(value)[0])) || '';
-export const schemeName = (scheme) => (scheme === 'light' ? 'светлая' : 'тёмная');
-export const modeName = (mode) => ({auto: 'Как у страницы', dark: 'Всегда тёмная', light: 'Всегда светлая'}[mode]);
-export const TAGS = {
-  glow: 'свечение', sky: 'небо', particles: 'частицы', lines: 'линии', geometry: 'геометрия', flow: 'поток',
-  gradient: 'градиент', depth: 'глубина', water: 'вода', type: 'знаки', material: 'материал', nature: 'природа',
-  paper: 'бумага', print: 'печать', organic: 'органика',
-};
+export const text = (value) => (value && (value[lang] || value.en || Object.values(value)[0])) || '';
+export const schemeName = (scheme) => t(scheme === 'light' ? 'scheme.light.short' : 'scheme.dark.short');
+export const schemesName = (entry) => (entry.schemes.length > 1 ? t('scheme.both.short') : schemeName(entry.schemes[0]));
+export const modeName = (mode) => t(`mode.${mode}`);
 export const groupOf = (entry) => (entry.schemes.length > 1 ? 'dual' : entry.schemes[0]);
 
 export function badges(entry) {
@@ -97,4 +102,4 @@ export function parseColour(value) {
 const channel = (c) => { const v = c / 255; return v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; };
 export const luminance = ([r, g, b]) => 0.2126 * channel(r) + 0.7152 * channel(g) + 0.0722 * channel(b);
 export const ratio = (a, b) => (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
-export const formatRatio = (value) => `${value.toFixed(2).replace('.', ',')}:1`;
+export const formatRatio = (value) => `${formatNumber(value, 2)}:1`;

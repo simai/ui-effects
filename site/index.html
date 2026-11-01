@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru" data-page="gallery">
+<html lang="{{LANG}}" data-page="gallery">
 <head>
 {{HEAD}}
 </head>
@@ -8,18 +8,20 @@
 <main id="main">
   <section class="intro" data-intro aria-labelledby="intro-title">
     <div class="wrap intro__body">
-      <h1 id="intro-title">Фоновые эффекты</h1>
-      <p class="intro__lead">Живые фоны для SIMAI Framework. Подключаются одной строкой.</p>
+      <h1 id="intro-title">{{t:gallery.title}}</h1>
+      <p class="intro__lead">{{t:gallery.lead}}</p>
     </div>
   </section>
 
   <section class="wrap gallery" aria-labelledby="gallery-title">
-    <h2 id="gallery-title" class="visually-hidden">Галерея</h2>
+    <h2 id="gallery-title" class="visually-hidden">{{t:gallery.heading}}</h2>
+    <!-- Two filters: the subject (the closed set of categories) and the theme the effect draws. -->
     <div class="gallery__bar">
-      <sf-button-group appearance="segmented" aria-label="Фильтр по схемам" value="all" data-filters
-        items='[{"value":"all","label":"Все"},{"value":"dual","label":"Двухтемные"},{"value":"dark","label":"Тёмные"},{"value":"light","label":"Светлые"}]'></sf-button-group>
+      <sf-button-group appearance="segmented" size="1/2" aria-label="{{t:gallery.categories}}" value="all" data-categories></sf-button-group>
+      <sf-dropdown size="1/2" aria-label="{{t:gallery.schemes}}" value="all" search="false" data-schemes></sf-dropdown>
     </div>
     <ul class="cards" data-cards></ul>
+    <p class="gallery__empty muted" data-empty hidden>{{t:gallery.empty}}</p>
   </section>
 </main>
 {{FOOTER}}

@@ -1,7 +1,7 @@
 {
   "$schema": "./index.schema.json",
   "schema": "simai.ui-effects.catalogue",
-  "version": 3,
+  "version": 4,
   "repository": "simai/ui-effects",
   "standard": "simai.effect 1.2.0",
   "framework": {
@@ -15,6 +15,92 @@
     "dark": 13,
     "light": 2
   },
+  "categories": [
+    {
+      "id": "space",
+      "label": {
+        "ru": "Космос",
+        "en": "Space"
+      },
+      "hint": {
+        "ru": "Небо, звёзды, сияние, вселенная",
+        "en": "Sky, stars, aurora, the universe"
+      },
+      "count": 5
+    },
+    {
+      "id": "nature",
+      "label": {
+        "ru": "Природа",
+        "en": "Nature"
+      },
+      "hint": {
+        "ru": "Вода, свет, листва, погода, птицы",
+        "en": "Water, light, leaves, weather, birds"
+      },
+      "count": 9
+    },
+    {
+      "id": "tech",
+      "label": {
+        "ru": "Технологии и город",
+        "en": "Tech and city"
+      },
+      "hint": {
+        "ru": "Сети, схемы, огни, улицы, карты",
+        "en": "Networks, circuits, lights, streets, maps"
+      },
+      "count": 8
+    },
+    {
+      "id": "text",
+      "label": {
+        "ru": "Текст и код",
+        "en": "Text and code"
+      },
+      "hint": {
+        "ru": "Буквы, знаки, строки кода",
+        "en": "Letters, glyphs, lines of code"
+      },
+      "count": 4
+    },
+    {
+      "id": "science",
+      "label": {
+        "ru": "Наука",
+        "en": "Science"
+      },
+      "hint": {
+        "ru": "Физика, химия, рельеф, данные",
+        "en": "Physics, chemistry, terrain, data"
+      },
+      "count": 8
+    },
+    {
+      "id": "material",
+      "label": {
+        "ru": "Материалы",
+        "en": "Materials"
+      },
+      "hint": {
+        "ru": "Бумага, краска, печать, песок",
+        "en": "Paper, paint, print, sand"
+      },
+      "count": 8
+    },
+    {
+      "id": "abstract",
+      "label": {
+        "ru": "Абстракция",
+        "en": "Abstract"
+      },
+      "hint": {
+        "ru": "Градиенты, частицы, геометрия",
+        "en": "Gradients, particles, geometry"
+      },
+      "count": 10
+    }
+  ],
   "effects": [
     {
       "id": "aurora-curtain",
@@ -24,11 +110,16 @@
         "en": "Aurora curtain"
       },
       "description": {
-        "ru": "Светящиеся занавеси полярного сияния медленно складываются над тёмным звёздным небом."
+        "ru": "Светящиеся занавеси полярного сияния медленно складываются над тёмным звёздным небом.",
+        "en": "Glowing aurora curtains slowly fold above a dark starry sky."
       },
       "role": {
-        "ru": "Ночное небо со светящимися занавесями. Свечению нужна тьма, поэтому схема одна — тёмная."
+        "ru": "Ночное небо со светящимися занавесями. Свечению нужна тьма, поэтому схема одна — тёмная.",
+        "en": "A night sky with glowing curtains. A glow needs darkness, so there is one scheme: dark."
       },
+      "categories": [
+        "space"
+      ],
       "schemes": [
         "dark"
       ],
@@ -85,11 +176,16 @@
         "en": "Star flight"
       },
       "description": {
-        "ru": "Медленный полёт сквозь звёзды и туманности."
+        "ru": "Медленный полёт сквозь звёзды и туманности.",
+        "en": "A slow flight through stars and nebulae."
       },
       "role": {
-        "ru": "Глубокий космос: звёзды пролетают мимо, газ туманностей светится. Только тёмная схема."
+        "ru": "Глубокий космос: звёзды пролетают мимо, газ туманностей светится. Только тёмная схема.",
+        "en": "Deep space: stars fly past, nebula gas glows. Dark scheme only."
       },
+      "categories": [
+        "space"
+      ],
       "schemes": [
         "dark"
       ],
@@ -147,11 +243,16 @@
         "en": "Text flow"
       },
       "description": {
-        "ru": "Строки кода бегут, их подсвечивают медленные складки света; цвет текста — цвет темы."
+        "ru": "Строки кода бегут, их подсвечивают медленные складки света; цвет текста — цвет темы.",
+        "en": "Lines of code run by under slow folds of light; the text takes the theme colour."
       },
       "role": {
-        "ru": "Код для продуктов для разработчиков: светлая и тёмная схемы."
+        "ru": "Код для продуктов для разработчиков: светлая и тёмная схемы.",
+        "en": "Code for developer products: light and dark schemes."
       },
+      "categories": [
+        "text"
+      ],
       "schemes": [
         "dark",
         "light"
@@ -209,11 +310,16 @@
         "en": "Constellations"
       },
       "description": {
-        "ru": "Звёзды в трёх слоях глубины дрейфуют и связываются тонкими линиями, как живая сеть."
+        "ru": "Звёзды в трёх слоях глубины дрейфуют и связываются тонкими линиями, как живая сеть.",
+        "en": "Stars on three depth layers drift and join with thin lines, like a living network."
       },
       "role": {
-        "ru": "Ночное звёздное небо с созвездиями. Только тёмная схема: светлое звёздное небо выглядит ошибкой."
+        "ru": "Ночное звёздное небо с созвездиями. Только тёмная схема: светлое звёздное небо выглядит ошибкой.",
+        "en": "A night sky with constellations. Dark scheme only: a light starry sky looks like a mistake."
       },
+      "categories": [
+        "space"
+      ],
       "schemes": [
         "dark"
       ],
@@ -271,11 +377,17 @@
         "en": "Light conduits"
       },
       "description": {
-        "ru": "По рёбрам тёмной шестиугольной решётки бегут световые импульсы и оставляют гаснущий след."
+        "ru": "По рёбрам тёмной шестиугольной решётки бегут световые импульсы и оставляют гаснущий след.",
+        "en": "Pulses of light run along the edges of a dark hexagonal grid and leave a fading trail."
       },
       "role": {
-        "ru": "Решётка с бегущими импульсами: на тёмном — световоды, на светлом — чертёж схемы."
+        "ru": "Решётка с бегущими импульсами: на тёмном — световоды, на светлом — чертёж схемы.",
+        "en": "A grid with running pulses: light guides on dark, a circuit drawing on light."
       },
+      "categories": [
+        "tech",
+        "abstract"
+      ],
       "schemes": [
         "dark",
         "light"
@@ -333,11 +445,16 @@
         "en": "Comet flow"
       },
       "description": {
-        "ru": "Светящиеся частицы текут по невидимому полю течения и оставляют мягкие хвосты."
+        "ru": "Светящиеся частицы текут по невидимому полю течения и оставляют мягкие хвосты.",
+        "en": "Glowing particles drift along an invisible flow field and leave soft tails."
       },
       "role": {
-        "ru": "Поток светящихся частиц на тёмном."
+        "ru": "Поток светящихся частиц на тёмном.",
+        "en": "A stream of glowing particles on dark."
       },
+      "categories": [
+        "abstract"
+      ],
       "schemes": [
         "dark"
       ],
@@ -394,11 +511,17 @@
         "en": "Neon horizon"
       },
       "description": {
-        "ru": "Перспективная неоновая сетка уходит к светящемуся горизонту под редкими звёздами."
+        "ru": "Перспективная неоновая сетка уходит к светящемуся горизонту под редкими звёздами.",
+        "en": "A neon perspective grid runs towards a glowing horizon under a few stars."
       },
       "role": {
-        "ru": "Неоновый горизонт и сетка, уходящая в глубину."
+        "ru": "Неоновый горизонт и сетка, уходящая в глубину.",
+        "en": "A neon horizon and a grid running into depth."
       },
+      "categories": [
+        "tech",
+        "abstract"
+      ],
       "schemes": [
         "dark"
       ],
@@ -455,11 +578,16 @@
         "en": "Abyss caustics"
       },
       "description": {
-        "ru": "Сетка подводных бликов колышется в глубокой воде, сверху падают мягкие лучи."
+        "ru": "Сетка подводных бликов колышется в глубокой воде, сверху падают мягкие лучи.",
+        "en": "A net of underwater light ripples sways in deep water; soft rays fall from above."
       },
       "role": {
-        "ru": "Блики света в глубокой воде."
+        "ru": "Блики света в глубокой воде.",
+        "en": "Light ripples in deep water."
       },
+      "categories": [
+        "nature"
+      ],
       "schemes": [
         "dark"
       ],
@@ -516,11 +644,16 @@
         "en": "Glyph tide"
       },
       "description": {
-        "ru": "Поле моноширинных знаков, по которому медленно проходит волна света."
+        "ru": "Поле моноширинных знаков, по которому медленно проходит волна света.",
+        "en": "A field of monospaced glyphs crossed by a slow wave of light."
       },
       "role": {
-        "ru": "Поле знаков с волной: на тёмном знаки загораются, на светлом — пропечатываются."
+        "ru": "Поле знаков с волной: на тёмном знаки загораются, на светлом — пропечатываются.",
+        "en": "A field of glyphs with a wave: on dark the glyphs light up, on light they are printed in."
       },
+      "categories": [
+        "text"
+      ],
       "schemes": [
         "dark",
         "light"
@@ -577,11 +710,17 @@
         "en": "Rain on glass"
       },
       "description": {
-        "ru": "Запотевшее окно дождливой ночью: за стеклом улица не в фокусе — только огни. Фонари уходят вдаль, неон меняет цвет и мигает, на перекрёстке светофор останавливает и пропускает машины, каждый огонь дрожит полосой в мокром асфальте. Капли скатываются по стеклу; протрите его пальцем — оно снова запотеет."
+        "ru": "Запотевшее окно дождливой ночью: за стеклом улица не в фокусе — только огни. Фонари уходят вдаль, неон меняет цвет и мигает, на перекрёстке светофор останавливает и пропускает машины, каждый огонь дрожит полосой в мокром асфальте. Капли скатываются по стеклу; протрите его пальцем — оно снова запотеет.",
+        "en": "A fogged window on a rainy night: the street outside is out of focus, only its lights remain. Street lamps run into the distance, a neon sign changes colour and flickers, a traffic light stops and releases cars at the crossing, every light trembles as a streak on the wet road. Drops roll down the glass; wipe it with a finger and it fogs again."
       },
       "role": {
-        "ru": "Уютный вечер за окном. Только тёмная схема."
+        "ru": "Уютный вечер за окном. Только тёмная схема.",
+        "en": "A cosy evening behind the window. Dark scheme only."
       },
+      "categories": [
+        "nature",
+        "tech"
+      ],
       "schemes": [
         "dark"
       ],
@@ -638,11 +777,16 @@
         "en": "Colour haze"
       },
       "description": {
-        "ru": "Мягкие цветные пятна медленно перетекают друг в друга, как дымка."
+        "ru": "Мягкие цветные пятна медленно перетекают друг в друга, как дымка.",
+        "en": "Soft colour patches slowly flow into each other, like haze."
       },
       "role": {
-        "ru": "Спокойный цветной градиент для любой темы: светлая и тёмная схемы."
+        "ru": "Спокойный цветной градиент для любой темы: светлая и тёмная схемы.",
+        "en": "A calm colour gradient for any theme: light and dark schemes."
       },
+      "categories": [
+        "abstract"
+      ],
       "schemes": [
         "light",
         "dark"
@@ -700,11 +844,16 @@
         "en": "Daylight caustics"
       },
       "description": {
-        "ru": "Сетка солнечных бликов, как свет сквозь воду на светлом дне; мягкий «шейдер» на 2D canvas."
+        "ru": "Сетка солнечных бликов, как свет сквозь воду на светлом дне; мягкий «шейдер» на 2D canvas.",
+        "en": "A net of sun ripples, like light through water on a bright bottom; a soft shader on a 2D canvas."
       },
       "role": {
-        "ru": "Солнечные блики на дне."
+        "ru": "Солнечные блики на дне.",
+        "en": "Sun ripples on the bottom."
       },
+      "categories": [
+        "nature"
+      ],
       "schemes": [
         "light"
       ],
@@ -759,11 +908,16 @@
         "en": "Leaf shadows"
       },
       "description": {
-        "ru": "Тени листвы колышутся на стене: днём в солнечном свете, ночью в лунном."
+        "ru": "Тени листвы колышутся на стене: днём в солнечном свете, ночью в лунном.",
+        "en": "Shadows of leaves sway on a wall: in sunlight by day, in moonlight by night."
       },
       "role": {
-        "ru": "Природа и тишина: светлая и тёмная схемы."
+        "ru": "Природа и тишина: светлая и тёмная схемы.",
+        "en": "Nature and quiet: light and dark schemes."
       },
+      "categories": [
+        "nature"
+      ],
       "schemes": [
         "light",
         "dark"
@@ -819,11 +973,17 @@
         "en": "Paper facets"
       },
       "description": {
-        "ru": "Смятый лист из треугольных граней; свет медленно обходит его, грани неспешно переливаются, а под указателем быстрее."
+        "ru": "Смятый лист из треугольных граней; свет медленно обходит его, грани неспешно переливаются, а под указателем быстрее.",
+        "en": "A crumpled sheet of triangular facets; the light slowly circles it, the facets shimmer, faster under the pointer."
       },
       "role": {
-        "ru": "Смятая бумага: светлая и тёмная схемы."
+        "ru": "Смятая бумага: светлая и тёмная схемы.",
+        "en": "Crumpled paper: light and dark schemes."
       },
+      "categories": [
+        "material",
+        "abstract"
+      ],
       "schemes": [
         "light",
         "dark"
@@ -880,11 +1040,17 @@
         "en": "Contour map"
       },
       "description": {
-        "ru": "Изолинии медленно меняющегося рельефа, каждая пятая — утолщённая, как на топографической карте."
+        "ru": "Изолинии медленно меняющегося рельефа, каждая пятая — утолщённая, как на топографической карте.",
+        "en": "Contour lines of a slowly changing relief, every fifth one thicker, as on a topographic map."
       },
       "role": {
-        "ru": "Изолинии: на светлом — топографический лист, на тёмном — ночная карта."
+        "ru": "Изолинии: на светлом — топографический лист, на тёмном — ночная карта.",
+        "en": "Contours: a topographic sheet on light, a night map on dark."
       },
+      "categories": [
+        "science",
+        "material"
+      ],
       "schemes": [
         "light",
         "dark"
@@ -940,11 +1106,17 @@
         "en": "Halftone tide"
       },
       "description": {
-        "ru": "Полиграфический растр под 15°: точки растут и сжимаются под медленными встречными волнами."
+        "ru": "Полиграфический растр под 15°: точки растут и сжимаются под медленными встречными волнами.",
+        "en": "A print halftone screen at 15°: the dots grow and shrink under slow crossing waves."
       },
       "role": {
-        "ru": "Растр с волнами: на светлом — газетная печать, на тёмном — люминофорный экран."
+        "ru": "Растр с волнами: на светлом — газетная печать, на тёмном — люминофорный экран.",
+        "en": "A halftone with waves: newspaper print on light, a phosphor screen on dark."
       },
+      "categories": [
+        "material",
+        "abstract"
+      ],
       "schemes": [
         "light",
         "dark"
@@ -1000,11 +1172,17 @@
         "en": "Paper hills"
       },
       "description": {
-        "ru": "Слои бумажных холмов уходят вдаль: днём в светлой дымке, ночью под тёмным небом."
+        "ru": "Слои бумажных холмов уходят вдаль: днём в светлой дымке, ночью под тёмным небом.",
+        "en": "Layers of paper hills run into the distance: in a light haze by day, under a dark sky by night."
       },
       "role": {
-        "ru": "Глубина и простор: светлая и тёмная схемы."
+        "ru": "Глубина и простор: светлая и тёмная схемы.",
+        "en": "Depth and space: light and dark schemes."
       },
+      "categories": [
+        "material",
+        "nature"
+      ],
       "schemes": [
         "light",
         "dark"
@@ -1061,11 +1239,16 @@
         "en": "City lights"
       },
       "description": {
-        "ru": "Ночной город сверху: оранжевые улицы, тёмные дома с освещёнными крышами, парки и деревья, огни машин."
+        "ru": "Ночной город сверху: оранжевые улицы, тёмные дома с освещёнными крышами, парки и деревья, огни машин.",
+        "en": "A night city from above: orange streets, dark houses with lit roofs, parks and trees, car lights."
       },
       "role": {
-        "ru": "Ночной город с высоты. Только тёмная схема."
+        "ru": "Ночной город с высоты. Только тёмная схема.",
+        "en": "A night city from above. Dark scheme only."
       },
+      "categories": [
+        "tech"
+      ],
       "schemes": [
         "dark"
       ],
@@ -1122,11 +1305,16 @@
         "en": "Watercolour"
       },
       "description": {
-        "ru": "Капли краски касаются мокрой бумаги и расползаются пятнами с неровным краем."
+        "ru": "Капли краски касаются мокрой бумаги и расползаются пятнами с неровным краем.",
+        "en": "Drops of paint touch wet paper and spread into patches with a ragged edge."
       },
       "role": {
-        "ru": "Живая акварель. Только светлая схема."
+        "ru": "Живая акварель. Только светлая схема.",
+        "en": "Living watercolour. Light scheme only."
       },
+      "categories": [
+        "material"
+      ],
       "schemes": [
         "light"
       ],
@@ -1183,11 +1371,17 @@
         "en": "Spacetime fabric"
       },
       "description": {
-        "ru": "По сетке пространства-времени расходятся гравитационные волны; клик пускает свою."
+        "ru": "По сетке пространства-времени расходятся гравитационные волны; клик пускает свою.",
+        "en": "Gravitational waves spread across a space-time grid; a click sends one of your own."
       },
       "role": {
-        "ru": "Наука и глубина: светлая и тёмная схемы."
+        "ru": "Наука и глубина: светлая и тёмная схемы.",
+        "en": "Science and depth: light and dark schemes."
       },
+      "categories": [
+        "science",
+        "space"
+      ],
       "schemes": [
         "dark",
         "light"
@@ -1245,11 +1439,16 @@
         "en": "Ripples"
       },
       "description": {
-        "ru": "От редких капель расходятся круги по спокойной воде."
+        "ru": "От редких капель расходятся круги по спокойной воде.",
+        "en": "Rings spread across calm water from rare drops."
       },
       "role": {
-        "ru": "Спокойная вода: светлая или тёмная."
+        "ru": "Спокойная вода: светлая или тёмная.",
+        "en": "Calm water: light or dark."
       },
+      "categories": [
+        "nature"
+      ],
       "schemes": [
         "light",
         "dark"
@@ -1307,11 +1506,17 @@
         "en": "Blueprint"
       },
       "description": {
-        "ru": "Линии чертежа дорисовываются карандашом и стираются; можно чертить самому."
+        "ru": "Линии чертежа дорисовываются карандашом и стираются; можно чертить самому.",
+        "en": "Drawing lines are pencilled in and erased; you can draw too."
       },
       "role": {
-        "ru": "Инженерный фон: синька на тёмном, графит на светлом."
+        "ru": "Инженерный фон: синька на тёмном, графит на светлом.",
+        "en": "An engineering background: blueprint on dark, graphite on light."
       },
+      "categories": [
+        "tech",
+        "material"
+      ],
       "schemes": [
         "dark",
         "light"
@@ -1369,11 +1574,17 @@
         "en": "Particle text"
       },
       "description": {
-        "ru": "Частицы в броуновском движении то складываются в надпись, то рассыпаются в газ."
+        "ru": "Частицы в броуновском движении то складываются в надпись, то рассыпаются в газ.",
+        "en": "Particles in Brownian motion gather into a word, then scatter into gas."
       },
       "role": {
-        "ru": "Фон с надписью продукта: светлый или тёмный."
+        "ru": "Фон с надписью продукта: светлый или тёмный.",
+        "en": "A background with the product name: light or dark."
       },
+      "categories": [
+        "text",
+        "abstract"
+      ],
       "schemes": [
         "dark",
         "light"
@@ -1431,11 +1642,17 @@
         "en": "World routes"
       },
       "description": {
-        "ru": "Точечная карта мира; между столицами летят сигналы или самолёты."
+        "ru": "Точечная карта мира; между столицами летят сигналы или самолёты.",
+        "en": "A dotted world map; signals or planes fly between capitals."
       },
       "role": {
-        "ru": "Сеть, логистика, путешествия. Только тёмная схема."
+        "ru": "Сеть, логистика, путешествия. Только тёмная схема.",
+        "en": "Networks, logistics, travel. Dark scheme only."
       },
+      "categories": [
+        "tech",
+        "science"
+      ],
       "schemes": [
         "dark"
       ],
@@ -1492,11 +1709,17 @@
         "en": "Sand picture"
       },
       "description": {
-        "ru": "Песок сыплется сверху струйками и ложится плавными барханами в два цвета темы; картина медленно оседает, и пейзаж всё время новый."
+        "ru": "Песок сыплется сверху струйками и ложится плавными барханами в два цвета темы; картина медленно оседает, и пейзаж всё время новый.",
+        "en": "Sand pours from above in thin streams and settles into smooth dunes; the picture slowly sinks, and the landscape is always new."
       },
       "role": {
-        "ru": "Спокойный рукотворный фон: светлая и тёмная схемы."
+        "ru": "Спокойный рукотворный фон: светлая и тёмная схемы.",
+        "en": "A calm hand-made background: light and dark schemes."
       },
+      "categories": [
+        "material",
+        "nature"
+      ],
       "schemes": [
         "light",
         "dark"
@@ -1554,11 +1777,17 @@
         "en": "Confetti"
       },
       "description": {
-        "ru": "Цветные бумажки из хлопушки падают сверху и кувыркаются в воздухе; нажатие стреляет хлопушкой вверх."
+        "ru": "Цветные бумажки из хлопушки падают сверху и кувыркаются в воздухе; нажатие стреляет хлопушкой вверх.",
+        "en": "Paper confetti from a party popper falls and tumbles in the air; a press fires the popper upwards."
       },
       "role": {
-        "ru": "Праздник, поздравление, успех: светлая и тёмная схемы."
+        "ru": "Праздник, поздравление, успех: светлая и тёмная схемы.",
+        "en": "Celebration, congratulation, success: light and dark schemes."
       },
+      "categories": [
+        "abstract",
+        "material"
+      ],
       "schemes": [
         "light",
         "dark"
@@ -1616,11 +1845,16 @@
         "en": "Murmuration"
       },
       "description": {
-        "ru": "Огромная стая скворцов летит как единое целое: тянется, складывается и снова сгущается."
+        "ru": "Огромная стая скворцов летит как единое целое: тянется, складывается и снова сгущается.",
+        "en": "A huge flock of starlings flies as one: it stretches, folds and thickens again."
       },
       "role": {
-        "ru": "Живая природа, слаженность, сообщество: светлая и тёмная схемы."
+        "ru": "Живая природа, слаженность, сообщество: светлая и тёмная схемы.",
+        "en": "Living nature, harmony, community: light and dark schemes."
       },
+      "categories": [
+        "nature"
+      ],
       "schemes": [
         "light",
         "dark"
@@ -1678,11 +1912,16 @@
         "en": "Chladni figures"
       },
       "description": {
-        "ru": "Песок на звучащей пластине собирается в линии, где она не дрожит; нота меняется — узор рассыпается и складывается в новый."
+        "ru": "Песок на звучащей пластине собирается в линии, где она не дрожит; нота меняется — узор рассыпается и складывается в новый.",
+        "en": "Sand on a sounding plate gathers into the lines where it does not vibrate; the note changes, the pattern scatters and forms a new one."
       },
       "role": {
-        "ru": "Из хаоса — в порядок: документация, сборка, структура. Светлая и тёмная схемы."
+        "ru": "Из хаоса — в порядок: документация, сборка, структура. Светлая и тёмная схемы.",
+        "en": "From chaos to order: documentation, builds, structure. Light and dark schemes."
       },
+      "categories": [
+        "science"
+      ],
       "schemes": [
         "light",
         "dark"
@@ -1740,11 +1979,17 @@
         "en": "Chemical waves"
       },
       "description": {
-        "ru": "Реакция Белоусова — Жаботинского: по чашке бегут кольца и закручиваются спирали; встречные волны гасят друг друга."
+        "ru": "Реакция Белоусова — Жаботинского: по чашке бегут кольца и закручиваются спирали; встречные волны гасят друг друга.",
+        "en": "The Belousov–Zhabotinsky reaction: rings run across the dish and curl into spirals; meeting waves cancel each other."
       },
       "role": {
-        "ru": "Живой спокойный узор: светлая и тёмная схемы."
+        "ru": "Живой спокойный узор: светлая и тёмная схемы.",
+        "en": "A living calm pattern: light and dark schemes."
       },
+      "categories": [
+        "science",
+        "abstract"
+      ],
       "schemes": [
         "light",
         "dark"
@@ -1802,11 +2047,16 @@
         "en": "Cloud chamber"
       },
       "description": {
-        "ru": "Следы частиц в тумане: короткие толстые альфа-треки, длинные закрученные электроны, редкие мюоны насквозь; каждый след вспыхивает и тает."
+        "ru": "Следы частиц в тумане: короткие толстые альфа-треки, длинные закрученные электроны, редкие мюоны насквозь; каждый след вспыхивает и тает.",
+        "en": "Particle tracks in mist: short thick alpha tracks, long curling electrons, rare muons straight through; each track flashes and fades."
       },
       "role": {
-        "ru": "Наука, точность, связи: минималистичный тёмный фон. Только тёмная схема."
+        "ru": "Наука, точность, связи: минималистичный тёмный фон. Только тёмная схема.",
+        "en": "Science, precision, connections: a minimal dark background. Dark scheme only."
       },
+      "categories": [
+        "science"
+      ],
       "schemes": [
         "dark"
       ],
@@ -1863,11 +2113,17 @@
         "en": "Bénard cells"
       },
       "description": {
-        "ru": "Слой масла, подогретый снизу, складывается в живые соты: из центра каждой ячейки течёт поток к краям; ячейки дышат и перестраиваются."
+        "ru": "Слой масла, подогретый снизу, складывается в живые соты: из центра каждой ячейки течёт поток к краям; ячейки дышат и перестраиваются.",
+        "en": "A layer of oil heated from below forms living cells: a flow runs from the centre of each cell to its edges; the cells breathe and rearrange."
       },
       "role": {
-        "ru": "Спокойный технологичный фон: светлая и тёмная схемы."
+        "ru": "Спокойный технологичный фон: светлая и тёмная схемы.",
+        "en": "A calm technological background: light and dark schemes."
       },
+      "categories": [
+        "science",
+        "abstract"
+      ],
       "schemes": [
         "light",
         "dark"
@@ -1925,11 +2181,17 @@
         "en": "Rain on glass (earlier)"
       },
       "description": {
-        "ru": "Прежняя версия «Дождя на стекле» для сравнения: запотевшее окно ночью, за стеклом улица с фонарями в боке, изредка проезжают машины; на стекле капли, по нему можно писать пальцем."
+        "ru": "Прежняя версия «Дождя на стекле» для сравнения: запотевшее окно ночью, за стеклом улица с фонарями в боке, изредка проезжают машины; на стекле капли, по нему можно писать пальцем.",
+        "en": "The previous Rain on glass, for comparison: a fogged window at night, a street with blurred lamps outside, an occasional car; drops on the glass, and you can write on it with a finger."
       },
       "role": {
-        "ru": "Уютный вечер за окном. Только тёмная схема."
+        "ru": "Уютный вечер за окном. Только тёмная схема.",
+        "en": "A cosy evening behind the window. Dark scheme only."
       },
+      "categories": [
+        "nature",
+        "tech"
+      ],
       "schemes": [
         "dark"
       ],
@@ -1986,11 +2248,17 @@
         "en": "Digital rain"
       },
       "description": {
-        "ru": "Столбцы символов стекают по тёмному экрану: яркая голова с ореолом и гаснущий хвост, символы в хвосте меняются. Три глубины: дальние мелкие и медленные, ближние крупные и размытые."
+        "ru": "Столбцы символов стекают по тёмному экрану: яркая голова с ореолом и гаснущий хвост, символы в хвосте меняются. Три глубины: дальние мелкие и медленные, ближние крупные и размытые.",
+        "en": "Columns of symbols run down a dark screen: a bright head with a halo and a fading tail whose symbols change. Three depths: far ones small and slow, near ones large and blurred."
       },
       "role": {
-        "ru": "Технологии, данные, код. Только тёмная схема."
+        "ru": "Технологии, данные, код. Только тёмная схема.",
+        "en": "Technology, data, code. Dark scheme only."
       },
+      "categories": [
+        "text",
+        "tech"
+      ],
       "schemes": [
         "dark"
       ],
@@ -2047,11 +2315,17 @@
         "en": "Cosmic web"
       },
       "description": {
-        "ru": "Тонкие резкие нити заполняют кадр вокруг тёмных пустот, медленно расходятся, сплетаются и складываются в новый рисунок."
+        "ru": "Тонкие резкие нити заполняют кадр вокруг тёмных пустот, медленно расходятся, сплетаются и складываются в новый рисунок.",
+        "en": "Thin sharp threads fill the frame around dark voids, slowly part, interweave and fold into a new pattern."
       },
       "role": {
-        "ru": "Наука, данные, связи. Только тёмная схема."
+        "ru": "Наука, данные, связи. Только тёмная схема.",
+        "en": "Science, data, connections. Dark scheme only."
       },
+      "categories": [
+        "space",
+        "science"
+      ],
       "schemes": [
         "dark"
       ],

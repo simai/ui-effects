@@ -1,18 +1,24 @@
-// Gallery: every effect with its preview, schemes and pair, filtered by scheme.
-import {badges, groupOf, loadCatalogue, onSiteColour, onSiteTheme, root, text} from './common.js';
+// Gallery: every effect as a picture with its name, subject and themes, filtered
+// by category (the closed set in the catalogue) and by the theme it draws.
+import {groupOf, home, loadCatalogue, onSiteColour, onSiteTheme, root, schemesName, t, text} from './common.js';
 import {outcomeOf, place} from './place.js';
 
 const list = document.querySelector('[data-cards]');
-const filters = document.querySelector('[data-filters]');
+const categoryFilter = document.querySelector('[data-categories]');
+const schemeFilter = document.querySelector('[data-schemes]');
+const empty = document.querySelector('[data-empty]');
 
 const catalogue = await loadCatalogue();
-const byId = new Map(catalogue.effects.map((entry) => [entry.id, entry]));
+const categoryNames = new Map(catalogue.categories.map((category) => [category.id, text(category.label)]));
 
+// A card is the picture and three lines under it: the name, the subject and
+// themes, and a short description. The whole card is one link.
 for (const entry of catalogue.effects) {
   const item = document.createElement('li');
   item.className = 'card';
   item.dataset.id = entry.id;
   item.dataset.group = groupOf(entry);
+  item.dataset.categories = entry.categories.join(' ');
   const image = document.createElement('img');
   image.className = 'card__img';
   image.src = new URL(`${entry.path}preview.png`, root).href;
@@ -28,36 +34,57 @@ for (const entry of catalogue.effects) {
   const title = document.createElement('h3');
   title.className = 'card__title';
   const link = document.createElement('a');
-  link.href = new URL(`effect/${entry.id}/`, root).href;
+  link.href = new URL(`effect/${entry.id}/`, home).href;
   link.textContent = text(entry.label);
   title.append(link);
+  const meta = document.createElement('p');
+  meta.className = 'card__meta';
+  meta.textContent = [...entry.categories.map((category) => categoryNames.get(category)), schemesName(entry)].join(' · ');
   const description = document.createElement('p');
-  description.className = 'card__desc small';
+  description.className = 'card__desc';
   description.textContent = text(entry.description);
-  const marks = badges(entry);
-  body.append(title, marks, description);
+  body.append(title, meta, description);
   item.append(media, body);
   list.append(item);
 }
 
-const counts = {all: catalogue.effects.length, dual: catalogue.counts.dual, dark: catalogue.counts.dark, light: catalogue.counts.light};
-// The filter is a segmented Button Group of the Framework, with the counts on its segments.
-const FILTERS = [['all', 'Все'], ['dual', 'Двухтемные'], ['dark', 'Тёмные'], ['light', 'Светлые']];
-filters.setAttribute('items', JSON.stringify(FILTERS.map(([value, label]) => ({value, label, count: counts[value]}))));
-
-const applyFilter = (filter) => {
-  if (filters.getAttribute('value') !== filter) filters.setAttribute('value', filter);
+// Both filters are Framework controls: a segmented Button Group for the subject,
+// a dropdown for the theme. The choice is kept in the address.
+const CATEGORIES = ['all', ...catalogue.categories.map((category) => category.id)];
+const SCHEMES = ['all', 'dual', 'dark', 'light'];
+categoryFilter.setAttribute('items', JSON.stringify(CATEGORIES.map((value) => ({value, label: value === 'all' ? t('gallery.all') : categoryNames.get(value)}))));
+schemeFilter.options = SCHEMES.map((value) => ({text: t(`scheme.${value}`), value}));
+const state = {category: 'all', schemes: 'all'};
+const applyFilters = () => {
+  if (categoryFilter.getAttribute('value') !== state.category) categoryFilter.setAttribute('value', state.category);
+  if (schemeFilter.value !== state.schemes) schemeFilter.setAttribute('value', state.schemes);
+  let shown = 0;
   for (const card of list.children) {
-    const on = filter === 'all' || card.dataset.group === filter;
+    const on = (state.category === 'all' || card.dataset.categories.split(' ').includes(state.category)) && (state.schemes === 'all' || card.dataset.group === state.schemes);
     card.hidden = !on;
+    if (on) shown += 1;
   }
+  empty.hidden = shown > 0;
   const url = new URL(location.href);
-  if (filter === 'all') url.searchParams.delete('schemes'); else url.searchParams.set('schemes', filter);
+  for (const [key, value] of [['category', state.category], ['schemes', state.schemes]]) {
+    if (value === 'all') url.searchParams.delete(key); else url.searchParams.set(key, value);
+  }
   history.replaceState(null, '', url);
 };
-filters.addEventListener('change', (event) => { if (FILTERS.some(([value]) => value === event.detail?.value)) applyFilter(event.detail.value); });
-const initial = new URL(location.href).searchParams.get('schemes');
-applyFilter(['dual', 'dark', 'light'].includes(initial) ? initial : 'all');
+categoryFilter.addEventListener('change', (event) => {
+  if (!CATEGORIES.includes(event.detail?.value)) return;
+  state.category = event.detail.value;
+  applyFilters();
+});
+schemeFilter.addEventListener('change', (event) => {
+  if (event.target !== schemeFilter || !SCHEMES.includes(schemeFilter.value)) return;
+  state.schemes = schemeFilter.value;
+  applyFilters();
+});
+const asked = new URL(location.href).searchParams;
+if (CATEGORIES.includes(asked.get('category'))) state.category = asked.get('category');
+if (SCHEMES.includes(asked.get('schemes'))) state.schemes = asked.get('schemes');
+applyFilters();
 
 // The pictures follow the theme: each card in view draws its effect once, as a still frame, in the
 // page's scheme and colour, keeps the frame as an image and lets the effect go. One card at a time;
@@ -132,7 +159,7 @@ const placeIntro = () => place(intro, {id: 'hex-conduits', themeMode: 'auto'}).t
   describeIntro(handle);
 }, (error) => {
   intro.dataset.state = 'error';
-  console.error('Эффект не запустился:', error?.reason ?? error);
+  console.error(t('effect.failed', {reason: error?.reason ?? error}));
 });
 placeIntro();
 // The core switches the scheme with the page theme; the note follows it.

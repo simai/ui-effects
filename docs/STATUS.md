@@ -24,10 +24,13 @@ The state of the catalogue, the decisions behind it and what waits on the Framew
 ## Today
 
 - **Framework.** Release `ui-3464018a5c94` (npm `@simai-studio/ui@5.20261029.1739`, simai.effect 1.2.0), pinned in `framework.lock.json` and loaded from jsDelivr's npm form: `SF.Effects`, which keeps a single-scheme effect in its own scheme on a page of the other theme (theme policy, windows mode, declarative mount, integrity loading, the sandbox for foreign effects, the effect area's ink) and the segmented Button Group.
-- **Manifests** declare `schemes` (home scheme first) and `capabilities: ["windows"]`. The modules read the scheme from `context.scheme`. `effects/policy.json` holds only order, Russian descriptions and roles, and tags.
+- **Manifests** declare `schemes` (home scheme first) and `capabilities: ["windows"]`. The modules read the scheme from `context.scheme`. `effects/policy.json` holds the order, each effect's one or two categories, its descriptions and roles in Russian and English, and tags.
 - **Kit.** The 1.1 kit runs per scheme, the scheme switch, contrast (4.5:1 on-surface, 3:1 on-surface-variant, at defaults) and windows. Every effect passes all checks the lock expects for it: 14 for one scheme, 17 for both.
 - **Site and snippets** place effects through the core: the site reads its own copy of the catalogue, and «Получить код» gives the declarative markup and the `SF.Effects.placeEffect` script, pinned by commit. `site/assets/place.js` only adds the configurator's still-frame switch and names what is shown.
 - **Theme modes.** An editor offers a fixed mode only when the effect draws it (the core's `allowedModes`).
+- **Languages.** The site is built once per language from `site/i18n/<lang>.json`: Russian at the root, English under `en/`, with a language link in the header and `hreflang` alternates. Effect names, descriptions, settings and categories come from the catalogue in the page language (English when one is missing); the code snippets and the downloaded example follow the page language too.
+- **Categories.** Seven fixed subjects in `catalogue/categories.json` (space, nature, tech and city, text and code, science, materials, abstract); every effect takes one or two, and the gallery filters by subject and by theme, both kept in the address (`?category=`, `?schemes=`).
+- **Gallery cards** are the picture with three lines on the page ground under it (name, subject and themes, a two-line description), no box around them.
 
 - **Address.** The site is https://effects.simai.io/ (owner decision: one third-level domain per SIMAI site; simai.io is the navigator and links here). GitHub Pages serves it; simai.github.io/ui-effects/ redirects. The portal artifact releases v1.0.0 and v2.0.0 stay as history; no more are cut.
 

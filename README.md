@@ -18,11 +18,12 @@ there will be many. The Framework ships only the core: `SF.Effects`, the
 | Path | What it is |
 |:---|:---|
 | `effects/<id>/` | One effect: `effect.json` (simai.effect 1.1 manifest with `schemes` and `capabilities`), `index.js`, `preview.png`, `README.md` |
-| `effects/policy.json` | Catalogue sidecar: order, Russian descriptions and roles, tags |
+| `effects/policy.json` | Catalogue sidecar: order, categories, descriptions and roles in Russian and English, tags |
+| `catalogue/categories.json` | The closed set of subjects the gallery filters by ([schema](catalogue/categories.schema.json)) |
 | `catalogue/index.json` | Generated catalogue: every effect, its files with SHA-256 and size, the kit result ([schema](catalogue/index.schema.json)) |
 | `catalogue/kit.json` | Kit results per effect, written by `scripts/kit.mjs` |
 | `framework.lock.json` | The Framework release everything is checked against (`ui-e7701fef3733`) |
-| `site/` | The catalogue site; it places effects through the core's `SF.Effects` |
+| `site/` | The catalogue site, built in Russian (root) and English (`en/`) from `site/i18n/`; it places effects through the core's `SF.Effects` |
 | `templates/effect/` | A template effect to start from |
 | `docs/AUTHORING.md` | The author guide |
 | `scripts/` | Catalogue build and check, kit runner, site build, browser smoke, hygiene check |
