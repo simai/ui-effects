@@ -144,7 +144,7 @@ function buildForm() {
         return;
       }
       state.values = {...state.values, [setting.key]: checked.value};
-      showOwnColour();
+      showConditional();
       forEachPlacement((placement) => placement.update(state.values));
       renderCode();
       scheduleMeasure(300);
@@ -164,12 +164,14 @@ function buildForm() {
     }
     form.append(field);
   });
-  showOwnColour();
+  showConditional();
 }
-// The own colour matters only while the palette is the custom one; the field stays out of the way otherwise.
-function showOwnColour() {
-  const own = form.querySelector('[data-key="colour"]');
-  if (own && userSettings.some((setting) => setting.key === 'palette')) own.hidden = state.values.palette !== 'custom';
+// A setting with a condition (simai.effect 1.3 `when`) is shown, and handed to the code, only while the
+// setting it names holds one of the listed values; the effect itself is given no value for it otherwise.
+const isRead = (setting) => !setting.when || setting.when.is.includes(state.values[setting.when.key]);
+const readValues = () => Object.fromEntries(userSettings.filter(isRead).map((setting) => [setting.key, state.values[setting.key]]));
+function showConditional() {
+  userSettings.forEach((setting) => { const field = form.querySelector(`[data-key="${setting.key}"]`); if (field) field.hidden = !isRead(setting); });
 }
 buildForm();
 $('[data-reset]').addEventListener('click', () => {
@@ -386,7 +388,7 @@ function setCode(name, source) {
   highlighter.then((highlight) => highlight?.refresh(code.closest('.sf-highlight') ?? code.parentElement, source));
 }
 function renderCode() {
-  const options = {config, catalogue, entry, mode: state.mode, values: state.values};
+  const options = {config, catalogue, entry, mode: state.mode, values: readValues()};
   setCode('html', htmlSnippet({...options, layout: 'hero'}));
   setCode('html-windows', htmlSnippet({...options, layout: 'windows'}));
   setCode('connect', connectSnippet(config));
@@ -401,7 +403,7 @@ const layoutPicker = $('[data-download-layout]');
 if (!config.published) $('[data-draft-note]').hidden = false;
 layoutPicker.options = ['both', 'hero', 'windows'].map((value) => ({text: t(`panel.download.${value}`), value}));
 $('[data-download]').addEventListener('click', () => {
-  const options = {config, catalogue, entry, mode: state.mode, values: state.values};
+  const options = {config, catalogue, entry, mode: state.mode, values: readValues()};
   const layout = layoutPicker?.value || 'both';
   const parts = [layout !== 'windows' ? htmlSnippet({...options, layout: 'hero'}) : '', layout !== 'hero' ? htmlSnippet({...options, layout: 'windows'}) : ''].filter(Boolean);
   const page = examplePage({entry, connect: connectSnippet(config), parts});

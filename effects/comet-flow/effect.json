@@ -2,7 +2,7 @@
   "schema": "simai.effect",
   "schema_version": 1,
   "id": "comet-flow",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "label": {
     "ru": "Кометные потоки",
     "en": "Comet flow"
@@ -165,8 +165,14 @@
       },
       "default": "#3b82f6",
       "hint": {
-        "ru": "Для палитры «Свой цвет»: эффект строит все оттенки из него",
-        "en": "For the custom colour palette: the effect builds every tone from it"
+        "ru": "Эффект строит из него все оттенки",
+        "en": "The effect builds every tone from it"
+      },
+      "when": {
+        "key": "palette",
+        "is": [
+          "custom"
+        ]
       }
     },
     {

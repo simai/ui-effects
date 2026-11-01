@@ -3,7 +3,7 @@
 Glowing aurora curtains fold slowly over a dark starry sky.
 
 - **Russian name:** Полярное сияние
-- **Version:** 1.5.0, simai.effect 1.1.0
+- **Version:** 1.5.1, simai.effect 1.3.0
 - **Surfaces:** sign-in, hero, section, dashboard
 - **Tags:** glow, sky
 - **Role:** A night sky with glowing curtains. The glow needs the dark, so it draws the dark scheme only.
@@ -17,7 +17,7 @@ Glowing aurora curtains fold slowly over a dark starry sky.
 | `contrast` | integer | 0–100 % | `35` | Contrast. How far the rays stand out from the glow |
 | `curtains` | integer | 1–4 | `3` | Curtains |
 | `palette` | choice | `theme`, `turquoise`, `ocean`, `violet`, `rose`, `emerald`, `sunset`, `gold`, `silver`, `custom` | `"theme"` | Palette. `theme` follows the theme colour; the others stay as they are |
-| `colour` | color | hex | `"#3b82f6"` | Colour. For the `custom` palette: the effect builds every tone from it |
+| `colour` | color | hex | `"#3b82f6"` | Colour, read only while `palette` is `custom`: the effect builds every tone from it |
 | `interactive` | boolean | — | `true` | React to the pointer. Curtains lean towards the pointer |
 
 ## Schemes
@@ -34,7 +34,7 @@ In the `auto` theme mode the effect stays dark, and its area keeps `theme-dark`.
 
 ## Files
 
-- `effect.json`: the manifest (simai.effect 1.1.0).
+- `effect.json`: the manifest (simai.effect 1.3.0).
 - `index.js`: the module, `mount(host, settings, context)`.
 - `preview.png`: a still of the home scheme, 640×360.
 

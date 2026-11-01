@@ -3,7 +3,7 @@
 Rows of code scroll, lit by slow folds of light; the text takes the theme colour.
 
 - **Russian name:** Текстовый поток
-- **Version:** 3.2.0, simai.effect 1.1.0
+- **Version:** 3.2.1, simai.effect 1.3.0
 - **Surfaces:** sign-in, hero, section, dashboard
 - **Tags:** type, flow
 - **Role:** Code for developer products: light and dark schemes. From the Larena sign-in picture.
@@ -21,7 +21,7 @@ Rows of code scroll, lit by slow folds of light; the text takes the theme colour
 | `base` | integer | 0–30 % | `5` | Text in the dark |
 | `scale` | integer | 50–200 % | `65` | Fold size |
 | `palette` | choice | `theme`, `turquoise`, `ocean`, `violet`, `rose`, `emerald`, `sunset`, `gold`, `silver`, `custom` | `"theme"` | Palette. `theme` follows the theme colour; the others stay as they are |
-| `colour` | color | hex | `"#3b82f6"` | Colour. For the `custom` palette: the effect builds every tone from it |
+| `colour` | color | hex | `"#3b82f6"` | Colour, read only while `palette` is `custom`: the effect builds every tone from it |
 | `interactive` | boolean | — | `true` | Wave on click. A click in the area sends a wave of light |
 
 Since 3.0.0 the old `symbols` value is called `letters` (it is still read as letters).
@@ -36,7 +36,7 @@ Theme modes a placement may choose: `auto`, `dark`, `light`.
 
 ## Files
 
-- `effect.json`: the manifest (simai.effect 1.1.0).
+- `effect.json`: the manifest (simai.effect 1.3.0).
 - `index.js`: the module, `mount(host, settings, context)`.
 - `preview.png`: a still of the home scheme, 640×360.
 

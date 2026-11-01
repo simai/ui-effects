@@ -3,7 +3,7 @@
 Gravitational waves run through the grid of spacetime, and bodies passing over it bend it by their mass; a click sends a wave of your own, and a star you set down ends as a black hole.
 
 - **Russian name:** Ткань пространства-времени
-- **Version:** 0.3.0, simai.effect 1.1.0
+- **Version:** 0.3.1, simai.effect 1.3.0
 - **Surfaces:** hero, section, dashboard, sign-in
 - **Tags:** lines, geometry
 - **Role:** Science and depth: light and dark schemes.
@@ -26,7 +26,7 @@ Colours are palette tones of the theme (primary, secondary, tertiary and neutral
 | `intensity` | integer | 10–100 % | `70` | Intensity |
 | `density` | integer | 10–100 % | `50` | Density |
 | `palette` | choice | `theme`, `turquoise`, `ocean`, `violet`, `rose`, `emerald`, `sunset`, `gold`, `silver`, `custom` | `"theme"` | Palette. `theme` follows the theme colour; the others stay as they are |
-| `colour` | color | hex | `"#3b82f6"` | Colour. For the `custom` palette: the effect builds every tone from it |
+| `colour` | color | hex | `"#3b82f6"` | Colour, read only while `palette` is `custom`: the effect builds every tone from it |
 | `bodies` | boolean | — | `true` | Passing bodies. Planets and stars of different masses pass along an arc now and then, a big heavy one from time to time; each bends the grid |
 | `frequency` | choice | `rare`, `normal`, `often` | `"normal"` | How often bodies pass: a new one about every 16–26 s, 6–11 s or 3.5–6.5 s, never more than two in view |
 | `interactive` | boolean | — | `true` | React to the pointer. A click sends a gravitational wave. A press sets down a star that grows heavier while held; let go, and it grows, flares, collapses into a black hole and evaporates a few seconds later |
@@ -41,7 +41,7 @@ Theme modes a placement may choose: `auto`, `dark`, `light`.
 
 ## Files
 
-- `effect.json`: the manifest (simai.effect 1.1.0).
+- `effect.json`: the manifest (simai.effect 1.3.0).
 - `index.js`: the module, `mount(host, settings, context)`.
 - `preview.png`: a still of the home scheme, 640×360.
 

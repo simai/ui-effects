@@ -3,7 +3,7 @@
 Columns of glyphs run down a dark screen: a bright head with a glow and a fading trail whose glyphs change. Three depths: far ones small and slow, near ones large and out of focus.
 
 - **Russian name:** Цифровой дождь
-- **Version:** 0.2.0, simai.effect 1.1.0
+- **Version:** 0.2.1, simai.effect 1.3.0
 - **Surfaces:** hero, section, dashboard, sign-in
 - **Tags:** type, particles
 - **Role:** Technology, data, code. Dark scheme only.
@@ -19,7 +19,7 @@ Columns of glyphs run down a dark screen: a bright head with a glow and a fading
 | `text` | text | up to 600 characters | `""` | Own text. For «Own text»: sentences, or one per line |
 | `language` | choice | `auto`, `en`, `ru` | `"auto"` | Words language. For «Words» |
 | `palette` | choice | `green`, `theme`, `turquoise`, `ocean`, `violet`, `rose`, `emerald`, `sunset`, `gold`, `silver`, `custom` | `"green"` | Palette |
-| `colour` | color | hex | `"#3b82f6"` | Colour. For the `custom` palette: the effect builds every tone from it |
+| `colour` | color | hex | `"#3b82f6"` | Colour, read only while `palette` is `custom`: the effect builds every tone from it |
 | `size` | integer | 10–28 px | `16` | Glyph size |
 | `depth` | boolean | — | `true` | Depth. Far and near columns, the near ones out of focus |
 | `interactive` | boolean | — | `true` | React to the pointer. Glyphs light up round the pointer; a click lets a sheaf of runs fall |
@@ -38,7 +38,7 @@ In the `auto` theme mode the effect stays dark, and its area keeps `theme-dark`.
 
 ## Files
 
-- `effect.json`: the manifest (simai.effect 1.1.0).
+- `effect.json`: the manifest (simai.effect 1.3.0).
 - `index.js`: the module, `mount(host, settings, context)`.
 - `preview.png`: a still of the home scheme, 640×360.
 

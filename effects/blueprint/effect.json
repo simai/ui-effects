@@ -2,7 +2,7 @@
   "schema": "simai.effect",
   "schema_version": 1,
   "id": "blueprint",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "label": {
     "ru": "Чертёж",
     "en": "Blueprint"
@@ -153,8 +153,14 @@
       },
       "default": "#3b82f6",
       "hint": {
-        "ru": "Для палитры «Свой цвет»: эффект строит все оттенки из него",
-        "en": "For the custom colour palette: the effect builds every tone from it"
+        "ru": "Эффект строит из него все оттенки",
+        "en": "The effect builds every tone from it"
+      },
+      "when": {
+        "key": "palette",
+        "is": [
+          "custom"
+        ]
       }
     },
     {

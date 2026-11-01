@@ -3,7 +3,7 @@
 Drawing lines are pencilled in and rubbed out; you can draw too.
 
 - **Russian name:** Чертёж
-- **Version:** 0.3.0, simai.effect 1.1.0
+- **Version:** 0.3.1, simai.effect 1.3.0
 - **Surfaces:** hero, section, dashboard, sign-in
 - **Tags:** lines, geometry
 - **Role:** An engineering background: a blueprint on dark, graphite on light.
@@ -16,7 +16,7 @@ Drawing lines are pencilled in and rubbed out; you can draw too.
 | `intensity` | integer | 10–100 % | `70` | Intensity |
 | `density` | integer | 10–100 % | `50` | Density |
 | `palette` | choice | `theme`, `turquoise`, `ocean`, `violet`, `rose`, `emerald`, `sunset`, `gold`, `silver`, `custom` | `"theme"` | Palette. `theme` follows the theme colour; the others stay as they are |
-| `colour` | color | hex | `"#3b82f6"` | Colour. For the `custom` palette: the effect builds every tone from it |
+| `colour` | color | hex | `"#3b82f6"` | Colour, read only while `palette` is `custom`: the effect builds every tone from it |
 | `interactive` | boolean | — | `true` | React to the pointer. Guides follow the pointer, a click swings a compass, a press-drag draws |
 
 ## Schemes
@@ -29,7 +29,7 @@ Theme modes a placement may choose: `auto`, `dark`, `light`.
 
 ## Files
 
-- `effect.json`: the manifest (simai.effect 1.1.0).
+- `effect.json`: the manifest (simai.effect 1.3.0).
 - `index.js`: the module, `mount(host, settings, context)`.
 - `preview.png`: a still of the home scheme, 640×360.
 

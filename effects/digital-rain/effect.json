@@ -2,7 +2,7 @@
   "schema": "simai.effect",
   "schema_version": 1,
   "id": "digital-rain",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "label": {
     "ru": "Цифровой дождь",
     "en": "Digital rain"
@@ -297,8 +297,14 @@
       },
       "default": "#3b82f6",
       "hint": {
-        "ru": "Для палитры «Свой цвет»: эффект строит все оттенки из него",
-        "en": "For the custom colour palette: the effect builds every tone from it"
+        "ru": "Эффект строит из него все оттенки",
+        "en": "The effect builds every tone from it"
+      },
+      "when": {
+        "key": "palette",
+        "is": [
+          "custom"
+        ]
       }
     },
     {

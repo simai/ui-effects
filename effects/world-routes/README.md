@@ -3,7 +3,7 @@
 A dotted world map; signals or planes travel between the capitals.
 
 - **Russian name:** Маршруты мира
-- **Version:** 0.3.0, simai.effect 1.1.0
+- **Version:** 0.3.1, simai.effect 1.3.0
 - **Surfaces:** hero, section, dashboard, sign-in
 - **Tags:** lines, particles
 - **Role:** Networks, logistics, travel. Dark scheme only.
@@ -17,7 +17,7 @@ A dotted world map; signals or planes travel between the capitals.
 | `density` | integer | 10–100 % | `50` | Density |
 | `show` | choice | `signals`, `flights` | `"signals"` | Show |
 | `palette` | choice | `theme`, `turquoise`, `ocean`, `violet`, `rose`, `emerald`, `sunset`, `gold`, `silver`, `custom` | `"theme"` | Palette. `theme` follows the theme colour; the others stay as they are |
-| `colour` | color | hex | `"#3b82f6"` | Colour. For the `custom` palette: the effect builds every tone from it |
+| `colour` | color | hex | `"#3b82f6"` | Colour, read only while `palette` is `custom`: the effect builds every tone from it |
 | `interactive` | boolean | — | `true` | React to the pointer. The pointer lights the nearest city, a click adds a node, a press-drag draws a link |
 
 ## Schemes
@@ -34,7 +34,7 @@ In the `auto` theme mode the effect stays dark, and its area keeps `theme-dark`.
 
 ## Files
 
-- `effect.json`: the manifest (simai.effect 1.1.0).
+- `effect.json`: the manifest (simai.effect 1.3.0).
 - `index.js`: the module, `mount(host, settings, context)`.
 - `preview.png`: a still of the home scheme, 640×360.
 

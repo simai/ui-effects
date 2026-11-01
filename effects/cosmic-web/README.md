@@ -3,7 +3,7 @@
 Fine, sharp filaments fill the area round dark voids and slowly part, join and find a new shape. Drawn on the video card; without one it is a still picture.
 
 - **Russian name:** Космическая паутина
-- **Version:** 0.2.0, simai.effect 1.1.0
+- **Version:** 0.2.1, simai.effect 1.3.0
 - **Surfaces:** hero, section, dashboard, sign-in
 - **Tags:** particles, lines
 - **Role:** Science, data, connections. Dark scheme only.
@@ -17,7 +17,7 @@ Fine, sharp filaments fill the area round dark voids and slowly part, join and f
 | `density` | integer | 10–100 % | `50` | Thread density. How many fine threads, and how few voids |
 | `scale` | integer | 10–100 % | `40` | Scale. A fine web or a large one |
 | `palette` | choice | `turquoise`, `ocean`, `violet`, `rose`, `emerald`, `sunset`, `gold`, `silver`, `theme`, `custom` | `"turquoise"` | Palette. `theme` follows the theme colour; the others stay as they are |
-| `colour` | color | hex | `"#3b82f6"` | Colour. For the `custom` palette: the effect builds every tone from it |
+| `colour` | color | hex | `"#3b82f6"` | Colour, read only while `palette` is `custom`: the effect builds every tone from it |
 | `interactive` | boolean | — | `true` | React to the pointer. The pointer lights the web; a click sends a ring of light through it |
 
 ## Schemes
@@ -34,7 +34,7 @@ In the `auto` theme mode the effect stays dark, and its area keeps `theme-dark`.
 
 ## Files
 
-- `effect.json`: the manifest (simai.effect 1.1.0).
+- `effect.json`: the manifest (simai.effect 1.3.0).
 - `index.js`: the module, `mount(host, settings, context)`.
 - `preview.png`: a still of the home scheme, 640×360.
 
