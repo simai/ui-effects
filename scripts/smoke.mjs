@@ -556,12 +556,13 @@ try {
       let facts = await placed();
       if (!ok || facts.drawn !== expected.drawn || (expected.shown ? facts.effect !== expected.shown.id : facts.state !== 'hidden')) fail(`snippet html ${entry.id}`, `mounted ${JSON.stringify(facts)}, expected ${expected.shown?.id ?? 'hidden'} ${expected.drawn}`);
       flush();
-      // Settings JSON: valid stored values for the manifest.
+      // Settings JSON: valid stored values for the manifest, exactly the keys it reads (a conditional
+      // setting whose condition is false is left out).
       const json = JSON.parse(code.json);
       const settings = await page.evaluate(async ({url, json}) => {
         const manifest = await (await fetch(url)).json();
-        const {invalid} = window.SF.Effects.effectSettings(manifest, json);
-        return {invalid, keys: Object.keys(json).sort().join(), expected: manifest.settings.map((setting) => setting.key).sort().join()};
+        const {invalid, settings: read} = window.SF.Effects.effectSettings(manifest, json);
+        return {invalid, keys: Object.keys(json).sort().join(), expected: Object.keys(read).sort().join()};
       }, {url: `${EFFECTS_CDN}${entry.path}effect.json`, json});
       if (settings.invalid.length || settings.keys !== settings.expected) fail(`snippet json ${entry.id}`, JSON.stringify(settings));
       // HTML tab, the windows block: one effect behind the window cards.
