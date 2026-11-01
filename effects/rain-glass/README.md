@@ -13,7 +13,7 @@ A fogged window on a rainy night: the street behind it out of focus, only its li
 | Key | Type | Range or options | Default | Meaning |
 |:---|:---|:---|:---|:---|
 | `speed` | integer | 10–300 % | `100` | Speed |
-| `intensity` | integer | 10–100 % | `60` | Intensity |
+| `intensity` | integer | 10–100 % | `50` | Intensity |
 | `density` | integer | 10–100 % | `55` | Density |
 | `fog` | integer | 0–100 % | `70` | Fog |
 | `traffic` | integer | 0–100 % | `40` | Traffic. How often cars go by |

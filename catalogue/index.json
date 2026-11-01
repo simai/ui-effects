@@ -810,7 +810,7 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "5be49d48cb8fd16a7a1169fc43c1cf0fde5a7c34e31456958860a0a8bd2dc85c",
+          "sha256": "6bbbc8332760f95d60c4d74fd3cb24cbe640cbd02762320e010568a1a1cad9e5",
           "size": 4271
         },
         {
@@ -825,7 +825,7 @@
         },
         {
           "path": "README.md",
-          "sha256": "4a82eec2c1948bc30dfd78f4a98dfa873b54875de2c8ce2f4468936f5c6ccee7",
+          "sha256": "bec5091985e8e9a8fead3f3de025cda1f170d9f69defaa07a7f6cfc5e0643b9f",
           "size": 1980
         }
       ],
