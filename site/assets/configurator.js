@@ -30,7 +30,8 @@ const forEachPlacement = (call) => state.placements.forEach(call);
 
 // --- Head --------------------------------------------------------------------------
 const facts = $('[data-facts]');
-facts.append(badges(entry));
+// The themes it draws come first, then the contrast readout.
+facts.prepend(badges(entry));
 
 // --- Likes ------------------------------------------------------------------------------
 // Two buttons with their counts, shown once the votes service answers. A press

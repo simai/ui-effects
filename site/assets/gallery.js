@@ -210,13 +210,13 @@ document.addEventListener('visibilitychange', askStills);
 onSiteTheme(() => setTimeout(askStills, 60));
 onSiteColour(() => askStills());
 
-// The intro is itself a placement: hex-conduits in auto mode, drawn in the page's scheme.
+// The intro is itself a placement: star-flight in auto mode, drawn in the page's scheme.
 const intro = document.querySelector('[data-intro]');
 const describeIntro = (handle) => {
-  intro.dataset.state = outcomeOf(handle, {id: 'hex-conduits', mode: 'auto'}).outcome;
+  intro.dataset.state = outcomeOf(handle, {id: 'star-flight', mode: 'auto'}).outcome;
 };
 let introHandle = null;
-const placeIntro = () => place(intro, {id: 'hex-conduits', themeMode: 'auto'}).then((handle) => {
+const placeIntro = () => place(intro, {id: 'star-flight', themeMode: 'auto'}).then((handle) => {
   introHandle?.destroy();
   introHandle = handle;
   describeIntro(handle);

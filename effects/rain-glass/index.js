@@ -51,11 +51,22 @@ function readTones(host, scheme) {
 // crossing a traffic light turns: on red the cars on this street wait and the cross traffic goes.
 // On the glass, drops gather and now and then one runs down; a finger wipes fog and drops away, and
 // the fog comes back.
-// 'custom' builds the city glow, lamps and neon from one colour, the colour setting (a hex): a dark ground of its hue,
-// its mass, the colour itself and its light.
+// The palettes the catalogue shares: a dark ground, a mass, the colour and its light. 'theme' takes the
+// theme's own tones; 'custom' builds the four from the colour setting (a hex). The city glow, the lamps
+// and the neon come from the four.
+const PALETTES = {
+  turquoise: [[6, 11, 15], [12, 72, 90], [66, 178, 202], [216, 246, 255]],
+  ocean: [[5, 9, 18], [16, 50, 118], [76, 148, 244], [214, 232, 255]],
+  violet: [[10, 7, 20], [58, 28, 122], [162, 116, 252], [238, 226, 255]],
+  rose: [[15, 6, 12], [104, 22, 74], [246, 104, 160], [255, 226, 238]],
+  emerald: [[5, 13, 12], [8, 76, 62], [56, 190, 142], [216, 255, 238]],
+  sunset: [[14, 7, 14], [84, 26, 74], [244, 146, 98], [255, 236, 214]],
+  gold: [[12, 10, 6], [74, 54, 20], [226, 176, 82], [255, 242, 208]],
+  silver: [[8, 10, 13], [42, 50, 60], [148, 166, 186], [242, 247, 255]],
+};
 const rgbOf = (hex) => (/^#[0-9a-f]{6}$/iu.test(hex ?? '') ? [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16)) : [59, 130, 246]);
 const customStops = (hex) => { const c = rgbOf(hex); return [c.map((v) => 4 + v * 0.05), c.map((v) => v * 0.42), c, c.map((v) => v + (255 - v) * 0.86)]; };
-const ownTones = (hex) => { const [, mass, c, light] = customStops(hex); return {glow: mass.map((v) => v * 0.5), lamp: light, neon: [c, mixc(c, light, 0.5), light]}; };
+const ownTones = ([, mass, c, light]) => ( {glow: mass.map((v) => v * 0.5), lamp: light, neon: [c, mixc(c, light, 0.5), light]});
 
 const SCENE = {
   home: 'dark', seed: 61, reseed: ['density'],
@@ -64,27 +75,17 @@ const SCENE = {
     return {
       sky: r('neutral', 6, '#16181d'), ground: r('neutral', 4, '#0c0e13'), fog: r('neutral', 30, '#45464f'), head: r('neutral', 98, '#faf9fe'),
       tail: r('error', 60, '#ff5449'), stop: r('error', 60, '#ff5449'), wait: r('warning', 70, '#f19d47'), go: r('success', 70, '#4cbb6f'),
-      blue: {glow: r('primary', 20, '#002e69'), lamp: r('primary', 90, '#d8e2ff'), neon: [r('primary', 70, '#7aabff'), r('tertiary', 70, '#c798cd'), r('primary', 80, '#adc6ff')]},
-      neon: {glow: r('tertiary', 20, '#3e2843'), lamp: r('tertiary', 90, '#fdd7fe'), neon: [r('tertiary', 70, '#c798cd'), r('success', 80, '#86d993'), r('primary', 70, '#7aabff')]},
-      amber: {glow: r('warning', 20, '#4f2500'), lamp: r('warning', 80, '#ffb95c'), neon: [r('warning', 70, '#f19d47'), r('error', 70, '#ff8a7c'), r('warning', 90, '#ffdcbe')]},
-      mono: {glow: r('neutral', 20, '#2f3036'), lamp: r('neutral', 90, '#e2e2e9'), neon: [r('neutral', 70, '#aaabb4'), r('neutral', 60, '#909099'), r('neutral', 80, '#c6c6cf')]},
+      theme: {glow: r('primary', 20, '#002e69'), lamp: r('primary', 90, '#d8e2ff'), neon: [r('primary', 70, '#7aabff'), r('tertiary', 70, '#c798cd'), r('primary', 80, '#adc6ff')]},
     };
   },
   setup(env, random) {
     const {w, h, values} = env, W = Math.ceil(w), H = Math.ceil(h);
     const st = {random, f: Math.min(h, w * 0.7), cx: w * 0.6, hor: h * 0.5, camY: 1.7,
       blur: h * 0.011, cars: [], cross: [], drops: [], runs: [], last: null, t: null, sprites: new Map()};
-    st.scene = new OffscreenCanvas(W, H); st.mask = new OffscreenCanvas(W, H); st.glass = new OffscreenCanvas(W, H); st.lit = new OffscreenCanvas(W, H); st.rain = new OffscreenCanvas(W, H);
+    st.scene = new OffscreenCanvas(W, H); st.mask = new OffscreenCanvas(W, H); st.glass = new OffscreenCanvas(W, H);
     st.chain = [2, 4, 8, 16, 32].map((d) => new OffscreenCanvas(Math.max(1, Math.ceil(w / d)), Math.max(1, Math.ceil(h / d))));
     st.mk = st.mask.getContext('2d');
     st.mk.fillRect(0, 0, w, h);
-    const r = st.rain.getContext('2d');
-    r.strokeStyle = '#fff';
-    for (let i = 0; i < w * h / 300; i += 1) {
-      const x = random() * w * 1.1, y = random() * h, len = 6 + random() ** 2 * h * 0.07;
-      r.globalAlpha = 0.2 + random() * 0.6; r.lineWidth = 0.5 + random() * 0.8;
-      r.beginPath(); r.moveTo(x, y); r.lineTo(x - len * 0.1, y + len); r.stroke();
-    }
     for (let i = 0; i < w * h / 2600; i += 1) st.drops.push(drop(st, random() * w, random() * h));
     // The lights of the street: lamps both sides and across the crossing, neon on the facades,
     // and the far city as a scatter of small dim points.
@@ -103,7 +104,7 @@ const SCENE = {
   release(env) { env.state.last = null; },
   draw(env, t) {
     const {ctx, w, h, tones, state: st, values, pointer} = env;
-    const k = values.intensity / 100, dt = st.t === null ? 0 : Math.max(0, Math.min(0.05, t - st.t)), P = values.palette === 'custom' ? (st.own?.hex === values.colour ? st.own : (st.own = {...ownTones(values.colour), hex: values.colour})) : tones[values.palette] ?? tones.blue;
+    const k = values.intensity / 100, dt = st.t === null ? 0 : Math.max(0, Math.min(0.05, t - st.t)), P = values.palette === 'theme' ? tones.theme : st.own?.key === values.palette + values.colour ? st.own : (st.own = {...ownTones(values.palette === 'custom' ? customStops(values.colour) : PALETTES[values.palette] ?? PALETTES.ocean), key: values.palette + values.colour});
     st.t = t;
     if (st.tones !== tones) { st.sprites.clear(); st.tones = tones; }
     const at = (X, Y, z) => [st.cx + X * st.f / z, st.hor + (st.camY - Y) * st.f / z];
@@ -168,19 +169,6 @@ const SCENE = {
     s.globalAlpha = 1;
     ctx.globalCompositeOperation = 'source-over';
     ctx.drawImage(st.scene, 0, 0, w, h);
-    // Rain outside, seen where the lights catch it.
-    if (values.rain) {
-      const lt = st.lit.getContext('2d'), fall = (t * h * 1.4) % h;
-      lt.globalCompositeOperation = 'copy';
-      lt.drawImage(soften(st, st.scene, 3), 0, 0, w, h);
-      lt.globalCompositeOperation = 'lighter';
-      lt.fillStyle = 'rgba(60,66,80,0.12)'; lt.fillRect(0, 0, w, h);
-      lt.globalCompositeOperation = 'destination-in';
-      lt.drawImage(st.rain, 0, fall - h, w, h); lt.drawImage(st.rain, 0, fall, w, h);
-      ctx.globalCompositeOperation = 'lighter';
-      ctx.globalAlpha = 0.3 + k * 0.5; ctx.drawImage(st.lit, 0, 0, w, h); ctx.globalAlpha = 1;
-      ctx.globalCompositeOperation = 'source-over';
-    }
     // The glass: fog creeps back where it was wiped; new drops gather; a heavy one now and then
     // runs down, taking the drops in its way and leaving a clear track.
     const mk = st.mk;

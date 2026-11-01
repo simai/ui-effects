@@ -2,7 +2,7 @@
   "schema": "simai.effect",
   "schema_version": 1,
   "id": "rain-glass",
-  "version": "3.2.1",
+  "version": "3.3.0",
   "label": {
     "ru": "Дождь на стекле",
     "en": "Rain on glass"
@@ -99,34 +99,69 @@
         "ru": "Палитра",
         "en": "Palette"
       },
-      "default": "blue",
+      "default": "theme",
       "options": [
         {
-          "value": "blue",
+          "value": "theme",
           "label": {
-            "ru": "Синяя",
-            "en": "Blue"
+            "ru": "Цвет темы",
+            "en": "Theme colour"
           }
         },
         {
-          "value": "neon",
+          "value": "turquoise",
           "label": {
-            "ru": "Неон",
-            "en": "Neon"
+            "ru": "Бирюзовая",
+            "en": "Turquoise"
           }
         },
         {
-          "value": "amber",
+          "value": "ocean",
           "label": {
-            "ru": "Янтарная",
-            "en": "Amber"
+            "ru": "Океан",
+            "en": "Ocean"
           }
         },
         {
-          "value": "mono",
+          "value": "violet",
           "label": {
-            "ru": "Монохром",
-            "en": "Monochrome"
+            "ru": "Фиолетовая",
+            "en": "Violet"
+          }
+        },
+        {
+          "value": "rose",
+          "label": {
+            "ru": "Роза",
+            "en": "Rose"
+          }
+        },
+        {
+          "value": "emerald",
+          "label": {
+            "ru": "Изумруд",
+            "en": "Emerald"
+          }
+        },
+        {
+          "value": "sunset",
+          "label": {
+            "ru": "Закат",
+            "en": "Sunset"
+          }
+        },
+        {
+          "value": "gold",
+          "label": {
+            "ru": "Золото",
+            "en": "Gold"
+          }
+        },
+        {
+          "value": "silver",
+          "label": {
+            "ru": "Серебро",
+            "en": "Silver"
           }
         },
         {
@@ -155,19 +190,6 @@
         "is": [
           "custom"
         ]
-      }
-    },
-    {
-      "key": "rain",
-      "type": "boolean",
-      "label": {
-        "ru": "Дождь за окном",
-        "en": "Rain outside"
-      },
-      "default": true,
-      "hint": {
-        "ru": "Струи дождя видны в свете огней",
-        "en": "Rain shows where the lights catch it"
       }
     },
     {

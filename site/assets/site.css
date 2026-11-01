@@ -32,8 +32,8 @@ img { max-inline-size: 100%; display: block; }
 /* Links in the text are the primary colour; the header's links keep the Framework's own colours. */
 :where(main, footer) a { color: var(--sf-primary); text-underline-offset: 0.2em; }
 code, pre { font-family: var(--mono); }
-h1, h2, h3, p { margin: 0; }
-h1 { font-size: clamp(1.75rem, 1.3rem + 1.8vw, 2.5rem); line-height: 1.15; font-weight: 700; letter-spacing: -0.01em; }
+/* A page's title and its lead are the Framework's own h1 and p, with their sizes and spacing. */
+h2, h3, p:where(:not(.head__lead, .intro__lead)) { margin: 0; }
 h2 { font-size: 1.375rem; line-height: 1.3; font-weight: 700; }
 h3 { font-size: 1.0625rem; line-height: 1.4; font-weight: 700; }
 .muted { color: var(--ink-muted); }
@@ -89,11 +89,14 @@ h3 { font-size: 1.0625rem; line-height: 1.4; font-weight: 700; }
   position: relative;
   isolation: isolate;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  /* As tall as the effect page's banner, the text in its middle. */
+  min-block-size: 26rem;
   border-block-end: 1px solid var(--sf-outline-variant);
 }
-.intro__body { display: grid; gap: 1rem; padding-block: clamp(2.5rem, 6vw, 5rem); }
+.intro__body { display: grid; inline-size: 100%; padding-block: clamp(2.5rem, 6vw, 5rem); }
 .intro__body > * { max-inline-size: 44rem; }
-.intro__lead { margin: 0; font-size: clamp(1.125rem, 1rem + 0.6vw, 1.375rem); line-height: 1.45; }
 .gallery { display: grid; gap: 1.25rem; padding-block: 2rem 3rem; }
 .gallery > * { min-inline-size: 0; }
 .gallery__bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.75rem 1rem; margin-block-end: 1.5rem; }
@@ -151,8 +154,8 @@ h3 { font-size: 1.0625rem; line-height: 1.4; font-weight: 700; }
 .authors__ways .panel { align-content: start; }
 .authors__rules { display: grid; gap: 0.75rem; max-inline-size: 48rem; padding-block-end: 3rem; }
 .authors__rules ul { margin: 0; padding-inline-start: 1.25rem; display: grid; gap: 0.5rem; }
-.head { gap: 0.5rem; padding-block: 0.5rem 1.5rem; max-inline-size: 48rem; }
-.head__lead { margin: 0; font-size: 1.125rem; line-height: 1.5; color: var(--ink-muted); }
+.head { padding-block: 0.5rem 1.5rem; max-inline-size: 48rem; }
+.head__lead { color: var(--ink-muted); }
 .head__facts { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; }
 /* Likes: two quiet outline buttons with their counts; the pressed one is the
    browser's own vote. */
@@ -265,7 +268,7 @@ h3 { font-size: 1.0625rem; line-height: 1.4; font-weight: 700; }
 
 @media (max-width: 40rem) {
   .stage { padding: 0.5rem; gap: 1rem; }
-  .demo-hero { min-block-size: 24rem; }
+  .demo-hero, .intro { min-block-size: 24rem; }
   .facts div { grid-template-columns: minmax(0, 1fr); gap: 0; }
 }
 
@@ -274,7 +277,10 @@ h3 { font-size: 1.0625rem; line-height: 1.4; font-weight: 700; }
 }
 
 /* The header's tools sit a quarter step apart (owner). */
-sf-site-header .sf-site-header-tools { gap: var(--sf-space-1\/4); }
-.repo-link svg { inline-size: 1.125rem; block-size: 1.125rem; }
+/* Every tool is one icon button of the bar's size, a third of a space apart; the colour
+   picker's swatch and its reset button keep the same step (its own gap is wider). */
+sf-site-header .sf-site-header-tools, sf-site-header .sf-color { gap: var(--sf-space-1\/3); }
+sf-site-header .sf-site-header-tools > * { flex: none; }
+.repo-link svg { inline-size: 1.25rem; block-size: 1.25rem; }
 /* On a phone the bar has room for three tools; the source stays linked in the footer. */
 @media (max-width: 30rem) { .repo-link { display: none !important; } }

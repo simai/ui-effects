@@ -771,7 +771,7 @@
     },
     {
       "id": "rain-glass",
-      "version": "3.2.1",
+      "version": "3.3.0",
       "label": {
         "ru": "Дождь на стекле",
         "en": "Rain on glass"
@@ -810,13 +810,13 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "dd5773fd08839269913928ebae4842e24649689b4c6b13ac73fce9e3aaac39f6",
-          "size": 3859
+          "sha256": "5be49d48cb8fd16a7a1169fc43c1cf0fde5a7c34e31456958860a0a8bd2dc85c",
+          "size": 4271
         },
         {
           "path": "index.js",
-          "sha256": "a6acdd8874144b5ac0fe4c0b961f3b8822b6517ec7ff5b0a0379523f6e48feb0",
-          "size": 23160
+          "sha256": "820fa3d535780c3ad02074d90a1334420998ce4c45be5c1ee40b6eb8e259ce39",
+          "size": 22210
         },
         {
           "path": "preview.png",
@@ -825,8 +825,8 @@
         },
         {
           "path": "README.md",
-          "sha256": "359c8cea8e89d99b2e5489f35efa0564fdbb918f506a46c7b023e515c1013d90",
-          "size": 1912
+          "sha256": "4a82eec2c1948bc30dfd78f4a98dfa873b54875de2c8ce2f4468936f5c6ccee7",
+          "size": 1980
         }
       ],
       "kit": {
@@ -1432,7 +1432,7 @@
     },
     {
       "id": "fabric-grid",
-      "version": "0.3.1",
+      "version": "0.4.0",
       "label": {
         "ru": "Ткань пространства-времени",
         "en": "Spacetime fabric"
@@ -1472,13 +1472,13 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "babcdd7b3ba6055307013105d4c25714ba8690f8c755419c460b2e8e60d6e7bd",
-          "size": 5539
+          "sha256": "910607ff231fd9871814f7e6b7daee76a7c72258cd499fc9c37924dd0814a832",
+          "size": 6090
         },
         {
           "path": "index.js",
-          "sha256": "bfc5880735f4b2caf0d74f1cc8252294fa9b6e20654be2651fff966e8dff40cc",
-          "size": 24361
+          "sha256": "92412bbbed17fc026b989b6a3fda00010f7e0da32b9d680f97534ec1b2dd922f",
+          "size": 24520
         },
         {
           "path": "preview.png",
@@ -1487,8 +1487,8 @@
         },
         {
           "path": "README.md",
-          "sha256": "99955712fdd64917b838d7214a195ceb037b21d68c471db38f2b89e58542c338",
-          "size": 3593
+          "sha256": "d106c5b3cc36895f73c5bd1bc5ea6558b914f95a5f8d016ee000e359937c2ab4",
+          "size": 4878
         }
       ],
       "kit": {

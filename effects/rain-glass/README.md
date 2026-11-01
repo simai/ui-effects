@@ -3,7 +3,7 @@
 A fogged window on a rainy night: the street behind it out of focus, only its lights. Lamps run off, neon shifts and flickers, a traffic light at the crossing stops and lets the cars go, every light trembles as a streak on the wet road. Drops run down the glass; wipe it with a finger, and it fogs again.
 
 - **Russian name:** Дождь на стекле
-- **Version:** 3.2.1, simai.effect 1.3.0
+- **Version:** 3.3.0, simai.effect 1.3.0
 - **Surfaces:** hero, section, dashboard, sign-in
 - **Tags:** water, glow
 - **Role:** A cosy evening behind a window. Dark scheme only.
@@ -17,9 +17,8 @@ A fogged window on a rainy night: the street behind it out of focus, only its li
 | `density` | integer | 10–100 % | `55` | Density |
 | `fog` | integer | 0–100 % | `70` | Fog |
 | `traffic` | integer | 0–100 % | `40` | Traffic. How often cars go by |
-| `palette` | choice | `blue`, `neon`, `amber`, `mono`, `custom` | `"blue"` | Palette |
+| `palette` | choice | `theme`, `turquoise`, `ocean`, `violet`, `rose`, `emerald`, `sunset`, `gold`, `silver`, `custom` | `"theme"` | Palette, the catalogue's shared set: the city glow, the lamps and the neon. `theme` follows the theme colour |
 | `colour` | color | hex | `"#3b82f6"` | Colour, read only while `palette` is `custom`: the effect builds every tone from it |
-| `rain` | boolean | — | `true` | Rain outside. Rain shows where the lights catch it |
 | `interactive` | boolean | — | `true` | React to the pointer. Press and drag to wipe the fog and the drops |
 
 ## Schemes
