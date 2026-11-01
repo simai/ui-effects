@@ -29,7 +29,8 @@ body {
 }
 main { flex: 1; }
 img { max-inline-size: 100%; display: block; }
-a { color: var(--sf-primary); text-underline-offset: 0.2em; }
+/* Links in the text are the primary colour; the header's links keep the Framework's own colours. */
+:where(main, footer) a { color: var(--sf-primary); text-underline-offset: 0.2em; }
 code, pre { font-family: var(--mono); }
 h1, h2, h3, p { margin: 0; }
 h1 { font-size: clamp(1.75rem, 1.3rem + 1.8vw, 2.5rem); line-height: 1.15; font-weight: 700; letter-spacing: -0.01em; }
