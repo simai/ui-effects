@@ -127,5 +127,6 @@
   "votes.dislike": "Dislike",
   "gallery.sort": "Order",
   "sort.catalogue": "Catalogue order",
-  "sort.popular": "Popular"
+  "sort.popular": "Popular",
+  "nav.repository": "Source on GitHub"
 }

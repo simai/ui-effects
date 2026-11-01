@@ -127,5 +127,6 @@
   "votes.dislike": "Не нравится",
   "gallery.sort": "Порядок",
   "sort.catalogue": "По порядку",
-  "sort.popular": "Популярные"
+  "sort.popular": "Популярные",
+  "nav.repository": "Исходный код на GitHub"
 }
