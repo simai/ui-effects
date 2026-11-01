@@ -371,14 +371,14 @@
     },
     {
       "id": "assembly",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "label": {
         "ru": "Сборка",
         "en": "Assembly"
       },
       "description": {
-        "ru": "Детали падают сверху, соединяются линиями и собираются то в кнопку или страницу, то в дом или ракету.",
-        "en": "Parts fall from above, join with lines and build a button or a page, then a house or a rocket."
+        "ru": "Точки падают сверху, соединяются линиями и собираются в кнопку или страницу, дом или ракету; фигура на миг оживает и перетекает в следующую.",
+        "en": "Dots fall from above, join with lines and build a button or a page, a house or a rocket; the shape comes alive for a moment and flows into the next."
       },
       "role": {
         "ru": "Баннер о том, как из мелких деталей собирается интерфейс: для документации и рассказа о системе компонентов. Светлая и тёмная схема.",
@@ -410,23 +410,23 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "b88be3d022f1fa983ad9e1ff89158900a4501f3c4a4d155c0e048f39839e6f86",
-          "size": 4112
+          "sha256": "7013a408f64ad6e333d80477c02469efe08715e1875accb1cb17be7053f627b6",
+          "size": 2677
         },
         {
           "path": "index.js",
-          "sha256": "4909f797ded45497f8ef208ecd66eb0bace08e4cee365734a7200a7f83c80405",
-          "size": 23441
+          "sha256": "d2c161891ad44102c7e7988ec435ed0c861eaed4930debb6334dfd50bcb013ba",
+          "size": 24267
         },
         {
           "path": "preview.png",
-          "sha256": "828e09b2151ba2622e5a2c3ccaa2a602e482824d86c5fbe39699d48d585b7f2a",
-          "size": 9693
+          "sha256": "a8fdd697ce587ee48aa52cad32f65a2bbed85f6d0682af832259cde2fbfcb9af",
+          "size": 9428
         },
         {
           "path": "README.md",
-          "sha256": "5f6550132846986d92f4672ffc4d0966918a6e98584a13d9cb928b93d3f0459e",
-          "size": 2766
+          "sha256": "1cd36014a79342e6a5494ba850920e8b4e7884369a15631701c0d15adac80b98",
+          "size": 3235
         }
       ],
       "kit": {

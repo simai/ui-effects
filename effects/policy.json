@@ -85,8 +85,8 @@
         "tech"
       ],
       "description": {
-        "ru": "Детали падают сверху, соединяются линиями и собираются то в кнопку или страницу, то в дом или ракету.",
-        "en": "Parts fall from above, join with lines and build a button or a page, then a house or a rocket."
+        "ru": "Точки падают сверху, соединяются линиями и собираются в кнопку или страницу, дом или ракету; фигура на миг оживает и перетекает в следующую.",
+        "en": "Dots fall from above, join with lines and build a button or a page, a house or a rocket; the shape comes alive for a moment and flows into the next."
       },
       "role": {
         "ru": "Баннер о том, как из мелких деталей собирается интерфейс: для документации и рассказа о системе компонентов. Светлая и тёмная схема.",

@@ -2,7 +2,7 @@
   "schema": "simai.effect",
   "schema_version": 1,
   "id": "assembly",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "label": {
     "ru": "Сборка",
     "en": "Assembly"
@@ -99,80 +99,6 @@
       }
     },
     {
-      "key": "palette",
-      "type": "choice",
-      "label": {
-        "ru": "Палитра",
-        "en": "Palette"
-      },
-      "default": "theme",
-      "options": [
-        {
-          "value": "theme",
-          "label": {
-            "ru": "Цвет темы",
-            "en": "Theme colour"
-          }
-        },
-        {
-          "value": "turquoise",
-          "label": {
-            "ru": "Бирюзовая",
-            "en": "Turquoise"
-          }
-        },
-        {
-          "value": "ocean",
-          "label": {
-            "ru": "Океан",
-            "en": "Ocean"
-          }
-        },
-        {
-          "value": "violet",
-          "label": {
-            "ru": "Фиолетовая",
-            "en": "Violet"
-          }
-        },
-        {
-          "value": "rose",
-          "label": {
-            "ru": "Роза",
-            "en": "Rose"
-          }
-        },
-        {
-          "value": "emerald",
-          "label": {
-            "ru": "Изумруд",
-            "en": "Emerald"
-          }
-        },
-        {
-          "value": "sunset",
-          "label": {
-            "ru": "Закат",
-            "en": "Sunset"
-          }
-        },
-        {
-          "value": "gold",
-          "label": {
-            "ru": "Золото",
-            "en": "Gold"
-          }
-        },
-        {
-          "value": "silver",
-          "label": {
-            "ru": "Серебро",
-            "en": "Silver"
-          }
-        }
-      ]
-    },
-    {
       "key": "interactive",
       "type": "boolean",
       "label": {
@@ -181,8 +107,8 @@
       },
       "default": true,
       "hint": {
-        "ru": "Клик расталкивает детали, они возвращаются на место",
-        "en": "A click knocks the parts apart; they spring back"
+        "ru": "Точки тянутся к указателю; клик расталкивает их, они возвращаются на место",
+        "en": "The dots lean towards the pointer; a click knocks them apart and they spring back"
       }
     }
   ],
