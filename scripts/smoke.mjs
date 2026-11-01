@@ -451,14 +451,21 @@ try {
     const flush = watch(page, 'settings');
     await page.goto(`${base}effect/rain-glass/`);
     await page.waitForFunction(() => document.documentElement.dataset.mounted === 'yes', null, {timeout: 20000});
-    await page.locator('[data-key="rain"] input').first().uncheck({force: true});
-    await page.locator('[data-key="palette"] .sf-dropdown-field').click();
-    await page.getByText('Неон', {exact: true}).last().click();
-    await page.waitForTimeout(500);
-    const values = await page.evaluate(() => JSON.parse(document.querySelector('[data-code="json"]').textContent));
-    if (values.rain !== false) fail('settings', `the switch did not apply (rain ${values.rain})`);
-    if (values.palette !== 'neon') fail('settings', `the dropdown did not apply (palette ${values.palette})`);
-    else console.log('ok   settings: a switch and a dropdown apply');
+    await page.locator('[data-key="interactive"] input').first().uncheck({force: true});
+    const pick = async (label) => {
+      await page.locator('[data-key="palette"] .sf-dropdown-field').click();
+      await page.getByText(label, {exact: true}).last().click();
+      await page.waitForTimeout(500);
+      return page.evaluate(() => ({values: JSON.parse(document.querySelector('[data-code="json"]').textContent), colour: !document.querySelector('[data-key="colour"]').hidden}));
+    };
+    const sunset = await pick('Закат');
+    if (sunset.values.interactive !== false) fail('settings', `the switch did not apply (interactive ${sunset.values.interactive})`);
+    if (sunset.values.palette !== 'sunset') fail('settings', `the dropdown did not apply (palette ${sunset.values.palette})`);
+    // The colour is a conditional setting: shown, and in the code, only for the custom palette.
+    if (sunset.colour || 'colour' in sunset.values) fail('settings', 'the colour shows without the custom palette');
+    const own = await pick('Свой цвет');
+    if (!own.colour || !own.values.colour) fail('settings', 'the custom palette does not show its colour');
+    else console.log('ok   settings: a switch, a dropdown and a conditional setting apply');
     flush();
     await context.close();
   }
