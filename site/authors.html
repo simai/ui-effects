@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="{{LANG}}" data-page="authors">
+<head>
+{{HEAD}}
+</head>
+<body>
+{{HEADER}}
+<main id="main" class="wrap authors">
+  <header class="head">
+    <h1>{{t:authors.title}}</h1>
+    <p class="head__lead">{{t:authors.lead}}</p>
+  </header>
+
+  <!-- Two ways in: an idea through the issue form, an effect of one's own through the guide. -->
+  <div class="authors__ways">
+    <section class="panel" aria-labelledby="idea-title">
+      <h2 id="idea-title">{{t:authors.idea}}</h2>
+      <p>{{t:authors.idea.text}}</p>
+      <p><a class="sf-button sf-button--default sf-button--primary sf-button--size-1" href="https://github.com/simai/ui-effects/issues/new?template=effect-idea.yml" rel="noopener"><span class="sf-button-text-container">{{t:authors.idea.button}}</span></a></p>
+    </section>
+    <section class="panel" aria-labelledby="make-title">
+      <h2 id="make-title">{{t:authors.make}}</h2>
+      <p>{{t:authors.make.text}}</p>
+      <p><a class="sf-button sf-button--outline sf-button--on-surface sf-button--size-1" href="https://github.com/simai/ui-effects/blob/main/docs/AUTHORING.md" rel="noopener"><span class="sf-button-text-container">{{t:authors.make.button}}</span></a></p>
+    </section>
+  </div>
+
+  <section class="authors__rules" aria-labelledby="rules-title">
+    <h2 id="rules-title">{{t:authors.rules}}</h2>
+    <ul>
+      <li>{{t:authors.rules.ideas}}</li>
+      <li>{{t:authors.rules.effects}}</li>
+      <li>{{t:authors.rules.safety}}</li>
+      <li>{{t:authors.rules.credit}}</li>
+    </ul>
+  </section>
+</main>
+{{FOOTER}}
+<!-- The shared part only: the kept theme colour and the page language. -->
+<script type="module" src="{{ROOT}}assets/common.js"></script>
+</body>
+</html>

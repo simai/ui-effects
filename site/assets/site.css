@@ -143,7 +143,13 @@ h3 { font-size: 1.0625rem; line-height: 1.4; font-weight: 700; }
 /* Effect page */
 .crumbs { padding-block: 1rem 0; }
 .crumbs a { display: inline-flex; align-items: center; min-block-size: 2.5rem; }
-.head { display: grid; gap: 0.5rem; padding-block: 0.5rem 1.5rem; max-inline-size: 48rem; }
+/* Authors: two ways in side by side, then the rules. */
+.authors { padding-block-start: clamp(1.5rem, 4vw, 3rem); }
+.authors__ways { display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); margin-block-end: 2.5rem; }
+.authors__ways .panel { align-content: start; }
+.authors__rules { display: grid; gap: 0.75rem; max-inline-size: 48rem; padding-block-end: 3rem; }
+.authors__rules ul { margin: 0; padding-inline-start: 1.25rem; display: grid; gap: 0.5rem; }
+.head { gap: 0.5rem; padding-block: 0.5rem 1.5rem; max-inline-size: 48rem; }
 .head__lead { margin: 0; font-size: 1.125rem; line-height: 1.5; color: var(--ink-muted); }
 .head__facts { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; }
 /* Likes: two quiet outline buttons with their counts; the pressed one is the

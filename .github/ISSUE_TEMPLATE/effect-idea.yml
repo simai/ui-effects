@@ -1,0 +1,34 @@
+name: Effect idea / Идея эффекта
+description: Suggest a background effect for the catalogue / Предложите фоновый эффект для каталога
+title: "Idea: "
+labels: [idea]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Describe what the background should look like and where it would fit. We make the effects ourselves; the idea and the picture are all we need.
+        Опишите, как должен выглядеть фон и где он пригодится. Эффекты мы делаем сами: нужны только идея и картинка.
+  - type: input
+    id: name
+    attributes:
+      label: Name / Название
+      placeholder: Northern lights over a lake / Северное сияние над озером
+    validations:
+      required: true
+  - type: textarea
+    id: look
+    attributes:
+      label: What it looks like / Как выглядит
+      description: Motion, colours, mood; light or dark theme / Движение, цвета, настроение; светлая или тёмная тема
+    validations:
+      required: true
+  - type: textarea
+    id: where
+    attributes:
+      label: Where it fits / Где пригодится
+      description: A landing page, a dashboard, a login screen… / Лендинг, панель, экран входа…
+  - type: textarea
+    id: reference
+    attributes:
+      label: Reference / Пример
+      description: A picture or a link (drag an image here) / Картинка или ссылка (перетащите изображение сюда)

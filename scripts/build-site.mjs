@@ -106,6 +106,7 @@ const common = (locale, page) => ({
 
 const galleryTemplate = readFileSync(join(ROOT, 'site', 'index.html'), 'utf8');
 const effectTemplate = readFileSync(join(ROOT, 'site', 'effect.html'), 'utf8');
+const authorsTemplate = readFileSync(join(ROOT, 'site', 'authors.html'), 'utf8');
 for (const locale of LOCALES) {
   const strings = dictionaries[locale.lang];
   mkdirSync(join(out, locale.dir), {recursive: true});
@@ -113,6 +114,12 @@ for (const locale of LOCALES) {
     ...common(locale, ''),
     TITLE: escape(strings['site.title']),
     DESCRIPTION: escape(fill(strings['site.description'], {n: catalogue.effects.length})),
+  }, locale.lang));
+  mkdirSync(join(out, locale.dir, 'authors'), {recursive: true});
+  writeFileSync(join(out, locale.dir, 'authors', 'index.html'), render(authorsTemplate, {
+    ...common(locale, 'authors/'),
+    TITLE: escape(strings['nav.authors.title']),
+    DESCRIPTION: escape(strings['authors.description']),
   }, locale.lang));
   for (const effect of catalogue.effects) {
     const page = `effect/${effect.id}/`;
@@ -137,4 +144,4 @@ cpSync(join(CATALOGUE, 'index.json'), join(out, 'catalogue', 'index.json'));
 cpSync(join(CATALOGUE, 'index.schema.json'), join(out, 'catalogue', 'index.schema.json'));
 writeFileSync(join(out, '.nojekyll'), '');
 if (!existsSync(join(out, 'assets', 'configurator.js'))) throw new Error('build-site: assets missing');
-console.log(`build-site: ${(catalogue.effects.length + 1) * LOCALES.length} pages (${LOCALES.map(({lang}) => lang).join(', ')}) in ${out}; snippets pinned to ${commit.slice(0, 12)} (${source}); Framework ${framework.pair}`);
+console.log(`build-site: ${(catalogue.effects.length + 2) * LOCALES.length} pages (${LOCALES.map(({lang}) => lang).join(', ')}) in ${out}; snippets pinned to ${commit.slice(0, 12)} (${source}); Framework ${framework.pair}`);

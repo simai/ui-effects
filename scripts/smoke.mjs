@@ -256,6 +256,19 @@ try {
       flush();
       report.pages.push({page: 'gallery', viewport: tag, ...gallery, contrastChecked: galleryContrast.checked});
 
+      // The authors page, in both languages.
+      for (const path of ['authors/', 'en/authors/']) {
+        flush = watch(page, `${path} ${tag}`);
+        await page.goto(`${base}${path}`);
+        await page.waitForFunction(() => document.body.style.opacity !== '0' && document.querySelector('.authors__ways'), null, {timeout: 20000});
+        await wait(500);
+        if (!await noHorizontalScroll(page)) fail(`${path} ${tag}`, 'horizontal scroll');
+        const authorsContrast = await chromeContrast(page);
+        authorsContrast.failing.forEach((item) => fail(`${path} ${tag}`, `contrast ${item}`));
+        flush();
+        report.pages.push({page: path, viewport: tag, contrastChecked: authorsContrast.checked});
+      }
+
       // Keyboard, once per viewport, on the light gallery.
       if (scheme === 'light') {
         await page.goto(base);

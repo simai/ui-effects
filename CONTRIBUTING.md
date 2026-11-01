@@ -13,7 +13,11 @@ An effect hosted elsewhere does not need this catalogue: a page can name its
 `effect.json` address, and the Framework runs it in the sandbox.
 
 Reports and suggestions are welcome: open an issue for a bug in an effect or
-the site, an accessibility problem, or an idea for an effect.
+the site, an accessibility problem, or an idea for an effect. Ideas have their
+own form ([Effect idea](https://github.com/simai/ui-effects/issues/new?template=effect-idea.yml)),
+linked from the site's «Авторам» / «For authors» page; we make the effects
+ourselves (owner decision 2026-11-01: ideas now, finished outside effects
+later, after review and in the sandbox).
 
 ## How changes are made
 

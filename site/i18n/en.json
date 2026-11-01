@@ -128,5 +128,20 @@
   "gallery.sort": "Order",
   "sort.catalogue": "Catalogue order",
   "sort.popular": "Popular",
-  "nav.repository": "Source on GitHub"
+  "nav.repository": "Source on GitHub",
+  "authors.title": "For authors",
+  "authors.description": "How to suggest a background effect for SIMAI Framework and how we take effects in.",
+  "authors.lead": "The catalogue grows from ideas. Tell us what background you need, and we will make it.",
+  "authors.idea": "Suggest an idea",
+  "authors.idea.text": "Describe how the background looks and where it fits, and add a picture or a link. You need a GitHub account.",
+  "authors.idea.button": "Suggest an idea",
+  "authors.make": "Make an effect",
+  "authors.make.text": "The author guide: what an effect is made of, how it follows the theme and how to check it.",
+  "authors.make.button": "Author guide",
+  "authors.rules": "What we take in",
+  "authors.rules.ideas": "Ideas, always: we make the effects ourselves.",
+  "authors.rules.effects": "Finished effects from other authors are not taken in yet. We will open submissions later and say so here.",
+  "authors.rules.safety": "An outside effect joins the catalogue only after a human review and automatic checks; on a page it runs in a sandbox, with no access to the page or the visitor's data.",
+  "authors.rules.credit": "The author of an idea or an effect is named on its page.",
+  "nav.authors.title": "For authors — SIMAI Framework background effects"
 }
