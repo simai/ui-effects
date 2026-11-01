@@ -277,9 +277,8 @@ h3 { font-size: 1.0625rem; line-height: 1.4; font-weight: 700; }
 }
 
 /* The header's tools sit a quarter step apart (owner). */
-/* Every tool is one icon button of the bar's size, a third of a space apart; the colour
-   picker's swatch and its reset button keep the same step (its own gap is wider). */
-sf-site-header .sf-site-header-tools, sf-site-header .sf-color { gap: var(--sf-space-1\/3); }
+/* The header keeps its tools a third of a space apart, the colour picker's reset included
+   (sf-site-header 1.2.0); each is one icon button of the bar's size and never shrinks. */
 sf-site-header .sf-site-header-tools > * { flex: none; }
 .repo-link svg { inline-size: 1.25rem; block-size: 1.25rem; }
 /* On a phone the bar has room for three tools; the source stays linked in the footer. */
