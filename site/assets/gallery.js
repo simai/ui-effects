@@ -51,19 +51,30 @@ for (const entry of catalogue.effects) {
   list.append(item);
 }
 
-// Both filters are Framework controls: a segmented Button Group for the subject,
-// a dropdown for the theme. The choice is kept in the address.
+// Both filters are Framework dropdowns. Each offers only what gives at least one effect under the
+// other filter, with how many it gives. The choice is kept in the address.
 const CATEGORIES = ['all', ...catalogue.categories.map((category) => category.id)];
 const SCHEMES = ['all', 'dual', 'dark', 'light'];
-categoryFilter.setAttribute('items', JSON.stringify(CATEGORIES.map((value) => ({value, label: value === 'all' ? t('gallery.all') : categoryNames.get(value)}))));
-schemeFilter.options = SCHEMES.map((value) => ({text: t(`scheme.${value}`), value}));
 const state = {category: 'all', schemes: 'all'};
+const inCategory = (card, category) => category === 'all' || card.dataset.categories.split(' ').includes(category);
+const inSchemes = (card, schemes) => schemes === 'all' || card.dataset.group === schemes;
+const optionsOf = (values, name, count, chosen) => values
+  .map((value) => ({value, n: count(value)}))
+  .filter(({value, n}) => n > 0 || value === chosen)
+  .map(({value, n}) => ({text: `${name(value)} · ${n}`, value}));
+const fill = (picker, options, value) => {
+  if (JSON.stringify(picker.options) !== JSON.stringify(options)) picker.options = options;
+  if (picker.value !== value) picker.setAttribute('value', value);
+};
 const applyFilters = () => {
-  if (categoryFilter.getAttribute('value') !== state.category) categoryFilter.setAttribute('value', state.category);
-  if (schemeFilter.value !== state.schemes) schemeFilter.setAttribute('value', state.schemes);
+  const cards = [...list.children];
+  fill(categoryFilter, optionsOf(CATEGORIES, (value) => (value === 'all' ? t('gallery.allCategories') : categoryNames.get(value)),
+    (value) => cards.filter((card) => inCategory(card, value) && inSchemes(card, state.schemes)).length, state.category), state.category);
+  fill(schemeFilter, optionsOf(SCHEMES, (value) => t(`scheme.${value}`),
+    (value) => cards.filter((card) => inCategory(card, state.category) && inSchemes(card, value)).length, state.schemes), state.schemes);
   let shown = 0;
   for (const card of list.children) {
-    const on = (state.category === 'all' || card.dataset.categories.split(' ').includes(state.category)) && (state.schemes === 'all' || card.dataset.group === state.schemes);
+    const on = inCategory(card, state.category) && inSchemes(card, state.schemes);
     card.hidden = !on;
     if (on) shown += 1;
   }
@@ -75,8 +86,8 @@ const applyFilters = () => {
   history.replaceState(null, '', url);
 };
 categoryFilter.addEventListener('change', (event) => {
-  if (!CATEGORIES.includes(event.detail?.value)) return;
-  state.category = event.detail.value;
+  if (event.target !== categoryFilter || !CATEGORIES.includes(categoryFilter.value)) return;
+  state.category = categoryFilter.value;
   applyFilters();
 });
 schemeFilter.addEventListener('change', (event) => {

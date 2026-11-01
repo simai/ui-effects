@@ -236,8 +236,13 @@ try {
       galleryContrast.failing.forEach((item) => fail(`gallery ${tag}`, `contrast ${item}`));
       if (shots) await page.screenshot({path: join(shots, `gallery-${tag}.png`)});
       const visibleCards = () => page.evaluate(() => [...document.querySelectorAll('.card')].filter((card) => !card.hidden).length);
+      // The category dropdown: each subject shows its own effects, and offers only subjects that have one.
+      const offered = await page.evaluate(() => document.querySelector('[data-categories]').options.map((option) => option.value).sort().join());
+      const subjects = ['all', ...catalogue.categories.filter((category) => category.count > 0).map((category) => category.id)].sort().join();
+      if (offered !== subjects) fail(`gallery ${tag}`, `categories offered ${offered}, expected ${subjects}`);
       for (const category of [...catalogue.categories, {id: 'all', count: catalogue.effects.length}]) {
-        await page.click(`[data-categories] [data-sf-button-group-value="${category.id}"]`);
+        await page.goto(`${base}?category=${category.id}`);
+        await page.waitForFunction(() => document.documentElement.dataset.ready === 'true');
         const visible = await visibleCards();
         if (visible !== category.count) fail(`gallery ${tag}`, `category ${category.id} shows ${visible}, expected ${category.count}`);
       }
@@ -273,8 +278,8 @@ try {
       if (scheme === 'light') {
         await page.goto(base);
         await page.waitForFunction(() => document.documentElement.dataset.ready === 'true' && document.body.style.opacity !== '0');
-        // The button group draws its segments after the page is ready.
-        await page.waitForSelector('[data-categories] .sf-button-group-segment');
+        // The dropdowns draw their fields after the page is ready.
+        await page.waitForSelector('[data-categories] .sf-dropdown-field');
         const stops = [];
         for (let index = 0; index < 14; index += 1) {
           await page.keyboard.press('Tab');
@@ -288,7 +293,7 @@ try {
         }
         const reached = (test) => stops.some(test);
         if (stops[0].cls !== 'skip') fail(`keyboard ${viewport.width}`, `first stop is ${stops[0].cls}, not the skip link`);
-        if (!reached((stop) => /sf-button-group-segment/u.test(stop.cls) && /Все/u.test(stop.text))) fail(`keyboard ${viewport.width}`, 'filters not reached');
+        if (!reached((stop) => /Все категории/u.test(stop.text))) fail(`keyboard ${viewport.width}`, 'filters not reached');
         if (!reached((stop) => stop.cls === '' && stop.text && !/Галерея|Авторам|GitHub|simai\.io/u.test(stop.text))) fail(`keyboard ${viewport.width}`, 'cards not reached');
         const noRing = stops.filter((stop) => !stop.ring);
         if (noRing.length) fail(`keyboard ${viewport.width}`, `no focus ring on ${noRing.map((stop) => stop.text || stop.cls).join(', ')}`);

@@ -143,5 +143,6 @@
   "authors.rules.effects": "Finished effects from other authors are not taken in yet. We will open submissions later and say so here.",
   "authors.rules.safety": "An outside effect joins the catalogue only after a human review and automatic checks; on a page it runs in a sandbox, with no access to the page or the visitor's data.",
   "authors.rules.credit": "The author of an idea or an effect is named on its page.",
-  "nav.authors.title": "For authors — SIMAI Framework background effects"
+  "nav.authors.title": "For authors — SIMAI Framework background effects",
+  "gallery.allCategories": "All categories"
 }

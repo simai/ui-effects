@@ -102,6 +102,7 @@ h3 { font-size: 1.0625rem; line-height: 1.4; font-weight: 700; }
 .gallery__bar .sf-button-group, .toolbar .sf-button-group { max-inline-size: 100%; min-inline-size: 0; }
 .gallery__picks { display: flex; flex-wrap: wrap; gap: 0.75rem; }
 .gallery__bar sf-dropdown { inline-size: 11rem; }
+.gallery__bar sf-dropdown[data-categories] { inline-size: 15rem; }
 .gallery__bar sf-dropdown[hidden] { display: none; }
 .gallery__empty { margin: 0; padding-block: 3rem; text-align: center; }
 
