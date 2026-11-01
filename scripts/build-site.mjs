@@ -5,7 +5,10 @@
 // effects' names and descriptions from the catalogue; assets, the catalogue and
 // the effects are shared at the root.
 //
-//   node scripts/build-site.mjs [--out dist]
+//   node scripts/build-site.mjs [--out dist] [--votes URL]
+//
+// The votes service (service/votes/, its /api/ address) is --votes, else
+// UI_EFFECTS_VOTES; without one the site has no likes and no popular order.
 //
 // The commit the snippets point at (jsDelivr gh/simai/ui-effects@<commit>) is
 // UI_EFFECTS_COMMIT, else GITHUB_SHA (CI), else the checkout's HEAD. The
@@ -19,6 +22,8 @@ import {CATALOGUE, ROOT, fileDigest, frameworkBase, lock, readJson} from './lib/
 
 const args = process.argv.slice(2);
 const out = resolve(ROOT, args.includes('--out') ? args[args.indexOf('--out') + 1] : 'dist');
+const votes = args.includes('--votes') ? args[args.indexOf('--votes') + 1] : process.env.UI_EFFECTS_VOTES || '';
+if (votes && !/^(?:https?:\/\/[^/\s]+)?\/(?:\S*\/)?$/u.test(votes)) throw new Error(`build-site: the votes address must be an http(s) URL or a path from the root, ending in /: ${votes}`);
 const framework = lock();
 const catalogue = readJson(join(CATALOGUE, 'index.json'));
 
@@ -84,6 +89,7 @@ const siteConfig = (rootPath, locale, page) => JSON.stringify({
   commit_source: source,
   cdn: `https://cdn.jsdelivr.net/gh/simai/ui-effects@${commit}/`,
   published: isPublished(),
+  votes: votes || null,
   framework: {pair: framework.pair, commit: framework.ui.commit, base: frameworkBase(framework)},
 }).replace(/</gu, '\\u003c');
 const common = (locale, page) => ({

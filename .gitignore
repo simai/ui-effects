@@ -3,3 +3,5 @@ dist/
 .kit/
 .smoke/
 .DS_Store
+.votes-state/
+state/

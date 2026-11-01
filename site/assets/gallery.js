@@ -1,12 +1,15 @@
 // Gallery: every effect as a picture with its name, subject and themes, filtered
-// by category (the closed set in the catalogue) and by the theme it draws.
+// by category (the closed set in the catalogue) and by the theme it draws, in
+// the catalogue's order or, with the votes service, the most liked first.
 import {groupOf, home, loadCatalogue, onSiteColour, onSiteTheme, root, schemesName, t, text} from './common.js';
 import {outcomeOf, place} from './place.js';
+import {loadStats} from './votes.js';
 
 const list = document.querySelector('[data-cards]');
 const categoryFilter = document.querySelector('[data-categories]');
 const schemeFilter = document.querySelector('[data-schemes]');
 const empty = document.querySelector('[data-empty]');
+const sortPicker = document.querySelector('[data-sort]');
 
 const catalogue = await loadCatalogue();
 const categoryNames = new Map(catalogue.categories.map((category) => [category.id, text(category.label)]));
@@ -85,6 +88,35 @@ const asked = new URL(location.href).searchParams;
 if (CATEGORIES.includes(asked.get('category'))) state.category = asked.get('category');
 if (SCHEMES.includes(asked.get('schemes'))) state.schemes = asked.get('schemes');
 applyFilters();
+
+// Popular: the lower Wilson bound of the share of likes first (a few likes do
+// not outrank many), then how many browsers took the code, then the catalogue.
+const SORTS = ['catalogue', 'popular'];
+const catalogueOrder = [...list.children];
+let stats = null;
+const sortCards = (sort) => {
+  const usage = (card) => (stats[card.dataset.id]?.copied ?? 0) + (stats[card.dataset.id]?.downloaded ?? 0);
+  const order = sort === 'popular'
+    ? [...catalogueOrder].sort((a, b) => (stats[b.dataset.id]?.score ?? 0) - (stats[a.dataset.id]?.score ?? 0) || usage(b) - usage(a))
+    : catalogueOrder;
+  list.append(...order);
+  const url = new URL(location.href);
+  if (sort === 'popular') url.searchParams.set('sort', sort); else url.searchParams.delete('sort');
+  history.replaceState(null, '', url);
+};
+loadStats().then((answer) => {
+  if (!answer) return;
+  stats = answer;
+  sortPicker.options = SORTS.map((value) => ({text: t(`sort.${value}`), value}));
+  const sort = SORTS.includes(asked.get('sort')) ? asked.get('sort') : 'catalogue';
+  sortPicker.setAttribute('value', sort);
+  sortPicker.hidden = false;
+  if (sort !== 'catalogue') sortCards(sort);
+});
+sortPicker.addEventListener('change', (event) => {
+  if (event.target !== sortPicker || !SORTS.includes(sortPicker.value) || !stats) return;
+  sortCards(sortPicker.value);
+});
 
 // The pictures follow the theme: each card in view draws its effect once, as a still frame, in the
 // page's scheme and colour, keeps the frame as an image and lets the effect go. One card at a time;

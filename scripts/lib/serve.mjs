@@ -9,11 +9,13 @@ const TYPES = {
   '.json': 'application/json; charset=utf-8', '.png': 'image/png', '.svg': 'image/svg+xml', '.md': 'text/markdown; charset=utf-8',
 };
 
-export function serve(rootDir, prefix = '/', port = 0) {
+// `api`, when given, answers every request under /api/ (the votes service).
+export function serve(rootDir, prefix = '/', port = 0, api = null) {
   const root = resolve(rootDir);
   const base = `/${prefix.replace(/^\/+|\/+$/gu, '')}/`.replace('//', '/');
   const server = createServer((request, response) => {
     let path = decodeURIComponent(new URL(request.url, 'http://x').pathname);
+    if (api && path.startsWith('/api/')) return api(request, response);
     if (!path.startsWith(base)) { response.writeHead(404); return response.end('outside the base path'); }
     path = path.slice(base.length);
     let file = resolve(root, normalize(path));

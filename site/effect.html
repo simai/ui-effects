@@ -14,6 +14,10 @@
     <div class="head__facts" data-facts>
       <p class="readout small muted" data-readout data-state="none" role="status" aria-live="polite" title="{{t:effect.contrast.hint}}"><span class="readout__mark" aria-hidden="true"></span><span data-readout-text>{{t:effect.contrast.pending}}</span></p>
     </div>
+    <div class="votes" role="group" aria-label="{{t:votes.label}}" data-votes hidden>
+      <button type="button" class="sf-button sf-button--outline sf-button--on-surface sf-button--size-1/2 votes__button" data-vote="1" aria-pressed="false" title="{{t:votes.like}}"><sf-icon icon="thumb_up" aria-hidden="true"></sf-icon><span class="sf-button-text-container"><span class="visually-hidden">{{t:votes.like}}: </span><span data-count>0</span></span></button>
+      <button type="button" class="sf-button sf-button--outline sf-button--on-surface sf-button--size-1/2 votes__button" data-vote="-1" aria-pressed="false" title="{{t:votes.dislike}}"><sf-icon icon="thumb_down" aria-hidden="true"></sf-icon><span class="sf-button-text-container"><span class="visually-hidden">{{t:votes.dislike}}: </span><span data-count>0</span></span></button>
+    </div>
   </header>
 
   <section class="stage" aria-labelledby="stage-title">

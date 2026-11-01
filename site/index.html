@@ -15,10 +15,13 @@
 
   <section class="wrap gallery" aria-labelledby="gallery-title">
     <h2 id="gallery-title" class="visually-hidden">{{t:gallery.heading}}</h2>
-    <!-- Two filters: the subject (the closed set of categories) and the theme the effect draws. -->
+    <!-- Two filters, the subject (the closed set of categories) and the theme the effect draws, and the order. -->
     <div class="gallery__bar">
       <sf-button-group appearance="segmented" size="1/2" aria-label="{{t:gallery.categories}}" value="all" data-categories></sf-button-group>
-      <sf-dropdown size="1/2" aria-label="{{t:gallery.schemes}}" value="all" search="false" data-schemes></sf-dropdown>
+      <div class="gallery__picks">
+        <sf-dropdown size="1/2" aria-label="{{t:gallery.sort}}" value="catalogue" search="false" data-sort hidden></sf-dropdown>
+        <sf-dropdown size="1/2" aria-label="{{t:gallery.schemes}}" value="all" search="false" data-schemes></sf-dropdown>
+      </div>
     </div>
     <ul class="cards" data-cards></ul>
     <p class="gallery__empty muted" data-empty hidden>{{t:gallery.empty}}</p>

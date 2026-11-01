@@ -121,5 +121,11 @@
   "code.theme.author": "задан автором",
   "code.theme.one": "у эффекта одна схема, {scheme}",
   "code.theme.page": "как у страницы",
-  "code.example.title": "{label} — пример фона"
+  "code.example.title": "{label} — пример фона",
+  "votes.label": "Оценка эффекта",
+  "votes.like": "Нравится",
+  "votes.dislike": "Не нравится",
+  "gallery.sort": "Порядок",
+  "sort.catalogue": "По порядку",
+  "sort.popular": "Популярные"
 }

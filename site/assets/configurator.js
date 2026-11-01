@@ -5,6 +5,7 @@
 import {badges, config, formatNumber, formatRatio, loadCatalogue, luminance, modeName, onSiteColour, onSiteTheme, ratio, schemesName, t, text} from './common.js';
 import {loadWithPair, outcomeOf, place} from './place.js';
 import {connectSnippet, examplePage, htmlSnippet, jsSnippet, jsonSnippet} from './snippets.js';
+import {loadStats, myVote, used, vote} from './votes.js';
 
 const html = document.documentElement;
 const id = html.dataset.effect;
@@ -30,6 +31,34 @@ const forEachPlacement = (call) => state.placements.forEach(call);
 // --- Head --------------------------------------------------------------------------
 const facts = $('[data-facts]');
 facts.append(badges(entry));
+
+// --- Likes ------------------------------------------------------------------------------
+// Two buttons with their counts, shown once the votes service answers. A press
+// gives the browser's vote; the same press again takes it back.
+const votesBox = $('[data-votes]');
+const voteButtons = [...votesBox.querySelectorAll('[data-vote]')];
+const showVotes = (counts) => {
+  const mine = myVote(id);
+  for (const button of voteButtons) {
+    const value = Number(button.dataset.vote);
+    button.querySelector('[data-count]').textContent = formatNumber(value > 0 ? counts?.up ?? 0 : counts?.down ?? 0, 0);
+    button.setAttribute('aria-pressed', String(mine === value));
+  }
+};
+loadStats().then((stats) => {
+  if (!stats) return;
+  showVotes(stats[id]);
+  votesBox.hidden = false;
+});
+for (const button of voteButtons) {
+  button.addEventListener('click', async () => {
+    const value = Number(button.dataset.vote);
+    voteButtons.forEach((other) => { other.disabled = true; });
+    const counts = await vote(id, myVote(id) === value ? 0 : value);
+    voteButtons.forEach((other) => { other.disabled = false; });
+    if (counts) showVotes(counts);
+  });
+}
 
 // --- Theme mode: only the modes the effect can draw ------------------------------------
 // A segmented Button Group of the Framework; a choice arrives as its change event.
@@ -376,7 +405,12 @@ $('[data-download]').addEventListener('click', () => {
   link.click();
   link.remove();
   setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+  used(id, 'download');
 });
+// A copy of the code, by its button or by selecting it, counts once per browser.
+const codeTabs = $('[data-code-tabs]');
+codeTabs.addEventListener('click', (event) => { if (event.target.closest('.sf-highlight__copy')) used(id, 'copy'); });
+codeTabs.addEventListener('copy', () => used(id, 'copy'));
 
 // --- About the effect ------------------------------------------------------------------
 const aboutList = $('[data-facts-list]');

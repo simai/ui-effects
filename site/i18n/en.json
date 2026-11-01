@@ -121,5 +121,11 @@
   "code.theme.author": "set by the author",
   "code.theme.one": "the effect has one scheme, {scheme}",
   "code.theme.page": "follows the page",
-  "code.example.title": "{label} — background example"
+  "code.example.title": "{label} — background example",
+  "votes.label": "Rate this effect",
+  "votes.like": "Like",
+  "votes.dislike": "Dislike",
+  "gallery.sort": "Order",
+  "sort.catalogue": "Catalogue order",
+  "sort.popular": "Popular"
 }

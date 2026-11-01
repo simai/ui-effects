@@ -22,6 +22,9 @@
 //     show a focus ring; the code tabs follow the arrow keys;
 //   - reduced motion: the system setting and the page's own switch leave a
 //     still frame (no animation frames asked for);
+//   - likes, when the site is built with a votes service at a path (--votes
+//     /api/): the service answers there from an empty state; the popular order
+//     is offered, and a like on an effect page is counted and taken back;
 //   - the configurator's snippets: HTML, JS and settings JSON are pasted into
 //     a blank page that loads the Framework, and the effect mounts with every
 //     file checked against its SHA-256; a tampered file is refused.
@@ -33,7 +36,8 @@
 // CHROME_PATH runs a given Chrome in the new headless mode; PLAYWRIGHT_CORE
 // points at another playwright-core.
 import {execFileSync} from 'node:child_process';
-import {existsSync, mkdirSync, readFileSync, writeFileSync} from 'node:fs';
+import {existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync} from 'node:fs';
+import {tmpdir} from 'node:os';
 import {join, resolve} from 'node:path';
 import {pathToFileURL} from 'node:url';
 import {ROOT, frameworkBase, launchOptions, loadChromium, lock} from './lib/common.mjs';
@@ -198,7 +202,15 @@ const report = {site: config, framework: framework.pair, pages: [], snippets: []
 
 const chromium = await loadChromium();
 const browser = await chromium.launch(launchOptions());
-const {server, url: base} = await serve(distDir, prefix);
+// A site built with the votes service at a path gets it on the same address, from an empty state.
+let api = null, votesDir = null;
+if (config.votes?.startsWith('/')) {
+  const {createVotesServer} = await import('../service/votes/server.mjs');
+  votesDir = mkdtempSync(join(tmpdir(), 'ui-effects-votes-'));
+  const {server: votes} = createVotesServer({stateDir: votesDir, catalogue: join(distDir, 'catalogue', 'index.json')});
+  api = (request, response) => votes.emit('request', request, response);
+} else if (config.votes) console.log(`smoke: the votes service ${config.votes} is not on this address; likes are not checked`);
+const {server, url: base} = await serve(distDir, prefix, 0, api);
 console.log(`smoke: ${base} (Framework ${uiRoot ? 'from UI_ROOT git objects' : 'from jsDelivr'}; ui-effects CDN from ${effectsFromGit ? `git ${config.commit.slice(0, 12)}` : 'the working tree'})`);
 
 try {
@@ -235,6 +247,10 @@ try {
         await page.waitForFunction(() => document.documentElement.dataset.ready === 'true');
         const visible = await visibleCards();
         if (visible !== catalogue.counts[schemes]) fail(`gallery ${tag}`, `theme ${schemes} shows ${visible}, expected ${catalogue.counts[schemes]}`);
+      }
+      if (api) {
+        await page.goto(`${base}?sort=popular`);
+        await page.waitForFunction(() => !document.querySelector('[data-sort]').hidden, null, {timeout: 10000}).catch(() => fail(`gallery ${tag}`, 'no popular order with the votes service'));
       }
       if (shots && viewport.width === 1440) await page.screenshot({path: join(shots, `gallery-${tag}-full.png`), fullPage: true});
       flush();
@@ -275,6 +291,21 @@ try {
         await page.goto(`${base}effect/${entry.id}/`);
         await ready().catch(async () => { console.log(`note ${where}: not ready in 20 s, reloaded`); await page.reload(); await ready(); });
         const expected = resolveTheme(reference(entry), scheme, 'auto');
+        if (api && entry === effects[0]) {
+          const likes = await page.evaluate(async () => {
+            const box = document.querySelector('[data-votes]');
+            for (let i = 0; i < 50 && box.hidden; i += 1) await new Promise((done) => setTimeout(done, 100));
+            const like = box.querySelector('[data-vote="1"]'), count = () => like.querySelector('[data-count]').textContent;
+            const before = count();
+            like.click();
+            for (let i = 0; i < 50 && like.getAttribute('aria-pressed') !== 'true'; i += 1) await new Promise((done) => setTimeout(done, 100));
+            const liked = count();
+            like.click();
+            for (let i = 0; i < 50 && like.getAttribute('aria-pressed') !== 'false'; i += 1) await new Promise((done) => setTimeout(done, 100));
+            return {shown: !box.hidden, before, liked, after: count()};
+          });
+          if (!likes.shown || Number(likes.liked) !== Number(likes.before) + 1 || likes.after !== likes.before) fail(where, `likes ${JSON.stringify(likes)}`);
+        }
         const checkLayout = async (layout) => {
           await page.waitForFunction(() => ['yes', 'hidden', 'error'].includes(document.documentElement.dataset.mounted), null, {timeout: 20000});
           await page.waitForFunction(() => document.querySelector('[data-readout]').dataset.measured === 'true', null, {timeout: 20000});
@@ -554,6 +585,7 @@ try {
 } finally {
   await browser.close();
   server.close();
+  if (votesDir) rmSync(votesDir, {recursive: true, force: true});
 }
 
 for (const url of new Set(external)) fail('network', `request outside the allowed hosts: ${url}`);

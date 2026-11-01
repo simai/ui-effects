@@ -24,6 +24,7 @@ there will be many. The Framework ships only the core: `SF.Effects`, the
 | `catalogue/kit.json` | Kit results per effect, written by `scripts/kit.mjs` |
 | `framework.lock.json` | The Framework release everything is checked against (`ui-1bc55b4763ee`) |
 | `site/` | The catalogue site, built in Russian (root) and English (`en/`) from `site/i18n/`; it places effects through the core's `SF.Effects` |
+| `service/votes/` | The votes service: anonymous likes, dislikes and use counts ([docs/VOTES.md](docs/VOTES.md)) |
 | `templates/effect/` | A template effect to start from |
 | `docs/AUTHORING.md` | The author guide |
 | `scripts/` | Catalogue build and check, kit runner, site build, browser smoke, hygiene check |
