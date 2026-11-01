@@ -288,12 +288,12 @@ try {
             // A card shows the ring for its link, which covers the whole card, on its picture;
             // a Framework dropdown draws it on its field around the control.
             const style = getComputedStyle(element.closest('.card')?.querySelector('.card__media') ?? element.closest('.sf-dropdown-field') ?? element);
-            return {text: (element.textContent || '').trim().slice(0, 30), cls: element.className, ring: style.outlineStyle !== 'none' && parseFloat(style.outlineWidth) >= 2};
+            return {text: (element.textContent || '').trim().slice(0, 30), label: element.getAttribute('aria-label') ?? '', cls: element.className, ring: style.outlineStyle !== 'none' && parseFloat(style.outlineWidth) >= 2};
           }));
         }
         const reached = (test) => stops.some(test);
         if (stops[0].cls !== 'skip') fail(`keyboard ${viewport.width}`, `first stop is ${stops[0].cls}, not the skip link`);
-        if (!reached((stop) => /Все категории/u.test(stop.text))) fail(`keyboard ${viewport.width}`, 'filters not reached');
+        if (!reached((stop) => stop.label === 'Категории')) fail(`keyboard ${viewport.width}`, 'filters not reached');
         if (!reached((stop) => stop.cls === '' && stop.text && !/Галерея|Авторам|GitHub|simai\.io/u.test(stop.text))) fail(`keyboard ${viewport.width}`, 'cards not reached');
         const noRing = stops.filter((stop) => !stop.ring);
         if (noRing.length) fail(`keyboard ${viewport.width}`, `no focus ring on ${noRing.map((stop) => stop.text || stop.cls).join(', ')}`);
