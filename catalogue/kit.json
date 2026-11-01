@@ -72,7 +72,7 @@
       "failed": []
     },
     "rain-glass": {
-      "digest": "81ae0ed89e3b56c912e11e18293947af22020f118ee592f2954178b62dc92967",
+      "digest": "ca25978b4445f729d17ddc2486d68adaf7ab647a0004627f8cce6698c91ed3ee",
       "passed": 14,
       "total": 14,
       "failed": []
@@ -201,12 +201,6 @@
       "digest": "4699f759dd2df58fbf382419224a8d289a186ab08305d403932856026e5a4833",
       "passed": 17,
       "total": 17,
-      "failed": []
-    },
-    "rain-glass-classic": {
-      "digest": "0981db527c8d1ff185de3a23adafeabe8911784192a3831bf8491cbe433020d7",
-      "passed": 14,
-      "total": 14,
       "failed": []
     },
     "digital-rain": {

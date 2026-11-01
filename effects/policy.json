@@ -593,25 +593,6 @@
       ]
     },
     {
-      "id": "rain-glass-classic",
-      "categories": [
-        "nature",
-        "tech"
-      ],
-      "description": {
-        "ru": "Прежняя версия «Дождя на стекле» для сравнения: запотевшее окно ночью, за стеклом улица с фонарями в боке, изредка проезжают машины; на стекле капли, по нему можно писать пальцем.",
-        "en": "The previous Rain on glass, for comparison: a fogged window at night, a street with blurred lamps outside, an occasional car; drops on the glass, and you can write on it with a finger."
-      },
-      "role": {
-        "ru": "Уютный вечер за окном. Только тёмная схема.",
-        "en": "A cosy evening behind the window. Dark scheme only."
-      },
-      "tags": [
-        "water",
-        "glow"
-      ]
-    },
-    {
       "id": "digital-rain",
       "categories": [
         "text",

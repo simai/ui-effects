@@ -2,7 +2,7 @@
   "schema": "simai.effect",
   "schema_version": 1,
   "id": "rain-glass",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "label": {
     "ru": "Дождь на стекле",
     "en": "Rain on glass"
@@ -91,31 +91,6 @@
         "ru": "Как часто проезжают машины",
         "en": "How often cars go by"
       }
-    },
-    {
-      "key": "view",
-      "type": "choice",
-      "label": {
-        "ru": "Вид",
-        "en": "View"
-      },
-      "default": "street",
-      "options": [
-        {
-          "value": "street",
-          "label": {
-            "ru": "Улица",
-            "en": "Street"
-          }
-        },
-        {
-          "value": "low",
-          "label": {
-            "ru": "У самого асфальта",
-            "en": "Down at the road"
-          }
-        }
-      ]
     },
     {
       "key": "palette",

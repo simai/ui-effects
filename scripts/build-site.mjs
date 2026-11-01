@@ -77,8 +77,16 @@ const render = (template, values, lang) => {
 // is the page's path under a language folder ('' or 'effect/<id>/').
 const up = (path) => '../'.repeat(path.split('/').filter(Boolean).length);
 const alternates = (locale, page) => LOCALES.map((other) => ({lang: other.lang, name: dictionaries[other.lang]['lang.name'], href: `${up(locale.dir + page)}${other.dir}${page}`}));
-const languageLinks = (locale, page) => alternates(locale, page).filter((other) => other.lang !== locale.lang)
-  .map((other) => `<a slot="tools" class="sf-button sf-button--size-1/2 sf-button--link sf-button--on-surface flex items-cross-center lang-switch" href="${other.href || './'}" hreflang="${other.lang}" lang="${other.lang}" title="${escape(other.name)}" aria-label="${escape(dictionaries[locale.lang]['lang.switch'])}: ${escape(other.name)}"><span class="sf-button-text-container">${other.lang.toUpperCase()}</span></a>`).join('\n  ');
+// The languages: a globe in the tools that opens the Framework's menu of this page in every
+// language, the current one marked. The menu sits after the header; site/assets/common.js opens it.
+const languageButton = (locale) => {
+  const word = escape(dictionaries[locale.lang]['lang.switch']);
+  return `<button slot="tools" type="button" class="sf-icon-button sf-icon-button--icon sf-icon-button--on-surface sf-icon-button--link sf-icon-button--size-1/2" aria-label="${word}" title="${word}" aria-haspopup="menu" data-lang-button><sf-icon icon="language" aria-hidden="true"></sf-icon></button>`;
+};
+const languageMenu = (locale, page) => {
+  const entries = alternates(locale, page).map((other) => ({id: other.lang, text: other.name, lang: other.lang, href: other.href || './', current: other.lang === locale.lang}));
+  return `<sf-context-menu popup aria-label="${escape(dictionaries[locale.lang]['lang.switch'])}" data-lang-menu data-entries="${escape(JSON.stringify(entries))}"></sf-context-menu>`;
+};
 const alternateTags = (locale, page) => alternates(locale, page).map((other) => `<link rel="alternate" hreflang="${other.lang}" href="${other.href || './'}">`).join('\n');
 const siteConfig = (rootPath, locale, page) => JSON.stringify({
   root: rootPath,
@@ -96,7 +104,8 @@ const common = (locale, page) => ({
   ROOT: up(locale.dir + page) || './',
   HOME: up(page) || './',
   LANG: locale.lang,
-  LANGUAGES: languageLinks(locale, page),
+  LANGUAGES: languageButton(locale),
+  LANGUAGE_MENU: languageMenu(locale, page),
   ALTERNATES: alternateTags(locale, page),
   CONFIG: siteConfig(up(locale.dir + page) || './', locale, page),
   FRAMEWORK_BASE: frameworkBase(framework),

@@ -10,9 +10,9 @@
     "ui_source": "bafeaffe0ddbb06ce92193c2d9b8806a0fcaf658"
   },
   "counts": {
-    "effects": 35,
+    "effects": 34,
     "dual": 20,
-    "dark": 13,
+    "dark": 12,
     "light": 2
   },
   "categories": [
@@ -38,7 +38,7 @@
         "ru": "Вода, свет, листва, погода, птицы",
         "en": "Water, light, leaves, weather, birds"
       },
-      "count": 9
+      "count": 8
     },
     {
       "id": "tech",
@@ -50,7 +50,7 @@
         "ru": "Сети, схемы, огни, улицы, карты",
         "en": "Networks, circuits, lights, streets, maps"
       },
-      "count": 9
+      "count": 8
     },
     {
       "id": "text",
@@ -771,7 +771,7 @@
     },
     {
       "id": "rain-glass",
-      "version": "3.0.0",
+      "version": "3.1.0",
       "label": {
         "ru": "Дождь на стекле",
         "en": "Rain on glass"
@@ -810,13 +810,13 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "25deb58e6e31cfc49056bcd5273eeb50c7e1836a924928421ff0b2d9caeab96d",
-          "size": 3784
+          "sha256": "d5f32c5675213c946be9fb9a2cd088e2453053e3e9c7315f0d1e4acfa38ae076",
+          "size": 3289
         },
         {
           "path": "index.js",
-          "sha256": "085c89b7f064fd686d429979cea40acdc6e77f1022e845d05d71fc42834aa0d0",
-          "size": 22526
+          "sha256": "b85f58c34e45317e741fbabe57a5200d493e42b9711ea9dc501e17cf87eaf90a",
+          "size": 22397
         },
         {
           "path": "preview.png",
@@ -825,8 +825,8 @@
         },
         {
           "path": "README.md",
-          "sha256": "9ace98c3b6656b2df1235b5d5cfa68ed0679998f35a9dd23706da912188212bf",
-          "size": 1833
+          "sha256": "7a91e8fe499bcd3316e2c36737a0e91e17d5f9ef6c116b8b5a54f4287654c8f5",
+          "size": 1775
         }
       ],
       "kit": {
@@ -2238,73 +2238,6 @@
         "framework": "ui-76c3b120303e",
         "passed": 17,
         "total": 17
-      }
-    },
-    {
-      "id": "rain-glass-classic",
-      "version": "2.3.0",
-      "label": {
-        "ru": "Дождь на стекле (прежний)",
-        "en": "Rain on glass (earlier)"
-      },
-      "description": {
-        "ru": "Прежняя версия «Дождя на стекле» для сравнения: запотевшее окно ночью, за стеклом улица с фонарями в боке, изредка проезжают машины; на стекле капли, по нему можно писать пальцем.",
-        "en": "The previous Rain on glass, for comparison: a fogged window at night, a street with blurred lamps outside, an occasional car; drops on the glass, and you can write on it with a finger."
-      },
-      "role": {
-        "ru": "Уютный вечер за окном. Только тёмная схема.",
-        "en": "A cosy evening behind the window. Dark scheme only."
-      },
-      "categories": [
-        "nature",
-        "tech"
-      ],
-      "schemes": [
-        "dark"
-      ],
-      "pair": null,
-      "capabilities": [
-        "windows"
-      ],
-      "tags": [
-        "water",
-        "glow"
-      ],
-      "surfaces": [
-        "hero",
-        "section",
-        "dashboard",
-        "sign-in"
-      ],
-      "path": "effects/rain-glass-classic/",
-      "entry": "index.js",
-      "files": [
-        {
-          "path": "effect.json",
-          "sha256": "ad5a44ad9a701c347e10321696db4e56046c606a09a3092575407965ae2343ba",
-          "size": 3905
-        },
-        {
-          "path": "index.js",
-          "sha256": "bf4f5d1aef2c673e3054da58eb776b70e68882f1970636ddf5a8f671402fe068",
-          "size": 21516
-        },
-        {
-          "path": "preview.png",
-          "sha256": "13cffe6f4b5f0ff7fbd5537c1d63d5665e1ac203971dba28d5a555bfec5464c6",
-          "size": 152795
-        },
-        {
-          "path": "README.md",
-          "sha256": "becde327eb606261dc0f8fe7fae0c02307a948817be4f2ddeba95394804579dc",
-          "size": 1901
-        }
-      ],
-      "kit": {
-        "status": "pass",
-        "framework": "ui-76c3b120303e",
-        "passed": 14,
-        "total": 14
       }
     },
     {

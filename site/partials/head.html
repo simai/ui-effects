@@ -20,7 +20,9 @@
   // The Loader keeps the light or dark theme (its theme switch sets it); no
   // preloader. Effects come from this site's own copy of the catalogue, the
   // same commit it was built from.
-  window.SF_BOOT_CONFIG = {preloader: {enabled: false}, effects: {catalogue: '{{ROOT}}'}};
+  // Every icon the site shows is asked for at once: a glyph that comes later (the theme's sun and moon)
+  // would otherwise grow the icon font and blank every icon until it arrives.
+  window.SF_BOOT_CONFIG = {preloader: {enabled: false}, effects: {catalogue: '{{ROOT}}'}, icons: {preload: ['brightness_auto', 'check', 'close', 'content_copy', 'dark_mode', 'download', 'expand_more', 'keyboard_arrow_down', 'language', 'light_mode', 'menu', 'motion_photos_off', 'palette', 'pause', 'play_arrow', 'restart_alt', 'thumb_down', 'thumb_up', 'wrap_text']}};
 </script>
 <script src="{{FRAMEWORK_BASE}}core/js/core.min.js"></script>
 <link rel="stylesheet" href="{{ROOT}}assets/site.css">

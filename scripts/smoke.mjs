@@ -404,7 +404,7 @@ try {
         return {
           lang: document.documentElement.lang,
           russian: [...document.body.innerText.split('\n'), ...labels, document.title].filter((line) => line && russian.test(line) && !/Language: Русский/u.test(line)).slice(0, 5),
-          other: document.querySelector('.lang-switch[hreflang="ru"]')?.getAttribute('href') ?? null,
+          other: (() => { try { return JSON.parse(document.querySelector('[data-lang-menu]').dataset.entries).find((entry) => entry.lang === 'ru')?.href ?? null; } catch { return null; } })(),
         };
       });
       if (facts.lang !== 'en') fail(`en ${path}`, `lang is ${facts.lang}`);

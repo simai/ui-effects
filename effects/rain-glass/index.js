@@ -52,7 +52,7 @@ function readTones(host, scheme) {
 // On the glass, drops gather and now and then one runs down; a finger wipes fog and drops away, and
 // the fog comes back.
 const SCENE = {
-  home: 'dark', seed: 61, reseed: ['density', 'view'],
+  home: 'dark', seed: 61, reseed: ['density'],
   tones: (read) => {
     const r = (name, tone, hex) => read(`--sf-${name}-${tone}`, hex);
     return {
@@ -65,9 +65,9 @@ const SCENE = {
     };
   },
   setup(env, random) {
-    const {w, h, values} = env, W = Math.ceil(w), H = Math.ceil(h), low = values.view === 'low';
-    const st = {low, random, f: Math.min(h, w * 0.7), cx: w * 0.6, hor: h * (low ? 0.46 : 0.5), camY: low ? 0.5 : 1.7,
-      blur: h * (low ? 0.022 : 0.011), cars: [], cross: [], drops: [], runs: [], last: null, t: null, sprites: new Map()};
+    const {w, h, values} = env, W = Math.ceil(w), H = Math.ceil(h);
+    const st = {random, f: Math.min(h, w * 0.7), cx: w * 0.6, hor: h * 0.5, camY: 1.7,
+      blur: h * 0.011, cars: [], cross: [], drops: [], runs: [], last: null, t: null, sprites: new Map()};
     st.scene = new OffscreenCanvas(W, H); st.mask = new OffscreenCanvas(W, H); st.glass = new OffscreenCanvas(W, H); st.lit = new OffscreenCanvas(W, H); st.rain = new OffscreenCanvas(W, H);
     st.chain = [2, 4, 8, 16, 32].map((d) => new OffscreenCanvas(Math.max(1, Math.ceil(w / d)), Math.max(1, Math.ceil(h / d))));
     st.mk = st.mask.getContext('2d');
@@ -83,7 +83,7 @@ const SCENE = {
     // The lights of the street: lamps both sides and across the crossing, neon on the facades,
     // and the far city as a scatter of small dim points.
     const L = st.lights = [], d = values.density / 100;
-    for (let z = low ? 16 : 5; z < 80; z += 4 + random() * 5) for (const s of [-1, 1]) if (random() < 0.8) L.push({X: s * (4.6 + random()), Y: 5 + random() * 2, z: z + random() * 3, c: 'lamp', s: 0.3 + random() * 0.5, ph: random() * 9});
+    for (let z = 5; z < 80; z += 4 + random() * 5) for (const s of [-1, 1]) if (random() < 0.8) L.push({X: s * (4.6 + random()), Y: 5 + random() * 2, z: z + random() * 3, c: 'lamp', s: 0.3 + random() * 0.5, ph: random() * 9});
     for (let X = -26; X <= 26; X += 5 + random() * 4) L.push({X, Y: 5.5 + random(), z: 23, c: 'lamp', s: 0.3 + random() * 0.4, ph: random() * 9});
     for (let i = 0; i < 8 + d * 14; i += 1) {
       const s = random() < 0.5 ? -1 : 1, z = 7 + random() * 45;
@@ -133,7 +133,7 @@ const SCENE = {
       // Its reflection: from the mirror point down towards the eye; it stays put and only trembles.
       const gy = at(X, 0, z)[1], ry = 2 * gy - y;
       if (ry <= st.hor) return;
-      const len = (ry - st.hor) * (st.low ? 3 : 2) + r * 2;
+      const len = (ry - st.hor) * 2 + r * 2;
       s.globalAlpha = Math.min(1, a * (0.55 + 0.08 * Math.sin(t * 2 + X + z)));
       s.drawImage(sp.streak, x - r * 0.9 + Math.sin(t * 3 + z) * r * 0.06, ry - r, r * 1.8, len);
     };
@@ -144,7 +144,7 @@ const SCENE = {
       if (l.kind === 1 && (t + l.ph) % 9 > 8.2 && (t * 20) % 2 < 1) a *= 0.15;
       if (l.kind === 2) a *= (t + l.ph) % 4 < 2.6 ? 1 : 0.08;
       if (l.c === 'lamp') a *= 0.85 + 0.15 * Math.sin(t * 0.7 + l.ph);
-      blob(l.X, l.Y, l.z, colour, l.s, a * (st.low ? 0.45 : 0.78));
+      blob(l.X, l.Y, l.z, colour, l.s, a * 0.78);
     }
     for (const X of [-5.5, 5.5]) for (let i = 0; i < 3; i += 1) {
       const on = i === (go ? 2 : red ? 0 : 1);

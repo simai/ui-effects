@@ -15,12 +15,12 @@
       </ul>
     </nav>
   </sf-menu>
-  <!-- The other languages of this page. -->
-  {{LANGUAGES}}
-  <!-- The source, as an icon in the tools, as Docara has it. -->
-  <a slot="tools" class="sf-icon-button sf-icon-button--icon sf-icon-button--on-surface sf-icon-button--link sf-icon-button--size-1/2 flex items-cross-center content-main-center repo-link" href="https://github.com/simai/ui-effects" rel="noopener" aria-label="{{t:nav.repository}}" title="{{t:nav.repository}}"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a>
-  <!-- The theme colour: one primary palette button over the platform colour picker; the whole theme follows it. -->
+  <!-- The tools, all icon buttons of one size: the theme colour (one primary palette button over the platform
+       colour picker; the whole theme follows it), the theme (the Framework draws the theme it switches to), the
+       languages (a globe that opens a menu, as Docara has it) and the source, last. -->
   <sf-color slot="tools" variant="theme" size="1/2" clearable data-site-colour></sf-color>
-  <!-- One theme button; the Framework draws the theme it switches to (a sun on a dark page, a moon on a light one). -->
   <button slot="tools" type="button" class="sf-theme-button sf-icon-button sf-icon-button--link sf-icon-button--on-surface sf-icon-button--size-1/2 sf-icon-button--icon" aria-label="{{t:theme.switch}}" title="{{t:theme.switch}}"><span class="sf-icon" aria-hidden="true"></span></button>
+  {{LANGUAGES}}
+  <a slot="tools" class="sf-icon-button sf-icon-button--icon sf-icon-button--on-surface sf-icon-button--link sf-icon-button--size-1/2 flex items-cross-center content-main-center repo-link" href="https://github.com/simai/ui-effects" rel="noopener" aria-label="{{t:nav.repository}}" title="{{t:nav.repository}}"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a>
 </sf-site-header>
+{{LANGUAGE_MENU}}

@@ -40,6 +40,7 @@ window.addEventListener('sf-theme-change', themeChanged);
 const COLOUR_KEY = 'ui-effects-colour';
 const colourListeners = new Set();
 export const onSiteColour = (listener) => colourListeners.add(listener);
+export const siteColour = () => chosen;
 const picker = document.querySelector('[data-site-colour]');
 let chosen = '';
 try { chosen = localStorage.getItem(COLOUR_KEY) ?? ''; } catch (error) { chosen = ''; }
@@ -103,3 +104,12 @@ const channel = (c) => { const v = c / 255; return v <= 0.04045 ? v / 12.92 : ((
 export const luminance = ([r, g, b]) => 0.2126 * channel(r) + 0.7152 * channel(g) + 0.0722 * channel(b);
 export const ratio = (a, b) => (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
 export const formatRatio = (value) => `${formatNumber(value, 2)}:1`;
+
+// The languages: the globe opens the Framework's menu of this page in every language; a link row
+// goes there itself.
+const languageButton = document.querySelector('[data-lang-button]');
+const languageMenu = document.querySelector('[data-lang-menu]');
+if (languageButton && languageMenu) {
+  try { languageMenu.entries = JSON.parse(languageMenu.dataset.entries); } catch { /* the menu stays empty */ }
+  languageButton.addEventListener('click', () => customElements.whenDefined('sf-context-menu').then(() => languageMenu.toggleFor(languageButton)));
+}

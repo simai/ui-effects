@@ -1,7 +1,7 @@
 // Gallery: every effect as a picture with its name, subject and themes, filtered
 // by category (the closed set in the catalogue) and by the theme it draws, in
 // the catalogue's order or, with the votes service, the most liked first.
-import {groupOf, home, loadCatalogue, onSiteColour, onSiteTheme, root, schemesName, t, text} from './common.js';
+import {config, groupOf, home, loadCatalogue, onSiteColour, onSiteTheme, root, schemesName, siteColour, siteTheme, t, text} from './common.js';
 import {outcomeOf, place} from './place.js';
 import {loadStats} from './votes.js';
 
@@ -118,14 +118,28 @@ sortPicker.addEventListener('change', (event) => {
   sortCards(sortPicker.value);
 });
 
-// The pictures follow the theme: each card in view draws its effect once, as a still frame, in the
-// page's scheme and colour, keeps the frame as an image and lets the effect go. One card at a time;
-// the stored preview stays until a frame is ready, and stays for good if one cannot be drawn.
+// The pictures follow the theme and the colour: each card in view draws its effect once, as a still
+// frame in the page's scheme and colour, and lets the effect go. Every frame is kept in the browser's
+// Cache Storage under the effect, its scheme and the colour (and this build's commit), so a theme or
+// colour seen before comes back at once, on this visit and the next; only a new one is drawn, three
+// cards at a time. The stored preview stays until a frame is ready, and for good if none can be drawn.
+const STILLS = `ui-effects-stills-${config.commit}`;
+const shown = new Map();
+let store = null;
+const openStore = () => (store ??= (globalThis.caches ? caches.open(STILLS).catch(() => null) : Promise.resolve(null)));
+globalThis.caches?.keys().then((names) => names.filter((name) => name.startsWith('ui-effects-stills-') && name !== STILLS).forEach((name) => caches.delete(name))).catch(() => {});
+// A single-scheme effect keeps its own scheme whatever the page's, so only the colour names it.
+const stillKey = (card) => new URL(`stills/${card.dataset.id}/${card.dataset.group === 'dual' ? siteTheme() : 'own'}/${encodeURIComponent(siteColour() || 'theme')}.webp`, root).href;
+const showStill = (card, key) => {
+  if (!shown.has(key) || stillKey(card) !== key) return false;
+  card.querySelector('.card__img').src = shown.get(key);
+  card.dataset.still = 'theme';
+  return true;
+};
 const inView = new Set(), waiting = new Set();
-let drawing = false;
+let drawing = 0;
 const pause = (ms) => new Promise((resolve) => { setTimeout(resolve, ms); });
-async function drawStill(card) {
-  card.stale = false;
+async function frameOf(card) {
   const holder = document.createElement('div');
   holder.className = 'card__still';
   card.querySelector('.card__media').append(holder);
@@ -134,49 +148,55 @@ async function drawStill(card) {
     handle = await place(holder, {id: card.dataset.id, themeMode: 'auto', reducedMotion: true});
     let canvas = null;
     for (let i = 0; i < 40 && !(canvas?.width > 1); i += 1) { await pause(25); canvas = holder.querySelector('canvas'); }
-    if (!(canvas?.width > 1)) return;
+    if (!(canvas?.width > 1)) return null;
     await new Promise((resolve) => { requestAnimationFrame(() => requestAnimationFrame(resolve)); });
-    const blob = await new Promise((resolve) => { canvas.toBlob(resolve, 'image/webp', 0.9); });
-    if (!blob || card.stale) return;
-    const url = URL.createObjectURL(blob), next = new Image();
-    next.src = url;
-    await next.decode();
-    const image = card.querySelector('.card__img');
-    if (card.still) URL.revokeObjectURL(card.still);
-    card.still = url;
-    image.src = url;
-    card.dataset.still = 'theme';
-  } catch { /* the stored preview stays */ } finally {
+    return await new Promise((resolve) => { canvas.toBlob(resolve, 'image/webp', 0.9); });
+  } catch { return null; } finally {
     handle?.destroy();
     holder.remove();
   }
 }
+async function drawStill(card) {
+  const key = stillKey(card);
+  if (showStill(card, key)) return;
+  const cache = await openStore();
+  let blob = await cache?.match(key).then((response) => response?.blob()).catch(() => null);
+  if (!blob) {
+    blob = await frameOf(card);
+    if (!blob) return;
+    cache?.put(key, new Response(blob, {headers: {'content-type': 'image/webp'}})).catch(() => {});
+  }
+  const url = URL.createObjectURL(blob), next = new Image();
+  next.src = url;
+  await next.decode().catch(() => {});
+  shown.set(key, url);
+  showStill(card, key);
+}
 async function drawWaiting() {
-  if (drawing) return;
-  drawing = true;
+  if (drawing >= 3) return;
+  drawing += 1;
   while (waiting.size && !document.hidden) {
     const [card] = waiting;
     waiting.delete(card);
     await drawStill(card);
-    await pause(20);
   }
-  drawing = false;
+  drawing -= 1;
 }
-const askStills = (which = () => true) => {
-  for (const card of list.children) if (which(card)) card.stale = true;
-  for (const card of inView) if (card.stale) waiting.add(card);
-  drawWaiting();
+// Cards whose frame for the page's theme and colour is at hand change at once; the rest in view wait.
+const askStills = () => {
+  for (const card of list.children) showStill(card, stillKey(card));
+  for (const card of inView) if (stillKey(card) !== card.dataset.key) { card.dataset.key = stillKey(card); waiting.add(card); }
+  for (let i = 0; i < 3; i += 1) drawWaiting();
 };
 const watcher = new IntersectionObserver((entries) => {
   for (const {target, isIntersecting} of entries) {
-    if (isIntersecting) inView.add(target); else { inView.delete(target); waiting.delete(target); }
+    if (isIntersecting) { inView.add(target); delete target.dataset.key; } else { inView.delete(target); waiting.delete(target); }
   }
-  askStills(() => false);
+  askStills();
 }, {rootMargin: '200px'});
-for (const card of list.children) { card.stale = true; watcher.observe(card); }
-document.addEventListener('visibilitychange', () => askStills(() => false));
-// A single-scheme effect keeps its scheme with the page's, so only a new colour redraws it.
-onSiteTheme(() => setTimeout(() => askStills((card) => card.dataset.group === 'dual'), 60));
+for (const card of list.children) watcher.observe(card);
+document.addEventListener('visibilitychange', askStills);
+onSiteTheme(() => setTimeout(askStills, 60));
 onSiteColour(() => askStills());
 
 // The intro is itself a placement: hex-conduits in auto mode, drawn in the page's scheme.
