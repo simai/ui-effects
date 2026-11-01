@@ -258,6 +258,10 @@ const valueNoise = (seed) => {
 
 // Morning mist: a mesh gradient of five soft pools of colour drifting on Lissajous paths. It is
 // computed in a tiny buffer and stretched with smoothing; a fixed fine grain hides banding.
+// 'custom' builds the pools from one colour, the colour setting (a hex): a dark ground of its hue,
+// its mass, the colour itself and its light.
+const rgbOf = (hex) => (/^#[0-9a-f]{6}$/iu.test(hex ?? '') ? [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16)) : [59, 130, 246]);
+const customStops = (hex) => { const c = rgbOf(hex); return [c.map((v) => 4 + v * 0.05), c.map((v) => v * 0.42), c, c.map((v) => v + (255 - v) * 0.86)]; };
 const PALETTES = {
   warm: [[248, 196, 160], [250, 224, 170], [236, 178, 190], [214, 200, 236]],
   cool: [[160, 196, 240], [168, 226, 228], [196, 186, 240], [200, 220, 250]],
@@ -301,7 +305,9 @@ export function mount(host, settings, context) {
     draw(api) {
       const {ctx, w, h, t, values, colors} = api;
       const k = 0.18 + 0.56 * (values.intensity / 100);
-      const raw = values.palette === 'warm' || values.palette === 'cool' ? PALETTES[values.palette]
+      const own = values.palette === 'custom' && customStops(values.colour);
+      const raw = own ? [own[2], own[3], own[1], mix(own[2], own[3], 0.5)]
+        : values.palette === 'warm' || values.palette === 'cool' ? PALETTES[values.palette]
         : values.palette === 'mono' ? [colors.primary, colors.primary80, colors.primary, colors.primary80]
           : [colors.primary, colors.tertiary, colors.primary80, mix(colors.primary, colors.tertiary, 0.5)];
       const surface = colors.surface;

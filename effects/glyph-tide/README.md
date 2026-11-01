@@ -3,7 +3,7 @@
 A field of monospaced glyphs that a slow wave of light passes over.
 
 - **Russian name:** Знаковый прилив
-- **Version:** 2.1.0, simai.effect 1.1.0
+- **Version:** 2.2.0, simai.effect 1.1.0
 - **Surfaces:** sign-in, hero, section, dashboard
 - **Tags:** type
 - **Role:** A field of glyphs with a wave: glyphs light up on dark and print darker on light.
@@ -18,7 +18,8 @@ A field of monospaced glyphs that a slow wave of light passes over.
 | `text` | text | up to 600 characters | `""` | Own text. For `custom`: sentences, or one per line |
 | `language` | choice | `auto`, `en`, `ru` | `"auto"` | Words language. For `prose`; `auto` follows the page |
 | `size` | integer | 10–24 px | `14` | Glyph size |
-| `palette` | choice | `theme`, `turquoise`, `ocean`, `violet`, `rose`, `emerald`, `sunset`, `gold`, `silver` | `"theme"` | Palette. `theme` follows the theme colour; the others stay as they are |
+| `palette` | choice | `theme`, `turquoise`, `ocean`, `violet`, `rose`, `emerald`, `sunset`, `gold`, `silver`, `custom` | `"theme"` | Palette. `theme` follows the theme colour; the others stay as they are |
+| `colour` | color | hex | `"#3b82f6"` | Colour. For the `custom` palette: the effect builds every tone from it |
 | `interactive` | boolean | — | `true` | React to the pointer. Glyphs light up near the pointer |
 
 Since 2.0.0 the old `symbols` value is called `signs` (it is still read as signs). Text is laid in reading order and keeps its letters; an alphabet is scattered as thick as `density` asks, and the tide turns its glyphs into others.

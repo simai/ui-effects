@@ -144,6 +144,7 @@ function buildForm() {
         return;
       }
       state.values = {...state.values, [setting.key]: checked.value};
+      showOwnColour();
       forEachPlacement((placement) => placement.update(state.values));
       renderCode();
       scheduleMeasure(300);
@@ -163,6 +164,12 @@ function buildForm() {
     }
     form.append(field);
   });
+  showOwnColour();
+}
+// The own colour matters only while the palette is the custom one; the field stays out of the way otherwise.
+function showOwnColour() {
+  const own = form.querySelector('[data-key="colour"]');
+  if (own && userSettings.some((setting) => setting.key === 'palette')) own.hidden = state.values.palette !== 'custom';
 }
 buildForm();
 $('[data-reset]').addEventListener('click', () => {

@@ -2,7 +2,7 @@
   "schema": "simai.effect",
   "schema_version": 1,
   "id": "contour-map",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "label": {
     "ru": "Горизонтали",
     "en": "Contour map"
@@ -170,8 +170,28 @@
             "ru": "Серебро",
             "en": "Silver"
           }
+        },
+        {
+          "value": "custom",
+          "label": {
+            "ru": "Свой цвет",
+            "en": "Custom colour"
+          }
         }
       ]
+    },
+    {
+      "key": "colour",
+      "type": "color",
+      "label": {
+        "ru": "Цвет",
+        "en": "Colour"
+      },
+      "default": "#3b82f6",
+      "hint": {
+        "ru": "Для палитры «Свой цвет»: эффект строит все оттенки из него",
+        "en": "For the custom colour palette: the effect builds every tone from it"
+      }
     },
     {
       "key": "interactive",

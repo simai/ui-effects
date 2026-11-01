@@ -3,7 +3,7 @@
 Stars in three depth layers drift and link with fine lines, like a living network.
 
 - **Russian name:** Созвездия
-- **Version:** 2.1.0, simai.effect 1.1.0
+- **Version:** 2.2.0, simai.effect 1.1.0
 - **Surfaces:** sign-in, hero, section, dashboard
 - **Tags:** particles, lines, sky
 - **Role:** A night sky of stars linked into constellations. It draws the dark scheme only: a light starry sky reads as a mistake.
@@ -15,7 +15,8 @@ Stars in three depth layers drift and link with fine lines, like a living networ
 | `speed` | integer | 10–300 % | `100` | Speed |
 | `density` | integer | 10–100 % | `55` | Density |
 | `linkDistance` | integer | 60–220 px | `120` | Link distance |
-| `palette` | choice | `theme`, `turquoise`, `ocean`, `violet`, `rose`, `emerald`, `sunset`, `gold`, `silver` | `"theme"` | Palette. `theme` follows the theme colour; the others stay as they are |
+| `palette` | choice | `theme`, `turquoise`, `ocean`, `violet`, `rose`, `emerald`, `sunset`, `gold`, `silver`, `custom` | `"theme"` | Palette. `theme` follows the theme colour; the others stay as they are |
+| `colour` | color | hex | `"#3b82f6"` | Colour. For the `custom` palette: the effect builds every tone from it |
 | `interactive` | boolean | — | `true` | React to the pointer. Parallax and links to the pointer |
 
 ## Schemes

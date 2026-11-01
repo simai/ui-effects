@@ -3,7 +3,7 @@
 A web of underwater caustics sways in deep water, with soft rays from above.
 
 - **Russian name:** Глубоководные блики
-- **Version:** 1.3.0, simai.effect 1.1.0
+- **Version:** 1.4.0, simai.effect 1.1.0
 - **Surfaces:** sign-in, hero, section, dashboard
 - **Tags:** water, glow
 - **Role:** Light playing in deep water.
@@ -16,7 +16,8 @@ A web of underwater caustics sways in deep water, with soft rays from above.
 | `intensity` | integer | 10–100 % | `30` | Intensity |
 | `scale` | integer | 20–100 % | `50` | Caustic size |
 | `rays` | boolean | — | `true` | Light rays |
-| `palette` | choice | `theme`, `turquoise`, `ocean`, `violet`, `rose`, `emerald`, `sunset`, `gold`, `silver` | `"theme"` | Palette. `theme` follows the theme colour; the others stay as they are |
+| `palette` | choice | `theme`, `turquoise`, `ocean`, `violet`, `rose`, `emerald`, `sunset`, `gold`, `silver`, `custom` | `"theme"` | Palette. `theme` follows the theme colour; the others stay as they are |
+| `colour` | color | hex | `"#3b82f6"` | Colour. For the `custom` palette: the effect builds every tone from it |
 | `interactive` | boolean | — | `true` | React to the pointer. The light shifts with the pointer |
 
 ## Schemes

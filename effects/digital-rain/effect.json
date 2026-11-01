@@ -2,7 +2,7 @@
   "schema": "simai.effect",
   "schema_version": 1,
   "id": "digital-rain",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "label": {
     "ru": "Цифровой дождь",
     "en": "Digital rain"
@@ -278,8 +278,28 @@
             "ru": "Серебро",
             "en": "Silver"
           }
+        },
+        {
+          "value": "custom",
+          "label": {
+            "ru": "Свой цвет",
+            "en": "Custom colour"
+          }
         }
       ]
+    },
+    {
+      "key": "colour",
+      "type": "color",
+      "label": {
+        "ru": "Цвет",
+        "en": "Colour"
+      },
+      "default": "#3b82f6",
+      "hint": {
+        "ru": "Для палитры «Свой цвет»: эффект строит все оттенки из него",
+        "en": "For the custom colour palette: the effect builds every tone from it"
+      }
     },
     {
       "key": "size",

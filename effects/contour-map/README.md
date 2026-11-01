@@ -3,7 +3,7 @@
 Contour lines of a slowly changing relief, every fifth one heavier, as on a topographic map.
 
 - **Russian name:** Горизонтали
-- **Version:** 1.2.0, simai.effect 1.1.0
+- **Version:** 1.3.0, simai.effect 1.1.0
 - **Surfaces:** dashboard, docs, hero
 - **Tags:** lines
 - **Role:** Contour lines: a topographic sheet on light, a night map on dark.
@@ -16,7 +16,8 @@ Contour lines of a slowly changing relief, every fifth one heavier, as on a topo
 | `density` | integer | 6–30 | `14` | Levels |
 | `lineWeight` | number | 0.5–2 px | `1` | Line weight, px |
 | `tone` | choice | `primary`, `secondary`, `tertiary`, `ink` | `"ink"` | Colour |
-| `palette` | choice | `theme`, `turquoise`, `ocean`, `violet`, `rose`, `emerald`, `sunset`, `gold`, `silver` | `"theme"` | Palette. `theme` follows the theme colour; the others stay as they are |
+| `palette` | choice | `theme`, `turquoise`, `ocean`, `violet`, `rose`, `emerald`, `sunset`, `gold`, `silver`, `custom` | `"theme"` | Palette. `theme` follows the theme colour; the others stay as they are |
+| `colour` | color | hex | `"#3b82f6"` | Colour. For the `custom` palette: the effect builds every tone from it |
 | `interactive` | boolean | — | `true` | React to the pointer |
 
 ## Schemes

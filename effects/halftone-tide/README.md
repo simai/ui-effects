@@ -3,7 +3,7 @@
 A print halftone screen at 15 degrees: dots grow and shrink under slow crossing waves.
 
 - **Russian name:** Растровая волна
-- **Version:** 1.2.0, simai.effect 1.1.0
+- **Version:** 1.3.0, simai.effect 1.1.0
 - **Surfaces:** hero, product, docs
 - **Tags:** print
 - **Role:** A halftone with waves: newsprint on light, a phosphor screen on dark.
@@ -17,7 +17,8 @@ A print halftone screen at 15 degrees: dots grow and shrink under slow crossing 
 | `intensity` | integer | 0–100 % | `40` | Strength |
 | `shape` | choice | `dot`, `line`, `cross` | `"dot"` | Screen element |
 | `tone` | choice | `primary`, `secondary`, `tertiary`, `ink` | `"primary"` | Colour |
-| `palette` | choice | `theme`, `turquoise`, `ocean`, `violet`, `rose`, `emerald`, `sunset`, `gold`, `silver` | `"theme"` | Palette. `theme` follows the theme colour; the others stay as they are |
+| `palette` | choice | `theme`, `turquoise`, `ocean`, `violet`, `rose`, `emerald`, `sunset`, `gold`, `silver`, `custom` | `"theme"` | Palette. `theme` follows the theme colour; the others stay as they are |
+| `colour` | color | hex | `"#3b82f6"` | Colour. For the `custom` palette: the effect builds every tone from it |
 | `interactive` | boolean | — | `true` | React to the pointer |
 
 ## Schemes

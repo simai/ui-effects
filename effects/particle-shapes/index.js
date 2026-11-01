@@ -294,9 +294,13 @@ const PALETTES = {
   gold: [[12, 10, 6], [74, 54, 20], [226, 176, 82], [255, 242, 208]],
   silver: [[8, 10, 13], [42, 50, 60], [148, 166, 186], [242, 247, 255]],
 };
+// 'custom' builds the four from one colour, the colour setting (a hex): a dark ground of its hue,
+// its mass, the colour itself and its light.
+const rgbOf = (hex) => (/^#[0-9a-f]{6}$/iu.test(hex ?? '') ? [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16)) : [59, 130, 246]);
+const customStops = (hex) => { const c = rgbOf(hex); return [c.map((v) => 4 + v * 0.05), c.map((v) => v * 0.42), c, c.map((v) => v + (255 - v) * 0.86)]; };
 const SCALE_TONES = [0, 4, 5, 6, 10, 20, 30, 40, 50, 60, 70, 80, 90, 95, 98, 99, 100];
-function paintLayer(host, name) {
-  const stops = PALETTES[name], at = [4, 30, 65, 95];
+function paintLayer(host, name, colour) {
+  const stops = name === 'custom' ? customStops(colour) : PALETTES[name], at = [4, 30, 65, 95];
   for (const family of ['primary', 'secondary', 'tertiary']) for (const tone of SCALE_TONES) {
     const key = `--sf-${family}-${tone}`;
     if (!stops) { host.style.removeProperty(key); continue; }
@@ -307,14 +311,14 @@ function paintLayer(host, name) {
   }
 }
 export function mount(host, settings = {}, context = {}) {
-  let palette = settings.palette;
-  paintLayer(host, palette);
+  let palette = settings.palette, colour = settings.colour;
+  paintLayer(host, palette, colour);
   const scene = mountScene(host, settings, context);
   return {
     ...scene,
     update(next = {}, nextContext = {}) {
       scene.update(next, nextContext);
-      if (next.palette !== palette) { palette = next.palette; paintLayer(host, palette); scene.refreshTheme?.(); }
+      if (next.palette !== palette || (next.palette === 'custom' && next.colour !== colour)) { palette = next.palette; colour = next.colour; paintLayer(host, palette, colour); scene.refreshTheme?.(); }
     },
     destroy() { scene.destroy(); paintLayer(host); },
   };

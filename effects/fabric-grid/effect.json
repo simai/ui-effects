@@ -2,7 +2,7 @@
   "schema": "simai.effect",
   "schema_version": 1,
   "id": "fabric-grid",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "label": {
     "ru": "Ткань пространства-времени",
     "en": "Spacetime fabric"
@@ -134,8 +134,77 @@
             "ru": "Серебро",
             "en": "Silver"
           }
+        },
+        {
+          "value": "custom",
+          "label": {
+            "ru": "Свой цвет",
+            "en": "Custom colour"
+          }
         }
       ]
+    },
+    {
+      "key": "colour",
+      "type": "color",
+      "label": {
+        "ru": "Цвет",
+        "en": "Colour"
+      },
+      "default": "#3b82f6",
+      "hint": {
+        "ru": "Для палитры «Свой цвет»: эффект строит все оттенки из него",
+        "en": "For the custom colour palette: the effect builds every tone from it"
+      }
+    },
+    {
+      "key": "bodies",
+      "type": "boolean",
+      "label": {
+        "ru": "Пролетающие тела",
+        "en": "Passing bodies"
+      },
+      "default": true,
+      "hint": {
+        "ru": "Время от времени по дуге пролетают планеты и звёзды разной массы, иногда большое тяжёлое тело; каждое прогибает сетку",
+        "en": "Now and then planets and stars of different masses pass along an arc, a big heavy one from time to time; each bends the grid"
+      }
+    },
+    {
+      "key": "frequency",
+      "type": "choice",
+      "label": {
+        "ru": "Как часто пролетают тела",
+        "en": "How often bodies pass"
+      },
+      "default": "normal",
+      "options": [
+        {
+          "value": "rare",
+          "label": {
+            "ru": "Редко",
+            "en": "Rarely"
+          }
+        },
+        {
+          "value": "normal",
+          "label": {
+            "ru": "Обычно",
+            "en": "Normal"
+          }
+        },
+        {
+          "value": "often",
+          "label": {
+            "ru": "Часто",
+            "en": "Often"
+          }
+        }
+      ],
+      "hint": {
+        "ru": "Одновременно в кадре не больше двух тел",
+        "en": "No more than two bodies in view at once"
+      }
     },
     {
       "key": "interactive",
@@ -146,8 +215,8 @@
       },
       "default": true,
       "hint": {
-        "ru": "Клик пускает гравитационную волну; удержание кладёт тело, и чем дольше держите, тем оно тяжелее и тем сильнее волна",
-        "en": "A click sends a gravitational wave; holding sets down a body that grows heavier, and letting go rings out a stronger wave"
+        "ru": "Клик пускает гравитационную волну. Нажатие кладёт звезду: чем дольше держите, тем она тяжелее. Отпущенная звезда растёт, вспыхивает, сжимается в чёрную дыру, а та через несколько секунд испаряется",
+        "en": "A click sends a gravitational wave. A press sets down a star that grows heavier while held; let go, and it grows, flares, collapses into a black hole and evaporates a few seconds later"
       }
     }
   ],

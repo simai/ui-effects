@@ -105,6 +105,12 @@ const PALETTES = {
   gold: {web: [74, 54, 20], lit: [226, 176, 82], hot: [255, 242, 208], ground: [12, 10, 6]},
   silver: {web: [42, 50, 60], lit: [148, 166, 186], hot: [242, 247, 255], ground: [8, 10, 13]},
 };
+// 'custom' builds the palette from one colour, the colour setting (a hex): a dark ground of its hue,
+// its mass, the colour itself and its light.
+const rgbOf = (hex) => (/^#[0-9a-f]{6}$/iu.test(hex ?? '') ? [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16)) : [59, 130, 246]);
+const customStops = (hex) => { const c = rgbOf(hex); return [c.map((v) => 4 + v * 0.05), c.map((v) => v * 0.42), c, c.map((v) => v + (255 - v) * 0.86)]; };
+const customPalette = (hex) => { const [ground, web, lit, hot] = customStops(hex); return {ground, web, lit, hot}; };
+
 const SCENE = {
   home: 'dark', seed: 71, fresh: true, start: 30,
   tones: (read) => ({
@@ -121,7 +127,7 @@ const SCENE = {
   },
   click(env, x, y) { const st = env.state; st.rings.push({x: x * st.ratio, y: y * st.ratio, t: st.t ?? 0}); st.rings = st.rings.slice(-4); },
   draw(env, t) {
-    const {ctx, w, h, tones, state: st, values, pointer} = env, k = values.intensity / 100, P = values.palette === 'theme' ? tones.theme : PALETTES[values.palette] ?? PALETTES.turquoise, g = env.gl;
+    const {ctx, w, h, tones, state: st, values, pointer} = env, k = values.intensity / 100, P = values.palette === 'theme' ? tones.theme : values.palette === 'custom' ? customPalette(values.colour) : PALETTES[values.palette] ?? PALETTES.turquoise, g = env.gl;
     st.t = t;
     st.pull += ((pointer.on ? 0.9 : 0) - st.pull) * 0.08;
     if (!g) { flat(env, st, P, k); return; }

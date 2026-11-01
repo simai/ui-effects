@@ -51,6 +51,12 @@ function readTones(host, scheme) {
 // crossing a traffic light turns: on red the cars on this street wait and the cross traffic goes.
 // On the glass, drops gather and now and then one runs down; a finger wipes fog and drops away, and
 // the fog comes back.
+// 'custom' builds the city glow, lamps and neon from one colour, the colour setting (a hex): a dark ground of its hue,
+// its mass, the colour itself and its light.
+const rgbOf = (hex) => (/^#[0-9a-f]{6}$/iu.test(hex ?? '') ? [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16)) : [59, 130, 246]);
+const customStops = (hex) => { const c = rgbOf(hex); return [c.map((v) => 4 + v * 0.05), c.map((v) => v * 0.42), c, c.map((v) => v + (255 - v) * 0.86)]; };
+const ownTones = (hex) => { const [, mass, c, light] = customStops(hex); return {glow: mass.map((v) => v * 0.5), lamp: light, neon: [c, mixc(c, light, 0.5), light]}; };
+
 const SCENE = {
   home: 'dark', seed: 61, reseed: ['density'],
   tones: (read) => {
@@ -97,7 +103,7 @@ const SCENE = {
   release(env) { env.state.last = null; },
   draw(env, t) {
     const {ctx, w, h, tones, state: st, values, pointer} = env;
-    const k = values.intensity / 100, dt = st.t === null ? 0 : Math.max(0, Math.min(0.05, t - st.t)), P = tones[values.palette] ?? tones.blue;
+    const k = values.intensity / 100, dt = st.t === null ? 0 : Math.max(0, Math.min(0.05, t - st.t)), P = values.palette === 'custom' ? (st.own?.hex === values.colour ? st.own : (st.own = {...ownTones(values.colour), hex: values.colour})) : tones[values.palette] ?? tones.blue;
     st.t = t;
     if (st.tones !== tones) { st.sprites.clear(); st.tones = tones; }
     const at = (X, Y, z) => [st.cx + X * st.f / z, st.hor + (st.camY - Y) * st.f / z];

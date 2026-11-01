@@ -51,6 +51,10 @@ function readTones(host, scheme) {
 // tide and text flow share: in code or words a column reads from the top down. The pointer lights
 // the glyphs round it; a click lets a sheaf of new runs fall from there.
 // The fixed palettes the catalogue shares: a run's trail and its head.
+// 'custom' builds a run's trail and head from one colour, the colour setting (a hex): a dark ground of its hue,
+// its mass, the colour itself and its light.
+const rgbOf = (hex) => (/^#[0-9a-f]{6}$/iu.test(hex ?? '') ? [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16)) : [59, 130, 246]);
+const customStops = (hex) => { const c = rgbOf(hex); return [c.map((v) => 4 + v * 0.05), c.map((v) => v * 0.42), c, c.map((v) => v + (255 - v) * 0.86)]; };
 const PALETTES = {turquoise: [[66, 178, 202], [216, 246, 255]], ocean: [[76, 148, 244], [214, 232, 255]], violet: [[162, 116, 252], [238, 226, 255]], rose: [[246, 104, 160], [255, 226, 238]], emerald: [[56, 190, 142], [216, 255, 238]], sunset: [[244, 146, 98], [255, 236, 214]], gold: [[226, 176, 82], [255, 242, 208]], silver: [[148, 166, 186], [242, 247, 255]]};
 const SCENE = {
   home: 'dark', seed: 29, fresh: true, reseed: ['density', 'size', 'source', 'text', 'language', 'depth'],
@@ -88,7 +92,7 @@ const SCENE = {
   },
   draw(env, t) {
     const {ctx, w, h, tones, state: st, values, pointer} = env;
-    const k = values.intensity / 100, ink = PALETTES[values.palette] ?? tones[values.palette] ?? tones.green;
+    const k = values.intensity / 100, ink = values.palette === 'custom' ? customStops(values.colour).slice(2) : PALETTES[values.palette] ?? tones[values.palette] ?? tones.green;
     const dt = st.last === undefined ? 0 : Math.max(0, Math.min(0.05, t - st.last));
     st.last = t;
     if (st.inkOf !== ink || st.sizeOf !== w) { st.atlas = st.layers.map((l) => atlas(st.chars, l, ink)); st.inkOf = ink; st.sizeOf = w; }

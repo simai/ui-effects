@@ -3,7 +3,7 @@
 Drawing lines are pencilled in and rubbed out; you can draw too.
 
 - **Russian name:** Чертёж
-- **Version:** 0.2.0, simai.effect 1.1.0
+- **Version:** 0.3.0, simai.effect 1.1.0
 - **Surfaces:** hero, section, dashboard, sign-in
 - **Tags:** lines, geometry
 - **Role:** An engineering background: a blueprint on dark, graphite on light.
@@ -15,7 +15,8 @@ Drawing lines are pencilled in and rubbed out; you can draw too.
 | `speed` | integer | 10–300 % | `100` | Speed |
 | `intensity` | integer | 10–100 % | `70` | Intensity |
 | `density` | integer | 10–100 % | `50` | Density |
-| `palette` | choice | `theme`, `turquoise`, `ocean`, `violet`, `rose`, `emerald`, `sunset`, `gold`, `silver` | `"theme"` | Palette. `theme` follows the theme colour; the others stay as they are |
+| `palette` | choice | `theme`, `turquoise`, `ocean`, `violet`, `rose`, `emerald`, `sunset`, `gold`, `silver`, `custom` | `"theme"` | Palette. `theme` follows the theme colour; the others stay as they are |
+| `colour` | color | hex | `"#3b82f6"` | Colour. For the `custom` palette: the effect builds every tone from it |
 | `interactive` | boolean | — | `true` | React to the pointer. Guides follow the pointer, a click swings a compass, a press-drag draws |
 
 ## Schemes
