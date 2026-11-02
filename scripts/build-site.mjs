@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-// Builds the catalogue site from site/ into dist/, once per language: Russian at
-// the root, every other language in its own folder (en/). Pages take their texts
+// Builds the catalogue site from site/ into dist/, once per language: English at
+// the root, every other language in its own folder (ru/, es/, pt-br/, …). Pages take their texts
 // from site/i18n/<lang>.json ({{t:key}} in a template, t() in a script) and the
 // effects' names and descriptions from the catalogue; assets, the catalogue and
 // the effects are shared at the root.
@@ -57,7 +57,7 @@ const escape = (value) => String(value).replace(/&/gu, '&amp;').replace(/"/gu, '
 // Languages: the first is the default and sits at the root. Every dictionary holds
 // the same keys; a text of the catalogue missing in a language falls back to English.
 const LOCALES = [
-  {lang: 'ru', dir: ''}, {lang: 'en', dir: 'en/'}, {lang: 'es', dir: 'es/'}, {lang: 'pt-BR', dir: 'pt-br/'},
+  {lang: 'en', dir: ''}, {lang: 'ru', dir: 'ru/'}, {lang: 'es', dir: 'es/'}, {lang: 'pt-BR', dir: 'pt-br/'},
   {lang: 'de', dir: 'de/'}, {lang: 'zh-CN', dir: 'zh-cn/'}, {lang: 'fr', dir: 'fr/'}, {lang: 'ja', dir: 'ja/'},
 ];
 const dictionaries = Object.fromEntries(LOCALES.map(({lang}) => [lang, readJson(join(ROOT, 'site', 'i18n', `${lang}.json`))]));

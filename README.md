@@ -6,8 +6,9 @@ small ES module with a manifest, checked by the Framework's effect kit,
 reviewed, and published pinned by commit and SHA-256.
 
 **Catalogue site:** https://effects.simai.io/ (gallery, a live
-configurator for every effect, and «Получить код»). The site is in Russian,
-like the Framework documentation.
+configurator for every effect, and the code to add it). The site is in
+English by default and in Russian, Spanish, Brazilian Portuguese, German,
+Simplified Chinese, French and Japanese.
 
 The effects live here, outside the Framework: they are content and taste, and
 there will be many. The Framework ships only the core: `SF.Effects`, the
@@ -18,12 +19,12 @@ there will be many. The Framework ships only the core: `SF.Effects`, the
 | Path | What it is |
 |:---|:---|
 | `effects/<id>/` | One effect: `effect.json` (simai.effect 1.1 manifest with `schemes` and `capabilities`), `index.js`, `preview.png`, `README.md` |
-| `effects/policy.json` | Catalogue sidecar: order, categories, descriptions and roles in Russian and English, tags |
+| `effects/policy.json` | Catalogue sidecar: order, categories, descriptions and roles in the eight site languages, tags |
 | `catalogue/categories.json` | The closed set of subjects the gallery filters by ([schema](catalogue/categories.schema.json)) |
 | `catalogue/index.json` | Generated catalogue: every effect, its files with SHA-256 and size, the kit result ([schema](catalogue/index.schema.json)) |
 | `catalogue/kit.json` | Kit results per effect, written by `scripts/kit.mjs` |
 | `framework.lock.json` | The Framework release everything is checked against (`ui-654a2aceaa96`) |
-| `site/` | The catalogue site, built in Russian (root) and English (`en/`) from `site/i18n/`; it places effects through the core's `SF.Effects` |
+| `site/` | The catalogue site, built in eight languages from `site/i18n/` (English at the root, the others under `ru/`, `es/`, `pt-br/`, `de/`, `zh-cn/`, `fr/`, `ja/`); it places effects through the core's `SF.Effects` |
 | `service/votes/` | The votes service: anonymous likes, dislikes and use counts ([docs/VOTES.md](docs/VOTES.md)) |
 | `templates/effect/` | A template effect to start from |
 | `docs/AUTHORING.md` | The author guide |

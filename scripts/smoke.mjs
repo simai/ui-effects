@@ -262,7 +262,7 @@ try {
       report.pages.push({page: 'gallery', viewport: tag, ...gallery, contrastChecked: galleryContrast.checked});
 
       // The authors page, in both languages.
-      for (const path of ['authors/', 'en/authors/']) {
+      for (const path of ['authors/', 'ru/authors/']) {
         flush = watch(page, `${path} ${tag}`);
         await page.goto(`${base}${path}`);
         await page.waitForFunction(() => document.body.style.opacity !== '0' && document.querySelector('.authors__ways'), null, {timeout: 20000});
@@ -293,8 +293,8 @@ try {
         }
         const reached = (test) => stops.some(test);
         if (stops[0].cls !== 'skip') fail(`keyboard ${viewport.width}`, `first stop is ${stops[0].cls}, not the skip link`);
-        if (!reached((stop) => stop.label === 'Категории')) fail(`keyboard ${viewport.width}`, 'filters not reached');
-        if (!reached((stop) => stop.cls === '' && stop.text && !/Галерея|Авторам|GitHub|simai\.io/u.test(stop.text))) fail(`keyboard ${viewport.width}`, 'cards not reached');
+        if (!reached((stop) => stop.label === 'Categories')) fail(`keyboard ${viewport.width}`, 'filters not reached');
+        if (!reached((stop) => stop.cls === '' && stop.text && !/Gallery|For authors|GitHub|simai\.io/u.test(stop.text))) fail(`keyboard ${viewport.width}`, 'cards not reached');
         const noRing = stops.filter((stop) => !stop.ring);
         if (noRing.length) fail(`keyboard ${viewport.width}`, `no focus ring on ${noRing.map((stop) => stop.text || stop.cls).join(', ')}`);
         report.keyboard.push({viewport: viewport.width, stops});
@@ -392,14 +392,14 @@ try {
     }
   }
 
-  // Every other language: the gallery and one effect page carry no Russian text,
-  // name their language, and link to the same page in Russian.
+  // Every other language: the gallery and one effect page name their language and link to
+  // the same page in English (the root); none but the Russian pages carries Russian text.
   {
     const context = await browser.newContext({viewport: {width: 1440, height: 900}});
     await routeAll(context);
     const page = await context.newPage();
     const flush = watch(page, 'languages');
-    const LOCALES = [['en', 'en/'], ['es', 'es/'], ['pt-BR', 'pt-br/'], ['de', 'de/'], ['zh-CN', 'zh-cn/'], ['fr', 'fr/'], ['ja', 'ja/']];
+    const LOCALES = [['ru', 'ru/'], ['es', 'es/'], ['pt-BR', 'pt-br/'], ['de', 'de/'], ['zh-CN', 'zh-cn/'], ['fr', 'fr/'], ['ja', 'ja/']];
     for (const [lang, dir] of LOCALES) for (const path of [dir, `${dir}effect/${effects[0].id}/`]) {
       await page.goto(`${base}${path}`);
       await page.waitForFunction(() => document.documentElement.dataset.ready === 'true', null, {timeout: 20000});
@@ -413,10 +413,10 @@ try {
           menu: (() => { try { return JSON.parse(document.querySelector('[data-lang-menu]').dataset.entries); } catch { return []; } })(),
         };
       });
-      const other = facts.menu.find((entry) => entry.lang === 'ru')?.href;
+      const other = facts.menu.find((entry) => entry.lang === 'en')?.href;
       if (facts.lang !== lang) fail(`${lang} ${path}`, `lang is ${facts.lang}`);
-      if (facts.russian.length) fail(`${lang} ${path}`, `Russian text: ${facts.russian.join(' | ')}`);
-      if (!other) fail(`${lang} ${path}`, 'no link to the Russian page');
+      if (lang !== 'ru' && facts.russian.length) fail(`${lang} ${path}`, `Russian text: ${facts.russian.join(' | ')}`);
+      if (!other) fail(`${lang} ${path}`, 'no link to the English page');
       // Eight languages, each named in itself; all but English carry the English name below.
       if (facts.menu.length !== 8 || facts.menu.filter((entry) => entry.caption).length !== 7) fail(`${lang} ${path}`, `language menu ${JSON.stringify(facts.menu.map((entry) => [entry.lang, entry.text, entry.caption]))}`);
       report.pages.push({page: path, viewport: `1440-${lang}`});
@@ -462,12 +462,12 @@ try {
       await page.waitForTimeout(500);
       return page.evaluate(() => ({values: JSON.parse(document.querySelector('[data-code="json"]').textContent), colour: !document.querySelector('[data-key="colour"]').hidden}));
     };
-    const sunset = await pick('Закат');
+    const sunset = await pick('Sunset');
     if (sunset.values.interactive !== false) fail('settings', `the switch did not apply (interactive ${sunset.values.interactive})`);
     if (sunset.values.palette !== 'sunset') fail('settings', `the dropdown did not apply (palette ${sunset.values.palette})`);
     // The colour is a conditional setting: shown, and in the code, only for the custom palette.
     if (sunset.colour || 'colour' in sunset.values) fail('settings', 'the colour shows without the custom palette');
-    const own = await pick('Свой цвет');
+    const own = await pick('Custom colour');
     if (!own.colour || !own.values.colour) fail('settings', 'the custom palette does not show its colour');
     else console.log('ok   settings: a switch, a dropdown and a conditional setting apply');
     flush();
