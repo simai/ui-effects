@@ -572,7 +572,7 @@
     },
     {
       "id": "neon-horizon",
-      "version": "1.4.1",
+      "version": "1.5.0",
       "label": {
         "ru": "Неоновый горизонт",
         "en": "Neon horizon"
@@ -611,13 +611,13 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "f8fa0efedc8b55e0b7872819d7e35a800839e6bc1157a57fe418aba249edf177",
-          "size": 3657
+          "sha256": "5295283d311089781656816d31a07f67df90102fc2a3689ae741e95c48b96b38",
+          "size": 4641
         },
         {
           "path": "index.js",
-          "sha256": "55c54bd476e85486ff704843c95b2815898d452dba1d4c5dde1591b14ac9ea64",
-          "size": 15191
+          "sha256": "47426634f2b8244d79a76fb3318a077d0a180c1dcef0155a89bad0a6cde09572",
+          "size": 23280
         },
         {
           "path": "preview.png",
@@ -626,8 +626,8 @@
         },
         {
           "path": "README.md",
-          "sha256": "a8a751b8289aa1ae9cdcd00ccd3389b9cd53436b31d21d646f32c4a9c0276bec",
-          "size": 1710
+          "sha256": "106c4df498d389326b0ca0d8851d9d37b78b719871e9a02fd8350c811161f125",
+          "size": 2648
         }
       ],
       "kit": {

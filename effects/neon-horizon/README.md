@@ -1,9 +1,13 @@
 # Neon horizon (`neon-horizon`)
 
-A neon perspective grid runs to a glowing horizon under sparse stars.
+A neon perspective grid runs to a glowing horizon under sparse stars. Light riders ride the floor along its grid lines,
+turning at the crossings, and each leaves a low light wall in its own palette colour; the walls fade after several
+seconds, oldest first. A rider that runs into any wall, its own or another's, bursts in a flash and a few fragments,
+its wall fades out, and a new rider enters from the far edge after a pause. Riders look ahead and turn away from walls,
+so crashes happen when one is boxed in. A click on the area releases a new rider under the pointer, heading away.
 
 - **Russian name:** Неоновый горизонт
-- **Version:** 1.4.1, simai.effect 1.3.0
+- **Version:** 1.5.0, simai.effect 1.3.0
 - **Surfaces:** sign-in, hero, section, dashboard
 - **Tags:** geometry, depth
 - **Role:** A neon horizon and a grid running into the depth.
@@ -17,7 +21,14 @@ A neon perspective grid runs to a glowing horizon under sparse stars.
 | `horizon` | integer | 20–70 % | `42` | Horizon height |
 | `palette` | choice | `theme`, `turquoise`, `ocean`, `violet`, `rose`, `emerald`, `sunset`, `gold`, `silver`, `custom` | `"theme"` | Palette. `theme` follows the theme colour; the others stay as they are |
 | `colour` | color | hex | `"#3b82f6"` | Colour, read only while `palette` is `custom`: the effect builds every tone from it |
-| `interactive` | boolean | — | `true` | React to the pointer. The vanishing point follows the pointer |
+| `interactive` | boolean | — | `true` | React to the pointer. The vanishing point follows the pointer; a click releases a new rider |
+| `riders` | boolean | — | `true` | Light riders. Riders ride the grid lines and leave light walls |
+| `riderCount` | integer | 2–4 | `3` | Number of riders, read only while `riders` is on: a rider that runs into a wall bursts |
+
+## Reduced motion
+
+With reduced motion the effect draws one still frame: the riders are seeded, shown mid-ride with their walls, and no
+burst is in progress.
 
 ## Schemes
 

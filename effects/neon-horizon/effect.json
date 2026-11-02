@@ -2,7 +2,7 @@
   "schema": "simai.effect",
   "schema_version": 1,
   "id": "neon-horizon",
-  "version": "1.4.1",
+  "version": "1.5.0",
   "label": {
     "ru": "Неоновый горизонт",
     "en": "Neon horizon"
@@ -171,8 +171,43 @@
       },
       "default": true,
       "hint": {
-        "ru": "Точка схода следует за указателем",
-        "en": "The vanishing point follows the pointer"
+        "ru": "Точка схода следует за указателем, щелчок выпускает нового гонщика",
+        "en": "The vanishing point follows the pointer; a click releases a new rider"
+      }
+    },
+    {
+      "key": "riders",
+      "type": "boolean",
+      "label": {
+        "ru": "Световые гонщики",
+        "en": "Light riders"
+      },
+      "default": true,
+      "hint": {
+        "ru": "Гонщики едут по линиям сетки и оставляют световые стены",
+        "en": "Riders ride the grid lines and leave light walls"
+      }
+    },
+    {
+      "key": "riderCount",
+      "type": "integer",
+      "label": {
+        "ru": "Число гонщиков",
+        "en": "Number of riders"
+      },
+      "default": 3,
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "hint": {
+        "ru": "Гонщик, врезавшийся в стену, взрывается",
+        "en": "A rider that runs into a wall bursts"
+      },
+      "when": {
+        "key": "riders",
+        "is": [
+          true
+        ]
       }
     }
   ],
