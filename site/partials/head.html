@@ -14,6 +14,7 @@
   })();
 </script>
 <script type="application/json" id="site-config">{{CONFIG}}</script>
+<link rel="preconnect" href="https://icons.simai.io" crossorigin>
 <link rel="stylesheet" href="{{FRAMEWORK_BASE}}core/css/core.min.css">
 <script>
   window.sfPath = '{{FRAMEWORK_BASE}}';
@@ -22,7 +23,9 @@
   // same commit it was built from.
   // Every icon the site shows is asked for at once: a glyph that comes later (the theme's sun and moon)
   // would otherwise grow the icon font and blank every icon until it arrives.
-  window.SF_BOOT_CONFIG = {preloader: {enabled: false}, effects: {catalogue: '{{ROOT}}'}, icons: {preload: ['brightness_auto', 'check', 'close', 'content_copy', 'dark_mode', 'download', 'expand_more', 'keyboard_arrow_down', 'language', 'light_mode', 'menu', 'motion_photos_off', 'palette', 'pause', 'play_arrow', 'restart_alt', 'thumb_down', 'thumb_up', 'wrap_text']}};
+  // cacheVersion names the release: without it the Loader clears its cache on every start, the kept
+  // icon subset with it, and each page draws its icon buttons empty until the font comes again.
+  window.SF_BOOT_CONFIG = {cacheVersion: '{{PAIR}}', preloader: {enabled: false}, effects: {catalogue: '{{ROOT}}'}, icons: {preload: ['brightness_auto', 'check', 'close', 'content_copy', 'dark_mode', 'download', 'expand_more', 'keyboard_arrow_down', 'language', 'light_mode', 'menu', 'motion_photos_off', 'palette', 'pause', 'play_arrow', 'restart_alt', 'thumb_down', 'thumb_up', 'wrap_text']}};
 </script>
 <script src="{{FRAMEWORK_BASE}}core/js/core.min.js"></script>
 <link rel="stylesheet" href="{{ROOT}}assets/site.css">
