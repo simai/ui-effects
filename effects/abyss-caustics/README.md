@@ -3,7 +3,7 @@
 A web of underwater caustics sways in deep water, with soft rays from above.
 
 - **Russian name:** Глубоководные блики
-- **Version:** 1.4.1, simai.effect 1.3.0
+- **Version:** 1.4.2, simai.effect 1.3.0
 - **Surfaces:** sign-in, hero, section, dashboard
 - **Tags:** water, glow
 - **Role:** Light playing in deep water.

@@ -2,10 +2,16 @@
   "schema": "simai.effect",
   "schema_version": 1,
   "id": "watercolor",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "label": {
     "ru": "Акварель",
-    "en": "Watercolour"
+    "en": "Watercolour",
+    "es": "Acuarela",
+    "pt-BR": "Aquarela",
+    "de": "Aquarell",
+    "zh-CN": "水彩",
+    "fr": "Aquarelle",
+    "ja": "水彩"
   },
   "author": "SIMAI",
   "entry": "index.js",
@@ -28,7 +34,13 @@
       "type": "integer",
       "label": {
         "ru": "Скорость",
-        "en": "Speed"
+        "en": "Speed",
+        "es": "Velocidad",
+        "pt-BR": "Velocidade",
+        "de": "Geschwindigkeit",
+        "zh-CN": "速度",
+        "fr": "Vitesse",
+        "ja": "速度"
       },
       "default": 100,
       "min": 10,
@@ -41,7 +53,13 @@
       "type": "integer",
       "label": {
         "ru": "Яркость",
-        "en": "Intensity"
+        "en": "Intensity",
+        "es": "Intensidad",
+        "pt-BR": "Intensidade",
+        "de": "Intensität",
+        "zh-CN": "强度",
+        "fr": "Intensité",
+        "ja": "強さ"
       },
       "default": 70,
       "min": 10,
@@ -54,7 +72,13 @@
       "type": "integer",
       "label": {
         "ru": "Плотность",
-        "en": "Density"
+        "en": "Density",
+        "es": "Densidad",
+        "pt-BR": "Densidade",
+        "de": "Dichte",
+        "zh-CN": "密度",
+        "fr": "Densité",
+        "ja": "密度"
       },
       "default": 50,
       "min": 10,
@@ -67,12 +91,24 @@
       "type": "boolean",
       "label": {
         "ru": "Реагировать на указатель",
-        "en": "React to the pointer"
+        "en": "React to the pointer",
+        "es": "Reaccionar al puntero",
+        "pt-BR": "Reagir ao ponteiro",
+        "de": "Auf den Zeiger reagieren",
+        "zh-CN": "响应指针",
+        "fr": "Réagir au pointeur",
+        "ja": "ポインターに反応"
       },
       "default": true,
       "hint": {
         "ru": "Клик роняет краску, протягивание ведёт мокрой кистью",
-        "en": "A click drops paint, a press-drag is a wet brush"
+        "en": "A click drops paint, a press-drag is a wet brush",
+        "es": "Un clic deja caer pintura, pulsar y arrastrar es un pincel mojado",
+        "pt-BR": "Um clique solta tinta, pressionar e arrastar é um pincel molhado",
+        "de": "Ein Klick lässt Farbe tropfen, Drücken und Ziehen ist ein nasser Pinsel",
+        "zh-CN": "点击滴落颜料，按住拖动则是湿画笔",
+        "fr": "Un clic laisse tomber de la peinture, un appui avec glissement est un pinceau mouillé",
+        "ja": "クリックで絵の具を落とし、押しながらドラッグすると濡れた筆になります"
       }
     }
   ],

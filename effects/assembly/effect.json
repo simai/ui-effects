@@ -2,10 +2,16 @@
   "schema": "simai.effect",
   "schema_version": 1,
   "id": "assembly",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "label": {
     "ru": "Сборка",
-    "en": "Assembly"
+    "en": "Assembly",
+    "es": "Ensamblaje",
+    "pt-BR": "Montagem",
+    "de": "Zusammensetzung",
+    "zh-CN": "拼装",
+    "fr": "Assemblage",
+    "ja": "組み立て"
   },
   "author": "SIMAI",
   "entry": "index.js",
@@ -28,7 +34,13 @@
       "type": "integer",
       "label": {
         "ru": "Скорость",
-        "en": "Speed"
+        "en": "Speed",
+        "es": "Velocidad",
+        "pt-BR": "Velocidade",
+        "de": "Geschwindigkeit",
+        "zh-CN": "速度",
+        "fr": "Vitesse",
+        "ja": "速度"
       },
       "default": 100,
       "min": 10,
@@ -41,7 +53,13 @@
       "type": "integer",
       "label": {
         "ru": "Яркость",
-        "en": "Intensity"
+        "en": "Intensity",
+        "es": "Intensidad",
+        "pt-BR": "Intensidade",
+        "de": "Intensität",
+        "zh-CN": "强度",
+        "fr": "Intensité",
+        "ja": "強さ"
       },
       "default": 80,
       "min": 10,
@@ -54,7 +72,13 @@
       "type": "integer",
       "label": {
         "ru": "Размер фигур",
-        "en": "Shape size"
+        "en": "Shape size",
+        "es": "Tamaño de la forma",
+        "pt-BR": "Tamanho da forma",
+        "de": "Formgröße",
+        "zh-CN": "图形大小",
+        "fr": "Taille des formes",
+        "ja": "形のサイズ"
       },
       "default": 100,
       "min": 40,
@@ -67,7 +91,13 @@
       "type": "choice",
       "label": {
         "ru": "Что собирается",
-        "en": "What is built"
+        "en": "What is built",
+        "es": "Qué se construye",
+        "pt-BR": "O que é montado",
+        "de": "Was gebaut wird",
+        "zh-CN": "拼装内容",
+        "fr": "Ce qui est construit",
+        "ja": "組み立てるもの"
       },
       "default": "mix",
       "options": [
@@ -75,27 +105,51 @@
           "value": "mix",
           "label": {
             "ru": "Интерфейс и картинки",
-            "en": "Interface and pictures"
+            "en": "Interface and pictures",
+            "es": "Interfaz e imágenes",
+            "pt-BR": "Interface e imagens",
+            "de": "Oberfläche und Bilder",
+            "zh-CN": "界面和图片",
+            "fr": "Interface et images",
+            "ja": "インターフェースと絵"
           }
         },
         {
           "value": "interface",
           "label": {
             "ru": "Только интерфейс",
-            "en": "Interface only"
+            "en": "Interface only",
+            "es": "Solo interfaz",
+            "pt-BR": "Só interface",
+            "de": "Nur Oberfläche",
+            "zh-CN": "仅界面",
+            "fr": "Interface seule",
+            "ja": "インターフェースのみ"
           }
         },
         {
           "value": "objects",
           "label": {
             "ru": "Только картинки",
-            "en": "Pictures only"
+            "en": "Pictures only",
+            "es": "Solo imágenes",
+            "pt-BR": "Só imagens",
+            "de": "Nur Bilder",
+            "zh-CN": "仅图片",
+            "fr": "Images seules",
+            "ja": "絵のみ"
           }
         }
       ],
       "hint": {
         "ru": "Интерфейс: кнопка, карточка, форма, страница; картинки: дом, ёлка, ракета и другие",
-        "en": "Interface: a button, a card, a form, a page; pictures: a house, a tree, a rocket and more"
+        "en": "Interface: a button, a card, a form, a page; pictures: a house, a tree, a rocket and more",
+        "es": "Interfaz: un botón, una tarjeta, un formulario, una página; imágenes: una casa, un árbol, un cohete y más",
+        "pt-BR": "Interface: um botão, um cartão, um formulário, uma página; imagens: uma casa, uma árvore, um foguete e mais",
+        "de": "Oberfläche: ein Button, eine Karte, ein Formular, eine Seite; Bilder: ein Haus, ein Baum, eine Rakete und mehr",
+        "zh-CN": "界面：按钮、卡片、表单、页面；图片：房子、树、火箭等",
+        "fr": "Interface : un bouton, une carte, un formulaire, une page ; images : une maison, un arbre, une fusée et plus encore",
+        "ja": "インターフェース：ボタン、カード、フォーム、ページ。絵：家、木、ロケットなど"
       }
     },
     {
@@ -103,12 +157,24 @@
       "type": "boolean",
       "label": {
         "ru": "Реагировать на указатель",
-        "en": "React to the pointer"
+        "en": "React to the pointer",
+        "es": "Reaccionar al puntero",
+        "pt-BR": "Reagir ao ponteiro",
+        "de": "Auf den Zeiger reagieren",
+        "zh-CN": "响应指针",
+        "fr": "Réagir au pointeur",
+        "ja": "ポインターに反応"
       },
       "default": true,
       "hint": {
         "ru": "Точки тянутся к указателю; клик расталкивает их, они возвращаются на место",
-        "en": "The dots lean towards the pointer; a click knocks them apart and they spring back"
+        "en": "The dots lean towards the pointer; a click knocks them apart and they spring back",
+        "es": "Los puntos se inclinan hacia el puntero; un clic los separa y vuelven a su sitio",
+        "pt-BR": "Os pontos se inclinam em direção ao ponteiro; um clique os afasta e eles voltam como uma mola",
+        "de": "Die Punkte neigen sich zum Zeiger; ein Klick stößt sie auseinander, und sie federn zurück",
+        "zh-CN": "光点向指针靠拢；点击会将它们撞散，随后又弹回",
+        "fr": "Les points se penchent vers le pointeur ; un clic les disperse et ils reviennent en rebondissant",
+        "ja": "点がポインターに寄り、クリックで散らばって、また元に戻ります"
       }
     }
   ],

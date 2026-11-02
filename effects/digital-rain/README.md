@@ -3,7 +3,7 @@
 Columns of glyphs run down a dark screen: a bright head with a glow and a fading trail whose glyphs change. Three depths: far ones small and slow, near ones large and out of focus.
 
 - **Russian name:** Цифровой дождь
-- **Version:** 0.2.1, simai.effect 1.3.0
+- **Version:** 0.2.2, simai.effect 1.3.0
 - **Surfaces:** hero, section, dashboard, sign-in
 - **Tags:** type, particles
 - **Role:** Technology, data, code. Dark scheme only.

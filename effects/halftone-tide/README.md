@@ -3,7 +3,7 @@
 A print halftone screen at 15 degrees: dots grow and shrink under slow crossing waves.
 
 - **Russian name:** Растровая волна
-- **Version:** 1.3.1, simai.effect 1.3.0
+- **Version:** 1.3.2, simai.effect 1.3.0
 - **Surfaces:** hero, product, docs
 - **Tags:** print
 - **Role:** A halftone with waves: newsprint on light, a phosphor screen on dark.

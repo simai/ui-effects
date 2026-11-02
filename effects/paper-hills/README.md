@@ -3,7 +3,7 @@
 Layers of paper hills fade into the distance: in a light haze by day, under a dark sky by night.
 
 - **Russian name:** Бумажные холмы
-- **Version:** 2.0.0, simai.effect 1.1.0
+- **Version:** 2.0.1, simai.effect 1.1.0
 - **Surfaces:** sign-in, hero, product
 - **Tags:** paper, depth
 - **Role:** Depth and space: light and dark schemes.

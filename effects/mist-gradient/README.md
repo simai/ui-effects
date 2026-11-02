@@ -3,7 +3,7 @@
 Soft colour fields drift into one another like haze.
 
 - **Russian name:** Цветная дымка
-- **Version:** 2.1.1, simai.effect 1.3.0
+- **Version:** 2.1.2, simai.effect 1.3.0
 - **Surfaces:** sign-in, hero, docs, dashboard, product
 - **Tags:** gradient
 - **Role:** A calm colour gradient for any theme: light and dark schemes.

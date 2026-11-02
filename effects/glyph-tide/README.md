@@ -3,7 +3,7 @@
 A field of monospaced glyphs that a slow wave of light passes over.
 
 - **Russian name:** Знаковый прилив
-- **Version:** 2.2.1, simai.effect 1.3.0
+- **Version:** 2.2.2, simai.effect 1.3.0
 - **Surfaces:** sign-in, hero, section, dashboard
 - **Tags:** type
 - **Role:** A field of glyphs with a wave: glyphs light up on dark and print darker on light.

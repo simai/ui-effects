@@ -2,10 +2,16 @@
   "schema": "simai.effect",
   "schema_version": 1,
   "id": "digital-rain",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "label": {
     "ru": "Цифровой дождь",
-    "en": "Digital rain"
+    "en": "Digital rain",
+    "es": "Lluvia digital",
+    "pt-BR": "Chuva digital",
+    "de": "Digitaler Regen",
+    "zh-CN": "数字雨",
+    "fr": "Pluie numérique",
+    "ja": "デジタルレイン"
   },
   "author": "SIMAI",
   "entry": "index.js",
@@ -28,7 +34,13 @@
       "type": "integer",
       "label": {
         "ru": "Скорость",
-        "en": "Speed"
+        "en": "Speed",
+        "es": "Velocidad",
+        "pt-BR": "Velocidade",
+        "de": "Geschwindigkeit",
+        "zh-CN": "速度",
+        "fr": "Vitesse",
+        "ja": "速度"
       },
       "default": 100,
       "min": 10,
@@ -41,7 +53,13 @@
       "type": "integer",
       "label": {
         "ru": "Яркость",
-        "en": "Intensity"
+        "en": "Intensity",
+        "es": "Intensidad",
+        "pt-BR": "Intensidade",
+        "de": "Intensität",
+        "zh-CN": "强度",
+        "fr": "Intensité",
+        "ja": "強さ"
       },
       "default": 70,
       "min": 10,
@@ -54,7 +72,13 @@
       "type": "integer",
       "label": {
         "ru": "Плотность",
-        "en": "Density"
+        "en": "Density",
+        "es": "Densidad",
+        "pt-BR": "Densidade",
+        "de": "Dichte",
+        "zh-CN": "密度",
+        "fr": "Densité",
+        "ja": "密度"
       },
       "default": 50,
       "min": 10,
@@ -67,7 +91,13 @@
       "type": "choice",
       "label": {
         "ru": "Текст",
-        "en": "Text"
+        "en": "Text",
+        "es": "Texto",
+        "pt-BR": "Texto",
+        "de": "Text",
+        "zh-CN": "文本",
+        "fr": "Texte",
+        "ja": "テキスト"
       },
       "default": "letters",
       "options": [
@@ -75,77 +105,143 @@
           "value": "javascript",
           "label": {
             "ru": "JavaScript",
-            "en": "JavaScript"
+            "en": "JavaScript",
+            "es": "JavaScript",
+            "pt-BR": "JavaScript",
+            "de": "JavaScript",
+            "zh-CN": "JavaScript",
+            "fr": "JavaScript",
+            "ja": "JavaScript"
           }
         },
         {
           "value": "html",
           "label": {
             "ru": "HTML и CSS",
-            "en": "HTML and CSS"
+            "en": "HTML and CSS",
+            "es": "HTML y CSS",
+            "pt-BR": "HTML e CSS",
+            "de": "HTML und CSS",
+            "zh-CN": "HTML 和 CSS",
+            "fr": "HTML et CSS",
+            "ja": "HTMLとCSS"
           }
         },
         {
           "value": "terminal",
           "label": {
             "ru": "Терминал",
-            "en": "Terminal"
+            "en": "Terminal",
+            "es": "Terminal",
+            "pt-BR": "Terminal",
+            "de": "Terminal",
+            "zh-CN": "终端",
+            "fr": "Terminal",
+            "ja": "ターミナル"
           }
         },
         {
           "value": "easter",
           "label": {
             "ru": "С секретами",
-            "en": "With secrets"
+            "en": "With secrets",
+            "es": "Con secretos",
+            "pt-BR": "Com segredos",
+            "de": "Mit Geheimnissen",
+            "zh-CN": "含机密信息",
+            "fr": "Avec des secrets",
+            "ja": "シークレット入り"
           }
         },
         {
           "value": "prose",
           "label": {
             "ru": "Слова",
-            "en": "Words"
+            "en": "Words",
+            "es": "Palabras",
+            "pt-BR": "Palavras",
+            "de": "Wörter",
+            "zh-CN": "词语",
+            "fr": "Mots",
+            "ja": "単語"
           }
         },
         {
           "value": "custom",
           "label": {
             "ru": "Свой текст",
-            "en": "Own text"
+            "en": "Own text",
+            "es": "Texto propio",
+            "pt-BR": "Texto próprio",
+            "de": "Eigener Text",
+            "zh-CN": "自定义文本",
+            "fr": "Texte personnalisé",
+            "ja": "独自のテキスト"
           }
         },
         {
           "value": "letters",
           "label": {
             "ru": "Буквы и цифры",
-            "en": "Letters and digits"
+            "en": "Letters and digits",
+            "es": "Letras y dígitos",
+            "pt-BR": "Letras e dígitos",
+            "de": "Buchstaben und Ziffern",
+            "zh-CN": "字母和数字",
+            "fr": "Lettres et chiffres",
+            "ja": "文字と数字"
           }
         },
         {
           "value": "hex",
           "label": {
             "ru": "Шестнадцатеричные",
-            "en": "Hexadecimal"
+            "en": "Hexadecimal",
+            "es": "Hexadecimal",
+            "pt-BR": "Hexadecimal",
+            "de": "Hexadezimal",
+            "zh-CN": "十六进制",
+            "fr": "Hexadécimal",
+            "ja": "16進数"
           }
         },
         {
           "value": "binary",
           "label": {
             "ru": "Двоичные",
-            "en": "Binary"
+            "en": "Binary",
+            "es": "Binario",
+            "pt-BR": "Binário",
+            "de": "Binär",
+            "zh-CN": "二进制",
+            "fr": "Binaire",
+            "ja": "2進数"
           }
         },
         {
           "value": "digits",
           "label": {
             "ru": "Цифры",
-            "en": "Digits"
+            "en": "Digits",
+            "es": "Dígitos",
+            "pt-BR": "Dígitos",
+            "de": "Ziffern",
+            "zh-CN": "数字",
+            "fr": "Chiffres",
+            "ja": "数字"
           }
         },
         {
           "value": "signs",
           "label": {
             "ru": "Знаки",
-            "en": "Signs"
+            "en": "Signs",
+            "es": "Signos",
+            "pt-BR": "Sinais",
+            "de": "Zeichen",
+            "zh-CN": "符号",
+            "fr": "Signes",
+            "ja": "記号"
           }
         }
       ]
@@ -155,13 +251,25 @@
       "type": "text",
       "label": {
         "ru": "Свой текст",
-        "en": "Own text"
+        "en": "Own text",
+        "es": "Texto propio",
+        "pt-BR": "Texto próprio",
+        "de": "Eigener Text",
+        "zh-CN": "自定义文本",
+        "fr": "Texte personnalisé",
+        "ja": "独自のテキスト"
       },
       "default": "",
       "max": 600,
       "hint": {
         "ru": "Для варианта «Свой текст»: фразы через точку или с новой строки",
-        "en": "For «Own text»: sentences, or one per line"
+        "en": "For «Own text»: sentences, or one per line",
+        "es": "Para «Texto propio»: frases, o una por línea",
+        "pt-BR": "Para “Texto próprio”: frases, ou uma por linha",
+        "de": "Für „Eigener Text“: Sätze oder einer pro Zeile",
+        "zh-CN": "用于“自定义文本”：句子，或每行一条",
+        "fr": "Pour « Texte personnalisé » : des phrases, ou une par ligne",
+        "ja": "「独自のテキスト」用：文章、または1行に1つ"
       }
     },
     {
@@ -169,7 +277,13 @@
       "type": "choice",
       "label": {
         "ru": "Язык слов",
-        "en": "Words language"
+        "en": "Words language",
+        "es": "Idioma de las palabras",
+        "pt-BR": "Idioma das palavras",
+        "de": "Sprache der Wörter",
+        "zh-CN": "词语语言",
+        "fr": "Langue des mots",
+        "ja": "単語の言語"
       },
       "default": "auto",
       "options": [
@@ -177,27 +291,51 @@
           "value": "auto",
           "label": {
             "ru": "Как у страницы",
-            "en": "As the page"
+            "en": "As the page",
+            "es": "Como la página",
+            "pt-BR": "Como a página",
+            "de": "Wie die Seite",
+            "zh-CN": "跟随页面",
+            "fr": "Comme la page",
+            "ja": "ページに合わせる"
           }
         },
         {
           "value": "en",
           "label": {
             "ru": "Английский",
-            "en": "English"
+            "en": "English",
+            "es": "Inglés",
+            "pt-BR": "Inglês",
+            "de": "Englisch",
+            "zh-CN": "英语",
+            "fr": "Anglais",
+            "ja": "英語"
           }
         },
         {
           "value": "ru",
           "label": {
             "ru": "Русский",
-            "en": "Russian"
+            "en": "Russian",
+            "es": "Ruso",
+            "pt-BR": "Russo",
+            "de": "Russisch",
+            "zh-CN": "俄语",
+            "fr": "Russe",
+            "ja": "ロシア語"
           }
         }
       ],
       "hint": {
         "ru": "Для варианта «Слова»",
-        "en": "For «Words»"
+        "en": "For «Words»",
+        "es": "Para «Palabras»",
+        "pt-BR": "Para “Palavras”",
+        "de": "Für „Wörter“",
+        "zh-CN": "用于“词语”",
+        "fr": "Pour « Mots »",
+        "ja": "「単語」用"
       }
     },
     {
@@ -205,7 +343,13 @@
       "type": "choice",
       "label": {
         "ru": "Палитра",
-        "en": "Palette"
+        "en": "Palette",
+        "es": "Paleta",
+        "pt-BR": "Paleta",
+        "de": "Palette",
+        "zh-CN": "配色",
+        "fr": "Palette",
+        "ja": "パレット"
       },
       "default": "green",
       "options": [
@@ -213,77 +357,143 @@
           "value": "green",
           "label": {
             "ru": "Зелёная",
-            "en": "Green"
+            "en": "Green",
+            "es": "Verde",
+            "pt-BR": "Verde",
+            "de": "Grün",
+            "zh-CN": "绿色",
+            "fr": "Vert",
+            "ja": "グリーン"
           }
         },
         {
           "value": "theme",
           "label": {
             "ru": "Цвет темы",
-            "en": "Theme colour"
+            "en": "Theme colour",
+            "es": "Color del tema",
+            "pt-BR": "Cor do tema",
+            "de": "Designfarbe",
+            "zh-CN": "主题色",
+            "fr": "Couleur du thème",
+            "ja": "テーマカラー"
           }
         },
         {
           "value": "turquoise",
           "label": {
             "ru": "Бирюзовая",
-            "en": "Turquoise"
+            "en": "Turquoise",
+            "es": "Turquesa",
+            "pt-BR": "Turquesa",
+            "de": "Türkis",
+            "zh-CN": "青绿",
+            "fr": "Turquoise",
+            "ja": "ターコイズ"
           }
         },
         {
           "value": "ocean",
           "label": {
             "ru": "Океан",
-            "en": "Ocean"
+            "en": "Ocean",
+            "es": "Océano",
+            "pt-BR": "Oceano",
+            "de": "Ozean",
+            "zh-CN": "海洋",
+            "fr": "Océan",
+            "ja": "オーシャン"
           }
         },
         {
           "value": "violet",
           "label": {
             "ru": "Фиолетовая",
-            "en": "Violet"
+            "en": "Violet",
+            "es": "Violeta",
+            "pt-BR": "Violeta",
+            "de": "Violett",
+            "zh-CN": "紫罗兰",
+            "fr": "Violet",
+            "ja": "バイオレット"
           }
         },
         {
           "value": "rose",
           "label": {
             "ru": "Роза",
-            "en": "Rose"
+            "en": "Rose",
+            "es": "Rosa",
+            "pt-BR": "Rosa",
+            "de": "Rosé",
+            "zh-CN": "玫瑰",
+            "fr": "Rose",
+            "ja": "ローズ"
           }
         },
         {
           "value": "emerald",
           "label": {
             "ru": "Изумруд",
-            "en": "Emerald"
+            "en": "Emerald",
+            "es": "Esmeralda",
+            "pt-BR": "Esmeralda",
+            "de": "Smaragd",
+            "zh-CN": "翡翠",
+            "fr": "Émeraude",
+            "ja": "エメラルド"
           }
         },
         {
           "value": "sunset",
           "label": {
             "ru": "Закат",
-            "en": "Sunset"
+            "en": "Sunset",
+            "es": "Atardecer",
+            "pt-BR": "Pôr do sol",
+            "de": "Sonnenuntergang",
+            "zh-CN": "日落",
+            "fr": "Coucher de soleil",
+            "ja": "サンセット"
           }
         },
         {
           "value": "gold",
           "label": {
             "ru": "Золото",
-            "en": "Gold"
+            "en": "Gold",
+            "es": "Oro",
+            "pt-BR": "Ouro",
+            "de": "Gold",
+            "zh-CN": "金色",
+            "fr": "Or",
+            "ja": "ゴールド"
           }
         },
         {
           "value": "silver",
           "label": {
             "ru": "Серебро",
-            "en": "Silver"
+            "en": "Silver",
+            "es": "Plata",
+            "pt-BR": "Prata",
+            "de": "Silber",
+            "zh-CN": "银色",
+            "fr": "Argent",
+            "ja": "シルバー"
           }
         },
         {
           "value": "custom",
           "label": {
             "ru": "Свой цвет",
-            "en": "Custom colour"
+            "en": "Custom colour",
+            "es": "Color personalizado",
+            "pt-BR": "Cor personalizada",
+            "de": "Eigene Farbe",
+            "zh-CN": "自定义颜色",
+            "fr": "Couleur personnalisée",
+            "ja": "カスタムカラー"
           }
         }
       ]
@@ -293,12 +503,24 @@
       "type": "color",
       "label": {
         "ru": "Цвет",
-        "en": "Colour"
+        "en": "Colour",
+        "es": "Color",
+        "pt-BR": "Cor",
+        "de": "Farbe",
+        "zh-CN": "颜色",
+        "fr": "Couleur",
+        "ja": "色"
       },
       "default": "#3b82f6",
       "hint": {
         "ru": "Эффект строит из него все оттенки",
-        "en": "The effect builds every tone from it"
+        "en": "The effect builds every tone from it",
+        "es": "El efecto construye todos los tonos a partir de él",
+        "pt-BR": "O efeito constrói todos os tons a partir dela",
+        "de": "Der Effekt baut daraus jeden Farbton auf",
+        "zh-CN": "特效据此生成所有色调",
+        "fr": "L’effet en construit toutes les teintes",
+        "ja": "エフェクトはこの色からすべての色調を作ります"
       },
       "when": {
         "key": "palette",
@@ -312,7 +534,13 @@
       "type": "integer",
       "label": {
         "ru": "Размер символов",
-        "en": "Glyph size"
+        "en": "Glyph size",
+        "es": "Tamaño del glifo",
+        "pt-BR": "Tamanho dos glifos",
+        "de": "Zeichengröße",
+        "zh-CN": "字形大小",
+        "fr": "Taille des glyphes",
+        "ja": "文字サイズ"
       },
       "default": 16,
       "min": 10,
@@ -325,12 +553,24 @@
       "type": "boolean",
       "label": {
         "ru": "Глубина",
-        "en": "Depth"
+        "en": "Depth",
+        "es": "Profundidad",
+        "pt-BR": "Profundidade",
+        "de": "Tiefe",
+        "zh-CN": "景深",
+        "fr": "Profondeur",
+        "ja": "奥行き"
       },
       "default": true,
       "hint": {
         "ru": "Дальние и ближние столбцы, ближние размыты",
-        "en": "Far and near columns, the near ones out of focus"
+        "en": "Far and near columns, the near ones out of focus",
+        "es": "Columnas lejanas y cercanas, las cercanas desenfocadas",
+        "pt-BR": "Colunas distantes e próximas, as próximas desfocadas",
+        "de": "Ferne und nahe Spalten, die nahen unscharf",
+        "zh-CN": "远处和近处的列，近处的失焦",
+        "fr": "Colonnes lointaines et proches, les proches étant floues",
+        "ja": "遠い列と近い列。近い列はぼやけます"
       }
     },
     {
@@ -338,12 +578,24 @@
       "type": "boolean",
       "label": {
         "ru": "Реагировать на указатель",
-        "en": "React to the pointer"
+        "en": "React to the pointer",
+        "es": "Reaccionar al puntero",
+        "pt-BR": "Reagir ao ponteiro",
+        "de": "Auf den Zeiger reagieren",
+        "zh-CN": "响应指针",
+        "fr": "Réagir au pointeur",
+        "ja": "ポインターに反応"
       },
       "default": true,
       "hint": {
         "ru": "Символы у указателя разгораются, клик пускает пучок струек",
-        "en": "Glyphs light up round the pointer; a click lets a sheaf of runs fall"
+        "en": "Glyphs light up round the pointer; a click lets a sheaf of runs fall",
+        "es": "Los glifos se encienden alrededor del puntero; un clic hace caer un haz de columnas",
+        "pt-BR": "Os glifos se acendem em torno do ponteiro; um clique faz cair um feixe de fluxos",
+        "de": "Zeichen leuchten um den Zeiger auf; ein Klick lässt ein Bündel von Läufen fallen",
+        "zh-CN": "指针周围的字形发亮；点击会落下一束字符流",
+        "fr": "Les glyphes s’allument autour du pointeur ; un clic fait tomber une gerbe de colonnes",
+        "ja": "ポインターの周りで文字が光り、クリックで列の束が降り注ぎます"
       }
     }
   ],

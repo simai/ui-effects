@@ -3,7 +3,7 @@
 A city at night from above: orange streets, dark buildings with lit roofs, parks and trees, car lights.
 
 - **Russian name:** Огни города
-- **Version:** 0.1.0, simai.effect 1.1.0
+- **Version:** 0.1.1, simai.effect 1.1.0
 - **Surfaces:** hero, section, dashboard, sign-in
 - **Tags:** geometry, particles
 - **Role:** A city at night, from above. Dark scheme only.

@@ -3,7 +3,7 @@
 A slow flight through stars and nebulae.
 
 - **Russian name:** Звёздный полёт
-- **Version:** 1.1.0, simai.effect 1.1.0
+- **Version:** 1.1.1, simai.effect 1.1.0
 - **Author:** Rim Zabarov / SIMAI
 - **Surfaces:** sign-in, hero, section, dashboard
 - **Tags:** glow, sky, depth

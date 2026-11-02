@@ -3,7 +3,7 @@
 Dots fall from above, join with lines and build a button or a page, a house or a rocket; the shape comes alive for a moment and flows into the next.
 
 - **Russian name:** Сборка
-- **Version:** 0.2.0, simai.effect 1.1.0
+- **Version:** 0.2.1, simai.effect 1.1.0
 - **Surfaces:** hero, section, docs
 - **Tags:** geometry, interface
 - **Role:** A banner about building an interface from small parts, for documentation and the story of a component system. It has a light and a dark scheme.

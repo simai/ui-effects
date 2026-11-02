@@ -3,7 +3,7 @@
 A layer of oil warmed from below sorts itself into living honeycomb: flow runs from each centre to the rim; the cells breathe and rearrange.
 
 - **Russian name:** Ячейки Бенара
-- **Version:** 0.3.1, simai.effect 1.3.0
+- **Version:** 0.3.2, simai.effect 1.3.0
 - **Surfaces:** hero, section, dashboard, sign-in
 - **Tags:** geometry, particles
 - **Role:** A calm technical background: light and dark schemes.

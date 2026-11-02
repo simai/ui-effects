@@ -2,10 +2,16 @@
   "schema": "simai.effect",
   "schema_version": 1,
   "id": "mist-gradient",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "label": {
     "ru": "Цветная дымка",
-    "en": "Colour haze"
+    "en": "Colour haze",
+    "es": "Bruma de color",
+    "pt-BR": "Névoa colorida",
+    "de": "Farbdunst",
+    "zh-CN": "彩色薄雾",
+    "fr": "Brume colorée",
+    "ja": "色の霞"
   },
   "author": "SIMAI",
   "entry": "index.js",
@@ -30,7 +36,13 @@
       "type": "integer",
       "label": {
         "ru": "Скорость, %",
-        "en": "Speed, %"
+        "en": "Speed, %",
+        "es": "Velocidad, %",
+        "pt-BR": "Velocidade, %",
+        "de": "Geschwindigkeit, %",
+        "zh-CN": "速度，%",
+        "fr": "Vitesse, %",
+        "ja": "速度（%）"
       },
       "default": 100,
       "min": 10,
@@ -43,7 +55,13 @@
       "type": "integer",
       "label": {
         "ru": "Насыщенность",
-        "en": "Saturation"
+        "en": "Saturation",
+        "es": "Saturación",
+        "pt-BR": "Saturação",
+        "de": "Sättigung",
+        "zh-CN": "饱和度",
+        "fr": "Saturation",
+        "ja": "彩度"
       },
       "default": 50,
       "min": 0,
@@ -56,7 +74,13 @@
       "type": "choice",
       "label": {
         "ru": "Палитра",
-        "en": "Palette"
+        "en": "Palette",
+        "es": "Paleta",
+        "pt-BR": "Paleta",
+        "de": "Palette",
+        "zh-CN": "配色",
+        "fr": "Palette",
+        "ja": "パレット"
       },
       "default": "theme",
       "options": [
@@ -64,35 +88,65 @@
           "value": "theme",
           "label": {
             "ru": "Цвета темы",
-            "en": "Theme colours"
+            "en": "Theme colours",
+            "es": "Colores del tema",
+            "pt-BR": "Cores do tema",
+            "de": "Designfarben",
+            "zh-CN": "主题色",
+            "fr": "Couleurs du thème",
+            "ja": "テーマカラー"
           }
         },
         {
           "value": "warm",
           "label": {
             "ru": "Тёплая",
-            "en": "Warm"
+            "en": "Warm",
+            "es": "Cálidos",
+            "pt-BR": "Quentes",
+            "de": "Warm",
+            "zh-CN": "暖色",
+            "fr": "Chaudes",
+            "ja": "暖色"
           }
         },
         {
           "value": "cool",
           "label": {
             "ru": "Холодная",
-            "en": "Cool"
+            "en": "Cool",
+            "es": "Fríos",
+            "pt-BR": "Frias",
+            "de": "Kühl",
+            "zh-CN": "冷色",
+            "fr": "Froides",
+            "ja": "寒色"
           }
         },
         {
           "value": "mono",
           "label": {
             "ru": "Один цвет",
-            "en": "One colour"
+            "en": "One colour",
+            "es": "Un solo color",
+            "pt-BR": "Uma cor",
+            "de": "Eine Farbe",
+            "zh-CN": "单色",
+            "fr": "Une seule couleur",
+            "ja": "単色"
           }
         },
         {
           "value": "custom",
           "label": {
             "ru": "Свой цвет",
-            "en": "Custom colour"
+            "en": "Custom colour",
+            "es": "Color personalizado",
+            "pt-BR": "Cor personalizada",
+            "de": "Eigene Farbe",
+            "zh-CN": "自定义颜色",
+            "fr": "Couleur personnalisée",
+            "ja": "カスタムカラー"
           }
         }
       ]
@@ -102,12 +156,24 @@
       "type": "color",
       "label": {
         "ru": "Цвет",
-        "en": "Colour"
+        "en": "Colour",
+        "es": "Color",
+        "pt-BR": "Cor",
+        "de": "Farbe",
+        "zh-CN": "颜色",
+        "fr": "Couleur",
+        "ja": "色"
       },
       "default": "#3b82f6",
       "hint": {
         "ru": "Эффект строит из него все оттенки",
-        "en": "The effect builds every tone from it"
+        "en": "The effect builds every tone from it",
+        "es": "El efecto construye todos los tonos a partir de él",
+        "pt-BR": "O efeito constrói todos os tons a partir dela",
+        "de": "Der Effekt baut daraus jeden Farbton auf",
+        "zh-CN": "特效据此生成所有色调",
+        "fr": "L’effet en construit toutes les teintes",
+        "ja": "エフェクトはこの色からすべての色調を作ります"
       },
       "when": {
         "key": "palette",
@@ -121,7 +187,13 @@
       "type": "boolean",
       "label": {
         "ru": "Зерно бумаги",
-        "en": "Paper grain"
+        "en": "Paper grain",
+        "es": "Grano del papel",
+        "pt-BR": "Granulação do papel",
+        "de": "Papierkorn",
+        "zh-CN": "纸张颗粒",
+        "fr": "Grain du papier",
+        "ja": "紙の質感"
       },
       "default": true
     },
@@ -130,7 +202,13 @@
       "type": "boolean",
       "label": {
         "ru": "Реагировать на указатель",
-        "en": "React to the pointer"
+        "en": "React to the pointer",
+        "es": "Reaccionar al puntero",
+        "pt-BR": "Reagir ao ponteiro",
+        "de": "Auf den Zeiger reagieren",
+        "zh-CN": "响应指针",
+        "fr": "Réagir au pointeur",
+        "ja": "ポインターに反応"
       },
       "default": true
     }

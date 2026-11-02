@@ -3,7 +3,7 @@
 Glowing particles follow an invisible flow field and leave soft tails.
 
 - **Russian name:** Кометные потоки
-- **Version:** 1.4.1, simai.effect 1.3.0
+- **Version:** 1.4.2, simai.effect 1.3.0
 - **Surfaces:** sign-in, hero, section, dashboard
 - **Tags:** particles, flow
 - **Role:** A stream of glowing particles on the dark.

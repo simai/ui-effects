@@ -3,7 +3,7 @@
 A crumpled sheet of triangular facets; light circles it slowly, the folds catch and lose it, and each facet shimmers lighter and darker on its own clock.
 
 - **Russian name:** Бумажные грани
-- **Version:** 1.4.0, simai.effect 1.1.0
+- **Version:** 1.4.1, simai.effect 1.1.0
 - **Surfaces:** hero, product, sign-in
 - **Tags:** paper, geometry
 - **Role:** Crumpled paper, the light moving round its facets.

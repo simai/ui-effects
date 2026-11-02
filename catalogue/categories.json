@@ -4,12 +4,166 @@
   "version": 1,
   "note": "The fixed subjects an effect is filed under: what the background shows. Every effect takes one or two; the set is meant to stay closed, so a new effect finds its place here instead of adding a category. Real subjects first (space, nature, technology and the city, text, science), then the two that take everything drawn for its own sake (materials, abstraction). Order here is the order on the site.",
   "categories": [
-    {"id": "space", "label": {"ru": "Космос", "en": "Space"}, "hint": {"ru": "Небо, звёзды, сияние, вселенная", "en": "Sky, stars, aurora, the universe"}},
-    {"id": "nature", "label": {"ru": "Природа", "en": "Nature"}, "hint": {"ru": "Вода, свет, листва, погода, птицы", "en": "Water, light, leaves, weather, birds"}},
-    {"id": "tech", "label": {"ru": "Технологии и город", "en": "Tech and city"}, "hint": {"ru": "Сети, схемы, огни, улицы, карты", "en": "Networks, circuits, lights, streets, maps"}},
-    {"id": "text", "label": {"ru": "Текст и код", "en": "Text and code"}, "hint": {"ru": "Буквы, знаки, строки кода", "en": "Letters, glyphs, lines of code"}},
-    {"id": "science", "label": {"ru": "Наука", "en": "Science"}, "hint": {"ru": "Физика, химия, рельеф, данные", "en": "Physics, chemistry, terrain, data"}},
-    {"id": "material", "label": {"ru": "Материалы", "en": "Materials"}, "hint": {"ru": "Бумага, краска, печать, песок", "en": "Paper, paint, print, sand"}},
-    {"id": "abstract", "label": {"ru": "Абстракция", "en": "Abstract"}, "hint": {"ru": "Градиенты, частицы, геометрия", "en": "Gradients, particles, geometry"}}
+    {
+      "id": "space",
+      "label": {
+        "ru": "Космос",
+        "en": "Space",
+        "es": "Espacio",
+        "pt-BR": "Espaço",
+        "de": "Weltraum",
+        "zh-CN": "太空",
+        "fr": "Espace",
+        "ja": "宇宙"
+      },
+      "hint": {
+        "ru": "Небо, звёзды, сияние, вселенная",
+        "en": "Sky, stars, aurora, the universe",
+        "es": "Cielo, estrellas, aurora, el universo",
+        "pt-BR": "Céu, estrelas, aurora, o universo",
+        "de": "Himmel, Sterne, Polarlicht, Universum",
+        "zh-CN": "天空、星辰、极光、宇宙",
+        "fr": "Ciel, étoiles, aurore, univers",
+        "ja": "空、星、オーロラ、宇宙"
+      }
+    },
+    {
+      "id": "nature",
+      "label": {
+        "ru": "Природа",
+        "en": "Nature",
+        "es": "Naturaleza",
+        "pt-BR": "Natureza",
+        "de": "Natur",
+        "zh-CN": "自然",
+        "fr": "Nature",
+        "ja": "自然"
+      },
+      "hint": {
+        "ru": "Вода, свет, листва, погода, птицы",
+        "en": "Water, light, leaves, weather, birds",
+        "es": "Agua, luz, hojas, clima, aves",
+        "pt-BR": "Água, luz, folhas, clima, pássaros",
+        "de": "Wasser, Licht, Blätter, Wetter, Vögel",
+        "zh-CN": "水、光、树叶、天气、飞鸟",
+        "fr": "Eau, lumière, feuillage, météo, oiseaux",
+        "ja": "水、光、葉、天気、鳥"
+      }
+    },
+    {
+      "id": "tech",
+      "label": {
+        "ru": "Технологии и город",
+        "en": "Tech and city",
+        "es": "Tecnología y ciudad",
+        "pt-BR": "Tecnologia e cidade",
+        "de": "Technik und Stadt",
+        "zh-CN": "科技与城市",
+        "fr": "Technologie et ville",
+        "ja": "テックと都市"
+      },
+      "hint": {
+        "ru": "Сети, схемы, огни, улицы, карты",
+        "en": "Networks, circuits, lights, streets, maps",
+        "es": "Redes, circuitos, luces, calles, mapas",
+        "pt-BR": "Redes, circuitos, luzes, ruas, mapas",
+        "de": "Netzwerke, Schaltkreise, Lichter, Straßen, Karten",
+        "zh-CN": "网络、电路、灯光、街道、地图",
+        "fr": "Réseaux, circuits, lumières, rues, cartes",
+        "ja": "ネットワーク、回路、灯り、通り、地図"
+      }
+    },
+    {
+      "id": "text",
+      "label": {
+        "ru": "Текст и код",
+        "en": "Text and code",
+        "es": "Texto y código",
+        "pt-BR": "Texto e código",
+        "de": "Text und Code",
+        "zh-CN": "文字与代码",
+        "fr": "Texte et code",
+        "ja": "文字とコード"
+      },
+      "hint": {
+        "ru": "Буквы, знаки, строки кода",
+        "en": "Letters, glyphs, lines of code",
+        "es": "Letras, glifos, líneas de código",
+        "pt-BR": "Letras, glifos, linhas de código",
+        "de": "Buchstaben, Zeichen, Codezeilen",
+        "zh-CN": "字母、字形、代码行",
+        "fr": "Lettres, glyphes, lignes de code",
+        "ja": "文字、グリフ、コードの行"
+      }
+    },
+    {
+      "id": "science",
+      "label": {
+        "ru": "Наука",
+        "en": "Science",
+        "es": "Ciencia",
+        "pt-BR": "Ciência",
+        "de": "Wissenschaft",
+        "zh-CN": "科学",
+        "fr": "Science",
+        "ja": "科学"
+      },
+      "hint": {
+        "ru": "Физика, химия, рельеф, данные",
+        "en": "Physics, chemistry, terrain, data",
+        "es": "Física, química, terreno, datos",
+        "pt-BR": "Física, química, relevo, dados",
+        "de": "Physik, Chemie, Gelände, Daten",
+        "zh-CN": "物理、化学、地形、数据",
+        "fr": "Physique, chimie, relief, données",
+        "ja": "物理、化学、地形、データ"
+      }
+    },
+    {
+      "id": "material",
+      "label": {
+        "ru": "Материалы",
+        "en": "Materials",
+        "es": "Materiales",
+        "pt-BR": "Materiais",
+        "de": "Materialien",
+        "zh-CN": "材质",
+        "fr": "Matières",
+        "ja": "素材"
+      },
+      "hint": {
+        "ru": "Бумага, краска, печать, песок",
+        "en": "Paper, paint, print, sand",
+        "es": "Papel, pintura, impresión, arena",
+        "pt-BR": "Papel, tinta, impressão, areia",
+        "de": "Papier, Farbe, Druck, Sand",
+        "zh-CN": "纸张、颜料、印刷、沙子",
+        "fr": "Papier, peinture, impression, sable",
+        "ja": "紙、絵の具、印刷、砂"
+      }
+    },
+    {
+      "id": "abstract",
+      "label": {
+        "ru": "Абстракция",
+        "en": "Abstract",
+        "es": "Abstracto",
+        "pt-BR": "Abstrato",
+        "de": "Abstrakt",
+        "zh-CN": "抽象",
+        "fr": "Abstrait",
+        "ja": "抽象"
+      },
+      "hint": {
+        "ru": "Градиенты, частицы, геометрия",
+        "en": "Gradients, particles, geometry",
+        "es": "Degradados, partículas, geometría",
+        "pt-BR": "Gradientes, partículas, geometria",
+        "de": "Verläufe, Partikel, Geometrie",
+        "zh-CN": "渐变、粒子、几何",
+        "fr": "Dégradés, particules, géométrie",
+        "ja": "グラデーション、粒子、幾何学"
+      }
+    }
   ]
 }

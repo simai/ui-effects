@@ -3,7 +3,7 @@
 A web of sunlit caustics, like light through water on a bright pool floor; a soft shader on a 2D canvas.
 
 - **Russian name:** Солнечные блики
-- **Version:** 1.2.0, simai.effect 1.1.0
+- **Version:** 1.2.1, simai.effect 1.1.0
 - **Surfaces:** sign-in, hero, product
 - **Tags:** water
 - **Role:** Sunlight playing on the bottom.

@@ -20,11 +20,23 @@
       "id": "space",
       "label": {
         "ru": "Космос",
-        "en": "Space"
+        "en": "Space",
+        "es": "Espacio",
+        "pt-BR": "Espaço",
+        "de": "Weltraum",
+        "zh-CN": "太空",
+        "fr": "Espace",
+        "ja": "宇宙"
       },
       "hint": {
         "ru": "Небо, звёзды, сияние, вселенная",
-        "en": "Sky, stars, aurora, the universe"
+        "en": "Sky, stars, aurora, the universe",
+        "es": "Cielo, estrellas, aurora, el universo",
+        "pt-BR": "Céu, estrelas, aurora, o universo",
+        "de": "Himmel, Sterne, Polarlicht, Universum",
+        "zh-CN": "天空、星辰、极光、宇宙",
+        "fr": "Ciel, étoiles, aurore, univers",
+        "ja": "空、星、オーロラ、宇宙"
       },
       "count": 5
     },
@@ -32,11 +44,23 @@
       "id": "nature",
       "label": {
         "ru": "Природа",
-        "en": "Nature"
+        "en": "Nature",
+        "es": "Naturaleza",
+        "pt-BR": "Natureza",
+        "de": "Natur",
+        "zh-CN": "自然",
+        "fr": "Nature",
+        "ja": "自然"
       },
       "hint": {
         "ru": "Вода, свет, листва, погода, птицы",
-        "en": "Water, light, leaves, weather, birds"
+        "en": "Water, light, leaves, weather, birds",
+        "es": "Agua, luz, hojas, clima, aves",
+        "pt-BR": "Água, luz, folhas, clima, pássaros",
+        "de": "Wasser, Licht, Blätter, Wetter, Vögel",
+        "zh-CN": "水、光、树叶、天气、飞鸟",
+        "fr": "Eau, lumière, feuillage, météo, oiseaux",
+        "ja": "水、光、葉、天気、鳥"
       },
       "count": 8
     },
@@ -44,11 +68,23 @@
       "id": "tech",
       "label": {
         "ru": "Технологии и город",
-        "en": "Tech and city"
+        "en": "Tech and city",
+        "es": "Tecnología y ciudad",
+        "pt-BR": "Tecnologia e cidade",
+        "de": "Technik und Stadt",
+        "zh-CN": "科技与城市",
+        "fr": "Technologie et ville",
+        "ja": "テックと都市"
       },
       "hint": {
         "ru": "Сети, схемы, огни, улицы, карты",
-        "en": "Networks, circuits, lights, streets, maps"
+        "en": "Networks, circuits, lights, streets, maps",
+        "es": "Redes, circuitos, luces, calles, mapas",
+        "pt-BR": "Redes, circuitos, luzes, ruas, mapas",
+        "de": "Netzwerke, Schaltkreise, Lichter, Straßen, Karten",
+        "zh-CN": "网络、电路、灯光、街道、地图",
+        "fr": "Réseaux, circuits, lumières, rues, cartes",
+        "ja": "ネットワーク、回路、灯り、通り、地図"
       },
       "count": 8
     },
@@ -56,11 +92,23 @@
       "id": "text",
       "label": {
         "ru": "Текст и код",
-        "en": "Text and code"
+        "en": "Text and code",
+        "es": "Texto y código",
+        "pt-BR": "Texto e código",
+        "de": "Text und Code",
+        "zh-CN": "文字与代码",
+        "fr": "Texte et code",
+        "ja": "文字とコード"
       },
       "hint": {
         "ru": "Буквы, знаки, строки кода",
-        "en": "Letters, glyphs, lines of code"
+        "en": "Letters, glyphs, lines of code",
+        "es": "Letras, glifos, líneas de código",
+        "pt-BR": "Letras, glifos, linhas de código",
+        "de": "Buchstaben, Zeichen, Codezeilen",
+        "zh-CN": "字母、字形、代码行",
+        "fr": "Lettres, glyphes, lignes de code",
+        "ja": "文字、グリフ、コードの行"
       },
       "count": 4
     },
@@ -68,11 +116,23 @@
       "id": "science",
       "label": {
         "ru": "Наука",
-        "en": "Science"
+        "en": "Science",
+        "es": "Ciencia",
+        "pt-BR": "Ciência",
+        "de": "Wissenschaft",
+        "zh-CN": "科学",
+        "fr": "Science",
+        "ja": "科学"
       },
       "hint": {
         "ru": "Физика, химия, рельеф, данные",
-        "en": "Physics, chemistry, terrain, data"
+        "en": "Physics, chemistry, terrain, data",
+        "es": "Física, química, terreno, datos",
+        "pt-BR": "Física, química, relevo, dados",
+        "de": "Physik, Chemie, Gelände, Daten",
+        "zh-CN": "物理、化学、地形、数据",
+        "fr": "Physique, chimie, relief, données",
+        "ja": "物理、化学、地形、データ"
       },
       "count": 8
     },
@@ -80,11 +140,23 @@
       "id": "material",
       "label": {
         "ru": "Материалы",
-        "en": "Materials"
+        "en": "Materials",
+        "es": "Materiales",
+        "pt-BR": "Materiais",
+        "de": "Materialien",
+        "zh-CN": "材质",
+        "fr": "Matières",
+        "ja": "素材"
       },
       "hint": {
         "ru": "Бумага, краска, печать, песок",
-        "en": "Paper, paint, print, sand"
+        "en": "Paper, paint, print, sand",
+        "es": "Papel, pintura, impresión, arena",
+        "pt-BR": "Papel, tinta, impressão, areia",
+        "de": "Papier, Farbe, Druck, Sand",
+        "zh-CN": "纸张、颜料、印刷、沙子",
+        "fr": "Papier, peinture, impression, sable",
+        "ja": "紙、絵の具、印刷、砂"
       },
       "count": 8
     },
@@ -92,11 +164,23 @@
       "id": "abstract",
       "label": {
         "ru": "Абстракция",
-        "en": "Abstract"
+        "en": "Abstract",
+        "es": "Abstracto",
+        "pt-BR": "Abstrato",
+        "de": "Abstrakt",
+        "zh-CN": "抽象",
+        "fr": "Abstrait",
+        "ja": "抽象"
       },
       "hint": {
         "ru": "Градиенты, частицы, геометрия",
-        "en": "Gradients, particles, geometry"
+        "en": "Gradients, particles, geometry",
+        "es": "Degradados, partículas, geometría",
+        "pt-BR": "Gradientes, partículas, geometria",
+        "de": "Verläufe, Partikel, Geometrie",
+        "zh-CN": "渐变、粒子、几何",
+        "fr": "Dégradés, particules, géométrie",
+        "ja": "グラデーション、粒子、幾何学"
       },
       "count": 11
     }
@@ -104,18 +188,36 @@
   "effects": [
     {
       "id": "aurora-curtain",
-      "version": "1.5.1",
+      "version": "1.5.2",
       "label": {
         "ru": "Полярное сияние",
-        "en": "Aurora curtain"
+        "en": "Aurora curtain",
+        "es": "Cortina de aurora",
+        "pt-BR": "Cortina de aurora",
+        "de": "Polarlichtvorhang",
+        "zh-CN": "极光帷幕",
+        "fr": "Rideau d’aurore",
+        "ja": "オーロラのカーテン"
       },
       "description": {
         "ru": "Светящиеся занавеси полярного сияния медленно складываются над тёмным звёздным небом.",
-        "en": "Glowing aurora curtains slowly fold above a dark starry sky."
+        "en": "Glowing aurora curtains slowly fold above a dark starry sky.",
+        "es": "Cortinas de aurora brillante se pliegan lentamente sobre un cielo estrellado y oscuro.",
+        "pt-BR": "Cortinas luminosas de aurora se dobram lentamente sobre um céu estrelado e escuro.",
+        "de": "Leuchtende Polarlichtvorhänge falten sich langsam über einem dunklen Sternenhimmel.",
+        "zh-CN": "发光的极光帷幕在深色星空上缓缓折叠。",
+        "fr": "De lumineux rideaux d’aurore se plient lentement au-dessus d’un ciel étoilé sombre.",
+        "ja": "輝くオーロラのカーテンが、星空の上でゆっくりとたゆたいます。"
       },
       "role": {
         "ru": "Ночное небо со светящимися занавесями. Свечению нужна тьма, поэтому схема одна — тёмная.",
-        "en": "A night sky with glowing curtains. A glow needs darkness, so there is one scheme: dark."
+        "en": "A night sky with glowing curtains. A glow needs darkness, so there is one scheme: dark.",
+        "es": "Un cielo nocturno con cortinas luminosas. El resplandor necesita oscuridad, así que hay un solo esquema: oscuro.",
+        "pt-BR": "Um céu noturno com cortinas luminosas. O brilho precisa de escuridão, por isso há um único esquema: escuro.",
+        "de": "Ein Nachthimmel mit leuchtenden Vorhängen. Ein Leuchten braucht Dunkelheit, daher gibt es nur ein Design: dunkel.",
+        "zh-CN": "有发光帷幕的夜空。光芒需要黑暗，因此只有深色一种方案。",
+        "fr": "Un ciel nocturne aux rideaux lumineux. Une lueur a besoin d’obscurité, d’où un seul thème : sombre.",
+        "ja": "光のカーテンが揺れる夜空。輝きには闇が必要なため、スキームはダークのみです。"
       },
       "categories": [
         "space"
@@ -142,8 +244,8 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "a07c862abc3c6c80a3df95fd0c5fa7413d1a64bef369552cbd9657a29277a3d1",
-          "size": 4020
+          "sha256": "3aec51424c2b85afc243075721ebc7c5aa656eabcfa9b5d2295dbf0f58e0167b",
+          "size": 8480
         },
         {
           "path": "index.js",
@@ -157,7 +259,7 @@
         },
         {
           "path": "README.md",
-          "sha256": "bbccdbac1a411d2c71d379a67404e01f0b5536a952f1b1d7b321943be5f7511c",
+          "sha256": "dbb59b3659738d504f06e38eb6c4be75d05206bac4fd6ded9e6252fdae1cdb4c",
           "size": 1819
         }
       ],
@@ -170,18 +272,36 @@
     },
     {
       "id": "star-flight",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "label": {
         "ru": "Звёздный полёт",
-        "en": "Star flight"
+        "en": "Star flight",
+        "es": "Vuelo estelar",
+        "pt-BR": "Voo estelar",
+        "de": "Sternenflug",
+        "zh-CN": "星际航行",
+        "fr": "Vol stellaire",
+        "ja": "星間飛行"
       },
       "description": {
         "ru": "Медленный полёт сквозь звёзды и туманности.",
-        "en": "A slow flight through stars and nebulae."
+        "en": "A slow flight through stars and nebulae.",
+        "es": "Un vuelo lento entre estrellas y nebulosas.",
+        "pt-BR": "Um voo lento entre estrelas e nebulosas.",
+        "de": "Ein langsamer Flug durch Sterne und Nebel.",
+        "zh-CN": "缓缓穿越群星与星云的飞行。",
+        "fr": "Un lent voyage parmi les étoiles et les nébuleuses.",
+        "ja": "星々と星雲の中をゆっくり進む旅。"
       },
       "role": {
         "ru": "Глубокий космос: звёзды пролетают мимо, газ туманностей светится. Только тёмная схема.",
-        "en": "Deep space: stars fly past, nebula gas glows. Dark scheme only."
+        "en": "Deep space: stars fly past, nebula gas glows. Dark scheme only.",
+        "es": "Espacio profundo: las estrellas pasan volando y el gas de las nebulosas brilla. Solo esquema oscuro.",
+        "pt-BR": "Espaço profundo: estrelas passam voando, o gás das nebulosas brilha. Apenas no esquema escuro.",
+        "de": "Tiefer Weltraum: Sterne ziehen vorbei, Nebelgas leuchtet. Nur dunkles Design.",
+        "zh-CN": "深空：群星掠过，星云气体发光。仅限深色方案。",
+        "fr": "L’espace profond : les étoiles filent, le gaz des nébuleuses rougeoie. Thème sombre uniquement.",
+        "ja": "深宇宙：星が流れ、星雲のガスが光ります。ダークスキームのみ。"
       },
       "categories": [
         "space"
@@ -209,8 +329,8 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "e617df5d1198e601204d0be3b26d51d1018453bac3bb994137eaec38ceb46bd9",
-          "size": 1815
+          "sha256": "720e13cc982e9be9ce396d45e96b24a70c52f490a48f89bb4e3773d6fcccd0b8",
+          "size": 3708
         },
         {
           "path": "index.js",
@@ -224,7 +344,7 @@
         },
         {
           "path": "README.md",
-          "sha256": "f176a9c353a42931effbaeb89be8f5e0855d81b202c65ef20c0938bd0a0a04f3",
+          "sha256": "4620a0692a7b3e66b84ca40aace7561e2f1ba38af5fd130b5c0da51103327a04",
           "size": 1437
         }
       ],
@@ -237,18 +357,36 @@
     },
     {
       "id": "text-flow",
-      "version": "3.2.1",
+      "version": "3.2.2",
       "label": {
         "ru": "Текстовый поток",
-        "en": "Text flow"
+        "en": "Text flow",
+        "es": "Flujo de texto",
+        "pt-BR": "Fluxo de texto",
+        "de": "Textfluss",
+        "zh-CN": "文字流",
+        "fr": "Flux de texte",
+        "ja": "文字の流れ"
       },
       "description": {
         "ru": "Строки кода бегут, их подсвечивают медленные складки света; цвет текста — цвет темы.",
-        "en": "Lines of code run by under slow folds of light; the text takes the theme colour."
+        "en": "Lines of code run by under slow folds of light; the text takes the theme colour.",
+        "es": "Líneas de código corren bajo lentos pliegues de luz; el texto toma el color del tema.",
+        "pt-BR": "Linhas de código correm sob lentas dobras de luz; o texto assume a cor do tema.",
+        "de": "Codezeilen ziehen unter langsamen Lichtfalten vorbei; der Text übernimmt die Farbe des Designs.",
+        "zh-CN": "代码行在缓缓流动的光褶下奔涌；文字采用主题色。",
+        "fr": "Des lignes de code défilent sous de lents plis de lumière ; le texte prend la couleur du thème.",
+        "ja": "ゆっくり折りたたまれる光の襞の下を、コードの行が流れます。テキストはテーマの色になります。"
       },
       "role": {
         "ru": "Код для продуктов для разработчиков: светлая и тёмная схемы.",
-        "en": "Code for developer products: light and dark schemes."
+        "en": "Code for developer products: light and dark schemes.",
+        "es": "Código para productos de desarrollo: esquemas claro y oscuro.",
+        "pt-BR": "Código para produtos de desenvolvedores: esquemas claro e escuro.",
+        "de": "Code für Entwicklerprodukte: helles und dunkles Design.",
+        "zh-CN": "面向开发者产品的代码背景：深浅两种方案。",
+        "fr": "Du code pour les produits de développeurs : thèmes clair et sombre.",
+        "ja": "開発者向けプロダクトのためのコード背景。ライトとダークに対応。"
       },
       "categories": [
         "text"
@@ -276,8 +414,8 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "b8ae17077c4b452b9de63a8ee132eede5c0e19c341c010f81dcc08137ff1d0b1",
-          "size": 7292
+          "sha256": "56689804429e719a382682f93fd025c8866f2e01d9a199840596202a2fadce56",
+          "size": 15926
         },
         {
           "path": "index.js",
@@ -291,7 +429,7 @@
         },
         {
           "path": "README.md",
-          "sha256": "1f4305bf44b22553eecbde8dcfe9bc836a8618048365467bac57c68558261d03",
+          "sha256": "bcf7cd49906e84f46c81dc76e1ab45e1b47b49ae03acb672d8a5f39d0d11fcfc",
           "size": 2471
         }
       ],
@@ -304,18 +442,36 @@
     },
     {
       "id": "constellation-net",
-      "version": "2.2.1",
+      "version": "2.2.2",
       "label": {
         "ru": "Созвездия",
-        "en": "Constellations"
+        "en": "Constellations",
+        "es": "Constelaciones",
+        "pt-BR": "Constelações",
+        "de": "Sternbilder",
+        "zh-CN": "星座",
+        "fr": "Constellations",
+        "ja": "星座"
       },
       "description": {
         "ru": "Звёзды в трёх слоях глубины дрейфуют и связываются тонкими линиями, как живая сеть.",
-        "en": "Stars on three depth layers drift and join with thin lines, like a living network."
+        "en": "Stars on three depth layers drift and join with thin lines, like a living network.",
+        "es": "Estrellas en tres capas de profundidad se desplazan y se unen con finas líneas, como una red viva.",
+        "pt-BR": "Estrelas em três camadas de profundidade flutuam e se ligam por linhas finas, como uma rede viva.",
+        "de": "Sterne auf drei Tiefenebenen treiben dahin und verbinden sich mit feinen Linien wie ein lebendiges Netz.",
+        "zh-CN": "三层景深的星星缓缓漂移，以细线相连，宛如一张活的网络。",
+        "fr": "Des étoiles sur trois plans de profondeur dérivent et se relient par de fins traits, comme un réseau vivant.",
+        "ja": "3つの奥行きの層で星が漂い、細い線でつながって、生きたネットワークのようになります。"
       },
       "role": {
         "ru": "Ночное звёздное небо с созвездиями. Только тёмная схема: светлое звёздное небо выглядит ошибкой.",
-        "en": "A night sky with constellations. Dark scheme only: a light starry sky looks like a mistake."
+        "en": "A night sky with constellations. Dark scheme only: a light starry sky looks like a mistake.",
+        "es": "Un cielo nocturno con constelaciones. Solo esquema oscuro: un cielo estrellado claro parece un error.",
+        "pt-BR": "Um céu noturno com constelações. Apenas no esquema escuro: um céu estrelado claro parece um erro.",
+        "de": "Ein Nachthimmel mit Sternbildern. Nur dunkles Design: Ein heller Sternenhimmel wirkt wie ein Fehler.",
+        "zh-CN": "有星座的夜空。仅限深色方案：浅色的星空看起来像出了错。",
+        "fr": "Un ciel nocturne de constellations. Thème sombre uniquement : un ciel étoilé clair ressemble à une erreur.",
+        "ja": "星座の夜空。ダークスキームのみ：明るい星空は不自然に見えるためです。"
       },
       "categories": [
         "space"
@@ -343,8 +499,8 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "8a6533a29673beaeb917f1826bbb8a498879221a0b016fa146dc992965582802",
-          "size": 3635
+          "sha256": "8799cd6351433ae3866601a8b765d256f370430b5d5d49e6b51d94ed852d1961",
+          "size": 7525
         },
         {
           "path": "index.js",
@@ -358,7 +514,7 @@
         },
         {
           "path": "README.md",
-          "sha256": "c5da5e23edec9eec353ae1337039b01efa01c54a7fb1c5c50f2af6a1d405f511",
+          "sha256": "189dc1a4bcaaf766d31a5f2b1dbccc93041da5ec96fa36218d5d2ee989ece9b7",
           "size": 1787
         }
       ],
@@ -371,18 +527,36 @@
     },
     {
       "id": "assembly",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "label": {
         "ru": "Сборка",
-        "en": "Assembly"
+        "en": "Assembly",
+        "es": "Ensamblaje",
+        "pt-BR": "Montagem",
+        "de": "Zusammensetzung",
+        "zh-CN": "拼装",
+        "fr": "Assemblage",
+        "ja": "組み立て"
       },
       "description": {
         "ru": "Точки падают сверху, соединяются линиями и собираются в кнопку или страницу, дом или ракету; фигура на миг оживает и перетекает в следующую.",
-        "en": "Dots fall from above, join with lines and build a button or a page, a house or a rocket; the shape comes alive for a moment and flows into the next."
+        "en": "Dots fall from above, join with lines and build a button or a page, a house or a rocket; the shape comes alive for a moment and flows into the next.",
+        "es": "Puntos caen desde arriba, se unen con líneas y forman un botón o una página, una casa o un cohete; la forma cobra vida un instante y fluye hacia la siguiente.",
+        "pt-BR": "Pontos caem do alto, se ligam por linhas e montam um botão ou uma página, uma casa ou um foguete; a forma ganha vida por um instante e flui para a seguinte.",
+        "de": "Punkte fallen von oben, verbinden sich zu Linien und bauen einen Button oder eine Seite, ein Haus oder eine Rakete; die Form erwacht kurz zum Leben und fließt in die nächste über.",
+        "zh-CN": "光点自上而下飘落，用线条相连，拼出按钮或页面、房子或火箭；图形短暂地活起来，随后流向下一个。",
+        "fr": "Des points tombent d’en haut, se relient par des lignes et construisent un bouton ou une page, une maison ou une fusée ; la forme prend vie un instant puis se fond dans la suivante.",
+        "ja": "上から落ちてきた点が線でつながり、ボタンやページ、家やロケットを組み上げます。形は一瞬だけ息づき、次の形へと流れていきます。"
       },
       "role": {
         "ru": "Баннер о том, как из мелких деталей собирается интерфейс: для документации и рассказа о системе компонентов. Светлая и тёмная схема.",
-        "en": "A banner about building an interface from small parts: for documentation and a component system's story. Light and dark."
+        "en": "A banner about building an interface from small parts: for documentation and a component system's story. Light and dark.",
+        "es": "Un banner sobre cómo construir una interfaz con piezas pequeñas: para documentación y para la historia de un sistema de componentes. Claro y oscuro.",
+        "pt-BR": "Um banner sobre montar uma interface a partir de pequenas peças: para documentação e para a história de um sistema de componentes. Claro e escuro.",
+        "de": "Ein Banner über den Aufbau einer Oberfläche aus kleinen Teilen: für Dokumentation und die Geschichte eines Komponentensystems. Hell und dunkel.",
+        "zh-CN": "讲述用小部件搭建界面的横幅：适用于文档和组件系统的介绍。深浅两种方案。",
+        "fr": "Une bannière sur la construction d’une interface à partir de petites pièces : pour la documentation et l’histoire d’un système de composants. Clair et sombre.",
+        "ja": "小さな部品からインターフェースを組み立てることを表すバナー。ドキュメントやコンポーネントシステムの紹介向け。ライトとダーク。"
       },
       "categories": [
         "abstract",
@@ -410,8 +584,8 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "7013a408f64ad6e333d80477c02469efe08715e1875accb1cb17be7053f627b6",
-          "size": 2677
+          "sha256": "61100e3522b997b6cfb9b38d1542eb462a9b9b09d7a3ddfe109f895c88936245",
+          "size": 5902
         },
         {
           "path": "index.js",
@@ -425,7 +599,7 @@
         },
         {
           "path": "README.md",
-          "sha256": "1cd36014a79342e6a5494ba850920e8b4e7884369a15631701c0d15adac80b98",
+          "sha256": "cb27cae57b18192a9ac9759fc97f08ed2f2954b4beb20a7d555c1b5ff6fd9e43",
           "size": 3235
         }
       ],
@@ -438,18 +612,36 @@
     },
     {
       "id": "hex-conduits",
-      "version": "1.3.1",
+      "version": "1.3.2",
       "label": {
         "ru": "Световоды",
-        "en": "Light conduits"
+        "en": "Light conduits",
+        "es": "Conductos de luz",
+        "pt-BR": "Condutos de luz",
+        "de": "Lichtleiter",
+        "zh-CN": "光导管",
+        "fr": "Conduits de lumière",
+        "ja": "光の導管"
       },
       "description": {
         "ru": "По рёбрам тёмной шестиугольной решётки бегут световые импульсы и оставляют гаснущий след.",
-        "en": "Pulses of light run along the edges of a dark hexagonal grid and leave a fading trail."
+        "en": "Pulses of light run along the edges of a dark hexagonal grid and leave a fading trail.",
+        "es": "Pulsos de luz recorren los bordes de una cuadrícula hexagonal oscura y dejan una estela que se desvanece.",
+        "pt-BR": "Pulsos de luz correm pelas bordas de uma grade hexagonal escura e deixam um rastro que se apaga.",
+        "de": "Lichtimpulse laufen an den Kanten eines dunklen Sechseckrasters entlang und hinterlassen eine verblassende Spur.",
+        "zh-CN": "光脉冲沿深色六边形网格的边缘奔跑，留下渐隐的轨迹。",
+        "fr": "Des impulsions de lumière courent le long des arêtes d’une grille hexagonale sombre et laissent une traînée qui s’estompe.",
+        "ja": "暗い六角形グリッドの縁に沿って光のパルスが走り、消えゆく軌跡を残します。"
       },
       "role": {
         "ru": "Решётка с бегущими импульсами: на тёмном — световоды, на светлом — чертёж схемы.",
-        "en": "A grid with running pulses: light guides on dark, a circuit drawing on light."
+        "en": "A grid with running pulses: light guides on dark, a circuit drawing on light.",
+        "es": "Una cuadrícula con pulsos en movimiento: guías de luz sobre oscuro, un plano de circuito sobre claro.",
+        "pt-BR": "Uma grade com pulsos em movimento: guias de luz no escuro, um desenho de circuito no claro.",
+        "de": "Ein Raster mit laufenden Impulsen: Lichtleiter auf dunklem Grund, eine Schaltplanzeichnung auf hellem.",
+        "zh-CN": "带有奔跑脉冲的网格：深色下是光导，浅色下是电路图。",
+        "fr": "Une grille parcourue d’impulsions : des guides de lumière sur fond sombre, un schéma de circuit sur fond clair.",
+        "ja": "パルスが走るグリッド：ダークでは光の導線、ライトでは回路図のように。"
       },
       "categories": [
         "tech",
@@ -478,8 +670,8 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "8dc5aa0e88502bdbf6efca2077dbd0d94712251bc2c7f101c4a473032b1c34bb",
-          "size": 3758
+          "sha256": "21728e5192d397427b052fea1626ff53b0878d76b02511ae82ef54100a5c5d78",
+          "size": 7937
         },
         {
           "path": "index.js",
@@ -493,7 +685,7 @@
         },
         {
           "path": "README.md",
-          "sha256": "1dc092f407b4278e60e62ce4ed649ee1ed06bd59b1fb99b69580c719b3f95648",
+          "sha256": "23b595111a34c82ac5f8e2454552661640d96af82c54194fe48849683353500f",
           "size": 1772
         }
       ],
@@ -506,18 +698,36 @@
     },
     {
       "id": "comet-flow",
-      "version": "1.4.1",
+      "version": "1.4.2",
       "label": {
         "ru": "Кометные потоки",
-        "en": "Comet flow"
+        "en": "Comet flow",
+        "es": "Flujo de cometas",
+        "pt-BR": "Fluxo de cometas",
+        "de": "Kometenstrom",
+        "zh-CN": "彗星流",
+        "fr": "Flux de comètes",
+        "ja": "彗星の流れ"
       },
       "description": {
         "ru": "Светящиеся частицы текут по невидимому полю течения и оставляют мягкие хвосты.",
-        "en": "Glowing particles drift along an invisible flow field and leave soft tails."
+        "en": "Glowing particles drift along an invisible flow field and leave soft tails.",
+        "es": "Partículas brillantes derivan a lo largo de un campo de flujo invisible y dejan suaves estelas.",
+        "pt-BR": "Partículas brilhantes deslizam por um campo de fluxo invisível e deixam caudas suaves.",
+        "de": "Leuchtende Partikel treiben entlang eines unsichtbaren Strömungsfelds und hinterlassen weiche Schweife.",
+        "zh-CN": "发光的粒子沿着无形的流场漂移，拖出柔和的尾迹。",
+        "fr": "Des particules lumineuses dérivent le long d’un champ de flux invisible et laissent de douces traînées.",
+        "ja": "光る粒子が見えない流れの場に沿って漂い、柔らかな尾を引きます。"
       },
       "role": {
         "ru": "Поток светящихся частиц на тёмном.",
-        "en": "A stream of glowing particles on dark."
+        "en": "A stream of glowing particles on dark.",
+        "es": "Un flujo de partículas brillantes sobre oscuro.",
+        "pt-BR": "Um fluxo de partículas brilhantes no escuro.",
+        "de": "Ein Strom leuchtender Partikel auf dunklem Grund.",
+        "zh-CN": "深色背景上的发光粒子流。",
+        "fr": "Un flot de particules lumineuses sur fond sombre.",
+        "ja": "ダークの上を流れる光る粒子の奔流。"
       },
       "categories": [
         "abstract"
@@ -544,8 +754,8 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "5bcc31d0a845e9216b7e03c13b7492a1e58056669dc860e971d8a70083fe2de8",
-          "size": 3864
+          "sha256": "89d2f83ded8e3a35f564256ef08a5c09287ec1c92fffe412009febb1b9519caa",
+          "size": 7911
         },
         {
           "path": "index.js",
@@ -559,7 +769,7 @@
         },
         {
           "path": "README.md",
-          "sha256": "da08eec29f2ed06b1f51917fd6c5f56eecfc791e77517eeae270463507317f06",
+          "sha256": "320a28a7b888d56bb0d28f428c2aea9a398b16cb490e37d29d89d33602de597e",
           "size": 1734
         }
       ],
@@ -572,18 +782,36 @@
     },
     {
       "id": "neon-horizon",
-      "version": "1.5.0",
+      "version": "1.6.0",
       "label": {
         "ru": "Неоновый горизонт",
-        "en": "Neon horizon"
+        "en": "Neon horizon",
+        "es": "Horizonte de neón",
+        "pt-BR": "Horizonte neon",
+        "de": "Neonhorizont",
+        "zh-CN": "霓虹地平线",
+        "fr": "Horizon néon",
+        "ja": "ネオンの地平線"
       },
       "description": {
         "ru": "Перспективная неоновая сетка уходит к светящемуся горизонту под редкими звёздами.",
-        "en": "A neon perspective grid runs towards a glowing horizon under a few stars."
+        "en": "A neon perspective grid runs towards a glowing horizon under a few stars.",
+        "es": "Una cuadrícula de neón en perspectiva avanza hacia un horizonte brillante bajo unas pocas estrellas.",
+        "pt-BR": "Uma grade em perspectiva neon corre em direção a um horizonte brilhante, sob algumas estrelas.",
+        "de": "Ein Neon-Perspektivraster läuft unter einigen Sternen auf einen leuchtenden Horizont zu.",
+        "zh-CN": "霓虹透视网格奔向发光的地平线，天上点缀几颗星。",
+        "fr": "Une grille néon en perspective file vers un horizon lumineux sous quelques étoiles.",
+        "ja": "いくつかの星の下、ネオンの遠近グリッドが輝く地平線へと伸びていきます。"
       },
       "role": {
         "ru": "Неоновый горизонт и сетка, уходящая в глубину.",
-        "en": "A neon horizon and a grid running into depth."
+        "en": "A neon horizon and a grid running into depth.",
+        "es": "Un horizonte de neón y una cuadrícula que se pierde en la profundidad.",
+        "pt-BR": "Um horizonte neon e uma grade que se perde na profundidade.",
+        "de": "Ein Neonhorizont und ein Raster, das in die Tiefe läuft.",
+        "zh-CN": "霓虹地平线与延伸向远方的网格。",
+        "fr": "Un horizon néon et une grille qui s’enfonce dans la profondeur.",
+        "ja": "ネオンの地平線と、奥へ伸びるグリッド。"
       },
       "categories": [
         "tech",
@@ -611,13 +839,13 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "5295283d311089781656816d31a07f67df90102fc2a3689ae741e95c48b96b38",
-          "size": 4641
+          "sha256": "34cc73e865ccb3c7407ba6b9df0c5a9eee0c817e8f5aeb82bc9ca45a48d68f83",
+          "size": 10052
         },
         {
           "path": "index.js",
-          "sha256": "47426634f2b8244d79a76fb3318a077d0a180c1dcef0155a89bad0a6cde09572",
-          "size": 23280
+          "sha256": "cef25f6847d9785ef6e1e19604f471a9661d79d339f8847bab52e07e9e6fa153",
+          "size": 24497
         },
         {
           "path": "preview.png",
@@ -626,8 +854,8 @@
         },
         {
           "path": "README.md",
-          "sha256": "106c4df498d389326b0ca0d8851d9d37b78b719871e9a02fd8350c811161f125",
-          "size": 2648
+          "sha256": "f8c6880ab29578c758dc34569c09a0713eea921bd15349da5c2339e534c7c7ab",
+          "size": 2930
         }
       ],
       "kit": {
@@ -639,18 +867,36 @@
     },
     {
       "id": "abyss-caustics",
-      "version": "1.4.1",
+      "version": "1.4.2",
       "label": {
         "ru": "Глубоководные блики",
-        "en": "Abyss caustics"
+        "en": "Abyss caustics",
+        "es": "Cáusticas del abismo",
+        "pt-BR": "Cáusticas do abismo",
+        "de": "Kaustik der Tiefe",
+        "zh-CN": "深渊焦散",
+        "fr": "Caustiques des abysses",
+        "ja": "深淵のコースティクス"
       },
       "description": {
         "ru": "Сетка подводных бликов колышется в глубокой воде, сверху падают мягкие лучи.",
-        "en": "A net of underwater light ripples sways in deep water; soft rays fall from above."
+        "en": "A net of underwater light ripples sways in deep water; soft rays fall from above.",
+        "es": "Una red de ondas de luz submarinas se mece en aguas profundas; suaves rayos caen desde arriba.",
+        "pt-BR": "Uma rede de ondulações de luz subaquáticas balança em águas profundas; raios suaves caem do alto.",
+        "de": "Ein Netz aus Unterwasser-Lichtwellen schwingt im tiefen Wasser; weiche Strahlen fallen von oben.",
+        "zh-CN": "一张水下光纹之网在深水中摇曳；柔和的光束从上方洒落。",
+        "fr": "Un réseau d’ondulations de lumière sous-marines ondoie en eau profonde ; de doux rayons tombent d’en haut.",
+        "ja": "深い水の中で水中の光の波紋の網が揺れ、柔らかな光線が上から降り注ぎます。"
       },
       "role": {
         "ru": "Блики света в глубокой воде.",
-        "en": "Light ripples in deep water."
+        "en": "Light ripples in deep water.",
+        "es": "Ondas de luz en aguas profundas.",
+        "pt-BR": "Ondulações de luz em águas profundas.",
+        "de": "Lichtwellen im tiefen Wasser.",
+        "zh-CN": "深水中的光纹涟漪。",
+        "fr": "Des ondulations de lumière en eau profonde.",
+        "ja": "深い水の中の光の波紋。"
       },
       "categories": [
         "nature"
@@ -677,8 +923,8 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "5736f353b8e6a7ee19633406279ed8257e8e4d307b4f62b0dc3ee28fca25c974",
-          "size": 3812
+          "sha256": "5f0d5f4e4b651cdd65d6b48b1513cd47dda9f23d542ed55a8d387a773887abbc",
+          "size": 7978
         },
         {
           "path": "index.js",
@@ -692,7 +938,7 @@
         },
         {
           "path": "README.md",
-          "sha256": "b423f7a12995dfe9c1098eff5f3da523105b2fc506ffcbc9f1a2b8e7b1168845",
+          "sha256": "355eba4eae3b9927f4dfa89549a1b52c311853fa2f18fe0ceb894ba35b8560d9",
           "size": 1740
         }
       ],
@@ -705,18 +951,36 @@
     },
     {
       "id": "glyph-tide",
-      "version": "2.2.1",
+      "version": "2.2.2",
       "label": {
         "ru": "Знаковый прилив",
-        "en": "Glyph tide"
+        "en": "Glyph tide",
+        "es": "Marea de glifos",
+        "pt-BR": "Maré de glifos",
+        "de": "Zeichenflut",
+        "zh-CN": "字形潮汐",
+        "fr": "Marée de glyphes",
+        "ja": "文字の潮"
       },
       "description": {
         "ru": "Поле моноширинных знаков, по которому медленно проходит волна света.",
-        "en": "A field of monospaced glyphs crossed by a slow wave of light."
+        "en": "A field of monospaced glyphs crossed by a slow wave of light.",
+        "es": "Un campo de glifos monoespaciados cruzado por una lenta ola de luz.",
+        "pt-BR": "Um campo de glifos monoespaçados atravessado por uma lenta onda de luz.",
+        "de": "Ein Feld aus Monospace-Zeichen, durchzogen von einer langsamen Lichtwelle.",
+        "zh-CN": "一片等宽字符，被缓缓掠过的光波穿过。",
+        "fr": "Un champ de glyphes à chasse fixe traversé par une lente vague de lumière.",
+        "ja": "等幅の文字が並ぶ野原を、光のゆるやかな波が横切ります。"
       },
       "role": {
         "ru": "Поле знаков с волной: на тёмном знаки загораются, на светлом — пропечатываются.",
-        "en": "A field of glyphs with a wave: on dark the glyphs light up, on light they are printed in."
+        "en": "A field of glyphs with a wave: on dark the glyphs light up, on light they are printed in.",
+        "es": "Un campo de glifos con una ola: en oscuro los glifos se encienden, en claro aparecen impresos.",
+        "pt-BR": "Um campo de glifos com uma onda: no escuro os glifos se acendem, no claro são impressos.",
+        "de": "Ein Zeichenfeld mit Welle: Auf dunklem Grund leuchten die Zeichen, auf hellem sind sie eingedruckt.",
+        "zh-CN": "带波纹的字符场：深色下字符发光，浅色下字符如印刷而成。",
+        "fr": "Un champ de glyphes avec une vague : sur fond sombre les glyphes s’allument, sur fond clair ils sont imprimés.",
+        "ja": "波が走る文字の野原：ダークでは文字が光り、ライトでは印刷されたように浮かびます。"
       },
       "categories": [
         "text"
@@ -743,8 +1007,8 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "8c4c80495f1ad4dec09e284edecd9d2523b279b7a3b72faf9b7363d00f4a2369",
-          "size": 6758
+          "sha256": "83510f6772859d04bec845b651ce59ce17dee15e26d2812638912c85d72bd808",
+          "size": 14999
         },
         {
           "path": "index.js",
@@ -758,7 +1022,7 @@
         },
         {
           "path": "README.md",
-          "sha256": "6b02142db6b86b77ca686c7d17153bb1550b4ee6d3421291b3d1314ece1574b9",
+          "sha256": "3691db26ab8bb8c8d78b06662cd02eb6b5e7d75e99875756f0a9c63e511e872b",
           "size": 2465
         }
       ],
@@ -771,18 +1035,36 @@
     },
     {
       "id": "rain-glass",
-      "version": "3.3.0",
+      "version": "3.3.1",
       "label": {
         "ru": "Дождь на стекле",
-        "en": "Rain on glass"
+        "en": "Rain on glass",
+        "es": "Lluvia en el cristal",
+        "pt-BR": "Chuva no vidro",
+        "de": "Regen auf Glas",
+        "zh-CN": "雨打玻璃",
+        "fr": "Pluie sur la vitre",
+        "ja": "ガラスの雨"
       },
       "description": {
         "ru": "Запотевшее окно дождливой ночью: за стеклом улица не в фокусе — только огни. Фонари уходят вдаль, неон меняет цвет и мигает, на перекрёстке светофор останавливает и пропускает машины, каждый огонь дрожит полосой в мокром асфальте. Капли скатываются по стеклу; протрите его пальцем — оно снова запотеет.",
-        "en": "A fogged window on a rainy night: the street outside is out of focus, only its lights remain. Street lamps run into the distance, a neon sign changes colour and flickers, a traffic light stops and releases cars at the crossing, every light trembles as a streak on the wet road. Drops roll down the glass; wipe it with a finger and it fogs again."
+        "en": "A fogged window on a rainy night: the street outside is out of focus, only its lights remain. Street lamps run into the distance, a neon sign changes colour and flickers, a traffic light stops and releases cars at the crossing, every light trembles as a streak on the wet road. Drops roll down the glass; wipe it with a finger and it fogs again.",
+        "es": "Una ventana empañada en una noche de lluvia: la calle de fuera está desenfocada y solo quedan sus luces. Las farolas se pierden a lo lejos, un letrero de neón cambia de color y parpadea, un semáforo detiene y deja pasar coches en el cruce, y cada luz tiembla como una estela sobre la calzada mojada. Las gotas resbalan por el cristal; límpielo con un dedo y se empañará de nuevo.",
+        "pt-BR": "Uma janela embaçada numa noite de chuva: a rua lá fora está desfocada, restam só as suas luzes. Postes de luz se perdem ao longe, um letreiro neon muda de cor e pisca, um semáforo para e libera os carros no cruzamento, cada luz treme como um rastro na rua molhada. Gotas escorrem pelo vidro; passe o dedo para limpá-lo e ele embaça de novo.",
+        "de": "Ein beschlagenes Fenster in einer regnerischen Nacht: Die Straße draußen ist unscharf, nur ihre Lichter bleiben. Straßenlaternen ziehen sich in die Ferne, ein Neonschild wechselt die Farbe und flackert, eine Ampel hält Autos an und lässt sie an der Kreuzung wieder fahren, jedes Licht zittert als Streifen auf der nassen Straße. Tropfen rollen über das Glas; wischen Sie mit dem Finger darüber, und es beschlägt wieder.",
+        "zh-CN": "雨夜起雾的窗：窗外的街道失焦模糊，只剩下灯光。路灯延伸向远方，霓虹招牌变换颜色并闪烁，红绿灯拦停车辆，又在路口放行，每一束光都在湿漉漉的路面上拖出颤动的光带。水珠沿玻璃滑落；用手指擦拭，它又会重新起雾。",
+        "fr": "Une vitre embuée par une nuit de pluie : la rue au-dehors est floue, seules ses lumières subsistent. Des réverbères filent au loin, une enseigne néon change de couleur et clignote, un feu de circulation arrête puis laisse passer les voitures au carrefour, chaque lumière tremble en traînée sur la chaussée mouillée. Des gouttes coulent sur la vitre ; essuyez-la du doigt et elle s’embue de nouveau.",
+        "ja": "雨の夜、曇った窓。外の通りはぼやけ、明かりだけが残ります。街灯は遠くへ連なり、ネオンサインは色を変えて明滅し、信号は交差点で車を止めては通します。どの光も濡れた路面に尾を引いて震えます。ガラスを雫が伝い、指でぬぐってもまたすぐ曇ります。"
       },
       "role": {
         "ru": "Уютный вечер за окном. Только тёмная схема.",
-        "en": "A cosy evening behind the window. Dark scheme only."
+        "en": "A cosy evening behind the window. Dark scheme only.",
+        "es": "Una acogedora noche tras la ventana. Solo esquema oscuro.",
+        "pt-BR": "Uma noite aconchegante atrás da janela. Apenas no esquema escuro.",
+        "de": "Ein gemütlicher Abend hinter dem Fenster. Nur dunkles Design.",
+        "zh-CN": "窗后温馨的夜晚。仅限深色方案。",
+        "fr": "Une soirée douillette derrière la fenêtre. Thème sombre uniquement.",
+        "ja": "窓の外に広がる、居心地のよい夜。ダークスキームのみ。"
       },
       "categories": [
         "nature",
@@ -810,8 +1092,8 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "6bbbc8332760f95d60c4d74fd3cb24cbe640cbd02762320e010568a1a1cad9e5",
-          "size": 4271
+          "sha256": "1023eb89076fcfb1fed98fc13d86d04e5774bada98f6ac998c597b1b81ec94cf",
+          "size": 8842
         },
         {
           "path": "index.js",
@@ -825,7 +1107,7 @@
         },
         {
           "path": "README.md",
-          "sha256": "bec5091985e8e9a8fead3f3de025cda1f170d9f69defaa07a7f6cfc5e0643b9f",
+          "sha256": "b3a9bc6676a2dedfa33161cd0f40d2fb902ae677951d85ceedd636f2da42bcf1",
           "size": 1980
         }
       ],
@@ -838,18 +1120,36 @@
     },
     {
       "id": "mist-gradient",
-      "version": "2.1.1",
+      "version": "2.1.2",
       "label": {
         "ru": "Цветная дымка",
-        "en": "Colour haze"
+        "en": "Colour haze",
+        "es": "Bruma de color",
+        "pt-BR": "Névoa colorida",
+        "de": "Farbdunst",
+        "zh-CN": "彩色薄雾",
+        "fr": "Brume colorée",
+        "ja": "色の霞"
       },
       "description": {
         "ru": "Мягкие цветные пятна медленно перетекают друг в друга, как дымка.",
-        "en": "Soft colour patches slowly flow into each other, like haze."
+        "en": "Soft colour patches slowly flow into each other, like haze.",
+        "es": "Suaves manchas de color fluyen lentamente unas en otras, como una bruma.",
+        "pt-BR": "Manchas de cor suaves fluem lentamente umas para as outras, como uma névoa.",
+        "de": "Weiche Farbflecken fließen langsam ineinander wie Dunst.",
+        "zh-CN": "柔和的色块缓缓交融，如同薄雾。",
+        "fr": "De douces taches de couleur se fondent lentement les unes dans les autres, comme une brume.",
+        "ja": "柔らかな色の斑が、霞のようにゆっくり溶け合います。"
       },
       "role": {
         "ru": "Спокойный цветной градиент для любой темы: светлая и тёмная схемы.",
-        "en": "A calm colour gradient for any theme: light and dark schemes."
+        "en": "A calm colour gradient for any theme: light and dark schemes.",
+        "es": "Un degradado de color sereno para cualquier tema: esquemas claro y oscuro.",
+        "pt-BR": "Um gradiente de cor tranquilo para qualquer tema: esquemas claro e escuro.",
+        "de": "Ein ruhiger Farbverlauf für jedes Design: helles und dunkles Design.",
+        "zh-CN": "适用于任何主题的平静渐变：深浅两种方案。",
+        "fr": "Un dégradé de couleurs apaisant pour tous les thèmes : clair et sombre.",
+        "ja": "どのテーマにも合う穏やかなカラーグラデーション。ライトとダークに対応。"
       },
       "categories": [
         "abstract"
@@ -877,8 +1177,8 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "8dfee05698ec6c6228335a53c88400741a5c38c79a2298b65064112c4f40c3a2",
-          "size": 2726
+          "sha256": "510c39faf56aa64f0032ac74223ff5b76a77398bc82c288f3a61a19d7e11bb39",
+          "size": 5384
         },
         {
           "path": "index.js",
@@ -892,7 +1192,7 @@
         },
         {
           "path": "README.md",
-          "sha256": "5e7793a76aa9c00e30f039ae091547f10e7ff511b98ef2fa784aec5a92410122",
+          "sha256": "7828f24d99fbbed1c8df7b403c5e0317e0fab2a899765fe50d271e8fcf73e65d",
           "size": 1562
         }
       ],
@@ -905,18 +1205,36 @@
     },
     {
       "id": "daylight-caustics",
-      "version": "1.2.0",
+      "version": "1.2.1",
       "label": {
         "ru": "Солнечные блики",
-        "en": "Daylight caustics"
+        "en": "Daylight caustics",
+        "es": "Cáusticas a la luz del día",
+        "pt-BR": "Cáusticas à luz do dia",
+        "de": "Tageslicht-Kaustik",
+        "zh-CN": "日光焦散",
+        "fr": "Caustiques du jour",
+        "ja": "昼のコースティクス"
       },
       "description": {
         "ru": "Сетка солнечных бликов, как свет сквозь воду на светлом дне; мягкий «шейдер» на 2D canvas.",
-        "en": "A net of sun ripples, like light through water on a bright bottom; a soft shader on a 2D canvas."
+        "en": "A net of sun ripples, like light through water on a bright bottom; a soft shader on a 2D canvas.",
+        "es": "Una red de ondas de sol, como la luz a través del agua sobre un fondo claro; un shader suave en un canvas 2D.",
+        "pt-BR": "Uma rede de ondulações de sol, como a luz através da água sobre um fundo claro; um shader suave num canvas 2D.",
+        "de": "Ein Netz aus Sonnenwellen wie Licht durch Wasser auf hellem Grund; ein weicher Shader auf einem 2D-Canvas.",
+        "zh-CN": "一张阳光波纹之网，像光线穿过水面照在明亮的水底；2D canvas 上的柔和着色器。",
+        "fr": "Un réseau d’ondulations de soleil, comme la lumière à travers l’eau sur un fond clair ; un shader doux sur un canvas 2D.",
+        "ja": "明るい水底に差す光のような、日差しの波紋の網。2Dキャンバス上のやわらかなシェーダー。"
       },
       "role": {
         "ru": "Солнечные блики на дне.",
-        "en": "Sun ripples on the bottom."
+        "en": "Sun ripples on the bottom.",
+        "es": "Ondas de sol sobre el fondo.",
+        "pt-BR": "Ondulações de sol no fundo.",
+        "de": "Sonnenwellen auf dem Grund.",
+        "zh-CN": "水底的阳光波纹。",
+        "fr": "Des ondulations de soleil sur le fond.",
+        "ja": "水底に揺れる日差しの波紋。"
       },
       "categories": [
         "nature"
@@ -941,8 +1259,8 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "8b878df73b88eb99767bdb2cc0ec63f7e2c17d9da8010774bb49fd183b0ca226",
-          "size": 2687
+          "sha256": "fc51b4425b4cd3cd6eb8814a79eaa43e9eaf0c247c4bbf3a92a9059b20ca3c82",
+          "size": 5389
         },
         {
           "path": "index.js",
@@ -956,7 +1274,7 @@
         },
         {
           "path": "README.md",
-          "sha256": "8ffede90c36e6393aa115357e209e17b61361d15dac6e66308101910905372c0",
+          "sha256": "02df29fc9d971edd20d7af09d12f16c5536a213edd34c911b39e4a323fe18fb0",
           "size": 1453
         }
       ],
@@ -969,18 +1287,36 @@
     },
     {
       "id": "leaf-shadows",
-      "version": "2.0.0",
+      "version": "2.0.1",
       "label": {
         "ru": "Тень листвы",
-        "en": "Leaf shadows"
+        "en": "Leaf shadows",
+        "es": "Sombras de hojas",
+        "pt-BR": "Sombras de folhas",
+        "de": "Blattschatten",
+        "zh-CN": "树叶影子",
+        "fr": "Ombres de feuilles",
+        "ja": "葉の影"
       },
       "description": {
         "ru": "Тени листвы колышутся на стене: днём в солнечном свете, ночью в лунном.",
-        "en": "Shadows of leaves sway on a wall: in sunlight by day, in moonlight by night."
+        "en": "Shadows of leaves sway on a wall: in sunlight by day, in moonlight by night.",
+        "es": "Sombras de hojas se mecen sobre un muro: a la luz del sol de día, a la luz de la luna de noche.",
+        "pt-BR": "Sombras de folhas balançam numa parede: sob o sol de dia, sob o luar à noite.",
+        "de": "Blattschatten wiegen sich an einer Wand: bei Tag im Sonnenlicht, bei Nacht im Mondlicht.",
+        "zh-CN": "树叶的影子在墙上摇曳：白天在阳光下，夜晚在月光里。",
+        "fr": "Des ombres de feuilles se balancent sur un mur : au soleil le jour, au clair de lune la nuit.",
+        "ja": "壁に揺れる葉の影：昼は日差しの中、夜は月明かりの中で。"
       },
       "role": {
         "ru": "Природа и тишина: светлая и тёмная схемы.",
-        "en": "Nature and quiet: light and dark schemes."
+        "en": "Nature and quiet: light and dark schemes.",
+        "es": "Naturaleza y calma: esquemas claro y oscuro.",
+        "pt-BR": "Natureza e calma: esquemas claro e escuro.",
+        "de": "Natur und Ruhe: helles und dunkles Design.",
+        "zh-CN": "自然与宁静：深浅两种方案。",
+        "fr": "Nature et calme : thèmes clair et sombre.",
+        "ja": "自然と静けさ。ライトとダークに対応。"
       },
       "categories": [
         "nature"
@@ -1006,8 +1342,8 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "7d33275c0bc3e28d22fd8247308b60439fddc86165c051d652e7dfd86d37fdfc",
-          "size": 2046
+          "sha256": "aafe38f00ab19e53d85f1fc7b0b081f1baca7a51df5999e3efa97aef9350eab9",
+          "size": 3746
         },
         {
           "path": "index.js",
@@ -1021,7 +1357,7 @@
         },
         {
           "path": "README.md",
-          "sha256": "a29cba301b3e1b780a319492933ddbc1bfbe58b88c99fb2fcd336d67acca0b01",
+          "sha256": "fc133c2c64d0e3de54d6e3522e1ff9be4a945b84c1195bac436b218007020b24",
           "size": 1412
         }
       ],
@@ -1034,18 +1370,36 @@
     },
     {
       "id": "paper-facets",
-      "version": "1.4.0",
+      "version": "1.4.1",
       "label": {
         "ru": "Бумажные грани",
-        "en": "Paper facets"
+        "en": "Paper facets",
+        "es": "Facetas de papel",
+        "pt-BR": "Facetas de papel",
+        "de": "Papierfacetten",
+        "zh-CN": "纸面棱片",
+        "fr": "Facettes de papier",
+        "ja": "紙の面"
       },
       "description": {
         "ru": "Смятый лист из треугольных граней; свет медленно обходит его, грани неспешно переливаются, а под указателем быстрее.",
-        "en": "A crumpled sheet of triangular facets; the light slowly circles it, the facets shimmer, faster under the pointer."
+        "en": "A crumpled sheet of triangular facets; the light slowly circles it, the facets shimmer, faster under the pointer.",
+        "es": "Una hoja arrugada de facetas triangulares; la luz la rodea despacio, las facetas centellean, más rápido bajo el puntero.",
+        "pt-BR": "Uma folha amassada de facetas triangulares; a luz gira lentamente em torno dela, as facetas cintilam, mais rápido sob o ponteiro.",
+        "de": "Ein zerknittertes Blatt aus dreieckigen Facetten; das Licht umkreist es langsam, die Facetten schimmern, unter dem Zeiger schneller.",
+        "zh-CN": "一张由三角面构成的皱纸；光线缓缓绕它转动，面片闪烁，指针附近更快。",
+        "fr": "Une feuille froissée de facettes triangulaires ; la lumière tourne lentement autour, les facettes scintillent, plus vite sous le pointeur.",
+        "ja": "くしゃくしゃにした三角面の紙。光がゆっくりと周りを巡り、面がきらめき、ポインターの近くでは速まります。"
       },
       "role": {
         "ru": "Смятая бумага: светлая и тёмная схемы.",
-        "en": "Crumpled paper: light and dark schemes."
+        "en": "Crumpled paper: light and dark schemes.",
+        "es": "Papel arrugado: esquemas claro y oscuro.",
+        "pt-BR": "Papel amassado: esquemas claro e escuro.",
+        "de": "Zerknittertes Papier: helles und dunkles Design.",
+        "zh-CN": "皱纸：深浅两种方案。",
+        "fr": "Du papier froissé : thèmes clair et sombre.",
+        "ja": "くしゃくしゃの紙。ライトとダークに対応。"
       },
       "categories": [
         "material",
@@ -1073,8 +1427,8 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "31a2d320ad520ebdc0fde63f9b26cfd3817a2df7f22852478665d70defc25fe3",
-          "size": 2522
+          "sha256": "d4e890117c3bc3eaa6674b6614cf7efbac6505fa7d431bbc6f903fd1f4e675c7",
+          "size": 5063
         },
         {
           "path": "index.js",
@@ -1088,7 +1442,7 @@
         },
         {
           "path": "README.md",
-          "sha256": "aab78b41082b3a0b71aef7cb49c59f722810943a95de7dcca301c909e4349277",
+          "sha256": "e12cbbde23701e71bf7c5aa2e525eb91a2ad89406f593e77ee5b29b392dfc8f1",
           "size": 1637
         }
       ],
@@ -1101,18 +1455,36 @@
     },
     {
       "id": "contour-map",
-      "version": "1.3.1",
+      "version": "1.3.2",
       "label": {
         "ru": "Горизонтали",
-        "en": "Contour map"
+        "en": "Contour map",
+        "es": "Mapa de contornos",
+        "pt-BR": "Mapa de contornos",
+        "de": "Höhenlinienkarte",
+        "zh-CN": "等高线图",
+        "fr": "Carte de niveaux",
+        "ja": "等高線マップ"
       },
       "description": {
         "ru": "Изолинии медленно меняющегося рельефа, каждая пятая — утолщённая, как на топографической карте.",
-        "en": "Contour lines of a slowly changing relief, every fifth one thicker, as on a topographic map."
+        "en": "Contour lines of a slowly changing relief, every fifth one thicker, as on a topographic map.",
+        "es": "Curvas de nivel de un relieve que cambia despacio, una de cada cinco más gruesa, como en un mapa topográfico.",
+        "pt-BR": "Curvas de nível de um relevo que muda lentamente, uma a cada cinco mais grossa, como num mapa topográfico.",
+        "de": "Höhenlinien eines sich langsam verändernden Reliefs, jede fünfte dicker, wie auf einer topografischen Karte.",
+        "zh-CN": "缓慢变化的地势等高线，每隔五条加粗，如同地形图。",
+        "fr": "Les courbes de niveau d’un relief qui change lentement, une sur cinq plus épaisse, comme sur une carte topographique.",
+        "ja": "ゆっくり変化する地形の等高線。地形図のように5本ごとに太くなります。"
       },
       "role": {
         "ru": "Изолинии: на светлом — топографический лист, на тёмном — ночная карта.",
-        "en": "Contours: a topographic sheet on light, a night map on dark."
+        "en": "Contours: a topographic sheet on light, a night map on dark.",
+        "es": "Curvas de nivel: una hoja topográfica en claro, un mapa nocturno en oscuro.",
+        "pt-BR": "Curvas de nível: uma carta topográfica no claro, um mapa noturno no escuro.",
+        "de": "Höhenlinien: ein topografisches Blatt auf hellem Grund, eine Nachtkarte auf dunklem.",
+        "zh-CN": "等高线：浅色下是地形图，深色下是夜间地图。",
+        "fr": "Courbes de niveau : une carte topographique en clair, une carte de nuit en sombre.",
+        "ja": "等高線：ライトでは地形図、ダークでは夜の地図。"
       },
       "categories": [
         "science",
@@ -1139,8 +1511,8 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "a4bab963661076df2d64a172735345865ab7f032c4f81cfabaf9bee3c7d83d1a",
-          "size": 4326
+          "sha256": "3a975b5bcc0d20662dd6bd73f796fb21c7d29f95b31dd125aaf7ba2ac791a608",
+          "size": 9095
         },
         {
           "path": "index.js",
@@ -1154,7 +1526,7 @@
         },
         {
           "path": "README.md",
-          "sha256": "73b6a7514056697738bb157df496ab03b7a7dfef6d5e59459defe4b517bd41cf",
+          "sha256": "61768df3d1efe843ed5348f5a7f7ebba7937d85484d18dfb8b8dc8a6e2b722ed",
           "size": 1784
         }
       ],
@@ -1167,18 +1539,36 @@
     },
     {
       "id": "halftone-tide",
-      "version": "1.3.1",
+      "version": "1.3.2",
       "label": {
         "ru": "Растровая волна",
-        "en": "Halftone tide"
+        "en": "Halftone tide",
+        "es": "Marea de semitono",
+        "pt-BR": "Maré de meio-tom",
+        "de": "Rasterflut",
+        "zh-CN": "半色调潮汐",
+        "fr": "Marée de trame",
+        "ja": "ハーフトーンの潮"
       },
       "description": {
         "ru": "Полиграфический растр под 15°: точки растут и сжимаются под медленными встречными волнами.",
-        "en": "A print halftone screen at 15°: the dots grow and shrink under slow crossing waves."
+        "en": "A print halftone screen at 15°: the dots grow and shrink under slow crossing waves.",
+        "es": "Una trama de semitono de imprenta a 15°: los puntos crecen y se encogen bajo lentas olas cruzadas.",
+        "pt-BR": "Uma retícula de meio-tom de impressão a 15°: os pontos crescem e diminuem sob lentas ondas cruzadas.",
+        "de": "Ein Druckraster bei 15°: Die Punkte wachsen und schrumpfen unter langsam kreuzenden Wellen.",
+        "zh-CN": "15° 角的印刷网点：圆点在缓缓交叉的波浪下变大变小。",
+        "fr": "Une trame d’impression à 15° : les points grossissent et rétrécissent sous de lentes vagues croisées.",
+        "ja": "15°の印刷用ハーフトーンスクリーン。ゆっくり交差する波に合わせて、点が大きくなったり小さくなったりします。"
       },
       "role": {
         "ru": "Растр с волнами: на светлом — газетная печать, на тёмном — люминофорный экран.",
-        "en": "A halftone with waves: newspaper print on light, a phosphor screen on dark."
+        "en": "A halftone with waves: newspaper print on light, a phosphor screen on dark.",
+        "es": "Un semitono con olas: impresión de periódico en claro, pantalla de fósforo en oscuro.",
+        "pt-BR": "Um meio-tom com ondas: impressão de jornal no claro, tela de fósforo no escuro.",
+        "de": "Ein Halbtonraster mit Wellen: Zeitungsdruck auf hellem Grund, ein Phosphorbildschirm auf dunklem.",
+        "zh-CN": "带波浪的半色调：浅色下是报纸印刷，深色下是荧光屏。",
+        "fr": "Une trame avec des vagues : impression de journal en clair, écran phosphore en sombre.",
+        "ja": "波打つハーフトーン：ライトでは新聞印刷、ダークでは蛍光スクリーン。"
       },
       "categories": [
         "material",
@@ -1205,8 +1595,8 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "392390454c2f9e580a5b2865f7cf1a029458ca73a84e059b19af26680a7e0bb9",
-          "size": 4978
+          "sha256": "334814bf7463c926c74f67550fee46076cc11233f009870e5d93263a0db7d38a",
+          "size": 10489
         },
         {
           "path": "index.js",
@@ -1220,7 +1610,7 @@
         },
         {
           "path": "README.md",
-          "sha256": "b91765e20d9c1936216ff57f261fccf801824245f1f284696e9112157b503327",
+          "sha256": "4af4dd659cc1dae6f7aa9d3456112048b639e490be518b05b7e1170ed9616ee1",
           "size": 1875
         }
       ],
@@ -1233,18 +1623,36 @@
     },
     {
       "id": "paper-hills",
-      "version": "2.0.0",
+      "version": "2.0.1",
       "label": {
         "ru": "Бумажные холмы",
-        "en": "Paper hills"
+        "en": "Paper hills",
+        "es": "Colinas de papel",
+        "pt-BR": "Colinas de papel",
+        "de": "Papierhügel",
+        "zh-CN": "纸山",
+        "fr": "Collines de papier",
+        "ja": "紙の丘"
       },
       "description": {
         "ru": "Слои бумажных холмов уходят вдаль: днём в светлой дымке, ночью под тёмным небом.",
-        "en": "Layers of paper hills run into the distance: in a light haze by day, under a dark sky by night."
+        "en": "Layers of paper hills run into the distance: in a light haze by day, under a dark sky by night.",
+        "es": "Capas de colinas de papel se pierden a lo lejos: en una bruma clara de día, bajo un cielo oscuro de noche.",
+        "pt-BR": "Camadas de colinas de papel se perdem ao longe: numa névoa clara de dia, sob um céu escuro à noite.",
+        "de": "Schichten aus Papierhügeln reichen in die Ferne: bei Tag in hellem Dunst, bei Nacht unter dunklem Himmel.",
+        "zh-CN": "层层纸山延伸向远方：白天笼罩在淡淡薄雾中，夜晚则在深色天空下。",
+        "fr": "Des couches de collines de papier s’étendent au loin : dans une brume claire le jour, sous un ciel sombre la nuit.",
+        "ja": "紙の丘が幾重にも遠くへ連なります。昼は淡い霞の中、夜は暗い空の下で。"
       },
       "role": {
         "ru": "Глубина и простор: светлая и тёмная схемы.",
-        "en": "Depth and space: light and dark schemes."
+        "en": "Depth and space: light and dark schemes.",
+        "es": "Profundidad y espacio: esquemas claro y oscuro.",
+        "pt-BR": "Profundidade e espaço: esquemas claro e escuro.",
+        "de": "Tiefe und Raum: helles und dunkles Design.",
+        "zh-CN": "纵深与空间感：深浅两种方案。",
+        "fr": "Profondeur et espace : thèmes clair et sombre.",
+        "ja": "奥行きと広がり。ライトとダークに対応。"
       },
       "categories": [
         "material",
@@ -1272,8 +1680,8 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "2503468b92fceba69b276b6366fcac95208c6c91740ea0d45902861228c95a46",
-          "size": 1969
+          "sha256": "cb3a8d48234e8b912a55e6da71e5ce6b09d48736b4600ccd0e4db462500e7d29",
+          "size": 3555
         },
         {
           "path": "index.js",
@@ -1287,7 +1695,7 @@
         },
         {
           "path": "README.md",
-          "sha256": "284044a447cd6bbd45f4e4a3e2bab0d888e2ca1b4e01f6667db21b242bbe3130",
+          "sha256": "2efafdc97ebf069ac4e91385ad1e6fbfba9261291899735dc4c4ce0ad406ed7e",
           "size": 1411
         }
       ],
@@ -1300,18 +1708,36 @@
     },
     {
       "id": "city-lights",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "label": {
         "ru": "Огни города",
-        "en": "City lights"
+        "en": "City lights",
+        "es": "Luces de la ciudad",
+        "pt-BR": "Luzes da cidade",
+        "de": "Stadtlichter",
+        "zh-CN": "城市灯火",
+        "fr": "Lumières de la ville",
+        "ja": "街の灯り"
       },
       "description": {
         "ru": "Ночной город сверху: оранжевые улицы, тёмные дома с освещёнными крышами, парки и деревья, огни машин.",
-        "en": "A night city from above: orange streets, dark houses with lit roofs, parks and trees, car lights."
+        "en": "A night city from above: orange streets, dark houses with lit roofs, parks and trees, car lights.",
+        "es": "Una ciudad nocturna vista desde arriba: calles naranjas, casas oscuras con tejados iluminados, parques y árboles, luces de coches.",
+        "pt-BR": "Uma cidade à noite vista de cima: ruas laranja, casas escuras com telhados acesos, parques e árvores, faróis de carros.",
+        "de": "Eine Stadt bei Nacht von oben: orangefarbene Straßen, dunkle Häuser mit beleuchteten Dächern, Parks und Bäume, Autoscheinwerfer.",
+        "zh-CN": "俯瞰夜城：橙色的街道、屋顶亮灯的深色房屋、公园与树木、车灯。",
+        "fr": "Une ville de nuit vue d’en haut : rues orange, maisons sombres aux toits éclairés, parcs et arbres, feux de voitures.",
+        "ja": "上空から見た夜の街：オレンジ色の通り、屋根に灯りのともる暗い家々、公園と木々、車のライト。"
       },
       "role": {
         "ru": "Ночной город с высоты. Только тёмная схема.",
-        "en": "A night city from above. Dark scheme only."
+        "en": "A night city from above. Dark scheme only.",
+        "es": "Una ciudad nocturna vista desde arriba. Solo esquema oscuro.",
+        "pt-BR": "Uma cidade à noite vista de cima. Apenas no esquema escuro.",
+        "de": "Eine Stadt bei Nacht von oben. Nur dunkles Design.",
+        "zh-CN": "俯瞰夜城。仅限深色方案。",
+        "fr": "Une ville de nuit vue d’en haut. Thème sombre uniquement.",
+        "ja": "上空から見た夜の街。ダークスキームのみ。"
       },
       "categories": [
         "tech"
@@ -1338,8 +1764,8 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "83aefdd039ef3789de6bb2abec3e64e531b87d81f58d28c8314d786919708ed6",
-          "size": 1169
+          "sha256": "8d43170c397881eff24c845bb6b14ae878d06576f652c17d27fc125bb1c98200",
+          "size": 1841
         },
         {
           "path": "index.js",
@@ -1353,7 +1779,7 @@
         },
         {
           "path": "README.md",
-          "sha256": "d9388e77657134b415754c602491417de98665db1d41822d13560bdd26f88f29",
+          "sha256": "1b32979d3050f5159cd500c944f8286017cc3a75cfbb5e82e57f1e678dfa73d7",
           "size": 1172
         }
       ],
@@ -1366,18 +1792,36 @@
     },
     {
       "id": "watercolor",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "label": {
         "ru": "Акварель",
-        "en": "Watercolour"
+        "en": "Watercolour",
+        "es": "Acuarela",
+        "pt-BR": "Aquarela",
+        "de": "Aquarell",
+        "zh-CN": "水彩",
+        "fr": "Aquarelle",
+        "ja": "水彩"
       },
       "description": {
         "ru": "Капли краски касаются мокрой бумаги и расползаются пятнами с неровным краем.",
-        "en": "Drops of paint touch wet paper and spread into patches with a ragged edge."
+        "en": "Drops of paint touch wet paper and spread into patches with a ragged edge.",
+        "es": "Gotas de pintura tocan el papel mojado y se extienden en manchas de borde irregular.",
+        "pt-BR": "Gotas de tinta tocam o papel molhado e se espalham em manchas de borda irregular.",
+        "de": "Farbtropfen berühren nasses Papier und breiten sich zu Flecken mit ausgefranstem Rand aus.",
+        "zh-CN": "颜料滴落在湿润的纸上，晕开成边缘参差的色斑。",
+        "fr": "Des gouttes de peinture touchent le papier mouillé et s’étalent en taches aux bords irréguliers.",
+        "ja": "絵の具の滴が濡れた紙に触れ、にじんで縁のぎざぎざな斑になります。"
       },
       "role": {
         "ru": "Живая акварель. Только светлая схема.",
-        "en": "Living watercolour. Light scheme only."
+        "en": "Living watercolour. Light scheme only.",
+        "es": "Acuarela viva. Solo esquema claro.",
+        "pt-BR": "Aquarela viva. Apenas no esquema claro.",
+        "de": "Lebendiges Aquarell. Nur helles Design.",
+        "zh-CN": "灵动的水彩。仅限浅色方案。",
+        "fr": "Une aquarelle vivante. Thème clair uniquement.",
+        "ja": "生きた水彩。ライトスキームのみ。"
       },
       "categories": [
         "material"
@@ -1404,8 +1848,8 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "1f12815e3c9ef7b1da7179121bdb871de947eb27520025c145fe43a50d186c7d",
-          "size": 1584
+          "sha256": "82d54d837069cd3f40ed4658f6f926125d7d7130aa608653bdd67861dc2d8542",
+          "size": 2996
         },
         {
           "path": "index.js",
@@ -1419,7 +1863,7 @@
         },
         {
           "path": "README.md",
-          "sha256": "cb1613fbf5f4d445a1f5cdedb5ec13d719333c5d1c9ac0bcd54b46cc9958d8fc",
+          "sha256": "e05ca34e385dd619a73854a985ec1daaed678044b9ea33970c7984c58680dea3",
           "size": 1240
         }
       ],
@@ -1432,18 +1876,36 @@
     },
     {
       "id": "fabric-grid",
-      "version": "0.4.0",
+      "version": "0.4.1",
       "label": {
         "ru": "Ткань пространства-времени",
-        "en": "Spacetime fabric"
+        "en": "Spacetime fabric",
+        "es": "Tejido del espacio-tiempo",
+        "pt-BR": "Tecido do espaço-tempo",
+        "de": "Raumzeitgewebe",
+        "zh-CN": "时空织物",
+        "fr": "Tissu de l’espace-temps",
+        "ja": "時空の織物"
       },
       "description": {
         "ru": "По сетке пространства-времени расходятся гравитационные волны; клик пускает свою.",
-        "en": "Gravitational waves spread across a space-time grid; a click sends one of your own."
+        "en": "Gravitational waves spread across a space-time grid; a click sends one of your own.",
+        "es": "Ondas gravitacionales se propagan por una cuadrícula de espacio-tiempo; un clic envía una propia.",
+        "pt-BR": "Ondas gravitacionais se espalham por uma grade de espaço-tempo; um clique envia uma onda sua.",
+        "de": "Gravitationswellen breiten sich über ein Raumzeit-Raster aus; ein Klick sendet eine eigene.",
+        "zh-CN": "引力波在时空网格上扩散；点击一下，便发出你自己的一道。",
+        "fr": "Des ondes gravitationnelles se propagent sur une grille d’espace-temps ; un clic en envoie une de votre cru.",
+        "ja": "重力波が時空のグリッドを伝わります。クリックすると自分の波を送れます。"
       },
       "role": {
         "ru": "Наука и глубина: светлая и тёмная схемы.",
-        "en": "Science and depth: light and dark schemes."
+        "en": "Science and depth: light and dark schemes.",
+        "es": "Ciencia y profundidad: esquemas claro y oscuro.",
+        "pt-BR": "Ciência e profundidade: esquemas claro e escuro.",
+        "de": "Wissenschaft und Tiefe: helles und dunkles Design.",
+        "zh-CN": "科学与纵深：深浅两种方案。",
+        "fr": "Science et profondeur : thèmes clair et sombre.",
+        "ja": "科学と奥行き。ライトとダークに対応。"
       },
       "categories": [
         "science",
@@ -1472,8 +1934,8 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "910607ff231fd9871814f7e6b7daee76a7c72258cd499fc9c37924dd0814a832",
-          "size": 6090
+          "sha256": "3a3d8d5deeba077118fdfb29dc896b45225ddc8fe8ebb88cd0287460a0f6695c",
+          "size": 14777
         },
         {
           "path": "index.js",
@@ -1487,7 +1949,7 @@
         },
         {
           "path": "README.md",
-          "sha256": "d106c5b3cc36895f73c5bd1bc5ea6558b914f95a5f8d016ee000e359937c2ab4",
+          "sha256": "a53bae4ab043248d48fb93dd991da5f387f27ee5a27fd59e11952fa38b1e1ca0",
           "size": 4878
         }
       ],
@@ -1500,18 +1962,36 @@
     },
     {
       "id": "ripples",
-      "version": "0.3.1",
+      "version": "0.3.2",
       "label": {
         "ru": "Круги на воде",
-        "en": "Ripples"
+        "en": "Ripples",
+        "es": "Ondas",
+        "pt-BR": "Ondulações",
+        "de": "Wellen",
+        "zh-CN": "涟漪",
+        "fr": "Ondulations",
+        "ja": "波紋"
       },
       "description": {
         "ru": "От редких капель расходятся круги по спокойной воде.",
-        "en": "Rings spread across calm water from rare drops."
+        "en": "Rings spread across calm water from rare drops.",
+        "es": "Anillos que se extienden sobre agua en calma a partir de gotas poco frecuentes.",
+        "pt-BR": "Anéis se espalham pela água calma a partir de gotas raras.",
+        "de": "Ringe breiten sich von seltenen Tropfen über ruhiges Wasser aus.",
+        "zh-CN": "偶尔落下的水滴，在平静的水面上漾开圆环。",
+        "fr": "Des anneaux se propagent sur une eau calme à partir de rares gouttes.",
+        "ja": "ときおり落ちる雫から、静かな水面に輪が広がります。"
       },
       "role": {
         "ru": "Спокойная вода: светлая или тёмная.",
-        "en": "Calm water: light or dark."
+        "en": "Calm water: light or dark.",
+        "es": "Agua en calma: clara u oscura.",
+        "pt-BR": "Água calma: clara ou escura.",
+        "de": "Ruhiges Wasser: hell oder dunkel.",
+        "zh-CN": "平静的水面：浅色或深色。",
+        "fr": "Une eau calme : claire ou sombre.",
+        "ja": "静かな水面。ライトでもダークでも。"
       },
       "categories": [
         "nature"
@@ -1539,8 +2019,8 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "3fd6d2edec8eea909792fb369a9d3e8c27a4f327d0f8c5528d18c9a2a95ea40e",
-          "size": 3256
+          "sha256": "830ee98f46b7494c238576875153ad52a7fa300a40156a789ba63f78c2a84a23",
+          "size": 6522
         },
         {
           "path": "index.js",
@@ -1554,7 +2034,7 @@
         },
         {
           "path": "README.md",
-          "sha256": "31b99bcbd216e4e828106559039a0301ce5f3ac15395496b68d8f1dd5d59ee1f",
+          "sha256": "2bf2f0ec829b52581852fa303d16d5a8fb530fd27b72eac1384e8987df5651a2",
           "size": 1453
         }
       ],
@@ -1567,18 +2047,36 @@
     },
     {
       "id": "blueprint",
-      "version": "0.3.1",
+      "version": "0.3.2",
       "label": {
         "ru": "Чертёж",
-        "en": "Blueprint"
+        "en": "Blueprint",
+        "es": "Plano técnico",
+        "pt-BR": "Planta azul",
+        "de": "Blaupause",
+        "zh-CN": "蓝图",
+        "fr": "Plan bleu",
+        "ja": "青写真"
       },
       "description": {
         "ru": "Линии чертежа дорисовываются карандашом и стираются; можно чертить самому.",
-        "en": "Drawing lines are pencilled in and erased; you can draw too."
+        "en": "Drawing lines are pencilled in and erased; you can draw too.",
+        "es": "Líneas de dibujo se trazan a lápiz y se borran; usted también puede dibujar.",
+        "pt-BR": "Linhas de desenho são traçadas a lápis e apagadas; você também pode desenhar.",
+        "de": "Zeichenlinien werden mit Bleistift gezogen und wieder gelöscht; Sie können auch selbst zeichnen.",
+        "zh-CN": "绘图线条被铅笔勾出，又被擦去；你也可以动手画。",
+        "fr": "Des lignes de dessin sont crayonnées puis effacées ; vous pouvez dessiner aussi.",
+        "ja": "描かれる線が鉛筆で引かれては消えていきます。自分で描くこともできます。"
       },
       "role": {
         "ru": "Инженерный фон: синька на тёмном, графит на светлом.",
-        "en": "An engineering background: blueprint on dark, graphite on light."
+        "en": "An engineering background: blueprint on dark, graphite on light.",
+        "es": "Un fondo de ingeniería: plano azul en oscuro, grafito en claro.",
+        "pt-BR": "Um fundo de engenharia: planta azul no escuro, grafite no claro.",
+        "de": "Ein technischer Hintergrund: Blaupause auf dunklem Grund, Graphit auf hellem.",
+        "zh-CN": "工程风背景：深色下是蓝图，浅色下是石墨。",
+        "fr": "Un arrière-plan d’ingénieur : plan bleu en sombre, graphite en clair.",
+        "ja": "設計図の背景：ダークでは青写真、ライトではグラファイト。"
       },
       "categories": [
         "tech",
@@ -1607,8 +2105,8 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "7245cafa24c4f0b43b5bd3e3fc84cec9c9dd3260725769b7fb0e2a5f641ace57",
-          "size": 3720
+          "sha256": "f591b64fa355b1dff039ec0cc94b52f4c7aae0e19ee01de60054954b78794175",
+          "size": 7906
         },
         {
           "path": "index.js",
@@ -1622,7 +2120,7 @@
         },
         {
           "path": "README.md",
-          "sha256": "8c26734834f272d30ded137b825777b191b86dd4244fab29df658442293d312e",
+          "sha256": "dd183a30f1f8548ecf498f3ca1e7fe652d8b90a47a2c202f583eb760fa918a90",
           "size": 1640
         }
       ],
@@ -1635,18 +2133,36 @@
     },
     {
       "id": "particle-shapes",
-      "version": "0.3.1",
+      "version": "0.3.2",
       "label": {
         "ru": "Узор частиц",
-        "en": "Particle text"
+        "en": "Particle text",
+        "es": "Texto de partículas",
+        "pt-BR": "Texto de partículas",
+        "de": "Partikeltext",
+        "zh-CN": "粒子文字",
+        "fr": "Texte en particules",
+        "ja": "粒子のテキスト"
       },
       "description": {
         "ru": "Частицы в броуновском движении то складываются в надпись, то рассыпаются в газ.",
-        "en": "Particles in Brownian motion gather into a word, then scatter into gas."
+        "en": "Particles in Brownian motion gather into a word, then scatter into gas.",
+        "es": "Partículas en movimiento browniano se reúnen en una palabra y luego se dispersan como un gas.",
+        "pt-BR": "Partículas em movimento browniano se reúnem numa palavra e depois se dispersam como gás.",
+        "de": "Partikel in Brownscher Bewegung formen sich zu einem Wort und zerstreuen sich dann wie Gas.",
+        "zh-CN": "粒子作布朗运动，聚成一个词，再散成气体。",
+        "fr": "Des particules en mouvement brownien se rassemblent en un mot, puis se dispersent en gaz.",
+        "ja": "ブラウン運動をする粒子が集まって文字になり、やがて気体のように散らばります。"
       },
       "role": {
         "ru": "Фон с надписью продукта: светлый или тёмный.",
-        "en": "A background with the product name: light or dark."
+        "en": "A background with the product name: light or dark.",
+        "es": "Un fondo con el nombre del producto: claro u oscuro.",
+        "pt-BR": "Um fundo com o nome do produto: claro ou escuro.",
+        "de": "Ein Hintergrund mit dem Produktnamen: hell oder dunkel.",
+        "zh-CN": "带有产品名称的背景：浅色或深色。",
+        "fr": "Un arrière-plan avec le nom du produit : clair ou sombre.",
+        "ja": "プロダクト名を掲げる背景。ライトでもダークでも。"
       },
       "categories": [
         "text",
@@ -1675,8 +2191,8 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "572cc101ddafd5ff2a97fffb3cf3e51f8848ba378219813dbf941ec4a8c0d04b",
-          "size": 5181
+          "sha256": "84182f39be972c73e5b260423292ab1d61b6d80c39cf8c4f0a60ca3d15c2906c",
+          "size": 11141
         },
         {
           "path": "index.js",
@@ -1690,7 +2206,7 @@
         },
         {
           "path": "README.md",
-          "sha256": "7a41ea5ea7ebe7ed7232759c90b1b3988e1da74735183653e4654ceb81a7d712",
+          "sha256": "426877e52ab5d16ccd591f73300fde565d683e02131b5c66430b432384f3a44b",
           "size": 1889
         }
       ],
@@ -1703,18 +2219,36 @@
     },
     {
       "id": "world-routes",
-      "version": "0.3.1",
+      "version": "0.3.2",
       "label": {
         "ru": "Маршруты мира",
-        "en": "World routes"
+        "en": "World routes",
+        "es": "Rutas del mundo",
+        "pt-BR": "Rotas mundiais",
+        "de": "Weltrouten",
+        "zh-CN": "世界航线",
+        "fr": "Routes du monde",
+        "ja": "世界の航路"
       },
       "description": {
         "ru": "Точечная карта мира; между столицами летят сигналы или самолёты.",
-        "en": "A dotted world map; signals or planes fly between capitals."
+        "en": "A dotted world map; signals or planes fly between capitals.",
+        "es": "Un mapamundi de puntos; señales o aviones vuelan entre capitales.",
+        "pt-BR": "Um mapa-múndi de pontos; sinais ou aviões voam entre capitais.",
+        "de": "Eine gepunktete Weltkarte; Signale oder Flugzeuge fliegen zwischen Hauptstädten.",
+        "zh-CN": "点阵世界地图；信号或飞机在各国首都之间飞行。",
+        "fr": "Une carte du monde en points ; des signaux ou des avions volent entre les capitales.",
+        "ja": "ドットで描いた世界地図。首都のあいだを信号や飛行機が行き交います。"
       },
       "role": {
         "ru": "Сеть, логистика, путешествия. Только тёмная схема.",
-        "en": "Networks, logistics, travel. Dark scheme only."
+        "en": "Networks, logistics, travel. Dark scheme only.",
+        "es": "Redes, logística, viajes. Solo esquema oscuro.",
+        "pt-BR": "Redes, logística, viagens. Apenas no esquema escuro.",
+        "de": "Netzwerke, Logistik, Reisen. Nur dunkles Design.",
+        "zh-CN": "网络、物流、出行。仅限深色方案。",
+        "fr": "Réseaux, logistique, voyage. Thème sombre uniquement.",
+        "ja": "ネットワーク、物流、旅。ダークスキームのみ。"
       },
       "categories": [
         "tech",
@@ -1742,8 +2276,8 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "53dfefdf361b010af7adb8e9ab7b8d17caca69b608fd69d097732e2ed0045746",
-          "size": 4268
+          "sha256": "171a9ce6ba54164c38353f0fc6fdad2d839129989a251031309200e76c8be135",
+          "size": 9099
         },
         {
           "path": "index.js",
@@ -1757,7 +2291,7 @@
         },
         {
           "path": "README.md",
-          "sha256": "66e06c2df70572cf25252a812ea3d1cdc87482bf32f9bdb85d35a075e57c792b",
+          "sha256": "c6434ed2870f873610566c12388fae4cefb1368e6a025bcecaddbce1ab895422",
           "size": 1687
         }
       ],
@@ -1770,18 +2304,36 @@
     },
     {
       "id": "sand-picture",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "label": {
         "ru": "Песочная картина",
-        "en": "Sand picture"
+        "en": "Sand picture",
+        "es": "Imagen de arena",
+        "pt-BR": "Imagem de areia",
+        "de": "Sandbild",
+        "zh-CN": "沙画",
+        "fr": "Image de sable",
+        "ja": "砂の絵"
       },
       "description": {
         "ru": "Песок сыплется сверху струйками и ложится плавными барханами в два цвета темы; картина медленно оседает, и пейзаж всё время новый.",
-        "en": "Sand pours from above in thin streams and settles into smooth dunes; the picture slowly sinks, and the landscape is always new."
+        "en": "Sand pours from above in thin streams and settles into smooth dunes; the picture slowly sinks, and the landscape is always new.",
+        "es": "La arena cae desde arriba en finos hilos y se asienta en suaves dunas; la imagen se hunde despacio y el paisaje siempre es nuevo.",
+        "pt-BR": "Areia cai do alto em filetes finos e se assenta em dunas suaves; a imagem afunda lentamente, e a paisagem é sempre nova.",
+        "de": "Sand rieselt in dünnen Strömen von oben und setzt sich zu sanften Dünen ab; das Bild sinkt langsam, und die Landschaft ist immer neu.",
+        "zh-CN": "细细的沙流自上倾泻，堆成平滑的沙丘；画面缓缓下沉，风景总是新的。",
+        "fr": "Le sable tombe d’en haut en minces filets et se dépose en dunes lisses ; l’image s’enfonce lentement et le paysage est toujours nouveau.",
+        "ja": "砂が細い流れで上から降り注ぎ、なめらかな砂丘に積もります。絵はゆっくり沈み、景色は常に新しくなります。"
       },
       "role": {
         "ru": "Спокойный рукотворный фон: светлая и тёмная схемы.",
-        "en": "A calm hand-made background: light and dark schemes."
+        "en": "A calm hand-made background: light and dark schemes.",
+        "es": "Un fondo sereno hecho a mano: esquemas claro y oscuro.",
+        "pt-BR": "Um fundo calmo e artesanal: esquemas claro e escuro.",
+        "de": "Ein ruhiger, handgemachter Hintergrund: helles und dunkles Design.",
+        "zh-CN": "平静的手作质感背景：深浅两种方案。",
+        "fr": "Un arrière-plan artisanal et apaisant : thèmes clair et sombre.",
+        "ja": "手作りの穏やかな背景。ライトとダークに対応。"
       },
       "categories": [
         "material",
@@ -1810,8 +2362,8 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "151527dbc83ef3a32242a0c8c6f90d73ad670952d539ac10a1d488595afbb766",
-          "size": 2378
+          "sha256": "54cf77e0f1a54d4aec1afbcb4d659dfb7854b713c4b89165b7a09e61018002d8",
+          "size": 4615
         },
         {
           "path": "index.js",
@@ -1825,7 +2377,7 @@
         },
         {
           "path": "README.md",
-          "sha256": "48c46fd2befa7bc2325a956b2f9386600c9be46c6f14f29630ac41c7c9a8e457",
+          "sha256": "c3acaf2974923ed06a7e18fe685466cd930c702b7e92209e598a6a77189786d0",
           "size": 1464
         }
       ],
@@ -1838,18 +2390,36 @@
     },
     {
       "id": "confetti",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "label": {
         "ru": "Конфетти",
-        "en": "Confetti"
+        "en": "Confetti",
+        "es": "Confeti",
+        "pt-BR": "Confete",
+        "de": "Konfetti",
+        "zh-CN": "彩纸",
+        "fr": "Confettis",
+        "ja": "紙吹雪"
       },
       "description": {
         "ru": "Цветные бумажки из хлопушки падают сверху и кувыркаются в воздухе; нажатие стреляет хлопушкой вверх.",
-        "en": "Paper confetti from a party popper falls and tumbles in the air; a press fires the popper upwards."
+        "en": "Paper confetti from a party popper falls and tumbles in the air; a press fires the popper upwards.",
+        "es": "Confeti de papel de un cañón de fiesta cae y gira en el aire; una pulsación dispara el cañón hacia arriba.",
+        "pt-BR": "Confete de papel de um estalinho cai e rodopia no ar; um toque dispara o estalinho para cima.",
+        "de": "Papierkonfetti aus einer Konfettikanone fällt und wirbelt durch die Luft; ein Druck feuert die Kanone nach oben ab.",
+        "zh-CN": "礼花筒喷出的彩纸在空中飘落翻飞；按下鼠标，礼花筒向上发射。",
+        "fr": "Des confettis de papier d’un cotillon retombent en tournoyant dans l’air ; un appui tire le cotillon vers le haut.",
+        "ja": "クラッカーから出た紙吹雪が、空中で舞いながら落ちてきます。押すとクラッカーが真上に発射されます。"
       },
       "role": {
         "ru": "Праздник, поздравление, успех: светлая и тёмная схемы.",
-        "en": "Celebration, congratulation, success: light and dark schemes."
+        "en": "Celebration, congratulation, success: light and dark schemes.",
+        "es": "Celebración, felicitación, éxito: esquemas claro y oscuro.",
+        "pt-BR": "Celebração, parabéns, sucesso: esquemas claro e escuro.",
+        "de": "Feier, Glückwunsch, Erfolg: helles und dunkles Design.",
+        "zh-CN": "庆典、祝贺、成功：深浅两种方案。",
+        "fr": "Fête, félicitations, réussite : thèmes clair et sombre.",
+        "ja": "お祝い、祝福、成功。ライトとダークに対応。"
       },
       "categories": [
         "abstract",
@@ -1878,8 +2448,8 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "16e1e0e025f5656307cfeff3f446f896f9493d02d831dac93201fa316d92e9a1",
-          "size": 1564
+          "sha256": "0358aede0050487415cd7734ae9f94b633fe7cc4882ef03371d1210659839277",
+          "size": 2829
         },
         {
           "path": "index.js",
@@ -1893,7 +2463,7 @@
         },
         {
           "path": "README.md",
-          "sha256": "47e8a5af1454ff3476428fc850397b7557cc6bf333802c9aa7e06cbd655831d6",
+          "sha256": "91674dadcc224df5826029e23fe2149899c116cebd126b675d886bdfd1321f42",
           "size": 1311
         }
       ],
@@ -1906,18 +2476,36 @@
     },
     {
       "id": "murmuration",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "label": {
         "ru": "Мурмурация",
-        "en": "Murmuration"
+        "en": "Murmuration",
+        "es": "Murmuración",
+        "pt-BR": "Murmuração",
+        "de": "Starenschwarm",
+        "zh-CN": "椋鸟群飞",
+        "fr": "Murmuration",
+        "ja": "ムクドリの群舞"
       },
       "description": {
         "ru": "Огромная стая скворцов летит как единое целое: тянется, складывается и снова сгущается.",
-        "en": "A huge flock of starlings flies as one: it stretches, folds and thickens again."
+        "en": "A huge flock of starlings flies as one: it stretches, folds and thickens again.",
+        "es": "Una enorme bandada de estorninos vuela como uno solo: se estira, se pliega y vuelve a condensarse.",
+        "pt-BR": "Um enorme bando de estorninhos voa como um só: estica, dobra e volta a se adensar.",
+        "de": "Ein riesiger Starenschwarm fliegt wie ein Körper: Er streckt sich, faltet sich und verdichtet sich wieder.",
+        "zh-CN": "一大群椋鸟浑然一体地飞翔：时而伸展，时而折叠，又重新聚拢。",
+        "fr": "Une immense volée d’étourneaux vole d’un seul élan : elle s’étire, se plie et se resserre de nouveau.",
+        "ja": "巨大なムクドリの群れがひとつの生き物のように飛びます。伸び、たたまれ、また密に集まります。"
       },
       "role": {
         "ru": "Живая природа, слаженность, сообщество: светлая и тёмная схемы.",
-        "en": "Living nature, harmony, community: light and dark schemes."
+        "en": "Living nature, harmony, community: light and dark schemes.",
+        "es": "Naturaleza viva, armonía, comunidad: esquemas claro y oscuro.",
+        "pt-BR": "Natureza viva, harmonia, comunidade: esquemas claro e escuro.",
+        "de": "Lebendige Natur, Harmonie, Gemeinschaft: helles und dunkles Design.",
+        "zh-CN": "生命、自然、和谐与社群：深浅两种方案。",
+        "fr": "Nature vivante, harmonie, communauté : thèmes clair et sombre.",
+        "ja": "生きた自然、調和、コミュニティ。ライトとダークに対応。"
       },
       "categories": [
         "nature"
@@ -1945,8 +2533,8 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "b93faf2e9db1e7dc6a5320aaf07906339fc90de86b0a56d14d7a46370ec32229",
-          "size": 2035
+          "sha256": "2e732aa6f3ee06a8e1ebac6072f56b7b99aa5ea32717059c9ae8f98203425eaf",
+          "size": 4070
         },
         {
           "path": "index.js",
@@ -1960,7 +2548,7 @@
         },
         {
           "path": "README.md",
-          "sha256": "a19b5bbbd70f639d0345c2f47c7aebaccfb444e948b60f2d79c89a03ed8d36af",
+          "sha256": "59df12241f2e97ac7ad6690b0f9cfb1cd5320206d305498ca73600febef09733",
           "size": 1424
         }
       ],
@@ -1973,18 +2561,36 @@
     },
     {
       "id": "chladni",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "label": {
         "ru": "Фигуры Хладни",
-        "en": "Chladni figures"
+        "en": "Chladni figures",
+        "es": "Figuras de Chladni",
+        "pt-BR": "Figuras de Chladni",
+        "de": "Chladni-Figuren",
+        "zh-CN": "克拉尼图形",
+        "fr": "Figures de Chladni",
+        "ja": "クラドニ図形"
       },
       "description": {
         "ru": "Песок на звучащей пластине собирается в линии, где она не дрожит; нота меняется — узор рассыпается и складывается в новый.",
-        "en": "Sand on a sounding plate gathers into the lines where it does not vibrate; the note changes, the pattern scatters and forms a new one."
+        "en": "Sand on a sounding plate gathers into the lines where it does not vibrate; the note changes, the pattern scatters and forms a new one.",
+        "es": "La arena sobre una placa sonora se reúne en las líneas donde no vibra; la nota cambia, el patrón se dispersa y forma otro nuevo.",
+        "pt-BR": "A areia sobre uma placa sonora se reúne nas linhas onde ela não vibra; a nota muda, o padrão se desfaz e forma outro.",
+        "de": "Sand auf einer Klangplatte sammelt sich in den Linien, an denen sie nicht schwingt; der Ton ändert sich, das Muster zerstreut sich und bildet ein neues.",
+        "zh-CN": "发声板上的沙子聚集到不振动的线条处；音调一变，图案散开，又形成新的图案。",
+        "fr": "Le sable sur une plaque sonore s’assemble le long des lignes qui ne vibrent pas ; la note change, le motif se disperse et en forme un nouveau.",
+        "ja": "鳴る板の上の砂が、振動しない線に集まります。音が変わると模様は散り、新しい模様ができます。"
       },
       "role": {
         "ru": "Из хаоса — в порядок: документация, сборка, структура. Светлая и тёмная схемы.",
-        "en": "From chaos to order: documentation, builds, structure. Light and dark schemes."
+        "en": "From chaos to order: documentation, builds, structure. Light and dark schemes.",
+        "es": "Del caos al orden: documentación, compilaciones, estructura. Esquemas claro y oscuro.",
+        "pt-BR": "Do caos à ordem: documentação, builds, estrutura. Esquemas claro e escuro.",
+        "de": "Vom Chaos zur Ordnung: Dokumentation, Builds, Struktur. Helles und dunkles Design.",
+        "zh-CN": "从混沌到有序：文档、构建、结构。深浅两种方案。",
+        "fr": "Du chaos à l’ordre : documentation, builds, structure. Thèmes clair et sombre.",
+        "ja": "混沌から秩序へ：ドキュメント、ビルド、構造。ライトとダークに対応。"
       },
       "categories": [
         "science"
@@ -2012,8 +2618,8 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "3312cc9b1eb1c079cef66569feb1845dc5da316af7a103ca86f37ac72e3c8b78",
-          "size": 2420
+          "sha256": "dc83f9a44af799ecd6d8794d97e4a9f772c119a9e2efd8ffba3e87c227b87772",
+          "size": 4787
         },
         {
           "path": "index.js",
@@ -2027,7 +2633,7 @@
         },
         {
           "path": "README.md",
-          "sha256": "e8c583680202f8869d6c9a77bc226d8dd41aea796ee96074d3ee0120915722f8",
+          "sha256": "1e7afe009f57897c889805210b6e2dabb1f8788b4774e7ab073164a4d26828ec",
           "size": 1479
         }
       ],
@@ -2040,18 +2646,36 @@
     },
     {
       "id": "bz-waves",
-      "version": "0.3.1",
+      "version": "0.3.2",
       "label": {
         "ru": "Химические волны",
-        "en": "Chemical waves"
+        "en": "Chemical waves",
+        "es": "Ondas químicas",
+        "pt-BR": "Ondas químicas",
+        "de": "Chemische Wellen",
+        "zh-CN": "化学波",
+        "fr": "Ondes chimiques",
+        "ja": "化学波"
       },
       "description": {
         "ru": "Реакция Белоусова — Жаботинского: по чашке бегут кольца и закручиваются спирали; встречные волны гасят друг друга.",
-        "en": "The Belousov–Zhabotinsky reaction: rings run across the dish and curl into spirals; meeting waves cancel each other."
+        "en": "The Belousov–Zhabotinsky reaction: rings run across the dish and curl into spirals; meeting waves cancel each other.",
+        "es": "La reacción de Belousov–Zhabotinsky: anillos recorren la placa y se enroscan en espirales; las olas que se encuentran se anulan.",
+        "pt-BR": "A reação de Belousov–Zhabotinsky: anéis correm pela placa e se enrolam em espirais; ondas que se encontram se anulam.",
+        "de": "Die Belousov-Zhabotinsky-Reaktion: Ringe laufen über die Schale und rollen sich zu Spiralen ein; aufeinandertreffende Wellen löschen einander aus.",
+        "zh-CN": "别洛索夫–扎博廷斯基反应：圆环在培养皿中扩散，卷成螺旋；相遇的波相互抵消。",
+        "fr": "La réaction de Belooussov-Jabotinski : des anneaux parcourent la boîte et s’enroulent en spirales ; les ondes qui se rencontrent s’annulent.",
+        "ja": "ベロウソフ・ジャボチンスキー反応：輪がシャーレの上を走り、渦巻きになります。出会った波は打ち消し合います。"
       },
       "role": {
         "ru": "Живой спокойный узор: светлая и тёмная схемы.",
-        "en": "A living calm pattern: light and dark schemes."
+        "en": "A living calm pattern: light and dark schemes.",
+        "es": "Un patrón vivo y sereno: esquemas claro y oscuro.",
+        "pt-BR": "Um padrão vivo e calmo: esquemas claro e escuro.",
+        "de": "Ein lebendiges, ruhiges Muster: helles und dunkles Design.",
+        "zh-CN": "生动而平静的图案：深浅两种方案。",
+        "fr": "Un motif vivant et calme : thèmes clair et sombre.",
+        "ja": "生きた穏やかな模様。ライトとダークに対応。"
       },
       "categories": [
         "science",
@@ -2080,8 +2704,8 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "5f4bc9f35b47dfbfa09454da71811b2591f291f1eaa6121027d72b5cdd4e4c15",
-          "size": 3753
+          "sha256": "aa001647affe1d5cc9045dde5624801d6df960f4e12b26a5de5ad6077605e82e",
+          "size": 7965
         },
         {
           "path": "index.js",
@@ -2095,7 +2719,7 @@
         },
         {
           "path": "README.md",
-          "sha256": "4b17defb2383f4327366fc77822ebaaf8c3fbc99e5e03c657840f92d6e19015f",
+          "sha256": "7516c2e64a4c851b884f2846a7d96f1626c3e66735b2bcab0d16a84509d3cbad",
           "size": 1715
         }
       ],
@@ -2108,18 +2732,36 @@
     },
     {
       "id": "cloud-chamber",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "label": {
         "ru": "Камера Вильсона",
-        "en": "Cloud chamber"
+        "en": "Cloud chamber",
+        "es": "Cámara de niebla",
+        "pt-BR": "Câmara de nuvens",
+        "de": "Nebelkammer",
+        "zh-CN": "云雾室",
+        "fr": "Chambre à brouillard",
+        "ja": "霧箱"
       },
       "description": {
         "ru": "Следы частиц в тумане: короткие толстые альфа-треки, длинные закрученные электроны, редкие мюоны насквозь; каждый след вспыхивает и тает.",
-        "en": "Particle tracks in mist: short thick alpha tracks, long curling electrons, rare muons straight through; each track flashes and fades."
+        "en": "Particle tracks in mist: short thick alpha tracks, long curling electrons, rare muons straight through; each track flashes and fades.",
+        "es": "Trazas de partículas en la niebla: trazas alfa cortas y gruesas, electrones largos que se enroscan, muones raros que la cruzan en línea recta; cada traza destella y se desvanece.",
+        "pt-BR": "Trilhas de partículas na névoa: trilhas alfa curtas e grossas, elétrons longos e enrolados, múons raros em linha reta; cada trilha brilha e se apaga.",
+        "de": "Teilchenspuren im Nebel: kurze, dicke Alphaspuren, lange, sich krümmende Elektronen, seltene Myonen, die gerade hindurchziehen; jede Spur blitzt auf und verblasst.",
+        "zh-CN": "云雾室中的粒子径迹：短而粗的 α 径迹、长而卷曲的电子径迹、笔直穿过的罕见 μ 子；每条径迹闪现后渐隐。",
+        "fr": "Des traces de particules dans la brume : traces alpha courtes et épaisses, longs électrons enroulés, rares muons tout droits ; chaque trace jaillit puis s’efface.",
+        "ja": "霧の中の粒子の飛跡：短くて太いアルファ線、長く曲がる電子、まれに真っ直ぐ貫くミュオン。飛跡はそれぞれ光って消えます。"
       },
       "role": {
         "ru": "Наука, точность, связи: минималистичный тёмный фон. Только тёмная схема.",
-        "en": "Science, precision, connections: a minimal dark background. Dark scheme only."
+        "en": "Science, precision, connections: a minimal dark background. Dark scheme only.",
+        "es": "Ciencia, precisión, conexiones: un fondo oscuro minimalista. Solo esquema oscuro.",
+        "pt-BR": "Ciência, precisão, conexões: um fundo escuro minimalista. Apenas no esquema escuro.",
+        "de": "Wissenschaft, Präzision, Verbindungen: ein minimalistischer dunkler Hintergrund. Nur dunkles Design.",
+        "zh-CN": "科学、精确、关联：极简的深色背景。仅限深色方案。",
+        "fr": "Science, précision, liens : un arrière-plan sombre minimaliste. Thème sombre uniquement.",
+        "ja": "科学、精密さ、つながり。ミニマルなダーク背景。ダークスキームのみ。"
       },
       "categories": [
         "science"
@@ -2146,8 +2788,8 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "86cd801b2cfd77c02ce1527d68c4e61c11fbfa956671370a217d149fabef8f04",
-          "size": 1959
+          "sha256": "30ebf9731121f7ed82b925f869f75d15fcf393e52f0f141b3b7158ea6ce47ea4",
+          "size": 3899
         },
         {
           "path": "index.js",
@@ -2161,7 +2803,7 @@
         },
         {
           "path": "README.md",
-          "sha256": "ca884d0da3fee3b0e3636ff520eb1c30f362c7b4deaad4a52ec23cf81b1c02c4",
+          "sha256": "4ca365866912d00c465325ef84776a71de5fc97aee4d4ed3df09454dab94b852",
           "size": 1463
         }
       ],
@@ -2174,18 +2816,36 @@
     },
     {
       "id": "benard-cells",
-      "version": "0.3.1",
+      "version": "0.3.2",
       "label": {
         "ru": "Ячейки Бенара",
-        "en": "Bénard cells"
+        "en": "Bénard cells",
+        "es": "Celdas de Bénard",
+        "pt-BR": "Células de Bénard",
+        "de": "Bénard-Zellen",
+        "zh-CN": "贝纳德对流胞",
+        "fr": "Cellules de Bénard",
+        "ja": "ベナール対流セル"
       },
       "description": {
         "ru": "Слой масла, подогретый снизу, складывается в живые соты: из центра каждой ячейки течёт поток к краям; ячейки дышат и перестраиваются.",
-        "en": "A layer of oil heated from below forms living cells: a flow runs from the centre of each cell to its edges; the cells breathe and rearrange."
+        "en": "A layer of oil heated from below forms living cells: a flow runs from the centre of each cell to its edges; the cells breathe and rearrange.",
+        "es": "Una capa de aceite calentada desde abajo forma celdas vivas: un flujo va del centro de cada celda a sus bordes; las celdas respiran y se reordenan.",
+        "pt-BR": "Uma camada de óleo aquecida por baixo forma células vivas: um fluxo vai do centro de cada célula até as bordas; as células respiram e se reorganizam.",
+        "de": "Eine von unten erhitzte Ölschicht bildet lebendige Zellen: Von der Mitte jeder Zelle strömt es zu den Rändern; die Zellen atmen und ordnen sich neu.",
+        "zh-CN": "自下加热的油层形成活的单元：每个单元中，液流从中心流向边缘；单元起伏呼吸，不断重组。",
+        "fr": "Une couche d’huile chauffée par le dessous forme des cellules vivantes : un courant va du centre de chaque cellule vers ses bords ; les cellules respirent et se réorganisent.",
+        "ja": "下から熱せられた油の層が、生きたセルをつくります。各セルの中心から縁へ流れが走り、セルは呼吸し、並び替わります。"
       },
       "role": {
         "ru": "Спокойный технологичный фон: светлая и тёмная схемы.",
-        "en": "A calm technological background: light and dark schemes."
+        "en": "A calm technological background: light and dark schemes.",
+        "es": "Un fondo tecnológico sereno: esquemas claro y oscuro.",
+        "pt-BR": "Um fundo tecnológico e calmo: esquemas claro e escuro.",
+        "de": "Ein ruhiger technologischer Hintergrund: helles und dunkles Design.",
+        "zh-CN": "平静的科技感背景：深浅两种方案。",
+        "fr": "Un arrière-plan technologique et calme : thèmes clair et sombre.",
+        "ja": "穏やかなテクノロジーの背景。ライトとダークに対応。"
       },
       "categories": [
         "science",
@@ -2214,8 +2874,8 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "7f391dce6a0eaf625da559033f8d79f5cfdfaee7d888cafae78b25c8e2d9cd3e",
-          "size": 3692
+          "sha256": "7cb9cd3cdacd5105bc2abb08d24f6528247af3761f835e74545a06683e867cd2",
+          "size": 7743
         },
         {
           "path": "index.js",
@@ -2229,7 +2889,7 @@
         },
         {
           "path": "README.md",
-          "sha256": "8326222fcc6f9724ffd8b85c74aec535936819bf796c57ef85208fba80721ea7",
+          "sha256": "b915ab758a998029b3c69a017aed1f3114c75d26308d5d4f7d52254ec369742a",
           "size": 1704
         }
       ],
@@ -2242,18 +2902,36 @@
     },
     {
       "id": "digital-rain",
-      "version": "0.2.1",
+      "version": "0.2.2",
       "label": {
         "ru": "Цифровой дождь",
-        "en": "Digital rain"
+        "en": "Digital rain",
+        "es": "Lluvia digital",
+        "pt-BR": "Chuva digital",
+        "de": "Digitaler Regen",
+        "zh-CN": "数字雨",
+        "fr": "Pluie numérique",
+        "ja": "デジタルレイン"
       },
       "description": {
         "ru": "Столбцы символов стекают по тёмному экрану: яркая голова с ореолом и гаснущий хвост, символы в хвосте меняются. Три глубины: дальние мелкие и медленные, ближние крупные и размытые.",
-        "en": "Columns of symbols run down a dark screen: a bright head with a halo and a fading tail whose symbols change. Three depths: far ones small and slow, near ones large and blurred."
+        "en": "Columns of symbols run down a dark screen: a bright head with a halo and a fading tail whose symbols change. Three depths: far ones small and slow, near ones large and blurred.",
+        "es": "Columnas de símbolos descienden por una pantalla oscura: una cabeza brillante con halo y una cola que se desvanece cuyos símbolos cambian. Tres profundidades: las lejanas, pequeñas y lentas; las cercanas, grandes y desenfocadas.",
+        "pt-BR": "Colunas de símbolos descem por uma tela escura: uma cabeça brilhante com halo e uma cauda que se apaga e cujos símbolos mudam. Três profundidades: as distantes pequenas e lentas, as próximas grandes e desfocadas.",
+        "de": "Symbolspalten laufen über einen dunklen Bildschirm: ein heller Kopf mit Lichthof und ein verblassender Schweif mit wechselnden Symbolen. Drei Tiefen: ferne klein und langsam, nahe groß und unscharf.",
+        "zh-CN": "符号列沿深色屏幕垂直落下：明亮的字头带光晕，尾部渐隐，符号不断变化。三种景深：远处的小而慢，近处的大而模糊。",
+        "fr": "Des colonnes de symboles défilent sur un écran sombre : une tête brillante avec un halo et une queue qui s’estompe dont les symboles changent. Trois profondeurs : les lointaines petites et lentes, les proches grandes et floues.",
+        "ja": "暗い画面を記号の列が流れ落ちます。ハロをまとった明るい先頭と、記号が入れ替わりながら消えていく尾。奥行きは3段階で、遠くは小さくゆっくり、手前は大きくぼやけます。"
       },
       "role": {
         "ru": "Технологии, данные, код. Только тёмная схема.",
-        "en": "Technology, data, code. Dark scheme only."
+        "en": "Technology, data, code. Dark scheme only.",
+        "es": "Tecnología, datos, código. Solo esquema oscuro.",
+        "pt-BR": "Tecnologia, dados, código. Apenas no esquema escuro.",
+        "de": "Technologie, Daten, Code. Nur dunkles Design.",
+        "zh-CN": "科技、数据、代码。仅限深色方案。",
+        "fr": "Technologie, données, code. Thème sombre uniquement.",
+        "ja": "テクノロジー、データ、コード。ダークスキームのみ。"
       },
       "categories": [
         "text",
@@ -2281,8 +2959,8 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "e07a2becd92fdff24c4b5f4c2a1fb2931310fcf3d121de8634ae269fb9ad2bd0",
-          "size": 7476
+          "sha256": "c34a0456dff904b7996d8fdd7cb1c91f83577e4f24b300cb485e1635bec7c58b",
+          "size": 16609
         },
         {
           "path": "index.js",
@@ -2296,7 +2974,7 @@
         },
         {
           "path": "README.md",
-          "sha256": "2eb7fc74f586d3995467152edda3d8deabb55982add0ee07c5cea9a3109bc6a9",
+          "sha256": "9141d9c95eb072470d20f2bacf327ca17fe839ea5df60d751220717624eb2720",
           "size": 2160
         }
       ],
@@ -2309,18 +2987,36 @@
     },
     {
       "id": "cosmic-web",
-      "version": "0.2.1",
+      "version": "0.2.2",
       "label": {
         "ru": "Космическая паутина",
-        "en": "Cosmic web"
+        "en": "Cosmic web",
+        "es": "Red cósmica",
+        "pt-BR": "Teia cósmica",
+        "de": "Kosmisches Netz",
+        "zh-CN": "宇宙网",
+        "fr": "Toile cosmique",
+        "ja": "宇宙の大規模構造"
       },
       "description": {
         "ru": "Тонкие резкие нити заполняют кадр вокруг тёмных пустот, медленно расходятся, сплетаются и складываются в новый рисунок.",
-        "en": "Thin sharp threads fill the frame around dark voids, slowly part, interweave and fold into a new pattern."
+        "en": "Thin sharp threads fill the frame around dark voids, slowly part, interweave and fold into a new pattern.",
+        "es": "Finos hilos nítidos llenan el encuadre alrededor de vacíos oscuros, se separan despacio, se entrelazan y se pliegan en un nuevo patrón.",
+        "pt-BR": "Fios finos e nítidos preenchem o quadro em torno de vazios escuros, se afastam lentamente, se entrelaçam e se dobram num novo padrão.",
+        "de": "Feine, scharfe Fäden füllen das Bild um dunkle Leerräume, gehen langsam auseinander, verweben sich und legen sich zu einem neuen Muster.",
+        "zh-CN": "细而锐利的丝线布满画面，围绕着深色空洞，缓缓分开、交织，折叠成新的图案。",
+        "fr": "De fins fils tranchants remplissent le cadre autour de vides sombres, s’écartent lentement, s’entrelacent et se replient en un nouveau motif.",
+        "ja": "暗い空洞を囲んで細く鋭い糸が画面を埋め、ゆっくり分かれて絡み合い、新しい模様に折りたたまれます。"
       },
       "role": {
         "ru": "Наука, данные, связи. Только тёмная схема.",
-        "en": "Science, data, connections. Dark scheme only."
+        "en": "Science, data, connections. Dark scheme only.",
+        "es": "Ciencia, datos, conexiones. Solo esquema oscuro.",
+        "pt-BR": "Ciência, dados, conexões. Apenas no esquema escuro.",
+        "de": "Wissenschaft, Daten, Verbindungen. Nur dunkles Design.",
+        "zh-CN": "科学、数据、关联。仅限深色方案。",
+        "fr": "Science, données, liens. Thème sombre uniquement.",
+        "ja": "科学、データ、つながり。ダークスキームのみ。"
       },
       "categories": [
         "space",
@@ -2348,8 +3044,8 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "4e537f41a9c98d19d45faeb12a787599665309585e439930cbbdda676ca7fd14",
-          "size": 4269
+          "sha256": "91c17bf3bbb70efabea3ec213856f3bf9d75ce2316bd92758e5d277b347f27bd",
+          "size": 9221
         },
         {
           "path": "index.js",
@@ -2363,7 +3059,7 @@
         },
         {
           "path": "README.md",
-          "sha256": "5f17326a98ce304c0002d4378e49a792b53e8cd6e6f37a71acea7bd23b71fa54",
+          "sha256": "82604e6ef4f3a53da3efc03d07ba19d900bda6a28484b7f8d731efcee5dc94b0",
           "size": 1835
         }
       ],

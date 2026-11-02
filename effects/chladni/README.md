@@ -3,7 +3,7 @@
 Sand on a singing plate gathers on the lines that stay still; the note changes, and the figure breaks up and forms a new one.
 
 - **Russian name:** Фигуры Хладни
-- **Version:** 0.1.0, simai.effect 1.1.0
+- **Version:** 0.1.1, simai.effect 1.1.0
 - **Surfaces:** hero, section, dashboard, sign-in
 - **Tags:** particles, geometry
 - **Role:** From chaos to order: documentation, builds, structure. Light and dark schemes.

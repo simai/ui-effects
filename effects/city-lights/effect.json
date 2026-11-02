@@ -2,10 +2,16 @@
   "schema": "simai.effect",
   "schema_version": 1,
   "id": "city-lights",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "label": {
     "ru": "Огни города",
-    "en": "City lights"
+    "en": "City lights",
+    "es": "Luces de la ciudad",
+    "pt-BR": "Luzes da cidade",
+    "de": "Stadtlichter",
+    "zh-CN": "城市灯火",
+    "fr": "Lumières de la ville",
+    "ja": "街の灯り"
   },
   "author": "SIMAI",
   "entry": "index.js",
@@ -28,7 +34,13 @@
       "type": "integer",
       "label": {
         "ru": "Скорость",
-        "en": "Speed"
+        "en": "Speed",
+        "es": "Velocidad",
+        "pt-BR": "Velocidade",
+        "de": "Geschwindigkeit",
+        "zh-CN": "速度",
+        "fr": "Vitesse",
+        "ja": "速度"
       },
       "default": 100,
       "min": 10,
@@ -41,7 +53,13 @@
       "type": "integer",
       "label": {
         "ru": "Яркость",
-        "en": "Intensity"
+        "en": "Intensity",
+        "es": "Intensidad",
+        "pt-BR": "Intensidade",
+        "de": "Intensität",
+        "zh-CN": "强度",
+        "fr": "Intensité",
+        "ja": "強さ"
       },
       "default": 70,
       "min": 10,
@@ -54,7 +72,13 @@
       "type": "integer",
       "label": {
         "ru": "Плотность",
-        "en": "Density"
+        "en": "Density",
+        "es": "Densidad",
+        "pt-BR": "Densidade",
+        "de": "Dichte",
+        "zh-CN": "密度",
+        "fr": "Densité",
+        "ja": "密度"
       },
       "default": 50,
       "min": 10,

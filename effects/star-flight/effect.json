@@ -2,10 +2,16 @@
   "schema": "simai.effect",
   "schema_version": 1,
   "id": "star-flight",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "label": {
     "ru": "Звёздный полёт",
-    "en": "Star flight"
+    "en": "Star flight",
+    "es": "Vuelo estelar",
+    "pt-BR": "Voo estelar",
+    "de": "Sternenflug",
+    "zh-CN": "星际航行",
+    "fr": "Vol stellaire",
+    "ja": "星間飛行"
   },
   "author": "Rim Zabarov / SIMAI",
   "entry": "index.js",
@@ -28,7 +34,13 @@
       "type": "integer",
       "label": {
         "ru": "Скорость",
-        "en": "Speed"
+        "en": "Speed",
+        "es": "Velocidad",
+        "pt-BR": "Velocidade",
+        "de": "Geschwindigkeit",
+        "zh-CN": "速度",
+        "fr": "Vitesse",
+        "ja": "速度"
       },
       "default": 100,
       "min": 10,
@@ -41,7 +53,13 @@
       "type": "integer",
       "label": {
         "ru": "Яркость",
-        "en": "Intensity"
+        "en": "Intensity",
+        "es": "Intensidad",
+        "pt-BR": "Intensidade",
+        "de": "Intensität",
+        "zh-CN": "强度",
+        "fr": "Intensité",
+        "ja": "強さ"
       },
       "default": 70,
       "min": 10,
@@ -54,7 +72,13 @@
       "type": "integer",
       "label": {
         "ru": "Туманности",
-        "en": "Nebulae"
+        "en": "Nebulae",
+        "es": "Nebulosas",
+        "pt-BR": "Nebulosas",
+        "de": "Nebel",
+        "zh-CN": "星云",
+        "fr": "Nébuleuses",
+        "ja": "星雲"
       },
       "default": 60,
       "min": 0,
@@ -63,7 +87,13 @@
       "unit": "%",
       "hint": {
         "ru": "Сколько газа видно между звёздами",
-        "en": "How much gas shows between the stars"
+        "en": "How much gas shows between the stars",
+        "es": "Cuánto gas se ve entre las estrellas",
+        "pt-BR": "Quanto gás aparece entre as estrelas",
+        "de": "Wie viel Gas zwischen den Sternen sichtbar ist",
+        "zh-CN": "群星之间显示多少气体",
+        "fr": "Quelle quantité de gaz apparaît entre les étoiles",
+        "ja": "星のあいだに見えるガスの量"
       }
     },
     {
@@ -71,12 +101,24 @@
       "type": "boolean",
       "label": {
         "ru": "Реагировать на указатель",
-        "en": "React to the pointer"
+        "en": "React to the pointer",
+        "es": "Reaccionar al puntero",
+        "pt-BR": "Reagir ao ponteiro",
+        "de": "Auf den Zeiger reagieren",
+        "zh-CN": "响应指针",
+        "fr": "Réagir au pointeur",
+        "ja": "ポインターに反応"
       },
       "default": true,
       "hint": {
         "ru": "Клик — газ на несколько секунд, удержание — разгон и варп-прыжок",
-        "en": "A click opens the throttle for a few seconds, holding accelerates into warp"
+        "en": "A click opens the throttle for a few seconds, holding accelerates into warp",
+        "es": "Un clic abre el acelerador unos segundos; mantener pulsado acelera hasta el salto warp",
+        "pt-BR": "Um clique abre o acelerador por alguns segundos, mantê-lo pressionado acelera até o warp",
+        "de": "Ein Klick gibt für einige Sekunden Gas, Gedrückthalten beschleunigt in den Warp",
+        "zh-CN": "点击会让油门全开几秒钟，按住则加速进入曲速",
+        "fr": "Un clic donne un coup d’accélérateur pendant quelques secondes, un appui prolongé accélère jusqu’à la distorsion",
+        "ja": "クリックで数秒間スロットルを開き、長押しでワープまで加速します"
       }
     }
   ],

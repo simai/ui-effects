@@ -2,10 +2,16 @@
   "schema": "simai.effect",
   "schema_version": 1,
   "id": "cosmic-web",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "label": {
     "ru": "Космическая паутина",
-    "en": "Cosmic web"
+    "en": "Cosmic web",
+    "es": "Red cósmica",
+    "pt-BR": "Teia cósmica",
+    "de": "Kosmisches Netz",
+    "zh-CN": "宇宙网",
+    "fr": "Toile cosmique",
+    "ja": "宇宙の大規模構造"
   },
   "author": "SIMAI",
   "entry": "index.js",
@@ -28,7 +34,13 @@
       "type": "integer",
       "label": {
         "ru": "Скорость",
-        "en": "Speed"
+        "en": "Speed",
+        "es": "Velocidad",
+        "pt-BR": "Velocidade",
+        "de": "Geschwindigkeit",
+        "zh-CN": "速度",
+        "fr": "Vitesse",
+        "ja": "速度"
       },
       "default": 100,
       "min": 10,
@@ -41,7 +53,13 @@
       "type": "integer",
       "label": {
         "ru": "Яркость",
-        "en": "Intensity"
+        "en": "Intensity",
+        "es": "Intensidad",
+        "pt-BR": "Intensidade",
+        "de": "Intensität",
+        "zh-CN": "强度",
+        "fr": "Intensité",
+        "ja": "強さ"
       },
       "default": 70,
       "min": 10,
@@ -54,7 +72,13 @@
       "type": "integer",
       "label": {
         "ru": "Плотность нитей",
-        "en": "Thread density"
+        "en": "Thread density",
+        "es": "Densidad de hilos",
+        "pt-BR": "Densidade dos fios",
+        "de": "Fadendichte",
+        "zh-CN": "丝线密度",
+        "fr": "Densité des fils",
+        "ja": "糸の密度"
       },
       "default": 50,
       "min": 10,
@@ -63,7 +87,13 @@
       "unit": "%",
       "hint": {
         "ru": "Сколько мелких нитей и как мало пустот",
-        "en": "How many fine threads, and how few voids"
+        "en": "How many fine threads, and how few voids",
+        "es": "Cuántos hilos finos y cuán pocos vacíos",
+        "pt-BR": "Quantos fios finos e quão poucos vazios",
+        "de": "Wie viele feine Fäden und wie wenige Leerräume",
+        "zh-CN": "细丝线的多少，以及空洞的多少",
+        "fr": "Combien de fils fins, et combien peu de vides",
+        "ja": "細い糸の数と、空洞の少なさ"
       }
     },
     {
@@ -71,7 +101,13 @@
       "type": "integer",
       "label": {
         "ru": "Масштаб",
-        "en": "Scale"
+        "en": "Scale",
+        "es": "Escala",
+        "pt-BR": "Escala",
+        "de": "Maßstab",
+        "zh-CN": "比例",
+        "fr": "Échelle",
+        "ja": "スケール"
       },
       "default": 40,
       "min": 10,
@@ -80,7 +116,13 @@
       "unit": "%",
       "hint": {
         "ru": "Мелкая или крупная сеть",
-        "en": "A fine web or a large one"
+        "en": "A fine web or a large one",
+        "es": "Una red fina o una grande",
+        "pt-BR": "Uma teia fina ou uma grande",
+        "de": "Ein feines Netz oder ein großes",
+        "zh-CN": "细密的网或疏朗的网",
+        "fr": "Une toile fine ou large",
+        "ja": "細かな網か、大きな網か"
       }
     },
     {
@@ -88,7 +130,13 @@
       "type": "choice",
       "label": {
         "ru": "Палитра",
-        "en": "Palette"
+        "en": "Palette",
+        "es": "Paleta",
+        "pt-BR": "Paleta",
+        "de": "Palette",
+        "zh-CN": "配色",
+        "fr": "Palette",
+        "ja": "パレット"
       },
       "default": "turquoise",
       "options": [
@@ -96,70 +144,130 @@
           "value": "turquoise",
           "label": {
             "ru": "Бирюзовая",
-            "en": "Turquoise"
+            "en": "Turquoise",
+            "es": "Turquesa",
+            "pt-BR": "Turquesa",
+            "de": "Türkis",
+            "zh-CN": "青绿",
+            "fr": "Turquoise",
+            "ja": "ターコイズ"
           }
         },
         {
           "value": "ocean",
           "label": {
             "ru": "Океан",
-            "en": "Ocean"
+            "en": "Ocean",
+            "es": "Océano",
+            "pt-BR": "Oceano",
+            "de": "Ozean",
+            "zh-CN": "海洋",
+            "fr": "Océan",
+            "ja": "オーシャン"
           }
         },
         {
           "value": "violet",
           "label": {
             "ru": "Фиолетовая",
-            "en": "Violet"
+            "en": "Violet",
+            "es": "Violeta",
+            "pt-BR": "Violeta",
+            "de": "Violett",
+            "zh-CN": "紫罗兰",
+            "fr": "Violet",
+            "ja": "バイオレット"
           }
         },
         {
           "value": "rose",
           "label": {
             "ru": "Роза",
-            "en": "Rose"
+            "en": "Rose",
+            "es": "Rosa",
+            "pt-BR": "Rosa",
+            "de": "Rosé",
+            "zh-CN": "玫瑰",
+            "fr": "Rose",
+            "ja": "ローズ"
           }
         },
         {
           "value": "emerald",
           "label": {
             "ru": "Изумруд",
-            "en": "Emerald"
+            "en": "Emerald",
+            "es": "Esmeralda",
+            "pt-BR": "Esmeralda",
+            "de": "Smaragd",
+            "zh-CN": "翡翠",
+            "fr": "Émeraude",
+            "ja": "エメラルド"
           }
         },
         {
           "value": "sunset",
           "label": {
             "ru": "Закат",
-            "en": "Sunset"
+            "en": "Sunset",
+            "es": "Atardecer",
+            "pt-BR": "Pôr do sol",
+            "de": "Sonnenuntergang",
+            "zh-CN": "日落",
+            "fr": "Coucher de soleil",
+            "ja": "サンセット"
           }
         },
         {
           "value": "gold",
           "label": {
             "ru": "Золото",
-            "en": "Gold"
+            "en": "Gold",
+            "es": "Oro",
+            "pt-BR": "Ouro",
+            "de": "Gold",
+            "zh-CN": "金色",
+            "fr": "Or",
+            "ja": "ゴールド"
           }
         },
         {
           "value": "silver",
           "label": {
             "ru": "Серебро",
-            "en": "Silver"
+            "en": "Silver",
+            "es": "Plata",
+            "pt-BR": "Prata",
+            "de": "Silber",
+            "zh-CN": "银色",
+            "fr": "Argent",
+            "ja": "シルバー"
           }
         },
         {
           "value": "theme",
           "label": {
             "ru": "Цвет темы",
-            "en": "Theme colour"
+            "en": "Theme colour",
+            "es": "Color del tema",
+            "pt-BR": "Cor do tema",
+            "de": "Designfarbe",
+            "zh-CN": "主题色",
+            "fr": "Couleur du thème",
+            "ja": "テーマカラー"
           }
         },
         {
           "value": "custom",
           "label": {
             "ru": "Свой цвет",
-            "en": "Custom colour"
+            "en": "Custom colour",
+            "es": "Color personalizado",
+            "pt-BR": "Cor personalizada",
+            "de": "Eigene Farbe",
+            "zh-CN": "自定义颜色",
+            "fr": "Couleur personnalisée",
+            "ja": "カスタムカラー"
           }
         }
       ]
@@ -169,12 +277,24 @@
       "type": "color",
       "label": {
         "ru": "Цвет",
-        "en": "Colour"
+        "en": "Colour",
+        "es": "Color",
+        "pt-BR": "Cor",
+        "de": "Farbe",
+        "zh-CN": "颜色",
+        "fr": "Couleur",
+        "ja": "色"
       },
       "default": "#3b82f6",
       "hint": {
         "ru": "Эффект строит из него все оттенки",
-        "en": "The effect builds every tone from it"
+        "en": "The effect builds every tone from it",
+        "es": "El efecto construye todos los tonos a partir de él",
+        "pt-BR": "O efeito constrói todos os tons a partir dela",
+        "de": "Der Effekt baut daraus jeden Farbton auf",
+        "zh-CN": "特效据此生成所有色调",
+        "fr": "L’effet en construit toutes les teintes",
+        "ja": "エフェクトはこの色からすべての色調を作ります"
       },
       "when": {
         "key": "palette",
@@ -188,12 +308,24 @@
       "type": "boolean",
       "label": {
         "ru": "Реагировать на указатель",
-        "en": "React to the pointer"
+        "en": "React to the pointer",
+        "es": "Reaccionar al puntero",
+        "pt-BR": "Reagir ao ponteiro",
+        "de": "Auf den Zeiger reagieren",
+        "zh-CN": "响应指针",
+        "fr": "Réagir au pointeur",
+        "ja": "ポインターに反応"
       },
       "default": true,
       "hint": {
         "ru": "Указатель подсвечивает сеть, клик пускает по ней кольцо света",
-        "en": "The pointer lights the web; a click sends a ring of light through it"
+        "en": "The pointer lights the web; a click sends a ring of light through it",
+        "es": "El puntero ilumina la red; un clic envía un anillo de luz a través de ella",
+        "pt-BR": "O ponteiro ilumina a teia; um clique envia um anel de luz através dela",
+        "de": "Der Zeiger bringt das Netz zum Leuchten; ein Klick schickt einen Lichtring hindurch",
+        "zh-CN": "指针点亮蛛网；点击会让一圈光环穿过网络",
+        "fr": "Le pointeur illumine la toile ; un clic y envoie un anneau de lumière",
+        "ja": "ポインターが網を光らせ、クリックで光の輪が網を駆け抜けます"
       }
     }
   ],

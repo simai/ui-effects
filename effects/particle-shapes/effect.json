@@ -2,10 +2,16 @@
   "schema": "simai.effect",
   "schema_version": 1,
   "id": "particle-shapes",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "label": {
     "ru": "Узор частиц",
-    "en": "Particle text"
+    "en": "Particle text",
+    "es": "Texto de partículas",
+    "pt-BR": "Texto de partículas",
+    "de": "Partikeltext",
+    "zh-CN": "粒子文字",
+    "fr": "Texte en particules",
+    "ja": "粒子のテキスト"
   },
   "author": "SIMAI",
   "entry": "index.js",
@@ -29,7 +35,13 @@
       "type": "integer",
       "label": {
         "ru": "Скорость",
-        "en": "Speed"
+        "en": "Speed",
+        "es": "Velocidad",
+        "pt-BR": "Velocidade",
+        "de": "Geschwindigkeit",
+        "zh-CN": "速度",
+        "fr": "Vitesse",
+        "ja": "速度"
       },
       "default": 100,
       "min": 10,
@@ -42,7 +54,13 @@
       "type": "integer",
       "label": {
         "ru": "Яркость",
-        "en": "Intensity"
+        "en": "Intensity",
+        "es": "Intensidad",
+        "pt-BR": "Intensidade",
+        "de": "Intensität",
+        "zh-CN": "强度",
+        "fr": "Intensité",
+        "ja": "強さ"
       },
       "default": 70,
       "min": 10,
@@ -55,7 +73,13 @@
       "type": "integer",
       "label": {
         "ru": "Плотность",
-        "en": "Density"
+        "en": "Density",
+        "es": "Densidad",
+        "pt-BR": "Densidade",
+        "de": "Dichte",
+        "zh-CN": "密度",
+        "fr": "Densité",
+        "ja": "密度"
       },
       "default": 50,
       "min": 10,
@@ -68,7 +92,13 @@
       "type": "integer",
       "label": {
         "ru": "Размер текста",
-        "en": "Text size"
+        "en": "Text size",
+        "es": "Tamaño del texto",
+        "pt-BR": "Tamanho do texto",
+        "de": "Textgröße",
+        "zh-CN": "文字大小",
+        "fr": "Taille du texte",
+        "ja": "文字サイズ"
       },
       "default": 100,
       "min": 30,
@@ -77,7 +107,13 @@
       "unit": "%",
       "hint": {
         "ru": "100 % — текст по размеру области",
-        "en": "100 % fits the text to the area"
+        "en": "100 % fits the text to the area",
+        "es": "100 % ajusta el texto al área",
+        "pt-BR": "100 % ajusta o texto à área",
+        "de": "100 % passt den Text an die Fläche an",
+        "zh-CN": "100% 时文字恰好适配区域",
+        "fr": "100 % ajuste le texte à la zone",
+        "ja": "100%でテキストが領域にぴったり収まります"
       }
     },
     {
@@ -85,13 +121,25 @@
       "type": "text",
       "label": {
         "ru": "Текст",
-        "en": "Text"
+        "en": "Text",
+        "es": "Texto",
+        "pt-BR": "Texto",
+        "de": "Text",
+        "zh-CN": "文本",
+        "fr": "Texte",
+        "ja": "テキスト"
       },
       "default": "SIMAI",
       "max": 80,
       "hint": {
         "ru": "До четырёх строк",
-        "en": "Up to four lines"
+        "en": "Up to four lines",
+        "es": "Hasta cuatro líneas",
+        "pt-BR": "Até quatro linhas",
+        "de": "Bis zu vier Zeilen",
+        "zh-CN": "最多四行",
+        "fr": "Jusqu’à quatre lignes",
+        "ja": "最大4行"
       }
     },
     {
@@ -99,7 +147,13 @@
       "type": "choice",
       "label": {
         "ru": "Движение",
-        "en": "Motion"
+        "en": "Motion",
+        "es": "Movimiento",
+        "pt-BR": "Movimento",
+        "de": "Bewegung",
+        "zh-CN": "运动",
+        "fr": "Mouvement",
+        "ja": "動き"
       },
       "default": "brownian",
       "options": [
@@ -107,28 +161,52 @@
           "value": "brownian",
           "label": {
             "ru": "Броуновское",
-            "en": "Brownian"
+            "en": "Brownian",
+            "es": "Browniano",
+            "pt-BR": "Browniano",
+            "de": "Brownsch",
+            "zh-CN": "布朗运动",
+            "fr": "Brownien",
+            "ja": "ブラウン運動"
           }
         },
         {
           "value": "wind",
           "label": {
             "ru": "Песчаный ветер",
-            "en": "Sand wind"
+            "en": "Sand wind",
+            "es": "Viento de arena",
+            "pt-BR": "Vento de areia",
+            "de": "Sandwind",
+            "zh-CN": "沙风",
+            "fr": "Vent de sable",
+            "ja": "砂の風"
           }
         },
         {
           "value": "swirl",
           "label": {
             "ru": "Вихрь",
-            "en": "Vortex"
+            "en": "Vortex",
+            "es": "Torbellino",
+            "pt-BR": "Vórtice",
+            "de": "Wirbel",
+            "zh-CN": "漩涡",
+            "fr": "Tourbillon",
+            "ja": "渦"
           }
         },
         {
           "value": "snow",
           "label": {
             "ru": "Снегопад",
-            "en": "Snowfall"
+            "en": "Snowfall",
+            "es": "Nevada",
+            "pt-BR": "Nevasca",
+            "de": "Schneefall",
+            "zh-CN": "飘雪",
+            "fr": "Chute de neige",
+            "ja": "降雪"
           }
         }
       ]
@@ -138,7 +216,13 @@
       "type": "choice",
       "label": {
         "ru": "Палитра",
-        "en": "Palette"
+        "en": "Palette",
+        "es": "Paleta",
+        "pt-BR": "Paleta",
+        "de": "Palette",
+        "zh-CN": "配色",
+        "fr": "Palette",
+        "ja": "パレット"
       },
       "default": "theme",
       "options": [
@@ -146,70 +230,130 @@
           "value": "theme",
           "label": {
             "ru": "Цвет темы",
-            "en": "Theme colour"
+            "en": "Theme colour",
+            "es": "Color del tema",
+            "pt-BR": "Cor do tema",
+            "de": "Designfarbe",
+            "zh-CN": "主题色",
+            "fr": "Couleur du thème",
+            "ja": "テーマカラー"
           }
         },
         {
           "value": "turquoise",
           "label": {
             "ru": "Бирюзовая",
-            "en": "Turquoise"
+            "en": "Turquoise",
+            "es": "Turquesa",
+            "pt-BR": "Turquesa",
+            "de": "Türkis",
+            "zh-CN": "青绿",
+            "fr": "Turquoise",
+            "ja": "ターコイズ"
           }
         },
         {
           "value": "ocean",
           "label": {
             "ru": "Океан",
-            "en": "Ocean"
+            "en": "Ocean",
+            "es": "Océano",
+            "pt-BR": "Oceano",
+            "de": "Ozean",
+            "zh-CN": "海洋",
+            "fr": "Océan",
+            "ja": "オーシャン"
           }
         },
         {
           "value": "violet",
           "label": {
             "ru": "Фиолетовая",
-            "en": "Violet"
+            "en": "Violet",
+            "es": "Violeta",
+            "pt-BR": "Violeta",
+            "de": "Violett",
+            "zh-CN": "紫罗兰",
+            "fr": "Violet",
+            "ja": "バイオレット"
           }
         },
         {
           "value": "rose",
           "label": {
             "ru": "Роза",
-            "en": "Rose"
+            "en": "Rose",
+            "es": "Rosa",
+            "pt-BR": "Rosa",
+            "de": "Rosé",
+            "zh-CN": "玫瑰",
+            "fr": "Rose",
+            "ja": "ローズ"
           }
         },
         {
           "value": "emerald",
           "label": {
             "ru": "Изумруд",
-            "en": "Emerald"
+            "en": "Emerald",
+            "es": "Esmeralda",
+            "pt-BR": "Esmeralda",
+            "de": "Smaragd",
+            "zh-CN": "翡翠",
+            "fr": "Émeraude",
+            "ja": "エメラルド"
           }
         },
         {
           "value": "sunset",
           "label": {
             "ru": "Закат",
-            "en": "Sunset"
+            "en": "Sunset",
+            "es": "Atardecer",
+            "pt-BR": "Pôr do sol",
+            "de": "Sonnenuntergang",
+            "zh-CN": "日落",
+            "fr": "Coucher de soleil",
+            "ja": "サンセット"
           }
         },
         {
           "value": "gold",
           "label": {
             "ru": "Золото",
-            "en": "Gold"
+            "en": "Gold",
+            "es": "Oro",
+            "pt-BR": "Ouro",
+            "de": "Gold",
+            "zh-CN": "金色",
+            "fr": "Or",
+            "ja": "ゴールド"
           }
         },
         {
           "value": "silver",
           "label": {
             "ru": "Серебро",
-            "en": "Silver"
+            "en": "Silver",
+            "es": "Plata",
+            "pt-BR": "Prata",
+            "de": "Silber",
+            "zh-CN": "银色",
+            "fr": "Argent",
+            "ja": "シルバー"
           }
         },
         {
           "value": "custom",
           "label": {
             "ru": "Свой цвет",
-            "en": "Custom colour"
+            "en": "Custom colour",
+            "es": "Color personalizado",
+            "pt-BR": "Cor personalizada",
+            "de": "Eigene Farbe",
+            "zh-CN": "自定义颜色",
+            "fr": "Couleur personnalisée",
+            "ja": "カスタムカラー"
           }
         }
       ]
@@ -219,12 +363,24 @@
       "type": "color",
       "label": {
         "ru": "Цвет",
-        "en": "Colour"
+        "en": "Colour",
+        "es": "Color",
+        "pt-BR": "Cor",
+        "de": "Farbe",
+        "zh-CN": "颜色",
+        "fr": "Couleur",
+        "ja": "色"
       },
       "default": "#3b82f6",
       "hint": {
         "ru": "Эффект строит из него все оттенки",
-        "en": "The effect builds every tone from it"
+        "en": "The effect builds every tone from it",
+        "es": "El efecto construye todos los tonos a partir de él",
+        "pt-BR": "O efeito constrói todos os tons a partir dela",
+        "de": "Der Effekt baut daraus jeden Farbton auf",
+        "zh-CN": "特效据此生成所有色调",
+        "fr": "L’effet en construit toutes les teintes",
+        "ja": "エフェクトはこの色からすべての色調を作ります"
       },
       "when": {
         "key": "palette",
@@ -238,12 +394,24 @@
       "type": "boolean",
       "label": {
         "ru": "Реагировать на указатель",
-        "en": "React to the pointer"
+        "en": "React to the pointer",
+        "es": "Reaccionar al puntero",
+        "pt-BR": "Reagir ao ponteiro",
+        "de": "Auf den Zeiger reagieren",
+        "zh-CN": "响应指针",
+        "fr": "Réagir au pointeur",
+        "ja": "ポインターに反応"
       },
       "default": true,
       "hint": {
         "ru": "Клик нагревает частицы вокруг, удержание греет постоянно",
-        "en": "A click heats the particles round it, holding keeps heating"
+        "en": "A click heats the particles round it, holding keeps heating",
+        "es": "Un clic calienta las partículas a su alrededor; mantener pulsado sigue calentándolas",
+        "pt-BR": "Um clique aquece as partículas ao redor, mantê-lo pressionado continua aquecendo",
+        "de": "Ein Klick erhitzt die Partikel ringsum, Gedrückthalten heizt weiter",
+        "zh-CN": "点击会加热周围的粒子，按住则持续加热",
+        "fr": "Un clic chauffe les particules alentour, un appui prolongé continue de les chauffer",
+        "ja": "クリックで周りの粒子が熱を帯び、長押しで加熱し続けます"
       }
     }
   ],

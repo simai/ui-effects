@@ -2,10 +2,16 @@
   "schema": "simai.effect",
   "schema_version": 1,
   "id": "constellation-net",
-  "version": "2.2.1",
+  "version": "2.2.2",
   "label": {
     "ru": "Созвездия",
-    "en": "Constellations"
+    "en": "Constellations",
+    "es": "Constelaciones",
+    "pt-BR": "Constelações",
+    "de": "Sternbilder",
+    "zh-CN": "星座",
+    "fr": "Constellations",
+    "ja": "星座"
   },
   "author": "SIMAI",
   "entry": "index.js",
@@ -28,7 +34,13 @@
       "type": "integer",
       "label": {
         "ru": "Скорость",
-        "en": "Speed"
+        "en": "Speed",
+        "es": "Velocidad",
+        "pt-BR": "Velocidade",
+        "de": "Geschwindigkeit",
+        "zh-CN": "速度",
+        "fr": "Vitesse",
+        "ja": "速度"
       },
       "default": 100,
       "min": 10,
@@ -41,7 +53,13 @@
       "type": "integer",
       "label": {
         "ru": "Плотность",
-        "en": "Density"
+        "en": "Density",
+        "es": "Densidad",
+        "pt-BR": "Densidade",
+        "de": "Dichte",
+        "zh-CN": "密度",
+        "fr": "Densité",
+        "ja": "密度"
       },
       "default": 55,
       "min": 10,
@@ -54,7 +72,13 @@
       "type": "integer",
       "label": {
         "ru": "Длина связи",
-        "en": "Link distance"
+        "en": "Link distance",
+        "es": "Distancia de enlace",
+        "pt-BR": "Distância das ligações",
+        "de": "Verbindungsabstand",
+        "zh-CN": "连线距离",
+        "fr": "Distance des liens",
+        "ja": "結ぶ距離"
       },
       "default": 120,
       "min": 60,
@@ -67,7 +91,13 @@
       "type": "choice",
       "label": {
         "ru": "Палитра",
-        "en": "Palette"
+        "en": "Palette",
+        "es": "Paleta",
+        "pt-BR": "Paleta",
+        "de": "Palette",
+        "zh-CN": "配色",
+        "fr": "Palette",
+        "ja": "パレット"
       },
       "default": "theme",
       "options": [
@@ -75,70 +105,130 @@
           "value": "theme",
           "label": {
             "ru": "Цвет темы",
-            "en": "Theme colour"
+            "en": "Theme colour",
+            "es": "Color del tema",
+            "pt-BR": "Cor do tema",
+            "de": "Designfarbe",
+            "zh-CN": "主题色",
+            "fr": "Couleur du thème",
+            "ja": "テーマカラー"
           }
         },
         {
           "value": "turquoise",
           "label": {
             "ru": "Бирюзовая",
-            "en": "Turquoise"
+            "en": "Turquoise",
+            "es": "Turquesa",
+            "pt-BR": "Turquesa",
+            "de": "Türkis",
+            "zh-CN": "青绿",
+            "fr": "Turquoise",
+            "ja": "ターコイズ"
           }
         },
         {
           "value": "ocean",
           "label": {
             "ru": "Океан",
-            "en": "Ocean"
+            "en": "Ocean",
+            "es": "Océano",
+            "pt-BR": "Oceano",
+            "de": "Ozean",
+            "zh-CN": "海洋",
+            "fr": "Océan",
+            "ja": "オーシャン"
           }
         },
         {
           "value": "violet",
           "label": {
             "ru": "Фиолетовая",
-            "en": "Violet"
+            "en": "Violet",
+            "es": "Violeta",
+            "pt-BR": "Violeta",
+            "de": "Violett",
+            "zh-CN": "紫罗兰",
+            "fr": "Violet",
+            "ja": "バイオレット"
           }
         },
         {
           "value": "rose",
           "label": {
             "ru": "Роза",
-            "en": "Rose"
+            "en": "Rose",
+            "es": "Rosa",
+            "pt-BR": "Rosa",
+            "de": "Rosé",
+            "zh-CN": "玫瑰",
+            "fr": "Rose",
+            "ja": "ローズ"
           }
         },
         {
           "value": "emerald",
           "label": {
             "ru": "Изумруд",
-            "en": "Emerald"
+            "en": "Emerald",
+            "es": "Esmeralda",
+            "pt-BR": "Esmeralda",
+            "de": "Smaragd",
+            "zh-CN": "翡翠",
+            "fr": "Émeraude",
+            "ja": "エメラルド"
           }
         },
         {
           "value": "sunset",
           "label": {
             "ru": "Закат",
-            "en": "Sunset"
+            "en": "Sunset",
+            "es": "Atardecer",
+            "pt-BR": "Pôr do sol",
+            "de": "Sonnenuntergang",
+            "zh-CN": "日落",
+            "fr": "Coucher de soleil",
+            "ja": "サンセット"
           }
         },
         {
           "value": "gold",
           "label": {
             "ru": "Золото",
-            "en": "Gold"
+            "en": "Gold",
+            "es": "Oro",
+            "pt-BR": "Ouro",
+            "de": "Gold",
+            "zh-CN": "金色",
+            "fr": "Or",
+            "ja": "ゴールド"
           }
         },
         {
           "value": "silver",
           "label": {
             "ru": "Серебро",
-            "en": "Silver"
+            "en": "Silver",
+            "es": "Plata",
+            "pt-BR": "Prata",
+            "de": "Silber",
+            "zh-CN": "银色",
+            "fr": "Argent",
+            "ja": "シルバー"
           }
         },
         {
           "value": "custom",
           "label": {
             "ru": "Свой цвет",
-            "en": "Custom colour"
+            "en": "Custom colour",
+            "es": "Color personalizado",
+            "pt-BR": "Cor personalizada",
+            "de": "Eigene Farbe",
+            "zh-CN": "自定义颜色",
+            "fr": "Couleur personnalisée",
+            "ja": "カスタムカラー"
           }
         }
       ]
@@ -148,12 +238,24 @@
       "type": "color",
       "label": {
         "ru": "Цвет",
-        "en": "Colour"
+        "en": "Colour",
+        "es": "Color",
+        "pt-BR": "Cor",
+        "de": "Farbe",
+        "zh-CN": "颜色",
+        "fr": "Couleur",
+        "ja": "色"
       },
       "default": "#3b82f6",
       "hint": {
         "ru": "Эффект строит из него все оттенки",
-        "en": "The effect builds every tone from it"
+        "en": "The effect builds every tone from it",
+        "es": "El efecto construye todos los tonos a partir de él",
+        "pt-BR": "O efeito constrói todos os tons a partir dela",
+        "de": "Der Effekt baut daraus jeden Farbton auf",
+        "zh-CN": "特效据此生成所有色调",
+        "fr": "L’effet en construit toutes les teintes",
+        "ja": "エフェクトはこの色からすべての色調を作ります"
       },
       "when": {
         "key": "palette",
@@ -167,12 +269,24 @@
       "type": "boolean",
       "label": {
         "ru": "Реагировать на указатель",
-        "en": "React to the pointer"
+        "en": "React to the pointer",
+        "es": "Reaccionar al puntero",
+        "pt-BR": "Reagir ao ponteiro",
+        "de": "Auf den Zeiger reagieren",
+        "zh-CN": "响应指针",
+        "fr": "Réagir au pointeur",
+        "ja": "ポインターに反応"
       },
       "default": true,
       "hint": {
         "ru": "Параллакс и связи с указателем",
-        "en": "Parallax and links to the pointer"
+        "en": "Parallax and links to the pointer",
+        "es": "Paralaje y enlaces hacia el puntero",
+        "pt-BR": "Paralaxe e ligações com o ponteiro",
+        "de": "Parallaxe und Verbindungen zum Zeiger",
+        "zh-CN": "视差，并向指针连线",
+        "fr": "Parallaxe et liens vers le pointeur",
+        "ja": "視差と、ポインターへの結線"
       }
     }
   ],

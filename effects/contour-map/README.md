@@ -3,7 +3,7 @@
 Contour lines of a slowly changing relief, every fifth one heavier, as on a topographic map.
 
 - **Russian name:** Горизонтали
-- **Version:** 1.3.1, simai.effect 1.3.0
+- **Version:** 1.3.2, simai.effect 1.3.0
 - **Surfaces:** dashboard, docs, hero
 - **Tags:** lines
 - **Role:** Contour lines: a topographic sheet on light, a night map on dark.

@@ -3,7 +3,7 @@
 A great flock of starlings moves as one: it stretches, folds and thickens again.
 
 - **Russian name:** Мурмурация
-- **Version:** 0.1.0, simai.effect 1.1.0
+- **Version:** 0.1.1, simai.effect 1.1.0
 - **Surfaces:** hero, section, dashboard, sign-in
 - **Tags:** particles, nature
 - **Role:** Nature, coordination, a community: light and dark schemes.

@@ -2,10 +2,16 @@
   "schema": "simai.effect",
   "schema_version": 1,
   "id": "murmuration",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "label": {
     "ru": "Мурмурация",
-    "en": "Murmuration"
+    "en": "Murmuration",
+    "es": "Murmuración",
+    "pt-BR": "Murmuração",
+    "de": "Starenschwarm",
+    "zh-CN": "椋鸟群飞",
+    "fr": "Murmuration",
+    "ja": "ムクドリの群舞"
   },
   "author": "SIMAI",
   "entry": "index.js",
@@ -29,7 +35,13 @@
       "type": "integer",
       "label": {
         "ru": "Скорость",
-        "en": "Speed"
+        "en": "Speed",
+        "es": "Velocidad",
+        "pt-BR": "Velocidade",
+        "de": "Geschwindigkeit",
+        "zh-CN": "速度",
+        "fr": "Vitesse",
+        "ja": "速度"
       },
       "default": 100,
       "min": 10,
@@ -42,7 +54,13 @@
       "type": "integer",
       "label": {
         "ru": "Яркость",
-        "en": "Intensity"
+        "en": "Intensity",
+        "es": "Intensidad",
+        "pt-BR": "Intensidade",
+        "de": "Intensität",
+        "zh-CN": "强度",
+        "fr": "Intensité",
+        "ja": "強さ"
       },
       "default": 70,
       "min": 10,
@@ -55,7 +73,13 @@
       "type": "integer",
       "label": {
         "ru": "Плотность",
-        "en": "Density"
+        "en": "Density",
+        "es": "Densidad",
+        "pt-BR": "Densidade",
+        "de": "Dichte",
+        "zh-CN": "密度",
+        "fr": "Densité",
+        "ja": "密度"
       },
       "default": 50,
       "min": 10,
@@ -68,7 +92,13 @@
       "type": "integer",
       "label": {
         "ru": "Размер стаи",
-        "en": "Flock size"
+        "en": "Flock size",
+        "es": "Tamaño de la bandada",
+        "pt-BR": "Tamanho do bando",
+        "de": "Schwarmgröße",
+        "zh-CN": "鸟群规模",
+        "fr": "Taille de la volée",
+        "ja": "群れの大きさ"
       },
       "default": 85,
       "min": 30,
@@ -77,7 +107,13 @@
       "unit": "%",
       "hint": {
         "ru": "Какую часть баннера занимает стая",
-        "en": "How much of the area the flock takes"
+        "en": "How much of the area the flock takes",
+        "es": "Qué parte del área ocupa la bandada",
+        "pt-BR": "Quanto da área o bando ocupa",
+        "de": "Wie viel der Fläche der Schwarm einnimmt",
+        "zh-CN": "鸟群占据区域的比例",
+        "fr": "Quelle part de la zone occupe la volée",
+        "ja": "群れが領域のどれだけを占めるか"
       }
     },
     {
@@ -85,12 +121,24 @@
       "type": "boolean",
       "label": {
         "ru": "Реагировать на указатель",
-        "en": "React to the pointer"
+        "en": "React to the pointer",
+        "es": "Reaccionar al puntero",
+        "pt-BR": "Reagir ao ponteiro",
+        "de": "Auf den Zeiger reagieren",
+        "zh-CN": "响应指针",
+        "fr": "Réagir au pointeur",
+        "ja": "ポインターに反応"
       },
       "default": true,
       "hint": {
         "ru": "Указатель — сокол, стая уклоняется; клик вспугивает птиц",
-        "en": "The pointer is a falcon the flock swerves round; a click startles the birds"
+        "en": "The pointer is a falcon the flock swerves round; a click startles the birds",
+        "es": "El puntero es un halcón que la bandada esquiva; un clic asusta a las aves",
+        "pt-BR": "O ponteiro é um falcão que o bando desvia; um clique assusta as aves",
+        "de": "Der Zeiger ist ein Falke, dem der Schwarm ausweicht; ein Klick schreckt die Vögel auf",
+        "zh-CN": "指针是一只猎鹰，鸟群绕它转向；点击会惊飞鸟群",
+        "fr": "Le pointeur est un faucon que la volée contourne ; un clic effraie les oiseaux",
+        "ja": "ポインターは群れがよけるハヤブサ、クリックで鳥たちが驚いて飛び立ちます"
       }
     }
   ],

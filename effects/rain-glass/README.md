@@ -3,7 +3,7 @@
 A fogged window on a rainy night: the street behind it out of focus, only its lights. Lamps run off, neon shifts and flickers, a traffic light at the crossing stops and lets the cars go, every light trembles as a streak on the wet road. Drops run down the glass; wipe it with a finger, and it fogs again.
 
 - **Russian name:** Дождь на стекле
-- **Version:** 3.3.0, simai.effect 1.3.0
+- **Version:** 3.3.1, simai.effect 1.3.0
 - **Surfaces:** hero, section, dashboard, sign-in
 - **Tags:** water, glow
 - **Role:** A cosy evening behind a window. Dark scheme only.

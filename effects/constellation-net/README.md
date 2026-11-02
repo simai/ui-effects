@@ -3,7 +3,7 @@
 Stars in three depth layers drift and link with fine lines, like a living network.
 
 - **Russian name:** Созвездия
-- **Version:** 2.2.1, simai.effect 1.3.0
+- **Version:** 2.2.2, simai.effect 1.3.0
 - **Surfaces:** sign-in, hero, section, dashboard
 - **Tags:** particles, lines, sky
 - **Role:** A night sky of stars linked into constellations. It draws the dark scheme only: a light starry sky reads as a mistake.

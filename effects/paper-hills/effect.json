@@ -2,10 +2,16 @@
   "schema": "simai.effect",
   "schema_version": 1,
   "id": "paper-hills",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "label": {
     "ru": "Бумажные холмы",
-    "en": "Paper hills"
+    "en": "Paper hills",
+    "es": "Colinas de papel",
+    "pt-BR": "Colinas de papel",
+    "de": "Papierhügel",
+    "zh-CN": "纸山",
+    "fr": "Collines de papier",
+    "ja": "紙の丘"
   },
   "author": "SIMAI",
   "entry": "index.js",
@@ -28,7 +34,13 @@
       "type": "integer",
       "label": {
         "ru": "Скорость, %",
-        "en": "Speed, %"
+        "en": "Speed, %",
+        "es": "Velocidad, %",
+        "pt-BR": "Velocidade, %",
+        "de": "Geschwindigkeit, %",
+        "zh-CN": "速度，%",
+        "fr": "Vitesse, %",
+        "ja": "速度（%）"
       },
       "default": 100,
       "min": 10,
@@ -41,7 +53,13 @@
       "type": "integer",
       "label": {
         "ru": "Число слоёв",
-        "en": "Layers"
+        "en": "Layers",
+        "es": "Capas",
+        "pt-BR": "Camadas",
+        "de": "Schichten",
+        "zh-CN": "层数",
+        "fr": "Couches",
+        "ja": "レイヤー"
       },
       "default": 6,
       "min": 3,
@@ -52,7 +70,13 @@
       "type": "integer",
       "label": {
         "ru": "Насыщенность",
-        "en": "Strength"
+        "en": "Strength",
+        "es": "Intensidad",
+        "pt-BR": "Intensidade",
+        "de": "Stärke",
+        "zh-CN": "强度",
+        "fr": "Force",
+        "ja": "強さ"
       },
       "default": 60,
       "min": 0,
@@ -65,7 +89,13 @@
       "type": "choice",
       "label": {
         "ru": "Настроение",
-        "en": "Mood"
+        "en": "Mood",
+        "es": "Ambiente",
+        "pt-BR": "Clima",
+        "de": "Stimmung",
+        "zh-CN": "氛围",
+        "fr": "Ambiance",
+        "ja": "ムード"
       },
       "default": "day",
       "options": [
@@ -73,21 +103,39 @@
           "value": "dawn",
           "label": {
             "ru": "Рассвет",
-            "en": "Dawn"
+            "en": "Dawn",
+            "es": "Amanecer",
+            "pt-BR": "Amanhecer",
+            "de": "Morgendämmerung",
+            "zh-CN": "黎明",
+            "fr": "Aube",
+            "ja": "夜明け"
           }
         },
         {
           "value": "day",
           "label": {
             "ru": "День",
-            "en": "Day"
+            "en": "Day",
+            "es": "Día",
+            "pt-BR": "Dia",
+            "de": "Tag",
+            "zh-CN": "白天",
+            "fr": "Jour",
+            "ja": "昼"
           }
         },
         {
           "value": "mist",
           "label": {
             "ru": "Туман",
-            "en": "Mist"
+            "en": "Mist",
+            "es": "Niebla",
+            "pt-BR": "Névoa",
+            "de": "Nebel",
+            "zh-CN": "薄雾",
+            "fr": "Brume",
+            "ja": "霧"
           }
         }
       ]
@@ -97,7 +145,13 @@
       "type": "boolean",
       "label": {
         "ru": "Реагировать на указатель",
-        "en": "React to the pointer"
+        "en": "React to the pointer",
+        "es": "Reaccionar al puntero",
+        "pt-BR": "Reagir ao ponteiro",
+        "de": "Auf den Zeiger reagieren",
+        "zh-CN": "响应指针",
+        "fr": "Réagir au pointeur",
+        "ja": "ポインターに反応"
       },
       "default": true
     }

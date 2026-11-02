@@ -398,8 +398,9 @@ try {
     const context = await browser.newContext({viewport: {width: 1440, height: 900}});
     await routeAll(context);
     const page = await context.newPage();
-    const flush = watch(page, 'en');
-    for (const path of ['en/', `en/effect/${effects[0].id}/`]) {
+    const flush = watch(page, 'languages');
+    const LOCALES = [['en', 'en/'], ['es', 'es/'], ['pt-BR', 'pt-br/'], ['de', 'de/'], ['zh-CN', 'zh-cn/'], ['fr', 'fr/'], ['ja', 'ja/']];
+    for (const [lang, dir] of LOCALES) for (const path of [dir, `${dir}effect/${effects[0].id}/`]) {
       await page.goto(`${base}${path}`);
       await page.waitForFunction(() => document.documentElement.dataset.ready === 'true', null, {timeout: 20000});
       await wait(1500);
@@ -409,13 +410,16 @@ try {
         return {
           lang: document.documentElement.lang,
           russian: [...document.body.innerText.split('\n'), ...labels, document.title].filter((line) => line && russian.test(line) && !/Language: Русский/u.test(line)).slice(0, 5),
-          other: (() => { try { return JSON.parse(document.querySelector('[data-lang-menu]').dataset.entries).find((entry) => entry.lang === 'ru')?.href ?? null; } catch { return null; } })(),
+          menu: (() => { try { return JSON.parse(document.querySelector('[data-lang-menu]').dataset.entries); } catch { return []; } })(),
         };
       });
-      if (facts.lang !== 'en') fail(`en ${path}`, `lang is ${facts.lang}`);
-      if (facts.russian.length) fail(`en ${path}`, `Russian text: ${facts.russian.join(' | ')}`);
-      if (!facts.other) fail(`en ${path}`, 'no link to the Russian page');
-      report.pages.push({page: path, viewport: '1440-en'});
+      const other = facts.menu.find((entry) => entry.lang === 'ru')?.href;
+      if (facts.lang !== lang) fail(`${lang} ${path}`, `lang is ${facts.lang}`);
+      if (facts.russian.length) fail(`${lang} ${path}`, `Russian text: ${facts.russian.join(' | ')}`);
+      if (!other) fail(`${lang} ${path}`, 'no link to the Russian page');
+      // Eight languages, each named in itself; all but English carry the English name below.
+      if (facts.menu.length !== 8 || facts.menu.filter((entry) => entry.caption).length !== 7) fail(`${lang} ${path}`, `language menu ${JSON.stringify(facts.menu.map((entry) => [entry.lang, entry.text, entry.caption]))}`);
+      report.pages.push({page: path, viewport: `1440-${lang}`});
     }
     flush();
     await context.close();

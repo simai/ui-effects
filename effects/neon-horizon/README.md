@@ -1,13 +1,15 @@
 # Neon horizon (`neon-horizon`)
 
 A neon perspective grid runs to a glowing horizon under sparse stars. Light riders ride the floor along its grid lines,
-turning at the crossings, and each leaves a low light wall in its own palette colour; the walls fade after several
-seconds, oldest first. A rider that runs into any wall, its own or another's, bursts in a flash and a few fragments,
+turning at the crossings. Each rider is a small futuristic bike of its own design, drawn in perspective from its
+heading: a low dark wedge body between two glowing wheel rings, with a tail light and a nose light, turning smoothly at a
+crossing. Behind its rear wheel it leaves a light wall in its own palette colour, a bright top edge over a body fading to
+the floor; the walls fade after several seconds, oldest first. A rider that runs into any wall, its own or another's, bursts in a flash and a few fragments,
 its wall fades out, and a new rider enters from the far edge after a pause. Riders look ahead and turn away from walls,
 so crashes happen when one is boxed in. A click on the area releases a new rider under the pointer, heading away.
 
 - **Russian name:** Неоновый горизонт
-- **Version:** 1.5.0, simai.effect 1.3.0
+- **Version:** 1.6.0, simai.effect 1.3.0
 - **Surfaces:** sign-in, hero, section, dashboard
 - **Tags:** geometry, depth
 - **Role:** A neon horizon and a grid running into the depth.

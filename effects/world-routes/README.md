@@ -3,7 +3,7 @@
 A dotted world map; signals or planes travel between the capitals.
 
 - **Russian name:** Маршруты мира
-- **Version:** 0.3.1, simai.effect 1.3.0
+- **Version:** 0.3.2, simai.effect 1.3.0
 - **Surfaces:** hero, section, dashboard, sign-in
 - **Tags:** lines, particles
 - **Role:** Networks, logistics, travel. Dark scheme only.

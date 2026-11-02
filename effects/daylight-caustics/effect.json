@@ -2,10 +2,16 @@
   "schema": "simai.effect",
   "schema_version": 1,
   "id": "daylight-caustics",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "label": {
     "ru": "Солнечные блики",
-    "en": "Daylight caustics"
+    "en": "Daylight caustics",
+    "es": "Cáusticas a la luz del día",
+    "pt-BR": "Cáusticas à luz do dia",
+    "de": "Tageslicht-Kaustik",
+    "zh-CN": "日光焦散",
+    "fr": "Caustiques du jour",
+    "ja": "昼のコースティクス"
   },
   "author": "SIMAI",
   "entry": "index.js",
@@ -27,7 +33,13 @@
       "type": "integer",
       "label": {
         "ru": "Скорость, %",
-        "en": "Speed, %"
+        "en": "Speed, %",
+        "es": "Velocidad, %",
+        "pt-BR": "Velocidade, %",
+        "de": "Geschwindigkeit, %",
+        "zh-CN": "速度，%",
+        "fr": "Vitesse, %",
+        "ja": "速度（%）"
       },
       "default": 100,
       "min": 10,
@@ -40,7 +52,13 @@
       "type": "integer",
       "label": {
         "ru": "Яркость бликов",
-        "en": "Light strength"
+        "en": "Light strength",
+        "es": "Intensidad de la luz",
+        "pt-BR": "Intensidade da luz",
+        "de": "Lichtstärke",
+        "zh-CN": "光照强度",
+        "fr": "Intensité de la lumière",
+        "ja": "光の強さ"
       },
       "default": 50,
       "min": 0,
@@ -53,7 +71,13 @@
       "type": "choice",
       "label": {
         "ru": "Размер бликов",
-        "en": "Pattern scale"
+        "en": "Pattern scale",
+        "es": "Escala del patrón",
+        "pt-BR": "Escala do padrão",
+        "de": "Mustergröße",
+        "zh-CN": "图案比例",
+        "fr": "Échelle du motif",
+        "ja": "模様のスケール"
       },
       "default": "medium",
       "options": [
@@ -61,21 +85,39 @@
           "value": "fine",
           "label": {
             "ru": "Мелкие",
-            "en": "Fine"
+            "en": "Fine",
+            "es": "Fina",
+            "pt-BR": "Fina",
+            "de": "Fein",
+            "zh-CN": "细",
+            "fr": "Fine",
+            "ja": "細かい"
           }
         },
         {
           "value": "medium",
           "label": {
             "ru": "Средние",
-            "en": "Medium"
+            "en": "Medium",
+            "es": "Media",
+            "pt-BR": "Média",
+            "de": "Mittel",
+            "zh-CN": "中",
+            "fr": "Moyenne",
+            "ja": "中"
           }
         },
         {
           "value": "broad",
           "label": {
             "ru": "Крупные",
-            "en": "Broad"
+            "en": "Broad",
+            "es": "Amplia",
+            "pt-BR": "Ampla",
+            "de": "Grob",
+            "zh-CN": "宽",
+            "fr": "Large",
+            "ja": "広い"
           }
         }
       ]
@@ -85,7 +127,13 @@
       "type": "choice",
       "label": {
         "ru": "Цвет",
-        "en": "Colour"
+        "en": "Colour",
+        "es": "Color",
+        "pt-BR": "Cor",
+        "de": "Farbe",
+        "zh-CN": "颜色",
+        "fr": "Couleur",
+        "ja": "色"
       },
       "default": "primary",
       "options": [
@@ -93,28 +141,52 @@
           "value": "primary",
           "label": {
             "ru": "Основной цвет темы",
-            "en": "Theme primary"
+            "en": "Theme primary",
+            "es": "Primario del tema",
+            "pt-BR": "Primária do tema",
+            "de": "Designfarbe primär",
+            "zh-CN": "主题主色",
+            "fr": "Couleur primaire du thème",
+            "ja": "テーマのプライマリ"
           }
         },
         {
           "value": "secondary",
           "label": {
             "ru": "Вторичный цвет темы",
-            "en": "Theme secondary"
+            "en": "Theme secondary",
+            "es": "Secundario del tema",
+            "pt-BR": "Secundária do tema",
+            "de": "Designfarbe sekundär",
+            "zh-CN": "主题辅色",
+            "fr": "Couleur secondaire du thème",
+            "ja": "テーマのセカンダリ"
           }
         },
         {
           "value": "tertiary",
           "label": {
             "ru": "Третичный цвет темы",
-            "en": "Theme tertiary"
+            "en": "Theme tertiary",
+            "es": "Terciario del tema",
+            "pt-BR": "Terciária do tema",
+            "de": "Designfarbe tertiär",
+            "zh-CN": "主题第三色",
+            "fr": "Couleur tertiaire du thème",
+            "ja": "テーマのターシャリ"
           }
         },
         {
           "value": "ink",
           "label": {
             "ru": "Цвет текста",
-            "en": "Text colour"
+            "en": "Text colour",
+            "es": "Color del texto",
+            "pt-BR": "Cor do texto",
+            "de": "Textfarbe",
+            "zh-CN": "文字颜色",
+            "fr": "Couleur du texte",
+            "ja": "文字色"
           }
         }
       ]
@@ -124,7 +196,13 @@
       "type": "boolean",
       "label": {
         "ru": "Реагировать на указатель",
-        "en": "React to the pointer"
+        "en": "React to the pointer",
+        "es": "Reaccionar al puntero",
+        "pt-BR": "Reagir ao ponteiro",
+        "de": "Auf den Zeiger reagieren",
+        "zh-CN": "响应指针",
+        "fr": "Réagir au pointeur",
+        "ja": "ポインターに反応"
       },
       "default": true
     }

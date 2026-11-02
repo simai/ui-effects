@@ -2,10 +2,16 @@
   "schema": "simai.effect",
   "schema_version": 1,
   "id": "neon-horizon",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "label": {
     "ru": "Неоновый горизонт",
-    "en": "Neon horizon"
+    "en": "Neon horizon",
+    "es": "Horizonte de neón",
+    "pt-BR": "Horizonte neon",
+    "de": "Neonhorizont",
+    "zh-CN": "霓虹地平线",
+    "fr": "Horizon néon",
+    "ja": "ネオンの地平線"
   },
   "author": "SIMAI",
   "entry": "index.js",
@@ -28,7 +34,13 @@
       "type": "integer",
       "label": {
         "ru": "Скорость",
-        "en": "Speed"
+        "en": "Speed",
+        "es": "Velocidad",
+        "pt-BR": "Velocidade",
+        "de": "Geschwindigkeit",
+        "zh-CN": "速度",
+        "fr": "Vitesse",
+        "ja": "速度"
       },
       "default": 100,
       "min": 10,
@@ -41,7 +53,13 @@
       "type": "integer",
       "label": {
         "ru": "Яркость",
-        "en": "Intensity"
+        "en": "Intensity",
+        "es": "Intensidad",
+        "pt-BR": "Intensidade",
+        "de": "Intensität",
+        "zh-CN": "强度",
+        "fr": "Intensité",
+        "ja": "強さ"
       },
       "default": 50,
       "min": 10,
@@ -54,7 +72,13 @@
       "type": "integer",
       "label": {
         "ru": "Высота горизонта",
-        "en": "Horizon height"
+        "en": "Horizon height",
+        "es": "Altura del horizonte",
+        "pt-BR": "Altura do horizonte",
+        "de": "Horizonthöhe",
+        "zh-CN": "地平线高度",
+        "fr": "Hauteur de l’horizon",
+        "ja": "地平線の高さ"
       },
       "default": 42,
       "min": 20,
@@ -67,7 +91,13 @@
       "type": "choice",
       "label": {
         "ru": "Палитра",
-        "en": "Palette"
+        "en": "Palette",
+        "es": "Paleta",
+        "pt-BR": "Paleta",
+        "de": "Palette",
+        "zh-CN": "配色",
+        "fr": "Palette",
+        "ja": "パレット"
       },
       "default": "theme",
       "options": [
@@ -75,70 +105,130 @@
           "value": "theme",
           "label": {
             "ru": "Цвет темы",
-            "en": "Theme colour"
+            "en": "Theme colour",
+            "es": "Color del tema",
+            "pt-BR": "Cor do tema",
+            "de": "Designfarbe",
+            "zh-CN": "主题色",
+            "fr": "Couleur du thème",
+            "ja": "テーマカラー"
           }
         },
         {
           "value": "turquoise",
           "label": {
             "ru": "Бирюзовая",
-            "en": "Turquoise"
+            "en": "Turquoise",
+            "es": "Turquesa",
+            "pt-BR": "Turquesa",
+            "de": "Türkis",
+            "zh-CN": "青绿",
+            "fr": "Turquoise",
+            "ja": "ターコイズ"
           }
         },
         {
           "value": "ocean",
           "label": {
             "ru": "Океан",
-            "en": "Ocean"
+            "en": "Ocean",
+            "es": "Océano",
+            "pt-BR": "Oceano",
+            "de": "Ozean",
+            "zh-CN": "海洋",
+            "fr": "Océan",
+            "ja": "オーシャン"
           }
         },
         {
           "value": "violet",
           "label": {
             "ru": "Фиолетовая",
-            "en": "Violet"
+            "en": "Violet",
+            "es": "Violeta",
+            "pt-BR": "Violeta",
+            "de": "Violett",
+            "zh-CN": "紫罗兰",
+            "fr": "Violet",
+            "ja": "バイオレット"
           }
         },
         {
           "value": "rose",
           "label": {
             "ru": "Роза",
-            "en": "Rose"
+            "en": "Rose",
+            "es": "Rosa",
+            "pt-BR": "Rosa",
+            "de": "Rosé",
+            "zh-CN": "玫瑰",
+            "fr": "Rose",
+            "ja": "ローズ"
           }
         },
         {
           "value": "emerald",
           "label": {
             "ru": "Изумруд",
-            "en": "Emerald"
+            "en": "Emerald",
+            "es": "Esmeralda",
+            "pt-BR": "Esmeralda",
+            "de": "Smaragd",
+            "zh-CN": "翡翠",
+            "fr": "Émeraude",
+            "ja": "エメラルド"
           }
         },
         {
           "value": "sunset",
           "label": {
             "ru": "Закат",
-            "en": "Sunset"
+            "en": "Sunset",
+            "es": "Atardecer",
+            "pt-BR": "Pôr do sol",
+            "de": "Sonnenuntergang",
+            "zh-CN": "日落",
+            "fr": "Coucher de soleil",
+            "ja": "サンセット"
           }
         },
         {
           "value": "gold",
           "label": {
             "ru": "Золото",
-            "en": "Gold"
+            "en": "Gold",
+            "es": "Oro",
+            "pt-BR": "Ouro",
+            "de": "Gold",
+            "zh-CN": "金色",
+            "fr": "Or",
+            "ja": "ゴールド"
           }
         },
         {
           "value": "silver",
           "label": {
             "ru": "Серебро",
-            "en": "Silver"
+            "en": "Silver",
+            "es": "Plata",
+            "pt-BR": "Prata",
+            "de": "Silber",
+            "zh-CN": "银色",
+            "fr": "Argent",
+            "ja": "シルバー"
           }
         },
         {
           "value": "custom",
           "label": {
             "ru": "Свой цвет",
-            "en": "Custom colour"
+            "en": "Custom colour",
+            "es": "Color personalizado",
+            "pt-BR": "Cor personalizada",
+            "de": "Eigene Farbe",
+            "zh-CN": "自定义颜色",
+            "fr": "Couleur personnalisée",
+            "ja": "カスタムカラー"
           }
         }
       ]
@@ -148,12 +238,24 @@
       "type": "color",
       "label": {
         "ru": "Цвет",
-        "en": "Colour"
+        "en": "Colour",
+        "es": "Color",
+        "pt-BR": "Cor",
+        "de": "Farbe",
+        "zh-CN": "颜色",
+        "fr": "Couleur",
+        "ja": "色"
       },
       "default": "#3b82f6",
       "hint": {
         "ru": "Эффект строит из него все оттенки",
-        "en": "The effect builds every tone from it"
+        "en": "The effect builds every tone from it",
+        "es": "El efecto construye todos los tonos a partir de él",
+        "pt-BR": "O efeito constrói todos os tons a partir dela",
+        "de": "Der Effekt baut daraus jeden Farbton auf",
+        "zh-CN": "特效据此生成所有色调",
+        "fr": "L’effet en construit toutes les teintes",
+        "ja": "エフェクトはこの色からすべての色調を作ります"
       },
       "when": {
         "key": "palette",
@@ -167,12 +269,24 @@
       "type": "boolean",
       "label": {
         "ru": "Реагировать на указатель",
-        "en": "React to the pointer"
+        "en": "React to the pointer",
+        "es": "Reaccionar al puntero",
+        "pt-BR": "Reagir ao ponteiro",
+        "de": "Auf den Zeiger reagieren",
+        "zh-CN": "响应指针",
+        "fr": "Réagir au pointeur",
+        "ja": "ポインターに反応"
       },
       "default": true,
       "hint": {
         "ru": "Точка схода следует за указателем, щелчок выпускает нового гонщика",
-        "en": "The vanishing point follows the pointer; a click releases a new rider"
+        "en": "The vanishing point follows the pointer; a click releases a new rider",
+        "es": "El punto de fuga sigue al puntero; un clic lanza un nuevo piloto",
+        "pt-BR": "O ponto de fuga segue o ponteiro; um clique solta um novo piloto",
+        "de": "Der Fluchtpunkt folgt dem Zeiger; ein Klick lässt einen neuen Fahrer los",
+        "zh-CN": "灭点跟随指针；点击会放出一名新的骑手",
+        "fr": "Le point de fuite suit le pointeur ; un clic lance un nouveau pilote",
+        "ja": "消失点がポインターを追い、クリックで新しいライダーが放たれます"
       }
     },
     {
@@ -180,12 +294,24 @@
       "type": "boolean",
       "label": {
         "ru": "Световые гонщики",
-        "en": "Light riders"
+        "en": "Light riders",
+        "es": "Pilotos de luz",
+        "pt-BR": "Pilotos de luz",
+        "de": "Lichtfahrer",
+        "zh-CN": "光之骑手",
+        "fr": "Motos de lumière",
+        "ja": "ライトライダー"
       },
       "default": true,
       "hint": {
         "ru": "Гонщики едут по линиям сетки и оставляют световые стены",
-        "en": "Riders ride the grid lines and leave light walls"
+        "en": "Riders ride the grid lines and leave light walls",
+        "es": "Los pilotos avanzan por las líneas de la cuadrícula y dejan muros de luz",
+        "pt-BR": "Os pilotos seguem as linhas da grade e deixam paredes de luz",
+        "de": "Fahrer fahren auf den Rasterlinien und hinterlassen Lichtwände",
+        "zh-CN": "骑手沿网格线行驶，留下光墙",
+        "fr": "Les pilotes roulent sur les lignes de la grille et laissent des murs de lumière",
+        "ja": "ライダーはグリッドの線を走り、光の壁を残します"
       }
     },
     {
@@ -193,7 +319,13 @@
       "type": "integer",
       "label": {
         "ru": "Число гонщиков",
-        "en": "Number of riders"
+        "en": "Number of riders",
+        "es": "Número de pilotos",
+        "pt-BR": "Número de pilotos",
+        "de": "Anzahl der Fahrer",
+        "zh-CN": "骑手数量",
+        "fr": "Nombre de pilotes",
+        "ja": "ライダーの数"
       },
       "default": 3,
       "min": 2,
@@ -201,7 +333,13 @@
       "step": 1,
       "hint": {
         "ru": "Гонщик, врезавшийся в стену, взрывается",
-        "en": "A rider that runs into a wall bursts"
+        "en": "A rider that runs into a wall bursts",
+        "es": "Un piloto que choca con un muro estalla",
+        "pt-BR": "Um piloto que bate numa parede explode",
+        "de": "Ein Fahrer, der gegen eine Wand fährt, zerplatzt",
+        "zh-CN": "撞上光墙的骑手会爆炸",
+        "fr": "Un pilote qui heurte un mur explose",
+        "ja": "壁にぶつかったライダーは爆発します"
       },
       "when": {
         "key": "riders",

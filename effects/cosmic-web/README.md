@@ -3,7 +3,7 @@
 Fine, sharp filaments fill the area round dark voids and slowly part, join and find a new shape. Drawn on the video card; without one it is a still picture.
 
 - **Russian name:** Космическая паутина
-- **Version:** 0.2.1, simai.effect 1.3.0
+- **Version:** 0.2.2, simai.effect 1.3.0
 - **Surfaces:** hero, section, dashboard, sign-in
 - **Tags:** particles, lines
 - **Role:** Science, data, connections. Dark scheme only.

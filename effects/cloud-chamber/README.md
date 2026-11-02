@@ -3,7 +3,7 @@
 Particle tracks in mist: short thick alpha tracks, long curling electrons, a rare muon right across; each track flashes in and melts away.
 
 - **Russian name:** Камера Вильсона
-- **Version:** 0.1.0, simai.effect 1.1.0
+- **Version:** 0.1.1, simai.effect 1.1.0
 - **Surfaces:** hero, section, dashboard, sign-in
 - **Tags:** lines, particles
 - **Role:** Science, precision, connections: a minimal dark background. Dark scheme only.

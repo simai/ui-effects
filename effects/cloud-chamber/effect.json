@@ -2,10 +2,16 @@
   "schema": "simai.effect",
   "schema_version": 1,
   "id": "cloud-chamber",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "label": {
     "ru": "Камера Вильсона",
-    "en": "Cloud chamber"
+    "en": "Cloud chamber",
+    "es": "Cámara de niebla",
+    "pt-BR": "Câmara de nuvens",
+    "de": "Nebelkammer",
+    "zh-CN": "云雾室",
+    "fr": "Chambre à brouillard",
+    "ja": "霧箱"
   },
   "author": "SIMAI",
   "entry": "index.js",
@@ -28,7 +34,13 @@
       "type": "integer",
       "label": {
         "ru": "Скорость",
-        "en": "Speed"
+        "en": "Speed",
+        "es": "Velocidad",
+        "pt-BR": "Velocidade",
+        "de": "Geschwindigkeit",
+        "zh-CN": "速度",
+        "fr": "Vitesse",
+        "ja": "速度"
       },
       "default": 100,
       "min": 10,
@@ -41,7 +53,13 @@
       "type": "integer",
       "label": {
         "ru": "Яркость",
-        "en": "Intensity"
+        "en": "Intensity",
+        "es": "Intensidad",
+        "pt-BR": "Intensidade",
+        "de": "Intensität",
+        "zh-CN": "强度",
+        "fr": "Intensité",
+        "ja": "強さ"
       },
       "default": 70,
       "min": 10,
@@ -54,7 +72,13 @@
       "type": "integer",
       "label": {
         "ru": "Плотность",
-        "en": "Density"
+        "en": "Density",
+        "es": "Densidad",
+        "pt-BR": "Densidade",
+        "de": "Dichte",
+        "zh-CN": "密度",
+        "fr": "Densité",
+        "ja": "密度"
       },
       "default": 50,
       "min": 10,
@@ -67,12 +91,24 @@
       "type": "boolean",
       "label": {
         "ru": "Магнитное поле",
-        "en": "Magnetic field"
+        "en": "Magnetic field",
+        "es": "Campo magnético",
+        "pt-BR": "Campo magnético",
+        "de": "Magnetfeld",
+        "zh-CN": "磁场",
+        "fr": "Champ magnétique",
+        "ja": "磁場"
       },
       "default": true,
       "hint": {
         "ru": "Электроны закручиваются в спирали",
-        "en": "Electrons curl into spirals"
+        "en": "Electrons curl into spirals",
+        "es": "Los electrones se enroscan en espirales",
+        "pt-BR": "Elétrons se enrolam em espirais",
+        "de": "Elektronen rollen sich zu Spiralen ein",
+        "zh-CN": "电子卷成螺旋",
+        "fr": "Les électrons s’enroulent en spirales",
+        "ja": "電子が渦巻き状に曲がります"
       }
     },
     {
@@ -80,12 +116,24 @@
       "type": "boolean",
       "label": {
         "ru": "Реагировать на указатель",
-        "en": "React to the pointer"
+        "en": "React to the pointer",
+        "es": "Reaccionar al puntero",
+        "pt-BR": "Reagir ao ponteiro",
+        "de": "Auf den Zeiger reagieren",
+        "zh-CN": "响应指针",
+        "fr": "Réagir au pointeur",
+        "ja": "ポインターに反応"
       },
       "default": true,
       "hint": {
         "ru": "Указатель — радиоактивный образец, клик — ливень частиц",
-        "en": "The pointer is a radioactive sample, a click is a particle shower"
+        "en": "The pointer is a radioactive sample, a click is a particle shower",
+        "es": "El puntero es una muestra radiactiva, un clic es una lluvia de partículas",
+        "pt-BR": "O ponteiro é uma amostra radioativa, um clique é uma chuva de partículas",
+        "de": "Der Zeiger ist eine radioaktive Probe, ein Klick ist ein Teilchenschauer",
+        "zh-CN": "指针是放射性样品，点击是粒子簇射",
+        "fr": "Le pointeur est un échantillon radioactif, un clic est une gerbe de particules",
+        "ja": "ポインターは放射性試料、クリックは粒子のシャワーです"
       }
     }
   ],

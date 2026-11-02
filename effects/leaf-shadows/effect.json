@@ -2,10 +2,16 @@
   "schema": "simai.effect",
   "schema_version": 1,
   "id": "leaf-shadows",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "label": {
     "ru": "Тень листвы",
-    "en": "Leaf shadows"
+    "en": "Leaf shadows",
+    "es": "Sombras de hojas",
+    "pt-BR": "Sombras de folhas",
+    "de": "Blattschatten",
+    "zh-CN": "树叶影子",
+    "fr": "Ombres de feuilles",
+    "ja": "葉の影"
   },
   "author": "SIMAI",
   "entry": "index.js",
@@ -28,7 +34,13 @@
       "type": "integer",
       "label": {
         "ru": "Скорость, %",
-        "en": "Speed, %"
+        "en": "Speed, %",
+        "es": "Velocidad, %",
+        "pt-BR": "Velocidade, %",
+        "de": "Geschwindigkeit, %",
+        "zh-CN": "速度，%",
+        "fr": "Vitesse, %",
+        "ja": "速度（%）"
       },
       "default": 100,
       "min": 10,
@@ -41,7 +53,13 @@
       "type": "integer",
       "label": {
         "ru": "Глубина тени",
-        "en": "Shadow depth"
+        "en": "Shadow depth",
+        "es": "Profundidad de la sombra",
+        "pt-BR": "Profundidade da sombra",
+        "de": "Schattentiefe",
+        "zh-CN": "阴影深度",
+        "fr": "Profondeur des ombres",
+        "ja": "影の濃さ"
       },
       "default": 50,
       "min": 0,
@@ -54,7 +72,13 @@
       "type": "integer",
       "label": {
         "ru": "Густота листвы, %",
-        "en": "Foliage, %"
+        "en": "Foliage, %",
+        "es": "Follaje, %",
+        "pt-BR": "Folhagem, %",
+        "de": "Laub, %",
+        "zh-CN": "枝叶，%",
+        "fr": "Feuillage, %",
+        "ja": "葉の量（%）"
       },
       "default": 55,
       "min": 10,
@@ -67,7 +91,13 @@
       "type": "choice",
       "label": {
         "ru": "Время дня",
-        "en": "Time of day"
+        "en": "Time of day",
+        "es": "Hora del día",
+        "pt-BR": "Hora do dia",
+        "de": "Tageszeit",
+        "zh-CN": "时段",
+        "fr": "Moment de la journée",
+        "ja": "時間帯"
       },
       "default": "morning",
       "options": [
@@ -75,21 +105,39 @@
           "value": "morning",
           "label": {
             "ru": "Утро",
-            "en": "Morning"
+            "en": "Morning",
+            "es": "Mañana",
+            "pt-BR": "Manhã",
+            "de": "Morgen",
+            "zh-CN": "清晨",
+            "fr": "Matin",
+            "ja": "朝"
           }
         },
         {
           "value": "noon",
           "label": {
             "ru": "Полдень",
-            "en": "Noon"
+            "en": "Noon",
+            "es": "Mediodía",
+            "pt-BR": "Meio-dia",
+            "de": "Mittag",
+            "zh-CN": "正午",
+            "fr": "Midi",
+            "ja": "正午"
           }
         },
         {
           "value": "evening",
           "label": {
             "ru": "Вечер",
-            "en": "Evening"
+            "en": "Evening",
+            "es": "Tarde",
+            "pt-BR": "Entardecer",
+            "de": "Abend",
+            "zh-CN": "傍晚",
+            "fr": "Soir",
+            "ja": "夕方"
           }
         }
       ]
@@ -99,7 +147,13 @@
       "type": "boolean",
       "label": {
         "ru": "Реагировать на указатель",
-        "en": "React to the pointer"
+        "en": "React to the pointer",
+        "es": "Reaccionar al puntero",
+        "pt-BR": "Reagir ao ponteiro",
+        "de": "Auf den Zeiger reagieren",
+        "zh-CN": "响应指针",
+        "fr": "Réagir au pointeur",
+        "ja": "ポインターに反応"
       },
       "default": true
     }

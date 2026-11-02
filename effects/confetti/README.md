@@ -3,7 +3,7 @@
 Paper confetti from a popper drifts down from above, tumbling in the air; a press fires a popper upwards.
 
 - **Russian name:** Конфетти
-- **Version:** 0.1.0, simai.effect 1.1.0
+- **Version:** 0.1.1, simai.effect 1.1.0
 - **Surfaces:** hero, section, dashboard, sign-in
 - **Tags:** particles, paper
 - **Role:** A celebration, a greeting, a success: light and dark schemes.

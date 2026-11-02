@@ -2,10 +2,16 @@
   "schema": "simai.effect",
   "schema_version": 1,
   "id": "fabric-grid",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "label": {
     "ru": "Ткань пространства-времени",
-    "en": "Spacetime fabric"
+    "en": "Spacetime fabric",
+    "es": "Tejido del espacio-tiempo",
+    "pt-BR": "Tecido do espaço-tempo",
+    "de": "Raumzeitgewebe",
+    "zh-CN": "时空织物",
+    "fr": "Tissu de l’espace-temps",
+    "ja": "時空の織物"
   },
   "author": "SIMAI",
   "entry": "index.js",
@@ -29,7 +35,13 @@
       "type": "integer",
       "label": {
         "ru": "Скорость",
-        "en": "Speed"
+        "en": "Speed",
+        "es": "Velocidad",
+        "pt-BR": "Velocidade",
+        "de": "Geschwindigkeit",
+        "zh-CN": "速度",
+        "fr": "Vitesse",
+        "ja": "速度"
       },
       "default": 100,
       "min": 10,
@@ -42,7 +54,13 @@
       "type": "integer",
       "label": {
         "ru": "Яркость",
-        "en": "Intensity"
+        "en": "Intensity",
+        "es": "Intensidad",
+        "pt-BR": "Intensidade",
+        "de": "Intensität",
+        "zh-CN": "强度",
+        "fr": "Intensité",
+        "ja": "強さ"
       },
       "default": 70,
       "min": 10,
@@ -55,7 +73,13 @@
       "type": "integer",
       "label": {
         "ru": "Плотность",
-        "en": "Density"
+        "en": "Density",
+        "es": "Densidad",
+        "pt-BR": "Densidade",
+        "de": "Dichte",
+        "zh-CN": "密度",
+        "fr": "Densité",
+        "ja": "密度"
       },
       "default": 50,
       "min": 10,
@@ -68,7 +92,13 @@
       "type": "choice",
       "label": {
         "ru": "Палитра",
-        "en": "Palette"
+        "en": "Palette",
+        "es": "Paleta",
+        "pt-BR": "Paleta",
+        "de": "Palette",
+        "zh-CN": "配色",
+        "fr": "Palette",
+        "ja": "パレット"
       },
       "default": "theme",
       "options": [
@@ -76,70 +106,130 @@
           "value": "theme",
           "label": {
             "ru": "Цвет темы",
-            "en": "Theme colour"
+            "en": "Theme colour",
+            "es": "Color del tema",
+            "pt-BR": "Cor do tema",
+            "de": "Designfarbe",
+            "zh-CN": "主题色",
+            "fr": "Couleur du thème",
+            "ja": "テーマカラー"
           }
         },
         {
           "value": "turquoise",
           "label": {
             "ru": "Бирюзовая",
-            "en": "Turquoise"
+            "en": "Turquoise",
+            "es": "Turquesa",
+            "pt-BR": "Turquesa",
+            "de": "Türkis",
+            "zh-CN": "青绿",
+            "fr": "Turquoise",
+            "ja": "ターコイズ"
           }
         },
         {
           "value": "ocean",
           "label": {
             "ru": "Океан",
-            "en": "Ocean"
+            "en": "Ocean",
+            "es": "Océano",
+            "pt-BR": "Oceano",
+            "de": "Ozean",
+            "zh-CN": "海洋",
+            "fr": "Océan",
+            "ja": "オーシャン"
           }
         },
         {
           "value": "violet",
           "label": {
             "ru": "Фиолетовая",
-            "en": "Violet"
+            "en": "Violet",
+            "es": "Violeta",
+            "pt-BR": "Violeta",
+            "de": "Violett",
+            "zh-CN": "紫罗兰",
+            "fr": "Violet",
+            "ja": "バイオレット"
           }
         },
         {
           "value": "rose",
           "label": {
             "ru": "Роза",
-            "en": "Rose"
+            "en": "Rose",
+            "es": "Rosa",
+            "pt-BR": "Rosa",
+            "de": "Rosé",
+            "zh-CN": "玫瑰",
+            "fr": "Rose",
+            "ja": "ローズ"
           }
         },
         {
           "value": "emerald",
           "label": {
             "ru": "Изумруд",
-            "en": "Emerald"
+            "en": "Emerald",
+            "es": "Esmeralda",
+            "pt-BR": "Esmeralda",
+            "de": "Smaragd",
+            "zh-CN": "翡翠",
+            "fr": "Émeraude",
+            "ja": "エメラルド"
           }
         },
         {
           "value": "sunset",
           "label": {
             "ru": "Закат",
-            "en": "Sunset"
+            "en": "Sunset",
+            "es": "Atardecer",
+            "pt-BR": "Pôr do sol",
+            "de": "Sonnenuntergang",
+            "zh-CN": "日落",
+            "fr": "Coucher de soleil",
+            "ja": "サンセット"
           }
         },
         {
           "value": "gold",
           "label": {
             "ru": "Золото",
-            "en": "Gold"
+            "en": "Gold",
+            "es": "Oro",
+            "pt-BR": "Ouro",
+            "de": "Gold",
+            "zh-CN": "金色",
+            "fr": "Or",
+            "ja": "ゴールド"
           }
         },
         {
           "value": "silver",
           "label": {
             "ru": "Серебро",
-            "en": "Silver"
+            "en": "Silver",
+            "es": "Plata",
+            "pt-BR": "Prata",
+            "de": "Silber",
+            "zh-CN": "银色",
+            "fr": "Argent",
+            "ja": "シルバー"
           }
         },
         {
           "value": "custom",
           "label": {
             "ru": "Свой цвет",
-            "en": "Custom colour"
+            "en": "Custom colour",
+            "es": "Color personalizado",
+            "pt-BR": "Cor personalizada",
+            "de": "Eigene Farbe",
+            "zh-CN": "自定义颜色",
+            "fr": "Couleur personnalisée",
+            "ja": "カスタムカラー"
           }
         }
       ]
@@ -149,12 +239,24 @@
       "type": "color",
       "label": {
         "ru": "Цвет",
-        "en": "Colour"
+        "en": "Colour",
+        "es": "Color",
+        "pt-BR": "Cor",
+        "de": "Farbe",
+        "zh-CN": "颜色",
+        "fr": "Couleur",
+        "ja": "色"
       },
       "default": "#3b82f6",
       "hint": {
         "ru": "Эффект строит из него все оттенки",
-        "en": "The effect builds every tone from it"
+        "en": "The effect builds every tone from it",
+        "es": "El efecto construye todos los tonos a partir de él",
+        "pt-BR": "O efeito constrói todos os tons a partir dela",
+        "de": "Der Effekt baut daraus jeden Farbton auf",
+        "zh-CN": "特效据此生成所有色调",
+        "fr": "L’effet en construit toutes les teintes",
+        "ja": "エフェクトはこの色からすべての色調を作ります"
       },
       "when": {
         "key": "palette",
@@ -168,12 +270,24 @@
       "type": "boolean",
       "label": {
         "ru": "Пролетающие тела",
-        "en": "Passing bodies"
+        "en": "Passing bodies",
+        "es": "Cuerpos que pasan",
+        "pt-BR": "Corpos em trânsito",
+        "de": "Vorbeiziehende Körper",
+        "zh-CN": "过路天体",
+        "fr": "Corps de passage",
+        "ja": "通過する天体"
       },
       "default": true,
       "hint": {
         "ru": "Время от времени с края входят планеты и звёзды разной массы, иногда большое тяжёлое тело. Они притягивают друг друга по закону Ньютона, прогибают сетку, а у тяжёлой звезды или чёрной дыры уходят на орбиту",
-        "en": "Now and then planets and stars of different masses come in from an edge, a big heavy one from time to time. They attract each other by Newton's law, bend the grid, and fall into orbit around a heavy star or black hole"
+        "en": "Now and then planets and stars of different masses come in from an edge, a big heavy one from time to time. They attract each other by Newton's law, bend the grid, and fall into orbit around a heavy star or black hole",
+        "es": "De vez en cuando entran por un borde planetas y estrellas de distintas masas, y de tanto en tanto uno grande y pesado. Se atraen según la ley de Newton, curvan la cuadrícula y caen en órbita alrededor de una estrella pesada o un agujero negro",
+        "pt-BR": "De vez em quando planetas e estrelas de massas diferentes entram por uma borda, e às vezes um grande e pesado. Eles se atraem pela lei de Newton, curvam a grade e caem em órbita ao redor de uma estrela pesada ou de um buraco negro",
+        "de": "Hin und wieder kommen Planeten und Sterne unterschiedlicher Masse von einem Rand herein, ab und zu ein großer, schwerer. Sie ziehen einander nach dem Newtonschen Gesetz an, krümmen das Raster und fallen in eine Umlaufbahn um einen schweren Stern oder ein Schwarzes Loch",
+        "zh-CN": "不时有不同质量的行星和恒星从边缘进入，偶尔还有庞大沉重的天体。它们按牛顿定律相互吸引，使网格弯曲，并落入重型恒星或黑洞周围的轨道",
+        "fr": "De temps en temps, des planètes et des étoiles de masses différentes arrivent par un bord, parfois une grosse et lourde. Elles s’attirent selon la loi de Newton, courbent la grille et se mettent en orbite autour d’une étoile lourde ou d’un trou noir",
+        "ja": "ときおり、質量の異なる惑星や恒星が端から現れ、たまに巨大で重いものも来ます。それらはニュートンの法則で引き合い、グリッドを歪め、重い恒星やブラックホールの周りの軌道に落ち込みます"
       }
     },
     {
@@ -181,7 +295,13 @@
       "type": "choice",
       "label": {
         "ru": "Как часто пролетают тела",
-        "en": "How often bodies pass"
+        "en": "How often bodies pass",
+        "es": "Con qué frecuencia pasan los cuerpos",
+        "pt-BR": "Com que frequência passam corpos",
+        "de": "Wie oft Körper vorbeiziehen",
+        "zh-CN": "天体经过的频率",
+        "fr": "Fréquence des corps de passage",
+        "ja": "天体が通る頻度"
       },
       "default": "normal",
       "options": [
@@ -189,27 +309,51 @@
           "value": "rare",
           "label": {
             "ru": "Редко",
-            "en": "Rarely"
+            "en": "Rarely",
+            "es": "Poco",
+            "pt-BR": "Raramente",
+            "de": "Selten",
+            "zh-CN": "较少",
+            "fr": "Rarement",
+            "ja": "まれに"
           }
         },
         {
           "value": "normal",
           "label": {
             "ru": "Обычно",
-            "en": "Normal"
+            "en": "Normal",
+            "es": "Normal",
+            "pt-BR": "Normal",
+            "de": "Normal",
+            "zh-CN": "正常",
+            "fr": "Normale",
+            "ja": "ふつう"
           }
         },
         {
           "value": "often",
           "label": {
             "ru": "Часто",
-            "en": "Often"
+            "en": "Often",
+            "es": "Mucho",
+            "pt-BR": "Frequentemente",
+            "de": "Oft",
+            "zh-CN": "频繁",
+            "fr": "Souvent",
+            "ja": "頻繁に"
           }
         }
       ],
       "hint": {
         "ru": "Одновременно в кадре не больше трёх тел; пока есть чёрная дыра, следующее тело летит мимо неё",
-        "en": "No more than three bodies in view at once; while a black hole is there, the next one heads past it"
+        "en": "No more than three bodies in view at once; while a black hole is there, the next one heads past it",
+        "es": "Como máximo tres cuerpos a la vez en pantalla; mientras haya un agujero negro, el siguiente pasa de largo",
+        "pt-BR": "No máximo três corpos à vista ao mesmo tempo; enquanto há um buraco negro, o próximo passa longe dele",
+        "de": "Höchstens drei Körper gleichzeitig im Bild; solange ein Schwarzes Loch da ist, steuert der nächste an ihm vorbei",
+        "zh-CN": "画面中同时最多三个天体；黑洞存在期间，下一个天体会绕开它飞过",
+        "fr": "Pas plus de trois corps en vue à la fois ; tant qu’un trou noir est présent, le suivant passe à côté de lui",
+        "ja": "同時に見える天体は最大3つまで。ブラックホールがある間、次の天体はその脇を通り過ぎます"
       }
     },
     {
@@ -217,12 +361,24 @@
       "type": "boolean",
       "label": {
         "ru": "Реагировать на указатель",
-        "en": "React to the pointer"
+        "en": "React to the pointer",
+        "es": "Reaccionar al puntero",
+        "pt-BR": "Reagir ao ponteiro",
+        "de": "Auf den Zeiger reagieren",
+        "zh-CN": "响应指针",
+        "fr": "Réagir au pointeur",
+        "ja": "ポインターに反応"
       },
       "default": true,
       "hint": {
         "ru": "Клик пускает гравитационную волну. Нажмите и удерживайте: под указателем появляется звезда, растёт, вспыхивает и сжимается в чёрную дыру. Пролетающие тела притягиваются к ней, уходят на орбиту или падают в неё; через полминуты дыра испаряется",
-        "en": "A click sends a gravitational wave. Press and hold: a star appears under the pointer, grows, flares and collapses into a black hole. Passing bodies are pulled in, fall into orbit or are swallowed; the black hole evaporates within half a minute"
+        "en": "A click sends a gravitational wave. Press and hold: a star appears under the pointer, grows, flares and collapses into a black hole. Passing bodies are pulled in, fall into orbit or are swallowed; the black hole evaporates within half a minute",
+        "es": "Un clic envía una onda gravitacional. Mantenga pulsado: bajo el puntero aparece una estrella, crece, estalla y colapsa en un agujero negro. Los cuerpos que pasan son atraídos, caen en órbita o son engullidos; el agujero negro se evapora en medio minuto",
+        "pt-BR": "Um clique envia uma onda gravitacional. Mantenha pressionado: uma estrela aparece sob o ponteiro, cresce, explode e colapsa num buraco negro. Os corpos em trânsito são puxados, entram em órbita ou são engolidos; o buraco negro evapora em meio minuto",
+        "de": "Ein Klick sendet eine Gravitationswelle. Gedrückt halten: Unter dem Zeiger erscheint ein Stern, wächst, flammt auf und kollabiert zu einem Schwarzen Loch. Vorbeiziehende Körper werden angezogen, fallen in eine Umlaufbahn oder werden verschluckt; das Schwarze Loch verdampft innerhalb einer halben Minute",
+        "zh-CN": "点击会发出一道引力波。按住不放：指针下出现一颗恒星，逐渐变大、爆发并坍缩为黑洞。过路天体会被吸入、落入轨道或被吞噬；黑洞会在半分钟内蒸发",
+        "fr": "Un clic envoie une onde gravitationnelle. Maintenez appuyé : une étoile apparaît sous le pointeur, grossit, flamboie et s’effondre en trou noir. Les corps de passage sont attirés, se mettent en orbite ou sont engloutis ; le trou noir s’évapore en une demi-minute",
+        "ja": "クリックで重力波を送ります。長押しすると、ポインターの下に星が現れ、成長し、フレアを起こし、ブラックホールに崩壊します。通りかかった天体は引き込まれ、軌道に落ちるか飲み込まれます。ブラックホールは30秒ほどで蒸発します"
       }
     }
   ],

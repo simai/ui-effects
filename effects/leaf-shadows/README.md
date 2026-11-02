@@ -3,7 +3,7 @@
 Leaf shadows sway on a wall: in sunlight by day, in moonlight by night.
 
 - **Russian name:** Тень листвы
-- **Version:** 2.0.0, simai.effect 1.1.0
+- **Version:** 2.0.1, simai.effect 1.1.0
 - **Surfaces:** sign-in, hero, product
 - **Tags:** nature
 - **Role:** Nature and quiet: light and dark schemes.

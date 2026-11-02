@@ -2,10 +2,16 @@
   "schema": "simai.effect",
   "schema_version": 1,
   "id": "confetti",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "label": {
     "ru": "Конфетти",
-    "en": "Confetti"
+    "en": "Confetti",
+    "es": "Confeti",
+    "pt-BR": "Confete",
+    "de": "Konfetti",
+    "zh-CN": "彩纸",
+    "fr": "Confettis",
+    "ja": "紙吹雪"
   },
   "author": "SIMAI",
   "entry": "index.js",
@@ -29,7 +35,13 @@
       "type": "integer",
       "label": {
         "ru": "Скорость",
-        "en": "Speed"
+        "en": "Speed",
+        "es": "Velocidad",
+        "pt-BR": "Velocidade",
+        "de": "Geschwindigkeit",
+        "zh-CN": "速度",
+        "fr": "Vitesse",
+        "ja": "速度"
       },
       "default": 100,
       "min": 10,
@@ -42,7 +54,13 @@
       "type": "integer",
       "label": {
         "ru": "Яркость",
-        "en": "Intensity"
+        "en": "Intensity",
+        "es": "Intensidad",
+        "pt-BR": "Intensidade",
+        "de": "Intensität",
+        "zh-CN": "强度",
+        "fr": "Intensité",
+        "ja": "強さ"
       },
       "default": 70,
       "min": 10,
@@ -55,7 +73,13 @@
       "type": "integer",
       "label": {
         "ru": "Плотность",
-        "en": "Density"
+        "en": "Density",
+        "es": "Densidad",
+        "pt-BR": "Densidade",
+        "de": "Dichte",
+        "zh-CN": "密度",
+        "fr": "Densité",
+        "ja": "密度"
       },
       "default": 50,
       "min": 10,
@@ -68,12 +92,24 @@
       "type": "boolean",
       "label": {
         "ru": "Реагировать на указатель",
-        "en": "React to the pointer"
+        "en": "React to the pointer",
+        "es": "Reaccionar al puntero",
+        "pt-BR": "Reagir ao ponteiro",
+        "de": "Auf den Zeiger reagieren",
+        "zh-CN": "响应指针",
+        "fr": "Réagir au pointeur",
+        "ja": "ポインターに反応"
       },
       "default": true,
       "hint": {
         "ru": "Нажатие стреляет хлопушкой из точки нажатия",
-        "en": "A press fires a popper from the point"
+        "en": "A press fires a popper from the point",
+        "es": "Una pulsación dispara un cañón desde ese punto",
+        "pt-BR": "Pressionar dispara um estalinho a partir do ponto",
+        "de": "Ein Druck feuert an dieser Stelle eine Konfettikanone ab",
+        "zh-CN": "按下鼠标，礼花筒从该处发射",
+        "fr": "Un appui tire un cotillon depuis ce point",
+        "ja": "押した位置からクラッカーが発射されます"
       }
     }
   ],

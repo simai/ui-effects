@@ -3,7 +3,7 @@
 Drops of paint touch wet paper and bloom into stains with ragged edges.
 
 - **Russian name:** Акварель
-- **Version:** 0.1.0, simai.effect 1.1.0
+- **Version:** 0.1.1, simai.effect 1.1.0
 - **Surfaces:** hero, section, dashboard, sign-in
 - **Tags:** paper, gradient
 - **Role:** Live watercolour. Light scheme only.

@@ -3,7 +3,7 @@
 Rows of code scroll, lit by slow folds of light; the text takes the theme colour.
 
 - **Russian name:** Текстовый поток
-- **Version:** 3.2.1, simai.effect 1.3.0
+- **Version:** 3.2.2, simai.effect 1.3.0
 - **Surfaces:** sign-in, hero, section, dashboard
 - **Tags:** type, flow
 - **Role:** Code for developer products: light and dark schemes. From the Larena sign-in picture.

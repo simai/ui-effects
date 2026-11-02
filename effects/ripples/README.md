@@ -3,7 +3,7 @@
 Rings spread from a few drops over still water.
 
 - **Russian name:** Круги на воде
-- **Version:** 0.3.1, simai.effect 1.3.0
+- **Version:** 0.3.2, simai.effect 1.3.0
 - **Surfaces:** hero, section, dashboard, sign-in
 - **Tags:** water, geometry
 - **Role:** Still water: light or dark.

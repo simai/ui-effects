@@ -2,10 +2,16 @@
   "schema": "simai.effect",
   "schema_version": 1,
   "id": "sand-picture",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "label": {
     "ru": "Песочная картина",
-    "en": "Sand picture"
+    "en": "Sand picture",
+    "es": "Imagen de arena",
+    "pt-BR": "Imagem de areia",
+    "de": "Sandbild",
+    "zh-CN": "沙画",
+    "fr": "Image de sable",
+    "ja": "砂の絵"
   },
   "author": "SIMAI",
   "entry": "index.js",
@@ -29,7 +35,13 @@
       "type": "integer",
       "label": {
         "ru": "Скорость",
-        "en": "Speed"
+        "en": "Speed",
+        "es": "Velocidad",
+        "pt-BR": "Velocidade",
+        "de": "Geschwindigkeit",
+        "zh-CN": "速度",
+        "fr": "Vitesse",
+        "ja": "速度"
       },
       "default": 100,
       "min": 10,
@@ -42,7 +54,13 @@
       "type": "integer",
       "label": {
         "ru": "Яркость",
-        "en": "Intensity"
+        "en": "Intensity",
+        "es": "Intensidad",
+        "pt-BR": "Intensidade",
+        "de": "Intensität",
+        "zh-CN": "强度",
+        "fr": "Intensité",
+        "ja": "強さ"
       },
       "default": 70,
       "min": 10,
@@ -55,7 +73,13 @@
       "type": "integer",
       "label": {
         "ru": "Плотность",
-        "en": "Density"
+        "en": "Density",
+        "es": "Densidad",
+        "pt-BR": "Densidade",
+        "de": "Dichte",
+        "zh-CN": "密度",
+        "fr": "Densité",
+        "ja": "密度"
       },
       "default": 50,
       "min": 10,
@@ -68,7 +92,13 @@
       "type": "choice",
       "label": {
         "ru": "Палитра",
-        "en": "Palette"
+        "en": "Palette",
+        "es": "Paleta",
+        "pt-BR": "Paleta",
+        "de": "Palette",
+        "zh-CN": "配色",
+        "fr": "Palette",
+        "ja": "パレット"
       },
       "default": "greys",
       "options": [
@@ -76,28 +106,52 @@
           "value": "greys",
           "label": {
             "ru": "Серая",
-            "en": "Greys"
+            "en": "Greys",
+            "es": "Grises",
+            "pt-BR": "Cinzas",
+            "de": "Grautöne",
+            "zh-CN": "灰色",
+            "fr": "Gris",
+            "ja": "グレー"
           }
         },
         {
           "value": "classic",
           "label": {
             "ru": "Чёрная и белая",
-            "en": "Black and white"
+            "en": "Black and white",
+            "es": "Blanco y negro",
+            "pt-BR": "Preto e branco",
+            "de": "Schwarzweiß",
+            "zh-CN": "黑白",
+            "fr": "Noir et blanc",
+            "ja": "白黒"
           }
         },
         {
           "value": "desert",
           "label": {
             "ru": "Пустыня",
-            "en": "Desert"
+            "en": "Desert",
+            "es": "Desierto",
+            "pt-BR": "Deserto",
+            "de": "Wüste",
+            "zh-CN": "沙漠",
+            "fr": "Désert",
+            "ja": "砂漠"
           }
         },
         {
           "value": "theme",
           "label": {
             "ru": "Цвет темы",
-            "en": "Theme colour"
+            "en": "Theme colour",
+            "es": "Color del tema",
+            "pt-BR": "Cor do tema",
+            "de": "Designfarbe",
+            "zh-CN": "主题色",
+            "fr": "Couleur du thème",
+            "ja": "テーマカラー"
           }
         }
       ]
@@ -107,12 +161,24 @@
       "type": "boolean",
       "label": {
         "ru": "Реагировать на указатель",
-        "en": "React to the pointer"
+        "en": "React to the pointer",
+        "es": "Reaccionar al puntero",
+        "pt-BR": "Reagir ao ponteiro",
+        "de": "Auf den Zeiger reagieren",
+        "zh-CN": "响应指针",
+        "fr": "Réagir au pointeur",
+        "ja": "ポインターに反応"
       },
       "default": true,
       "hint": {
         "ru": "Клик ссыпает песок над указателем",
-        "en": "A click lets sand run down above the pointer"
+        "en": "A click lets sand run down above the pointer",
+        "es": "Un clic hace caer arena sobre el puntero",
+        "pt-BR": "Um clique faz a areia escorrer acima do ponteiro",
+        "de": "Ein Klick lässt oberhalb des Zeigers Sand herabrieseln",
+        "zh-CN": "点击会让沙子从指针上方流下",
+        "fr": "Un clic fait couler du sable au-dessus du pointeur",
+        "ja": "クリックすると、ポインターの上から砂が流れ落ちます"
       }
     }
   ],

@@ -2,10 +2,16 @@
   "schema": "simai.effect",
   "schema_version": 1,
   "id": "chladni",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "label": {
     "ru": "Фигуры Хладни",
-    "en": "Chladni figures"
+    "en": "Chladni figures",
+    "es": "Figuras de Chladni",
+    "pt-BR": "Figuras de Chladni",
+    "de": "Chladni-Figuren",
+    "zh-CN": "克拉尼图形",
+    "fr": "Figures de Chladni",
+    "ja": "クラドニ図形"
   },
   "author": "SIMAI",
   "entry": "index.js",
@@ -29,7 +35,13 @@
       "type": "integer",
       "label": {
         "ru": "Скорость",
-        "en": "Speed"
+        "en": "Speed",
+        "es": "Velocidad",
+        "pt-BR": "Velocidade",
+        "de": "Geschwindigkeit",
+        "zh-CN": "速度",
+        "fr": "Vitesse",
+        "ja": "速度"
       },
       "default": 100,
       "min": 10,
@@ -42,7 +54,13 @@
       "type": "integer",
       "label": {
         "ru": "Прозрачность песка",
-        "en": "Sand transparency"
+        "en": "Sand transparency",
+        "es": "Transparencia de la arena",
+        "pt-BR": "Transparência da areia",
+        "de": "Sandtransparenz",
+        "zh-CN": "沙子透明度",
+        "fr": "Transparence du sable",
+        "ja": "砂の透明度"
       },
       "default": 70,
       "min": 0,
@@ -55,7 +73,13 @@
       "type": "integer",
       "label": {
         "ru": "Плотность",
-        "en": "Density"
+        "en": "Density",
+        "es": "Densidad",
+        "pt-BR": "Densidade",
+        "de": "Dichte",
+        "zh-CN": "密度",
+        "fr": "Densité",
+        "ja": "密度"
       },
       "default": 30,
       "min": 10,
@@ -68,7 +92,13 @@
       "type": "choice",
       "label": {
         "ru": "Палитра",
-        "en": "Palette"
+        "en": "Palette",
+        "es": "Paleta",
+        "pt-BR": "Paleta",
+        "de": "Palette",
+        "zh-CN": "配色",
+        "fr": "Palette",
+        "ja": "パレット"
       },
       "default": "graphite",
       "options": [
@@ -76,28 +106,52 @@
           "value": "graphite",
           "label": {
             "ru": "Графит",
-            "en": "Graphite"
+            "en": "Graphite",
+            "es": "Grafito",
+            "pt-BR": "Grafite",
+            "de": "Graphit",
+            "zh-CN": "石墨",
+            "fr": "Graphite",
+            "ja": "グラファイト"
           }
         },
         {
           "value": "brass",
           "label": {
             "ru": "Латунь",
-            "en": "Brass"
+            "en": "Brass",
+            "es": "Latón",
+            "pt-BR": "Latão",
+            "de": "Messing",
+            "zh-CN": "黄铜",
+            "fr": "Laiton",
+            "ja": "真鍮"
           }
         },
         {
           "value": "lightbox",
           "label": {
             "ru": "Световой стол",
-            "en": "Lightbox"
+            "en": "Lightbox",
+            "es": "Mesa de luz",
+            "pt-BR": "Mesa de luz",
+            "de": "Leuchtkasten",
+            "zh-CN": "灯箱",
+            "fr": "Table lumineuse",
+            "ja": "ライトボックス"
           }
         },
         {
           "value": "ink",
           "label": {
             "ru": "Цвет темы",
-            "en": "Theme colour"
+            "en": "Theme colour",
+            "es": "Color del tema",
+            "pt-BR": "Cor do tema",
+            "de": "Designfarbe",
+            "zh-CN": "主题色",
+            "fr": "Couleur du thème",
+            "ja": "テーマカラー"
           }
         }
       ]
@@ -107,12 +161,24 @@
       "type": "boolean",
       "label": {
         "ru": "Реагировать на указатель",
-        "en": "React to the pointer"
+        "en": "React to the pointer",
+        "es": "Reaccionar al puntero",
+        "pt-BR": "Reagir ao ponteiro",
+        "de": "Auf den Zeiger reagieren",
+        "zh-CN": "响应指针",
+        "fr": "Réagir au pointeur",
+        "ja": "ポインターに反応"
       },
       "default": true,
       "hint": {
         "ru": "Указатель шевелит песок, клик меняет ноту",
-        "en": "The pointer stirs the sand, a click changes the note"
+        "en": "The pointer stirs the sand, a click changes the note",
+        "es": "El puntero remueve la arena, un clic cambia la nota",
+        "pt-BR": "O ponteiro agita a areia, um clique muda a nota",
+        "de": "Der Zeiger wirbelt den Sand auf, ein Klick wechselt den Ton",
+        "zh-CN": "指针搅动沙子，点击改变音调",
+        "fr": "Le pointeur remue le sable, un clic change la note",
+        "ja": "ポインターが砂をかき混ぜ、クリックで音が変わります"
       }
     }
   ],

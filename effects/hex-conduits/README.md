@@ -3,7 +3,7 @@
 Pulses of light run along the edges of a hexagonal grid and leave fading trails.
 
 - **Russian name:** Световоды
-- **Version:** 1.3.1, simai.effect 1.3.0
+- **Version:** 1.3.2, simai.effect 1.3.0
 - **Surfaces:** sign-in, hero, section, dashboard
 - **Tags:** geometry, lines
 - **Role:** A grid with running pulses: light conduits on dark, a circuit drawing on light.

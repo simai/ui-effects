@@ -3,7 +3,7 @@
 The Belousov–Zhabotinsky reaction: rings run through a dish and spirals keep turning; waves that meet wipe each other out.
 
 - **Russian name:** Химические волны
-- **Version:** 0.3.1, simai.effect 1.3.0
+- **Version:** 0.3.2, simai.effect 1.3.0
 - **Surfaces:** hero, section, dashboard, sign-in
 - **Tags:** geometry, gradient
 - **Role:** A calm living pattern: light and dark schemes.

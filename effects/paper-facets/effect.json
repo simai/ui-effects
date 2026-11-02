@@ -2,10 +2,16 @@
   "schema": "simai.effect",
   "schema_version": 1,
   "id": "paper-facets",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "label": {
     "ru": "Бумажные грани",
-    "en": "Paper facets"
+    "en": "Paper facets",
+    "es": "Facetas de papel",
+    "pt-BR": "Facetas de papel",
+    "de": "Papierfacetten",
+    "zh-CN": "纸面棱片",
+    "fr": "Facettes de papier",
+    "ja": "紙の面"
   },
   "author": "SIMAI",
   "entry": "index.js",
@@ -28,7 +34,13 @@
       "type": "integer",
       "label": {
         "ru": "Скорость, %",
-        "en": "Speed, %"
+        "en": "Speed, %",
+        "es": "Velocidad, %",
+        "pt-BR": "Velocidade, %",
+        "de": "Geschwindigkeit, %",
+        "zh-CN": "速度，%",
+        "fr": "Vitesse, %",
+        "ja": "速度（%）"
       },
       "default": 100,
       "min": 10,
@@ -41,7 +53,13 @@
       "type": "integer",
       "label": {
         "ru": "Глубина рельефа",
-        "en": "Relief depth"
+        "en": "Relief depth",
+        "es": "Profundidad del relieve",
+        "pt-BR": "Profundidade do relevo",
+        "de": "Relieftiefe",
+        "zh-CN": "起伏深度",
+        "fr": "Profondeur du relief",
+        "ja": "起伏の深さ"
       },
       "default": 50,
       "min": 0,
@@ -54,7 +72,13 @@
       "type": "choice",
       "label": {
         "ru": "Размер граней",
-        "en": "Facet size"
+        "en": "Facet size",
+        "es": "Tamaño de faceta",
+        "pt-BR": "Tamanho das facetas",
+        "de": "Facettengröße",
+        "zh-CN": "棱片大小",
+        "fr": "Taille des facettes",
+        "ja": "面のサイズ"
       },
       "default": "medium",
       "options": [
@@ -62,21 +86,39 @@
           "value": "large",
           "label": {
             "ru": "Крупные",
-            "en": "Large"
+            "en": "Large",
+            "es": "Grande",
+            "pt-BR": "Grande",
+            "de": "Groß",
+            "zh-CN": "大",
+            "fr": "Grande",
+            "ja": "大"
           }
         },
         {
           "value": "medium",
           "label": {
             "ru": "Средние",
-            "en": "Medium"
+            "en": "Medium",
+            "es": "Media",
+            "pt-BR": "Média",
+            "de": "Mittel",
+            "zh-CN": "中",
+            "fr": "Moyenne",
+            "ja": "中"
           }
         },
         {
           "value": "small",
           "label": {
             "ru": "Мелкие",
-            "en": "Small"
+            "en": "Small",
+            "es": "Pequeña",
+            "pt-BR": "Pequeno",
+            "de": "Klein",
+            "zh-CN": "小",
+            "fr": "Petite",
+            "ja": "小"
           }
         }
       ]
@@ -86,7 +128,13 @@
       "type": "choice",
       "label": {
         "ru": "Бумага",
-        "en": "Paper"
+        "en": "Paper",
+        "es": "Papel",
+        "pt-BR": "Papel",
+        "de": "Papier",
+        "zh-CN": "纸张",
+        "fr": "Papier",
+        "ja": "紙"
       },
       "default": "paper",
       "options": [
@@ -94,14 +142,26 @@
           "value": "paper",
           "label": {
             "ru": "Тёплая белая",
-            "en": "Warm white"
+            "en": "Warm white",
+            "es": "Blanco cálido",
+            "pt-BR": "Branco quente",
+            "de": "Warmweiß",
+            "zh-CN": "暖白",
+            "fr": "Blanc chaud",
+            "ja": "ウォームホワイト"
           }
         },
         {
           "value": "primary",
           "label": {
             "ru": "С оттенком основного цвета",
-            "en": "Primary tint"
+            "en": "Primary tint",
+            "es": "Matiz primario",
+            "pt-BR": "Tom primário",
+            "de": "Primärtönung",
+            "zh-CN": "主色调染色",
+            "fr": "Teinte primaire",
+            "ja": "プライマリの色味"
           }
         }
       ]
@@ -111,12 +171,24 @@
       "type": "boolean",
       "label": {
         "ru": "Реагировать на указатель",
-        "en": "React to the pointer"
+        "en": "React to the pointer",
+        "es": "Reaccionar al puntero",
+        "pt-BR": "Reagir ao ponteiro",
+        "de": "Auf den Zeiger reagieren",
+        "zh-CN": "响应指针",
+        "fr": "Réagir au pointeur",
+        "ja": "ポインターに反応"
       },
       "default": true,
       "hint": {
         "ru": "Под указателем грани переливаются быстрее",
-        "en": "Facets near the pointer shimmer faster"
+        "en": "Facets near the pointer shimmer faster",
+        "es": "Las facetas cerca del puntero centellean más rápido",
+        "pt-BR": "As facetas perto do ponteiro cintilam mais rápido",
+        "de": "Facetten in der Nähe des Zeigers schimmern schneller",
+        "zh-CN": "指针附近的棱片闪烁更快",
+        "fr": "Les facettes près du pointeur scintillent plus vite",
+        "ja": "ポインターの近くの面はより速くきらめきます"
       }
     }
   ],

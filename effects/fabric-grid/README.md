@@ -3,7 +3,7 @@
 Gravitational waves run through the grid of spacetime, and bodies moving under Newtonian gravity bend it by their mass; a click sends a wave of your own, and a press held grows a star into a black hole that catches passing bodies.
 
 - **Russian name:** Ткань пространства-времени
-- **Version:** 0.4.0, simai.effect 1.3.0
+- **Version:** 0.4.1, simai.effect 1.3.0
 - **Surfaces:** hero, section, dashboard, sign-in
 - **Tags:** lines, geometry
 - **Role:** Science and depth: light and dark schemes.

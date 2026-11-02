@@ -56,7 +56,10 @@ const partial = (name) => readFileSync(join(ROOT, 'site', 'partials', `${name}.h
 const escape = (value) => String(value).replace(/&/gu, '&amp;').replace(/"/gu, '&quot;').replace(/</gu, '&lt;').replace(/>/gu, '&gt;');
 // Languages: the first is the default and sits at the root. Every dictionary holds
 // the same keys; a text of the catalogue missing in a language falls back to English.
-const LOCALES = [{lang: 'ru', dir: ''}, {lang: 'en', dir: 'en/'}];
+const LOCALES = [
+  {lang: 'ru', dir: ''}, {lang: 'en', dir: 'en/'}, {lang: 'es', dir: 'es/'}, {lang: 'pt-BR', dir: 'pt-br/'},
+  {lang: 'de', dir: 'de/'}, {lang: 'zh-CN', dir: 'zh-cn/'}, {lang: 'fr', dir: 'fr/'}, {lang: 'ja', dir: 'ja/'},
+];
 const dictionaries = Object.fromEntries(LOCALES.map(({lang}) => [lang, readJson(join(ROOT, 'site', 'i18n', `${lang}.json`))]));
 const keys = Object.keys(dictionaries[LOCALES[0].lang]).sort().join();
 for (const {lang} of LOCALES) if (Object.keys(dictionaries[lang]).sort().join() !== keys) throw new Error(`build-site: site/i18n/${lang}.json does not hold the same keys as ${LOCALES[0].lang}.json`);
@@ -76,15 +79,15 @@ const render = (template, values, lang) => {
 // The same page in every language, for the switch and for search engines. `page`
 // is the page's path under a language folder ('' or 'effect/<id>/').
 const up = (path) => '../'.repeat(path.split('/').filter(Boolean).length);
-const alternates = (locale, page) => LOCALES.map((other) => ({lang: other.lang, name: dictionaries[other.lang]['lang.name'], href: `${up(locale.dir + page)}${other.dir}${page}`}));
+const alternates = (locale, page) => LOCALES.map((other) => ({lang: other.lang, name: dictionaries[other.lang]['lang.name'], english: dictionaries[other.lang]['lang.english'], href: `${up(locale.dir + page)}${other.dir}${page}`}));
 // The languages: a globe in the tools that opens the Framework's menu of this page in every
-// language, the current one marked. The menu sits after the header; site/assets/common.js opens it.
+// language, each named in itself with its English name below, the current one marked. The menu sits after the header; site/assets/common.js opens it.
 const languageButton = (locale) => {
   const word = escape(dictionaries[locale.lang]['lang.switch']);
   return `<button slot="tools" type="button" class="sf-icon-button sf-icon-button--icon sf-icon-button--on-surface sf-icon-button--link sf-icon-button--size-1/2" aria-label="${word}" title="${word}" aria-haspopup="menu" data-lang-button><sf-icon icon="language" aria-hidden="true"></sf-icon></button>`;
 };
 const languageMenu = (locale, page) => {
-  const entries = alternates(locale, page).map((other) => ({id: other.lang, text: other.name, lang: other.lang, href: other.href || './', current: other.lang === locale.lang}));
+  const entries = alternates(locale, page).map((other) => ({id: other.lang, text: other.name, ...(other.english !== other.name && {caption: other.english}), lang: other.lang, href: other.href || './', current: other.lang === locale.lang}));
   return `<sf-context-menu popup aria-label="${escape(dictionaries[locale.lang]['lang.switch'])}" data-lang-menu data-entries="${escape(JSON.stringify(entries))}"></sf-context-menu>`;
 };
 const alternateTags = (locale, page) => alternates(locale, page).map((other) => `<link rel="alternate" hreflang="${other.lang}" href="${other.href || './'}">`).join('\n');

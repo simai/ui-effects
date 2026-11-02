@@ -3,7 +3,7 @@
 Drawing lines are pencilled in and rubbed out; you can draw too.
 
 - **Russian name:** Чертёж
-- **Version:** 0.3.1, simai.effect 1.3.0
+- **Version:** 0.3.2, simai.effect 1.3.0
 - **Surfaces:** hero, section, dashboard, sign-in
 - **Tags:** lines, geometry
 - **Role:** An engineering background: a blueprint on dark, graphite on light.

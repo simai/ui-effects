@@ -3,7 +3,7 @@
 Sand runs down from above in streams and settles in smooth dunes of the theme's two colours; the picture sinks slowly, and the landscape keeps changing.
 
 - **Russian name:** Песочная картина
-- **Version:** 0.1.0, simai.effect 1.1.0
+- **Version:** 0.1.1, simai.effect 1.1.0
 - **Surfaces:** hero, section, dashboard, sign-in
 - **Tags:** particles, paper
 - **Role:** A calm, handmade background: light and dark schemes.

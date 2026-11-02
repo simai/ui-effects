@@ -3,7 +3,7 @@
 Particles in Brownian motion write a text and dissolve into gas again.
 
 - **Russian name:** Узор частиц
-- **Version:** 0.3.1, simai.effect 1.3.0
+- **Version:** 0.3.2, simai.effect 1.3.0
 - **Surfaces:** hero, section, dashboard, sign-in
 - **Tags:** particles, type
 - **Role:** A background that spells a product name: light or dark.
