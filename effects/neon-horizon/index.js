@@ -1,6 +1,6 @@
 // Neon horizon (simai.effect 1.1.0, dark set): a perspective grid floor glides towards the viewer under
-// a glowing horizon and a sparse star sky; lines fade into the distance like fog. Light riders ride the
-// floor along its lines and leave light walls; a rider that runs into a wall bursts.
+// a glowing horizon and a sparse star sky; lines fade into the distance like fog. Light riders ride its
+// lines and leave light walls; one that runs into a wall bursts.
 
 // ---- runtime shared by the dark set (simai.effect 1.1.0) ----
 const clamp = (v, a, b) => (v < a ? a : v > b ? b : v);
@@ -52,9 +52,9 @@ function readTheme(host) {
   return {p, s, t, pDeep, light, bg};
 }
 
-// ---- light riders: floor coordinates are column x and row m; the floor slides 0.32 rows a second ----
+// ---- light riders, in floor coordinates: column x, row m ----
 const DIRS = [[0, 1], [1, 0], [0, -1], [-1, 0]]; // away, right, towards the viewer, left
-const LIFE = 7, RSPD = 2.2, ZN = 1, ZF = 4.6;
+const LIFE = 6, RSPD = 2.2, ZN = 1, ZF = 4, WH = 0.26;
 const rowAt = (z, time) => time * 0.32 + (z - 0.25) / 0.3;
 const zOf = (m, time) => 0.25 + (m - time * 0.32) * 0.3;
 const key = (x, m) => x * 4096 + m;
@@ -64,18 +64,18 @@ function spawn(st, s, time, occ, x, m, d = 0) {
     m = Math.floor(rowAt(ZF, time)); d = 2;
     for (let i = 0; i < 6; i += 1) { x = Math.round((st.rand() * 2 - 1) * (st.xa - 1)); if (!occ.has(key(x, m)) && !occ.has(key(x, m - 1))) break; }
   }
-  s.r = {x, m, d, p: 0, nodes: [{x, m, t: time}], born: time};
+  s.r = {x, m, d, p: 0, n: [[x, m, time]], born: time, a: (1 - d) * 1.5708};
 }
 function crash(st, s, time, warm) {
   const r = s.r;
-  st.ghosts.push({nodes: r.nodes, t: time, c: s.c});
+  st.ghosts.push({n: r.n, t: time, c: s.c});
   const f = [];
   for (let i = 0; i < 8; i += 1) f.push([st.rand() * 6.283, 0.5 + st.rand()]);
   st.bursts.push({x: r.x, m: r.m, t: time, c: s.c, f});
   s.r = null;
   s.wait = warm ? 0 : 1.2 + st.rand() * 1.4;
 }
-// Looks ahead along each way and keeps the line, turns off it now and then, or turns away from a wall.
+// Looks ahead: keeps the line, turns now and then, or turns away from a wall.
 function steer(st, r, time, occ) {
   const run = (d) => { let x = r.x, m = r.m, n = 0; for (; n < 5; n += 1) { x += DIRS[d][0]; m += DIRS[d][1]; if (occ.has(key(x, m)) || out(st, x, m, time + (n + 1.2) / RSPD)) break; } return n; };
   const L = (r.d + 3) % 4, R = (r.d + 1) % 4, f = run(r.d), a = run(L), b = run(R), sf = Math.max(a, b);
@@ -85,12 +85,14 @@ function steer(st, r, time, occ) {
 function ride(st, time, dt, warm) {
   const occ = new Set();
   for (const s of st.slots) if (s.r) {
-    s.r.nodes = s.r.nodes.filter((n) => time - n.t < LIFE);
-    for (const n of s.r.nodes) occ.add(key(n.x, n.m));
+    s.r.n = s.r.n.filter((n) => time - n[2] < LIFE);
+    for (const n of s.r.n) occ.add(key(n[0], n[1]));
   }
   for (const s of st.slots) {
     const r = s.r;
     if (!r) { if ((s.wait -= dt) <= 0) spawn(st, s, time, occ); continue; }
+    const e = (1 - r.d) * 1.5708 - r.a, turn = Math.atan2(Math.sin(e), Math.cos(e));
+    r.a += clamp(turn, -dt * 10.5, dt * 10.5);
     r.p += dt * RSPD;
     if (r.p < 1) continue;
     r.p -= 1;
@@ -98,13 +100,13 @@ function ride(st, time, dt, warm) {
     const k = key(r.x, r.m);
     if (occ.has(k) || out(st, r.x, r.m, time)) { crash(st, s, time, warm); continue; }
     occ.add(k);
-    r.nodes.push({x: r.x, m: r.m, t: time});
+    r.n.push([r.x, r.m, time]);
     r.d = steer(st, r, time, occ);
   }
   st.bursts = st.bursts.filter((b) => time - b.t < 1.1);
   st.ghosts = st.ghosts.filter((g) => time - g.t < 1.2);
 }
-// Deterministic: seeded, and ridden six seconds ahead so a still frame shows riders mid-ride.
+// Seeded and ridden 6 s ahead, so a still frame shows riders mid-ride.
 function riders(env, st) {
   const n = env.S.riders ? Math.round(env.S.riderCount) : 0;
   st.rand = rng(29 + n);
@@ -118,34 +120,56 @@ function drawRiders(env, st, time, hy, vx) {
   const g = env.S.intensity / 100, depth = h - hy, sp = Math.max(w, 700) * 0.0495;
   const P = (x, m) => { const u = sp / zOf(m, time); return [vx + x * u, hy + depth * 0.55 / zOf(m, time), u]; };
   const cols = [C.p, C.s, C.t, mixc(C.p, C.t, 0.5)].map((c) => vivid(c, 1.6));
-  // A light wall: a low ribbon standing on the floor, a soft body and a bright top edge.
+  // A light wall: a bright top edge over a body fading to the floor.
   const wall = (pts, c, fade) => {
     const hot = mixc(c, [255, 255, 255], 0.35);
     for (let i = 1; i < pts.length; i += 1) {
       const k = fade * clamp((LIFE - (time - pts[i][2])) / 2.5, 0, 1);
       if (k <= 0) continue;
       const [ax, ay, au] = P(pts[i - 1][0], pts[i - 1][1]), [bx, by, bu] = P(pts[i][0], pts[i][1]);
-      const at = ay - au * 0.24, bt = by - bu * 0.24;
+      const at = ay - au * WH, bt = by - bu * WH, body = ctx.createLinearGradient(0, Math.min(at, bt), 0, Math.max(ay, by));
+      body.addColorStop(0, rgba(c, 0.32 * g * k)); body.addColorStop(1, rgba(c, 0));
       ctx.beginPath(); ctx.moveTo(ax, ay); ctx.lineTo(bx, by); ctx.lineTo(bx, bt); ctx.lineTo(ax, at); ctx.closePath();
-      ctx.fillStyle = rgba(c, 0.08 * g * k); ctx.fill();
+      ctx.fillStyle = body; ctx.fill();
       ctx.beginPath(); ctx.moveTo(ax, at); ctx.lineTo(bx, bt);
       ctx.strokeStyle = rgba(c, 0.2 * g * k); ctx.lineWidth = 3; ctx.stroke();
       ctx.strokeStyle = rgba(hot, 0.95 * g * k); ctx.lineWidth = 1.1; ctx.stroke();
     }
   };
-  for (const gh of st.ghosts) wall(gh.nodes.map((n) => [n.x, n.m, n.t]), cols[gh.c], 1 - (time - gh.t) / 1.2);
+  const ground = mixc(C.bg, C.pDeep, 0.5);
+  // A bike seen from its heading a: two wheel rings and a low wedge body.
+  const bike = (hx, hm, a, c) => {
+    const ca = Math.cos(a), sa = Math.sin(a), hot = mixc(c, [255, 255, 255], 0.6);
+    const Q = (s, ht) => { const p = P(hx + ca * s, hm + sa * s); p[1] -= ht * p[2]; return p; };
+    const [ox, oy, u] = Q(0, 0), vx = (Q(0.1, 0)[0] - ox) * 10, nx = (P(hx - sa * 0.1, hm + ca * 0.1)[0] - ox) * 10;
+    const halo = ctx.createRadialGradient(ox, oy - u * 0.12, 0, ox, oy - u * 0.12, u * 0.5);
+    halo.addColorStop(0, rgba(c, 0.4 * g)); halo.addColorStop(1, rgba(c, 0));
+    ctx.fillStyle = halo; ctx.fillRect(ox - u, oy - u, u * 2, u * 2);
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.fillStyle = rgba(ground); ctx.strokeStyle = rgba(hot, 1.7 * g); ctx.lineWidth = Math.max(1.2, u * 0.045);
+    for (const s of [0.2, -0.2]) {
+      const [x, y, uw] = Q(s, 0.11), k = uw / u;
+      ctx.beginPath(); ctx.ellipse(x, y, Math.max(1, 0.11 * k * Math.max(Math.abs(vx), 0.45 * Math.abs(nx))), Math.max(1, 0.11 * uw), 0, 0, 6.3);
+      ctx.fill(); ctx.stroke();
+    }
+    ctx.beginPath();
+    for (const [s, ht] of [[-0.3, 0.15], [-0.12, 0.2], [0.3, 0.09]]) ctx.lineTo(...Q(s, ht));
+    ctx.lineJoin = ctx.lineCap = 'round';
+    ctx.strokeStyle = rgba(c, 1.6 * g); ctx.lineWidth = Math.max(1.5, u * 0.07) + 2; ctx.stroke();
+    ctx.strokeStyle = rgba(ground); ctx.lineWidth -= 2.4; ctx.stroke(); ctx.lineCap = 'butt';
+    ctx.globalCompositeOperation = 'lighter';
+    ctx.fillStyle = rgba(hot, 2 * g);
+    for (const [s, ht] of [[-0.3, 0.15], [0.3, 0.09]]) { const [x, y] = Q(s, ht), d = Math.max(1.5, u * 0.05); ctx.fillRect(x - d, y - d, d * 2, d * 2); }
+  };
+  for (const gh of st.ghosts) wall(gh.n, cols[gh.c], 1 - (time - gh.t) / 1.2);
   for (const s of st.slots) if (s.r) {
-    const r = s.r, c = cols[s.c], [dx, dm] = DIRS[r.d], hx = r.x + dx * r.p, hm = r.m + dm * r.p;
-    wall([...r.nodes.map((n) => [n.x, n.m, n.t]), [hx, hm, time]], c, 1);
-    // The rider: a bright elongated head with a soft glow.
-    const [x1, y1, u] = P(hx, hm), [x0, y0] = P(hx - dx * 0.5, hm - dm * 0.5), lift = u * 0.12;
-    const glow = ctx.createRadialGradient(x1, y1 - lift, 0, x1, y1 - lift, u * 0.6);
-    glow.addColorStop(0, rgba(c, 0.5 * g)); glow.addColorStop(1, rgba(c, 0));
-    ctx.fillStyle = glow; ctx.fillRect(x1 - u, y1 - lift - u, u * 2, u * 2);
-    ctx.beginPath(); ctx.moveTo(x0, y0 - lift); ctx.lineTo(x1, y1 - lift);
-    ctx.strokeStyle = rgba(mixc(c, [255, 255, 255], 0.65), 1.8 * g); ctx.lineWidth = Math.max(1.6, u * 0.07); ctx.lineCap = "round"; ctx.stroke(); ctx.lineCap = "butt";
+    const r = s.r, [dx, dm] = DIRS[r.d], hx = r.x + dx * r.p, hm = r.m + dm * r.p, pts = [...r.n];
+    // The wall starts right behind the rear wheel.
+    if (r.p > 0.3) pts.push([hx - dx * 0.3, hm - dm * 0.3, time]);
+    wall(pts, cols[s.c], 1);
+    bike(hx, hm, r.a, cols[s.c]);
   }
-  // A burst: a flash and fragments that scatter over the floor and fade.
+  // A burst: a flash and scattering fragments.
   if (!env.still) for (const b of st.bursts) {
     const q = (time - b.t) / 1.1, c = cols[b.c], [x, y, u] = P(b.x, b.m), k = (1 - q) * (1 - q);
     const fl = ctx.createRadialGradient(x, y - u * 0.15, 0, x, y - u * 0.15, u * (0.5 + q * 1.4));
@@ -169,7 +193,7 @@ const FX = {
   update(env, st, before) {
     if (before.riders !== env.S.riders || Math.round(before.riderCount) !== Math.round(env.S.riderCount)) riders(env, st);
   },
-  // A click lets a new rider out at the floor point under it, heading away; the oldest gives way at the cap.
+  // A click lets a rider out under it, heading away; at the cap the oldest gives way.
   click(env, st, px, py) {
     const n = st.slots.length;
     if (!n) return;
@@ -361,7 +385,7 @@ function mountScene(host, settings = {}, context = {}) {
     env.pointer.on = env.pointer.x > -0.2 && env.pointer.x < 1.2 && env.pointer.y > -0.2 && env.pointer.y < 1.2;
   };
   const onLeave = (event) => { if (!event.relatedTarget) env.pointer.on = false; };
-  // A press released in place (no drag) over the area, not on a control, is a click for the effect.
+  // A press released in place over the area, not on a control, is a click.
   let down = null;
   const onDown = (event) => { down = [event.clientX, event.clientY]; };
   const onUp = (event) => {
