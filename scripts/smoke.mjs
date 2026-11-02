@@ -500,8 +500,12 @@ try {
 
     // The core's About menu over the banner's background: it names the effect, its Pause item
     // pauses the demo and the page's button follows; switched off, the code says so and no menu opens.
-    const corner = await page.locator('[data-hero]').boundingBox();
-    const rightClick = () => page.mouse.click(corner.x + corner.width - 24, corner.y + 24, {button: 'right'});
+    // The settings below scrolled the banner away: bring it back before pointing at it.
+    const rightClick = async () => {
+      await page.locator('[data-hero]').scrollIntoViewIfNeeded();
+      const corner = await page.locator('[data-hero]').boundingBox();
+      await page.mouse.click(corner.x + corner.width - 24, corner.y + 24, {button: 'right'});
+    };
     const menuOpen = () => page.evaluate(() => document.querySelector('sf-context-menu[data-sf-effect-about]')?.isOpen === true);
     await rightClick();
     await page.waitForFunction(() => document.querySelector('sf-context-menu[data-sf-effect-about]')?.isOpen === true, null, {timeout: 10000}).catch(() => {});
