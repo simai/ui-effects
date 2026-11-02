@@ -17,7 +17,7 @@ const option = (name, fallback) => (args.includes(name) ? args[args.indexOf(name
 const site = resolve(ROOT, option('--site', 'dist'));
 const out = resolve(ROOT, option('--out', '.release'));
 
-const page = readFileSync(join(site, 'index.html'), 'utf8');
+const page = readFileSync(join(site, 'en', 'index.html'), 'utf8');
 const config = JSON.parse(page.match(/<script type="application\/json" id="site-config">(.*?)<\/script>/su)[1]);
 if (config.votes !== '/api/') throw new Error(`server-release: build the site with --votes /api/ (it has ${JSON.stringify(config.votes)})`);
 if (!existsSync(join(site, 'catalogue', 'index.json'))) throw new Error('server-release: the site has no catalogue/index.json');
