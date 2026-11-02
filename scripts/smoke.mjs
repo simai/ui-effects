@@ -68,7 +68,7 @@ function resolveTheme(effect, pageTheme, mode = 'auto') {
   return {shown: null, drawn: target, outcome: 'hidden', target};
 }
 const catalogue = JSON.parse(readFileSync(join(distDir, 'catalogue', 'index.json'), 'utf8'));
-const config = JSON.parse(readFileSync(join(distDir, 'index.html'), 'utf8').match(/<script type="application\/json" id="site-config">(.*?)<\/script>/su)[1]);
+const config = JSON.parse(readFileSync(join(distDir, 'en', 'index.html'), 'utf8').match(/<script type="application\/json" id="site-config">(.*?)<\/script>/su)[1]);
 const byId = new Map(catalogue.effects.map((entry) => [entry.id, entry]));
 const effects = catalogue.effects.filter((entry) => !only || only.includes(entry.id));
 const reference = (entry, withPair = true) => ({id: entry.id, schemes: entry.schemes, pair: withPair && entry.pair ? reference(byId.get(entry.pair), false) : null});
