@@ -25,7 +25,7 @@ const {Effects, main} = await loadWithPair(id);
 const modes = Effects.allowedModes(main.manifest);
 
 // Two placements of the same effect: the banner and the windows.
-const state = {mode: 'auto', values: {}, paused: false, reduced: false, placements: [], last: null};
+const state = {mode: 'auto', values: {}, about: true, paused: false, reduced: false, placements: [], last: null};
 const forEachPlacement = (call) => state.placements.forEach(call);
 
 // --- Head --------------------------------------------------------------------------
@@ -245,12 +245,25 @@ async function mount() {
 
 // The motion controls sit on the banner and act on both placements.
 const pause = $('[data-pause]');
-pause.addEventListener('click', () => {
-  state.paused = !state.paused;
-  pause.setAttribute('aria-pressed', String(state.paused));
-  pause.setAttribute('aria-label', t(state.paused ? 'demo.resume' : 'demo.pause'));
+const setPaused = (paused) => {
+  state.paused = paused;
+  pause.setAttribute('aria-pressed', String(paused));
+  pause.setAttribute('aria-label', t(paused ? 'demo.resume' : 'demo.pause'));
   pause.title = pause.getAttribute('aria-label');
-  forEachPlacement((placement) => (state.paused ? placement.pause() : placement.resume()));
+  forEachPlacement((placement) => (paused ? placement.pause() : placement.resume()));
+};
+pause.addEventListener('click', () => setPaused(!state.paused));
+// The core's right-click menu pauses or resumes one placement and says so (sf-effect-motion);
+// the button follows, and the other placement with it.
+const stage = $('[data-stage]');
+stage.addEventListener('sf-effect-motion', (event) => { if (Boolean(event.detail?.paused) !== state.paused) setPaused(Boolean(event.detail?.paused)); });
+
+// The right-click menu: the demo shows it as the code will place it.
+const aboutSwitch = $('[data-about]');
+aboutSwitch.addEventListener('change', () => {
+  state.about = Boolean(aboutSwitch.checked);
+  if (state.about) stage.removeAttribute('data-sf-effect-about'); else stage.setAttribute('data-sf-effect-about', 'false');
+  renderCode();
 });
 const reduced = $('[data-reduced]');
 reduced.addEventListener('click', () => {
@@ -389,7 +402,7 @@ function setCode(name, source) {
   highlighter.then((highlight) => highlight?.refresh(code.closest('.sf-highlight') ?? code.parentElement, source));
 }
 function renderCode() {
-  const options = {config, catalogue, entry, mode: state.mode, values: readValues()};
+  const options = {config, catalogue, entry, mode: state.mode, values: readValues(), about: state.about};
   setCode('html', htmlSnippet({...options, layout: 'hero'}));
   setCode('html-windows', htmlSnippet({...options, layout: 'windows'}));
   setCode('connect', connectSnippet(config));
@@ -404,7 +417,7 @@ const layoutPicker = $('[data-download-layout]');
 if (!config.published) $('[data-draft-note]').hidden = false;
 layoutPicker.options = ['both', 'hero', 'windows'].map((value) => ({text: t(`panel.download.${value}`), value}));
 $('[data-download]').addEventListener('click', () => {
-  const options = {config, catalogue, entry, mode: state.mode, values: readValues()};
+  const options = {config, catalogue, entry, mode: state.mode, values: readValues(), about: state.about};
   const layout = layoutPicker?.value || 'both';
   const parts = [layout !== 'windows' ? htmlSnippet({...options, layout: 'hero'}) : '', layout !== 'hero' ? htmlSnippet({...options, layout: 'windows'}) : ''].filter(Boolean);
   const page = examplePage({entry, connect: connectSnippet(config), parts});

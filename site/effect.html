@@ -20,7 +20,7 @@
     </div>
   </header>
 
-  <section class="stage" aria-labelledby="stage-title">
+  <section class="stage" aria-labelledby="stage-title" data-stage>
     <h2 id="stage-title" class="visually-hidden">{{t:effect.live}}</h2>
     <div class="toolbar">
       <sf-button-group appearance="segmented" aria-label="{{t:effect.mode}}" value="auto" data-modes></sf-button-group>
@@ -81,6 +81,11 @@
     <section class="panel" aria-labelledby="code-title">
       <div class="panel__head">
         <h2 id="code-title">{{t:panel.code}}</h2>
+      </div>
+      <!-- The core's About menu over the background; off, the code carries data-sf-effect-about="false". -->
+      <div class="field">
+        <sf-switch size="1" label="{{t:panel.code.about}}" checked data-about></sf-switch>
+        <p class="hint">{{t:panel.code.about.hint}}</p>
       </div>
       <!-- Framework tabs; each block is the Framework's code highlight, with its own copy button. -->
       <sf-tabs type="pills" size="1/2" aria-label="{{t:panel.code.format}}" items="HTML|JS|{{t:panel.code.settings}}" data-code-tabs>

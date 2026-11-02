@@ -497,6 +497,30 @@ try {
     const own = await pick('Custom colour');
     if (!own.colour || !own.values.colour) fail('settings', 'the custom palette does not show its colour');
     else console.log('ok   settings: a switch, a dropdown and a conditional setting apply');
+
+    // The core's About menu over the banner's background: it names the effect, its Pause item
+    // pauses the demo and the page's button follows; switched off, the code says so and no menu opens.
+    const corner = await page.locator('[data-hero]').boundingBox();
+    const rightClick = () => page.mouse.click(corner.x + corner.width - 24, corner.y + 24, {button: 'right'});
+    const menuOpen = () => page.evaluate(() => document.querySelector('sf-context-menu[data-sf-effect-about]')?.isOpen === true);
+    await rightClick();
+    await page.waitForFunction(() => document.querySelector('sf-context-menu[data-sf-effect-about]')?.isOpen === true, null, {timeout: 10000}).catch(() => {});
+    const menu = await page.evaluate(() => document.querySelector('sf-context-menu[data-sf-effect-about]')?.textContent.replace(/\s+/gu, ' ').trim() ?? '');
+    if (!/Rain on glass/iu.test(menu) || !/SIMAI Effects/u.test(menu)) fail('about menu', `menu reads "${menu.slice(0, 160)}"`);
+    await page.locator('sf-context-menu[data-sf-effect-about] [data-sf-entry]').filter({hasText: /Pause/u}).first().click().catch((error) => fail('about menu', `no Pause item: ${error.message.split('\n')[0]}`));
+    await wait(500);
+    if (await page.locator('[data-pause]').getAttribute('aria-pressed') !== 'true') fail('about menu', 'the page pause button did not follow the menu');
+    await page.locator('[data-pause]').click();
+    await page.evaluate(() => document.querySelector('[data-about] input').click());
+    await wait(300);
+    const code = await page.locator('[data-code="html"]').textContent();
+    if (!code.includes('data-sf-effect-about="false"')) fail('about menu', 'switched off, the HTML code does not carry data-sf-effect-about="false"');
+    await page.keyboard.press('Escape');
+    await wait(300);
+    await rightClick();
+    await wait(1200);
+    if (await menuOpen()) fail('about menu', 'switched off, the menu still opens');
+    console.log('ok   about menu: opens over the background, pause follows, the switch reaches the code');
     flush();
     await context.close();
   }
