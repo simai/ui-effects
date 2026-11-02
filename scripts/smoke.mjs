@@ -210,7 +210,9 @@ if (config.votes?.startsWith('/')) {
   const {server: votes} = createVotesServer({stateDir: votesDir, catalogue: join(distDir, 'catalogue', 'index.json')});
   api = (request, response) => votes.emit('request', request, response);
 } else if (config.votes) console.log(`smoke: the votes service ${config.votes} is not on this address; likes are not checked`);
-const {server, url: base} = await serve(distDir, prefix, 0, api);
+const {server, url: root} = await serve(distDir, prefix, 0, api);
+// The pages checked below are the English ones; the root only redirects (checked further on).
+const base = `${root}en/`;
 console.log(`smoke: ${base} (Framework ${uiRoot ? 'from UI_ROOT git objects' : 'from jsDelivr'}; ui-effects CDN from ${effectsFromGit ? `git ${config.commit.slice(0, 12)}` : 'the working tree'})`);
 
 try {
@@ -262,9 +264,9 @@ try {
       report.pages.push({page: 'gallery', viewport: tag, ...gallery, contrastChecked: galleryContrast.checked});
 
       // The authors page, in both languages.
-      for (const path of ['authors/', 'ru/authors/']) {
+      for (const path of ['en/authors/', 'ru/authors/']) {
         flush = watch(page, `${path} ${tag}`);
-        await page.goto(`${base}${path}`);
+        await page.goto(`${root}${path}`);
         await page.waitForFunction(() => document.body.style.opacity !== '0' && document.querySelector('.authors__ways'), null, {timeout: 20000});
         await wait(500);
         if (!await noHorizontalScroll(page)) fail(`${path} ${tag}`, 'horizontal scroll');
@@ -393,7 +395,7 @@ try {
   }
 
   // Every other language: the gallery and one effect page name their language and link to
-  // the same page in English (the root); none but the Russian pages carries Russian text.
+  // the same page in English (en/); none but the Russian pages carries Russian text.
   {
     const context = await browser.newContext({viewport: {width: 1440, height: 900}});
     await routeAll(context);
@@ -401,7 +403,7 @@ try {
     const flush = watch(page, 'languages');
     const LOCALES = [['ru', 'ru/'], ['es', 'es/'], ['pt-BR', 'pt-br/'], ['de', 'de/'], ['zh-CN', 'zh-cn/'], ['fr', 'fr/'], ['ja', 'ja/']];
     for (const [lang, dir] of LOCALES) for (const path of [dir, `${dir}effect/${effects[0].id}/`]) {
-      await page.goto(`${base}${path}`);
+      await page.goto(`${root}${path}`);
       await page.waitForFunction(() => document.documentElement.dataset.ready === 'true', null, {timeout: 20000});
       await wait(1500);
       const facts = await page.evaluate(() => {
@@ -421,6 +423,31 @@ try {
       if (facts.menu.length !== 8 || facts.menu.filter((entry) => entry.caption).length !== 7) fail(`${lang} ${path}`, `language menu ${JSON.stringify(facts.menu.map((entry) => [entry.lang, entry.text, entry.caption]))}`);
       report.pages.push({page: path, viewport: `1440-${lang}`});
     }
+    // The root only redirects: to the language chosen before, else the browser's, else English;
+    // old links to the root land on the same page. (This context last opened a Japanese page.)
+    const landing = async (path, expected) => {
+      await page.goto(`${root}${path}`);
+      await page.waitForURL((url) => url.href !== `${root}${path}`, {timeout: 10000}).catch(() => {});
+      if (page.url() !== `${root}${expected}`) fail(`redirect ${path || '/'}`, `landed on ${page.url()}, not ${expected}`);
+    };
+    await landing(`effect/${effects[0].id}/?x=1`, `ja/effect/${effects[0].id}/?x=1`);
+    const fresh = await browser.newContext({locale: 'pt-BR'});
+    await routeAll(fresh);
+    const visitor = await fresh.newPage();
+    for (const [path, expected] of [['', 'pt-br/'], ['authors/', 'pt-br/authors/']]) {
+      await visitor.goto(`${root}${path}`);
+      await visitor.waitForURL((url) => url.href !== `${root}${path}`, {timeout: 10000}).catch(() => {});
+      if (visitor.url() !== `${root}${expected}`) fail(`redirect ${path || '/'} pt-BR`, `landed on ${visitor.url()}`);
+    }
+    await fresh.close();
+    const english = await browser.newContext({locale: 'ko-KR'});
+    await routeAll(english);
+    const stranger = await english.newPage();
+    await stranger.goto(root);
+    await stranger.waitForURL((url) => url.href !== root, {timeout: 10000}).catch(() => {});
+    if (stranger.url() !== `${root}en/`) fail('redirect / ko-KR', `landed on ${stranger.url()}`);
+    await english.close();
+    report.pages.push({page: 'redirects', viewport: 'root'});
     flush();
     await context.close();
   }

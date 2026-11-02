@@ -1,6 +1,7 @@
 #!/usr/bin/env node
-// Builds the catalogue site from site/ into dist/, once per language: English at
-// the root, every other language in its own folder (ru/, es/, pt-br/, …). Pages take their texts
+// Builds the catalogue site from site/ into dist/, once per language, each in its
+// own folder (en/, ru/, es/, pt-br/, …). The root holds only redirects: each page
+// there sends a visitor to the same page in their language, English by default. Pages take their texts
 // from site/i18n/<lang>.json ({{t:key}} in a template, t() in a script) and the
 // effects' names and descriptions from the catalogue; assets, the catalogue and
 // the effects are shared at the root.
@@ -57,7 +58,7 @@ const escape = (value) => String(value).replace(/&/gu, '&amp;').replace(/"/gu, '
 // Languages: the first is the default and sits at the root. Every dictionary holds
 // the same keys; a text of the catalogue missing in a language falls back to English.
 const LOCALES = [
-  {lang: 'en', dir: ''}, {lang: 'ru', dir: 'ru/'}, {lang: 'es', dir: 'es/'}, {lang: 'pt-BR', dir: 'pt-br/'},
+  {lang: 'en', dir: 'en/'}, {lang: 'ru', dir: 'ru/'}, {lang: 'es', dir: 'es/'}, {lang: 'pt-BR', dir: 'pt-br/'},
   {lang: 'de', dir: 'de/'}, {lang: 'zh-CN', dir: 'zh-cn/'}, {lang: 'fr', dir: 'fr/'}, {lang: 'ja', dir: 'ja/'},
 ];
 const dictionaries = Object.fromEntries(LOCALES.map(({lang}) => [lang, readJson(join(ROOT, 'site', 'i18n', `${lang}.json`))]));
@@ -87,10 +88,10 @@ const languageButton = (locale) => {
   return `<button slot="tools" type="button" class="sf-icon-button sf-icon-button--icon sf-icon-button--on-surface sf-icon-button--link sf-icon-button--size-1/2" aria-label="${word}" title="${word}" aria-haspopup="menu" data-lang-button><sf-icon icon="language" aria-hidden="true"></sf-icon></button>`;
 };
 const languageMenu = (locale, page) => {
-  const entries = alternates(locale, page).map((other) => ({id: other.lang, text: other.name, ...(other.english !== other.name && {caption: other.english}), lang: other.lang, href: other.href || './', current: other.lang === locale.lang}));
+  const entries = alternates(locale, page).map((other) => ({id: other.lang, text: other.name, ...(other.english !== other.name && {caption: other.english}), lang: other.lang, href: other.href, current: other.lang === locale.lang}));
   return `<sf-context-menu popup aria-label="${escape(dictionaries[locale.lang]['lang.switch'])}" data-lang-menu data-entries="${escape(JSON.stringify(entries))}"></sf-context-menu>`;
 };
-const alternateTags = (locale, page) => alternates(locale, page).map((other) => `<link rel="alternate" hreflang="${other.lang}" href="${other.href || './'}">`).join('\n');
+const alternateTags = (locale, page) => alternates(locale, page).map((other) => `<link rel="alternate" hreflang="${other.lang}" href="${other.href}">`).join('\n');
 const siteConfig = (rootPath, locale, page) => JSON.stringify({
   root: rootPath,
   home: up(page) || './',
@@ -145,6 +146,42 @@ for (const locale of LOCALES) {
       EFFECT_DESCRIPTION: escape(pick(effect.description, locale.lang)),
     }, locale.lang));
   }
+}
+// The root: the gallery, the authors page and every effect page lead to the same page in the
+// language the visitor chose before (stored by site/assets/common.js), else the first of the
+// browser's languages the site has (by its main subtag too: pt -> pt-BR, zh -> zh-CN), else
+// English. Old links to the root keep working. Without scripts, a refresh goes to English.
+const redirect = (page) => {
+  const english = `${LOCALES[0].dir}${page}`, base = up(page) || './';
+  const offered = JSON.stringify(LOCALES.map(({lang, dir}) => [lang, dir]));
+  return `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>SIMAI Framework background effects</title>
+<link rel="canonical" href="${english}">
+${LOCALES.map(({lang, dir}) => `<link rel="alternate" hreflang="${lang}" href="${dir}${page}">`).join('\n')}
+<script>
+(() => {
+  const offered = ${offered};
+  const find = (tag) => tag && (offered.find(([lang]) => lang.toLowerCase() === tag.toLowerCase()) || offered.find(([lang]) => lang.split('-')[0] === tag.toLowerCase().split('-')[0]));
+  let kept = null;
+  try { kept = localStorage.getItem('ui-effects-lang'); } catch { /* none kept */ }
+  const chosen = find(kept) || [...(navigator.languages || [navigator.language])].map(find).find(Boolean) || offered[0];
+  location.replace('${base}' + chosen[1] + '${page}' + location.search + location.hash);
+})();
+</script>
+<noscript><meta http-equiv="refresh" content="0; url=${english}"></noscript>
+</head>
+<body><p><a href="${english}">SIMAI Framework background effects</a></p></body>
+</html>
+`;
+};
+for (const page of ['', 'authors/', ...catalogue.effects.map((effect) => `effect/${effect.id}/`)]) {
+  mkdirSync(join(out, page), {recursive: true});
+  writeFileSync(join(out, page, 'index.html'), redirect(page));
 }
 for (const effect of catalogue.effects) {
   mkdirSync(join(out, effect.path), {recursive: true});

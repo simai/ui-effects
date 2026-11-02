@@ -107,6 +107,8 @@ export const formatRatio = (value) => `${formatNumber(value, 2)}:1`;
 
 // The languages: the globe opens the Framework's menu of this page in every language; a link row
 // goes there itself.
+// The language of the page is the visitor's choice: the root's redirects take it next time.
+try { localStorage.setItem('ui-effects-lang', lang); } catch { /* not kept */ }
 const languageButton = document.querySelector('[data-lang-button]');
 const languageMenu = document.querySelector('[data-lang-menu]');
 if (languageButton && languageMenu) {
