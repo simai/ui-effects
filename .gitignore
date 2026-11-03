@@ -1,8 +1,9 @@
 node_modules/
-dist/
+/dist/
 .kit/
 .smoke/
 .DS_Store
 .votes-state/
 state/
 .release/
+/package/stage/

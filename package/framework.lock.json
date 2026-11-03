@@ -1,0 +1,10 @@
+{
+  "schema": "simai.framework.product-package-source-lock",
+  "schema_version": 1,
+  "summary": "The ui-source revision the set effects is built and tested against: the overlay is ui-source at this revision with this folder's src/, tests/ and docs/ laid over it, and ui-builder's package build builds the same (standards simai.component-set 1.0.0 and simai.component-package 1.1.1). The same commit is framework.source_revision in set.json.",
+  "package": "effects",
+  "source": {
+    "repository": "simai/ui-source",
+    "revision": "2ae82be269a2c9574f1e56c5609ebee64803a6eb"
+  }
+}
