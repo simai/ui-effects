@@ -207,8 +207,11 @@ export class SfEffect extends HTMLElement {
     }
     this.sfPlaced = placed;
     if (this.hasAttribute('paused')) placed.pause();
+    // effect: the id the element names; drawn: what the theme policy chose
+    // to draw for it -- 'self', its catalogue 'pair', or null (hidden).
     const detail = Object.freeze({
-      effect: placed.effect ?? manifest?.id ?? reference,
+      effect: manifest?.id ?? reference,
+      drawn: placed.effect ?? null,
       version: manifest?.version ?? null,
       scheme: placed.scheme,
       resolution: placed.resolution,

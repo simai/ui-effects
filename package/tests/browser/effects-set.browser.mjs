@@ -129,7 +129,9 @@ const element = (id, extra = '') => `<sf-effect id="${id}" effect="aurora-curtai
 pages['/gh.html'] = `${head({packages: {effects: `${ORIGIN}${GH}package/dist/smart`}})}${element('a')}${element('bad', ' contrast="9999"')}</body></html>`;
 pages['/index.html'] = `${head({}, ' data-sf-sets="effects"')}${element('a')}</body></html>`;
 pages['/version.html'] = `${head({setIndex: `${ORIGIN}/no-index-here.json`}, ` data-sf-sets="effects@${VERSION}"`)}${element('a')}</body></html>`;
-pages['/double.html'] = `${head({packages: {effects: `${ORIGIN}${GH}package/dist/smart`}})}${element('a')}<div id="legacy" data-sf-effect="aurora-curtain"></div></body></html>`;
+// A page from before the set: Core's frozen engine places the div from its own
+// catalogue setting, the set places the element; each is drawn once.
+pages['/double.html'] = `${head({packages: {effects: `${ORIGIN}${GH}package/dist/smart`}, effects: {catalogue: `${ORIGIN}${GH}`}})}${element('a')}<div id="legacy" data-sf-effect="aurora-curtain"></div></body></html>`;
 
 const chromium = await loadChromium();
 const browser = await chromium.launch(launchOptions());
@@ -146,18 +148,24 @@ async function open(name, expected) {
   tab.on('console', (message) => { if (message.type() === 'error') errors.push(message.text()); });
   await tab.goto(`${ORIGIN}/${name}.html`);
   await tab.waitForFunction((count) => window.sfSeen.ready.length + window.sfSeen.failed.length >= count, expected, {timeout: 30000}).catch(() => {});
+  // The frozen Core alias places the div on its own time.
+  await tab.waitForFunction(() => {
+    const legacy = document.getElementById('legacy');
+    return !legacy || legacy.querySelector('iframe, canvas') || legacy.hasAttribute('data-sf-effect-reason');
+  }, null, {timeout: 20000}).catch(() => {});
   await tab.waitForTimeout(400);
   const seen = await tab.evaluate(async () => {
     const effects = await SF.package('effects');
     const record = SF.RuleLoader.packageOf('effects');
     const surfaces = (host) => host ? host.querySelectorAll('iframe, canvas').length : -1;
     return {
-      ready: window.sfSeen.ready.map(({id, effect, invalid, sandboxed}) => ({id, effect, invalid, sandboxed})),
+      ready: window.sfSeen.ready.map(({id, effect, drawn, invalid, sandboxed}) => ({id, effect, drawn, invalid, sandboxed})),
       failed: window.sfSeen.failed,
       record: record && {base: record.base, version: record.version, release: record.release, api: record.api, registered: record.registered},
       exports: Object.keys(effects).sort(),
       sandboxSame: effects.SANDBOX_RUNNER_SHA256 === SF.Effects?.SANDBOX_RUNNER_SHA256,
       surfaces: {a: surfaces(document.getElementById('a')), legacy: surfaces(document.getElementById('legacy'))},
+      legacy: document.getElementById('legacy')?.getAttribute('data-sf-effect-reason') ?? null,
       defined: Boolean(customElements.get('sf-effect')),
       notes: (SF.deprecations?.list?.() ?? []).map((note) => note.from).sort(),
     };
@@ -167,7 +175,7 @@ async function open(name, expected) {
   check(name, 'sf-effect is defined', seen.defined, true);
   check(name, 'no sf-effect-failed', seen.failed, []);
   const a = seen.ready.find((item) => item.id === 'a');
-  check(name, 'sf-effect-ready for aurora-curtain', a && {effect: a.effect, invalid: a.invalid}, {effect: 'aurora-curtain', invalid: []});
+  check(name, 'sf-effect-ready for aurora-curtain', a && {effect: a.effect, drawn: a.drawn, invalid: a.invalid}, {effect: 'aurora-curtain', drawn: 'self', invalid: []});
   check(name, 'one drawing surface in the element', seen.surfaces.a, 1);
   check(name, 'SF.package(effects) gives the engine', ['loadEffect', 'mountEffect', 'placeEffect', 'SANDBOX_RUNNER_SHA256'].every((key) => seen.exports.includes(key)), true);
   check(name, 'the engine runs the same sandbox runner as Core', seen.sandboxSame, true);
@@ -190,8 +198,9 @@ check('version', 'a version is its npm base, without the index', versioned.recor
   {base: `${ORIGIN}/npm/@simai-studio/effects@${VERSION}/dist/smart`, version: VERSION});
 
 const double = await open('double', 1);
-check('double', 'the frozen alias draws the div once', double.surfaces.legacy, 1);
+check('double', 'the frozen alias draws the div once', [double.surfaces.legacy, double.legacy], [1, null]);
 check('double', 'the alias is noted', double.notes.includes('data-sf-effect'), true);
+check('double', 'the old option is noted too', double.notes.includes('SF_BOOT_CONFIG.effects'), true);
 
 await browser.close();
 server.close();

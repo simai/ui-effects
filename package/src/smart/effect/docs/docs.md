@@ -21,8 +21,9 @@ component set `effects`.
 | `<setting>` | each manifest key in kebab-case, for example `link-distance` | the manifest's default |
 | `setting-<key>` | any setting, also one whose name is a global or reserved attribute | |
 
-Events: `sf-effect-ready` `{effect, version, scheme, resolution, sandboxed,
-invalid}`, `sf-effect-failed` `{effect, kind, reason, ...}`,
+Events: `sf-effect-ready` `{effect, drawn, version, scheme, resolution,
+sandboxed, invalid}` (`effect` is the id named, `drawn` what the theme policy
+drew for it: `self`, `pair` or `null`), `sf-effect-failed` `{effect, kind, reason, ...}`,
 `sf-effect-motion` `{paused, source}`.
 
 Methods and properties: `pause()`, `resume()`, `update(settings)`, `ready`,
