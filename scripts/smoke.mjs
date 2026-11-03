@@ -131,7 +131,9 @@ async function routeAll(context) {
 // The Loader also brings the Smart icon button and the badges as dependencies of
 // those parts; the header is the site header, and the theme colour asks for the
 // theme palette on its own.
-const SITE_MODULES = /^(component|smart)\/(button-group|buttons?|icons?|icon-buttons|theme|theme-generator|theme-palette|site-header|menu|color|inputs?|close|range-slider|switch|dropdown|list-item|context-menu|checkbox|sortable|tags|avatars|tooltip|textarea|tabs|highlight|clipboard|scrollbar|doc|icon-button|badges)\//u;
+// Smart components load from folders under their new tag names (sf-header-site,
+// sf-menu-context, ...); the plain components behind them keep their old folders.
+const SITE_MODULES = /^(component|smart)\/(button-group|buttons?|icons?|icon-buttons|theme|theme-generator|theme-palette|site-header|header-site|menu|color|input-color|inputs?|close|button-close|range-slider|slider-range|switch|dropdown|list-item|context-menu|menu-context|checkbox|sortable|tags|avatars|avatar-group|tooltip|textarea|input-textarea|tabs|highlight|clipboard|scrollbar|doc|icon-button|button-icon|badges)\//u;
 function watch(page, where) {
   const problems = [];
   page.on('pageerror', (error) => problems.push(`page error: ${error.message}`));
