@@ -1,0 +1,23 @@
+@layer sf.reset, sf.tokens, sf.base, sf.utilities, sf.components, sf.overrides, sf.states;
+/* <sf-effect>: a block that holds its content above the effect layer. The
+   layer (data-sf-effect-layer) is placed by the engine under the children,
+   inset 0 on the logical box, so the same rule holds in either direction. */
+@layer sf.components {
+  sf-effect {
+    display: block;
+    position: relative;
+    isolation: isolate;
+  }
+}
+/* An area takes the drawn theme's class; without a colour of its own it would
+   leave dark text over a dark scene, so it takes its theme's ink. In sf.base,
+   so a colour utility on the area still wins (moved from SIMAI Framework
+   Core's theme sheet with the engine). */
+@layer sf.base {
+  .sf-effect-area.theme-dark {
+    color: var(--sf-on-surface);
+  }
+  .sf-effect-area.theme-light {
+    color: var(--sf-on-surface);
+  }
+}
