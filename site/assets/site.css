@@ -1,6 +1,6 @@
 /* ui-effects catalogue site. Colours are SIMAI Framework roles, so the
    whole site follows .theme-light / .theme-dark on <html>. Every effect area
-   takes the theme the effect is drawn in (SF.Effects of the core). */
+   takes the theme the effect is drawn in (the effects set). */
 
 /* Secondary text. In the dark theme on-surface-variant reaches only 4.0:1 on
    surface-container, so it is mixed towards on-surface there (4.5:1 or more). */
@@ -181,7 +181,7 @@ h3 { font-size: 1.0625rem; line-height: 1.4; font-weight: 700; }
 .demo-hero[data-sf-effect-state] { border-color: transparent; }
 /* The core's placement: a layer under the area's content; the area, or each
    window card, takes the theme the effect is drawn in, and its ink with the
-   class sf-effect-area (SF.Effects). The site adds only the ground. */
+   class sf-effect-area (the effects set). The site adds only the ground. */
 .demo-hero { position: relative; isolation: isolate; }
 /* A press-drag on an effect draws; over the demo areas it does not select their text. */
 .demo-hero, .demo-cards { user-select: none; -webkit-user-select: none; }

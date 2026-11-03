@@ -1,18 +1,25 @@
-// The site's placements. SF.Effects of the Framework core does the work: it
-// loads the effect and its pair from the catalogue with SHA-256 checks, picks
-// what to draw under the theme policy, follows the page theme, and runs
+// The site's placements. The engine of the component set `effects` does the
+// work (SF.package('effects'), the set this site serves beside its catalogue):
+// it loads the effect and its pair from the catalogue with SHA-256 checks,
+// picks what to draw under the theme policy, follows the page theme, and runs
 // windows mode. This file adds only what the catalogue site needs on top:
 // the configurator's still-frame switch and a name for what is shown.
 
-export const whenEffects = (timeout = 15000) => new Promise((resolve, reject) => {
-  const started = Date.now();
-  const tick = () => {
-    if (globalThis.SF?.Effects?.loadEffect) resolve(globalThis.SF.Effects);
-    else if (Date.now() - started > timeout) reject(new Error('SF.Effects is not on the page'));
-    else setTimeout(tick, 50);
-  };
-  tick();
-});
+// The engine, once the set has given it: outcomeOf reads it after a placement.
+let engine = null;
+let Engine = null;
+export const whenEffects = (timeout = 15000) => {
+  engine ??= new Promise((resolve, reject) => {
+    const started = Date.now();
+    const tick = () => {
+      if (globalThis.SF?.package) resolve(globalThis.SF.package('effects').then((api) => { Engine = api; return api; }));
+      else if (Date.now() - started > timeout) reject(new Error('SIMAI Framework Core is not on the page'));
+      else setTimeout(tick, 50);
+    };
+    tick();
+  });
+  return engine;
+};
 
 // A module whose mount always gets a reduced-motion context: one still frame.
 const still = (module) => ({mount: (host, settings, context) => module.mount(host, settings, Object.freeze({...context, reducedMotion: true}))});
@@ -60,7 +67,7 @@ export async function place(area, {id, themeMode = 'auto', settings = {}, window
 // What a placement shows now, in the site's words:
 // {shown: <id> | null, drawn: 'dark' | 'light', outcome: 'as-is' | 'pair' | 'kept' | 'hidden'}.
 export function outcomeOf(handle, {id, pairId, mode}) {
-  const Effects = globalThis.SF.Effects;
+  const Effects = Engine;
   const target = mode === 'auto' ? Effects.pageScheme() : mode;
   const resolution = handle.resolution;
   if (!resolution || resolution.hidden) return {shown: null, drawn: target, outcome: 'hidden', reason: resolution?.reason ?? null};

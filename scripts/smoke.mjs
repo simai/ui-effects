@@ -598,15 +598,15 @@ try {
       blank = `<!doctype html><html lang="ru"><head><meta charset="utf-8"><title>blank</title>${head}</head><body>${body}</body></html>`;
       await page.goto('https://blank.test/');
     };
-    // The area a snippet places the effect on: the declared element, or the
+    // The area a snippet places the effect on: its <sf-effect>, or the
     // page's own [data-effect-area] for the script.
     const settle = () => page.waitForFunction(() => {
-      const area = document.querySelector('.effect-hero, .effect-windows, [data-effect-area]');
+      const area = document.querySelector('sf-effect, [data-effect-area]');
       const state = area?.dataset.sfEffectState;
       return ['hidden', 'refused', 'failed'].includes(state) || (state === 'running' && area.querySelector(':scope > [data-sf-effect-layer] canvas'));
     }, null, {timeout: 20000}).then(() => true, () => false);
     const placed = () => page.evaluate(() => {
-      const area = document.querySelector('.effect-hero, .effect-windows, [data-effect-area]');
+      const area = document.querySelector('sf-effect, [data-effect-area]');
       const layer = area?.querySelector(':scope > [data-sf-effect-layer]');
       const theme = (element) => (element.classList.contains('theme-dark') ? 'dark' : element.classList.contains('theme-light') ? 'light' : null);
       return {
@@ -634,7 +634,7 @@ try {
       const json = JSON.parse(code.json);
       const settings = await page.evaluate(async ({url, json}) => {
         const manifest = await (await fetch(url)).json();
-        const {invalid, settings: read} = window.SF.Effects.effectSettings(manifest, json);
+        const {invalid, settings: read} = (await window.SF.package('effects')).effectSettings(manifest, json);
         return {invalid, keys: Object.keys(json).sort().join(), expected: Object.keys(read).sort().join()};
       }, {url: `${EFFECTS_CDN}${entry.path}effect.json`, json});
       if (settings.invalid.length || settings.keys !== settings.expected) fail(`snippet json ${entry.id}`, JSON.stringify(settings));

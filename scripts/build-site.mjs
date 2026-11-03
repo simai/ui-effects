@@ -3,8 +3,10 @@
 // own folder (en/, ru/, es/, pt-br/, …). The root holds only redirects: each page
 // there sends a visitor to the same page in their language, English by default. Pages take their texts
 // from site/i18n/<lang>.json ({{t:key}} in a template, t() in a script) and the
-// effects' names and descriptions from the catalogue; assets, the catalogue and
-// the effects are shared at the root.
+// effects' names and descriptions from the catalogue; assets, the catalogue,
+// the effects and the component set `effects` (package/dist/smart, the element
+// sf-effect and its engine) are shared at the root, so the set finds this very
+// catalogue beside it.
 //
 //   node scripts/build-site.mjs [--out dist] [--votes URL]
 //
@@ -100,6 +102,8 @@ const siteConfig = (rootPath, locale, page) => JSON.stringify({
   commit,
   commit_source: source,
   cdn: `https://cdn.jsdelivr.net/gh/simai/ui-effects@${commit}/`,
+  // The set as a page outside this site declares it: its base at the same commit.
+  set: {base: `https://cdn.jsdelivr.net/gh/simai/ui-effects@${commit}/package/dist/smart`, version: readJson(join(ROOT, 'package', 'package.json')).version},
   published: isPublished(),
   votes: votes || null,
   framework: {pair: framework.pair, commit: framework.ui.commit, base: frameworkBase(framework)},
@@ -188,9 +192,12 @@ for (const effect of catalogue.effects) {
   for (const file of effect.files) if (file.path !== 'README.md') cpSync(join(ROOT, effect.path, file.path), join(out, effect.path, file.path));
 }
 cpSync(join(ROOT, 'site', 'assets'), join(out, 'assets'), {recursive: true});
+// The set's own rule for which setting is which attribute, so the code shown is what sf-effect reads.
+cpSync(join(ROOT, 'package', 'src', 'smart', 'effect', 'attributes.js'), join(out, 'assets', 'effect-attributes.js'));
+cpSync(join(ROOT, 'package', 'dist', 'smart'), join(out, 'package', 'dist', 'smart'), {recursive: true});
 mkdirSync(join(out, 'catalogue'), {recursive: true});
 cpSync(join(CATALOGUE, 'index.json'), join(out, 'catalogue', 'index.json'));
 cpSync(join(CATALOGUE, 'index.schema.json'), join(out, 'catalogue', 'index.schema.json'));
 writeFileSync(join(out, '.nojekyll'), '');
-if (!existsSync(join(out, 'assets', 'configurator.js'))) throw new Error('build-site: assets missing');
+if (!existsSync(join(out, 'assets', 'configurator.js')) || !existsSync(join(out, 'package', 'dist', 'smart', 'rule.js'))) throw new Error('build-site: assets missing');
 console.log(`build-site: ${(catalogue.effects.length + 2) * LOCALES.length} pages (${LOCALES.map(({lang}) => lang).join(', ')}) in ${out}; snippets pinned to ${commit.slice(0, 12)} (${source}); Framework ${framework.pair}`);

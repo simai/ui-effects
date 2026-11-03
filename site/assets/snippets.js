@@ -1,9 +1,10 @@
-// «Получить код»: the snippets of the configurator. Every URL is pinned by
-// commit (ui-effects: the published commit, injected at build; ui: the
-// locked Framework release) and every file is checked against its SHA-256
+// «Получить код»: the snippets of the configurator. Every URL is pinned
+// (ui-effects, the component set and its catalogue: the published commit,
+// injected at build; ui: the locked Framework release) and every file is checked against its SHA-256
 // from the catalogue before it runs.
 
 import {lang, t, text} from './common.js';
+import {attributeName, kebab} from './effect-attributes.js';
 
 const indent = (code, prefix) => code.split('\n').map((line) => (line ? prefix + line : line)).join('\n');
 const quote = (value) => `'${String(value).replace(/\\/gu, '\\\\').replace(/'/gu, "\\'")}'`;
@@ -14,8 +15,9 @@ const attr = (value) => String(value).replace(/&/gu, '&amp;').replace(/'/gu, '&#
 const themeOf = (entry, mode) => (mode === 'auto' && entry.schemes.length === 1 ? entry.schemes[0] : mode);
 const themeNote = (entry, mode) => (mode !== 'auto' ? t('code.theme.author') : entry.schemes.length === 1 ? t('code.theme.one', {scheme: t(`scheme.${entry.schemes[0]}.short`)}) : t('code.theme.page'));
 
-// The Framework, with SF_BOOT_CONFIG.effects naming the catalogue at this commit:
-// the core loads every effect from there and checks each file against its index.
+// The Framework, with the component set `effects` declared by its base at this
+// commit: sf-effect and its engine come from there, and the engine takes every
+// effect from the catalogue beside it, each file checked against its index.
 export function connectSnippet(config) {
   const base = config.framework.base;
   return `<!-- ${t('code.connect', {pair: config.framework.pair})} -->
@@ -23,7 +25,7 @@ export function connectSnippet(config) {
 <script>
   window.sfPath = '${base}';
   window.SF_BOOT_CONFIG = Object.assign(window.SF_BOOT_CONFIG || {}, {
-    effects: {catalogue: '${config.cdn}'},
+    packages: {effects: '${config.set.base}'},
   });
 </script>
 <script src="${base}core/js/core.min.js"></script>`;
@@ -52,28 +54,49 @@ const windowsCards = () => `  <li class="effect-card" data-sf-effect-window><div
   <li class="effect-card" data-sf-effect-window><div class="effect-card__text"><h3>${t('card.team')}</h3><p>${t('code.card.team')}</p></div></li>
   <li class="effect-card"><div class="effect-card__text"><h3>${t('card.security')}</h3><p>${t('code.card.plain')}</p></div></li>`;
 
-// Markup alone: the core finds the attributes and places the effect.
-export function htmlSnippet({config, entry, mode, layout, values, about = true}) {
-  const settings = attr(JSON.stringify(values));
-  const off = about ? '' : '\n    data-sf-effect-about="false"';
+// The settings that differ from the manifest's defaults, as sf-effect reads
+// them: each under its own attribute (setting-<key> where a plain one is not
+// allowed), a true switch as a bare attribute.
+const settingAttributes = (manifest, values) => (manifest?.settings ?? [])
+  .filter((setting) => setting.key in values && values[setting.key] !== setting.default)
+  .map((setting) => {
+    const name = attributeName(setting.key) ?? `setting-${kebab(setting.key)}`;
+    const value = values[setting.key];
+    return value === true ? name : `${name}="${attr(value === false ? 'false' : value).replace(/"/gu, '&quot;')}"`;
+  });
+
+// One element: <sf-effect> with the effect, its theme and settings as
+// attributes; the set places the effect under the element's own content.
+const effectTag = ({entry, mode, manifest, values, about, windows, className}) => {
+  const theme = themeOf(entry, mode);
+  const parts = [
+    ...(className ? [`class="${className}"`] : []),
+    `effect="${entry.id}"`,
+    ...(theme === 'auto' ? [] : [`theme="${theme}"`]),
+    ...(windows ? ['windows'] : []),
+    ...settingAttributes(manifest, values),
+    ...(about ? [] : ['about="false"']),
+  ];
+  const line = `<sf-effect ${parts.join(' ')}>`;
+  return line.length <= 100 ? line : `<sf-effect ${parts.join('\n           ')}>`;
+};
+
+// Markup alone: the set finds the element and places the effect.
+export function htmlSnippet({config, entry, mode, layout, values, manifest, about = true}) {
   const head = `<!-- ${t('code.head.html', {label: text(entry.label), id: entry.id, commit: config.commit.slice(0, 12)})} -->`;
   if (layout === 'windows') {
     return `${head}
-<ul class="effect-windows"
-    data-sf-effect-windows="${entry.id}"
-    data-sf-effect-theme="${themeOf(entry, mode)}"
-    data-sf-effect-settings='${settings}'${off}>
+${effectTag({entry, mode, manifest, values, about, windows: true})}
+<ul class="effect-windows">
 ${windowsCards()}
 </ul>
+</sf-effect>
 ${windowsStyle()}`;
   }
   return `${head}
-<section class="effect-hero"
-         data-sf-effect="${entry.id}"
-         data-sf-effect-theme="${themeOf(entry, mode)}"
-         data-sf-effect-settings='${settings}'${off.replace('\n    ', '\n         ')}>
+${effectTag({entry, mode, manifest, values, about, className: 'effect-hero'})}
 ${heroBody()}
-</section>
+</sf-effect>
 ${heroStyle()}`;
 }
 
@@ -83,8 +106,9 @@ export function jsSnippet({config, entry, mode, layout, values, about = true}) {
   return `// ${t('code.head.js', {label: text(entry.label), id: entry.id, commit: config.commit.slice(0, 12)})}
 // ${t('code.js.core')}
 // ${t('code.js.core2')}
+const Effects = await SF.package('effects');
 const area = document.querySelector('[data-effect-area]');${about ? '' : `\narea.dataset.sfEffectAbout = 'false'; // ${t('code.js.about')}`}
-const placement = await SF.Effects.placeEffect(area, {
+const placement = await Effects.placeEffect(area, {
   effect: ${quote(entry.id)},
   themeMode: ${quote(themeOf(entry, mode))}, // ${themeNote(entry, mode)}
   settings: ${indent(JSON.stringify(values, null, 2), '  ').trimStart()},${windows ? `\n  windows: true, // ${t('code.js.windows')}` : `\n  // ${t('code.js.windows.off')}`}

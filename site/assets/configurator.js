@@ -80,7 +80,7 @@ const {manifest} = main;
 const userSettings = manifest.settings;
 const defaults = () => Object.fromEntries(userSettings.map((setting) => [setting.key, setting.default]));
 state.values = defaults();
-const checkSetting = (setting, raw) => (window.SF?.Effects?.checkSetting ? window.SF.Effects.checkSetting(setting, raw) : {ok: true, value: raw});
+const checkSetting = (setting, raw) => Effects.checkSetting(setting, raw);
 
 // Every control is a Framework Smart component; each reports a committed value
 // with a change event on its host.
@@ -402,7 +402,7 @@ function setCode(name, source) {
   highlighter.then((highlight) => highlight?.refresh(code.closest('.sf-highlight') ?? code.parentElement, source));
 }
 function renderCode() {
-  const options = {config, catalogue, entry, mode: state.mode, values: readValues(), about: state.about};
+  const options = {config, catalogue, entry, mode: state.mode, values: readValues(), manifest: main.manifest, about: state.about};
   setCode('html', htmlSnippet({...options, layout: 'hero'}));
   setCode('html-windows', htmlSnippet({...options, layout: 'windows'}));
   setCode('connect', connectSnippet(config));
@@ -417,7 +417,7 @@ const layoutPicker = $('[data-download-layout]');
 if (!config.published) $('[data-draft-note]').hidden = false;
 layoutPicker.options = ['both', 'hero', 'windows'].map((value) => ({text: t(`panel.download.${value}`), value}));
 $('[data-download]').addEventListener('click', () => {
-  const options = {config, catalogue, entry, mode: state.mode, values: readValues(), about: state.about};
+  const options = {config, catalogue, entry, mode: state.mode, values: readValues(), manifest: main.manifest, about: state.about};
   const layout = layoutPicker?.value || 'both';
   const parts = [layout !== 'windows' ? htmlSnippet({...options, layout: 'hero'}) : '', layout !== 'hero' ? htmlSnippet({...options, layout: 'windows'}) : ''].filter(Boolean);
   const page = examplePage({entry, connect: connectSnippet(config), parts});

@@ -23,7 +23,7 @@ there will be many. The Framework ships only the core: `SF.Effects`, the
 | `catalogue/categories.json` | The closed set of subjects the gallery filters by ([schema](catalogue/categories.schema.json)) |
 | `catalogue/index.json` | Generated catalogue: every effect, its files with SHA-256 and size, the kit result ([schema](catalogue/index.schema.json)) |
 | `catalogue/kit.json` | Kit results per effect, written by `scripts/kit.mjs` |
-| `framework.lock.json` | The Framework release everything is checked against (`ui-b8e23367889f`) |
+| `framework.lock.json` | The Framework release everything is checked against (`ui-eea8c0a97cc7`) |
 | `site/` | The catalogue site, built in eight languages from `site/i18n/` (each language in its own folder: `en/`, `ru/`, `es/`, `pt-br/`, `de/`, `zh-cn/`, `fr/`, `ja/`; the root only redirects to the visitor's language, English by default); it places effects through the core's `SF.Effects` |
 | `service/votes/` | The votes service: anonymous likes, dislikes and use counts ([docs/VOTES.md](docs/VOTES.md)) |
 | `templates/effect/` | A template effect to start from |
