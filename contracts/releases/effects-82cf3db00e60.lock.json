@@ -1,0 +1,42 @@
+{
+  "schema": "simai.framework.package-release-lock",
+  "schema_version": 1,
+  "id": "effects-82cf3db00e60",
+  "package": "effects",
+  "version": "1.0.0",
+  "source": {
+    "repository": "simai/ui-effects",
+    "path": "package",
+    "revision": "82cf3db00e60d775221660100ce782aa7296867f",
+    "tree": "06e34680f82e007b4c21b76d6c915ad1e0b1493e"
+  },
+  "build": {
+    "revision": "0627499c380ab0bb53c36e765ef5b421587ff02e",
+    "path": "package/dist",
+    "tree": "540fd6a21fa2098946c865b27d2289e2f568b216",
+    "archive_sha256": "ceeadd166a244db2ad17f77369c1ada587b179e2e883719c251e3d4ef0b4eb37"
+  },
+  "receipt": {
+    "path": "package/dist/package-receipt.json",
+    "sha256": "71fc8a80e232c3469d09dfcc66c3e5ca56c8f78f787975d4e472963f3910a8ab"
+  },
+  "output": {
+    "manifest_sha256": "f07a7aaf09651bab7644ea2c3778688e2473b65f75448ca814d88fa7cc80d41f",
+    "archive_sha256": "9d34b504009f96be24e154a259bfcac9f9067184f1aa4700b8a7915e119c95e0",
+    "files_count": 11
+  },
+  "requires": {
+    "framework": null,
+    "source": "2ae82be269a2c9574f1e56c5609ebee64803a6eb",
+    "core_runtime": ">=1.25.0"
+  },
+  "requires_sets": [],
+  "builder": {
+    "repository": "simai/ui-builder",
+    "revision": "97ba6c8892d7053af16c28c1ebdf88028c82691f",
+    "clean": true
+  },
+  "claims": {
+    "production_ready": false
+  }
+}
