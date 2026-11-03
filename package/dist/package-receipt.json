@@ -1,0 +1,167 @@
+{
+  "schema_id": "simai.framework.product-package-receipt",
+  "schema_version": 1,
+  "package": "effects",
+  "loader": {
+    "declaration": "SF_BOOT_CONFIG.packages.effects.base",
+    "base": "<mount>/smart",
+    "rule_file": "smart/rule.js"
+  },
+  "package_source": {
+    "repository": "simai/ui-effects",
+    "revision": "ad9823f83a565ce879c2180c9f917238825c05cb",
+    "path": "package",
+    "tree": "913892d997f398ebc207e761272fcbfc8437b597"
+  },
+  "licence": {
+    "ref": "Apache-2.0"
+  },
+  "framework": {
+    "source": {
+      "repository": "simai/ui-source",
+      "revision": "c4df9ae6fc057c192ffee0e6ca4e6dcdea299979"
+    },
+    "release": "ui-eea8c0a97cc7",
+    "runtime": {
+      "abi": 1,
+      "modules": {
+        "deprecations": [],
+        "page-language": [
+          "pageText"
+        ]
+      }
+    },
+    "runtime_check": {
+      "contract": "distr/core/contracts/shared-runtime.v1.json",
+      "status": "agrees"
+    }
+  },
+  "builder": {
+    "repository": "simai/ui-builder",
+    "revision": "97ba6c8892d7053af16c28c1ebdf88028c82691f",
+    "clean": true
+  },
+  "node": "v24.21.0",
+  "output": {
+    "runtime_path": "smart",
+    "files_count": 11,
+    "manifest_sha256": "be0e1f4e7d8bd1a5dd0caeb1247c1c24c5f777793110881e17d86843f6edc170",
+    "archive": "package-effects.tar",
+    "archive_sha256": "f5abbd8b546820cbcf4e123408f6e688e3bc918ee5b5eb32ea6947c99851a55a",
+    "archive_format": "ustar; entries sorted; owner 0:0; mtime 0; modes 0755/0644"
+  },
+  "required_files": [
+    {
+      "path": "smart/rule.js",
+      "sha256": "42869c550895a45948d153828aa8ae5bd3ca2f796b666aa9c46500efc17d00dd",
+      "size": 464
+    },
+    {
+      "path": "smart/effect/js/effect.js",
+      "sha256": "31ecfa449aa5971f7f6870666bd80dfa9cd7cb9609952646844e0cf117e96b06",
+      "size": 103638
+    },
+    {
+      "path": "smart/effect/css/effect.css",
+      "sha256": "2bbd96923e403f303acf6974ace331cd565e45c840e914bfc2298f64abb24571",
+      "size": 862
+    }
+  ],
+  "inventory": {
+    "components": 1,
+    "rules": 1,
+    "elements": [
+      {
+        "element": "sf-effect",
+        "rule_name": "cl-effect",
+        "folder": "effect",
+        "js": true,
+        "css": true,
+        "relations": []
+      }
+    ]
+  },
+  "package_reference": {
+    "path": "distr/core/contracts/packages/effects.package.json",
+    "release": "ui-eea8c0a97cc7",
+    "status": "set-passport"
+  },
+  "set": {
+    "id": "effects",
+    "passport": "set.json",
+    "sha256": "a918a3a369103bab8d80335828b7117c323d47bc7fa9350fbe448e538d1a6e9e",
+    "api": "cl-effect",
+    "families": [
+      "effect"
+    ],
+    "framework": {
+      "core_runtime": ">=1.25.0",
+      "source_revision": "c4df9ae6fc057c192ffee0e6ca4e6dcdea299979"
+    },
+    "requires_sets": [],
+    "registry": {
+      "status": "agrees",
+      "sha256": "836228ab5f27cae20223e6e9ef8a685a3cbe098d6e9633f52de5024932462ae9"
+    }
+  },
+  "files": [
+    {
+      "path": "set.json",
+      "sha256": "a918a3a369103bab8d80335828b7117c323d47bc7fa9350fbe448e538d1a6e9e",
+      "size": 762
+    },
+    {
+      "path": "smart/effect/css/effect.css",
+      "sha256": "2bbd96923e403f303acf6974ace331cd565e45c840e914bfc2298f64abb24571",
+      "size": 862
+    },
+    {
+      "path": "smart/effect/css/effect.css.gz",
+      "sha256": "3067082a1416ace1bdc3fbad54f1081c04a5b6162c254cd9434c1592863a8510",
+      "size": 459
+    },
+    {
+      "path": "smart/effect/css/effect.min.css",
+      "sha256": "f7662a63643b35f3b46109e476acd21697b28baedf35f40c2e539b24c4a8ba71",
+      "size": 299
+    },
+    {
+      "path": "smart/effect/css/effect.min.css.gz",
+      "sha256": "eb5ea82790c783e5b667c78ccbaa39553a45b64431c8e73a47e91437ec09a11b",
+      "size": 180
+    },
+    {
+      "path": "smart/effect/js/effect.js",
+      "sha256": "31ecfa449aa5971f7f6870666bd80dfa9cd7cb9609952646844e0cf117e96b06",
+      "size": 103638
+    },
+    {
+      "path": "smart/effect/js/effect.js.gz",
+      "sha256": "62a7ec12608afa24df191d1b0cf1b889d78c0a8a30dcd7a5db285e0cb03f83ce",
+      "size": 29623
+    },
+    {
+      "path": "smart/effect/js/effect.min.js",
+      "sha256": "035f08e7c6866e9a2c058f5d9859f9a50287f87df92b7017be68f843c79134cf",
+      "size": 42641
+    },
+    {
+      "path": "smart/effect/js/effect.min.js.gz",
+      "sha256": "3381dfd4a1dae028436f12e8fbf2ac6f8261f1c60738c367a407fdfa4c723869",
+      "size": 14919
+    },
+    {
+      "path": "smart/rule.js",
+      "sha256": "42869c550895a45948d153828aa8ae5bd3ca2f796b666aa9c46500efc17d00dd",
+      "size": 464
+    },
+    {
+      "path": "smart/rule.js.gz",
+      "sha256": "65df5522cd38fe57892b77f50d226c4c947f4f7ba4329afecd72e0b0659453b5",
+      "size": 283
+    }
+  ],
+  "claims": {
+    "production_ready": false
+  }
+}

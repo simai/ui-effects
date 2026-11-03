@@ -1,0 +1,20 @@
+{
+  "schema": "simai.framework.component-set",
+  "schema_version": 1,
+  "standard": {"id": "simai.component-set", "version": "1.0.0"},
+  "id": "effects",
+  "title": "SIMAI Effects",
+  "summary": "Animated backgrounds for SIMAI Framework pages: the element sf-effect, its engine and the catalogue of effects published with it.",
+  "repository": "simai/ui-effects",
+  "licence": {"class": "framework", "spdx": "Apache-2.0"},
+  "framework": {
+    "core_runtime": ">=1.25.0",
+    "source_revision": "c4df9ae6fc057c192ffee0e6ca4e6dcdea299979"
+  },
+  "requires_sets": [],
+  "families": ["effect"],
+  "docs": "https://effects.simai.io/",
+  "components": [
+    {"element": "sf-effect", "rule": "cl-effect", "folder": "effect", "status": "preview", "requires": []}
+  ]
+}

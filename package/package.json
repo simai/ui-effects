@@ -1,0 +1,40 @@
+{
+  "name": "@simai-studio/effects",
+  "version": "1.0.0",
+  "description": "SIMAI Effects, the free component set effects of SIMAI Framework: the element sf-effect, its engine and the catalogue of background effects.",
+  "license": "Apache-2.0",
+  "author": "Rim Zabarov",
+  "homepage": "https://effects.simai.io/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/simai/ui-effects.git",
+    "directory": "package"
+  },
+  "keywords": [
+    "simai-framework",
+    "component-set",
+    "background-effects",
+    "web-components"
+  ],
+  "files": [
+    "dist/",
+    "catalogue/*.json",
+    "effects/*/effect.json",
+    "effects/*/*.js",
+    "effects/*/*.css",
+    "LICENSE",
+    "NOTICE"
+  ],
+  "simai": {
+    "set": "effects",
+    "api": "cl-effect",
+    "base": "dist/smart"
+  },
+  "scripts": {
+    "test": "node scripts/test.mjs",
+    "stage": "node scripts/stage-npm.mjs"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

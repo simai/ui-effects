@@ -1,0 +1,2 @@
+@layer sf.reset, sf.tokens, sf.base, sf.utilities, sf.components, sf.overrides, sf.states;
+@layer sf.components{sf-effect{display:block;position:relative;isolation:isolate}}@layer sf.base{.sf-effect-area.theme-dark{color:var(--sf-on-surface)}.sf-effect-area.theme-light{color:var(--sf-on-surface)}}
