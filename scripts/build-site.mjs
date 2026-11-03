@@ -89,7 +89,7 @@ const languageButton = (locale) => {
 };
 const languageMenu = (locale, page) => {
   const entries = alternates(locale, page).map((other) => ({id: other.lang, text: other.name, ...(other.english !== other.name && {caption: other.english}), lang: other.lang, href: other.href, current: other.lang === locale.lang}));
-  return `<sf-context-menu popup aria-label="${escape(dictionaries[locale.lang]['lang.switch'])}" data-lang-menu data-entries="${escape(JSON.stringify(entries))}"></sf-context-menu>`;
+  return `<sf-menu-context popup aria-label="${escape(dictionaries[locale.lang]['lang.switch'])}" data-lang-menu data-entries="${escape(JSON.stringify(entries))}"></sf-menu-context>`;
 };
 const alternateTags = (locale, page) => alternates(locale, page).map((other) => `<link rel="alternate" hreflang="${other.lang}" href="${other.href}">`).join('\n');
 const siteConfig = (rootPath, locale, page) => JSON.stringify({

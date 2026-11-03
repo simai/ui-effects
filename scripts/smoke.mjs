@@ -506,12 +506,12 @@ try {
       const corner = await page.locator('[data-hero]').boundingBox();
       await page.mouse.click(corner.x + corner.width - 24, corner.y + 24, {button: 'right'});
     };
-    const menuOpen = () => page.evaluate(() => document.querySelector('sf-context-menu[data-sf-effect-about]')?.isOpen === true);
+    const menuOpen = () => page.evaluate(() => document.querySelector('sf-menu-context[data-sf-effect-about]')?.isOpen === true);
     await rightClick();
-    await page.waitForFunction(() => document.querySelector('sf-context-menu[data-sf-effect-about]')?.isOpen === true, null, {timeout: 10000}).catch(() => {});
-    const menu = await page.evaluate(() => document.querySelector('sf-context-menu[data-sf-effect-about]')?.textContent.replace(/\s+/gu, ' ').trim() ?? '');
+    await page.waitForFunction(() => document.querySelector('sf-menu-context[data-sf-effect-about]')?.isOpen === true, null, {timeout: 10000}).catch(() => {});
+    const menu = await page.evaluate(() => document.querySelector('sf-menu-context[data-sf-effect-about]')?.textContent.replace(/\s+/gu, ' ').trim() ?? '');
     if (!/Rain on glass/iu.test(menu) || !/SIMAI Effects/u.test(menu)) fail('about menu', `menu reads "${menu.slice(0, 160)}"`);
-    await page.locator('sf-context-menu[data-sf-effect-about] [data-sf-entry]').filter({hasText: /Pause/u}).first().click().catch((error) => fail('about menu', `no Pause item: ${error.message.split('\n')[0]}`));
+    await page.locator('sf-menu-context[data-sf-effect-about] [data-sf-entry]').filter({hasText: /Pause/u}).first().click().catch((error) => fail('about menu', `no Pause item: ${error.message.split('\n')[0]}`));
     await wait(500);
     if (await page.locator('[data-pause]').getAttribute('aria-pressed') !== 'true') fail('about menu', 'the page pause button did not follow the menu');
     await page.locator('[data-pause]').click();

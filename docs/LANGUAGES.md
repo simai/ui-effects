@@ -30,9 +30,9 @@ English is the default and the fallback: a string or a catalogue text missing in
 
 There is no dedicated language-switcher component; the switcher is made of three standard parts:
 
-1. **`sf-site-header`**: the switcher sits in its `tools` slot, beside the colour and theme controls.
+1. **`sf-header-site`**: the switcher sits in its `tools` slot, beside the colour and theme controls.
 2. **An icon button** (`sf-icon-button`, size 1/2, link appearance) with the `language` icon, `aria-haspopup="menu"`, named in the page language ("Language", "Язык", …).
-3. **`sf-context-menu`** (`popup`), given its `entries` and opened by `toggleFor(button)`. One entry per language:
+3. **`sf-menu-context`** (`popup`), given its `entries` and opened by `toggleFor(button)`. One entry per language:
 
    ```js
    {id: 'ru', text: 'Русский', caption: 'Russian', lang: 'ru', href: '../ru/', current: false}

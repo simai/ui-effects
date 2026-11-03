@@ -95,7 +95,7 @@ function controlFor(setting, value) {
     case 'integer':
     case 'number':
       // The slider's own label attribute is how a handle shows its value; the field's name is a caption above it.
-      return {caption: label, element: make('sf-range-slider', {min: setting.min, max: setting.max, step: setting.step ?? (setting.type === 'integer' ? 1 : (setting.max - setting.min) / 100), value, label: 'tooltip', decimals: setting.type === 'integer' ? '0' : undefined, suffix: setting.unit ? ` ${setting.unit}` : undefined, 'aria-label': label}),
+      return {caption: label, element: make('sf-slider-range', {min: setting.min, max: setting.max, step: setting.step ?? (setting.type === 'integer' ? 1 : (setting.max - setting.min) / 100), value, label: 'tooltip', decimals: setting.type === 'integer' ? '0' : undefined, suffix: setting.unit ? ` ${setting.unit}` : undefined, 'aria-label': label}),
         read: (event) => Number(event.detail?.values?.[0] ?? event.detail?.value)};
     case 'boolean':
       return {inner: true, element: make('sf-switch', {label, checked: Boolean(value), size: '1'}), read: (event, element) => Boolean(element.checked)};
@@ -106,9 +106,9 @@ function controlFor(setting, value) {
       return {inner: true, element, read: (event, picker) => picker.value};
     }
     case 'color':
-      return {element: make('sf-color', {label, value, size: '1'}), read: (event) => event.detail?.value ?? ''};
+      return {element: make('sf-input-color', {label, value, size: '1'}), read: (event) => event.detail?.value ?? ''};
     case 'text':
-      return {live: true, element: make('sf-textarea', {label, value: value ?? '', rows: 3, maxlength: setting.max, size: '1'}), read: (event, element) => element.value};
+      return {live: true, element: make('sf-input-textarea', {label, value: value ?? '', rows: 3, maxlength: setting.max, size: '1'}), read: (event, element) => element.value};
     default:
       return {live: true, element: make('sf-input', {label, value: value ?? '', maxlength: setting.max, size: '1'}), read: (event, element) => element.value};
   }

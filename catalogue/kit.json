@@ -2,9 +2,9 @@
   "schema": "simai.ui-effects.kit",
   "version": 2,
   "framework": {
-    "pair": "ui-c4d39d528148",
-    "ui": "c4d39d528148cc8fbb1b1dadc5294462a2aaa812",
-    "ui_source": "b94f978de04c0ba77cc66c40b1b33510059c4972"
+    "pair": "ui-b8e23367889f",
+    "ui": "b8e23367889f372afeb9aa5bcf7863152510c603",
+    "ui_source": "879eac3111888818680733bf7bfea97ff7288931"
   },
   "kit": {
     "script": "scripts/effect-kit.mjs",

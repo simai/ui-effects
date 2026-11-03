@@ -33,7 +33,7 @@ function themeChanged() {
 window.addEventListener('sf-theme-change', themeChanged);
 
 // --- Main colour -------------------------------------------------------------------
-// The header's sf-color (theme variant) opens the platform colour picker and builds the whole theme
+// The header's sf-input-color (theme variant) opens the platform colour picker and builds the whole theme
 // from the colour while it moves; it stores nothing, so the choice is kept here, in this browser, and
 // given back as its value. Effects read palette tones when they mount, so they are placed again once
 // a colour is committed or cleared.
@@ -113,5 +113,5 @@ const languageButton = document.querySelector('[data-lang-button]');
 const languageMenu = document.querySelector('[data-lang-menu]');
 if (languageButton && languageMenu) {
   try { languageMenu.entries = JSON.parse(languageMenu.dataset.entries); } catch { /* the menu stays empty */ }
-  languageButton.addEventListener('click', () => customElements.whenDefined('sf-context-menu').then(() => languageMenu.toggleFor(languageButton)));
+  languageButton.addEventListener('click', () => customElements.whenDefined('sf-menu-context').then(() => languageMenu.toggleFor(languageButton)));
 }

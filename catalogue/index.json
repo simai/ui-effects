@@ -5,9 +5,9 @@
   "repository": "simai/ui-effects",
   "standard": "simai.effect 1.4.0",
   "framework": {
-    "pair": "ui-c4d39d528148",
-    "ui": "c4d39d528148cc8fbb1b1dadc5294462a2aaa812",
-    "ui_source": "b94f978de04c0ba77cc66c40b1b33510059c4972"
+    "pair": "ui-b8e23367889f",
+    "ui": "b8e23367889f372afeb9aa5bcf7863152510c603",
+    "ui_source": "879eac3111888818680733bf7bfea97ff7288931"
   },
   "counts": {
     "effects": 34,
@@ -265,7 +265,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-c4d39d528148",
+        "framework": "ui-b8e23367889f",
         "passed": 14,
         "total": 14
       }
@@ -350,7 +350,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-c4d39d528148",
+        "framework": "ui-b8e23367889f",
         "passed": 14,
         "total": 14
       }
@@ -435,7 +435,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-c4d39d528148",
+        "framework": "ui-b8e23367889f",
         "passed": 17,
         "total": 17
       }
@@ -520,7 +520,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-c4d39d528148",
+        "framework": "ui-b8e23367889f",
         "passed": 14,
         "total": 14
       }
@@ -605,7 +605,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-c4d39d528148",
+        "framework": "ui-b8e23367889f",
         "passed": 17,
         "total": 17
       }
@@ -691,7 +691,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-c4d39d528148",
+        "framework": "ui-b8e23367889f",
         "passed": 17,
         "total": 17
       }
@@ -775,7 +775,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-c4d39d528148",
+        "framework": "ui-b8e23367889f",
         "passed": 14,
         "total": 14
       }
@@ -860,7 +860,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-c4d39d528148",
+        "framework": "ui-b8e23367889f",
         "passed": 14,
         "total": 14
       }
@@ -944,7 +944,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-c4d39d528148",
+        "framework": "ui-b8e23367889f",
         "passed": 14,
         "total": 14
       }
@@ -1028,7 +1028,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-c4d39d528148",
+        "framework": "ui-b8e23367889f",
         "passed": 17,
         "total": 17
       }
@@ -1113,7 +1113,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-c4d39d528148",
+        "framework": "ui-b8e23367889f",
         "passed": 14,
         "total": 14
       }
@@ -1198,7 +1198,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-c4d39d528148",
+        "framework": "ui-b8e23367889f",
         "passed": 17,
         "total": 17
       }
@@ -1280,7 +1280,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-c4d39d528148",
+        "framework": "ui-b8e23367889f",
         "passed": 14,
         "total": 14
       }
@@ -1363,7 +1363,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-c4d39d528148",
+        "framework": "ui-b8e23367889f",
         "passed": 17,
         "total": 17
       }
@@ -1448,7 +1448,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-c4d39d528148",
+        "framework": "ui-b8e23367889f",
         "passed": 17,
         "total": 17
       }
@@ -1532,7 +1532,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-c4d39d528148",
+        "framework": "ui-b8e23367889f",
         "passed": 17,
         "total": 17
       }
@@ -1616,7 +1616,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-c4d39d528148",
+        "framework": "ui-b8e23367889f",
         "passed": 17,
         "total": 17
       }
@@ -1701,7 +1701,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-c4d39d528148",
+        "framework": "ui-b8e23367889f",
         "passed": 17,
         "total": 17
       }
@@ -1785,7 +1785,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-c4d39d528148",
+        "framework": "ui-b8e23367889f",
         "passed": 14,
         "total": 14
       }
@@ -1869,7 +1869,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-c4d39d528148",
+        "framework": "ui-b8e23367889f",
         "passed": 14,
         "total": 14
       }
@@ -1955,7 +1955,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-c4d39d528148",
+        "framework": "ui-b8e23367889f",
         "passed": 17,
         "total": 17
       }
@@ -2040,7 +2040,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-c4d39d528148",
+        "framework": "ui-b8e23367889f",
         "passed": 17,
         "total": 17
       }
@@ -2126,7 +2126,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-c4d39d528148",
+        "framework": "ui-b8e23367889f",
         "passed": 17,
         "total": 17
       }
@@ -2212,7 +2212,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-c4d39d528148",
+        "framework": "ui-b8e23367889f",
         "passed": 17,
         "total": 17
       }
@@ -2297,7 +2297,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-c4d39d528148",
+        "framework": "ui-b8e23367889f",
         "passed": 14,
         "total": 14
       }
@@ -2383,7 +2383,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-c4d39d528148",
+        "framework": "ui-b8e23367889f",
         "passed": 17,
         "total": 17
       }
@@ -2469,7 +2469,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-c4d39d528148",
+        "framework": "ui-b8e23367889f",
         "passed": 17,
         "total": 17
       }
@@ -2554,7 +2554,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-c4d39d528148",
+        "framework": "ui-b8e23367889f",
         "passed": 17,
         "total": 17
       }
@@ -2639,7 +2639,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-c4d39d528148",
+        "framework": "ui-b8e23367889f",
         "passed": 17,
         "total": 17
       }
@@ -2725,7 +2725,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-c4d39d528148",
+        "framework": "ui-b8e23367889f",
         "passed": 17,
         "total": 17
       }
@@ -2809,7 +2809,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-c4d39d528148",
+        "framework": "ui-b8e23367889f",
         "passed": 14,
         "total": 14
       }
@@ -2895,7 +2895,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-c4d39d528148",
+        "framework": "ui-b8e23367889f",
         "passed": 17,
         "total": 17
       }
@@ -2980,7 +2980,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-c4d39d528148",
+        "framework": "ui-b8e23367889f",
         "passed": 14,
         "total": 14
       }
@@ -3065,7 +3065,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-c4d39d528148",
+        "framework": "ui-b8e23367889f",
         "passed": 14,
         "total": 14
       }

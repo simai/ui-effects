@@ -41,7 +41,7 @@ h3 { font-size: 1.0625rem; line-height: 1.4; font-weight: 700; }
 
 /* Focus: one visible ring for the site's own controls. Framework fields draw their own focus on the
    field box; a ring on the control inside them would be a second frame. */
-:focus-visible:not(:is(sf-dropdown, sf-input, sf-textarea, sf-color, sf-range-slider, sf-select) *) {
+:focus-visible:not(:is(sf-dropdown, sf-input, sf-input-textarea, sf-input-color, sf-slider-range, sf-select) *) {
   outline: 2px solid var(--sf-primary);
   outline-offset: 2px;
 }
@@ -278,8 +278,8 @@ h3 { font-size: 1.0625rem; line-height: 1.4; font-weight: 700; }
 
 /* The header's tools sit a quarter step apart (owner). */
 /* The header keeps its tools a third of a space apart, the colour picker's reset included
-   (sf-site-header 1.2.0); each is one icon button of the bar's size and never shrinks. */
-sf-site-header .sf-site-header-tools > * { flex: none; }
+   (sf-header-site 1.2.0); each is one icon button of the bar's size and never shrinks. */
+sf-header-site .sf-site-header-tools > * { flex: none; }
 .repo-link svg { inline-size: 1.25rem; block-size: 1.25rem; }
 /* On a phone the bar has room for three tools; the source stays linked in the footer. */
 @media (max-width: 30rem) { .repo-link { display: none !important; } }
