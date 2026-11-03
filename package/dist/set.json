@@ -9,7 +9,7 @@
   "licence": {"class": "framework", "spdx": "Apache-2.0"},
   "framework": {
     "core_runtime": ">=1.25.0",
-    "source_revision": "2ae82be269a2c9574f1e56c5609ebee64803a6eb"
+    "source_revision": "c4df9ae6fc057c192ffee0e6ca4e6dcdea299979"
   },
   "requires_sets": [],
   "families": ["effect"],

@@ -9,9 +9,9 @@
   },
   "package_source": {
     "repository": "simai/ui-effects",
-    "revision": "82cf3db00e60d775221660100ce782aa7296867f",
+    "revision": "ad9823f83a565ce879c2180c9f917238825c05cb",
     "path": "package",
-    "tree": "06e34680f82e007b4c21b76d6c915ad1e0b1493e"
+    "tree": "913892d997f398ebc207e761272fcbfc8437b597"
   },
   "licence": {
     "ref": "Apache-2.0"
@@ -19,9 +19,9 @@
   "framework": {
     "source": {
       "repository": "simai/ui-source",
-      "revision": "2ae82be269a2c9574f1e56c5609ebee64803a6eb"
+      "revision": "c4df9ae6fc057c192ffee0e6ca4e6dcdea299979"
     },
-    "release": null,
+    "release": "ui-eea8c0a97cc7",
     "runtime": {
       "abi": 1,
       "modules": {
@@ -30,6 +30,10 @@
           "pageText"
         ]
       }
+    },
+    "runtime_check": {
+      "contract": "distr/core/contracts/shared-runtime.v1.json",
+      "status": "agrees"
     }
   },
   "builder": {
@@ -41,9 +45,9 @@
   "output": {
     "runtime_path": "smart",
     "files_count": 11,
-    "manifest_sha256": "f07a7aaf09651bab7644ea2c3778688e2473b65f75448ca814d88fa7cc80d41f",
+    "manifest_sha256": "be0e1f4e7d8bd1a5dd0caeb1247c1c24c5f777793110881e17d86843f6edc170",
     "archive": "package-effects.tar",
-    "archive_sha256": "9d34b504009f96be24e154a259bfcac9f9067184f1aa4700b8a7915e119c95e0",
+    "archive_sha256": "f5abbd8b546820cbcf4e123408f6e688e3bc918ee5b5eb32ea6947c99851a55a",
     "archive_format": "ustar; entries sorted; owner 0:0; mtime 0; modes 0755/0644"
   },
   "required_files": [
@@ -79,31 +83,31 @@
   },
   "package_reference": {
     "path": "distr/core/contracts/packages/effects.package.json",
-    "release": null,
-    "status": "no-release"
+    "release": "ui-eea8c0a97cc7",
+    "status": "set-passport"
   },
   "set": {
     "id": "effects",
     "passport": "set.json",
-    "sha256": "6b8f62a6af53baa3a00f4e4c5e0ef8c2f76ef251d70485dc68c176a0564c2c60",
+    "sha256": "a918a3a369103bab8d80335828b7117c323d47bc7fa9350fbe448e538d1a6e9e",
     "api": "cl-effect",
     "families": [
       "effect"
     ],
     "framework": {
       "core_runtime": ">=1.25.0",
-      "source_revision": "2ae82be269a2c9574f1e56c5609ebee64803a6eb"
+      "source_revision": "c4df9ae6fc057c192ffee0e6ca4e6dcdea299979"
     },
     "requires_sets": [],
     "registry": {
       "status": "agrees",
-      "sha256": "3e6eaf3c779846ab2665dd3f16a69ba74d53948d21c07e8bee6f6bc2384e515f"
+      "sha256": "836228ab5f27cae20223e6e9ef8a685a3cbe098d6e9633f52de5024932462ae9"
     }
   },
   "files": [
     {
       "path": "set.json",
-      "sha256": "6b8f62a6af53baa3a00f4e4c5e0ef8c2f76ef251d70485dc68c176a0564c2c60",
+      "sha256": "a918a3a369103bab8d80335828b7117c323d47bc7fa9350fbe448e538d1a6e9e",
       "size": 762
     },
     {
