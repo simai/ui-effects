@@ -520,7 +520,7 @@ try {
     await page.evaluate(() => document.querySelector('[data-about] input').click());
     await wait(300);
     const code = await page.locator('[data-code="html"]').textContent();
-    if (!code.includes('data-sf-effect-about="false"')) fail('about menu', 'switched off, the HTML code does not carry data-sf-effect-about="false"');
+    if (!/<sf-effect [^>]*about="false"/u.test(code)) fail('about menu', 'switched off, the HTML code does not carry about="false" on sf-effect');
     await page.keyboard.press('Escape');
     await wait(300);
     await rightClick();
