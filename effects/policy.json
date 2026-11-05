@@ -1037,6 +1037,37 @@
         "particles",
         "lines"
       ]
+    },
+    {
+      "id": "chart-recorder",
+      "categories": [
+        "tech",
+        "abstract"
+      ],
+      "description": {
+        "ru": "По еле видной координатной сетке перья медленно прорисовывают плавные линии слева направо, а старый след тает, как на осциллографе.",
+        "en": "Over a faint coordinate grid, pens slowly trace smooth lines from left to right while the old trace fades, as on an oscilloscope.",
+        "es": "Sobre una cuadrícula de coordenadas tenue, unas plumas trazan despacio líneas suaves de izquierda a derecha y el trazo antiguo se desvanece, como en un osciloscopio.",
+        "pt-BR": "Sobre uma grade de coordenadas suave, canetas traçam devagar linhas suaves da esquerda para a direita, e o traço antigo se apaga, como num osciloscópio.",
+        "de": "Über einem zarten Koordinatenraster zeichnen Schreibstifte langsam weiche Linien von links nach rechts, die alte Spur verblasst wie auf einem Oszilloskop.",
+        "zh-CN": "在若隐若现的坐标网格上，笔尖从左到右缓缓描出平滑的曲线，旧的轨迹逐渐淡去，如同示波器。",
+        "fr": "Sur une grille de coordonnées discrète, des plumes tracent lentement des courbes douces de gauche à droite, et l’ancienne trace s’efface, comme sur un oscilloscope.",
+        "ja": "かすかな座標グリッドの上を、ペンが左から右へなめらかな線をゆっくり描き、古い軌跡はオシロスコープのように消えていきます。"
+      },
+      "role": {
+        "ru": "Миллиметровка с живыми линиями графика — для страниц с данными, аналитикой и отчётами. Сетка и линии хорошо смотрятся в обеих схемах, светлой и тёмной.",
+        "en": "Chart paper with live series, for pages about data, analytics and reports. Grid and lines work in both schemes, light and dark.",
+        "es": "Papel milimetrado con series en vivo, para páginas de datos, analítica e informes. La cuadrícula y las líneas funcionan en ambos esquemas, claro y oscuro.",
+        "pt-BR": "Papel milimetrado com séries ao vivo, para páginas de dados, análises e relatórios. A grade e as linhas funcionam nos dois esquemas, claro e escuro.",
+        "de": "Millimeterpapier mit lebendigen Datenreihen, für Seiten über Daten, Analysen und Berichte. Raster und Linien wirken in beiden Designs, hell und dunkel.",
+        "zh-CN": "带有实时数据线的坐标纸，适合数据、分析和报表页面。网格和线条在浅色与深色两种方案下都很合适。",
+        "fr": "Papier millimétré aux séries vivantes, pour les pages de données, d’analyse et de rapports. Grille et lignes fonctionnent dans les deux thèmes, clair et sombre.",
+        "ja": "動くデータ系列のある方眼紙。データ、分析、レポートのページに。グリッドと線はライトとダークの両方のスキームに合います。"
+      },
+      "tags": [
+        "chart",
+        "grid"
+      ]
     }
   ]
 }
