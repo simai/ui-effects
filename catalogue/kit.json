@@ -245,32 +245,20 @@
       "total": 17,
       "failed": []
     },
-    "markdown-press": {
-      "digest": "47f22db7a7dd688e8b574bfe2cc6089fdd3eb57480fda8fdae81581c9cc12039",
-      "passed": 17,
-      "total": 17,
-      "failed": []
-    },
-    "toc-tree": {
-      "digest": "2eb5a40e6d6979c376c31a2f526240f0fa88c7f4c134f3f966c54bf4eb51cfa9",
-      "passed": 17,
-      "total": 17,
-      "failed": []
-    },
     "text-search": {
-      "digest": "b75521ede5b0668f7abcf1940255810e0826a10fd3da716161725f43d668df22",
+      "digest": "30af5dc2450c26b6444849b25119d8addbb5c1a2c91299032967c039fbca3348",
       "passed": 17,
       "total": 17,
       "failed": []
     },
     "cross-links": {
-      "digest": "d350810fc90c9800a211a3708be677bf8fa198ac7e41c59a807de1e427623025",
+      "digest": "0088583e25d8abf5a314df51ac10717ffc2f8a34060f8a7d7a38f7ff9e294198",
       "passed": 17,
       "total": 17,
       "failed": []
     },
-    "page-stack": {
-      "digest": "5dc70a6dcbc1270fdbe6c30eb778f9fe6f009cee3d49f1da1a9d600189d2795d",
+    "paper-flurry": {
+      "digest": "9de63fcbdd9daa350843832e021cf8c01bf8eba4563a0665dc3045e8a53923d9",
       "passed": 17,
       "total": 17,
       "failed": []

@@ -1,6 +1,7 @@
-// Text search (simai.effect 1.1.0; schemes light and dark): calm columns of grey word bars drift
-// slowly upward while soft search markers sweep onto words one after another, like the results of
-// a query being found; now and then every word of one length lights up together.
+// Text search (simai.effect 1.1.0; schemes light and dark): faint pages of grey word bars, one to
+// four side by side (the columns setting), drift slowly upward while soft search markers sweep onto
+// words one after another, like the results of a query being found; now and then every word of one
+// length lights up together.
 //
 // The lifecycle is the catalogue template's: one canvas in the host, devicePixelRatio capped at 2,
 // a seeded scene (the same picture on every mount at the defaults), one still frame for reduced
@@ -98,9 +99,9 @@ const HIT_LIFE = 4.4;
 const GROUP_EVERY = 14;
 
 const SCENE = {
-  home: 'light', seed: 523, reseed: ['density'],
+  home: 'light', seed: 523, reseed: ['density', 'columns'],
   tones: (read, scheme) => scheme === 'light'
-    ? {ground: read('--sf-neutral-98', '#faf9fe'), low: read('--sf-neutral-95', '#f0f0f6'), ink: read('--sf-neutral-50', '#76777f'), lens: read('--sf-neutral-30', '#45464f'), ring: read('--sf-neutral-60', '#8f9099'),
+    ? {ground: read('--sf-neutral-98', '#faf9fe'), paper: read('--sf-neutral-100', '#ffffff'), low: read('--sf-neutral-95', '#f0f0f6'), ink: read('--sf-neutral-50', '#76777f'), lens: read('--sf-neutral-30', '#45464f'), ring: read('--sf-neutral-60', '#8f9099'),
       mark: read('--sf-primary-80', '#acc7ff'), glow: read('--sf-primary-90', '#d7e3ff'), word: read('--sf-primary-40', '#005bbe'),
       mark2: read('--sf-tertiary-80', '#ddbce0'), word2: read('--sf-tertiary-40', '#705575')}
     : {ground: read('--sf-neutral-5', '#111318'), low: read('--sf-neutral-10', '#1a1b20'), ink: read('--sf-neutral-60', '#8f9099'), lens: read('--sf-neutral-90', '#e2e2e9'), ring: read('--sf-neutral-50', '#76777f'),
@@ -110,10 +111,17 @@ const SCENE = {
     const {w} = env;
     const d = (clamp(Math.round(env.values.density ?? 50), 10, 100) - 10) / 90;
     const lh = mix(32, 15, d);
-    const cols = clamp(Math.round(w / 360), 1, 5);
-    const margin = Math.min(48, w * 0.06), gap = Math.min(52, w * 0.05);
-    const colW = (w - margin * 2 - gap * (cols - 1)) / cols;
-    return {lh, wh: lh * 0.36, cw: lh * 0.27, cols, margin, gap, colW, top: lh, cache: new Map(), flash: null, now: 0, offset: 0};
+    // Columns are pages of one document: every gutter, between sheets and at the edges, is the same
+    // width, and a page keeps at least 260 px of text, so narrow areas show fewer.
+    const gut = clamp(w * 0.028, 16, 40), pad = clamp(w * 0.016, 12, 26);
+    const gap = gut + pad * 2, inner = w - gut * 2 - pad * 2;
+    const fit = Math.max(1, Math.floor((inner + gap) / (260 + gap)));
+    const cols = Math.min(clamp(Math.round(env.values.columns ?? 2), 1, 4), fit);
+    // One page takes a comfortable reading measure right of centre, clear of the heading area (on a
+    // narrow area it takes the full width); more pages share the full width.
+    const colW = cols === 1 ? (inner < 560 ? inner : Math.max(260, Math.min(640, w * 0.42))) : (inner - gap * (cols - 1)) / cols;
+    const margin = gut + pad + (cols === 1 ? (inner - colW) * 0.78 : 0);
+    return {lh, wh: lh * 0.36, cw: lh * 0.27, cols, margin, gap, pad, colW, top: lh, cache: new Map(), flash: null, now: 0, offset: 0};
   },
   // Where a word stands on screen now, or null if its line is off the page.
   place(env, c, n, i) {
@@ -127,7 +135,7 @@ const SCENE = {
     const {ctx, w, h, tones, state, values, scheme, pointer} = env;
     const k = values.intensity / 100;
     const light = scheme === 'light';
-    const {lh, cols, margin, gap, colW, top} = state;
+    const {lh, cols, margin, gap, pad, colW, top} = state;
     state.now = t;
     state.offset = t * lh * 0.25;
     const g = ctx.createLinearGradient(0, 0, 0, h);
@@ -135,16 +143,26 @@ const SCENE = {
     g.addColorStop(1, rgba(mixc(tones.ground, tones.low, 0.7)));
     ctx.fillStyle = g;
     ctx.fillRect(0, 0, w, h);
-    // Faint sheets behind the columns.
-    ctx.fillStyle = rgba(tones.low, light ? 0.55 : 0.5);
-    ctx.beginPath();
-    for (let c = 0; c < cols; c += 1) ctx.rect(margin + c * (colW + gap) - 14, 10, colW + 28, h - 20);
-    ctx.fill();
+    // Faint sheets behind the columns, each with a hairline page edge.
+    const sheets = new Path2D(), sy = Math.min(gap - pad * 2, h * 0.04);
+    for (let c = 0; c < cols; c += 1) {
+      const sx = margin + c * (colW + gap) - pad;
+      if (sheets.roundRect) sheets.roundRect(sx + 0.5, sy + 0.5, colW + pad * 2 - 1, h - sy * 2 - 1, 6);
+      else sheets.rect(sx + 0.5, sy + 0.5, colW + pad * 2 - 1, h - sy * 2 - 1);
+    }
+    ctx.fillStyle = rgba(light ? tones.paper : tones.low, light ? 0.55 : 0.45);
+    ctx.fill(sheets);
+    ctx.strokeStyle = rgba(tones.ring, (light ? 0.14 : 0.18) * k);
+    ctx.lineWidth = 1;
+    ctx.stroke(sheets);
+    // The text lives on the pages: it is clipped to them and fades in and out at their top and foot.
+    ctx.save();
+    ctx.clip(sheets);
 
     // Softer where the page's own heading and lead usually sit (centre-left), and at the edges.
     const veil = (x, y) => {
       const dx = (x / w - 0.27) / 0.3, dy = (y / h - 0.5) / 0.42;
-      return (1 - 0.55 * Math.exp(-(dx * dx + dy * dy))) * clamp(y / 48, 0, 1) * clamp((h - y) / 48, 0, 1);
+      return (1 - 0.55 * Math.exp(-(dx * dx + dy * dy))) * clamp((y - sy) / 44, 0, 1) * clamp((h - sy - y) / 44, 0, 1);
     };
 
     // Highlights: a sequence of single hits reading down the columns, and "find all" groups.
@@ -238,14 +256,15 @@ const SCENE = {
       ctx.fill();
     }
     // The lens: words under it come forward, darker and a little larger, inside a thin ring.
+    for (const [x, y, ww, wh, v, f] of lensed) {
+      const s = 1 + 0.14 * f;
+      ctx.fillStyle = rgba(mixc(tones.ink, tones.lens, f), mix(inkA * v, (light ? 0.55 : 0.6) * k, f));
+      ctx.beginPath();
+      bar(ctx, x + ww / 2 - (ww * s) / 2, y, ww * s, wh * s);
+      ctx.fill();
+    }
+    ctx.restore();
     if (pointer.on) {
-      for (const [x, y, ww, wh, v, f] of lensed) {
-        const s = 1 + 0.14 * f;
-        ctx.fillStyle = rgba(mixc(tones.ink, tones.lens, f), mix(inkA * v, (light ? 0.55 : 0.6) * k, f));
-        ctx.beginPath();
-        bar(ctx, x + ww / 2 - (ww * s) / 2, y, ww * s, wh * s);
-        ctx.fill();
-      }
       ctx.strokeStyle = rgba(tones.ring, (light ? 0.35 : 0.4) * k);
       ctx.lineWidth = 1;
       ctx.beginPath();

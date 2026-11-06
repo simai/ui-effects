@@ -2,7 +2,7 @@
   "schema": "simai.effect",
   "schema_version": 1,
   "id": "text-search",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "label": {
     "ru": "Поиск",
     "en": "Text search",
@@ -86,6 +86,34 @@
       "max": 100,
       "step": 5,
       "unit": "%"
+    },
+    {
+      "key": "columns",
+      "type": "integer",
+      "label": {
+        "ru": "Колонки",
+        "en": "Columns",
+        "es": "Columnas",
+        "pt-BR": "Colunas",
+        "de": "Spalten",
+        "zh-CN": "栏数",
+        "fr": "Colonnes",
+        "ja": "段数"
+      },
+      "default": 2,
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "hint": {
+        "ru": "Сколько страниц текста стоит рядом; на узком экране колонок меньше, чтобы каждая оставалась не уже 260 px",
+        "en": "How many pages of text stand side by side; narrow screens show fewer so each stays at least 260 px wide",
+        "es": "Cuántas páginas de texto se muestran una junto a otra; en pantallas estrechas se muestran menos para que cada una tenga al menos 260 px",
+        "pt-BR": "Quantas páginas de texto ficam lado a lado; telas estreitas mostram menos para que cada uma tenha pelo menos 260 px",
+        "de": "Wie viele Textseiten nebeneinander stehen; schmale Bildschirme zeigen weniger, damit jede mindestens 260 px breit bleibt",
+        "zh-CN": "并排显示几页文字；窄屏会减少栏数，使每栏至少 260 px 宽",
+        "fr": "Combien de pages de texte se tiennent côte à côte ; les écrans étroits en montrent moins pour que chacune garde au moins 260 px",
+        "ja": "横に並べるテキストのページ数。狭い画面では各段が 260 px 以上になるよう段数を減らします"
+      }
     },
     {
       "key": "hits",

@@ -2,7 +2,7 @@
   "schema": "simai.effect",
   "schema_version": 1,
   "id": "cross-links",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "label": {
     "ru": "Перекрёстные ссылки",
     "en": "Cross-links",
@@ -297,14 +297,14 @@
       },
       "default": true,
       "hint": {
-        "ru": "Страница под указателем приподнимается и показывает все свои ссылки; щелчок пускает волну переходов от страницы к странице",
-        "en": "The page under the pointer lifts and shows all its links; a click sends a wave of links hopping from page to page",
-        "es": "La página bajo el puntero se eleva y muestra todos sus enlaces; un clic lanza una ola de enlaces que saltan de página en página",
-        "pt-BR": "A página sob o ponteiro se eleva e mostra todos os seus links; um clique lança uma onda de links que saltam de página em página",
-        "de": "Die Seite unter dem Zeiger hebt sich und zeigt alle ihre Verweise; ein Klick schickt eine Welle von Verweisen von Seite zu Seite",
-        "zh-CN": "指针下的页面会微微浮起并显示它的所有链接；点击会让链接像波浪一样在页面之间逐个跳转",
-        "fr": "La page sous le pointeur se soulève et montre tous ses liens ; un clic lance une vague de liens qui sautent de page en page",
-        "ja": "ポインターの下のページが少し浮き上がり、すべてのリンクを表示します。クリックするとリンクが波のようにページからページへ伝わります"
+        "ru": "Ближайшая к указателю страница приподнимается и сама отправляет ссылки; щелчок по странице пускает ссылки ко всем остальным, щелчок по пустому месту добавляет там новую страницу",
+        "en": "The page nearest the pointer lifts and sends links of its own; a click on a page sends links to every other page, a click on an empty spot adds a new page there",
+        "es": "La página más cercana al puntero se eleva y envía sus propios enlaces; un clic en una página envía enlaces a todas las demás, un clic en un espacio vacío añade allí una página nueva",
+        "pt-BR": "A página mais próxima do ponteiro se eleva e envia seus próprios links; um clique em uma página envia links para todas as outras, um clique em um espaço vazio adiciona ali uma página nova",
+        "de": "Die Seite, die dem Zeiger am nächsten ist, hebt sich und sendet eigene Verweise; ein Klick auf eine Seite schickt Verweise zu allen anderen, ein Klick auf eine freie Stelle fügt dort eine neue Seite hinzu",
+        "zh-CN": "离指针最近的页面会浮起并发出自己的链接；点击页面会向其他所有页面发出链接，点击空白处会在那里添加一个新页面",
+        "fr": "La page la plus proche du pointeur se soulève et envoie ses propres liens ; un clic sur une page envoie des liens vers toutes les autres, un clic sur un espace vide y ajoute une nouvelle page",
+        "ja": "ポインターに最も近いページが浮き上がり、自分からリンクを送ります。ページをクリックすると他のすべてのページへリンクが飛び、空いている場所をクリックするとそこに新しいページが加わります"
       }
     }
   ],

@@ -1,11 +1,5 @@
-// Cross-links (simai.effect 1.1.0; schemes light and dark): pale page cards float across the area,
-// and thin arcs draw themselves from a word on one page to a word on another, a living map of the
-// links in a documentation site.
-//
-// The lifecycle is the catalogue template's: one canvas in the host, devicePixelRatio capped at 2,
-// a seeded scene (the same picture on every mount at the defaults), one still frame for reduced
-// motion, no frames while the tab is hidden or the area is off screen, and nothing left behind.
-// Colours are palette tones of the theme, read through a probe so var() chains settle.
+// Cross-links (simai.effect 1.1.0; light and dark): pages appear at free places, live and leave;
+// markers fly along arcs from a word on one page to a word on another, trailing a fading tail.
 
 const clamp = (v, a, b) => (v < a ? a : v > b ? b : v);
 const mix = (a, b, t) => a + (b - a) * t;
@@ -47,63 +41,71 @@ function readTones(host, scheme) {
   return tones;
 }
 
-// A link's life in seconds: the arc grows, holds, then withdraws from its source and fades.
-const GROW = 1.5, HOLD = 0.9, FADE = 1.4, LIFE = GROW + HOLD + FADE;
-const WAVE_GROW = 0.8, WAVE_LIFE = 2.6, HOP = 0.5;
+// Seconds: a page grows IN, fades OUT; a route fades AFTER landing; a word stays LIT.
+const IN = 1.4, OUT = 1.8, PACE = 150, AFTER = 1.5, LIT = 1.9;
 
-// The text zone: the left half between the top and bottom margins, where a hero's heading sits.
-const inZone = (x, y, w, h) => w >= 560 && x < w * 0.52 && y > h * 0.08 && y < h * 0.92;
+// The text zone, where a hero's heading sits.
+const inZone = (x, y, cw, ch, w, h) => w >= 560 && x < w * 0.46 && y < h * 0.7 && y + ch > h * 0.12;
 
-// A rounded rectangle as a path.
-function rounded(path, x, y, w, h, r) {
-  path.moveTo(x + r, y);
-  path.arcTo(x + w, y, x + w, y + h, r);
-  path.arcTo(x + w, y + h, x, y + h, r);
-  path.arcTo(x, y + h, x, y, r);
-  path.arcTo(x, y, x + w, y, r);
-  path.closePath();
-}
-
-// One page: a card with a title bar and rows of word bars; every word is a possible link end.
+// One page: a title bar and rows of word bars; every word is a possible link end.
 function page(random, cw, ch) {
-  const pad = cw * 0.1, inner = cw - pad * 2, bar = Math.max(2.5, cw * 0.028);
+  const pad = cw * 0.1, inner = cw - pad * 2, bar = Math.max(2.5, cw * 0.026);
   const body = new Path2D();
-  rounded(body, 0, 0, cw, ch, cw * 0.06);
+  body.roundRect(0, 0, cw, ch, Math.min(cw, ch) * 0.07);
   const title = new Path2D(), lines = new Path2D(), words = [];
   const ty = pad + cw * 0.02;
   title.moveTo(pad, ty);
   title.lineTo(pad + inner * (0.38 + random() * 0.3), ty);
-  const step = cw * 0.078, gap = cw * 0.035;
-  for (let y = ty + cw * 0.11; y < ch - pad * 0.8; y += step) {
+  const step = Math.max(8, cw * 0.075), gap = cw * 0.035;
+  for (let y = ty + step * 1.5; y < ch - pad * 0.8; y += step) {
     if (random() < 0.16) continue;
     const width = inner * (random() < 0.3 ? 0.35 + random() * 0.35 : 0.8 + random() * 0.2);
     for (let x = 0; x < width - cw * 0.04;) {
       const ww = Math.min(width - x, inner * (0.08 + random() * 0.18));
-      lines.moveTo(pad + x, y);
-      lines.lineTo(pad + x + ww, y);
       words.push({x: pad + x, y, w: ww});
       x += ww + gap;
     }
   }
-  if (!words.length) { lines.moveTo(pad, ch / 2); lines.lineTo(pad + inner * 0.5, ch / 2); words.push({x: pad, y: ch / 2, w: inner * 0.5}); }
+  if (!words.length) words.push({x: pad, y: ch / 2, w: inner * 0.5});
+  for (const {x, y, w} of words) { lines.moveTo(x, y); lines.lineTo(x + w, y); }
   return {body, title, lines, words, bar, titleBar: bar * 1.7};
 }
 
-// A cubic arc between two points, bowed upward by part of their distance.
-function arc(ax, ay, bx, by, unit) {
-  const dx = bx - ax, dy = by - ay, d = Math.hypot(dx, dy) || 1;
-  let nx = -dy / d, ny = dx / d;
-  if (ny > 0) { nx = -nx; ny = -ny; }
-  const off = Math.min(d * 0.3, unit * 0.9);
-  return [ax, ay, ax + dx * 0.25 + nx * off, ay + dy * 0.25 + ny * off, ax + dx * 0.75 + nx * off, ay + dy * 0.75 + ny * off, bx, by];
+// A free place: the best of a few candidates, far from other pages; the text zone rarely takes one.
+function spot(cards, w, h, cw, ch, gap, random, at) {
+  let best = null, score = -1;
+  for (let i = 0, found = 0; i < (at ? 1 : 90) && found < 10; i += 1) {
+    const x = clamp(at ? at[0] - cw / 2 : 6 + random() * (w - cw - 12), 6, w - cw - 6), y = clamp(at ? at[1] - ch / 2 : 6 + random() * (h - ch - 12), 6, h - ch - 6);
+    const zone = inZone(x, y, cw, ch, w, h);
+    if (zone && !at && random() > 0.08) continue;
+    if (cards.some((c) => x < c.x + c.cw + gap && c.x < x + cw + gap && y < c.y + c.ch + gap && c.y < y + ch + gap)) continue;
+    found += 1;
+    const d = cards.reduce((m, c) => Math.min(m, Math.hypot(c.x + c.cw / 2 - x - cw / 2, c.y + c.ch / 2 - y - ch / 2)), w + h);
+    const s = d * (0.6 + random() * 0.4);
+    if (s > score) { score = s; best = {x, y, zone: zone ? 0.32 : 1}; }
+  }
+  return best;
+}
+function card(state, w, h, at) {
+  const {unit: u, random} = state, cw = u * (0.7 + random() * 0.62), ch = cw * (0.62 + random() * 0.56);
+  const s = spot(state.cards, w, h, cw, ch, u * (at ? 0.06 : 0.26), random, at);
+  return s && {...s, cw, ch, born: 0, life: 11 + random() * 10, pulse: -9, lit: [], lift: 0, p: random() * 50, q: random() * 50, ...page(random, cw, ch)};
+}
+
+// A cubic arc between two points, bowed away from the text zone at (zx, zy), side kept per flight.
+function arc(f, ax, ay, bx, by, unit, zx, zy) {
+  const dx = bx - ax, dy = by - ay, d = Math.hypot(dx, dy) || 1, mx = (ax + bx) / 2 - zx, my = (ay + by) / 2 - zy;
+  let o = Math.min(d * 0.32, unit * 1.2) / d;
+  f.side ??= Math.hypot(mx + dy * o, my - dx * o) < Math.hypot(mx - dy * o, my + dx * o) ? -1 : 1;
+  o *= f.side;
+  return [ax, ay, ax + dx * 0.25 + dy * o, ay + dy * 0.25 - dx * o, ax + dx * 0.75 + dy * o, ay + dy * 0.75 - dx * o, bx, by];
 }
 const at = (p, s) => {
   const u = 1 - s, a = u * u * u, b = 3 * u * u * s, c = 3 * u * s * s, e = s * s * s;
   return [a * p[0] + b * p[2] + c * p[4] + e * p[6], a * p[1] + b * p[3] + c * p[5] + e * p[7]];
 };
-// The stretch of the arc from s0 to s1, in short straight pieces.
 function stroke(ctx, p, s0, s1) {
-  if (s1 - s0 < 0.005) return;
+  if (s1 - s0 < 0.003) return;
   ctx.beginPath();
   const n = Math.max(2, Math.ceil((s1 - s0) * 36));
   for (let i = 0; i <= n; i += 1) {
@@ -113,8 +115,39 @@ function stroke(ctx, p, s0, s1) {
   ctx.stroke();
 }
 
+// A page's presence at t; ready when fully in and staying.
+const shown = (c, t) => smooth(clamp((t - c.born) / IN, 0, 1)) * (1 - smooth(clamp((t - c.born - c.life) / OUT, 0, 1)));
+const ready = (c, t, need) => t - c.born > IN && c.born + c.life - t > need;
+// The page nearest to a point, within a distance.
+function nearest(cards, x, y, best) {
+  let hit = null;
+  for (const c of cards) {
+    const d = Math.hypot(Math.max(c.sx - x, 0, x - c.sx - c.cw), Math.max(c.sy - y, 0, y - c.sy - c.ch));
+    if (c.a > 0.6 && d < best) { best = d; hit = c; }
+  }
+  return hit;
+}
+const pick = (random, list) => Math.floor(random() * list.length);
+
+// A flight from a word to a word, at one pace on every route.
+function fly(state, from, to, born, tint) {
+  const dur = clamp(Math.hypot(to.x + to.cw / 2 - from.x - from.cw / 2, to.y + to.ch / 2 - from.y - from.ch / 2) * 1.15 / PACE, 1.3, 4.2);
+  const f = {from, to, a: pick(state.random, from.words), b: pick(state.random, to.words), born, dur, tint};
+  if (state.flights.length < 48) state.flights.push(f);
+  return f;
+}
+// Another page fit for a flight, nearer ones likelier.
+function target(state, from, t) {
+  const pool = state.cards.filter((c) => c !== from && c.zone > 0.5 && ready(c, t, 6));
+  if (!pool.length) return null;
+  const weight = pool.map((c) => 1 / (from ? 1 + Math.hypot(c.x - from.x, c.y - from.y) / (state.unit * 4) : 1));
+  let r = state.random() * weight.reduce((a, b) => a + b, 0), i = 0;
+  while (i < pool.length - 1 && r > weight[i]) { r -= weight[i]; i += 1; }
+  return pool[i];
+}
+
 const SCENE = {
-  home: 'light', seed: 523, reseed: ['pages'],
+  home: 'light', seed: 523, fresh: true, reseed: ['pages'],
   tones: (read, scheme) => scheme === 'light'
     ? {ground: read('--sf-neutral-98', '#faf9fe'), low: read('--sf-neutral-95', '#f0f0f6'), card: read('--sf-neutral-100', '#ffffff'),
       edge: read('--sf-neutral-80', '#c6c6d0'), bar: read('--sf-neutral-80', '#c6c6d0'), shade: read('--sf-neutral-40', '#5d5e66'),
@@ -122,197 +155,168 @@ const SCENE = {
     : {ground: read('--sf-neutral-5', '#111318'), low: read('--sf-neutral-10', '#1a1b20'), card: read('--sf-neutral-20', '#2f3036'),
       edge: read('--sf-neutral-40', '#5d5e66'), bar: read('--sf-neutral-50', '#76777f'), shade: read('--sf-neutral-0', '#000000'),
       title: read('--sf-primary-40', '#005bbe'), accent: read('--sf-primary-80', '#acc7ff'), second: read('--sf-tertiary-80', '#ddbce0')},
-  setup(env, random) {
+  setup(env) {
     const {w, h} = env;
+    // A moving mount salts the seed: each load lays the pages anew.
+    const random = rng(SCENE.seed + env.salt);
     const count = clamp(Math.round(env.values.pages ?? 7), 3, 12);
-    const unit = clamp(Math.min(w * 0.13, h * 0.3), 84, 176) * (count > 8 ? 0.9 : 1);
-    const cards = [];
-    // Scattered placement: no two cards overlap, and the text zone takes few of them.
-    for (let tries = 0; cards.length < count && tries < 900; tries += 1) {
-      const cw = unit * (0.88 + random() * 0.3), ch = cw * (0.72 + random() * 0.18);
-      const x = -cw * 0.15 + random() * (w - cw * 0.7), y = -ch * 0.12 + random() * (h - ch * 0.76);
-      const zone = inZone(x + cw / 2, y + ch / 2, w, h);
-      if (zone && random() > 0.18) continue;
-      const loose = tries > 600 ? 0 : unit * 0.12;
-      if (cards.some((c) => x < c.x + c.cw + loose && c.x < x + cw + loose && y < c.y + c.ch + loose && c.y < y + ch + loose)) continue;
-      cards.push({x, y, cw, ch, zone: zone ? 0.42 : 1, p: random() * 6.28, q: random() * 6.28, row: random() * 50, ...page(random, cw, ch)});
+    const unit = clamp(Math.min(w * 0.12, h * 0.3), 70, 160) * (count > 8 ? 0.88 : 1);
+    const state = {cards: [], flights: [], unit, random, count, clock: null};
+    for (let tries = 0; state.cards.length < count && tries < count * 3; tries += 1) {
+      const c = card(state, w, h);
+      if (c) state.cards.push(c);
     }
-    for (let tries = 0; cards.length < 3 && tries < 3; tries += 1) {
-      const cw = unit, ch = unit * 0.78;
-      cards.push({x: w * (0.6 + tries * 0.12) - cw / 2, y: h * (0.25 + tries * 0.22), cw, ch, zone: 1, p: tries, q: tries * 2, row: tries * 9, ...page(random, cw, ch)});
-    }
-    // The link map: each page links to two or three of its nearest pages.
-    const near = new Set();
-    cards.forEach((c, i) => {
-      c.out = [];
-      const order = cards.map((o, j) => [Math.hypot(o.x - c.x, o.y - c.y), j]).filter(([, j]) => j !== i).sort((a, b) => a[0] - b[0]);
-      const pool = order.slice(0, 4);
-      const want = Math.min(pool.length, 2 + (random() < 0.5 ? 1 : 0));
-      while (c.out.length < want) {
-        const [, j] = pool.splice(Math.floor(random() * pool.length), 1)[0];
-        c.out.push({to: j, a: Math.floor(random() * c.words.length), b: Math.floor(random() * cards[j].words.length)});
-        near.add(`${Math.min(i, j)}:${Math.max(i, j)}`);
-      }
-    });
-    const adjacent = cards.map(() => []);
-    for (const key of near) { const [a, b] = key.split(':').map(Number); adjacent[a].push(b); adjacent[b].push(a); }
-    return {cards, adjacent, unit, random, links: [], wave: [], lift: cards.map(() => 0), clock: null, next: 0, now: 0, pos: [], pulse: null};
+    return state;
   },
   draw(env, t) {
     const {ctx, w, h, tones, state, values, scheme, pointer} = env;
-    const {cards, unit, random} = state;
+    const {cards, unit: u, random} = state;
     const k = values.intensity / 100;
     const light = scheme === 'light';
     const dt = state.clock === null ? 0 : clamp(t - state.clock, 0, 0.1);
-    const g = ctx.createLinearGradient(0, 0, w, h);
+    const g = ctx.fillStyle = ctx.createLinearGradient(0, 0, w, h);
     g.addColorStop(0, rgba(tones.ground));
     g.addColorStop(1, rgba(mixc(tones.ground, tones.low, 0.85)));
-    ctx.fillStyle = g;
     ctx.fillRect(0, 0, w, h);
-    if (!cards.length) return;
-    // Where each card floats now.
-    const pos = cards.map((c, i) => [
-      c.x + (noise2(t * 0.06 + c.row, c.p) - 0.5) * unit * 0.22 + Math.sin(t * 0.21 + c.p) * unit * 0.03,
-      c.y + (noise2(c.q, t * 0.05 + c.row) - 0.5) * unit * 0.16 + Math.cos(t * 0.17 + c.q) * unit * 0.025 - state.lift[i] * 5,
-    ]);
-    state.pos = pos;
-    // The pointer lifts the card under it, or the nearest one close by.
-    let hover = -1;
-    if (pointer.on && values.interactive !== false) {
-      const px = pointer.x * w, py = pointer.y * h;
-      let best = unit * 0.9 + 1e-6;
-      cards.forEach((c, i) => {
-        const [x, y] = pos[i];
-        const d = Math.hypot(Math.max(x - px, 0, px - x - c.cw), Math.max(y - py, 0, py - y - c.ch));
-        if (d < best) { best = d; hover = i; }
-      });
-    }
-    state.lift = state.lift.map((v, i) => (env.still ? (i === hover ? 1 : 0) : v + ((i === hover ? 1 : 0) - v) * Math.min(1, dt * 7)));
-    // The first frame starts the endless stream mid-flow, so even a still frame shows links.
     const want = clamp(Math.round(values.links ?? 3), 1, 8);
-    const pick = (born) => {
-      const weights = cards.map((c) => c.zone * c.zone * (c.out.length ? 1 : 0));
-      let r = random() * weights.reduce((a, b) => a + b, 0), i = 0;
-      while (i < cards.length - 1 && r > weights[i]) { r -= weights[i]; i += 1; }
-      const edge = cards[i].out[Math.floor(random() * cards[i].out.length)];
-      if (edge) state.links.push({from: i, to: edge.to, a: Math.floor(random() * cards[i].words.length), b: Math.floor(random() * cards[edge.to].words.length), born});
-    };
+    // The first frame starts mid-flow: staggered pages, flights on their way.
     if (state.clock === null) {
-      for (let i = 0; i < want; i += 1) pick(t - 0.2 - ((i + 0.5) * LIFE) / want);
-      state.next = t + 0.6;
+      for (const c of cards) c.born = t - IN - random() * c.life;
+      for (let i = 0; i < want; i += 1) {
+        const from = target(state, null, t), to = from && target(state, from, t);
+        if (to) { const f = fly(state, from, to, t, 'accent'); f.born = t - f.dur * (0.2 + (0.6 * (i + 0.5)) / want); }
+      }
+      state.nextCard = t + 1;
+      state.nextFly = t + 0.5;
     }
     state.clock = t;
     state.now = t;
-    state.links = state.links.filter((l) => t - l.born < LIFE);
-    state.wave = state.wave.filter((l) => t - l.born < WAVE_LIFE);
-    if (state.links.length >= want) state.next = Math.max(state.next, t);
-    while (state.links.length < want && t >= state.next) { pick(state.next); state.next += 0.3 + random() * 0.9; }
-    // The cards, the lifted one last.
-    const order = cards.map((_, i) => i).sort((a, b) => state.lift[a] - state.lift[b]);
-    for (const i of order) {
-      const c = cards[i], [x, y] = pos[i], lift = state.lift[i], z = c.zone;
-      ctx.save();
-      ctx.translate(x, y);
-      if (lift > 0.01) {
-        ctx.shadowColor = rgba(tones.shade, (light ? 0.16 : 0.5) * lift);
-        ctx.shadowBlur = 22 * lift;
-        ctx.shadowOffsetY = 7 * lift;
-      } else {
-        ctx.translate(0, 2);
-        ctx.fillStyle = rgba(tones.shade, (light ? 0.035 : 0.18) * z);
-        ctx.fill(c.body);
-        ctx.translate(0, -2);
+    // Faded pages leave; a new one takes a free place a moment later.
+    for (let i = cards.length - 1; i >= 0; i -= 1) if (t - cards[i].born > cards[i].life + OUT) cards.splice(i, 1);
+    if (!env.still && cards.length < state.count && t >= state.nextCard) {
+      const c = card(state, w, h);
+      if (c) { c.born = t; cards.push(c); state.nextCard = t + 0.4 + random(); } else state.nextCard = t + 0.6;
+    }
+    // Each page now: a slow drift, its growth, a pulse when a flight lands.
+    for (const c of cards) {
+      const a = c.a = shown(c, t), beat = c.beat = clamp(1 - (t - c.pulse) / 1.2, 0, 1);
+      c.s = (0.9 + 0.1 * a) * (1 + 0.03 * Math.sin(Math.PI * beat)) * (1 + 0.02 * c.lift);
+      c.sx = c.x + (noise2(t * 0.05 + c.p, c.q) - 0.5) * u * 0.1;
+      c.sy = c.y + (noise2(c.q, t * 0.05 + c.p) - 0.5) * u * 0.08 - c.lift * 5;
+    }
+    // The pointer lifts the nearest page, which sends flights of its own.
+    const hover = pointer.on && values.interactive !== false ? nearest(cards, pointer.x * w, pointer.y * h, u * 0.8) : null;
+    if (hover !== state.hover) { state.hover = hover; state.nextHover = t + 0.15; }
+    for (const c of cards) c.lift = env.still ? +(c === hover) : c.lift + (+(c === hover) - c.lift) * Math.min(1, dt * 7);
+    if (hover && !env.still && t >= state.nextHover) {
+      const to = target(state, hover, t);
+      if (to) fly(state, hover, to, t, 'accent');
+      state.nextHover = t + 0.5 + random() * 0.3;
+    }
+    // The steady traffic: so many flights in the air.
+    const flights = state.flights = state.flights.filter((f) => t - f.born < f.dur + AFTER && f.from.a > 0.02 && f.to.a > 0.02);
+    if (!env.still) {
+      let air = flights.filter((f) => f.tint === 'accent' && t - f.born < f.dur).length;
+      while (air < want && t >= state.nextFly) {
+        const from = target(state, null, t), to = from && target(state, from, t);
+        if (to) fly(state, from, to, state.nextFly, 'accent');
+        state.nextFly += 0.5 + random() * 1.3;
+        air += 1;
       }
-      ctx.fillStyle = rgba(tones.card, (light ? 0.82 : 0.5) * (0.4 + 0.6 * z) * (0.6 + 0.4 * k) + lift * 0.15);
+      if (air >= want) state.nextFly = Math.max(state.nextFly, t);
+    }
+    // The pages, the lifted one last.
+    for (const c of [...cards].sort((a, b) => a.lift - b.lift)) {
+      const a = c.a * c.zone, lift = c.lift;
+      if (a < 0.01) continue;
+      ctx.save();
+      ctx.translate(c.sx + c.cw / 2, c.sy + c.ch / 2);
+      ctx.scale(c.s, c.s);
+      ctx.translate(-c.cw / 2, -c.ch / 2);
+      ctx.shadowColor = rgba(tones.shade, (light ? 0.05 + 0.11 * lift : 0.3 + 0.2 * lift) * a);
+      ctx.shadowBlur = 4 + 18 * lift;
+      ctx.shadowOffsetY = 2 + 5 * lift;
+      ctx.fillStyle = rgba(tones.card, ((light ? 0.82 : 0.5) * (0.6 + 0.4 * k) + lift * 0.15) * (0.4 + 0.6 * a) * c.a);
       ctx.fill(c.body);
       ctx.shadowColor = 'transparent';
-      ctx.lineWidth = 1;
-      ctx.strokeStyle = rgba(tones.edge, ((light ? 0.55 : 0.5) * z + lift * 0.3) * k);
-      ctx.stroke(c.body);
       ctx.lineCap = 'round';
-      ctx.lineWidth = c.titleBar;
-      ctx.strokeStyle = rgba(tones.title, ((light ? 0.75 : 0.7) * z + lift * 0.2) * k);
-      ctx.stroke(c.title);
-      ctx.lineWidth = c.bar;
-      ctx.strokeStyle = rgba(tones.bar, ((light ? 0.5 : 0.42) * z + lift * 0.2) * k);
-      ctx.stroke(c.lines);
+      for (const [path, width, tone, alpha] of [[c.body, 1, tones.edge, (light ? 0.55 : 0.5) * a + lift * 0.3], [c.body, 1, tones.accent, 0.45 * c.beat * a],
+        [c.title, c.titleBar, tones.title, (light ? 0.75 : 0.7) * a + lift * 0.2], [c.lines, c.bar, tones.bar, (light ? 0.5 : 0.42) * a + lift * 0.2]]) {
+        ctx.lineWidth = width;
+        ctx.strokeStyle = rgba(tone, alpha * k);
+        ctx.stroke(path);
+      }
       ctx.restore();
     }
-    // A word lit in the accent: a bar over the word and a soft halo.
-    const word = (i, j, glow, colour) => {
+    // A word's place now, and the word lit: a bar and a soft halo.
+    const end = (c, j) => {
+      const wd = c.words[j];
+      return [c.sx + c.cw / 2 + (wd.x + wd.w / 2 - c.cw / 2) * c.s, c.sy + c.ch / 2 + (wd.y - c.ch / 2) * c.s];
+    };
+    const word = (c, j, glow, colour) => {
       if (glow <= 0.01) return;
-      const c = cards[i], wd = c.words[j], [x, y] = pos[i];
-      ctx.lineCap = 'round';
-      ctx.lineWidth = c.bar * 3.2;
-      ctx.strokeStyle = rgba(colour, 0.14 * glow * k);
-      ctx.beginPath(); ctx.moveTo(x + wd.x, y + wd.y); ctx.lineTo(x + wd.x + wd.w, y + wd.y); ctx.stroke();
-      ctx.lineWidth = c.bar;
-      ctx.strokeStyle = rgba(colour, 0.85 * glow * k);
-      ctx.stroke();
-    };
-    const end = (i, j) => { const wd = cards[i].words[j]; return [pos[i][0] + wd.x + wd.w / 2, pos[i][1] + wd.y]; };
-    // One link at a moment of its life: s0..s1 of the arc, its alpha, the head and the lit target.
-    const link = (l, s0, s1, alpha, glow, colour) => {
-      const [ax, ay] = end(l.from, l.a), [bx, by] = end(l.to, l.b);
-      const p = arc(ax, ay, bx, by, unit);
-      const z = Math.sqrt(Math.min(cards[l.from].zone, cards[l.to].zone));
-      ctx.lineCap = 'round';
-      ctx.lineWidth = 1.4;
-      ctx.strokeStyle = rgba(colour, (light ? 0.6 : 0.62) * alpha * z * k);
-      stroke(ctx, p, s0, s1);
-      word(l.from, l.a, alpha * 0.6 * z, colour);
-      if (s1 < 0.999) {
-        const [hx, hy] = at(p, s1);
-        ctx.fillStyle = rgba(colour, 0.8 * alpha * z * k);
-        ctx.beginPath(); ctx.arc(hx, hy, 2.2, 0, Math.PI * 2); ctx.fill();
+      const [x, y] = end(c, j), half = (c.words[j].w / 2) * c.s;
+      ctx.beginPath(); ctx.moveTo(x - half, y); ctx.lineTo(x + half, y);
+      for (const [width, alpha] of [[3.2, 0.15], [1, 0.85]]) {
+        ctx.lineWidth = c.bar * width * c.s;
+        ctx.strokeStyle = rgba(colour, alpha * glow * k);
+        ctx.stroke();
       }
-      word(l.to, l.b, glow * z, colour);
     };
-    for (const l of state.links) {
-      const age = t - l.born;
+    // Flights: a faint route, a fading trail, the marker; landing lights the word.
+    for (const f of flights) {
+      const age = t - f.born;
       if (age < 0) continue;
-      const grow = smooth(clamp(age / GROW, 0, 1));
-      const fade = clamp((age - GROW - HOLD) / FADE, 0, 1);
-      const glow = age < GROW ? 0 : Math.sin(Math.PI * clamp((age - GROW) / (HOLD + FADE * 0.6), 0, 1));
-      link(l, smooth(fade), grow, 1 - fade * fade, glow, tones.accent);
+      const colour = tones[f.tint], z = Math.sqrt(Math.min(f.from.a * f.from.zone, f.to.a * f.to.zone));
+      const q = smooth(clamp(age / f.dur, 0, 1)) * 0.94 + clamp(age / f.dur, 0, 1) * 0.06;
+      const fade = 1 - clamp((age - f.dur) / AFTER, 0, 1);
+      if (age >= f.dur && !f.done) { f.done = true; f.to.pulse = t; f.to.lit.push([f.b, t, f.tint]); }
+      const [ax, ay] = end(f.from, f.a), [bx, by] = end(f.to, f.b), p = arc(f, ax, ay, bx, by, u, w * 0.2, h * 0.4);
+      ctx.lineCap = 'round';
+      ctx.lineWidth = 1;
+      ctx.setLineDash([2, 4]);
+      ctx.strokeStyle = rgba(colour, (light ? 0.3 : 0.26) * fade * z * k);
+      stroke(ctx, p, 0, q);
+      ctx.setLineDash([]);
+      word(f.from, f.a, clamp(1 - age / (f.dur * 0.7), 0, 1) * 0.7 * z, colour);
+      if (q >= 1) continue;
+      ctx.lineWidth = 1.8;
+      for (let i = 0; i < 8; i += 1) {
+        ctx.strokeStyle = rgba(colour, 0.7 * (1 - i / 8) * z * k);
+        stroke(ctx, p, Math.max(0, q - (i + 1) * 0.02), Math.max(0, q - i * 0.02));
+      }
+      const [hx, hy] = at(p, q);
+      for (const [r, alpha] of [[6.5, 0.14], [2.4, 0.95]]) {
+        ctx.fillStyle = rgba(colour, alpha * z * k);
+        ctx.beginPath(); ctx.arc(hx, hy, r, 0, 6.29); ctx.fill();
+      }
     }
-    // The click's wave: links hop outward from the pressed page, one ring after another.
-    for (const l of state.wave) {
-      const age = t - l.born;
-      if (age < 0) continue;
-      const grow = smooth(clamp(age / WAVE_GROW, 0, 1));
-      const fade = clamp((age - WAVE_GROW - 0.5) / (WAVE_LIFE - WAVE_GROW - 0.5), 0, 1);
-      const glow = age < WAVE_GROW ? 0 : 1 - fade;
-      link(l, smooth(fade) * 0.9, grow, 1 - fade, glow, l.ring % 2 ? tones.second : tones.accent);
+    for (const c of cards) {
+      c.lit = c.lit.filter(([, born]) => t - born < LIT);
+      for (const [j, born, tint] of c.lit) word(c, j, (1 - (t - born) / LIT) * c.a * Math.sqrt(c.zone), tones[tint]);
     }
-    // The lifted card shows all its outgoing links at once.
-    cards.forEach((c, i) => {
-      const lift = state.lift[i];
-      if (lift < 0.02) return;
-      const s = smooth(lift);
-      for (const e of c.out) link({from: i, to: e.to, a: e.a, b: e.b}, 0, s, lift, s * 0.9, tones.accent);
-    });
   },
   click(env, x, y) {
-    const {state} = env;
-    const {cards, pos, adjacent, random} = state;
-    if (!cards.length || !pos.length) return;
-    let start = 0, best = Infinity;
-    cards.forEach((c, i) => {
-      const d = Math.hypot(pos[i][0] + c.cw / 2 - x, pos[i][1] + c.ch / 2 - y);
-      if (d < best) { best = d; start = i; }
-    });
-    const depth = new Map([[start, 0]]), queue = [start];
-    state.wave = [];
-    while (queue.length && state.wave.length < 24) {
-      const i = queue.shift(), d = depth.get(i);
-      for (const j of adjacent[i]) {
-        if (depth.has(j)) continue;
-        depth.set(j, d + 1);
-        queue.push(j);
-        state.wave.push({from: i, to: j, ring: d, a: Math.floor(random() * cards[i].words.length), b: Math.floor(random() * cards[j].words.length), born: state.now + d * HOP + random() * 0.12});
-      }
+    const {state, w, h} = env;
+    const {cards, now: t, unit: u} = state;
+    // On a page: a burst of flights to every other page.
+    const hit = nearest(cards, x, y, u * 0.3);
+    if (hit) {
+      cards.filter((c) => c !== hit && c.zone > 0.5 && ready(c, t, 5)).forEach((c, i) => fly(state, hit, c, t + i * 0.07, 'second'));
+      hit.pulse = t;
+      return;
     }
+    // Elsewhere: a new page there, if there is room; at the limit the oldest leaves first.
+    const c = card(state, w, h, [x, y]);
+    if (!c) return;
+    c.born = t;
+    const staying = cards.filter((o) => t - o.born < o.life);
+    if (cards.length >= state.count && staying.length) {
+      const old = staying.reduce((a, b) => (a.born < b.born ? a : b));
+      old.life = Math.max(0, t - old.born);
+      c.born = t + OUT * 0.6;
+    }
+    cards.push(c);
   },
   start: 4,
 };
@@ -452,9 +456,8 @@ function mountScene(host, settings, context = {}) {
   };
 }
 
-// The fixed palettes: on the effect's own layer they stand in for the theme's colour scales, so the
-// effect reads them as it reads the theme. Each is a dark ground, the threads' mass, the bright
-// colour and the hot one; the tones between are blended. 'theme' leaves the theme's scales alone.
+// The fixed palettes stand in for the theme's colour scales on the effect's own layer: a dark
+// ground, the mass, the bright colour and the hot one. 'theme' leaves the theme's scales alone.
 const PALETTES = {
   turquoise: [[6, 11, 15], [12, 72, 90], [66, 178, 202], [216, 246, 255]],
   ocean: [[5, 9, 18], [16, 50, 118], [76, 148, 244], [214, 232, 255]],
@@ -465,8 +468,7 @@ const PALETTES = {
   gold: [[12, 10, 6], [74, 54, 20], [226, 176, 82], [255, 242, 208]],
   silver: [[8, 10, 13], [42, 50, 60], [148, 166, 186], [242, 247, 255]],
 };
-// 'custom' builds the four from one colour, the colour setting (a hex): a dark ground of its hue,
-// its mass, the colour itself and its light.
+// 'custom' builds the four from the colour setting (a hex).
 const rgbOf = (hex) => (/^#[0-9a-f]{6}$/iu.test(hex ?? '') ? [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16)) : [59, 130, 246]);
 const customStops = (hex) => { const c = rgbOf(hex); return [c.map((v) => 4 + v * 0.05), c.map((v) => v * 0.42), c, c.map((v) => v + (255 - v) * 0.86)]; };
 const SCALE_TONES = [0, 4, 5, 6, 10, 20, 30, 40, 50, 60, 70, 80, 90, 95, 98, 99, 100];
