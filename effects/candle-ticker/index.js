@@ -46,8 +46,11 @@ function readTones(host, scheme) {
   return tones;
 }
 
-// The price at a candle index: smooth walks of three scales, the same on every mount.
-const price = (i, vol) => 0.5 + vol * (1.3 * (noise2(i * 0.03, 3.3) - 0.5) + 0.7 * (noise2(i * 0.11, 9.1) - 0.5) + 0.22 * (hash2(i, 77) - 0.5));
+// The price at a candle index: a slow trend and a swing, plus candle-to-candle moves that the
+// volatility scales, the same on every mount. The chart fits the visible range, so only the
+// ratio of the fast moves to the trend matters.
+const price = (i, vol) => 1.0 * (noise2(i * 0.025, 3.3) - 0.5) + 0.55 * (noise2(i * 0.09, 9.1) - 0.5)
+  + vol * (0.75 * (noise2(i * 0.5, 5.7) - 0.5) + 0.3 * (hash2(i, 77) - 0.5));
 
 const SCENE = {
   home: 'light', seed: 97,
@@ -56,12 +59,12 @@ const SCENE = {
       up: read('--sf-primary-40', '#005bbe'), down: read('--sf-tertiary-40', '#705575'), average: read('--sf-secondary-40', '#565e71')}
     : {ground: read('--sf-neutral-5', '#111318'), low: read('--sf-neutral-10', '#1a1b20'), grid: read('--sf-neutral-50', '#76777f'),
       up: read('--sf-primary-80', '#acc7ff'), down: read('--sf-tertiary-80', '#ddbce0'), average: read('--sf-secondary-80', '#bec6dc')},
-  setup() { return {}; },
+  setup() { return {lo: null, hi: null, at: 0}; },
   draw(env, t) {
     const {ctx, w, h, tones, values, scheme, pointer} = env;
     const k = values.intensity / 100;
     const light = scheme === 'light';
-    const vol = 0.3 + 0.9 * (values.volatility ?? 50) / 100;
+    const vol = 0.25 + 1.5 * (values.volatility ?? 50) / 100;
     const g = ctx.createLinearGradient(0, 0, 0, h);
     g.addColorStop(0, rgba(tones.ground));
     g.addColorStop(1, rgba(mixc(tones.ground, tones.low, 0.8)));
@@ -76,7 +79,20 @@ const SCENE = {
     const cell = mix(30, 10, (values.density - 10) / 90);
     const offset = t * (cell / 1.6);
     const first = Math.floor(offset / cell) - 1;
-    const yOf = (v) => h * (0.85 - 0.7 * clamp(v, 0, 1));
+    // Fit the visible candles into the middle of the area, as a chart does; the range eases so
+    // the candles do not jump when an extreme leaves the window.
+    const state = env.state;
+    let lo = Infinity, hi = -Infinity;
+    for (let i = first - 1; i * cell - offset < w + cell; i += 1) {
+      const v = price(i, vol), e = 0.04 * vol;
+      lo = Math.min(lo, v - e); hi = Math.max(hi, v + e);
+    }
+    const ease = state.lo === null || env.still ? 1 : 1 - Math.exp(-Math.max(0, t - state.at) / 1.2);
+    state.lo = state.lo === null ? lo : mix(state.lo, lo, ease);
+    state.hi = state.hi === null ? hi : mix(state.hi, hi, ease);
+    state.at = t;
+    const span = Math.max(1e-3, state.hi - state.lo);
+    const yOf = (v) => h * (0.86 - 0.72 * clamp((v - state.lo) / span, -0.05, 1.05));
     const body = Math.max(2, cell * 0.58);
     let hover = null;
     const px = pointer.on ? pointer.x * w : -1;
@@ -84,7 +100,7 @@ const SCENE = {
     for (let i = first; i * cell - offset < w + cell; i += 1) {
       const x = i * cell - offset;
       const open = price(i - 1, vol), close = price(i, vol);
-      const high = Math.max(open, close) + hash2(i, 1) * 0.035 * vol, low = Math.min(open, close) - hash2(i, 2) * 0.035 * vol;
+      const high = Math.max(open, close) + hash2(i, 1) * 0.04 * vol, low = Math.min(open, close) - hash2(i, 2) * 0.04 * vol;
       const rising = close >= open;
       const colour = rising ? tones.up : tones.down;
       const a = (light ? 0.5 : 0.45) * k;
