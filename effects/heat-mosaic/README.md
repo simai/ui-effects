@@ -18,7 +18,7 @@ A grid of cells where a wave of stepped shades passes, as on a heat map.
 | `steps` | integer | 3–9 | `6` | Scale steps |
 | `palette` | choice | `theme`, `turquoise`, `ocean`, `violet`, `rose`, `emerald`, `sunset`, `gold`, `silver`, `custom` | `"theme"` | Palette. `theme` follows the theme colour; the others stay as they are |
 | `colour` | color | hex | `"#3b82f6"` | Colour, read only while `palette` is `custom`: the effect builds every tone from it |
-| `interactive` | boolean | | `true` | React to the pointer: the cell under the pointer gets an outline |
+| `interactive` | boolean | | `true` | React to the pointer: the pointer warms the cells like a click heat map and the trail slowly cools; a click gives a burst of heat |
 
 ## Schemes
 

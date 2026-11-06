@@ -1,5 +1,5 @@
-// Sankey flows (simai.effect 1.1.0; schemes light and dark): wide soft ribbons flow from left to
-// right through a middle column, splitting and merging as on a Sankey diagram.
+// Sankey flows (simai.effect 1.1.0; schemes light and dark): an endless Sankey diagram seen through
+// a window: columns of nodes come in from the left and the ribbons split and merge between them.
 //
 // The lifecycle is the catalogue template's: one canvas in the host, devicePixelRatio capped at 2,
 // a seeded scene (the same picture on every mount at the defaults), one still frame for reduced
@@ -46,68 +46,79 @@ function readTones(host, scheme) {
   return tones;
 }
 
+// The endless chart: columns of nodes every `gap` pixels of paper. Which node a flow passes at a
+// column, how many nodes a column has and how wide a flow is there are all read from the column's
+// index, so the chart goes on forever and is the same on every mount.
+const nodesAt = (c) => 2 + Math.floor(hash2(c, 5) * 2.999);
+const nodeOf = (p, c) => Math.floor(hash2(p * 13 + 1, c) * nodesAt(c) * 0.999);
+const widthOf = (p, c) => 0.35 + noise2(c * 0.45 + p * 3.7, p * 1.3);
+
+// One column laid out: node boxes and, for every flow, its slot on the incoming and outgoing side.
+function column(c, flows, h) {
+  const n = nodesAt(c);
+  const value = Array.from({length: flows}, (_, p) => widthOf(p, c));
+  const node = Array.from({length: flows}, (_, p) => nodeOf(p, c));
+  const gapY = h * 0.09;
+  const scale = (h * 0.6) / value.reduce((a, b) => a + b, 0);
+  // The whole bundle rises and falls a little from column to column.
+  const lift = (noise2(c * 0.6, 11) - 0.5) * h * 0.22;
+  const sizes = Array.from({length: n}, (_, k) => value.reduce((sum, v, p) => sum + (node[p] === k ? v * scale : 0), 0));
+  const used = sizes.filter((size) => size > 0).length;
+  let y = (h - sizes.reduce((a, b) => a + b, 0) - gapY * (used - 1)) / 2 + lift;
+  const boxes = [];
+  const inSlot = [], outSlot = [];
+  for (let k = 0; k < n; k += 1) {
+    if (!sizes[k]) continue;
+    boxes.push([y, sizes[k]]);
+    const members = node.map((m, p) => p).filter((p) => node[p] === k);
+    // Inside a node the flows take an order of their own at every column, so they cross and weave
+    // between the columns instead of running side by side.
+    const order = [...members].sort((a, b) => hash2(a, c * 3 + 7) - hash2(b, c * 3 + 7));
+    for (const slots of [inSlot, outSlot]) {
+      let at = y;
+      for (const p of order) {
+        slots[p] = [at, at + value[p] * scale];
+        at += value[p] * scale;
+      }
+    }
+    y += sizes[k] + gapY;
+  }
+  return {boxes, inSlot, outSlot};
+}
+
 const SCENE = {
-  home: 'light', seed: 641, reseed: ['flows'],
+  home: 'light', seed: 641,
   tones: (read, scheme) => scheme === 'light'
     ? {ground: read('--sf-neutral-98', '#faf9fe'), low: read('--sf-neutral-95', '#f0f0f6'), node: read('--sf-neutral-40', '#5d5e66'),
       ribbons: [read('--sf-primary-60', '#4a8cf0'), read('--sf-tertiary-60', '#a4869f'), read('--sf-secondary-60', '#8990a5'), read('--sf-primary-70', '#7eabff')]}
     : {ground: read('--sf-neutral-5', '#111318'), low: read('--sf-neutral-10', '#1a1b20'), node: read('--sf-neutral-70', '#abacb4'),
       ribbons: [read('--sf-primary-50', '#2a74de'), read('--sf-tertiary-50', '#8a6d8f'), read('--sf-secondary-50', '#6f778b'), read('--sf-primary-40', '#005bbe')]},
-  setup(env, random) {
-    const n = clamp(Math.round(env.values.flows ?? 6), 3, 9);
-    // Every flow is a path: a node on the left, one in the middle, one on the right.
-    const counts = [3, n > 5 ? 3 : 2, 3];
-    const paths = Array.from({length: n}, (_, p) => ({
-      nodes: [p % counts[0], Math.floor(random() * counts[1]), Math.floor(random() * counts[2])],
-      seed: random() * 40, colour: p, phase: random(),
-    }));
-    return {counts, paths, shapes: []};
-  },
+  setup() { return {}; },
   draw(env, t) {
-    const {ctx, w, h, tones, state, values, scheme, pointer} = env;
+    const {ctx, w, h, tones, values, scheme, pointer} = env;
     const k = values.intensity / 100;
     const light = scheme === 'light';
+    const flows = clamp(Math.round(values.flows ?? 6), 3, 9);
     const g = ctx.createLinearGradient(0, 0, 0, h);
     g.addColorStop(0, rgba(tones.ground));
     g.addColorStop(1, rgba(mixc(tones.ground, tones.low, 0.8)));
     ctx.fillStyle = g;
     ctx.fillRect(0, 0, w, h);
-    const {counts, paths} = state;
-    const value = paths.map((path) => 0.35 + noise2(t * 0.06 + path.seed, path.seed));
-    const xs = [-w * 0.04, w * 0.5, w * 1.04];
-    // Stack the nodes of each column; inside a node the flows keep the order of their other end.
-    const gapY = h * 0.05;
-    const scale = (h * 0.72) / Math.max(1e-6, value.reduce((a, b) => a + b, 0));
-    const slots = paths.map(() => [[0, 0], [0, 0], [0, 0], [0, 0]]);
-    for (let c = 0; c < 3; c += 1) {
-      const sizes = Array.from({length: counts[c]}, (_, node) => paths.reduce((sum, path, p) => sum + (path.nodes[c] === node ? value[p] * scale : 0), 0));
-      const total = sizes.reduce((a, b) => a + b, 0) + gapY * (counts[c] - 1);
-      let y = (h - total) / 2;
-      for (let node = 0; node < counts[c]; node += 1) {
-        const members = paths.map((path, p) => p).filter((p) => paths[p].nodes[c] === node);
-        // Incoming side sorted by the left end, outgoing side by the right end.
-        for (const side of c === 1 ? [0, 1] : [c === 0 ? 1 : 0]) {
-          const other = side === 0 ? c - 1 : c + 1;
-          let at = y;
-          for (const p of [...members].sort((a, b) => paths[a].nodes[other] - paths[b].nodes[other] || a - b)) {
-            slots[p][c === 0 ? 0 : c === 2 ? 3 : 1 + side] = [at, at + value[p] * scale];
-            at += value[p] * scale;
-          }
-        }
-        if (c === 1 && sizes[node] > 0) {
-          ctx.fillStyle = rgba(tones.node, (light ? 0.35 : 0.4) * k);
-          ctx.fillRect(xs[1] - 3, y, 6, sizes[node]);
-        }
-        y += sizes[node] + gapY;
-      }
-    }
-    // Ribbons: two stages per path, each a band between cubic curves, lit by a slow travelling glow.
+    // The paper moves right, the way the flows run: a new column comes in from the left every seven
+    // seconds or so.
+    const gap = clamp(w * 0.42, 220, 560);
+    const offset = -t * (gap / 7);
+    const first = Math.floor(offset / gap) - 1;
+    const last = Math.ceil((offset + w) / gap) + 1;
+    const columns = new Map();
+    for (let c = first; c <= last; c += 1) columns.set(c, column(c, flows, h));
+    const xOf = (c) => c * gap - offset;
     const shapes = [];
-    paths.forEach((path, p) => {
-      for (let stage = 0; stage < 2; stage += 1) {
-        const [a0, a1] = slots[p][stage === 0 ? 0 : 2];
-        const [b0, b1] = slots[p][stage === 0 ? 1 : 3];
-        const x0 = xs[stage] + (stage === 1 ? 3 : 0), x1 = xs[stage + 1] - (stage === 0 ? 3 : 0), xm = (x0 + x1) / 2;
+    for (let c = first; c < last; c += 1) {
+      const from = columns.get(c), to = columns.get(c + 1);
+      const x0 = xOf(c) + 3, x1 = xOf(c + 1) - 3, xm = (x0 + x1) / 2;
+      for (let p = 0; p < flows; p += 1) {
+        const [a0, a1] = from.outSlot[p], [b0, b1] = to.inSlot[p];
         const shape = new Path2D();
         shape.moveTo(x0, a0);
         shape.bezierCurveTo(xm, a0, xm, b0, x1, b0);
@@ -116,22 +127,19 @@ const SCENE = {
         shape.closePath();
         shapes.push([shape, p]);
       }
-    });
+    }
+    // The flow under the pointer lights up along its whole visible path.
     let lit = -1;
-    if (pointer.on) for (const [shape, p] of shapes) if (ctx.isPointInPath(shape, pointer.x * w * (ctx.getTransform().a), pointer.y * h * (ctx.getTransform().d))) lit = p;
+    if (pointer.on) {
+      const ratio = ctx.getTransform().a;
+      for (const [shape, p] of shapes) if (ctx.isPointInPath(shape, pointer.x * w * ratio, pointer.y * h * ratio)) lit = p;
+    }
     for (const [shape, p] of shapes) {
-      const colour = tones.ribbons[paths[p].colour % tones.ribbons.length];
-      const base = (light ? 0.24 : 0.3) * k * (p === lit ? 1.9 : 1);
-      const glow = ctx.createLinearGradient(0, 0, w, 0);
-      const at = (t * 0.05 + paths[p].phase) % 1;
-      glow.addColorStop(0, rgba(colour, base));
-      glow.addColorStop(clamp(at - 0.18, 0.001, 0.997), rgba(colour, base));
-      glow.addColorStop(clamp(at, 0.002, 0.998), rgba(colour, base * 1.6));
-      glow.addColorStop(clamp(at + 0.18, 0.003, 0.999), rgba(colour, base));
-      glow.addColorStop(1, rgba(colour, base));
-      ctx.fillStyle = glow;
+      ctx.fillStyle = rgba(tones.ribbons[p % tones.ribbons.length], (light ? 0.26 : 0.32) * k * (p === lit ? 1.9 : 1));
       ctx.fill(shape);
     }
+    ctx.fillStyle = rgba(tones.node, (light ? 0.35 : 0.4) * k);
+    for (const [c, laid] of columns) for (const [y, size] of laid.boxes) ctx.fillRect(xOf(c) - 3, y, 6, size);
   },
   start: 5,
 };

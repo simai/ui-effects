@@ -51,9 +51,11 @@ const SCENE = {
   tones: (read, scheme) => scheme === 'light'
     ? {ground: read('--sf-neutral-98', '#faf9fe'), mid: read('--sf-primary-90', '#d7e3ff'), hot: read('--sf-tertiary-80', '#ddbce0'), line: read('--sf-primary-40', '#005bbe')}
     : {ground: read('--sf-neutral-5', '#111318'), mid: read('--sf-primary-20', '#002f65'), hot: read('--sf-tertiary-30', '#573e5c'), line: read('--sf-primary-80', '#acc7ff')},
-  setup() { return {}; },
+  // The pointer's heat: one value per cell, raised near the pointer and by a click, cooling by itself.
+  setup() { return {heat: null, cols: 0, rows: 0, last: null, bursts: []}; },
+  click(env, x, y) { env.state.bursts.push([x, y]); },
   draw(env, t) {
-    const {ctx, w, h, tones, values, scheme, pointer} = env;
+    const {ctx, w, h, tones, values, scheme, pointer, state} = env;
     const k = values.intensity / 100;
     const light = scheme === 'light';
     ctx.fillStyle = rgba(tones.ground);
@@ -68,24 +70,33 @@ const SCENE = {
       return rgba(mixc(tones.ground, c, (light ? 0.95 : 0.9) * k));
     });
     const ox = (w % size) / 2 - size, oy = (h % size) / 2 - size;
+    const cols = Math.ceil((w - ox) / size), rows = Math.ceil((h - oy) / size);
+    if (!state.heat || state.cols !== cols || state.rows !== rows) Object.assign(state, {heat: new Float32Array(cols * rows), cols, rows});
+    const dt = state.last === null ? 0 : clamp(t - state.last, 0, 0.1);
+    state.last = t;
+    const warm = (px, py, radius, amount) => {
+      const c0 = (px - ox) / size - 0.5, r0 = (py - oy) / size - 0.5;
+      for (let r = Math.max(0, Math.floor(r0 - radius)); r <= Math.min(rows - 1, Math.ceil(r0 + radius)); r += 1) {
+        for (let c = Math.max(0, Math.floor(c0 - radius)); c <= Math.min(cols - 1, Math.ceil(c0 + radius)); c += 1) {
+          const d = Math.hypot(c - c0, r - r0) / radius;
+          if (d < 1) state.heat[r * cols + c] = Math.min(1, state.heat[r * cols + c] + amount * (1 - d));
+        }
+      }
+    };
+    if (dt) for (let i = 0; i < state.heat.length; i += 1) state.heat[i] *= Math.exp(-dt / 2.4);
+    if (pointer.on) warm(pointer.x * w, pointer.y * h, 2.2, dt * 6);
+    for (const [x, y] of state.bursts.splice(0)) warm(x, y, 4.5, 0.9);
     const span = size * 4.5;
-    for (let y = oy; y < h; y += size) {
-      for (let x = ox; x < w; x += size) {
+    for (let row = 0, y = oy; y < h; row += 1, y += size) {
+      for (let col = 0, x = ox; x < w; col += 1, x += size) {
         const cx = x + size / 2, cy = y + size / 2;
         // A field that drifts, with a slow wave across it.
         const field = noise2(cx / span + t * 0.05, cy / span - t * 0.02);
         const wave = 0.5 + 0.5 * Math.sin((cx * 0.7 + cy * 0.45) / (size * 3.2) - t * 0.45);
-        const v = clamp((field - 0.25) * 1.3 * 0.55 + wave * 0.45, 0, 0.999);
+        const v = clamp((field - 0.25) * 1.3 * 0.55 + wave * 0.45 + state.heat[row * cols + col] * 0.95, 0, 0.999);
         ctx.fillStyle = scale[Math.floor(v * steps)];
         ctx.fillRect(x + gap / 2, y + gap / 2, size - gap, size - gap);
       }
-    }
-    if (pointer.on) {
-      const px = pointer.x * w, py = pointer.y * h;
-      const x = ox + Math.floor((px - ox) / size) * size, y = oy + Math.floor((py - oy) / size) * size;
-      ctx.strokeStyle = rgba(tones.line, 0.75 * k);
-      ctx.lineWidth = 1.5;
-      ctx.strokeRect(x + gap / 2, y + gap / 2, size - gap, size - gap);
     }
   },
   start: 4,

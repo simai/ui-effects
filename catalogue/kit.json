@@ -228,13 +228,13 @@
       "failed": []
     },
     "heat-mosaic": {
-      "digest": "3b9743da459df1f5c61d5085613b56788256d5996a126252d2e9b903f35048e9",
+      "digest": "a584ded89f95a4562c6d9b5dd38bb227e68f267417d6e58310a20fedfd2d412d",
       "passed": 17,
       "total": 17,
       "failed": []
     },
     "sankey-flows": {
-      "digest": "fc4ee5da4ce131fd770fe3eb0f4a1db5539b3df1b6fc70558b419ae4f0f27007",
+      "digest": "5374668d020e32984c75872774ee9951012f9f3b64b1335c53a8f9f8b2d340ff",
       "passed": 17,
       "total": 17,
       "failed": []

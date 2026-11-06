@@ -298,14 +298,14 @@
       },
       "default": true,
       "hint": {
-        "ru": "Ячейка под указателем выделяется рамкой",
-        "en": "The cell under the pointer gets an outline",
-        "es": "La celda bajo el puntero recibe un contorno",
-        "pt-BR": "A célula sob o ponteiro ganha um contorno",
-        "de": "Die Zelle unter dem Zeiger erhält einen Rahmen",
-        "zh-CN": "指针下的单元格会显示描边",
-        "fr": "La cellule sous le pointeur reçoit un contour",
-        "ja": "ポインターの下のセルに枠が付きます"
+        "ru": "Указатель нагревает ячейки, как тепловая карта кликов, след медленно остывает; щелчок — вспышка тепла",
+        "en": "The pointer warms the cells like a click heat map and the trail slowly cools; a click gives a burst of heat",
+        "es": "El puntero calienta las celdas como un mapa de calor de clics y la estela se enfría despacio; un clic da un estallido de calor",
+        "pt-BR": "O ponteiro aquece as células como um mapa de calor de cliques e o rastro esfria devagar; um clique dá uma explosão de calor",
+        "de": "Der Zeiger erwärmt die Zellen wie eine Klick-Heatmap, die Spur kühlt langsam ab; ein Klick gibt einen Wärmestoß",
+        "zh-CN": "指针像点击热力图一样加热单元格，痕迹慢慢冷却；点击会迸发一团热量",
+        "fr": "Le pointeur réchauffe les cellules comme une carte de chaleur des clics et la trace refroidit lentement ; un clic donne une bouffée de chaleur",
+        "ja": "ポインターがクリックのヒートマップのようにセルを温め、跡はゆっくり冷めます。クリックすると熱がはじけます"
       }
     }
   ],
