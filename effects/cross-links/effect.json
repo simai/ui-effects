@@ -1,0 +1,314 @@
+{
+  "schema": "simai.effect",
+  "schema_version": 1,
+  "id": "cross-links",
+  "version": "0.1.0",
+  "label": {
+    "ru": "Перекрёстные ссылки",
+    "en": "Cross-links",
+    "es": "Enlaces cruzados",
+    "pt-BR": "Links cruzados",
+    "de": "Querverweise",
+    "zh-CN": "交叉链接",
+    "fr": "Liens croisés",
+    "ja": "相互リンク"
+  },
+  "author": "SIMAI",
+  "entry": "index.js",
+  "preview": "preview.png",
+  "surfaces": [
+    "hero",
+    "section",
+    "dashboard",
+    "sign-in"
+  ],
+  "schemes": [
+    "light",
+    "dark"
+  ],
+  "capabilities": [
+    "windows"
+  ],
+  "settings": [
+    {
+      "key": "speed",
+      "type": "integer",
+      "label": {
+        "ru": "Скорость",
+        "en": "Speed",
+        "es": "Velocidad",
+        "pt-BR": "Velocidade",
+        "de": "Geschwindigkeit",
+        "zh-CN": "速度",
+        "fr": "Vitesse",
+        "ja": "速度"
+      },
+      "default": 100,
+      "min": 10,
+      "max": 300,
+      "step": 10,
+      "unit": "%"
+    },
+    {
+      "key": "intensity",
+      "type": "integer",
+      "label": {
+        "ru": "Яркость",
+        "en": "Intensity",
+        "es": "Intensidad",
+        "pt-BR": "Intensidade",
+        "de": "Intensität",
+        "zh-CN": "强度",
+        "fr": "Intensité",
+        "ja": "強さ"
+      },
+      "default": 70,
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "%"
+    },
+    {
+      "key": "pages",
+      "type": "integer",
+      "label": {
+        "ru": "Страницы",
+        "en": "Pages",
+        "es": "Páginas",
+        "pt-BR": "Páginas",
+        "de": "Seiten",
+        "zh-CN": "页面数",
+        "fr": "Pages",
+        "ja": "ページ数"
+      },
+      "default": 7,
+      "min": 3,
+      "max": 12,
+      "step": 1
+    },
+    {
+      "key": "links",
+      "type": "integer",
+      "label": {
+        "ru": "Ссылки одновременно",
+        "en": "Links at once",
+        "es": "Enlaces a la vez",
+        "pt-BR": "Links ao mesmo tempo",
+        "de": "Gleichzeitige Verweise",
+        "zh-CN": "同时显示的链接",
+        "fr": "Liens simultanés",
+        "ja": "同時に表示するリンク"
+      },
+      "default": 3,
+      "min": 1,
+      "max": 8,
+      "step": 1
+    },
+    {
+      "key": "palette",
+      "type": "choice",
+      "label": {
+        "ru": "Палитра",
+        "en": "Palette",
+        "es": "Paleta",
+        "pt-BR": "Paleta",
+        "de": "Palette",
+        "zh-CN": "配色",
+        "fr": "Palette",
+        "ja": "パレット"
+      },
+      "default": "theme",
+      "options": [
+        {
+          "value": "theme",
+          "label": {
+            "ru": "Цвет темы",
+            "en": "Theme colour",
+            "es": "Color del tema",
+            "pt-BR": "Cor do tema",
+            "de": "Designfarbe",
+            "zh-CN": "主题色",
+            "fr": "Couleur du thème",
+            "ja": "テーマカラー"
+          }
+        },
+        {
+          "value": "turquoise",
+          "label": {
+            "ru": "Бирюзовая",
+            "en": "Turquoise",
+            "es": "Turquesa",
+            "pt-BR": "Turquesa",
+            "de": "Türkis",
+            "zh-CN": "青绿",
+            "fr": "Turquoise",
+            "ja": "ターコイズ"
+          }
+        },
+        {
+          "value": "ocean",
+          "label": {
+            "ru": "Океан",
+            "en": "Ocean",
+            "es": "Océano",
+            "pt-BR": "Oceano",
+            "de": "Ozean",
+            "zh-CN": "海洋",
+            "fr": "Océan",
+            "ja": "オーシャン"
+          }
+        },
+        {
+          "value": "violet",
+          "label": {
+            "ru": "Фиолетовая",
+            "en": "Violet",
+            "es": "Violeta",
+            "pt-BR": "Violeta",
+            "de": "Violett",
+            "zh-CN": "紫罗兰",
+            "fr": "Violet",
+            "ja": "バイオレット"
+          }
+        },
+        {
+          "value": "rose",
+          "label": {
+            "ru": "Роза",
+            "en": "Rose",
+            "es": "Rosa",
+            "pt-BR": "Rosa",
+            "de": "Rosé",
+            "zh-CN": "玫瑰",
+            "fr": "Rose",
+            "ja": "ローズ"
+          }
+        },
+        {
+          "value": "emerald",
+          "label": {
+            "ru": "Изумруд",
+            "en": "Emerald",
+            "es": "Esmeralda",
+            "pt-BR": "Esmeralda",
+            "de": "Smaragd",
+            "zh-CN": "翡翠",
+            "fr": "Émeraude",
+            "ja": "エメラルド"
+          }
+        },
+        {
+          "value": "sunset",
+          "label": {
+            "ru": "Закат",
+            "en": "Sunset",
+            "es": "Atardecer",
+            "pt-BR": "Pôr do sol",
+            "de": "Sonnenuntergang",
+            "zh-CN": "日落",
+            "fr": "Coucher de soleil",
+            "ja": "サンセット"
+          }
+        },
+        {
+          "value": "gold",
+          "label": {
+            "ru": "Золото",
+            "en": "Gold",
+            "es": "Oro",
+            "pt-BR": "Ouro",
+            "de": "Gold",
+            "zh-CN": "金色",
+            "fr": "Or",
+            "ja": "ゴールド"
+          }
+        },
+        {
+          "value": "silver",
+          "label": {
+            "ru": "Серебро",
+            "en": "Silver",
+            "es": "Plata",
+            "pt-BR": "Prata",
+            "de": "Silber",
+            "zh-CN": "银色",
+            "fr": "Argent",
+            "ja": "シルバー"
+          }
+        },
+        {
+          "value": "custom",
+          "label": {
+            "ru": "Свой цвет",
+            "en": "Custom colour",
+            "es": "Color personalizado",
+            "pt-BR": "Cor personalizada",
+            "de": "Eigene Farbe",
+            "zh-CN": "自定义颜色",
+            "fr": "Couleur personnalisée",
+            "ja": "カスタムカラー"
+          }
+        }
+      ]
+    },
+    {
+      "key": "colour",
+      "type": "color",
+      "label": {
+        "ru": "Цвет",
+        "en": "Colour",
+        "es": "Color",
+        "pt-BR": "Cor",
+        "de": "Farbe",
+        "zh-CN": "颜色",
+        "fr": "Couleur",
+        "ja": "色"
+      },
+      "default": "#3b82f6",
+      "hint": {
+        "ru": "Эффект строит из него все оттенки",
+        "en": "The effect builds every tone from it",
+        "es": "El efecto construye todos los tonos a partir de él",
+        "pt-BR": "O efeito constrói todos os tons a partir dela",
+        "de": "Der Effekt baut daraus jeden Farbton auf",
+        "zh-CN": "特效据此生成所有色调",
+        "fr": "L’effet en construit toutes les teintes",
+        "ja": "エフェクトはこの色からすべての色調を作ります"
+      },
+      "when": {
+        "key": "palette",
+        "is": [
+          "custom"
+        ]
+      }
+    },
+    {
+      "key": "interactive",
+      "type": "boolean",
+      "label": {
+        "ru": "Реагировать на указатель",
+        "en": "React to the pointer",
+        "es": "Reaccionar al puntero",
+        "pt-BR": "Reagir ao ponteiro",
+        "de": "Auf den Zeiger reagieren",
+        "zh-CN": "响应指针",
+        "fr": "Réagir au pointeur",
+        "ja": "ポインターに反応"
+      },
+      "default": true,
+      "hint": {
+        "ru": "Страница под указателем приподнимается и показывает все свои ссылки; щелчок пускает волну переходов от страницы к странице",
+        "en": "The page under the pointer lifts and shows all its links; a click sends a wave of links hopping from page to page",
+        "es": "La página bajo el puntero se eleva y muestra todos sus enlaces; un clic lanza una ola de enlaces que saltan de página en página",
+        "pt-BR": "A página sob o ponteiro se eleva e mostra todos os seus links; um clique lança uma onda de links que saltam de página em página",
+        "de": "Die Seite unter dem Zeiger hebt sich und zeigt alle ihre Verweise; ein Klick schickt eine Welle von Verweisen von Seite zu Seite",
+        "zh-CN": "指针下的页面会微微浮起并显示它的所有链接；点击会让链接像波浪一样在页面之间逐个跳转",
+        "fr": "La page sous le pointeur se soulève et montre tous ses liens ; un clic lance une vague de liens qui sautent de page en page",
+        "ja": "ポインターの下のページが少し浮き上がり、すべてのリンクを表示します。クリックするとリンクが波のようにページからページへ伝わります"
+      }
+    }
+  ],
+  "needs": {
+    "network": false
+  }
+}

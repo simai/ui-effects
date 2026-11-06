@@ -1191,6 +1191,165 @@
         "chart",
         "finance"
       ]
+    },
+    {
+      "id": "markdown-press",
+      "categories": [
+        "tech",
+        "abstract"
+      ],
+      "description": {
+        "ru": "Строки сырого Markdown плывут слева и, пройдя мягкую границу, выходят свёрстанными: заголовки, списки, цитаты и блоки кода.",
+        "en": "Rows of raw Markdown drift in from the left and, past a soft boundary, come out typeset: headings, bullets, quotes and code blocks.",
+        "es": "Filas de Markdown en bruto llegan desde la izquierda y, tras cruzar un límite suave, salen maquetadas: títulos, listas, citas y bloques de código.",
+        "pt-BR": "Linhas de Markdown bruto chegam pela esquerda e, depois de um limite suave, saem diagramadas: títulos, listas, citações e blocos de código.",
+        "de": "Zeilen aus rohem Markdown treiben von links herein und kommen hinter einer weichen Grenze gesetzt heraus: Überschriften, Listen, Zitate und Codeblöcke.",
+        "zh-CN": "一行行原始 Markdown 从左侧漂入，越过一条柔和的边界后变成排好版的标题、列表、引用和代码块。",
+        "fr": "Des lignes de Markdown brut arrivent par la gauche et, passé une limite douce, ressortent mises en page : titres, listes, citations et blocs de code.",
+        "ja": "生の Markdown の行が左から流れ込み、やわらかな境界を越えると見出し、箇条書き、引用、コードブロックとして組版されて出てきます。"
+      },
+      "role": {
+        "ru": "Спокойный фон для документации и инструментов письма: сырая часть слева бледная и не мешает тексту, свёрстанная справа показывает результат. Хорошо выглядит в обеих схемах.",
+        "en": "A calm background for documentation and writing tools: the raw side on the left stays faint behind the text, the typeset side shows the result. Works in both schemes.",
+        "es": "Un fondo tranquilo para documentación y herramientas de escritura: el lado en bruto a la izquierda queda tenue tras el texto y el lado maquetado muestra el resultado. Funciona en ambos esquemas.",
+        "pt-BR": "Um fundo calmo para documentação e ferramentas de escrita: o lado bruto à esquerda fica suave atrás do texto e o lado diagramado mostra o resultado. Funciona nos dois esquemas.",
+        "de": "Ein ruhiger Hintergrund für Dokumentation und Schreibwerkzeuge: Die rohe Seite links bleibt hinter dem Text blass, die gesetzte Seite zeigt das Ergebnis. Wirkt in beiden Designs.",
+        "zh-CN": "适合文档和写作工具的安静背景：左侧的原始部分淡淡地衬在文字后面，右侧排好版的部分展示成果。两种方案都适用。",
+        "fr": "Un fond calme pour la documentation et les outils d’écriture : le côté brut à gauche reste discret derrière le texte, le côté mis en page montre le résultat. Fonctionne dans les deux thèmes.",
+        "ja": "ドキュメントや執筆ツール向けの落ち着いた背景。左の生の側は文字の後ろで淡く、右の組版された側が仕上がりを見せます。両方のスキームに合います。"
+      },
+      "tags": [
+        "markdown",
+        "text",
+        "documentation"
+      ]
+    },
+    {
+      "id": "toc-tree",
+      "categories": [
+        "tech",
+        "abstract"
+      ],
+      "description": {
+        "ru": "Тонкое дерево оглавления, как в навигации документации, лежит справа; его ветки медленно раскрываются и сворачиваются.",
+        "en": "A thin table-of-contents tree, as in documentation navigation, rests on the right; its branches slowly open and close.",
+        "es": "Un fino árbol de contenidos, como en la navegación de una documentación, reposa a la derecha; sus ramas se abren y se cierran despacio.",
+        "pt-BR": "Uma fina árvore de sumário, como na navegação de uma documentação, fica à direita; seus ramos se abrem e se fecham devagar.",
+        "de": "Ein feiner Inhaltsbaum wie in der Navigation einer Dokumentation liegt rechts; seine Zweige öffnen und schließen sich langsam.",
+        "zh-CN": "一棵纤细的目录树，如同文档导航，位于右侧；它的分支缓缓展开又折叠。",
+        "fr": "Un fin arbre de sommaire, comme dans la navigation d’une documentation, repose à droite ; ses branches s’ouvrent et se ferment lentement.",
+        "ja": "ドキュメントのナビゲーションのような細い目次ツリーが右側にあり、枝がゆっくり開いたり閉じたりします。"
+      },
+      "role": {
+        "ru": "Спокойный фон для документации и справочных разделов: дерево держится справа и едва заметно, текст слева читается легко. Хорошо выглядит в обеих схемах.",
+        "en": "A calm background for documentation and reference sections: the tree keeps to the right and stays faint, text on the left reads easily. Works in both schemes.",
+        "es": "Un fondo tranquilo para documentación y secciones de referencia: el árbol se queda a la derecha y apenas se nota, el texto de la izquierda se lee con facilidad. Funciona en ambos esquemas.",
+        "pt-BR": "Um fundo calmo para documentação e seções de referência: a árvore fica à direita e discreta, o texto à esquerda se lê com facilidade. Funciona nos dois esquemas.",
+        "de": "Ein ruhiger Hintergrund für Dokumentation und Referenzbereiche: Der Baum bleibt rechts und zurückhaltend, Text links liest sich leicht. Wirkt in beiden Designs.",
+        "zh-CN": "适合文档与参考章节的安静背景：目录树靠右且很淡，左侧文字易于阅读。两种方案都适用。",
+        "fr": "Un fond calme pour la documentation et les sections de référence : l’arbre reste à droite et discret, le texte à gauche se lit facilement. Fonctionne dans les deux thèmes.",
+        "ja": "ドキュメントやリファレンス向けの落ち着いた背景。ツリーは右側に控えめに置かれ、左の文字が読みやすいままです。両方のスキームに合います。"
+      },
+      "tags": [
+        "docs",
+        "navigation",
+        "tree"
+      ]
+    },
+    {
+      "id": "text-search",
+      "categories": [
+        "tech",
+        "abstract"
+      ],
+      "description": {
+        "ru": "Спокойные колонки серых «слов» медленно ползут вверх, а мягкие маркеры поиска одно за другим ложатся на слова, будто находятся результаты запроса; иногда разом загораются все слова одной длины.",
+        "en": "Calm columns of grey word bars drift slowly upward while soft search markers sweep onto words one after another, like the results of a query being found; now and then every word of one length lights up together.",
+        "es": "Columnas tranquilas de barras grises de palabras suben despacio mientras suaves marcadores de búsqueda se posan en las palabras una tras otra, como resultados de una consulta; de vez en cuando se iluminan a la vez todas las palabras de una misma longitud.",
+        "pt-BR": "Colunas calmas de barras cinzentas de palavras sobem devagar enquanto marcadores suaves de busca pousam nas palavras uma após a outra, como resultados de uma consulta; de vez em quando todas as palavras de um mesmo tamanho acendem juntas.",
+        "de": "Ruhige Spalten grauer Wortbalken wandern langsam nach oben, während sanfte Suchmarkierungen nacheinander auf Wörter gleiten, als würden Treffer einer Suche gefunden; ab und zu leuchten alle Wörter gleicher Länge zugleich auf.",
+        "zh-CN": "一列列安静的灰色词条缓缓上移，柔和的搜索标记依次落在词上，仿佛查询结果被逐一找到；不时地，所有相同长度的词会同时亮起。",
+        "fr": "De calmes colonnes de barres de mots grises remontent lentement tandis que de doux surligneurs de recherche se posent sur les mots l’un après l’autre, comme les résultats d’une requête ; de temps en temps, tous les mots d’une même longueur s’allument ensemble.",
+        "ja": "灰色の単語バーが並ぶ静かな段組みがゆっくり上へ流れ、やわらかな検索マーカーが次々と単語に重なって、検索結果が見つかっていくように見えます。ときおり同じ長さの単語がいっせいに光ります。"
+      },
+      "role": {
+        "ru": "Тихий фон для документации и страниц поиска: текст абстрактный и бледный, за заголовком страницы ещё мягче, поэтому настоящий текст сверху читается легко. Хорошо выглядит в обеих схемах.",
+        "en": "A quiet background for documentation and search pages: the text is abstract and faint, softer still behind the page heading, so real text above reads easily. Works in both schemes.",
+        "es": "Un fondo sereno para documentación y páginas de búsqueda: el texto es abstracto y tenue, aún más suave tras el título de la página, así que el texto real encima se lee con facilidad. Funciona en ambos esquemas.",
+        "pt-BR": "Um fundo sereno para documentação e páginas de busca: o texto é abstrato e suave, ainda mais leve atrás do título da página, então o texto real acima se lê com facilidade. Funciona nos dois esquemas.",
+        "de": "Ein stiller Hintergrund für Dokumentation und Suchseiten: Der Text ist abstrakt und blass, hinter der Seitenüberschrift noch zarter, sodass echter Text darüber leicht lesbar bleibt. Wirkt in beiden Designs.",
+        "zh-CN": "适合文档和搜索页面的安静背景：文字抽象而浅淡，在页面标题后方更加柔和，上方的真实文字易于阅读。两种方案都适用。",
+        "fr": "Un fond discret pour la documentation et les pages de recherche : le texte est abstrait et pâle, plus doux encore derrière le titre de la page, si bien que le vrai texte au-dessus se lit facilement. Fonctionne dans les deux thèmes.",
+        "ja": "ドキュメントや検索ページ向けの静かな背景。文字は抽象的で淡く、ページ見出しの後ろではさらに控えめなので、上の本文が読みやすいままです。両方のスキームに合います。"
+      },
+      "tags": [
+        "text",
+        "search"
+      ]
+    },
+    {
+      "id": "cross-links",
+      "categories": [
+        "tech",
+        "abstract"
+      ],
+      "description": {
+        "ru": "Бледные карточки страниц плавают по области, а тонкие дуги прорисовываются от слова на одной странице к слову на другой — живая карта ссылок документации.",
+        "en": "Pale page cards float across the area, and thin arcs draw themselves from a word on one page to a word on another: a living map of documentation links.",
+        "es": "Tarjetas de página pálidas flotan por el área y finos arcos se trazan de una palabra en una página a una palabra en otra: un mapa vivo de los enlaces de la documentación.",
+        "pt-BR": "Cartões de página pálidos flutuam pela área, e arcos finos se desenham de uma palavra em uma página até uma palavra em outra: um mapa vivo dos links da documentação.",
+        "de": "Blasse Seitenkarten schweben über die Fläche, und dünne Bögen zeichnen sich von einem Wort auf einer Seite zu einem Wort auf einer anderen: eine lebendige Karte der Verweise einer Dokumentation.",
+        "zh-CN": "淡色的页面卡片在区域中漂浮，细细的弧线从一页上的词连到另一页上的词，像一张活的文档链接地图。",
+        "fr": "De pâles cartes de pages flottent dans la zone, et de fins arcs se tracent d’un mot d’une page à un mot d’une autre : une carte vivante des liens d’une documentation.",
+        "ja": "淡いページカードが漂い、あるページの単語から別のページの単語へ細い弧が描かれていきます。ドキュメントのリンクを表す生きた地図です。"
+      },
+      "role": {
+        "ru": "Спокойный фон для сайтов документации: слева у текста страниц мало и они бледные, ссылки появляются и гаснут справа. Хорошо выглядит в обеих схемах.",
+        "en": "A calm background for documentation sites: near the text on the left the pages are few and faint, the links come and go on the right. Works in both schemes.",
+        "es": "Un fondo tranquilo para sitios de documentación: junto al texto de la izquierda hay pocas páginas y tenues, los enlaces aparecen y se desvanecen a la derecha. Funciona en ambos esquemas.",
+        "pt-BR": "Um fundo calmo para sites de documentação: perto do texto à esquerda há poucas páginas e elas são suaves, os links surgem e somem à direita. Funciona nos dois esquemas.",
+        "de": "Ein ruhiger Hintergrund für Dokumentationsseiten: Neben dem Text links stehen wenige, blasse Seiten, die Verweise kommen und gehen rechts. Wirkt in beiden Designs.",
+        "zh-CN": "适合文档网站的安静背景：左侧文字旁页面少而淡，链接在右侧出现又消失。两种方案都适用。",
+        "fr": "Un fond calme pour les sites de documentation : près du texte à gauche, les pages sont rares et pâles, les liens vont et viennent à droite. Fonctionne dans les deux thèmes.",
+        "ja": "ドキュメントサイト向けの落ち着いた背景。左側の文字の近くではページが少なく淡く、リンクは右側で現れては消えます。両方のスキームに合います。"
+      },
+      "tags": [
+        "docs",
+        "links",
+        "pages"
+      ]
+    },
+    {
+      "id": "page-stack",
+      "categories": [
+        "tech",
+        "abstract"
+      ],
+      "description": {
+        "ru": "Полупрозрачные листы документов с шапкой и строками текста медленно опускаются в воздухе слоями глубины: дальние — мелкие и бледные, ближние — крупнее и наклонены.",
+        "en": "Translucent document sheets with a header strip and lines of text float down through the air in layers of depth: far ones small and pale, near ones larger and slanted.",
+        "es": "Hojas de documento translúcidas, con una franja de cabecera y líneas de texto, descienden por el aire en capas de profundidad: las lejanas, pequeñas y pálidas; las cercanas, más grandes e inclinadas.",
+        "pt-BR": "Folhas de documento translúcidas, com uma faixa de cabeçalho e linhas de texto, descem pelo ar em camadas de profundidade: as distantes, pequenas e pálidas; as próximas, maiores e inclinadas.",
+        "de": "Durchscheinende Dokumentblätter mit Kopfleiste und Textzeilen schweben in Tiefenebenen durch die Luft herab: ferne klein und blass, nahe größer und schräg.",
+        "zh-CN": "带有页眉条和文字行的半透明文档纸页分层在空中缓缓飘落：远处的小而淡，近处的更大且略微倾斜。",
+        "fr": "Des feuilles de document translucides, avec un bandeau d’en-tête et des lignes de texte, descendent dans l’air en couches de profondeur : les lointaines petites et pâles, les proches plus grandes et inclinées.",
+        "ja": "ヘッダー帯と文字の行が入った半透明の書類が、奥行きのある層になって宙をゆっくり舞い降ります。奥の紙は小さく淡く、手前の紙は大きく傾いています。"
+      },
+      "role": {
+        "ru": "Спокойный фон для документации и баз знаний: ближние листы держатся справа, а проходящие за текстом бледнеют, поэтому заголовки и абзацы читаются легко. Хорошо выглядит в обеих схемах.",
+        "en": "A calm background for documentation and knowledge bases: near sheets keep to the right, and those passing behind the text block thin out, so headings and paragraphs read easily. Works in both schemes.",
+        "es": "Un fondo tranquilo para documentación y bases de conocimiento: las hojas cercanas se mantienen a la derecha y las que pasan detrás del texto se desvanecen, así que títulos y párrafos se leen con facilidad. Funciona en ambos esquemas.",
+        "pt-BR": "Um fundo calmo para documentação e bases de conhecimento: as folhas próximas ficam à direita e as que passam atrás do texto se esmaecem, então títulos e parágrafos se leem com facilidade. Funciona nos dois esquemas.",
+        "de": "Ein ruhiger Hintergrund für Dokumentation und Wissensdatenbanken: Nahe Blätter halten sich rechts, und die hinter dem Textblock werden blasser, sodass Überschriften und Absätze leicht lesbar bleiben. Wirkt in beiden Designs.",
+        "zh-CN": "适合文档与知识库的安静背景：近处的纸页靠右，经过文字区域后方的纸页会变淡，标题和段落易于阅读。两种方案都适用。",
+        "fr": "Un fond calme pour la documentation et les bases de connaissances : les feuilles proches restent à droite et celles qui passent derrière le texte s’estompent, si bien que titres et paragraphes se lisent facilement. Fonctionne dans les deux thèmes.",
+        "ja": "ドキュメントやナレッジベース向けの落ち着いた背景。手前の紙は右側に寄り、文字の後ろを通る紙は淡くなるので、見出しや段落が読みやすいままです。両方のスキームに合います。"
+      },
+      "tags": [
+        "documents",
+        "pages",
+        "depth"
+      ]
     }
   ]
 }
