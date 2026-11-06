@@ -1,6 +1,6 @@
 # Paper flurry (`paper-flurry`)
 
-Document sheets fall from above, turn over and swing down like falling leaves of paper, endlessly and calmly; a press tosses a heap of sheets up from the point.
+Document sheets fall from above and swing down like falling leaves of paper, endlessly and calmly; small sheets stay stiff and tumble, big ones bend, sag and flap as they glide. A press tosses a heap of sheets up from the point.
 
 - **Russian name:** Ворох бумаг
 - **Version:** 0.1.0, simai.effect 1.4.0
@@ -15,7 +15,7 @@ Document sheets fall from above, turn over and swing down like falling leaves of
 | `speed` | integer | 10–300 % | `100` | Speed |
 | `intensity` | integer | 10–100 % | `70` | Intensity of the drawing |
 | `amount` | integer | 10–100 % | `50` | Amount of sheets in the air |
-| `size` | integer | 50–150 % | `100` | Sheet size |
+| `size` | integer | 50–150 % | `100` | Sheet size; bigger sheets bend more |
 | `palette` | choice | `theme`, `turquoise`, `ocean`, `violet`, `rose`, `emerald`, `sunset`, `gold`, `silver`, `custom` | `"theme"` | Palette. `theme` follows the theme colour; the others stay as they are |
 | `colour` | color | hex | `"#3b82f6"` | Colour, read only while `palette` is `custom`: the effect builds every tone from it |
 | `interactive` | boolean | | `true` | React to the pointer: a press tosses a heap of sheets up and scatters the falling ones with a gust; the pointer gently blows them aside |

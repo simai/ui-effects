@@ -1262,14 +1262,14 @@
         "abstract"
       ],
       "description": {
-        "ru": "Листы-документы падают сверху, переворачиваются и раскачиваются, как падающие листья бумаги, — спокойно и бесконечно; нажатие подбрасывает ворох листов из этой точки.",
-        "en": "Document sheets fall from above, turn over and swing down like falling leaves of paper, endlessly and calmly; a press tosses a heap of sheets up from the point.",
-        "es": "Hojas de documentos caen desde arriba, se dan la vuelta y se balancean como hojas de papel al caer, sin fin y con calma; una pulsación lanza un montón de hojas hacia arriba desde ese punto.",
-        "pt-BR": "Folhas de documentos caem do alto, viram e balançam como folhas de papel caindo, sem fim e com calma; pressionar lança um monte de folhas para cima a partir do ponto.",
-        "de": "Dokumentblätter fallen von oben, drehen sich und schaukeln wie fallendes Papier herab, ruhig und endlos; ein Druck wirft an dieser Stelle einen Stapel Blätter hoch.",
-        "zh-CN": "文档纸页从上方落下，翻转着像飘落的纸片一样左右摇摆，平静而不间断；按下时会从该处抛起一叠纸页。",
-        "fr": "Des feuilles de documents tombent d’en haut, se retournent et se balancent comme des feuilles de papier qui tombent, calmement et sans fin ; un appui lance une pile de feuilles vers le haut depuis ce point.",
-        "ja": "書類の紙が上から落ち、裏返りながら舞い落ちる紙片のように揺れて、静かに絶え間なく降り続けます。押すとその位置から紙の束が舞い上がります。"
+        "ru": "Листы-документы падают сверху и раскачиваются, как падающие листья бумаги, — спокойно и бесконечно; мелкие листы жёсткие и кувыркаются, крупные изгибаются, провисают и трепещут краем. Нажатие подбрасывает ворох листов из этой точки.",
+        "en": "Document sheets fall from above and swing down like falling leaves of paper, endlessly and calmly; small sheets stay stiff and tumble, big ones bend, sag and flap as they glide. A press tosses a heap of sheets up from the point.",
+        "es": "Hojas de documentos caen desde arriba y se balancean como hojas de papel al caer, sin fin y con calma; las pequeñas se mantienen rígidas y dan vueltas, las grandes se curvan, se comban y ondean al planear. Una pulsación lanza un montón de hojas hacia arriba desde ese punto.",
+        "pt-BR": "Folhas de documentos caem do alto e balançam como folhas de papel caindo, sem fim e com calma; as pequenas ficam rígidas e rodopiam, as grandes se curvam, cedem e tremulam ao planar. Pressionar lança um monte de folhas para cima a partir do ponto.",
+        "de": "Dokumentblätter fallen von oben und schaukeln wie fallendes Papier herab, ruhig und endlos; kleine Blätter bleiben steif und überschlagen sich, große biegen sich, hängen durch und flattern im Gleitflug. Ein Druck wirft an dieser Stelle einen Stapel Blätter hoch.",
+        "zh-CN": "文档纸页从上方落下，像飘落的纸片一样左右摇摆，平静而不间断；小纸页挺括、翻滚着落下，大纸页在滑翔中弯曲、下垂、边缘抖动。按下时会从该处抛起一叠纸页。",
+        "fr": "Des feuilles de documents tombent d’en haut et se balancent comme des feuilles de papier qui tombent, calmement et sans fin ; les petites restent rigides et culbutent, les grandes se courbent, s’affaissent et ondulent en planant. Un appui lance une pile de feuilles vers le haut depuis ce point.",
+        "ja": "書類の紙が上から落ち、舞い落ちる紙片のように揺れながら静かに降り続けます。小さな紙は硬いまま回転し、大きな紙は滑空しながらたわみ、垂れ下がり、端がはためきます。押すとその位置から紙の束が舞い上がります。"
       },
       "role": {
         "ru": "Лёгкий живой фон для документации и страниц продукта: листы падают в основном в центре и справа, редкие листы над текстом слева едва заметны. Хорошо выглядит в обеих схемах.",

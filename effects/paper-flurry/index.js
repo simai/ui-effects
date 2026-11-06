@@ -47,22 +47,19 @@ function readTones(host, scheme) {
   return tones;
 }
 
-
-// A flurry of paper: document sheets fall from above the top edge, mostly over the centre-right and
-// right so the text on the left stays clear (the few that cross it are faint). They turn over,
-// swing down like falling leaves of paper and drift out at the bottom, endlessly and calmly.
-// Depth sets size, paleness and pace: far sheets are small, pale and slow. A turning sheet
-// is foreshortened along one axis only (its width or height times the cosine of the turn), then
-// rotated in the plane: no perspective and no skew. The pointer blows near sheets aside; a press
-// is a gust that scatters them outwards and up, spinning, and tosses a heap of new sheets up from there.
+// A flurry of paper: document sheets fall from above, mostly over the centre-right and right (the
+// few over the text on the left are faint), swing down like leaves of paper and leave at the bottom.
+// Depth sets size, paleness and pace. Small sheets stay stiff and tumble; big ones bend (cup, sag,
+// flap at the trailing edge) and glide. No perspective and no skew. The pointer blows near sheets
+// aside; a press is a gust that scatters them and tosses a heap of new sheets up from the point.
 const SCENE = {
   home: 'light', seed: 613, reseed: ['amount', 'size'], fresh: true,
   tones: (read, scheme) => scheme === 'light'
     ? {ground: read('--sf-neutral-98', '#faf9fe'), paper: read('--sf-neutral-100', '#ffffff'), back: read('--sf-neutral-95', '#f0f0f6'),
-      edge: read('--sf-neutral-80', '#c6c6cf'), ink: read('--sf-neutral-70', '#abaab3'), shade: read('--sf-neutral-20', '#2f3036'),
+      edge: read('--sf-neutral-80', '#c6c6cf'), lit: read('--sf-neutral-100', '#ffffff'), ink: read('--sf-neutral-70', '#abaab3'), shade: read('--sf-neutral-20', '#2f3036'),
       accents: [read('--sf-primary-80', '#acc7ff'), read('--sf-secondary-80', '#bec6dc'), read('--sf-tertiary-80', '#ddbce0')]}
     : {ground: read('--sf-neutral-5', '#111318'), paper: read('--sf-neutral-20', '#2f3036'), back: read('--sf-neutral-10', '#1a1b20'),
-      edge: read('--sf-neutral-30', '#45464e'), ink: read('--sf-neutral-50', '#76777f'), shade: read('--sf-neutral-0', '#000000'),
+      edge: read('--sf-neutral-30', '#45464e'), lit: read('--sf-neutral-40', '#5d5e66'), ink: read('--sf-neutral-50', '#76777f'), shade: read('--sf-neutral-0', '#000000'),
       accents: [read('--sf-primary-40', '#005bbe'), read('--sf-secondary-40', '#565e71'), read('--sf-tertiary-40', '#705575')]},
   setup(env) {
     const {h} = env;
@@ -85,6 +82,7 @@ const SCENE = {
       p.vy += (dy / d) * f * 420 * s - f * 320 * s;
       p.turn += (random() < 0.5 ? -1 : 1) * f * (5 + random() * 5);
       p.vr += (random() - 0.5) * f * 5;
+      p.b += p.flex * f * 0.35 * (random() < 0.5 ? -1 : 1);
       p.age = Math.min(p.age, 0.2);
     }
     state.gusts.push({x, y, r: 0, a: 1});
@@ -121,11 +119,15 @@ const SCENE = {
       p.age += st;
       // Paper in air: gravity, a drag that rises as the sheet turns flat, and a swing like a leaf.
       p.turn += (p.turn0 - p.turn) * Math.min(1, st * 0.9);
-      p.flip += p.turn * st;
-      const flat = Math.abs(Math.cos(p.flip));
       p.phase += p.swing * st;
+      // A small sheet tumbles; a big one glides, tilted, rocking with each swing.
+      const spin = Math.abs(p.turn) - Math.abs(p.turn0);
+      p.flip += p.turn * st * (1 - p.flex * 0.9 * clamp(1 - spin / 3, 0, 1));
+      const glide = p.gbase + p.gdir * (0.95 + 0.4 * Math.sin(p.phase)), off = Math.atan2(Math.sin(glide - p.flip), Math.cos(glide - p.flip));
+      p.flip += off * Math.min(1, st * 2.4) * p.flex;
+      const flat = Math.abs(Math.cos(p.flip));
       const drag = (1.1 + flat * 2.4) * Math.min(1, 0.03 + p.age * 0.7);
-      p.vx += (Math.sin(p.phase) * p.reach * s - p.vx) * Math.min(1, drag * st * 0.45);
+      p.vx += (Math.sin(p.phase) * p.reach * (1 + p.flex) * s - p.vx) * Math.min(1, drag * st * 0.45);
       p.vy += 360 * s * st;
       p.vx *= Math.exp(-drag * st * 0.5);
       p.vy *= Math.exp(-drag * st);
@@ -137,9 +139,16 @@ const SCENE = {
           p.vx += ((dx / d) * 260 * s + mvx * 0.9) * f * dt;
           p.vy += ((dy / d) * 200 * s + mvy * 0.7) * f * dt;
           p.turn += Math.sign(dx || 1) * f * dt * 4;
+          p.b += p.flex * f * dt * 3 * Math.sign(dx || 1);
         }
       }
       p.vr *= Math.exp(-st * 0.8);
+      // The bend: air presses the middle back while the edges lag, more with speed; the bow
+      // follows the swing and flips at each turn. A wave runs to the trailing edge.
+      const speed = Math.hypot(p.vx, p.vy) / s;
+      const want = p.flex * clamp(0.2 * Math.sin(p.phase + 0.7) - p.cup * Math.min(0.32, speed * 0.0013), -0.5, 0.5);
+      p.b += (want - p.b) * Math.min(1, st * 4);
+      p.wave += st * (4 + speed * 0.02);
       // The sheet leans into its swing, as a falling sheet does.
       p.roll += (p.lean + p.vx * 0.0045 / s - p.roll) * Math.min(1, st * 2.2) + p.vr * st;
       p.x += p.vx * st; p.y += p.vy * st;
@@ -185,49 +194,76 @@ function sheet(env, random, x, y, vx, vy) {
   const rows = [];
   for (let i = 0, n = 6 + Math.floor(random() * 5); i < n; i += 1) rows.push(i % 4 === 3 ? 0 : 0.45 + random() * 0.55);
   const turn0 = (random() < 0.5 ? -1 : 1) * (0.5 + random() * 1.3);
+  // Stiffness falls with size: small sheets stay flat, big ones bend.
+  const flex = clamp((wd / s - 32) / 58, 0, 1) ** 1.2;
   return {x, y, vx, vy, z, wd, ht: wd * 1.414, rows, axis: random() < 0.6 ? 1 : 0, flip: random() * 6.28, turn0, turn: turn0 * (2.2 + random() * 1.5),
     roll: (random() - 0.5) * 1.2, lean: (random() - 0.5) * 0.6, vr: (random() - 0.5) * 2, phase: random() * 6.28, swing: 1 + random() * 1.1,
-    reach: 30 + random() * 40, fall: (32 + random() * 20) * s, tint: random() < 0.4 ? 1 + Math.floor(random() * 3) : 0, age: 0};
+    reach: 30 + random() * 40, fall: (32 + random() * 20) * s, tint: random() < 0.4 ? 1 + Math.floor(random() * 3) : 0, age: 0,
+    flex, b: 0, cup: random() < 0.5 ? -1 : 1, wave: random() * 6.28, gbase: random() < 0.5 ? 0 : Math.PI, gdir: random() < 0.5 ? -1 : 1};
 }
-// One sheet: a soft shadow, the paper (lit face or plain back), and on the face a header bar and
-// grey lines of text. Far sheets sink into the ground colour.
+// One sheet as a bent surface: a point (u, v) lifts off the plane by the bend curve across one
+// axis; the turn about the other axis foreshortens it by cos and shows the lift by sin. Edges, bar
+// and lines follow the curve; strips are shaded by their slope. Far sheets sink into the ground.
 function paint(env, p, k) {
   const {ctx, tones, scheme} = env;
   const light = scheme === 'light';
-  const c = Math.cos(p.flip), fore = Math.max(0.06, Math.abs(c)), face = c >= 0;
+  const c = Math.cos(p.flip), sn = Math.sin(p.flip), face = c >= 0;
   const fade = (1 - p.z) * (light ? 0.55 : 0.35);
-  const w = p.wd, h = p.ht;
+  const w = p.wd, h = p.ht, ax = p.axis, len = ax ? w : h, dir = p.vx >= 0 ? 1 : -1;
+  // The lift at a cross position q in [-1, 1]: a bow, and a small wave growing to the trailing edge.
+  const lift = (q) => p.b * len * 0.5 * (q * q - 1 / 3) + p.flex * len * 0.035 * Math.sin(3 * q - p.wave) * ((1 - q * dir) / 2) ** 2;
+  const at = (u, v) => ax ? [u, v * c + lift(u / (w / 2)) * sn] : [u * c + lift(v / (h / 2)) * sn, v];
+  const n = p.flex > 0.04 ? 8 : 1;
+  const outline = new Path2D();
+  const edge = (u0, v0, u1, v1, m) => { for (let i = 0; i < m; i += 1) { outline.lineTo(...at(u0 + (u1 - u0) * i / m, v0 + (v1 - v0) * i / m)); } };
+  const mu = ax ? n : 1, mv = ax ? 1 : n;
+  edge(-w / 2, -h / 2, w / 2, -h / 2, mu); edge(w / 2, -h / 2, w / 2, h / 2, mv); edge(w / 2, h / 2, -w / 2, h / 2, mu); edge(-w / 2, h / 2, -w / 2, -h / 2, mv);
+  outline.closePath();
+  const fore = Math.max(0.06, Math.abs(c));
   ctx.save();
   // Over the text zone on the left a sheet is only a faint trace.
   ctx.globalAlpha = 0.3 + 0.7 * smooth(clamp((p.x / env.w - 0.12) / 0.38, 0, 1));
   ctx.translate(p.x, p.y);
   ctx.rotate(p.roll);
-  // The shadow falls down and right, a little softer and larger for near sheets.
+  // The shadow falls down and right.
   const off = (2 + p.z * 5) * (0.4 + 0.6 * fore);
   ctx.fillStyle = rgba(tones.shade, (light ? 0.05 : 0.22) * (0.4 + 0.6 * p.z) * k);
-  if (p.axis) { ctx.scale(1, fore); } else ctx.scale(fore, 1);
-  ctx.beginPath(); ctx.roundRect(-w / 2 + off * 0.5, -h / 2 + off, w + off * 0.6, h + off * 0.6, 3); ctx.fill();
-  ctx.beginPath(); ctx.roundRect(-w / 2 + off * 0.3, -h / 2 + off * 0.5, w, h, 2); ctx.fill();
+  ctx.translate(off * 0.5, off); ctx.fill(outline); ctx.translate(-off * 0.25, -off * 0.5); ctx.fill(outline); ctx.translate(-off * 0.25, -off * 0.5);
   // Edge-on, the paper catches less light.
   const tone = mixc(tones.paper, tones.back, (face ? 0 : 0.45) + (1 - fore) * 0.35);
   ctx.fillStyle = rgba(mixc(tone, tones.ground, fade));
-  ctx.beginPath(); ctx.roundRect(-w / 2, -h / 2, w, h, 1.5); ctx.fill();
+  ctx.fill(outline);
+  // Strips across the bend: the slope facing the light is lighter, the fold darker.
+  if (n > 1) for (let i = 0; i < n; i += 1) {
+    const q0 = -1 + 2 * i / n, q1 = q0 + 2 / n, slope = (lift(q1) - lift(q0)) / (len / n) * sn * (ax ? 1 : -1);
+    const a = clamp(Math.abs(slope) * 0.3, 0, 0.1) * (0.5 + 0.5 * k);
+    if (a < 0.01) continue;
+    const corner = ax ? [at(q0 * w / 2, -h / 2), at(q1 * w / 2, -h / 2), at(q1 * w / 2, h / 2), at(q0 * w / 2, h / 2)] : [at(-w / 2, q0 * h / 2), at(w / 2, q0 * h / 2), at(w / 2, q1 * h / 2), at(-w / 2, q1 * h / 2)];
+    ctx.fillStyle = rgba(slope > 0 ? tones.shade : tones.lit, slope > 0 ? a * (light ? 0.5 : 1) : a * (light ? 1 : 0.5));
+    ctx.beginPath(); corner.forEach(([x, y], j) => ctx[j ? 'lineTo' : 'moveTo'](x, y)); ctx.fill();
+  }
   ctx.strokeStyle = rgba(mixc(tones.edge, tones.ground, fade), (light ? 0.75 : 0.6) * (0.5 + 0.5 * k));
   ctx.lineWidth = 0.8;
-  ctx.stroke();
+  ctx.stroke(outline);
   if (face && fore > 0.18) {
-    const pad = w * 0.12, bar = h * 0.065, a = (0.35 + 0.55 * k) * (0.45 + 0.55 * p.z);
-    ctx.fillStyle = rgba(p.tint ? tones.accents[p.tint - 1] : tones.edge, a * (p.tint ? (light ? 0.75 : 0.85) : 0.8));
-    ctx.fillRect(-w / 2 + pad, -h / 2 + pad, (w - pad * 2) * 0.62, bar);
+    // The header bar and the lines are curves on the bent surface.
+    const pad = w * 0.12, bar = h * 0.065, a = (0.35 + 0.55 * k) * (0.45 + 0.55 * p.z), steps = ax ? Math.max(1, n / 2) : 1;
+    const line = (v, r, width) => {
+      ctx.lineWidth = Math.max(0.8, width * (ax ? fore : 1)); ctx.beginPath();
+      for (let i = 0; i <= steps; i += 1) { const [x, y] = at(-w / 2 + pad + (w - pad * 2) * r * i / steps, v); ctx[i ? 'lineTo' : 'moveTo'](x, y); }
+      ctx.stroke();
+    };
+    ctx.lineCap = 'butt';
+    ctx.strokeStyle = rgba(p.tint ? tones.accents[p.tint - 1] : tones.edge, a * (p.tint ? (light ? 0.75 : 0.85) : 0.8));
+    line(-h / 2 + pad + bar / 2, 0.62, bar);
     if (w > 16) {
-      ctx.fillStyle = rgba(tones.ink, a * (light ? 0.55 : 0.6));
+      ctx.strokeStyle = rgba(tones.ink, a * (light ? 0.55 : 0.6));
       const lh = h * 0.022, gap = (h - pad * 2 - bar * 2) / (p.rows.length + 0.5);
-      p.rows.forEach((r, i) => { if (r) ctx.fillRect(-w / 2 + pad, -h / 2 + pad + bar * 2 + gap * i, (w - pad * 2) * r, Math.max(0.8, lh)); });
+      p.rows.forEach((r, i) => { if (r) line(-h / 2 + pad + bar * 2 + gap * i + lh / 2, r, lh); });
     }
   }
   ctx.restore();
 }
-
 function mountScene(host, settings, context = {}) {
   const doc = host.ownerDocument;
   const win = doc.defaultView;
