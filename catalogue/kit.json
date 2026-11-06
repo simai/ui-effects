@@ -220,6 +220,30 @@
       "passed": 17,
       "total": 17,
       "failed": []
+    },
+    "stacked-areas": {
+      "digest": "573aa1f2e4e347a64ef9d4f11dbe0afea215e09212b774d8977498eeef0cc5dc",
+      "passed": 17,
+      "total": 17,
+      "failed": []
+    },
+    "heat-mosaic": {
+      "digest": "3b9743da459df1f5c61d5085613b56788256d5996a126252d2e9b903f35048e9",
+      "passed": 17,
+      "total": 17,
+      "failed": []
+    },
+    "sankey-flows": {
+      "digest": "fc4ee5da4ce131fd770fe3eb0f4a1db5539b3df1b6fc70558b419ae4f0f27007",
+      "passed": 17,
+      "total": 17,
+      "failed": []
+    },
+    "candle-ticker": {
+      "digest": "b29a2f4799f93853111219170365780f4cdce8cbd50b383e3a8d4ed54ed652a7",
+      "passed": 17,
+      "total": 17,
+      "failed": []
     }
   }
 }

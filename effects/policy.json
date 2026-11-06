@@ -1068,6 +1068,129 @@
         "chart",
         "grid"
       ]
+    },
+    {
+      "id": "stacked-areas",
+      "categories": [
+        "tech",
+        "abstract"
+      ],
+      "description": {
+        "ru": "Несколько полупрозрачных волнистых слоёв лежат друг на друге, как график с накоплением, и медленно перетекают.",
+        "en": "Several translucent wavy layers rest on one another like a stacked area chart and slowly shift.",
+        "es": "Varias capas onduladas y translúcidas descansan unas sobre otras como un gráfico de áreas apiladas y se desplazan despacio.",
+        "pt-BR": "Várias camadas onduladas e translúcidas repousam umas sobre as outras como um gráfico de áreas empilhadas e se movem devagar.",
+        "de": "Mehrere durchscheinende, wellige Ebenen liegen wie ein gestapeltes Flächendiagramm aufeinander und verschieben sich langsam.",
+        "zh-CN": "几层半透明的波浪层像堆叠面积图一样叠在一起，缓缓流动。",
+        "fr": "Plusieurs couches ondulées et translucides reposent les unes sur les autres comme un graphique en aires empilées et glissent lentement.",
+        "ja": "半透明の波打つ層が積み上げ面グラフのように重なり、ゆっくりと形を変えます。"
+      },
+      "role": {
+        "ru": "Спокойный фон для данных и отчётов: слои лежат внизу, текст сверху читается легко. Хорошо выглядит в обеих схемах.",
+        "en": "A calm background for data and reports: the layers lie low, text above them reads easily. Works in both schemes.",
+        "es": "Un fondo tranquilo para datos e informes: las capas quedan abajo y el texto encima se lee con facilidad. Funciona en ambos esquemas.",
+        "pt-BR": "Um fundo calmo para dados e relatórios: as camadas ficam embaixo e o texto acima se lê com facilidade. Funciona nos dois esquemas.",
+        "de": "Ein ruhiger Hintergrund für Daten und Berichte: Die Ebenen liegen unten, Text darüber liest sich leicht. Wirkt in beiden Designs.",
+        "zh-CN": "适合数据与报表的安静背景：层位于下方，上方文字易于阅读。两种方案都适用。",
+        "fr": "Un fond calme pour les données et les rapports : les couches restent en bas, le texte au-dessus se lit facilement. Fonctionne dans les deux thèmes.",
+        "ja": "データやレポート向けの落ち着いた背景。層は下側にあり、上の文字が読みやすいままです。両方のスキームに合います。"
+      },
+      "tags": [
+        "chart",
+        "layers"
+      ]
+    },
+    {
+      "id": "heat-mosaic",
+      "categories": [
+        "tech",
+        "abstract"
+      ],
+      "description": {
+        "ru": "Сетка ячеек, по которой волной проходит смена оттенков ступенчатой шкалы, как у тепловой карты.",
+        "en": "A grid of cells where a wave of stepped shades passes, as on a heat map.",
+        "es": "Una cuadrícula de celdas por la que pasa una ola de tonos escalonados, como en un mapa de calor.",
+        "pt-BR": "Uma grade de células por onde passa uma onda de tons escalonados, como num mapa de calor.",
+        "de": "Ein Raster aus Zellen, über das eine Welle gestufter Farbtöne zieht, wie bei einer Heatmap.",
+        "zh-CN": "单元格网格上掠过一波分级色调，如同热力图。",
+        "fr": "Une grille de cellules que traverse une vague de nuances par paliers, comme sur une carte de chaleur.",
+        "ja": "セルのグリッドを段階的な色調の波が通り過ぎていく、ヒートマップのような背景です。"
+      },
+      "role": {
+        "ru": "Плитка данных для дашбордов и аналитики. Шкала строится из цвета темы, оттенки сдержанные, поэтому текст поверх читается в обеих схемах.",
+        "en": "A tile of data for dashboards and analytics. The scale is built from the theme colour and the shades stay restrained, so text reads in both schemes.",
+        "es": "Un mosaico de datos para paneles y analítica. La escala se construye con el color del tema y los tonos son contenidos, así que el texto se lee en ambos esquemas.",
+        "pt-BR": "Um mosaico de dados para painéis e análises. A escala nasce da cor do tema e os tons são contidos, então o texto se lê nos dois esquemas.",
+        "de": "Eine Datenkachel für Dashboards und Analysen. Die Skala entsteht aus der Designfarbe, die Töne bleiben zurückhaltend, so liest sich Text in beiden Designs.",
+        "zh-CN": "用于仪表板和分析的数据瓷砖。色阶来自主题色，色调克制，两种方案下文字都清晰可读。",
+        "fr": "Une mosaïque de données pour les tableaux de bord et l’analyse. L’échelle naît de la couleur du thème et les nuances restent sobres, le texte se lit donc dans les deux thèmes.",
+        "ja": "ダッシュボードや分析向けのデータタイル。目盛りはテーマカラーから作られ、色調は控えめなので、両方のスキームで文字が読めます。"
+      },
+      "tags": [
+        "chart",
+        "grid"
+      ]
+    },
+    {
+      "id": "sankey-flows",
+      "categories": [
+        "tech",
+        "abstract"
+      ],
+      "description": {
+        "ru": "Широкие мягкие ленты цветов палитры медленно текут слева направо, расходятся и сливаются, как на диаграмме Санки.",
+        "en": "Wide soft ribbons in the palette colours slowly flow from left to right, splitting and merging as on a Sankey diagram.",
+        "es": "Cintas anchas y suaves en los colores de la paleta fluyen despacio de izquierda a derecha, se separan y se unen como en un diagrama de Sankey.",
+        "pt-BR": "Faixas largas e suaves nas cores da paleta fluem devagar da esquerda para a direita, separando-se e unindo-se como num diagrama de Sankey.",
+        "de": "Breite, weiche Bänder in den Farben der Palette fließen langsam von links nach rechts, teilen sich und vereinen sich wie in einem Sankey-Diagramm.",
+        "zh-CN": "调色板色彩的宽柔丝带从左向右缓缓流动，分流又汇合，如同桑基图。",
+        "fr": "De larges rubans doux aux couleurs de la palette coulent lentement de gauche à droite, se séparent et se rejoignent comme sur un diagramme de Sankey.",
+        "ja": "パレットの色の幅広く柔らかなリボンが左から右へゆっくり流れ、サンキー図のように分かれては合流します。"
+      },
+      "role": {
+        "ru": "Фон о движении данных и ресурсов: бюджеты, трафик, процессы. Подходит и как просто спокойный цветной фон. Обе схемы.",
+        "en": "A background about data and resources in motion: budgets, traffic, processes. Also works simply as a calm colour background. Both schemes.",
+        "es": "Un fondo sobre datos y recursos en movimiento: presupuestos, tráfico, procesos. También sirve como fondo de color tranquilo. Ambos esquemas.",
+        "pt-BR": "Um fundo sobre dados e recursos em movimento: orçamentos, tráfego, processos. Também serve como um fundo colorido calmo. Os dois esquemas.",
+        "de": "Ein Hintergrund über Daten und Ressourcen in Bewegung: Budgets, Traffic, Prozesse. Taugt auch einfach als ruhiger Farbhintergrund. Beide Designs.",
+        "zh-CN": "关于数据与资源流动的背景：预算、流量、流程。也可作为安静的彩色背景。两种方案。",
+        "fr": "Un fond sur les données et les ressources en mouvement : budgets, trafic, processus. Convient aussi comme simple fond coloré et calme. Les deux thèmes.",
+        "ja": "予算、トラフィック、プロセスなど、データや資源の流れを表す背景。落ち着いたカラー背景としても使えます。両方のスキーム。"
+      },
+      "tags": [
+        "chart",
+        "ribbons"
+      ]
+    },
+    {
+      "id": "candle-ticker",
+      "categories": [
+        "tech"
+      ],
+      "description": {
+        "ru": "Еле видные биржевые свечи со скользящей средней медленно уезжают влево, новые появляются справа.",
+        "en": "Faint market candles with a moving average slowly drift to the left as new ones appear on the right.",
+        "es": "Velas bursátiles tenues con una media móvil se desplazan despacio a la izquierda mientras aparecen nuevas a la derecha.",
+        "pt-BR": "Velas de mercado discretas com uma média móvel deslizam devagar para a esquerda enquanto novas surgem à direita.",
+        "de": "Zarte Börsenkerzen mit gleitendem Durchschnitt wandern langsam nach links, während rechts neue erscheinen.",
+        "zh-CN": "淡淡的K线和移动平均线缓缓向左移动，新的K线从右侧出现。",
+        "fr": "De discrets chandeliers boursiers avec une moyenne mobile glissent lentement vers la gauche tandis que de nouveaux apparaissent à droite.",
+        "ja": "移動平均線を伴うかすかなローソク足がゆっくり左へ流れ、右から新しい足が現れます。"
+      },
+      "role": {
+        "ru": "Фон для финансов, торговли и биржевых данных. Свечи тонкие и бледные, текст поверх читается в обеих схемах.",
+        "en": "A background for finance, trading and market data. The candles are thin and pale, so text reads in both schemes.",
+        "es": "Un fondo para finanzas, trading y datos de mercado. Las velas son finas y pálidas, así que el texto se lee en ambos esquemas.",
+        "pt-BR": "Um fundo para finanças, negociação e dados de mercado. As velas são finas e pálidas, então o texto se lê nos dois esquemas.",
+        "de": "Ein Hintergrund für Finanzen, Handel und Marktdaten. Die Kerzen sind dünn und blass, so liest sich Text in beiden Designs.",
+        "zh-CN": "适合金融、交易和行情数据的背景。K线细而淡，两种方案下文字都清晰可读。",
+        "fr": "Un fond pour la finance, le trading et les données de marché. Les chandeliers sont fins et pâles, le texte se lit donc dans les deux thèmes.",
+        "ja": "金融、トレード、相場データ向けの背景。ローソク足は細く淡いので、両方のスキームで文字が読めます。"
+      },
+      "tags": [
+        "chart",
+        "finance"
+      ]
     }
   ]
 }
