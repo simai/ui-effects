@@ -246,19 +246,19 @@
       "failed": []
     },
     "text-search": {
-      "digest": "30af5dc2450c26b6444849b25119d8addbb5c1a2c91299032967c039fbca3348",
+      "digest": "cbecbda8e83e1d17766b6c71ebf02a717d96eb8cd7dada2a6adbbe5ade79704e",
       "passed": 17,
       "total": 17,
       "failed": []
     },
     "cross-links": {
-      "digest": "38477d9983f0077d54ba00e92747b293da605cd82505e1167770873f2c346e03",
+      "digest": "ce5b9c7dd72783d6009d399394ad222c1c63c56f39fcba11ffe5f1620b1bd703",
       "passed": 17,
       "total": 17,
       "failed": []
     },
     "paper-flurry": {
-      "digest": "9de63fcbdd9daa350843832e021cf8c01bf8eba4563a0665dc3045e8a53923d9",
+      "digest": "33ed637b59179698ec2e2d95618ae11dd477503dbe9984b4ce7056929d190e99",
       "passed": 17,
       "total": 17,
       "failed": []

@@ -1,6 +1,6 @@
 # Text search (`text-search`)
 
-Faint pages of grey word bars, one to four side by side, drift slowly upward while soft search markers sweep onto words one after another, like the results of a query being found; now and then every word of one length lights up together.
+Faint pages of grey word bars, one to three side by side, drift slowly upward while soft search markers sweep onto words one after another, like the results of a query being found; now and then every word of one length lights up together.
 
 - **Russian name:** Поиск
 - **Version:** 0.2.0, simai.effect 1.4.0
@@ -15,7 +15,7 @@ Faint pages of grey word bars, one to four side by side, drift slowly upward whi
 | `speed` | integer | 10–300 % | `100` | Speed |
 | `intensity` | integer | 10–100 % | `70` | Intensity of the drawing |
 | `density` | integer | 10–100 % | `50` | Density: line spacing and word size |
-| `columns` | integer | 1–4 | `2` | Columns: how many pages of text stand side by side. Narrow areas show fewer, so each page keeps at least 260 px of text; a single page takes a reading measure right of centre |
+| `columns` | integer | 1–3 | `2` | Columns: how many pages of text stand side by side across the full width. Narrow areas show fewer, so each page keeps at least 180 px of text (three fit from about 720 px) |
 | `hits` | integer | 1–10 | `4` | Hits: how many highlights are lit at once |
 | `palette` | choice | `theme`, `turquoise`, `ocean`, `violet`, `rose`, `emerald`, `sunset`, `gold`, `silver`, `custom` | `"theme"` | Palette. `theme` follows the theme colour; the others stay as they are |
 | `colour` | color | hex | `"#3b82f6"` | Colour, read only while `palette` is `custom`: the effect builds every tone from it |

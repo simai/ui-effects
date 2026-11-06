@@ -1,5 +1,5 @@
 // Text search (simai.effect 1.1.0; schemes light and dark): faint pages of grey word bars, one to
-// four side by side (the columns setting), drift slowly upward while soft search markers sweep onto
+// three side by side (the columns setting), drift slowly upward while soft search markers sweep onto
 // words one after another, like the results of a query being found; now and then every word of one
 // length lights up together.
 //
@@ -112,15 +112,15 @@ const SCENE = {
     const d = (clamp(Math.round(env.values.density ?? 50), 10, 100) - 10) / 90;
     const lh = mix(32, 15, d);
     // Columns are pages of one document: every gutter, between sheets and at the edges, is the same
-    // width, and a page keeps at least 260 px of text, so narrow areas show fewer.
+    // width, and a page keeps at least 180 px of text (three fit from about 720 px), so narrower
+    // areas show fewer.
     const gut = clamp(w * 0.028, 16, 40), pad = clamp(w * 0.016, 12, 26);
     const gap = gut + pad * 2, inner = w - gut * 2 - pad * 2;
-    const fit = Math.max(1, Math.floor((inner + gap) / (260 + gap)));
-    const cols = Math.min(clamp(Math.round(env.values.columns ?? 2), 1, 4), fit);
-    // One page takes a comfortable reading measure right of centre, clear of the heading area (on a
-    // narrow area it takes the full width); more pages share the full width.
-    const colW = cols === 1 ? (inner < 560 ? inner : Math.max(260, Math.min(640, w * 0.42))) : (inner - gap * (cols - 1)) / cols;
-    const margin = gut + pad + (cols === 1 ? (inner - colW) * 0.78 : 0);
+    const fit = Math.max(1, Math.floor((inner + gap) / (180 + gap)));
+    const cols = Math.min(clamp(Math.round(env.values.columns ?? 2), 1, 3), fit);
+    // The pages share the full width; one page spans it all.
+    const colW = (inner - gap * (cols - 1)) / cols;
+    const margin = gut + pad;
     return {lh, wh: lh * 0.36, cw: lh * 0.27, cols, margin, gap, pad, colW, top: lh, cache: new Map(), flash: null, now: 0, offset: 0};
   },
   // Where a word stands on screen now, or null if its line is off the page.
@@ -295,7 +295,7 @@ function mountScene(host, settings, context = {}) {
   host.append(canvas);
   const ctx = canvas.getContext('2d', {alpha: false});
   const motion = win.matchMedia?.('(prefers-reduced-motion: reduce)');
-  const env = {ctx, w: 1, h: 1, values: {...settings}, scheme: context.scheme ?? SCENE.home, tones: null, state: null, pointer: {x: 0.5, y: 0.5, on: false, down: false, px: 0, py: 0}, still: false};
+  const env = {ctx, w: 1, h: 1, values: {...settings}, scheme: context.scheme ?? SCENE.home, tones: null, state: null, pointer: {x: 0.5, y: 0.5, on: false, down: false, px: 0, py: 0}, still: false, rtl: false};
   env.tones = readTones(host, env.scheme);
   env.still = Boolean(context.reducedMotion) || Boolean(motion?.matches);
   // A scene marked fresh lays a new pattern on every mount while it moves; a still frame keeps the
@@ -328,11 +328,13 @@ function mountScene(host, settings, context = {}) {
   const resize = () => {
     const box = host.getBoundingClientRect();
     const ratio = Math.min(2, win.devicePixelRatio || 1);
+    // Right-to-left pages mirror the whole picture: the scene draws left to right, the canvas flips.
+    env.rtl = win.getComputedStyle(host).direction === 'rtl';
     env.w = Math.max(1, box.width);
     env.h = Math.max(1, box.height);
     canvas.width = Math.round(env.w * ratio);
     canvas.height = Math.round(env.h * ratio);
-    ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+    ctx.setTransform(env.rtl ? -ratio : ratio, 0, 0, ratio, env.rtl ? canvas.width : 0, 0);
     setup();
     draw();
   };
@@ -348,6 +350,7 @@ function mountScene(host, settings, context = {}) {
   const onPointer = (event) => {
     const box = host.getBoundingClientRect();
     env.pointer.x = (event.clientX - box.left) / Math.max(1, box.width);
+    if (env.rtl) env.pointer.x = 1 - env.pointer.x;
     env.pointer.y = (event.clientY - box.top) / Math.max(1, box.height);
     env.pointer.on = env.values.interactive !== false && env.pointer.x >= 0 && env.pointer.x <= 1 && env.pointer.y >= 0 && env.pointer.y <= 1;
   };
@@ -359,7 +362,7 @@ function mountScene(host, settings, context = {}) {
     if (env.values.interactive === false || env.still || paused) return null;
     if (event.target instanceof Element && event.target.closest('a,button,input,textarea,select,label,[role="button"],[contenteditable]')) return null;
     const box = host.getBoundingClientRect();
-    const x = event.clientX - box.left, y = event.clientY - box.top;
+    const x = env.rtl ? box.right - event.clientX : event.clientX - box.left, y = event.clientY - box.top;
     return x >= 0 && y >= 0 && x <= box.width && y <= box.height ? [x, y] : null;
   };
   const onDown = (event) => {
@@ -376,7 +379,7 @@ function mountScene(host, settings, context = {}) {
   const onUp = (event) => {
     if (!pressed) return;
     const box = host.getBoundingClientRect();
-    const x = event.clientX - box.left, y = event.clientY - box.top;
+    const x = env.rtl ? box.right - event.clientX : event.clientX - box.left, y = event.clientY - box.top;
     env.pointer.down = false;
     SCENE.release?.(env, x, y);
     if (Math.hypot(x - pressed.x, y - pressed.y) < 6 && event.timeStamp - pressed.time < 400) SCENE.click?.(env, x, y);

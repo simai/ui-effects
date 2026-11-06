@@ -1,9 +1,9 @@
-// Paper flurry (simai.effect 1.1.0; schemes light and dark): a heap of document sheets is tossed up
-// from below, the sheets flutter and swing down like falling leaves of paper; a press scatters them.
+// Paper flurry (simai.effect 1.1.0; schemes light and dark): document sheets fall from above and
+// swing down like falling leaves of paper; a press tosses a heap of sheets up and scatters the rest.
 //
 // The lifecycle is the catalogue template's: one canvas in the host, devicePixelRatio capped at 2,
-// a seeded scene (the still frame is the same on every mount; while it moves, every mount tosses a
-// new heap), one still frame for reduced motion, no frames while the tab is hidden or the area is
+// a seeded scene (the still frame is the same on every mount; while it moves, every mount lays new
+// sheets), one still frame for reduced motion, no frames while the tab is hidden or the area is
 // off screen, and nothing left behind. Colours are palette tones of the theme, read through a probe
 // so var() chains settle.
 
@@ -48,13 +48,13 @@ function readTones(host, scheme) {
 }
 
 
-// A flurry of paper: a heap of document sheets is tossed up from below, mostly on the right and
-// centre-right so the text on the left stays clear. The sheets slow at the top, turn over and swing
-// down like falling leaves of paper, and drift out at the bottom; a new toss comes every few
-// seconds. Depth sets size, paleness and pace: far sheets are small, pale and slow. A turning sheet
+// A flurry of paper: document sheets fall from above the top edge, mostly over the centre-right and
+// right so the text on the left stays clear (the few that cross it are faint). They turn over,
+// swing down like falling leaves of paper and drift out at the bottom, endlessly and calmly.
+// Depth sets size, paleness and pace: far sheets are small, pale and slow. A turning sheet
 // is foreshortened along one axis only (its width or height times the cosine of the turn), then
 // rotated in the plane: no perspective and no skew. The pointer blows near sheets aside; a press
-// is a gust that scatters them outwards and up, spinning, and tosses a few new sheets from there.
+// is a gust that scatters them outwards and up, spinning, and tosses a heap of new sheets up from there.
 const SCENE = {
   home: 'light', seed: 613, reseed: ['amount', 'size'], fresh: true,
   tones: (read, scheme) => scheme === 'light'
@@ -65,22 +65,11 @@ const SCENE = {
       edge: read('--sf-neutral-30', '#45464e'), ink: read('--sf-neutral-50', '#76777f'), shade: read('--sf-neutral-0', '#000000'),
       accents: [read('--sf-primary-40', '#005bbe'), read('--sf-secondary-40', '#565e71'), read('--sf-tertiary-40', '#705575')]},
   setup(env) {
-    const {w, h} = env;
+    const {h} = env;
     const random = rng(SCENE.seed + env.salt);
-    const s = unit(env);
-    // Three launch places for this mount, weighted to the right; a fourth, rarer one in the middle.
-    const sites = [0.56 + random() * 0.08, 0.7 + random() * 0.08, 0.84 + random() * 0.1, 0.36 + random() * 0.1];
-    const state = {sheets: [], random, sites, last: null, next: 0.6 + random() * 1.2, prev: null, gusts: []};
-    // The first frame (and the still one) already has sheets in the air, falling, at every height.
-    const n = Math.round(count(env) * 1.6);
-    for (let i = 0; i < n; i += 1) {
-      const p = sheet(env, random, w * site(state, random), h * (0.04 + random() * 0.92), 0, 0);
-      p.vy = p.fall * (0.6 + random() * 0.4); p.vx = (random() - 0.5) * 40 * s; p.age = 3; p.turn = p.turn0;
-      state.sheets.push(p);
-    }
-    // One toss caught on its way up, so the still frame shows the heap opening as well.
-    toss(env, state, w * sites[1], h + 20 * s, Math.round(count(env) * 0.6), 0.55);
-    for (const p of state.sheets) if (p.age === 0) { p.age = 0.55; p.x += p.vx * 0.5; p.y += p.vy * 0.5; p.vy *= 0.45; p.vx *= 0.6; }
+    const state = {sheets: [], random, last: null, rain: 0, prev: null, gusts: []};
+    // The first frame (and the still one) already has sheets falling at every height.
+    for (let i = 0, n = count(env); i < n; i += 1) state.sheets.push(falling(env, random, -0.08 * h + random() * h * 1.05));
     state.sheets.sort((a, b) => a.z - b.z);
     return state;
   },
@@ -99,8 +88,8 @@ const SCENE = {
       p.age = Math.min(p.age, 0.2);
     }
     state.gusts.push({x, y, r: 0, a: 1});
-    // A small new toss from the point itself.
-    toss(env, state, x, y, 4 + Math.round(env.values.amount / 25), 0.75);
+    // The toss: a heap of sheets is thrown up from the point in a fan, spinning fast.
+    toss(env, state, x, y, 6 + Math.round(env.values.amount / 10), 0.85);
   },
   draw(env, t) {
     const {ctx, w, h, tones, state, values, pointer, scheme} = env;
@@ -114,14 +103,9 @@ const SCENE = {
     ctx.fillStyle = g;
     ctx.fillRect(0, 0, w, h);
     const random = state.random;
-    // The next toss: a heap from one of the launch places, every few seconds.
-    if (dt > 0) {
-      state.next -= dt;
-      if (state.next <= 0) {
-        toss(env, state, w * site(state, random), h + 20 * s, count(env), 1);
-        state.next = 3.2 + random() * 2.2;
-      }
-    }
+    // New sheets enter from above the top edge, at the pace that keeps the count steady.
+    state.rain += count(env) * 46 * s / (h + 120 * s) * dt;
+    for (; state.rain >= 1; state.rain -= 1) { const p = falling(env, random, 0); p.y = -p.ht * 0.8 - random() * 30 * s; state.sheets.push(p); state.sheets.sort((a, b) => a.z - b.z); }
     // The pointer is a soft breath of air: near sheets drift away from it and along its motion.
     let px = 0, py = 0, mvx = 0, mvy = 0, air = false;
     if (pointer.on && dt > 0) {
@@ -177,9 +161,15 @@ const SCENE = {
 };
 // Lengths scale with the area's height, within limits.
 function unit(env) { return clamp(env.h / 600, 0.6, 1.5); }
-// Sheets in one toss: the amount setting, and a little more on a wide area.
-function count(env) { return Math.max(2, Math.round((3 + env.values.amount / 100 * 12) * clamp(env.w / 1440, 0.5, 1.4))); }
-function site(state, random) { const r = random(); return state.sites[r < 0.3 ? 0 : r < 0.6 ? 1 : r < 0.9 ? 2 : 3] + (random() - 0.5) * 0.06; }
+// Sheets in the air: the amount setting, and a little more on a wide area.
+function count(env) { return Math.max(3, Math.round((6 + env.values.amount / 100 * 34) * clamp(env.w / 1440, 0.5, 1.4))); }
+// A sheet already falling at height y: most enter over the centre-right and right, a few anywhere.
+function falling(env, random, y) {
+  const s = unit(env), x = env.w * (random() < 0.8 ? 0.5 + random() * 0.52 : random());
+  const p = sheet(env, random, x, y, (random() - 0.5) * 40 * s, 0);
+  p.vy = p.fall * (0.6 + random() * 0.4); p.age = 3; p.turn = p.turn0;
+  return p;
+}
 function toss(env, state, x, y, n, power) {
   const random = state.random, s = unit(env);
   for (let i = 0; i < n; i += 1) {
@@ -208,6 +198,8 @@ function paint(env, p, k) {
   const fade = (1 - p.z) * (light ? 0.55 : 0.35);
   const w = p.wd, h = p.ht;
   ctx.save();
+  // Over the text zone on the left a sheet is only a faint trace.
+  ctx.globalAlpha = 0.3 + 0.7 * smooth(clamp((p.x / env.w - 0.12) / 0.38, 0, 1));
   ctx.translate(p.x, p.y);
   ctx.rotate(p.roll);
   // The shadow falls down and right, a little softer and larger for near sheets.
@@ -245,7 +237,7 @@ function mountScene(host, settings, context = {}) {
   host.append(canvas);
   const ctx = canvas.getContext('2d', {alpha: false});
   const motion = win.matchMedia?.('(prefers-reduced-motion: reduce)');
-  const env = {ctx, w: 1, h: 1, values: {...settings}, scheme: context.scheme ?? SCENE.home, tones: null, state: null, pointer: {x: 0.5, y: 0.5, on: false, down: false, px: 0, py: 0}, still: false};
+  const env = {ctx, w: 1, h: 1, values: {...settings}, scheme: context.scheme ?? SCENE.home, tones: null, state: null, pointer: {x: 0.5, y: 0.5, on: false, down: false, px: 0, py: 0}, still: false, rtl: false};
   env.tones = readTones(host, env.scheme);
   env.still = Boolean(context.reducedMotion) || Boolean(motion?.matches);
   // A scene marked fresh lays a new pattern on every mount while it moves; a still frame keeps the
@@ -282,7 +274,8 @@ function mountScene(host, settings, context = {}) {
     env.h = Math.max(1, box.height);
     canvas.width = Math.round(env.w * ratio);
     canvas.height = Math.round(env.h * ratio);
-    ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+    env.rtl = win.getComputedStyle(host).direction === 'rtl';
+    ctx.setTransform(env.rtl ? -ratio : ratio, 0, 0, ratio, env.rtl ? canvas.width : 0, 0);
     setup();
     draw();
   };
@@ -298,6 +291,7 @@ function mountScene(host, settings, context = {}) {
   const onPointer = (event) => {
     const box = host.getBoundingClientRect();
     env.pointer.x = (event.clientX - box.left) / Math.max(1, box.width);
+    if (env.rtl) env.pointer.x = 1 - env.pointer.x;
     env.pointer.y = (event.clientY - box.top) / Math.max(1, box.height);
     env.pointer.on = env.values.interactive !== false && env.pointer.x >= 0 && env.pointer.x <= 1 && env.pointer.y >= 0 && env.pointer.y <= 1;
   };
@@ -309,7 +303,7 @@ function mountScene(host, settings, context = {}) {
     if (env.values.interactive === false || env.still || paused) return null;
     if (event.target instanceof Element && event.target.closest('a,button,input,textarea,select,label,[role="button"],[contenteditable]')) return null;
     const box = host.getBoundingClientRect();
-    const x = event.clientX - box.left, y = event.clientY - box.top;
+    const x = env.rtl ? box.right - event.clientX : event.clientX - box.left, y = event.clientY - box.top;
     return x >= 0 && y >= 0 && x <= box.width && y <= box.height ? [x, y] : null;
   };
   const onDown = (event) => {
@@ -326,7 +320,7 @@ function mountScene(host, settings, context = {}) {
   const onUp = (event) => {
     if (!pressed) return;
     const box = host.getBoundingClientRect();
-    const x = event.clientX - box.left, y = event.clientY - box.top;
+    const x = env.rtl ? box.right - event.clientX : event.clientX - box.left, y = event.clientY - box.top;
     env.pointer.down = false;
     SCENE.release?.(env, x, y);
     if (Math.hypot(x - pressed.x, y - pressed.y) < 6 && event.timeStamp - pressed.time < 400) SCENE.click?.(env, x, y);

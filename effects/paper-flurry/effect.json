@@ -299,14 +299,14 @@
       },
       "default": true,
       "hint": {
-        "ru": "Указатель слегка сдувает листы, нажатие разбрасывает их порывом и подбрасывает новые",
-        "en": "The pointer gently blows the sheets aside; a press scatters them with a gust and tosses new ones",
-        "es": "El puntero aparta las hojas con un soplo suave; una pulsación las dispersa con una ráfaga y lanza otras nuevas",
-        "pt-BR": "O ponteiro afasta as folhas com um sopro suave; pressionar as espalha com uma rajada e lança novas",
-        "de": "Der Zeiger pustet die Blätter sanft beiseite; ein Druck wirbelt sie mit einer Böe auseinander und wirft neue hoch",
-        "zh-CN": "指针轻轻吹开纸页；按下时一阵风把它们吹散，并抛起新的纸页",
-        "fr": "Le pointeur écarte doucement les feuilles d’un souffle ; un appui les disperse d’une rafale et en lance de nouvelles",
-        "ja": "ポインターが紙をそっと吹き寄せ、押すと突風で散らして新しい紙を舞い上げます"
+        "ru": "Нажатие подбрасывает ворох листов и разбрасывает падающие порывом; указатель слегка сдувает листы",
+        "en": "A press tosses a heap of sheets up and scatters the falling ones with a gust; the pointer gently blows them aside",
+        "es": "Una pulsación lanza un montón de hojas hacia arriba y dispersa con una ráfaga las que caen; el puntero las aparta con un soplo suave",
+        "pt-BR": "Pressionar lança um monte de folhas para cima e espalha com uma rajada as que caem; o ponteiro as afasta com um sopro suave",
+        "de": "Ein Druck wirft einen Stapel Blätter hoch und wirbelt die fallenden mit einer Böe auseinander; der Zeiger pustet sie sanft beiseite",
+        "zh-CN": "按下时抛起一叠纸页，并用一阵风吹散正在飘落的纸页；指针会轻轻把纸页吹开",
+        "fr": "Un appui lance une pile de feuilles vers le haut et disperse d’une rafale celles qui tombent ; le pointeur les écarte doucement d’un souffle",
+        "ja": "押すと紙の束を舞い上げ、落ちてくる紙を突風で散らします。ポインターは紙をそっと吹き寄せます"
       }
     }
   ],

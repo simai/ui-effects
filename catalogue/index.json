@@ -3513,14 +3513,14 @@
         "ja": "テキスト検索"
       },
       "description": {
-        "ru": "Бледные страницы серых «слов» — от одной до четырёх рядом — медленно ползут вверх, а мягкие маркеры поиска одно за другим ложатся на слова, будто находятся результаты запроса; иногда разом загораются все слова одной длины.",
-        "en": "Faint pages of grey word bars, one to four side by side, drift slowly upward while soft search markers sweep onto words one after another, like the results of a query being found; now and then every word of one length lights up together.",
-        "es": "Páginas tenues de barras grises de palabras, de una a cuatro una junto a otra, suben despacio mientras suaves marcadores de búsqueda se posan en las palabras una tras otra, como resultados de una consulta; de vez en cuando se iluminan a la vez todas las palabras de una misma longitud.",
-        "pt-BR": "Páginas suaves de barras cinzentas de palavras, de uma a quatro lado a lado, sobem devagar enquanto marcadores suaves de busca pousam nas palavras uma após a outra, como resultados de uma consulta; de vez em quando todas as palavras de um mesmo tamanho acendem juntas.",
-        "de": "Blasse Seiten grauer Wortbalken, eine bis vier nebeneinander, wandern langsam nach oben, während sanfte Suchmarkierungen nacheinander auf Wörter gleiten, als würden Treffer einer Suche gefunden; ab und zu leuchten alle Wörter gleicher Länge zugleich auf.",
-        "zh-CN": "一到四页浅淡的灰色词条并排排列，缓缓上移，柔和的搜索标记依次落在词上，仿佛查询结果被逐一找到；不时地，所有相同长度的词会同时亮起。",
-        "fr": "De pâles pages de barres de mots grises, une à quatre côte à côte, remontent lentement tandis que de doux surligneurs de recherche se posent sur les mots l’un après l’autre, comme les résultats d’une requête ; de temps en temps, tous les mots d’une même longueur s’allument ensemble.",
-        "ja": "灰色の単語バーが並ぶ淡いページが 1〜4 枚横に並んでゆっくり上へ流れ、やわらかな検索マーカーが次々と単語に重なって、検索結果が見つかっていくように見えます。ときおり同じ長さの単語がいっせいに光ります。"
+        "ru": "Бледные страницы серых «слов» — от одной до трёх рядом — медленно ползут вверх, а мягкие маркеры поиска одно за другим ложатся на слова, будто находятся результаты запроса; иногда разом загораются все слова одной длины.",
+        "en": "Faint pages of grey word bars, one to three side by side, drift slowly upward while soft search markers sweep onto words one after another, like the results of a query being found; now and then every word of one length lights up together.",
+        "es": "Páginas tenues de barras grises de palabras, de una a tres una junto a otra, suben despacio mientras suaves marcadores de búsqueda se posan en las palabras una tras otra, como resultados de una consulta; de vez en cuando se iluminan a la vez todas las palabras de una misma longitud.",
+        "pt-BR": "Páginas suaves de barras cinzentas de palavras, de uma a três lado a lado, sobem devagar enquanto marcadores suaves de busca pousam nas palavras uma após a outra, como resultados de uma consulta; de vez em quando todas as palavras de um mesmo tamanho acendem juntas.",
+        "de": "Blasse Seiten grauer Wortbalken, eine bis drei nebeneinander, wandern langsam nach oben, während sanfte Suchmarkierungen nacheinander auf Wörter gleiten, als würden Treffer einer Suche gefunden; ab und zu leuchten alle Wörter gleicher Länge zugleich auf.",
+        "zh-CN": "一到三页浅淡的灰色词条并排排列，缓缓上移，柔和的搜索标记依次落在词上，仿佛查询结果被逐一找到；不时地，所有相同长度的词会同时亮起。",
+        "fr": "De pâles pages de barres de mots grises, une à trois côte à côte, remontent lentement tandis que de doux surligneurs de recherche se posent sur les mots l’un après l’autre, comme les résultats d’une requête ; de temps en temps, tous les mots d’une même longueur s’allument ensemble.",
+        "ja": "灰色の単語バーが並ぶ淡いページが 1〜3 枚横に並んでゆっくり上へ流れ、やわらかな検索マーカーが次々と単語に重なって、検索結果が見つかっていくように見えます。ときおり同じ長さの単語がいっせいに光ります。"
       },
       "role": {
         "ru": "Тихий фон для документации и страниц поиска: текст абстрактный и бледный, за заголовком страницы ещё мягче, поэтому настоящий текст сверху читается легко. Хорошо выглядит в обеих схемах.",
@@ -3559,13 +3559,13 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "eac7f82333a52eb1dcd76fcf20e1e57f6a86b2ff21445ab9ffdce1d5dd6f617f",
-          "size": 10206
+          "sha256": "420de71822b529e602f131b9143eb1d9665fe55b43a375ce921aa6d1f37d7ff7",
+          "size": 9870
         },
         {
           "path": "index.js",
-          "sha256": "3956edd22c0d1891ede4291cde74d39288ba55e09e4941619d2e72c788d29f0f",
-          "size": 22431
+          "sha256": "9b2a7e8b18350ce41671c395553aec902aaa4baced2d662ffc406d43ea5cb69a",
+          "size": 22581
         },
         {
           "path": "preview.png",
@@ -3574,8 +3574,8 @@
         },
         {
           "path": "README.md",
-          "sha256": "a30cf4867ee4d7eaa896f3d811a7f4360c79bf8282207bf3cee519e5d5140b89",
-          "size": 2314
+          "sha256": "806453ec486ea11bc55d27c695848a8deea44887d06efd6a36928e557f979d0c",
+          "size": 2312
         }
       ],
       "kit": {
@@ -3651,8 +3651,8 @@
         },
         {
           "path": "index.js",
-          "sha256": "c7c579cf4e189ef3529d0c718a221ced050bfbc291861ca3ec302ef171ed2432",
-          "size": 24553
+          "sha256": "bf39573a07415b29010d21193c62ad8bf678762110995b5e924c991b7b35afb8",
+          "size": 24548
         },
         {
           "path": "preview.png",
@@ -3686,24 +3686,24 @@
         "ja": "舞い散る書類"
       },
       "description": {
-        "ru": "Ворох листов-документов подбрасывается снизу: листы переворачиваются, раскачиваются, как падающие листья бумаги, и плавно уходят вниз, а через несколько секунд взлетает новая охапка.",
-        "en": "A heap of document sheets is tossed up from below; the sheets turn over, swing down like falling leaves of paper and drift out at the bottom, and a new toss comes every few seconds.",
-        "es": "Un montón de hojas de documentos sale lanzado desde abajo: las hojas se dan la vuelta, se balancean al caer como hojas de papel y salen por abajo, y cada pocos segundos llega un nuevo lanzamiento.",
-        "pt-BR": "Um monte de folhas de documentos é lançado de baixo: as folhas viram, balançam ao cair como folhas de papel e saem por baixo, e a cada poucos segundos vem um novo lançamento.",
-        "de": "Ein Stapel Dokumentblätter wird von unten hochgeworfen: Die Blätter drehen sich, schaukeln wie fallendes Papier herab und gleiten unten hinaus, alle paar Sekunden fliegt ein neuer Schwung.",
-        "zh-CN": "一叠文档纸页从下方被抛起：纸页翻转，像飘落的纸片一样左右摇摆着落下并从底部飘出，每隔几秒又抛起一叠。",
-        "fr": "Une pile de feuilles de documents est lancée d’en bas : les feuilles se retournent, se balancent en tombant comme des feuilles de papier et sortent par le bas, et une nouvelle volée part toutes les quelques secondes.",
-        "ja": "書類の束が下から放り上げられ、紙は裏返りながら舞い落ちる紙片のように揺れて下へ抜けていき、数秒ごとに新しい束が舞い上がります。"
+        "ru": "Листы-документы падают сверху, переворачиваются и раскачиваются, как падающие листья бумаги, — спокойно и бесконечно; нажатие подбрасывает ворох листов из этой точки.",
+        "en": "Document sheets fall from above, turn over and swing down like falling leaves of paper, endlessly and calmly; a press tosses a heap of sheets up from the point.",
+        "es": "Hojas de documentos caen desde arriba, se dan la vuelta y se balancean como hojas de papel al caer, sin fin y con calma; una pulsación lanza un montón de hojas hacia arriba desde ese punto.",
+        "pt-BR": "Folhas de documentos caem do alto, viram e balançam como folhas de papel caindo, sem fim e com calma; pressionar lança um monte de folhas para cima a partir do ponto.",
+        "de": "Dokumentblätter fallen von oben, drehen sich und schaukeln wie fallendes Papier herab, ruhig und endlos; ein Druck wirft an dieser Stelle einen Stapel Blätter hoch.",
+        "zh-CN": "文档纸页从上方落下，翻转着像飘落的纸片一样左右摇摆，平静而不间断；按下时会从该处抛起一叠纸页。",
+        "fr": "Des feuilles de documents tombent d’en haut, se retournent et se balancent comme des feuilles de papier qui tombent, calmement et sans fin ; un appui lance une pile de feuilles vers le haut depuis ce point.",
+        "ja": "書類の紙が上から落ち、裏返りながら舞い落ちる紙片のように揺れて、静かに絶え間なく降り続けます。押すとその位置から紙の束が舞い上がります。"
       },
       "role": {
-        "ru": "Лёгкий живой фон для документации и страниц продукта: листы летают в основном справа, текст слева остаётся чистым. Хорошо выглядит в обеих схемах.",
-        "en": "A light, lively background for documentation and product pages: the sheets fly mostly on the right, the text on the left stays clear. Works in both schemes.",
-        "es": "Un fondo ligero y vivo para documentación y páginas de producto: las hojas vuelan sobre todo a la derecha y el texto de la izquierda queda despejado. Funciona en ambos esquemas.",
-        "pt-BR": "Um fundo leve e vivo para documentação e páginas de produto: as folhas voam principalmente à direita e o texto à esquerda fica livre. Funciona nos dois esquemas.",
-        "de": "Ein leichter, lebendiger Hintergrund für Dokumentation und Produktseiten: Die Blätter fliegen vor allem rechts, der Text links bleibt frei. Wirkt in beiden Designs.",
-        "zh-CN": "适合文档和产品页面的轻快背景：纸页主要在右侧飞舞，左侧文字保持清晰。两种方案都适用。",
-        "fr": "Un fond léger et vivant pour la documentation et les pages produit : les feuilles volent surtout à droite, le texte à gauche reste dégagé. Fonctionne dans les deux thèmes.",
-        "ja": "ドキュメントや製品ページ向けの軽やかで動きのある背景。紙は主に右側を舞い、左の文字はすっきり読めます。両方のスキームに合います。"
+        "ru": "Лёгкий живой фон для документации и страниц продукта: листы падают в основном в центре и справа, редкие листы над текстом слева едва заметны. Хорошо выглядит в обеих схемах.",
+        "en": "A light, lively background for documentation and product pages: the sheets fall mostly on the centre-right and right, the few over the text on the left are faint. Works in both schemes.",
+        "es": "Un fondo ligero y vivo para documentación y páginas de producto: las hojas caen sobre todo en el centro-derecha y a la derecha, y las pocas que pasan sobre el texto de la izquierda son tenues. Funciona en ambos esquemas.",
+        "pt-BR": "Um fundo leve e vivo para documentação e páginas de produto: as folhas caem principalmente no centro-direita e à direita, e as poucas sobre o texto à esquerda ficam suaves. Funciona nos dois esquemas.",
+        "de": "Ein leichter, lebendiger Hintergrund für Dokumentation und Produktseiten: Die Blätter fallen vor allem mittig-rechts und rechts, die wenigen über dem Text links sind nur schwach zu sehen. Wirkt in beiden Designs.",
+        "zh-CN": "适合文档和产品页面的轻快背景：纸页主要落在中右侧和右侧，偶尔飘过左侧文字上方的纸页很淡。两种方案都适用。",
+        "fr": "Un fond léger et vivant pour la documentation et les pages produit : les feuilles tombent surtout au centre-droit et à droite, les rares qui passent sur le texte à gauche restent pâles. Fonctionne dans les deux thèmes.",
+        "ja": "ドキュメントや製品ページ向けの軽やかで動きのある背景。紙は主に中央右から右側に落ち、左の文字の上を通る紙はごく淡く描かれます。両方のスキームに合います。"
       },
       "categories": [
         "material",
@@ -3733,23 +3733,23 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "67ec8703c0c65da83308854a241c60856e412cb62c90c00ea4516f8fa7ea73fa",
-          "size": 8635
+          "sha256": "c5f6793bd58321169a63979177f898d09bc7a06bc620ba9f0b160f27c29e24b2",
+          "size": 8812
         },
         {
           "path": "index.js",
-          "sha256": "4e37bb93569507071f7177a8be2c9888519241c2f4dc5ae428a2e5d1724e82fa",
-          "size": 21411
+          "sha256": "6ba5424372fcc49a45190a7a50687816d637004d109f84df7c15be4bc9e69db5",
+          "size": 21335
         },
         {
           "path": "preview.png",
-          "sha256": "390991b0762db233df5486612b6139f25e07f45ccfb07edbb9ff6ef6cb3fceff",
-          "size": 16880
+          "sha256": "c8a611b780d7cb1c324bce8d027dc95c8437247adb14bfb4aefa3a32ad54c1f2",
+          "size": 18691
         },
         {
           "path": "README.md",
-          "sha256": "040c9dd4f77d1dff62142d10ff5ba69d29f3d0013f6792d16c7f85e87f224aa6",
-          "size": 2156
+          "sha256": "c880a78f3b7283e8a6f545e1b52133043d4360d04e678680f90de1b7e91dea17",
+          "size": 2395
         }
       ],
       "kit": {
