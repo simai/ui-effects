@@ -15,7 +15,7 @@ Page cards appear one by one at free places, live a while and fade out, and othe
 | `speed` | integer | 10–300 % | `100` | Speed |
 | `intensity` | integer | 10–100 % | `70` | Intensity of the drawing |
 | `pages` | integer | 3–12 | `7` | Pages shown at most |
-| `links` | integer | 1–8 | `3` | Links in flight at once |
+| `links` | integer | 1–8 | `5` | Links in flight at once |
 | `palette` | choice | `theme`, `turquoise`, `ocean`, `violet`, `rose`, `emerald`, `sunset`, `gold`, `silver`, `custom` | `"theme"` | Palette. `theme` follows the theme colour; the others stay as they are |
 | `colour` | color | hex | `"#3b82f6"` | Colour, read only while `palette` is `custom`: the effect builds every tone from it |
 | `interactive` | boolean | | `true` | React to the pointer: the page nearest the pointer lifts and sends links of its own; a click on a page sends links to every other page, a click on an empty spot adds a new page there |
