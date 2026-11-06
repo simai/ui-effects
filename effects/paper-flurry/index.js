@@ -195,7 +195,7 @@ function sheet(env, random, x, y, vx, vy) {
   for (let i = 0, n = 6 + Math.floor(random() * 5); i < n; i += 1) rows.push(i % 4 === 3 ? 0 : 0.45 + random() * 0.55);
   const turn0 = (random() < 0.5 ? -1 : 1) * (0.5 + random() * 1.3);
   // Stiffness falls with size: small sheets stay flat, big ones bend.
-  const flex = clamp((wd / s - 32) / 58, 0, 1) ** 1.2;
+  const flex = clamp((wd / s - 24) / 42, 0, 1) ** 1.1;
   return {x, y, vx, vy, z, wd, ht: wd * 1.414, rows, axis: random() < 0.6 ? 1 : 0, flip: random() * 6.28, turn0, turn: turn0 * (2.2 + random() * 1.5),
     roll: (random() - 0.5) * 1.2, lean: (random() - 0.5) * 0.6, vr: (random() - 0.5) * 2, phase: random() * 6.28, swing: 1 + random() * 1.1,
     reach: 30 + random() * 40, fall: (32 + random() * 20) * s, tint: random() < 0.4 ? 1 + Math.floor(random() * 3) : 0, age: 0,
