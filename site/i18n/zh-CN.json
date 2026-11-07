@@ -10,6 +10,8 @@
   "nav.authors": "创作者",
   "theme.switch": "切换主题",
   "foot.build": "构建",
+  "foot.author": "作者：",
+  "foot.author.name": "Rim Zabarov",
   "gallery.title": "背景特效",
   "gallery.lead": "为 SIMAI Framework 打造的动态背景，一行代码即可接入。",
   "gallery.heading": "图库",

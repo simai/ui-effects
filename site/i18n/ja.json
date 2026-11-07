@@ -10,6 +10,8 @@
   "nav.authors": "制作者向け",
   "theme.switch": "テーマを切り替え",
   "foot.build": "ビルド",
+  "foot.author": "作者：",
+  "foot.author.name": "Rim Zabarov",
   "gallery.title": "背景エフェクト",
   "gallery.lead": "SIMAI Framework のための生きた背景。追加はたった1行。",
   "gallery.heading": "ギャラリー",

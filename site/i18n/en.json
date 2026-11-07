@@ -10,6 +10,8 @@
   "nav.authors": "For authors",
   "theme.switch": "Switch theme",
   "foot.build": "build",
+  "foot.author": "Author:",
+  "foot.author.name": "Rim Zabarov",
   "gallery.title": "Background effects",
   "gallery.lead": "Living backgrounds for SIMAI Framework. One line to add.",
   "gallery.heading": "Gallery",

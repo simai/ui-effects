@@ -13,7 +13,7 @@
     "fr": "Carte de niveaux",
     "ja": "等高線マップ"
   },
-  "author": "SIMAI",
+  "author": "Rim Zabarov",
   "entry": "index.js",
   "preview": "preview.png",
   "surfaces": [

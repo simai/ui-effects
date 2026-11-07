@@ -13,7 +13,7 @@
     "fr": "Recherche de texte",
     "ja": "テキスト検索"
   },
-  "author": "SIMAI",
+  "author": "Rim Zabarov",
   "entry": "index.js",
   "preview": "preview.png",
   "surfaces": [

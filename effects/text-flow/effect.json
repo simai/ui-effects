@@ -13,7 +13,7 @@
     "fr": "Flux de texte",
     "ja": "文字の流れ"
   },
-  "author": "Rim Zabarov / SIMAI",
+  "author": "Rim Zabarov",
   "entry": "index.js",
   "preview": "preview.png",
   "surfaces": [

@@ -10,6 +10,8 @@
   "nav.authors": "Авторам",
   "theme.switch": "Сменить тему",
   "foot.build": "сборка",
+  "foot.author": "Автор:",
+  "foot.author.name": "Рим Забаров",
   "gallery.title": "Фоновые эффекты",
   "gallery.lead": "Живые фоны для SIMAI Framework. Подключаются одной строкой.",
   "gallery.heading": "Галерея",

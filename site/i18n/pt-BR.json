@@ -10,6 +10,8 @@
   "nav.authors": "Para autores",
   "theme.switch": "Alternar tema",
   "foot.build": "versão",
+  "foot.author": "Autor:",
+  "foot.author.name": "Rim Zabarov",
   "gallery.title": "Efeitos de fundo",
   "gallery.lead": "Fundos vivos para o SIMAI Framework. Uma linha para adicionar.",
   "gallery.heading": "Galeria",

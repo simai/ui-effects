@@ -13,7 +13,7 @@
     "fr": "Cellules de Bénard",
     "ja": "ベナール対流セル"
   },
-  "author": "SIMAI",
+  "author": "Rim Zabarov",
   "entry": "index.js",
   "preview": "preview.png",
   "surfaces": [

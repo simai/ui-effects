@@ -13,7 +13,7 @@
     "fr": "Mosaïque thermique",
     "ja": "ヒートモザイク"
   },
-  "author": "SIMAI",
+  "author": "Rim Zabarov",
   "entry": "index.js",
   "preview": "preview.png",
   "surfaces": [

@@ -13,7 +13,7 @@
     "fr": "Flux de Sankey",
     "ja": "サンキーフロー"
   },
-  "author": "SIMAI",
+  "author": "Rim Zabarov",
   "entry": "index.js",
   "preview": "preview.png",
   "surfaces": [

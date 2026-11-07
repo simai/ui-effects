@@ -10,6 +10,8 @@
   "nav.authors": "Pour les auteurs",
   "theme.switch": "Changer de thème",
   "foot.build": "version",
+  "foot.author": "Auteur :",
+  "foot.author.name": "Rim Zabarov",
   "gallery.title": "Effets d’arrière-plan",
   "gallery.lead": "Des arrière-plans vivants pour SIMAI Framework. Une seule ligne pour les ajouter.",
   "gallery.heading": "Galerie",
