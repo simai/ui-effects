@@ -10,8 +10,8 @@
     "ui_source": "c4df9ae6fc057c192ffee0e6ca4e6dcdea299979"
   },
   "counts": {
-    "effects": 42,
-    "dual": 28,
+    "effects": 43,
+    "dual": 29,
     "dark": 12,
     "light": 2
   },
@@ -134,7 +134,7 @@
         "fr": "Physique, chimie, relief, données",
         "ja": "物理、化学、地形、データ"
       },
-      "count": 8
+      "count": 9
     },
     {
       "id": "material",
@@ -182,7 +182,7 @@
         "fr": "Dégradés, particules, géométrie",
         "ja": "グラデーション、粒子、幾何学"
       },
-      "count": 18
+      "count": 19
     }
   ],
   "effects": [
@@ -3750,6 +3750,92 @@
           "path": "README.md",
           "sha256": "c2d529366a203487ffe40c9d24ddc0ef539d3a298a71351903cf2b806c1f8447",
           "size": 2488
+        }
+      ],
+      "kit": {
+        "status": "pass",
+        "framework": "ui-eea8c0a97cc7",
+        "passed": 17,
+        "total": 17
+      }
+    },
+    {
+      "id": "lava-lamp",
+      "version": "0.1.0",
+      "label": {
+        "ru": "Лава-лампа",
+        "en": "Lava lamp",
+        "es": "Lámpara de lava",
+        "pt-BR": "Luminária de lava",
+        "de": "Lavalampe",
+        "zh-CN": "熔岩灯",
+        "fr": "Lampe à lave",
+        "ja": "ラバランプ"
+      },
+      "description": {
+        "ru": "Внутри лава-лампы: из тёплого слоя на дне вздувается купол воска, вытягивается в каплю с перешейком и отрывается, медленно всплывает, остывает и замирает под крышкой, потом опускается и сливается со слоем. Свет идёт снизу: воск просвечивает, толстые части глубже по цвету, тонкие края и перешейки светятся. Нажатие посылает тепловой импульс.",
+        "en": "The inside of a lava lamp: a dome of wax swells out of the warm pool at the bottom, stretches into a teardrop with a neck and pinches off, rises slowly, cools and rests under the top, then sinks and merges back into the pool. Lit from below, the wax is translucent: thick parts deeper, thin edges and necks glowing. A press sends a heat pulse.",
+        "es": "El interior de una lámpara de lava: una cúpula de cera se hincha desde el fondo cálido, se estira en una gota con cuello y se desprende, sube despacio, se enfría y reposa arriba, luego baja y se funde de nuevo con el fondo. Iluminada desde abajo, la cera es translúcida: las partes gruesas más profundas, los bordes finos y los cuellos brillan. Una pulsación envía un pulso de calor.",
+        "pt-BR": "O interior de uma luminária de lava: uma cúpula de cera incha a partir do fundo quente, estica-se numa gota com pescoço e se solta, sobe devagar, esfria e repousa no alto, depois desce e volta a se fundir ao fundo. Iluminada por baixo, a cera é translúcida: as partes grossas mais profundas, as bordas finas e os pescoços brilham. Pressionar envia um pulso de calor.",
+        "de": "Das Innere einer Lavalampe: Aus der warmen Schicht am Boden wölbt sich eine Wachskuppel, zieht sich zu einem Tropfen mit Hals und reißt ab, steigt langsam, kühlt ab und ruht oben, sinkt dann und verschmilzt wieder mit dem Boden. Von unten beleuchtet ist das Wachs durchscheinend: dicke Teile tiefer, dünne Ränder und Hälse leuchten. Ein Druck sendet einen Wärmeimpuls.",
+        "zh-CN": "熔岩灯的内部：一团蜡从底部温热的蜡层中鼓起，拉成带细颈的水滴并断开，缓缓上升，冷却后停在顶部，再下沉并重新融入蜡层。光从下方照来，蜡是半透明的：厚处颜色更深，薄边和细颈发亮。按下时发出一次热脉冲。",
+        "fr": "L’intérieur d’une lampe à lave : un dôme de cire gonfle depuis la couche chaude du fond, s’étire en goutte avec un col et se détache, monte lentement, refroidit et repose en haut, puis redescend et se fond dans la couche. Éclairée par-dessous, la cire est translucide : les parties épaisses plus profondes, les bords fins et les cols lumineux. Un appui envoie une impulsion de chaleur.",
+        "ja": "ラバランプの内側。底の温かいワックス層からドームがふくらみ、くびれのある雫に伸びてちぎれ、ゆっくり昇り、上で冷えて休み、また沈んで層に溶け込みます。下から照らされたワックスは半透明で、厚い部分は深い色に、薄い縁やくびれは光ります。押すと熱のパルスが走ります。"
+      },
+      "role": {
+        "ru": "Тёплый завораживающий фон для героя и входа: воск плывёт в основном в центре и справа, над текстом слева он едва заметен. Тёмная схема основная, в светлой — бледная подсвеченная жидкость и насыщенный воск.",
+        "en": "A warm, mesmerising background for a hero or sign-in: the wax drifts mostly on the centre-right and right and is faint over the text on the left. Dark is the home scheme; light shows a pale lit liquid with saturated wax.",
+        "es": "Un fondo cálido e hipnótico para un hero o un inicio de sesión: la cera flota sobre todo en el centro-derecha y a la derecha, y es tenue sobre el texto de la izquierda. El esquema principal es el oscuro; el claro muestra un líquido pálido iluminado con cera saturada.",
+        "pt-BR": "Um fundo quente e hipnótico para um hero ou login: a cera flutua principalmente no centro-direita e à direita e fica suave sobre o texto à esquerda. O esquema principal é o escuro; o claro mostra um líquido pálido iluminado com cera saturada.",
+        "de": "Ein warmer, fesselnder Hintergrund für Hero oder Anmeldung: Das Wachs treibt vor allem mittig-rechts und rechts und ist über dem Text links nur schwach. Dunkel ist das Hauptdesign; hell zeigt eine blasse, beleuchtete Flüssigkeit mit sattem Wachs.",
+        "zh-CN": "适合首屏或登录页的温暖、令人着迷的背景：蜡主要在中右侧和右侧漂浮，左侧文字上方很淡。深色为主方案；浅色方案为淡而明亮的液体和饱和的蜡。",
+        "fr": "Un fond chaud et hypnotique pour un hero ou une connexion : la cire flotte surtout au centre-droit et à droite et reste pâle sur le texte à gauche. Le thème sombre est le principal ; le clair montre un liquide pâle éclairé et une cire saturée.",
+        "ja": "ヒーローやサインイン向けの温かく見入ってしまう背景。ワックスは主に中央右から右側を漂い、左の文字の上ではごく淡く描かれます。ダークが基本のスキームで、ライトでは淡く照らされた液体と鮮やかなワックスになります。"
+      },
+      "categories": [
+        "science",
+        "abstract"
+      ],
+      "schemes": [
+        "dark",
+        "light"
+      ],
+      "pair": null,
+      "capabilities": [
+        "windows"
+      ],
+      "tags": [
+        "lava",
+        "wax",
+        "retro"
+      ],
+      "surfaces": [
+        "hero",
+        "section",
+        "sign-in"
+      ],
+      "path": "effects/lava-lamp/",
+      "entry": "index.js",
+      "files": [
+        {
+          "path": "effect.json",
+          "sha256": "5d7c3fdfb9ce819fb6c29fb93de4d1696f6ae613fe2d473336b38764e78d5543",
+          "size": 10618
+        },
+        {
+          "path": "index.js",
+          "sha256": "acbe2632e30527db9a6573a764ff9b02d539862b709221ab62bcf0f9bfa053e4",
+          "size": 24253
+        },
+        {
+          "path": "preview.png",
+          "sha256": "5d022b61a940614fe141e3266c58b9069c9ecfb12ecf6c691a6af638e28cf458",
+          "size": 59534
+        },
+        {
+          "path": "README.md",
+          "sha256": "6b430cd2f3a4f80b965d8697813875654780c592728fd688fd5d5f481587d6fb",
+          "size": 5011
         }
       ],
       "kit": {

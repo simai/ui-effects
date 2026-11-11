@@ -262,6 +262,12 @@
       "passed": 17,
       "total": 17,
       "failed": []
+    },
+    "lava-lamp": {
+      "digest": "ce2a831b7e408b27a834695c980618f0c2f98f36c7b9491fa98789cacf9ec024",
+      "passed": 17,
+      "total": 17,
+      "failed": []
     }
   }
 }

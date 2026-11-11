@@ -1,0 +1,338 @@
+{
+  "schema": "simai.effect",
+  "schema_version": 1,
+  "id": "lava-lamp",
+  "version": "0.1.0",
+  "label": {
+    "ru": "Лава-лампа",
+    "en": "Lava lamp",
+    "es": "Lámpara de lava",
+    "pt-BR": "Luminária de lava",
+    "de": "Lavalampe",
+    "zh-CN": "熔岩灯",
+    "fr": "Lampe à lave",
+    "ja": "ラバランプ"
+  },
+  "author": "Rim Zabarov",
+  "entry": "index.js",
+  "preview": "preview.png",
+  "surfaces": [
+    "hero",
+    "section",
+    "sign-in"
+  ],
+  "schemes": [
+    "dark",
+    "light"
+  ],
+  "capabilities": [
+    "windows"
+  ],
+  "settings": [
+    {
+      "key": "speed",
+      "type": "integer",
+      "label": {
+        "ru": "Скорость",
+        "en": "Speed",
+        "es": "Velocidad",
+        "pt-BR": "Velocidade",
+        "de": "Geschwindigkeit",
+        "zh-CN": "速度",
+        "fr": "Vitesse",
+        "ja": "速度"
+      },
+      "default": 100,
+      "min": 10,
+      "max": 300,
+      "step": 10,
+      "unit": "%"
+    },
+    {
+      "key": "intensity",
+      "type": "integer",
+      "label": {
+        "ru": "Яркость",
+        "en": "Intensity",
+        "es": "Intensidad",
+        "pt-BR": "Intensidade",
+        "de": "Intensität",
+        "zh-CN": "强度",
+        "fr": "Intensité",
+        "ja": "強さ"
+      },
+      "default": 70,
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "%"
+    },
+    {
+      "key": "amount",
+      "type": "integer",
+      "label": {
+        "ru": "Количество воска",
+        "en": "Amount of wax",
+        "es": "Cantidad de cera",
+        "pt-BR": "Quantidade de cera",
+        "de": "Wachsmenge",
+        "zh-CN": "蜡的数量",
+        "fr": "Quantité de cire",
+        "ja": "ワックスの量"
+      },
+      "default": 50,
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "%"
+    },
+    {
+      "key": "heat",
+      "type": "integer",
+      "label": {
+        "ru": "Нагрев",
+        "en": "Heat",
+        "es": "Calor",
+        "pt-BR": "Calor",
+        "de": "Wärme",
+        "zh-CN": "热度",
+        "fr": "Chaleur",
+        "ja": "熱"
+      },
+      "default": 50,
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "hint": {
+        "ru": "Чем жарче, тем чаще воск поднимается и тем выше уходит",
+        "en": "The hotter, the more often the wax rises and the higher it goes",
+        "es": "Cuanto más calor, más a menudo sube la cera y más alto llega",
+        "pt-BR": "Quanto mais calor, mais vezes a cera sobe e mais alto chega",
+        "de": "Je wärmer, desto öfter steigt das Wachs und desto höher kommt es",
+        "zh-CN": "越热，蜡上升得越频繁、越高",
+        "fr": "Plus c’est chaud, plus la cire monte souvent et haut",
+        "ja": "熱いほどワックスがよく昇り、高くまで届きます"
+      }
+    },
+    {
+      "key": "palette",
+      "type": "choice",
+      "label": {
+        "ru": "Палитра",
+        "en": "Palette",
+        "es": "Paleta",
+        "pt-BR": "Paleta",
+        "de": "Palette",
+        "zh-CN": "配色",
+        "fr": "Palette",
+        "ja": "パレット"
+      },
+      "default": "classic",
+      "options": [
+        {
+          "value": "classic",
+          "label": {
+            "ru": "Классическая",
+            "en": "Classic",
+            "es": "Clásica",
+            "pt-BR": "Clássica",
+            "de": "Klassisch",
+            "zh-CN": "经典",
+            "fr": "Classique",
+            "ja": "クラシック"
+          }
+        },
+        {
+          "value": "theme",
+          "label": {
+            "ru": "Цвет темы",
+            "en": "Theme colour",
+            "es": "Color del tema",
+            "pt-BR": "Cor do tema",
+            "de": "Designfarbe",
+            "zh-CN": "主题色",
+            "fr": "Couleur du thème",
+            "ja": "テーマカラー"
+          }
+        },
+        {
+          "value": "turquoise",
+          "label": {
+            "ru": "Бирюзовая",
+            "en": "Turquoise",
+            "es": "Turquesa",
+            "pt-BR": "Turquesa",
+            "de": "Türkis",
+            "zh-CN": "青绿",
+            "fr": "Turquoise",
+            "ja": "ターコイズ"
+          }
+        },
+        {
+          "value": "ocean",
+          "label": {
+            "ru": "Океан",
+            "en": "Ocean",
+            "es": "Océano",
+            "pt-BR": "Oceano",
+            "de": "Ozean",
+            "zh-CN": "海洋",
+            "fr": "Océan",
+            "ja": "オーシャン"
+          }
+        },
+        {
+          "value": "violet",
+          "label": {
+            "ru": "Фиолетовая",
+            "en": "Violet",
+            "es": "Violeta",
+            "pt-BR": "Violeta",
+            "de": "Violett",
+            "zh-CN": "紫罗兰",
+            "fr": "Violet",
+            "ja": "バイオレット"
+          }
+        },
+        {
+          "value": "rose",
+          "label": {
+            "ru": "Роза",
+            "en": "Rose",
+            "es": "Rosa",
+            "pt-BR": "Rosa",
+            "de": "Rosé",
+            "zh-CN": "玫瑰",
+            "fr": "Rose",
+            "ja": "ローズ"
+          }
+        },
+        {
+          "value": "emerald",
+          "label": {
+            "ru": "Изумруд",
+            "en": "Emerald",
+            "es": "Esmeralda",
+            "pt-BR": "Esmeralda",
+            "de": "Smaragd",
+            "zh-CN": "翡翠",
+            "fr": "Émeraude",
+            "ja": "エメラルド"
+          }
+        },
+        {
+          "value": "sunset",
+          "label": {
+            "ru": "Закат",
+            "en": "Sunset",
+            "es": "Atardecer",
+            "pt-BR": "Pôr do sol",
+            "de": "Sonnenuntergang",
+            "zh-CN": "日落",
+            "fr": "Coucher de soleil",
+            "ja": "サンセット"
+          }
+        },
+        {
+          "value": "gold",
+          "label": {
+            "ru": "Золото",
+            "en": "Gold",
+            "es": "Oro",
+            "pt-BR": "Ouro",
+            "de": "Gold",
+            "zh-CN": "金色",
+            "fr": "Or",
+            "ja": "ゴールド"
+          }
+        },
+        {
+          "value": "silver",
+          "label": {
+            "ru": "Серебро",
+            "en": "Silver",
+            "es": "Plata",
+            "pt-BR": "Prata",
+            "de": "Silber",
+            "zh-CN": "银色",
+            "fr": "Argent",
+            "ja": "シルバー"
+          }
+        },
+        {
+          "value": "custom",
+          "label": {
+            "ru": "Свой цвет",
+            "en": "Custom colour",
+            "es": "Color personalizado",
+            "pt-BR": "Cor personalizada",
+            "de": "Eigene Farbe",
+            "zh-CN": "自定义颜色",
+            "fr": "Couleur personnalisée",
+            "ja": "カスタムカラー"
+          }
+        }
+      ]
+    },
+    {
+      "key": "colour",
+      "type": "color",
+      "label": {
+        "ru": "Цвет",
+        "en": "Colour",
+        "es": "Color",
+        "pt-BR": "Cor",
+        "de": "Farbe",
+        "zh-CN": "颜色",
+        "fr": "Couleur",
+        "ja": "色"
+      },
+      "default": "#3b82f6",
+      "hint": {
+        "ru": "Эффект строит из него все оттенки",
+        "en": "The effect builds every tone from it",
+        "es": "El efecto construye todos los tonos a partir de él",
+        "pt-BR": "O efeito constrói todos os tons a partir dela",
+        "de": "Der Effekt baut daraus jeden Farbton auf",
+        "zh-CN": "特效据此生成所有色调",
+        "fr": "L’effet en construit toutes les teintes",
+        "ja": "エフェクトはこの色からすべての色調を作ります"
+      },
+      "when": {
+        "key": "palette",
+        "is": [
+          "custom"
+        ]
+      }
+    },
+    {
+      "key": "interactive",
+      "type": "boolean",
+      "label": {
+        "ru": "Реагировать на указатель",
+        "en": "React to the pointer",
+        "es": "Reaccionar al puntero",
+        "pt-BR": "Reagir ao ponteiro",
+        "de": "Auf den Zeiger reagieren",
+        "zh-CN": "响应指针",
+        "fr": "Réagir au pointeur",
+        "ja": "ポインターに反応"
+      },
+      "default": true,
+      "hint": {
+        "ru": "Указатель слегка греет воск рядом: капли набухают и поднимаются; нажатие посылает тепловой импульс — ближайшая капля набухает и всплывает, а если рядом капель нет, из нижнего слоя под точкой вырастает новая",
+        "en": "The pointer gently warms the wax nearby, so blobs swell and drift up; a press sends a heat pulse: the nearest blob swells and rises, or, with none near, a new one buds from the pool below the point",
+        "es": "El puntero calienta suavemente la cera cercana: las gotas se hinchan y suben; una pulsación envía un pulso de calor: la gota más cercana se hincha y asciende o, si no hay ninguna cerca, brota una nueva del fondo bajo el punto",
+        "pt-BR": "O ponteiro aquece de leve a cera próxima: as gotas incham e sobem; pressionar envia um pulso de calor: a gota mais próxima incha e sobe ou, se não houver nenhuma perto, uma nova brota do fundo abaixo do ponto",
+        "de": "Der Zeiger wärmt das Wachs in der Nähe sanft: Tropfen schwellen an und steigen; ein Druck sendet einen Wärmeimpuls: Der nächste Tropfen schwillt an und steigt auf, oder, wenn keiner in der Nähe ist, wächst unter der Stelle ein neuer aus dem Boden",
+        "zh-CN": "指针会轻轻加热附近的蜡，使蜡团膨胀并上浮；按下时发出一次热脉冲：最近的蜡团膨胀上升，若附近没有蜡团，则从该点下方的蜡层中冒出一个新的",
+        "fr": "Le pointeur réchauffe doucement la cire proche : les gouttes gonflent et montent ; un appui envoie une impulsion de chaleur : la goutte la plus proche gonfle et s’élève, ou, s’il n’y en a aucune, une nouvelle naît du fond sous le point",
+        "ja": "ポインターは近くのワックスをそっと温め、塊がふくらんで昇ります。押すと熱のパルスが走り、いちばん近い塊がふくらんで昇ります。近くに塊がなければ、その下の底から新しい塊が生まれます"
+      }
+    }
+  ],
+  "needs": {
+    "network": false
+  }
+}
