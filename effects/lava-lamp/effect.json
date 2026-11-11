@@ -68,23 +68,61 @@
       "unit": "%"
     },
     {
-      "key": "amount",
+      "key": "count",
       "type": "integer",
       "label": {
-        "ru": "Количество воска",
-        "en": "Amount of wax",
-        "es": "Cantidad de cera",
-        "pt-BR": "Quantidade de cera",
-        "de": "Wachsmenge",
-        "zh-CN": "蜡的数量",
-        "fr": "Quantité de cire",
-        "ja": "ワックスの量"
+        "ru": "Количество капель",
+        "en": "Number of blobs",
+        "es": "Número de gotas",
+        "pt-BR": "Número de gotas",
+        "de": "Anzahl der Tropfen",
+        "zh-CN": "蜡团数量",
+        "fr": "Nombre de gouttes",
+        "ja": "塊の数"
       },
-      "default": 50,
-      "min": 10,
-      "max": 100,
+      "default": 3,
+      "min": 1,
+      "max": 8,
+      "step": 1,
+      "hint": {
+        "ru": "Сколько больших капель воска плавает в лампе: в настоящей лампе их обычно две-три",
+        "en": "How many big blobs of wax move in the lamp; a real lamp usually has two or three",
+        "es": "Cuántas gotas grandes de cera se mueven en la lámpara; una lámpara real suele tener dos o tres",
+        "pt-BR": "Quantas gotas grandes de cera se movem na luminária; uma luminária de verdade costuma ter duas ou três",
+        "de": "Wie viele große Wachstropfen in der Lampe treiben; eine echte Lampe hat meist zwei oder drei",
+        "zh-CN": "灯中漂浮的大蜡团数量；真实的熔岩灯通常有两三个",
+        "fr": "Combien de grosses gouttes de cire bougent dans la lampe ; une vraie lampe en a généralement deux ou trois",
+        "ja": "ランプの中を動く大きなワックスの塊の数。本物のランプでは普通 2〜3 個です"
+      }
+    },
+    {
+      "key": "size",
+      "type": "integer",
+      "label": {
+        "ru": "Размер капель",
+        "en": "Blob size",
+        "es": "Tamaño de las gotas",
+        "pt-BR": "Tamanho das gotas",
+        "de": "Tropfengröße",
+        "zh-CN": "蜡团大小",
+        "fr": "Taille des gouttes",
+        "ja": "塊の大きさ"
+      },
+      "default": 100,
+      "min": 50,
+      "max": 150,
       "step": 5,
-      "unit": "%"
+      "unit": "%",
+      "hint": {
+        "ru": "Размер капель относительно высоты области: при 100 % капля около пятой части высоты, как в настоящей лампе",
+        "en": "Blob size relative to the area's height: at 100 % a blob is about a fifth of the height, as in a real lamp",
+        "es": "Tamaño de las gotas respecto a la altura del área: al 100 % una gota mide cerca de una quinta parte de la altura, como en una lámpara real",
+        "pt-BR": "Tamanho das gotas em relação à altura da área: em 100 % uma gota tem cerca de um quinto da altura, como numa luminária de verdade",
+        "de": "Tropfengröße im Verhältnis zur Höhe der Fläche: bei 100 % ist ein Tropfen etwa ein Fünftel der Höhe, wie in einer echten Lampe",
+        "zh-CN": "蜡团相对于区域高度的大小：100% 时蜡团约为高度的五分之一，与真实的熔岩灯相当",
+        "fr": "Taille des gouttes par rapport à la hauteur de la zone : à 100 %, une goutte fait environ un cinquième de la hauteur, comme dans une vraie lampe",
+        "ja": "領域の高さに対する塊の大きさ。100 % では塊は高さの約 5 分の 1 で、本物のランプと同じくらいです"
+      }
     },
     {
       "key": "heat",
@@ -105,14 +143,14 @@
       "step": 5,
       "unit": "%",
       "hint": {
-        "ru": "Чем жарче, тем чаще воск поднимается и тем выше уходит",
-        "en": "The hotter, the more often the wax rises and the higher it goes",
-        "es": "Cuanto más calor, más a menudo sube la cera y más alto llega",
-        "pt-BR": "Quanto mais calor, mais vezes a cera sobe e mais alto chega",
-        "de": "Je wärmer, desto öfter steigt das Wachs und desto höher kommt es",
-        "zh-CN": "越热，蜡上升得越频繁、越高",
-        "fr": "Plus c’est chaud, plus la cire monte souvent et haut",
-        "ja": "熱いほどワックスがよく昇り、高くまで届きます"
+        "ru": "Чем жарче, тем чаще капли отрываются от нижнего слоя и тем выше поднимаются",
+        "en": "The hotter, the more often blobs tear off the pool and the higher they rise",
+        "es": "Cuanto más calor, más a menudo se desprenden las gotas del fondo y más alto suben",
+        "pt-BR": "Quanto mais calor, mais vezes as gotas se soltam do fundo e mais alto sobem",
+        "de": "Je wärmer, desto öfter lösen sich Tropfen vom Boden und desto höher steigen sie",
+        "zh-CN": "越热，蜡团越频繁地脱离底层，升得越高",
+        "fr": "Plus c’est chaud, plus les gouttes se détachent souvent du fond et plus elles montent haut",
+        "ja": "熱いほど塊が底の層から離れる回数が増え、高くまで昇ります"
       }
     },
     {

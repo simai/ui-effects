@@ -51,21 +51,22 @@ function readTones(host, scheme) {
 const T0 = 0.3, KR = 1.73;
 // Wax from primary, the liquid from tertiary (dark) or secondary (light).
 const SCENE = {
-  home: 'dark', seed: 4127, reseed: ['amount', 'heat'], fresh: true,
+  home: 'dark', seed: 4127, reseed: ['count', 'size', 'heat'], fresh: true,
   tones: (read, scheme) => scheme === 'light'
     ? {top: mixc(read('--sf-neutral-98', '#faf9fe'), read('--sf-tertiary-95', '#ffebfc'), 0.5), low: mixc(read('--sf-neutral-100', '#ffffff'), read('--sf-secondary-95', '#ecf0ff'), 0.6),
       bulb: read('--sf-secondary-90', '#dae2f9'), deep: sat(mixc(read('--sf-primary-70', '#7eabff'), read('--sf-primary-80', '#acc7ff'), 0.6), 1.6), lit: sat(read('--sf-primary-80', '#acc7ff'), 1.4),
-      rim: read('--sf-primary-90', '#d8e2ff'), halo: read('--sf-primary-80', '#acc7ff'), shine: [255, 255, 255]}
+      rim: read('--sf-primary-90', '#d8e2ff'), halo: read('--sf-primary-80', '#acc7ff')}
     : {top: mixc(read('--sf-neutral-5', '#111318'), read('--sf-tertiary-10', '#29132f'), 0.6).map((c) => c * 0.85), low: mixc(read('--sf-tertiary-20', '#402845'), read('--sf-primary-20', '#002e69'), 0.3).map((c) => c * 0.8),
       bulb: vivid(read('--sf-secondary-40', '#565e71'), 1.3), deep: vivid(read('--sf-primary-20', '#002e69'), 1.6), lit: vivid(read('--sf-primary-50', '#2a75e8'), 1.4),
-      rim: mixc(read('--sf-primary-70', '#7eabff'), read('--sf-primary-80', '#acc7ff'), 0.4), halo: vivid(read('--sf-primary-40', '#005bbe'), 1.5), shine: read('--sf-tertiary-90', '#fbd7fc')},
+      rim: mixc(read('--sf-primary-70', '#7eabff'), read('--sf-primary-80', '#acc7ff'), 0.4), halo: vivid(read('--sf-primary-40', '#005bbe'), 1.5)},
   setup(env) {
     const {w, h, values} = env;
     const random = rng(SCENE.seed + env.salt);
-    const n = max(3, Math.round((4 + values.amount / 100 * 13) * clamp(w / h / 1.6, 0.6, 1.4)));
+    // A few big blobs, sized by the area's height (the lamp's height), as in a real lamp.
+    const n = max(1, values.count | 0), z = values.size / 100;
     const blobs = [];
     for (let i = 0; i < n; i += 1) {
-      const b = blob(random, h * (0.035 + 0.05 * random() ** 1.6), lane(env, random));
+      const b = blob(random, h * (0.085 + 0.035 * random()) * z, lane(env, random));
       b.y = random() < 0.5 ? h * (1 + 0.2 * b.r / h) : h * (0.1 + random() * 0.85); b.T = random() * 1.1;
       blobs.push(b);
     }
@@ -89,7 +90,7 @@ const SCENE = {
     }
     if (hit || state.blobs.length > state.n + 3) return;
     // Nothing near: a blob buds from the pool below the point (it melts back later).
-    const b = blob(state.random, h * (0.04 + 0.03 * state.random()), x);
+    const b = blob(state.random, h * (0.06 + 0.03 * state.random()) * env.values.size / 100, x);
     Object.assign(b, {y: h + b.r * 0.6, T: 1.35, g: 0.25, sw: 0.6, bud: true});
     state.blobs.push(b);
   },
@@ -108,10 +109,6 @@ const SCENE = {
     const cw = state.fw / state.s, ch = state.fh / state.s;
     ctx.drawImage(state.buf, 0, 0, cw, ch);
     ctx.drawImage(state.fbuf, 0, 0, cw, ch);
-    // The glass: one faint vertical highlight on the right.
-    const gx = w * 0.9, gw = w * 0.035, g = ctx.createLinearGradient(gx - gw, 0, gx + gw, 0);
-    g.addColorStop(0, rgba(tones.shine, 0)); g.addColorStop(0.5, rgba(tones.shine, (light ? 0.22 : 0.035) * k)); g.addColorStop(1, rgba(tones.shine, 0));
-    ctx.fillStyle = g; ctx.fillRect(gx - gw, 0, gw * 2, h);
     // A heat pulse: a warm swell of light, fading over two seconds.
     for (const p of state.pulses) {
       p.a -= dt * 0.5;
@@ -129,7 +126,7 @@ const SCENE = {
   },
 };
 // Most wax rises over the centre-right and right; a few lanes cross the text side, faint there.
-function lane(env, random) { return env.w * (random() < 0.88 ? 0.5 + random() * 0.46 : 0.22 + random() * 0.3); }
+function lane(env, random) { return env.w * (random() < 0.88 ? 0.55 + random() * 0.38 : 0.3 + random() * 0.25); }
 function blob(random, r, x) {
   return {r, lane: x, x, y: 0, T: 0, ph: random() * 100, rate: 0.75 + random() * 0.5, sw: 0, sv: 0, g: 1, sq: 0, ux: 0, uy: -1, vx: 0, vy: 0};
 }
@@ -143,7 +140,7 @@ function buffer(env, state) {
   const bctx = buf.getContext('2d'), fctx = fbuf.getContext('2d'), fimg = fctx.createImageData(fw, fh);
   // Over the text zone on the left the wax is only a faint trace.
   const fx = new Float32Array(fw);
-  for (let x = 0; x < fw; x += 1) fx[x] = 0.14 + 0.86 * smooth(clamp(((x + 0.5) / fw - 0.2) / 0.36, 0, 1));
+  for (let x = 0; x < fw; x += 1) fx[x] = 0.14 + 0.86 * smooth(clamp(((x + 0.5) / fw - 0.3) / 0.3, 0, 1));
   Object.assign(state, {buf, bctx, fbuf, fctx, fimg, px: new Uint32Array(fimg.data.buffer), img: bctx.createImageData(bw, bh), bw, bh, fw, fh, m, s, fx, F: new Float32Array(fw * fh), rx0: new Int32Array(fh), rx1: new Int32Array(fh)});
 }
 // One step of the lamp: temperature, buoyancy and a viscous lag; heat only in the bottom band.
@@ -151,7 +148,7 @@ function step(env, state, dt, live) {
   const {w, h, values, pointer} = env;
   const heat = 0.5 + values.heat / 100, vmax = h * 0.13, bulb = 0.72;
   state.time += dt;
-  const T = state.time, blobs = state.blobs, random = state.random;
+  const T = state.time, blobs = state.blobs, random = state.random, born = [];
   const px = pointer.x * w, py = pointer.y * h, warm = live && pointer.on;
   for (const b of blobs) {
     const rr = b.r / h, up = b.y / h;
@@ -163,7 +160,7 @@ function step(env, state, dt, live) {
     const buoy = b.T - 0.5;
     // Held by the pool, warm wax only swells as a dome until it is hot enough to tear off.
     const held = up > 0.9 && b.T < 1 && buoy > 0;
-    const vt = -buoy * vmax * (0.55 + rr * 8) * (1 + 0.15 * b.sw) * (held ? 0.12 : 1);
+    const vt = -buoy * vmax * (1.1 - rr * 3.5) * (1 + 0.15 * b.sw) * (held ? 0.12 : 1);
     b.vy += (vt - b.vy) * min(1, dt * 0.7);
     // Under the top the wax slows and flattens a little.
     const cap = b.y - b.r * 0.8 - h * 0.03;
@@ -173,17 +170,19 @@ function step(env, state, dt, live) {
     b.vx += ((b.lane - b.x) * 0.06 + drift - b.vx) * min(1, dt * 0.5);
     b.x += b.vx * dt; b.y += b.vy * dt;
     // Resting in the pool the wax sits half sunk; there it drifts to a new lane now and then.
-    const floor = h + b.r * 0.25;
+    const floor = h + b.r * 0.4;
     if (b.y > floor) { b.y = floor; if (b.vy > 0) b.vy = 0; if (random() < dt * 0.04) b.lane = lane(env, random); }
     if (b.y < b.r * 0.5) b.y = b.r * 0.5;
     b.sw *= exp(-dt * 0.25);
     b.sv += (b.sw - b.sv) * min(1, dt * 4);
     b.g += (1 - b.g) * min(1, dt * 1.2);
-    if (b.bud && b.y >= floor && b.T < 0.45) b.gone = true;
+    if (b.y >= floor) { b.left = 0; if (b.bud > 1 || b.bud && b.T < 0.45) b.gone = true; }
+    // Tearing off the pool, the neck now and then pinches a small bead that sinks back.
+    if (live && !b.left && !b.bud && up < 0.82 && up > 0.7 && b.vy < 0) { b.left = 1; if (random() < 0.35) born.push(Object.assign(blob(random, b.r * 0.28, b.x), {y: b.y + b.r * 1.2, T: 0.42, g: 0.5, bud: 2})); }
     const sp = hypot(b.vx, b.vy) || 1;
     b.ux += (b.vx / sp * 0.5 - b.ux) * min(1, dt * 2); b.uy += (b.vy / sp - b.uy) * min(1, dt * 2);
   }
-  if (blobs.some((b) => b.gone)) state.blobs = blobs.filter((b) => !b.gone);
+  state.blobs = blobs.filter((b) => !b.gone).concat(born);
   // Wax in the liquid keeps a little apart, so blobs pass each other instead of fusing for good.
   for (let i = 0; i < blobs.length; i += 1) for (let j = i + 1; j < blobs.length; j += 1) {
     const a = blobs[i], b = blobs[j], dx = b.x - a.x, dy = b.y - a.y, d = hypot(dx, dy) || 1, m = (a.r + b.r) * 0.9;
@@ -211,7 +210,8 @@ function shade(env, state, k, light) {
   }
   for (const b of state.blobs) {
     const r = b.r * b.g * (1 + 0.3 * b.sv) * s * KR, sp = hypot(b.vx, b.vy) / h;
-    const e = clamp(sp / 0.06, 0, 1), st = 1 + e * 0.5, sq = b.sq * 0.15;
+    // Big wax sags, stretches with speed and wobbles slowly.
+    const e = clamp(sp / 0.06, 0, 1), wob = 1 + 0.06 * Math.sin(b.ph + time * 0.6), st = (1 + e * 0.7) * wob, sq = b.sq * 0.15;
     const ul = hypot(b.ux, b.uy) || 1, ux = b.ux / ul, uy = b.uy / ul;
     const front = r * st * (1 - 0.15 * e) * (1 - sq), rear = r * st * (1 + 0.45 * e) * (1 - sq), side = r / Math.sqrt(st) * (1 + sq);
     const R = max(rear, side), cx = b.x * s, cy = b.y * s;

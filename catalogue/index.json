@@ -3819,23 +3819,23 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "5d7c3fdfb9ce819fb6c29fb93de4d1696f6ae613fe2d473336b38764e78d5543",
-          "size": 10618
+          "sha256": "0e0812ab790b1d41464b21981ab7fc68c0f3b02bf3ccbdaadb8b06d739cadbac",
+          "size": 13477
         },
         {
           "path": "index.js",
-          "sha256": "acbe2632e30527db9a6573a764ff9b02d539862b709221ab62bcf0f9bfa053e4",
-          "size": 24253
+          "sha256": "32cae906a99707ce1d83204dbe69da93809cc0850a698a347037d3849f8f69d7",
+          "size": 24344
         },
         {
           "path": "preview.png",
-          "sha256": "5d022b61a940614fe141e3266c58b9069c9ecfb12ecf6c691a6af638e28cf458",
-          "size": 59534
+          "sha256": "413e9c1e89ce93ab2a5690d98fa44140f37e94476014e86634039b56837e0514",
+          "size": 37356
         },
         {
           "path": "README.md",
-          "sha256": "6b430cd2f3a4f80b965d8697813875654780c592728fd688fd5d5f481587d6fb",
-          "size": 5011
+          "sha256": "c4c718ece3eff5b484fb95eed0c75eb3b85df0cac39783511fca9830c85f35b3",
+          "size": 5583
         }
       ],
       "kit": {
