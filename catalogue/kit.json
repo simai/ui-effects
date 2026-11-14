@@ -268,6 +268,12 @@
       "passed": 17,
       "total": 17,
       "failed": []
+    },
+    "drone-show": {
+      "digest": "37478777a10cb0b1eb98004ca2bbbe7eeb8b6979970708d3878f395e0fd29d98",
+      "passed": 14,
+      "total": 14,
+      "failed": []
     }
   }
 }

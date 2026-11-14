@@ -1,0 +1,403 @@
+{
+  "schema": "simai.effect",
+  "schema_version": 1,
+  "id": "drone-show",
+  "version": "0.1.0",
+  "label": {
+    "ru": "Шоу дронов",
+    "en": "Drone show",
+    "es": "Espectáculo de drones",
+    "pt-BR": "Show de drones",
+    "de": "Drohnenshow",
+    "zh-CN": "无人机表演",
+    "fr": "Spectacle de drones",
+    "ja": "ドローンショー"
+  },
+  "author": "Rim Zabarov",
+  "entry": "index.js",
+  "preview": "preview.png",
+  "surfaces": [
+    "hero",
+    "section",
+    "sign-in"
+  ],
+  "schemes": [
+    "dark"
+  ],
+  "capabilities": [
+    "windows"
+  ],
+  "settings": [
+    {
+      "key": "speed",
+      "type": "integer",
+      "label": {
+        "ru": "Скорость",
+        "en": "Speed",
+        "es": "Velocidad",
+        "pt-BR": "Velocidade",
+        "de": "Geschwindigkeit",
+        "zh-CN": "速度",
+        "fr": "Vitesse",
+        "ja": "速度"
+      },
+      "default": 100,
+      "min": 10,
+      "max": 300,
+      "step": 10,
+      "unit": "%"
+    },
+    {
+      "key": "intensity",
+      "type": "integer",
+      "label": {
+        "ru": "Яркость",
+        "en": "Intensity",
+        "es": "Intensidad",
+        "pt-BR": "Intensidade",
+        "de": "Intensität",
+        "zh-CN": "强度",
+        "fr": "Intensité",
+        "ja": "強さ"
+      },
+      "default": 80,
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "%"
+    },
+    {
+      "key": "drones",
+      "type": "integer",
+      "label": {
+        "ru": "Количество дронов",
+        "en": "Number of drones",
+        "es": "Número de drones",
+        "pt-BR": "Número de drones",
+        "de": "Anzahl der Drohnen",
+        "zh-CN": "无人机数量",
+        "fr": "Nombre de drones",
+        "ja": "ドローンの数"
+      },
+      "default": 100,
+      "min": 30,
+      "max": 150,
+      "step": 10,
+      "unit": "%",
+      "hint": {
+        "ru": "100 % — около тысячи огней; больше — фигуры плотнее и ярче",
+        "en": "100 % is about a thousand lights; more makes the figures denser and brighter",
+        "es": "100 % son unas mil luces; más hace las figuras más densas y brillantes",
+        "pt-BR": "100 % são cerca de mil luzes; mais deixa as figuras mais densas e brilhantes",
+        "de": "100 % sind etwa tausend Lichter; mehr macht die Figuren dichter und heller",
+        "zh-CN": "100% 约为一千个光点；更多会让图形更密更亮",
+        "fr": "100 % correspond à environ mille lumières ; davantage rend les figures plus denses et plus lumineuses",
+        "ja": "100 % で約千個の光。増やすと図形が密で明るくなります"
+      }
+    },
+    {
+      "key": "size",
+      "type": "integer",
+      "label": {
+        "ru": "Размер фигуры",
+        "en": "Figure size",
+        "es": "Tamaño de la figura",
+        "pt-BR": "Tamanho da figura",
+        "de": "Figurgröße",
+        "zh-CN": "图形大小",
+        "fr": "Taille de la figure",
+        "ja": "図形の大きさ"
+      },
+      "default": 100,
+      "min": 50,
+      "max": 150,
+      "step": 10,
+      "unit": "%"
+    },
+    {
+      "key": "figures",
+      "type": "choice",
+      "label": {
+        "ru": "Фигуры",
+        "en": "Figures",
+        "es": "Figuras",
+        "pt-BR": "Figuras",
+        "de": "Figuren",
+        "zh-CN": "图形",
+        "fr": "Figures",
+        "ja": "図形"
+      },
+      "default": "all",
+      "options": [
+        {
+          "value": "all",
+          "label": {
+            "ru": "Все",
+            "en": "All",
+            "es": "Todas",
+            "pt-BR": "Todas",
+            "de": "Alle",
+            "zh-CN": "全部",
+            "fr": "Toutes",
+            "ja": "すべて"
+          }
+        },
+        {
+          "value": "nature",
+          "label": {
+            "ru": "Природа",
+            "en": "Nature",
+            "es": "Naturaleza",
+            "pt-BR": "Natureza",
+            "de": "Natur",
+            "zh-CN": "自然",
+            "fr": "Nature",
+            "ja": "自然"
+          }
+        },
+        {
+          "value": "space",
+          "label": {
+            "ru": "Космос",
+            "en": "Space",
+            "es": "Espacio",
+            "pt-BR": "Espaço",
+            "de": "Weltraum",
+            "zh-CN": "太空",
+            "fr": "Espace",
+            "ja": "宇宙"
+          }
+        }
+      ],
+      "hint": {
+        "ru": "Природа: птица, кит, медуза, цветок, сердце. Космос: Земля, планета с кольцом, галактика",
+        "en": "Nature: a bird, a whale, a jellyfish, a flower, a heart. Space: the Earth, a ringed planet, a galaxy",
+        "es": "Naturaleza: un pájaro, una ballena, una medusa, una flor, un corazón. Espacio: la Tierra, un planeta con anillo, una galaxia",
+        "pt-BR": "Natureza: um pássaro, uma baleia, uma água-viva, uma flor, um coração. Espaço: a Terra, um planeta com anel, uma galáxia",
+        "de": "Natur: ein Vogel, ein Wal, eine Qualle, eine Blume, ein Herz. Weltraum: die Erde, ein Planet mit Ring, eine Galaxie",
+        "zh-CN": "自然：鸟、鲸、水母、花、心。太空：地球、带环行星、星系",
+        "fr": "Nature : un oiseau, une baleine, une méduse, une fleur, un cœur. Espace : la Terre, une planète à anneau, une galaxie",
+        "ja": "自然：鳥、クジラ、クラゲ、花、ハート。宇宙：地球、環のある惑星、銀河"
+      }
+    },
+    {
+      "key": "palette",
+      "type": "choice",
+      "label": {
+        "ru": "Палитра",
+        "en": "Palette",
+        "es": "Paleta",
+        "pt-BR": "Paleta",
+        "de": "Palette",
+        "zh-CN": "配色",
+        "fr": "Palette",
+        "ja": "パレット"
+      },
+      "default": "show",
+      "options": [
+        {
+          "value": "show",
+          "label": {
+            "ru": "Как на шоу",
+            "en": "Show",
+            "es": "Espectáculo",
+            "pt-BR": "Espetáculo",
+            "de": "Show",
+            "zh-CN": "表演",
+            "fr": "Spectacle",
+            "ja": "ショー"
+          }
+        },
+        {
+          "value": "theme",
+          "label": {
+            "ru": "Цвет темы",
+            "en": "Theme colour",
+            "es": "Color del tema",
+            "pt-BR": "Cor do tema",
+            "de": "Designfarbe",
+            "zh-CN": "主题色",
+            "fr": "Couleur du thème",
+            "ja": "テーマカラー"
+          }
+        },
+        {
+          "value": "turquoise",
+          "label": {
+            "ru": "Бирюзовая",
+            "en": "Turquoise",
+            "es": "Turquesa",
+            "pt-BR": "Turquesa",
+            "de": "Türkis",
+            "zh-CN": "青绿",
+            "fr": "Turquoise",
+            "ja": "ターコイズ"
+          }
+        },
+        {
+          "value": "ocean",
+          "label": {
+            "ru": "Океан",
+            "en": "Ocean",
+            "es": "Océano",
+            "pt-BR": "Oceano",
+            "de": "Ozean",
+            "zh-CN": "海洋",
+            "fr": "Océan",
+            "ja": "オーシャン"
+          }
+        },
+        {
+          "value": "violet",
+          "label": {
+            "ru": "Фиолетовая",
+            "en": "Violet",
+            "es": "Violeta",
+            "pt-BR": "Violeta",
+            "de": "Violett",
+            "zh-CN": "紫罗兰",
+            "fr": "Violet",
+            "ja": "バイオレット"
+          }
+        },
+        {
+          "value": "rose",
+          "label": {
+            "ru": "Роза",
+            "en": "Rose",
+            "es": "Rosa",
+            "pt-BR": "Rosa",
+            "de": "Rosé",
+            "zh-CN": "玫瑰",
+            "fr": "Rose",
+            "ja": "ローズ"
+          }
+        },
+        {
+          "value": "emerald",
+          "label": {
+            "ru": "Изумруд",
+            "en": "Emerald",
+            "es": "Esmeralda",
+            "pt-BR": "Esmeralda",
+            "de": "Smaragd",
+            "zh-CN": "翡翠",
+            "fr": "Émeraude",
+            "ja": "エメラルド"
+          }
+        },
+        {
+          "value": "sunset",
+          "label": {
+            "ru": "Закат",
+            "en": "Sunset",
+            "es": "Atardecer",
+            "pt-BR": "Pôr do sol",
+            "de": "Sonnenuntergang",
+            "zh-CN": "日落",
+            "fr": "Coucher de soleil",
+            "ja": "サンセット"
+          }
+        },
+        {
+          "value": "gold",
+          "label": {
+            "ru": "Золото",
+            "en": "Gold",
+            "es": "Oro",
+            "pt-BR": "Ouro",
+            "de": "Gold",
+            "zh-CN": "金色",
+            "fr": "Or",
+            "ja": "ゴールド"
+          }
+        },
+        {
+          "value": "silver",
+          "label": {
+            "ru": "Серебро",
+            "en": "Silver",
+            "es": "Plata",
+            "pt-BR": "Prata",
+            "de": "Silber",
+            "zh-CN": "银色",
+            "fr": "Argent",
+            "ja": "シルバー"
+          }
+        },
+        {
+          "value": "custom",
+          "label": {
+            "ru": "Свой цвет",
+            "en": "Custom colour",
+            "es": "Color personalizado",
+            "pt-BR": "Cor personalizada",
+            "de": "Eigene Farbe",
+            "zh-CN": "自定义颜色",
+            "fr": "Couleur personnalisée",
+            "ja": "カスタムカラー"
+          }
+        }
+      ]
+    },
+    {
+      "key": "colour",
+      "type": "color",
+      "label": {
+        "ru": "Цвет",
+        "en": "Colour",
+        "es": "Color",
+        "pt-BR": "Cor",
+        "de": "Farbe",
+        "zh-CN": "颜色",
+        "fr": "Couleur",
+        "ja": "色"
+      },
+      "default": "#3b82f6",
+      "hint": {
+        "ru": "Эффект строит из него все оттенки",
+        "en": "The effect builds every tone from it",
+        "es": "El efecto construye todos los tonos a partir de él",
+        "pt-BR": "O efeito constrói todos os tons a partir dela",
+        "de": "Der Effekt baut daraus jeden Farbton auf",
+        "zh-CN": "特效据此生成所有色调",
+        "fr": "L’effet en construit toutes les teintes",
+        "ja": "エフェクトはこの色からすべての色調を作ります"
+      },
+      "when": {
+        "key": "palette",
+        "is": [
+          "custom"
+        ]
+      }
+    },
+    {
+      "key": "interactive",
+      "type": "boolean",
+      "label": {
+        "ru": "Реагировать на указатель",
+        "en": "React to the pointer",
+        "es": "Reaccionar al puntero",
+        "pt-BR": "Reagir ao ponteiro",
+        "de": "Auf den Zeiger reagieren",
+        "zh-CN": "响应指针",
+        "fr": "Réagir au pointeur",
+        "ja": "ポインターに反応"
+      },
+      "default": true,
+      "hint": {
+        "ru": "Фигура слегка поворачивается к указателю; нажмите и тяните, чтобы вращать её; щелчок разгоняет дронов от точки, и они снова собираются",
+        "en": "The figure turns gently towards the pointer; press and drag to rotate it; a click scatters the drones from the point, and they gather again",
+        "es": "La figura gira suavemente hacia el puntero; mantenga pulsado y arrastre para rotarla; un clic dispersa los drones desde el punto y vuelven a reunirse",
+        "pt-BR": "A figura vira suavemente em direção ao ponteiro; pressione e arraste para girá-la; um clique espalha os drones a partir do ponto, e eles se reúnem de novo",
+        "de": "Die Figur dreht sich sanft zum Zeiger; gedrückt halten und ziehen dreht sie; ein Klick zerstreut die Drohnen vom Punkt aus, und sie sammeln sich wieder",
+        "zh-CN": "图形会轻轻转向指针；按住拖动可旋转图形；单击会让无人机从该点散开，随后重新聚拢",
+        "fr": "La figure se tourne doucement vers le pointeur ; appuyez et faites glisser pour la faire pivoter ; un clic disperse les drones depuis le point, puis ils se regroupent",
+        "ja": "図形はポインターのほうへそっと向きます。押したままドラッグすると回転し、クリックするとその点からドローンが散り、また集まります"
+      }
+    }
+  ],
+  "needs": {
+    "network": false
+  }
+}
