@@ -236,11 +236,10 @@ h3 { font-size: 1.0625rem; line-height: 1.4; font-weight: 700; }
 .theme-dark .panel { --sf-on-surface-variant: var(--ink-muted); }
 .panel { display: grid; gap: 1rem; min-inline-size: 0; padding: 1.25rem; border-radius: var(--radius-l); background: var(--sf-surface-container); }
 .panel__head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem; }
-.form { display: grid; gap: 1rem; }
+.form { display: grid; gap: var(--sf-space-1); }
 .field { display: grid; gap: 0.25rem; }
 .field[hidden] { display: none; }
 .hint { color: var(--ink-muted); font-size: 0.875rem; }
-.invalid { color: var(--sf-error); font-size: 0.875rem; }
 .notice { padding: 0.75rem 1rem; border-radius: var(--radius-m); background: var(--sf-surface-0); border: 1px solid var(--sf-outline-variant); }
 
 .field__label { font-weight: 600; }

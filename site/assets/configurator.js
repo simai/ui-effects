@@ -136,12 +136,13 @@ function buildForm() {
     }
     const apply = (event) => {
       const checked = checkSetting(setting, read(event, element));
-      field.querySelector('.invalid')?.remove();
-      if (!checked.ok) {
-        const note = document.createElement('p');
-        note.className = 'invalid';
-        note.textContent = t('effect.invalid');
-        field.append(note);
+      // The error is the field's own (C153, C55): the Framework control draws the message in its
+      // message slot, marks its native field aria-invalid and ties the message to it by
+      // aria-describedby. A switch, a slider and a colour picker cannot hand over a value out of range.
+      element.toggleAttribute('invalid', !checked.ok);
+      if (checked.ok) element.removeAttribute('error-message');
+      else {
+        element.setAttribute('error-message', t('effect.invalid'));
         return;
       }
       state.values = {...state.values, [setting.key]: checked.value};
