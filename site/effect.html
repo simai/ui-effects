@@ -23,7 +23,7 @@
   <section class="stage" aria-labelledby="stage-title" data-stage>
     <h2 id="stage-title" class="visually-hidden">{{t:effect.live}}</h2>
     <div class="toolbar">
-      <sf-button-group appearance="segmented" aria-label="{{t:effect.mode}}" value="auto" data-modes></sf-button-group>
+      <sf-segmented aria-label="{{t:effect.mode}}" value="auto" data-modes></sf-segmented>
       <p class="toolbar__note small muted" data-policy aria-live="polite"></p>
     </div>
     <section class="demo-hero" data-hero aria-labelledby="demo-title">
@@ -56,21 +56,21 @@
 
   <div class="panels">
     <div class="panels__col">
-      <section class="panel" aria-labelledby="settings-title">
-        <div class="panel__head">
-          <h2 id="settings-title">{{t:panel.settings}}</h2>
+      <section class="flex flex-col gap-2 p-2 radius-2 bg-surface-container min-w-0" aria-labelledby="settings-title">
+        <div class="flex flex-wrap items-cross-center content-main-between gap-1/3">
+          <h2 id="settings-title" class="sf-h-4">{{t:panel.settings}}</h2>
           <button type="button" class="sf-button sf-button--outline sf-button--on-surface sf-button--size-1/2" data-reset><span class="sf-button-text-container">{{t:panel.reset}}</span></button>
         </div>
-        <p class="notice small" data-settings-note hidden></p>
-        <form class="form" data-form novalidate></form>
+        <sf-alert status="info" data-settings-note hidden></sf-alert>
+        <form class="flex flex-col gap-1" data-form novalidate></form>
       </section>
-      <section class="panel" aria-labelledby="about-title">
-        <h2 id="about-title">{{t:panel.about}}</h2>
+      <section class="flex flex-col gap-2 p-2 radius-2 bg-surface-container min-w-0" aria-labelledby="about-title">
+        <h2 id="about-title" class="sf-h-4">{{t:panel.about}}</h2>
         <dl class="facts" data-facts-list></dl>
         <p class="small"><a data-source>{{t:panel.source}}</a></p>
       </section>
-      <section class="panel" aria-labelledby="download-title">
-        <h2 id="download-title">{{t:panel.download}}</h2>
+      <section class="flex flex-col gap-2 p-2 radius-2 bg-surface-container min-w-0" aria-labelledby="download-title">
+        <h2 id="download-title" class="sf-h-4">{{t:panel.download}}</h2>
         <p class="small muted">{{t:panel.download.lead}}</p>
         <p class="small" data-draft-note hidden>{{t:panel.download.draft}}</p>
         <sf-dropdown size="1" label="{{t:panel.download.layout}}" value="both" search="false" data-download-layout></sf-dropdown>
@@ -78,15 +78,12 @@
       </section>
     </div>
 
-    <section class="panel" aria-labelledby="code-title">
-      <div class="panel__head">
-        <h2 id="code-title">{{t:panel.code}}</h2>
+    <section class="flex flex-col gap-2 p-2 radius-2 bg-surface-container min-w-0" aria-labelledby="code-title">
+      <div class="flex flex-wrap items-cross-center content-main-between gap-1/3">
+        <h2 id="code-title" class="sf-h-4">{{t:panel.code}}</h2>
       </div>
       <!-- The core's About menu over the background; off, the code carries data-sf-effect-about="false". -->
-      <div class="field">
-        <sf-switch size="1" label="{{t:panel.code.about}}" checked data-about></sf-switch>
-        <p class="hint">{{t:panel.code.about.hint}}</p>
-      </div>
+      <sf-switch size="1" label="{{t:panel.code.about}}" description="{{t:panel.code.about.hint}}" checked data-about></sf-switch>
       <!-- Framework tabs; each block is the Framework's code highlight, with its own copy button. -->
       <sf-tabs type="pills" size="1/2" aria-label="{{t:panel.code.format}}" items="HTML|JS|{{t:panel.code.settings}}" data-code-tabs>
         <div slot="panel-0" class="code-stack">

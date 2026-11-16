@@ -83,9 +83,13 @@ state.values = defaults();
 const checkSetting = (setting, raw) => Effects.checkSetting(setting, raw);
 
 // Every control is a Framework Smart component; each reports a committed value
-// with a change event on its host.
+// with a change event on its host. Its name, its hint and its error are the
+// component's own attributes: the site draws no label, hint or error of its own.
+// The slider has no hint attribute yet, so a slider's hint is not shown; a
+// dropdown has no visible hint, so its hint goes behind the «?» of `help`.
 function controlFor(setting, value) {
   const label = text(setting.label);
+  const hint = setting.hint ? text(setting.hint) : undefined;
   const make = (tag, attributes) => {
     const element = document.createElement(tag);
     for (const [name, attribute] of Object.entries(attributes)) if (attribute !== undefined && attribute !== null && attribute !== false) element.setAttribute(name, attribute === true ? '' : String(attribute));
@@ -94,51 +98,36 @@ function controlFor(setting, value) {
   switch (setting.type) {
     case 'integer':
     case 'number':
-      // The slider's own label attribute is how a handle shows its value; the field's name is a caption above it.
-      return {caption: label, element: make('sf-slider-range', {min: setting.min, max: setting.max, step: setting.step ?? (setting.type === 'integer' ? 1 : (setting.max - setting.min) / 100), value, label: 'tooltip', decimals: setting.type === 'integer' ? '0' : undefined, suffix: setting.unit ? ` ${setting.unit}` : undefined, 'aria-label': label}),
+      // The value stands at the end of the name line (value-display="text", C78).
+      return {element: make('sf-slider-range', {label, min: setting.min, max: setting.max, step: setting.step ?? (setting.type === 'integer' ? 1 : (setting.max - setting.min) / 100), value, 'value-display': 'text', precision: setting.type === 'integer' ? '0' : undefined, suffix: setting.unit ? ` ${setting.unit}` : undefined, size: '1'}),
         read: (event) => Number(event.detail?.values?.[0] ?? event.detail?.value)};
     case 'boolean':
-      return {inner: true, element: make('sf-switch', {label, checked: Boolean(value), size: '1'}), read: (event, element) => Boolean(element.checked)};
+      return {inner: true, element: make('sf-switch', {label, description: hint, checked: Boolean(value), size: '1'}), read: (event, element) => Boolean(element.checked)};
     case 'choice': {
       // Options go in as a property: given as an attribute, the field does not show the chosen one.
-      const element = make('sf-dropdown', {label, size: '1', value: String(value), search: 'false'});
+      const element = make('sf-dropdown', {label, help: hint, size: '1', value: String(value), search: 'false'});
       element.options = setting.options.map((option) => ({text: text(option.label) || String(option.value), value: String(option.value)}));
       return {inner: true, element, read: (event, picker) => picker.value};
     }
     case 'color':
-      return {element: make('sf-input-color', {label, value, size: '1'}), read: (event) => event.detail?.value ?? ''};
+      return {element: make('sf-input-color', {label, hint, value, size: '1'}), read: (event) => event.detail?.value ?? ''};
     case 'text':
-      return {live: true, element: make('sf-input-textarea', {label, value: value ?? '', rows: 3, maxlength: setting.max, size: '1'}), read: (event, element) => element.value};
+      return {live: true, element: make('sf-input-textarea', {label, hint, value: value ?? '', rows: 3, maxlength: setting.max, size: '1'}), read: (event, element) => element.value};
     default:
-      return {live: true, element: make('sf-input', {label, value: value ?? '', maxlength: setting.max, size: '1'}), read: (event, element) => element.value};
+      return {live: true, element: make('sf-input', {label, hint, value: value ?? '', maxlength: setting.max, size: '1'}), read: (event, element) => element.value};
   }
 }
 
 function buildForm() {
   form.replaceChildren();
   userSettings.forEach((setting) => {
-    const field = document.createElement('div');
-    field.className = 'field';
-    field.dataset.key = setting.key;
-    const {element, read, caption, live, inner} = controlFor(setting, state.values[setting.key]);
-    if (caption) {
-      const name = document.createElement('p');
-      name.className = 'field__label';
-      name.textContent = caption;
-      field.append(name);
-    }
-    field.append(element);
-    if (setting.hint) {
-      const hint = document.createElement('p');
-      hint.className = 'hint';
-      hint.textContent = text(setting.hint);
-      field.append(hint);
-    }
+    const {element, read, live, inner} = controlFor(setting, state.values[setting.key]);
+    element.dataset.key = setting.key;
     const apply = (event) => {
       const checked = checkSetting(setting, read(event, element));
       // The error is the field's own (C153, C55): the Framework control draws the message in its
       // message slot, marks its native field aria-invalid and ties the message to it by
-      // aria-describedby. A switch, a slider and a colour picker cannot hand over a value out of range.
+      // aria-describedby. The switch and the slider have no error; neither can hand over a value out of range.
       element.toggleAttribute('invalid', !checked.ok);
       if (checked.ok) element.removeAttribute('error-message');
       else {
@@ -164,7 +153,7 @@ function buildForm() {
     } else {
       element.addEventListener('change', (event) => { if (event.target === element) apply(event); });
     }
-    form.append(field);
+    form.append(element);
   });
   showConditional();
 }
@@ -199,7 +188,7 @@ function describe(current) {
   line.textContent = policyText(current);
   const note = $('[data-settings-note]');
   note.hidden = Boolean(current.shown);
-  note.textContent = current.shown ? '' : t('effect.not-shown');
+  note.setAttribute('supporting-text', current.shown ? '' : t('effect.not-shown'));
 }
 
 // What the placements show now: the core follows the page theme on its own,
