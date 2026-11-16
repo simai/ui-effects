@@ -129,11 +129,13 @@ async function routeAll(context) {
 // controls (range slider, switch, dropdown, text fields) with the parts they
 // bring, the code tabs and the code highlight with its copy button.
 // The Loader also brings the Smart icon button and the badges as dependencies of
-// those parts; the header is the site header, and the theme colour asks for the
+// those parts, and since ui-078a4b4c6f6e the help mark with its kbd and dot (a
+// field's «?»), the slider and swiper components under sf-slider-range; the
+// mode switch is sf-segmented and the «not shown» note sf-alert; the header is the site header, and the theme colour asks for the
 // theme palette on its own.
 // Smart components load from folders under their new tag names (sf-header-site,
 // sf-menu-context, ...); the plain components behind them keep their old folders.
-const SITE_MODULES = /^(component|smart)\/(button-group|buttons?|icons?|icon-buttons|theme|theme-generator|theme-palette|site-header|header-site|menu|color|input-color|inputs?|close|button-close|range-slider|slider-range|switch|dropdown|list-item|context-menu|menu-context|checkbox|sortable|tags|avatars|avatar-group|tooltip|textarea|input-textarea|tabs|highlight|clipboard|scrollbar|doc|icon-button|button-icon|badges)\//u;
+const SITE_MODULES = /^(component|smart)\/(button-group|buttons?|icons?|icon-buttons|theme|theme-generator|theme-palette|site-header|header-site|menu|color|input-color|inputs?|close|button-close|range-slider|slider-range|switch|dropdown|list-item|context-menu|menu-context|checkbox|sortable|tags|avatars|avatar-group|tooltip|textarea|input-textarea|tabs|highlight|clipboard|scrollbar|doc|icon-button|button-icon|badges|segmented|alert|alerts|help-mark|kbd|dot|slider|swiper)\//u;
 function watch(page, where) {
   const problems = [];
   page.on('pageerror', (error) => problems.push(`page error: ${error.message}`));
@@ -183,7 +185,7 @@ const chromeContrast = (page) => page.evaluate(() => {
     if (!node.textContent.trim() || seen.has(element)) continue;
     seen.add(element);
     // Text over an effect is the contrast readout's: the banner and the window cards are left out here.
-    if (element.closest('[data-effect-area], [data-sf-effect-state], [hidden], .visually-hidden, .skip, script, style')) continue;
+    if (element.closest('[data-effect-area], [data-sf-effect-state], [hidden], .visually-hidden, .sf-skip-link, script, style')) continue;
     const box = element.getBoundingClientRect();
     if (!box.width || !box.height) continue;
     const style = getComputedStyle(element);
@@ -296,7 +298,7 @@ try {
           }));
         }
         const reached = (test) => stops.some(test);
-        if (stops[0].cls !== 'skip') fail(`keyboard ${viewport.width}`, `first stop is ${stops[0].cls}, not the skip link`);
+        if (stops[0].cls !== 'sf-skip-link') fail(`keyboard ${viewport.width}`, `first stop is ${stops[0].cls}, not the Framework's skip link`);
         if (!reached((stop) => stop.label === 'Categories')) fail(`keyboard ${viewport.width}`, 'filters not reached');
         if (!reached((stop) => stop.cls === '' && stop.text && !/Gallery|For authors|GitHub|simai\.io/u.test(stop.text))) fail(`keyboard ${viewport.width}`, 'cards not reached');
         const noRing = stops.filter((stop) => !stop.ring);
@@ -331,7 +333,8 @@ try {
         const checkLayout = async (layout) => {
           await page.waitForFunction(() => ['yes', 'hidden', 'error'].includes(document.documentElement.dataset.mounted), null, {timeout: 20000});
           await page.waitForFunction(() => document.querySelector('[data-readout]').dataset.measured === 'true', null, {timeout: 20000});
-          await page.waitForSelector('[data-modes] [data-sf-button-group-value]', {timeout: 20000});
+          // Attached, not visible: on a narrow toolbar sf-segmented folds its segments into a dropdown (data-sf-folded).
+          await page.waitForSelector('[data-modes] [data-sf-button-group-value]', {state: 'attached', timeout: 20000});
           await wait(400);
           const facts = await page.evaluate((windows) => {
             const area = document.querySelector(windows ? '[data-cards]' : '[data-hero]');
