@@ -1,0 +1,407 @@
+{
+  "schema": "simai.effect",
+  "schema_version": 1,
+  "id": "data-flow",
+  "version": "0.1.0",
+  "label": {
+    "ru": "Поток данных",
+    "en": "Data flow",
+    "es": "Flujo de datos",
+    "pt-BR": "Fluxo de dados",
+    "de": "Datenfluss",
+    "zh-CN": "数据流",
+    "fr": "Flux de données",
+    "ja": "データフロー"
+  },
+  "author": "Rim Zabarov",
+  "entry": "index.js",
+  "preview": "preview.png",
+  "surfaces": [
+    "hero",
+    "section",
+    "sign-in"
+  ],
+  "schemes": [
+    "dark",
+    "light"
+  ],
+  "capabilities": [
+    "windows"
+  ],
+  "settings": [
+    {
+      "key": "speed",
+      "type": "integer",
+      "label": {
+        "ru": "Скорость",
+        "en": "Speed",
+        "es": "Velocidad",
+        "pt-BR": "Velocidade",
+        "de": "Geschwindigkeit",
+        "zh-CN": "速度",
+        "fr": "Vitesse",
+        "ja": "速度"
+      },
+      "default": 100,
+      "min": 10,
+      "max": 300,
+      "step": 10,
+      "unit": "%"
+    },
+    {
+      "key": "intensity",
+      "type": "integer",
+      "label": {
+        "ru": "Яркость",
+        "en": "Intensity",
+        "es": "Intensidad",
+        "pt-BR": "Intensidade",
+        "de": "Intensität",
+        "zh-CN": "强度",
+        "fr": "Intensité",
+        "ja": "強さ"
+      },
+      "default": 100,
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "hint": {
+        "ru": "Насколько заметны записи, рамки представлений и свечение за ними",
+        "en": "How strongly the records, the views' frames and the light behind them show",
+        "es": "Cuánto se ven los registros, los marcos de las vistas y la luz detrás de ellos",
+        "pt-BR": "Quanto aparecem os registros, as molduras das visualizações e a luz atrás deles",
+        "de": "Wie deutlich die Datensätze, die Rahmen der Ansichten und das Licht dahinter erscheinen",
+        "zh-CN": "记录、视图框架及其背后光晕的显现程度",
+        "fr": "L’intensité des enregistrements, des cadres des vues et de la lumière derrière eux",
+        "ja": "レコード、ビューの枠、その後ろの光の見え方の強さ"
+      }
+    },
+    {
+      "key": "records",
+      "type": "integer",
+      "label": {
+        "ru": "Записи",
+        "en": "Records",
+        "es": "Registros",
+        "pt-BR": "Registros",
+        "de": "Datensätze",
+        "zh-CN": "记录",
+        "fr": "Enregistrements",
+        "ja": "レコード"
+      },
+      "default": 20,
+      "min": 8,
+      "max": 40,
+      "step": 1,
+      "hint": {
+        "ru": "Сколько записей переходит из представления в представление: длинная таблица делится на две колонки, чтобы строки оставались высокими",
+        "en": "How many records move from view to view; a long table splits into two panes so its rows stay tall",
+        "es": "Cuántos registros pasan de una vista a otra; una tabla larga se divide en dos paneles para que sus filas sigan altas",
+        "pt-BR": "Quantos registros passam de uma visualização para outra; uma tabela longa se divide em dois painéis para que as linhas continuem altas",
+        "de": "Wie viele Datensätze von Ansicht zu Ansicht wandern; eine lange Tabelle teilt sich in zwei Spalten, damit die Zeilen hoch bleiben",
+        "zh-CN": "在视图之间移动的记录数量；表格过长时会分成两栏，使行保持足够高度",
+        "fr": "Combien d’enregistrements passent d’une vue à l’autre ; un long tableau se divise en deux volets pour garder des lignes hautes",
+        "ja": "ビューからビューへ移るレコードの数。長い表は行の高さを保つため 2 列に分かれます"
+      }
+    },
+    {
+      "key": "views",
+      "type": "choice",
+      "label": {
+        "ru": "Представления",
+        "en": "Views",
+        "es": "Vistas",
+        "pt-BR": "Visualizações",
+        "de": "Ansichten",
+        "zh-CN": "视图",
+        "fr": "Vues",
+        "ja": "ビュー"
+      },
+      "default": "all",
+      "options": [
+        {
+          "value": "all",
+          "label": {
+            "ru": "Все: таблица, доска, календарь, карточки",
+            "en": "All: table, board, calendar, cards",
+            "es": "Todas: tabla, tablero, calendario, tarjetas",
+            "pt-BR": "Todas: tabela, quadro, calendário, cartões",
+            "de": "Alle: Tabelle, Board, Kalender, Karten",
+            "zh-CN": "全部：表格、看板、日历、卡片",
+            "fr": "Toutes : tableau, tableau Kanban, calendrier, cartes",
+            "ja": "すべて：表、ボード、カレンダー、カード"
+          }
+        },
+        {
+          "value": "no-calendar",
+          "label": {
+            "ru": "Таблица, доска, карточки",
+            "en": "Table, board, cards",
+            "es": "Tabla, tablero, tarjetas",
+            "pt-BR": "Tabela, quadro, cartões",
+            "de": "Tabelle, Board, Karten",
+            "zh-CN": "表格、看板、卡片",
+            "fr": "Tableau, tableau Kanban, cartes",
+            "ja": "表、ボード、カード"
+          }
+        },
+        {
+          "value": "table-board",
+          "label": {
+            "ru": "Таблица и доска",
+            "en": "Table and board",
+            "es": "Tabla y tablero",
+            "pt-BR": "Tabela e quadro",
+            "de": "Tabelle und Board",
+            "zh-CN": "表格和看板",
+            "fr": "Tableau et tableau Kanban",
+            "ja": "表とボード"
+          }
+        },
+        {
+          "value": "board-calendar",
+          "label": {
+            "ru": "Доска и календарь",
+            "en": "Board and calendar",
+            "es": "Tablero y calendario",
+            "pt-BR": "Quadro e calendário",
+            "de": "Board und Kalender",
+            "zh-CN": "看板和日历",
+            "fr": "Tableau Kanban et calendrier",
+            "ja": "ボードとカレンダー"
+          }
+        }
+      ],
+      "hint": {
+        "ru": "Какие представления по очереди показывают одни и те же записи",
+        "en": "Which views take turns showing the same records",
+        "es": "Qué vistas muestran por turnos los mismos registros",
+        "pt-BR": "Quais visualizações mostram, por turnos, os mesmos registros",
+        "de": "Welche Ansichten abwechselnd dieselben Datensätze zeigen",
+        "zh-CN": "哪些视图轮流展示同一组记录",
+        "fr": "Quelles vues montrent tour à tour les mêmes enregistrements",
+        "ja": "同じレコードを順番に見せるビュー"
+      }
+    },
+    {
+      "key": "palette",
+      "type": "choice",
+      "label": {
+        "ru": "Палитра",
+        "en": "Palette",
+        "es": "Paleta",
+        "pt-BR": "Paleta",
+        "de": "Palette",
+        "zh-CN": "配色",
+        "fr": "Palette",
+        "ja": "パレット"
+      },
+      "default": "classic",
+      "options": [
+        {
+          "value": "classic",
+          "label": {
+            "ru": "Классическая",
+            "en": "Classic",
+            "es": "Clásica",
+            "pt-BR": "Clássica",
+            "de": "Klassisch",
+            "zh-CN": "经典",
+            "fr": "Classique",
+            "ja": "クラシック"
+          }
+        },
+        {
+          "value": "theme",
+          "label": {
+            "ru": "Цвет темы",
+            "en": "Theme colour",
+            "es": "Color del tema",
+            "pt-BR": "Cor do tema",
+            "de": "Designfarbe",
+            "zh-CN": "主题色",
+            "fr": "Couleur du thème",
+            "ja": "テーマカラー"
+          }
+        },
+        {
+          "value": "turquoise",
+          "label": {
+            "ru": "Бирюзовая",
+            "en": "Turquoise",
+            "es": "Turquesa",
+            "pt-BR": "Turquesa",
+            "de": "Türkis",
+            "zh-CN": "青绿",
+            "fr": "Turquoise",
+            "ja": "ターコイズ"
+          }
+        },
+        {
+          "value": "ocean",
+          "label": {
+            "ru": "Океан",
+            "en": "Ocean",
+            "es": "Océano",
+            "pt-BR": "Oceano",
+            "de": "Ozean",
+            "zh-CN": "海洋",
+            "fr": "Océan",
+            "ja": "オーシャン"
+          }
+        },
+        {
+          "value": "violet",
+          "label": {
+            "ru": "Фиолетовая",
+            "en": "Violet",
+            "es": "Violeta",
+            "pt-BR": "Violeta",
+            "de": "Violett",
+            "zh-CN": "紫罗兰",
+            "fr": "Violet",
+            "ja": "バイオレット"
+          }
+        },
+        {
+          "value": "rose",
+          "label": {
+            "ru": "Роза",
+            "en": "Rose",
+            "es": "Rosa",
+            "pt-BR": "Rosa",
+            "de": "Rosé",
+            "zh-CN": "玫瑰",
+            "fr": "Rose",
+            "ja": "ローズ"
+          }
+        },
+        {
+          "value": "emerald",
+          "label": {
+            "ru": "Изумруд",
+            "en": "Emerald",
+            "es": "Esmeralda",
+            "pt-BR": "Esmeralda",
+            "de": "Smaragd",
+            "zh-CN": "翡翠",
+            "fr": "Émeraude",
+            "ja": "エメラルド"
+          }
+        },
+        {
+          "value": "sunset",
+          "label": {
+            "ru": "Закат",
+            "en": "Sunset",
+            "es": "Atardecer",
+            "pt-BR": "Pôr do sol",
+            "de": "Sonnenuntergang",
+            "zh-CN": "日落",
+            "fr": "Coucher de soleil",
+            "ja": "サンセット"
+          }
+        },
+        {
+          "value": "gold",
+          "label": {
+            "ru": "Золото",
+            "en": "Gold",
+            "es": "Oro",
+            "pt-BR": "Ouro",
+            "de": "Gold",
+            "zh-CN": "金色",
+            "fr": "Or",
+            "ja": "ゴールド"
+          }
+        },
+        {
+          "value": "silver",
+          "label": {
+            "ru": "Серебро",
+            "en": "Silver",
+            "es": "Plata",
+            "pt-BR": "Prata",
+            "de": "Silber",
+            "zh-CN": "银色",
+            "fr": "Argent",
+            "ja": "シルバー"
+          }
+        },
+        {
+          "value": "custom",
+          "label": {
+            "ru": "Свой цвет",
+            "en": "Custom colour",
+            "es": "Color personalizado",
+            "pt-BR": "Cor personalizada",
+            "de": "Eigene Farbe",
+            "zh-CN": "自定义颜色",
+            "fr": "Couleur personnalisée",
+            "ja": "カスタムカラー"
+          }
+        }
+      ]
+    },
+    {
+      "key": "colour",
+      "type": "color",
+      "label": {
+        "ru": "Цвет",
+        "en": "Colour",
+        "es": "Color",
+        "pt-BR": "Cor",
+        "de": "Farbe",
+        "zh-CN": "颜色",
+        "fr": "Couleur",
+        "ja": "色"
+      },
+      "default": "#3b82f6",
+      "hint": {
+        "ru": "Эффект строит из него все оттенки",
+        "en": "The effect builds every tone from it",
+        "es": "El efecto construye todos los tonos a partir de él",
+        "pt-BR": "O efeito constrói todos os tons a partir dela",
+        "de": "Der Effekt baut daraus jeden Farbton auf",
+        "zh-CN": "特效据此生成所有色调",
+        "fr": "L’effet en construit toutes les teintes",
+        "ja": "エフェクトはこの色からすべての色調を作ります"
+      },
+      "when": {
+        "key": "palette",
+        "is": [
+          "custom"
+        ]
+      }
+    },
+    {
+      "key": "interactive",
+      "type": "boolean",
+      "label": {
+        "ru": "Реагировать на указатель",
+        "en": "React to the pointer",
+        "es": "Reaccionar al puntero",
+        "pt-BR": "Reagir ao ponteiro",
+        "de": "Auf den Zeiger reagieren",
+        "zh-CN": "响应指针",
+        "fr": "Réagir au pointeur",
+        "ja": "ポインターに反応"
+      },
+      "default": true,
+      "hint": {
+        "ru": "Записи рядом с указателем расступаются; щелчок сразу переключает на следующее представление",
+        "en": "Records near the pointer move aside; a click switches to the next view at once",
+        "es": "Los registros cerca del puntero se apartan; un clic cambia de inmediato a la vista siguiente",
+        "pt-BR": "Os registros perto do ponteiro se afastam; um clique muda na hora para a próxima visualização",
+        "de": "Datensätze in der Nähe des Zeigers weichen aus; ein Klick wechselt sofort zur nächsten Ansicht",
+        "zh-CN": "指针附近的记录会让开；点击会立即切换到下一个视图",
+        "fr": "Les enregistrements proches du pointeur s’écartent ; un clic passe aussitôt à la vue suivante",
+        "ja": "ポインターの近くのレコードはよけます。クリックするとすぐ次のビューに切り替わります"
+      }
+    }
+  ],
+  "needs": {
+    "network": false
+  }
+}

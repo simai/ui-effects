@@ -10,8 +10,8 @@
     "ui_source": "acc113415d98032041f3fdbf3e2ba622c48465a1"
   },
   "counts": {
-    "effects": 45,
-    "dual": 30,
+    "effects": 46,
+    "dual": 31,
     "dark": 13,
     "light": 2
   },
@@ -86,7 +86,7 @@
         "fr": "Réseaux, circuits, lumières, rues, cartes",
         "ja": "ネットワーク、回路、灯り、通り、地図"
       },
-      "count": 15
+      "count": 16
     },
     {
       "id": "text",
@@ -182,7 +182,7 @@
         "fr": "Dégradés, particules, géométrie",
         "ja": "グラデーション、粒子、幾何学"
       },
-      "count": 20
+      "count": 21
     }
   ],
   "effects": [
@@ -4007,6 +4007,94 @@
           "path": "README.md",
           "sha256": "5632ed887f38a9a42d20eed188e983844dea0010bf119ce3c3a72db3311cfee3",
           "size": 6326
+        }
+      ],
+      "kit": {
+        "status": "pass",
+        "framework": "ui-078a4b4c6f6e",
+        "passed": 17,
+        "total": 17
+      }
+    },
+    {
+      "id": "data-flow",
+      "version": "0.1.0",
+      "label": {
+        "ru": "Поток данных",
+        "en": "Data flow",
+        "es": "Flujo de datos",
+        "pt-BR": "Fluxo de dados",
+        "de": "Datenfluss",
+        "zh-CN": "数据流",
+        "fr": "Flux de données",
+        "ja": "データフロー"
+      },
+      "description": {
+        "ru": "Одни и те же данные в любой форме: набор записей спокойно перестраивается из таблицы в доску, календарь, карточки и обратно в таблицу. В пути запись становится мягко светящейся точкой, на месте принимает вид строки, карточки задачи, события или плитки, а за ней проявляется рамка представления: шапка, колонки, сетка дней. Записи у указателя расступаются, щелчок сразу переключает представление.",
+        "en": "The same data in any form: one set of records calmly regroups from a table to a board, a calendar, cards and back to the table. In flight a record is a softly glowing dot; landed, it becomes a row, a task card, an event or a tile, and the view's frame fades in behind it: the header, the columns, the grid of days. Records near the pointer move aside, and a click switches the view at once.",
+        "es": "Los mismos datos en cualquier forma: un conjunto de registros se reordena con calma de una tabla a un tablero, un calendario, tarjetas y de vuelta a la tabla. En vuelo, un registro es un punto de brillo suave; al llegar se convierte en fila, tarjeta de tarea, evento o mosaico, y detrás aparece el marco de la vista: la cabecera, las columnas, la cuadrícula de días. Los registros cerca del puntero se apartan y un clic cambia la vista al instante.",
+        "pt-BR": "Os mesmos dados em qualquer forma: um conjunto de registros se reorganiza com calma de uma tabela para um quadro, um calendário, cartões e de volta à tabela. Em voo, um registro é um ponto de brilho suave; ao pousar, vira linha, cartão de tarefa, evento ou bloco, e a moldura da visualização surge atrás dele: o cabeçalho, as colunas, a grade de dias. Registros perto do ponteiro se afastam, e um clique troca a visualização na hora.",
+        "de": "Dieselben Daten in jeder Form: Ein Satz Datensätze ordnet sich ruhig von einer Tabelle zu einem Board, einem Kalender, Karten und zurück zur Tabelle um. Unterwegs ist ein Datensatz ein sanft leuchtender Punkt; angekommen wird er zur Zeile, Aufgabenkarte, zum Termin oder zur Kachel, und dahinter blendet der Rahmen der Ansicht ein: Kopfzeile, Spalten, das Raster der Tage. Datensätze am Zeiger weichen aus, ein Klick wechselt die Ansicht sofort.",
+        "zh-CN": "同一份数据，任意形式：一组记录从表格平稳地重组为看板、日历、卡片，再回到表格。移动途中，记录是柔和发光的点；落定后变成一行、任务卡片、事件或卡块，其后渐显出视图的框架：表头、列、日期网格。指针附近的记录会让开，点击会立即切换视图。",
+        "fr": "Les mêmes données sous toutes les formes : un ensemble d’enregistrements se réorganise calmement d’un tableau en tableau Kanban, en calendrier, en cartes, puis revient au tableau. En vol, un enregistrement est un point à la lueur douce ; posé, il devient une ligne, une carte de tâche, un événement ou une tuile, et le cadre de la vue apparaît derrière lui : l’en-tête, les colonnes, la grille des jours. Les enregistrements proches du pointeur s’écartent, un clic change aussitôt de vue.",
+        "ja": "同じデータをどんな形でも：ひとまとまりのレコードが、表からボード、カレンダー、カードへ、そして表へと静かに並び替わります。移動中のレコードはやわらかく光る点になり、着地すると行、タスクカード、予定、タイルの形になり、その後ろにビューの枠（ヘッダー、列、日付のグリッド）が浮かび上がります。ポインターの近くのレコードはよけ、クリックするとすぐにビューが切り替わります。"
+      },
+      "role": {
+        "ru": "Фон для героя продукта о данных и наборах представлений: записи живут справа, текст слева остаётся на спокойном фоне. Тёмная схема основная, в светлой — бледный фон и насыщенные записи; на телефоне сцена крупнее и ниже текста.",
+        "en": "A hero background for a product about data and view sets: the records live on the right, and the text on the left stays on a calm ground. Dark is the home scheme; light shows a pale ground with saturated records. On a phone the stage is larger, below the text.",
+        "es": "Un fondo de hero para un producto sobre datos y conjuntos de vistas: los registros viven a la derecha y el texto de la izquierda queda sobre un fondo tranquilo. El esquema principal es el oscuro; el claro muestra un fondo pálido con registros saturados. En el teléfono la escena es más grande, bajo el texto.",
+        "pt-BR": "Um fundo de hero para um produto sobre dados e conjuntos de visualizações: os registros ficam à direita, e o texto à esquerda permanece sobre um fundo calmo. O esquema principal é o escuro; o claro mostra um fundo pálido com registros saturados. No celular a cena é maior, abaixo do texto.",
+        "de": "Ein Hero-Hintergrund für ein Produkt rund um Daten und Ansichtssätze: Die Datensätze leben rechts, der Text links bleibt auf ruhigem Grund. Dunkel ist das Hauptdesign; hell zeigt einen blassen Grund mit satten Datensätzen. Auf dem Telefon ist die Bühne größer, unter dem Text.",
+        "zh-CN": "适合以数据和视图集为主题的产品首屏背景：记录位于右侧，左侧文字保持在平静的底色上。深色为主方案；浅色方案为淡色底与饱和的记录。在手机上，场景更大，位于文字下方。",
+        "fr": "Un fond de hero pour un produit autour des données et des ensembles de vues : les enregistrements vivent à droite, le texte à gauche reste sur un fond calme. Le thème sombre est le principal ; le clair montre un fond pâle et des enregistrements saturés. Sur téléphone, la scène est plus grande, sous le texte.",
+        "ja": "データとビューセットを扱う製品のヒーロー向け背景。レコードは右側にあり、左側の文字は落ち着いた地の上に残ります。ダークが基本のスキームで、ライトでは淡い地と鮮やかなレコードになります。スマートフォンではステージが大きくなり、文字の下に置かれます。"
+      },
+      "categories": [
+        "tech",
+        "abstract"
+      ],
+      "schemes": [
+        "dark",
+        "light"
+      ],
+      "pair": null,
+      "capabilities": [
+        "windows"
+      ],
+      "tags": [
+        "data",
+        "views",
+        "table",
+        "board",
+        "calendar"
+      ],
+      "surfaces": [
+        "hero",
+        "section",
+        "sign-in"
+      ],
+      "path": "effects/data-flow/",
+      "entry": "index.js",
+      "files": [
+        {
+          "path": "effect.json",
+          "sha256": "33018783aea65961fc674d6ed108ff2bf6b43dd2c5535c6d309747f9b9e2619b",
+          "size": 13429
+        },
+        {
+          "path": "index.js",
+          "sha256": "ee5cb163e9be046d53cdac65deaceef7741d1e37d4fbf8f0c2f050f3b61831f6",
+          "size": 24090
+        },
+        {
+          "path": "preview.png",
+          "sha256": "cdad1ea8f5a1b6d7d376e2babf711f4dfee8d50e9c6aa784e46571460fdb2835",
+          "size": 75105
+        },
+        {
+          "path": "README.md",
+          "sha256": "6cb6bc753d8656ccf363bea84dad768cd70c6106e6e8675adf062cda786a0ff1",
+          "size": 4502
         }
       ],
       "kit": {
