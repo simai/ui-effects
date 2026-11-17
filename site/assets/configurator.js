@@ -85,8 +85,9 @@ const checkSetting = (setting, raw) => Effects.checkSetting(setting, raw);
 // Every control is a Framework Smart component; each reports a committed value
 // with a change event on its host. Its name, its hint and its error are the
 // component's own attributes: the site draws no label, hint or error of its own.
-// The slider has no hint attribute yet, so a slider's hint is not shown; a
-// dropdown has no visible hint, so its hint goes behind the «?» of `help`.
+// Every field with a hint shows it as the line under it (`hint`, or the
+// switch's `description`): the slider and the dropdown have it since
+// ui-1ed6b6c9a040.
 function controlFor(setting, value) {
   const label = text(setting.label);
   const hint = setting.hint ? text(setting.hint) : undefined;
@@ -99,13 +100,13 @@ function controlFor(setting, value) {
     case 'integer':
     case 'number':
       // The value stands at the end of the name line (value-display="text", C78).
-      return {element: make('sf-slider-range', {label, min: setting.min, max: setting.max, step: setting.step ?? (setting.type === 'integer' ? 1 : (setting.max - setting.min) / 100), value, 'value-display': 'text', precision: setting.type === 'integer' ? '0' : undefined, suffix: setting.unit ? ` ${setting.unit}` : undefined, size: '1'}),
+      return {element: make('sf-slider-range', {label, min: setting.min, max: setting.max, step: setting.step ?? (setting.type === 'integer' ? 1 : (setting.max - setting.min) / 100), value, 'value-display': 'text', precision: setting.type === 'integer' ? '0' : undefined, suffix: setting.unit ? ` ${setting.unit}` : undefined, hint, size: '1'}),
         read: (event) => Number(event.detail?.values?.[0] ?? event.detail?.value)};
     case 'boolean':
       return {inner: true, element: make('sf-switch', {label, description: hint, checked: Boolean(value), size: '1'}), read: (event, element) => Boolean(element.checked)};
     case 'choice': {
       // Options go in as a property: given as an attribute, the field does not show the chosen one.
-      const element = make('sf-dropdown', {label, help: hint, size: '1', value: String(value), search: 'false'});
+      const element = make('sf-dropdown', {label, hint, size: '1', value: String(value), search: 'false'});
       element.options = setting.options.map((option) => ({text: text(option.label) || String(option.value), value: String(option.value)}));
       return {inner: true, element, read: (event, picker) => picker.value};
     }
