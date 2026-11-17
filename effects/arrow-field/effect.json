@@ -1,0 +1,575 @@
+{
+  "schema": "simai.effect",
+  "schema_version": 1,
+  "id": "arrow-field",
+  "version": "0.1.0",
+  "label": {
+    "ru": "Поле стрелок",
+    "en": "Arrow field",
+    "es": "Campo de flechas",
+    "pt-BR": "Campo de setas",
+    "de": "Pfeilfeld",
+    "zh-CN": "箭头场",
+    "fr": "Champ de flèches",
+    "ja": "矢印の場"
+  },
+  "author": "Rim Zabarov",
+  "entry": "index.js",
+  "preview": "preview.png",
+  "surfaces": [
+    "hero",
+    "section",
+    "sign-in",
+    "dashboard"
+  ],
+  "schemes": [
+    "dark",
+    "light"
+  ],
+  "capabilities": [
+    "windows"
+  ],
+  "settings": [
+    {
+      "key": "speed",
+      "type": "integer",
+      "label": {
+        "ru": "Скорость",
+        "en": "Speed",
+        "es": "Velocidad",
+        "pt-BR": "Velocidade",
+        "de": "Geschwindigkeit",
+        "zh-CN": "速度",
+        "fr": "Vitesse",
+        "ja": "速度"
+      },
+      "default": 100,
+      "min": 10,
+      "max": 300,
+      "step": 10,
+      "unit": "%"
+    },
+    {
+      "key": "intensity",
+      "type": "integer",
+      "label": {
+        "ru": "Яркость",
+        "en": "Intensity",
+        "es": "Intensidad",
+        "pt-BR": "Intensidade",
+        "de": "Intensität",
+        "zh-CN": "强度",
+        "fr": "Intensité",
+        "ja": "強さ"
+      },
+      "default": 70,
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "%"
+    },
+    {
+      "key": "glyph",
+      "type": "choice",
+      "label": {
+        "ru": "Значок",
+        "en": "Glyph",
+        "es": "Símbolo",
+        "pt-BR": "Símbolo",
+        "de": "Zeichen",
+        "zh-CN": "符号",
+        "fr": "Symbole",
+        "ja": "記号"
+      },
+      "default": "arrow",
+      "options": [
+        {
+          "value": "arrow",
+          "label": {
+            "ru": "Стрелка",
+            "en": "Arrow",
+            "es": "Flecha",
+            "pt-BR": "Seta",
+            "de": "Pfeil",
+            "zh-CN": "箭头",
+            "fr": "Flèche",
+            "ja": "矢印"
+          }
+        },
+        {
+          "value": "cross",
+          "label": {
+            "ru": "Крестик",
+            "en": "Cross",
+            "es": "Aspa",
+            "pt-BR": "Xis",
+            "de": "Kreuz",
+            "zh-CN": "叉号",
+            "fr": "Croix",
+            "ja": "バツ"
+          }
+        },
+        {
+          "value": "plus",
+          "label": {
+            "ru": "Плюс",
+            "en": "Plus",
+            "es": "Más",
+            "pt-BR": "Mais",
+            "de": "Plus",
+            "zh-CN": "加号",
+            "fr": "Plus",
+            "ja": "プラス"
+          }
+        },
+        {
+          "value": "dash",
+          "label": {
+            "ru": "Чёрточка",
+            "en": "Dash",
+            "es": "Guion",
+            "pt-BR": "Traço",
+            "de": "Strich",
+            "zh-CN": "短线",
+            "fr": "Tiret",
+            "ja": "ダッシュ"
+          }
+        },
+        {
+          "value": "chevron",
+          "label": {
+            "ru": "Уголок",
+            "en": "Chevron",
+            "es": "Chevrón",
+            "pt-BR": "Chevron",
+            "de": "Winkel",
+            "zh-CN": "尖角",
+            "fr": "Chevron",
+            "ja": "シェブロン"
+          }
+        },
+        {
+          "value": "triangle",
+          "label": {
+            "ru": "Треугольник",
+            "en": "Triangle",
+            "es": "Triángulo",
+            "pt-BR": "Triângulo",
+            "de": "Dreieck",
+            "zh-CN": "三角形",
+            "fr": "Triangle",
+            "ja": "三角形"
+          }
+        },
+        {
+          "value": "needle",
+          "label": {
+            "ru": "Стрелка компаса",
+            "en": "Compass needle",
+            "es": "Aguja de brújula",
+            "pt-BR": "Agulha de bússola",
+            "de": "Kompassnadel",
+            "zh-CN": "指南针",
+            "fr": "Aiguille de boussole",
+            "ja": "方位磁針"
+          }
+        }
+      ]
+    },
+    {
+      "key": "mode",
+      "type": "choice",
+      "label": {
+        "ru": "Поведение",
+        "en": "Behaviour",
+        "es": "Comportamiento",
+        "pt-BR": "Comportamento",
+        "de": "Verhalten",
+        "zh-CN": "行为",
+        "fr": "Comportement",
+        "ja": "ふるまい"
+      },
+      "default": "face",
+      "options": [
+        {
+          "value": "face",
+          "label": {
+            "ru": "Смотрят на указатель",
+            "en": "Face the pointer",
+            "es": "Miran al puntero",
+            "pt-BR": "Olham para o ponteiro",
+            "de": "Zum Zeiger hin",
+            "zh-CN": "朝向指针",
+            "fr": "Vers le pointeur",
+            "ja": "ポインターを向く"
+          }
+        },
+        {
+          "value": "away",
+          "label": {
+            "ru": "Отворачиваются",
+            "en": "Turn away",
+            "es": "Se apartan",
+            "pt-BR": "Viram-se",
+            "de": "Vom Zeiger weg",
+            "zh-CN": "背离指针",
+            "fr": "Se détournent",
+            "ja": "背を向ける"
+          }
+        },
+        {
+          "value": "orbit",
+          "label": {
+            "ru": "Кружат вокруг",
+            "en": "Circle around",
+            "es": "Giran alrededor",
+            "pt-BR": "Giram em volta",
+            "de": "Kreisen herum",
+            "zh-CN": "环绕",
+            "fr": "Tournent autour",
+            "ja": "周りを回る"
+          }
+        },
+        {
+          "value": "magnet",
+          "label": {
+            "ru": "Магнит",
+            "en": "Magnet",
+            "es": "Imán",
+            "pt-BR": "Ímã",
+            "de": "Magnet",
+            "zh-CN": "磁铁",
+            "fr": "Aimant",
+            "ja": "磁石"
+          }
+        }
+      ],
+      "hint": {
+        "ru": "Как значки поворачиваются: к указателю, от него, поперёк — водоворотом, или вдоль силовых линий магнита",
+        "en": "How the glyphs turn: toward the pointer, away from it, across it as a whirlpool, or along a magnet’s field lines",
+        "es": "Cómo giran los símbolos: hacia el puntero, en sentido contrario, de través como un remolino o a lo largo de las líneas de campo de un imán",
+        "pt-BR": "Como os símbolos giram: para o ponteiro, para longe dele, de través como um redemoinho ou ao longo das linhas de campo de um ímã",
+        "de": "Wie sich die Zeichen drehen: zum Zeiger, von ihm weg, quer als Wirbel oder entlang der Feldlinien eines Magneten",
+        "zh-CN": "符号如何转动：朝向指针、背离指针、横向形成漩涡，或沿磁铁的磁力线排列",
+        "fr": "Comment les symboles tournent : vers le pointeur, à l’opposé, en travers comme un tourbillon, ou le long des lignes de champ d’un aimant",
+        "ja": "記号の向き方：ポインターへ、反対へ、横向きに渦をつくる、または磁石の磁力線に沿う"
+      }
+    },
+    {
+      "key": "size",
+      "type": "integer",
+      "label": {
+        "ru": "Размер значков",
+        "en": "Glyph size",
+        "es": "Tamaño de los símbolos",
+        "pt-BR": "Tamanho dos símbolos",
+        "de": "Zeichengröße",
+        "zh-CN": "符号大小",
+        "fr": "Taille des symboles",
+        "ja": "記号の大きさ"
+      },
+      "default": 100,
+      "min": 50,
+      "max": 200,
+      "step": 10,
+      "unit": "%",
+      "hint": {
+        "ru": "Крупнее значки — реже сетка",
+        "en": "Larger glyphs make a sparser grid",
+        "es": "Símbolos más grandes, cuadrícula más espaciada",
+        "pt-BR": "Símbolos maiores, grade mais espaçada",
+        "de": "Größere Zeichen, weiteres Raster",
+        "zh-CN": "符号越大，网格越稀疏",
+        "fr": "Symboles plus grands, grille plus espacée",
+        "ja": "記号を大きくするとグリッドが粗くなります"
+      }
+    },
+    {
+      "key": "grid",
+      "type": "choice",
+      "label": {
+        "ru": "Сетка",
+        "en": "Grid",
+        "es": "Cuadrícula",
+        "pt-BR": "Grade",
+        "de": "Raster",
+        "zh-CN": "网格",
+        "fr": "Grille",
+        "ja": "グリッド"
+      },
+      "default": "square",
+      "options": [
+        {
+          "value": "square",
+          "label": {
+            "ru": "Квадратная",
+            "en": "Square",
+            "es": "Cuadrada",
+            "pt-BR": "Quadrada",
+            "de": "Quadratisch",
+            "zh-CN": "方格",
+            "fr": "Carrée",
+            "ja": "正方形"
+          }
+        },
+        {
+          "value": "offset",
+          "label": {
+            "ru": "Шахматная",
+            "en": "Staggered",
+            "es": "Escalonada",
+            "pt-BR": "Alternada",
+            "de": "Versetzt",
+            "zh-CN": "错位",
+            "fr": "En quinconce",
+            "ja": "千鳥"
+          }
+        }
+      ]
+    },
+    {
+      "key": "hues",
+      "type": "boolean",
+      "label": {
+        "ru": "Цвет по направлению",
+        "en": "Colour by direction",
+        "es": "Color según la dirección",
+        "pt-BR": "Cor pela direção",
+        "de": "Farbe nach Richtung",
+        "zh-CN": "按方向着色",
+        "fr": "Couleur selon la direction",
+        "ja": "向きで色分け"
+      },
+      "default": true,
+      "hint": {
+        "ru": "Значки, повёрнутые в одну сторону, одного оттенка: по полю плывут цветные пятна. Выключено — один цвет",
+        "en": "Glyphs turned the same way share a shade, so patches of colour drift across the field; off, one colour",
+        "es": "Los símbolos orientados igual comparten tono y por el campo flotan manchas de color; desactivado, un solo color",
+        "pt-BR": "Símbolos voltados para o mesmo lado têm o mesmo tom e manchas de cor flutuam pelo campo; desligado, uma só cor",
+        "de": "Gleich ausgerichtete Zeichen teilen einen Farbton, Farbflecken ziehen über das Feld; aus: eine Farbe",
+        "zh-CN": "朝向相同的符号颜色相同，色块在场中漂移；关闭时为单色",
+        "fr": "Les symboles orientés de même partagent une teinte et des taches de couleur dérivent sur le champ ; désactivé, une seule couleur",
+        "ja": "同じ向きの記号は同じ色合いになり、色の斑が場を漂います。オフでは単色"
+      }
+    },
+    {
+      "key": "palette",
+      "type": "choice",
+      "label": {
+        "ru": "Палитра",
+        "en": "Palette",
+        "es": "Paleta",
+        "pt-BR": "Paleta",
+        "de": "Palette",
+        "zh-CN": "配色",
+        "fr": "Palette",
+        "ja": "パレット"
+      },
+      "default": "spectrum",
+      "options": [
+        {
+          "value": "spectrum",
+          "label": {
+            "ru": "Спектр",
+            "en": "Spectrum",
+            "es": "Espectro",
+            "pt-BR": "Espectro",
+            "de": "Spektrum",
+            "zh-CN": "光谱",
+            "fr": "Spectre",
+            "ja": "スペクトル"
+          }
+        },
+        {
+          "value": "theme",
+          "label": {
+            "ru": "Цвет темы",
+            "en": "Theme colour",
+            "es": "Color del tema",
+            "pt-BR": "Cor do tema",
+            "de": "Designfarbe",
+            "zh-CN": "主题色",
+            "fr": "Couleur du thème",
+            "ja": "テーマカラー"
+          }
+        },
+        {
+          "value": "turquoise",
+          "label": {
+            "ru": "Бирюзовая",
+            "en": "Turquoise",
+            "es": "Turquesa",
+            "pt-BR": "Turquesa",
+            "de": "Türkis",
+            "zh-CN": "青绿",
+            "fr": "Turquoise",
+            "ja": "ターコイズ"
+          }
+        },
+        {
+          "value": "ocean",
+          "label": {
+            "ru": "Океан",
+            "en": "Ocean",
+            "es": "Océano",
+            "pt-BR": "Oceano",
+            "de": "Ozean",
+            "zh-CN": "海洋",
+            "fr": "Océan",
+            "ja": "オーシャン"
+          }
+        },
+        {
+          "value": "violet",
+          "label": {
+            "ru": "Фиолетовая",
+            "en": "Violet",
+            "es": "Violeta",
+            "pt-BR": "Violeta",
+            "de": "Violett",
+            "zh-CN": "紫罗兰",
+            "fr": "Violet",
+            "ja": "バイオレット"
+          }
+        },
+        {
+          "value": "rose",
+          "label": {
+            "ru": "Роза",
+            "en": "Rose",
+            "es": "Rosa",
+            "pt-BR": "Rosa",
+            "de": "Rosé",
+            "zh-CN": "玫瑰",
+            "fr": "Rose",
+            "ja": "ローズ"
+          }
+        },
+        {
+          "value": "emerald",
+          "label": {
+            "ru": "Изумруд",
+            "en": "Emerald",
+            "es": "Esmeralda",
+            "pt-BR": "Esmeralda",
+            "de": "Smaragd",
+            "zh-CN": "翡翠",
+            "fr": "Émeraude",
+            "ja": "エメラルド"
+          }
+        },
+        {
+          "value": "sunset",
+          "label": {
+            "ru": "Закат",
+            "en": "Sunset",
+            "es": "Atardecer",
+            "pt-BR": "Pôr do sol",
+            "de": "Sonnenuntergang",
+            "zh-CN": "日落",
+            "fr": "Coucher de soleil",
+            "ja": "サンセット"
+          }
+        },
+        {
+          "value": "gold",
+          "label": {
+            "ru": "Золото",
+            "en": "Gold",
+            "es": "Oro",
+            "pt-BR": "Ouro",
+            "de": "Gold",
+            "zh-CN": "金色",
+            "fr": "Or",
+            "ja": "ゴールド"
+          }
+        },
+        {
+          "value": "silver",
+          "label": {
+            "ru": "Серебро",
+            "en": "Silver",
+            "es": "Plata",
+            "pt-BR": "Prata",
+            "de": "Silber",
+            "zh-CN": "银色",
+            "fr": "Argent",
+            "ja": "シルバー"
+          }
+        },
+        {
+          "value": "custom",
+          "label": {
+            "ru": "Свой цвет",
+            "en": "Custom colour",
+            "es": "Color personalizado",
+            "pt-BR": "Cor personalizada",
+            "de": "Eigene Farbe",
+            "zh-CN": "自定义颜色",
+            "fr": "Couleur personnalisée",
+            "ja": "カスタムカラー"
+          }
+        }
+      ]
+    },
+    {
+      "key": "colour",
+      "type": "color",
+      "label": {
+        "ru": "Цвет",
+        "en": "Colour",
+        "es": "Color",
+        "pt-BR": "Cor",
+        "de": "Farbe",
+        "zh-CN": "颜色",
+        "fr": "Couleur",
+        "ja": "色"
+      },
+      "default": "#3b82f6",
+      "hint": {
+        "ru": "Эффект строит из него все оттенки",
+        "en": "The effect builds every tone from it",
+        "es": "El efecto construye todos los tonos a partir de él",
+        "pt-BR": "O efeito constrói todos os tons a partir dela",
+        "de": "Der Effekt baut daraus jeden Farbton auf",
+        "zh-CN": "特效据此生成所有色调",
+        "fr": "L’effet en construit toutes les teintes",
+        "ja": "エフェクトはこの色からすべての色調を作ります"
+      },
+      "when": {
+        "key": "palette",
+        "is": [
+          "custom"
+        ]
+      }
+    },
+    {
+      "key": "interactive",
+      "type": "boolean",
+      "label": {
+        "ru": "Реагировать на указатель",
+        "en": "React to the pointer",
+        "es": "Reaccionar al puntero",
+        "pt-BR": "Reagir ao ponteiro",
+        "de": "Auf den Zeiger reagieren",
+        "zh-CN": "响应指针",
+        "fr": "Réagir au pointeur",
+        "ja": "ポインターに反応"
+      },
+      "default": true,
+      "hint": {
+        "ru": "Значки поворачиваются по выбранному поведению, рядом с указателем крупнее и ярче, как под лупой; нажатие пускает волну — значки на её пути делают полный оборот. Без указателя поле плывёт по медленному ветру и следует за невидимой точкой",
+        "en": "The glyphs turn by the chosen behaviour and grow larger and brighter near the pointer, as under a lens; a press sends a wave, and every glyph it passes makes a full turn. Without a pointer the field drifts in a slow wind and follows an unseen wanderer",
+        "es": "Los símbolos giran según el comportamiento elegido y cerca del puntero crecen y brillan como bajo una lupa; una pulsación envía una onda y cada símbolo que alcanza da una vuelta completa. Sin puntero, el campo deriva con un viento lento y sigue a un punto invisible",
+        "pt-BR": "Os símbolos giram conforme o comportamento escolhido e perto do ponteiro crescem e brilham como sob uma lupa; pressionar envia uma onda e cada símbolo que ela alcança dá uma volta completa. Sem ponteiro, o campo flutua num vento lento e segue um ponto invisível",
+        "de": "Die Zeichen drehen sich nach dem gewählten Verhalten und werden nahe dem Zeiger größer und heller wie unter einer Lupe; ein Druck sendet eine Welle, und jedes Zeichen, das sie erreicht, dreht sich einmal ganz. Ohne Zeiger treibt das Feld in einem langsamen Wind und folgt einem unsichtbaren Punkt",
+        "zh-CN": "符号按所选行为转动，靠近指针时像在放大镜下一样变大变亮；按下会发出一圈波，波经过的每个符号都转一整圈。没有指针时，场随缓慢的风漂动并跟随一个看不见的点",
+        "fr": "Les symboles tournent selon le comportement choisi et, près du pointeur, grandissent et s’éclairent comme sous une loupe ; un appui envoie une onde et chaque symbole qu’elle atteint fait un tour complet. Sans pointeur, le champ dérive dans un vent lent et suit un point invisible",
+        "ja": "記号は選んだふるまいで回り、ポインターの近くではルーペの下のように大きく明るくなります。押すと波が広がり、波が通った記号は一回転します。ポインターがないときは、場はゆるやかな風に流れ、見えない点を追います"
+      }
+    }
+  ],
+  "needs": {
+    "network": false
+  }
+}

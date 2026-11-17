@@ -1350,6 +1350,37 @@
         "light-show",
         "sky"
       ]
+    },
+    {
+      "id": "arrow-field",
+      "categories": [
+        "abstract"
+      ],
+      "description": {
+        "ru": "Поверхность из одинаковых значков — стрелок, крестиков, плюсов, чёрточек, уголков, треугольников или стрелок компаса. Значки поворачиваются к указателю, как стрелки компаса, с лёгким перелётом: ближние раньше, дальние позже, поэтому поворот расходится волной; рядом с указателем они крупнее и ярче, как под лупой. Без указателя поле плывёт по медленному ветру и следует за невидимой точкой. Нажатие пускает волну, и значки на её пути делают полный оборот.",
+        "en": "A surface of one glyph: arrows, crosses, pluses, dashes, chevrons, triangles or compass needles. The glyphs turn toward the pointer like compass needles, with a little overshoot, near ones first and far ones later, so a turn spreads as a wave; near the pointer they grow and brighten as under a lens. Without a pointer the field drifts in a slow wind and follows an unseen wanderer. A press sends a wave, and every glyph it passes makes a full turn.",
+        "es": "Una superficie de un solo símbolo: flechas, aspas, signos más, guiones, chevrones, triángulos o agujas de brújula. Los símbolos giran hacia el puntero como agujas de brújula, con un leve exceso: primero los cercanos y después los lejanos, así que el giro se propaga como una onda; cerca del puntero crecen y brillan como bajo una lupa. Sin puntero, el campo deriva con un viento lento y sigue a un punto invisible. Una pulsación envía una onda y cada símbolo que alcanza da una vuelta completa.",
+        "pt-BR": "Uma superfície de um só símbolo: setas, xis, sinais de mais, traços, chevrons, triângulos ou agulhas de bússola. Os símbolos giram para o ponteiro como agulhas de bússola, com uma leve passagem: os próximos primeiro e os distantes depois, então o giro se espalha como uma onda; perto do ponteiro crescem e brilham como sob uma lupa. Sem ponteiro, o campo flutua num vento lento e segue um ponto invisível. Pressionar envia uma onda e cada símbolo que ela alcança dá uma volta completa.",
+        "de": "Eine Fläche aus einem einzigen Zeichen: Pfeile, Kreuze, Pluszeichen, Striche, Winkel, Dreiecke oder Kompassnadeln. Die Zeichen drehen sich wie Kompassnadeln mit leichtem Überschwingen zum Zeiger, nahe zuerst und ferne später, sodass sich eine Drehung als Welle ausbreitet; nahe dem Zeiger werden sie größer und heller wie unter einer Lupe. Ohne Zeiger treibt das Feld in einem langsamen Wind und folgt einem unsichtbaren Punkt. Ein Druck sendet eine Welle, und jedes Zeichen, das sie erreicht, dreht sich einmal ganz.",
+        "zh-CN": "由同一种符号铺满的平面：箭头、叉号、加号、短线、尖角、三角形或指南针。符号像指南针一样转向指针，略带过冲：近处先转、远处后转，转动如波般扩散；靠近指针时像在放大镜下一样变大变亮。没有指针时，场随缓慢的风漂动并跟随一个看不见的点。按下会发出一圈波，波经过的每个符号都转一整圈。",
+        "fr": "Une surface d’un seul symbole : flèches, croix, signes plus, tirets, chevrons, triangles ou aiguilles de boussole. Les symboles se tournent vers le pointeur comme des aiguilles de boussole, avec un léger dépassement : les proches d’abord, les lointains ensuite, si bien que la rotation se propage en vague ; près du pointeur, ils grandissent et s’éclairent comme sous une loupe. Sans pointeur, le champ dérive dans un vent lent et suit un point invisible. Un appui envoie une onde et chaque symbole qu’elle atteint fait un tour complet.",
+        "ja": "矢印、バツ、プラス、ダッシュ、シェブロン、三角形、方位磁針のいずれか一種類の記号で埋めた面。記号は方位磁針のように少し行き過ぎながらポインターへ向き、近くから遠くへ順に回るので、回転が波のように広がります。ポインターの近くではルーペの下のように大きく明るくなります。ポインターがないときは、場はゆるやかな風に流れ、見えない点を追います。押すと波が広がり、波が通った記号は一回転します。"
+      },
+      "role": {
+        "ru": "Спокойный игривый фон, который отвечает указателю, для героя, раздела или входа: значки в полную силу в центре и справа, над текстом слева они едва заметны. Тёмная схема основная, в светлой значки напечатаны более глубоким цветом на бледном фоне.",
+        "en": "A calm, playful background that answers the pointer, for a hero, a section or a sign-in: the glyphs are full on the centre-right and right and faint over the text on the left. Dark is the home scheme; light prints the glyphs in deeper ink on a pale ground.",
+        "es": "Un fondo sereno y lúdico que responde al puntero, para un hero, una sección o un inicio de sesión: los símbolos se ven plenos en el centro-derecha y a la derecha y tenues sobre el texto de la izquierda. El esquema principal es el oscuro; el claro imprime los símbolos con una tinta más profunda sobre un fondo pálido.",
+        "pt-BR": "Um fundo calmo e lúdico que responde ao ponteiro, para um hero, uma seção ou um login: os símbolos aparecem plenos no centro-direita e à direita e suaves sobre o texto à esquerda. O esquema principal é o escuro; o claro imprime os símbolos em tinta mais profunda sobre um fundo pálido.",
+        "de": "Ein ruhiger, verspielter Hintergrund, der auf den Zeiger antwortet, für Hero, Abschnitt oder Anmeldung: Die Zeichen sind mittig-rechts und rechts voll sichtbar und über dem Text links nur schwach. Dunkel ist das Hauptdesign; hell druckt die Zeichen in tieferer Farbe auf hellem Grund.",
+        "zh-CN": "一个会回应指针的平静而俏皮的背景，适合首屏、分区或登录页：符号在中右侧和右侧完整显示，左侧文字上方很淡。深色为主方案；浅色方案在浅底上以更深的颜色印出符号。",
+        "fr": "Un fond calme et ludique qui répond au pointeur, pour un hero, une section ou une connexion : les symboles sont pleins au centre-droit et à droite et pâles sur le texte à gauche. Le thème sombre est le principal ; le clair imprime les symboles d’une encre plus profonde sur un fond pâle.",
+        "ja": "ポインターに応える、穏やかで遊び心のある背景。ヒーロー、セクション、サインイン向け。記号は中央右から右側ではっきり描かれ、左の文字の上ではごく淡くなります。ダークが基本のスキームで、ライトでは淡い地に濃いめの色で記号を描きます。"
+      },
+      "tags": [
+        "arrows",
+        "field",
+        "pointer"
+      ]
     }
   ]
 }
