@@ -4011,7 +4011,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-078a4b4c6f6e",
+        "framework": "ui-1ed6b6c9a040",
         "passed": 17,
         "total": 17
       }
@@ -4099,7 +4099,7 @@
       ],
       "kit": {
         "status": "pass",
-        "framework": "ui-078a4b4c6f6e",
+        "framework": "ui-1ed6b6c9a040",
         "passed": 17,
         "total": 17
       }
