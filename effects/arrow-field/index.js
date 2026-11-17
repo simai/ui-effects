@@ -64,7 +64,7 @@ const NB = 24, LENS = 1.5;
 // Background from neutral and primary; glyphs from three families, so 'colour by direction' runs
 // through hues in a many-colour palette and through shades in a one-colour one.
 const SCENE = {
-  home: 'dark', seed: 5309, reseed: ['glyph', 'size', 'grid', 'hues'], fresh: true,
+  home: 'dark', seed: 5309, reseed: ['glyph', 'size', 'grid', 'hues', 'mode'], fresh: true,
   tones: (read, scheme) => scheme === 'light'
     ? {bg0: read('--sf-neutral-98', '#faf9fe'), bg1: mixc(read('--sf-neutral-98', '#faf9fe'), read('--sf-primary-95', '#ecf0ff'), 0.75),
       ink: [read('--sf-primary-40', '#005bbe'), read('--sf-tertiary-40', '#76517b'), read('--sf-secondary-50', '#6f778b')], glow: read('--sf-primary-90', '#d8e2ff')}
@@ -84,14 +84,16 @@ const SCENE = {
       // The text side on the left stays quiet: glyphs there are faint.
       F[i] = mix(0.3, 1, smooth(clamp((X[i] / w - 0.12) / 0.42, 0, 1)));
     }
-    const state = {X, Y, A, V, S, F, n, c, waves: [], last: null, ax: 0, ay: 0, pw: 0, cost: 0,
+    const state = {X, Y, A, V, S, F, n, c, cols, rows, random, Q: new Uint8Array(n).map(() => (random() * 4) | 0), heat: [], sweep: 0, waves: [], last: null, ax: 0, ay: 0, pw: 0, cost: 0,
       ox: random() * 100, oy: random() * 100, p1: random() * TAU, p2: random() * TAU, sprites: sprites(env, c)};
+    // Domains: settle the lattice at the critical point, so the first frame already holds domains of every size.
+    if (values.mode === 'curie') for (let k = 0; k < n * 80; k += 1) flip(state, (random() * n) | 0, TC);
     // The first frame (and the still one) already points where the field points.
     ghost(env, state, 0);
     target(env, state, 0, (j, a) => { A[j] = a; });
     return state;
   },
-  press(env, x, y) { env.state.waves.push({x, y, r: 0}); },
+  press(env, x, y) { env.state.waves.push({x, y, r: 0}); env.state.heat.push({x, y, a: 1}); },
   draw(env, t) {
     const {ctx, w, h, tones, state, values, scheme} = env;
     const perf = ctx.canvas.ownerDocument.defaultView.performance;
@@ -111,6 +113,7 @@ const SCENE = {
       for (let j = 0; j < n; j += 1) { const d = hypot(X[j] - wv.x, Y[j] - wv.y); if (d > r0 && d <= wv.r) S[j] = 1; }
     }
     state.waves = state.waves.filter((wv) => wv.r < hyp * 1.2);
+    if (dt > 0 && values.mode === 'curie') anneal(env, state, t, dt);
     if (dt > 0) target(env, state, t, (j, a, near) => {
       const k = 34 * (0.3 + 0.7 * near), damp = 2 * 0.3 * Math.sqrt(k);
       V[j] += (k * wrap(a - A[j]) - damp * V[j]) * dt;
@@ -157,6 +160,8 @@ function target(env, state, t, apply, reach = hypot(env.w, env.h) * 0.3) {
   const wA = mix(0.7, 1, pw), f = 0.085 / c, m = t * 0.15 + state.p1;
   const mx = cos(m), my = sin(m), R2 = reach * reach;
   for (let j = 0; j < n; j += 1) {
+    // Domains: each glyph follows its spin (one of four directions), with a breath of the wind.
+    if (mode === 'curie') { apply(j, state.Q[j] * PI / 2 + 0.25 * sin(TAU * noise2(X[j] * f + ox + t * 0.05, Y[j] * f + oy)), 0.6); continue; }
     const u = X[j] * f + ox + t * 0.035, v = Y[j] * f + oy - t * 0.022;
     const wind = TAU * 1.1 * (0.7 * noise2(u, v) + 0.3 * noise2(u * 2.3 + 7, v * 2.3 + 3));
     let dx = ax - X[j], dy = ay - Y[j];
@@ -170,6 +175,33 @@ function target(env, state, t, apply, reach = hypot(env.w, env.h) * 0.3) {
       const l = hypot(px, py) || 1; px /= l; py /= l;
     }
     apply(j, atan2((1 - wi) * sin(wind) + wi * py, (1 - wi) * cos(wind) + wi * px), near);
+  }
+}
+
+// Domains: the four-state Potts model on the glyph lattice (periodic), heat-bath updates. Its
+// critical temperature is 1/ln(3); there the domains are of every size, with a power-law spread.
+const TC = 1 / Math.log(3);
+function flip(state, j, T) {
+  const {cols, rows, Q} = state, q = j % cols, r = (j / cols) | 0, m = [0, 0, 0, 0];
+  m[Q[r * cols + (q + 1) % cols]] += 1; m[Q[r * cols + (q + cols - 1) % cols]] += 1;
+  m[Q[((r + 1) % rows) * cols + q]] += 1; m[Q[((r + rows - 1) % rows) * cols + q]] += 1;
+  const e = m.map((k) => exp(k / T)), u = state.random() * (e[0] + e[1] + e[2] + e[3]);
+  Q[j] = u < e[0] ? 0 : u < e[0] + e[1] ? 1 : u < e[0] + e[1] + e[2] ? 2 : 3;
+}
+// The magnet is heated through the Curie point and cooled again on a slow loop: cold, domains
+// grow and merge; at the point they split into every size; above it they melt. The pointer and a
+// press heat it locally.
+function anneal(env, state, t, dt) {
+  const {X, Y, n, c} = state, base = TC * (0.97 + 0.15 * sin(TAU * t / 70)), r2 = (c * 5) ** 2;
+  for (const hs of state.heat) hs.a -= dt / 4;
+  state.heat = state.heat.filter((hs) => hs.a > 0);
+  state.sweep += dt * 6 * n;
+  for (; state.sweep >= 1; state.sweep -= 1) {
+    const j = (state.random() * n) | 0;
+    let T = base, dx = X[j] - state.ax, dy = Y[j] - state.ay;
+    T += 0.8 * TC * state.pw * exp(-(dx * dx + dy * dy) / r2);
+    for (const hs of state.heat) { dx = X[j] - hs.x; dy = Y[j] - hs.y; T += 2 * TC * hs.a * exp(-(dx * dx + dy * dy) / (r2 * 2)); }
+    flip(state, j, T);
   }
 }
 

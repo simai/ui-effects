@@ -3932,7 +3932,7 @@
     },
     {
       "id": "arrow-field",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "label": {
         "ru": "Поле стрелок",
         "en": "Arrow field",
@@ -3990,13 +3990,13 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "537d2ba15da1dca6000de30a6909246ddb5ce84a78954102b5f3ac03f4316656",
-          "size": 18781
+          "sha256": "8992ca8aed0779899f95472f4436f665d025311ce18d4505ad53d3d091012b25",
+          "size": 20944
         },
         {
           "path": "index.js",
-          "sha256": "bd3131e422c7f98296cd5ba544c4c58f0a88f6ad28b2646d38d7f816d1869131",
-          "size": 19381
+          "sha256": "4ec0e61847a3bb1f66135740497d465182ff5fd8e6532f4443adcd19709ac6b2",
+          "size": 21578
         },
         {
           "path": "preview.png",
@@ -4005,8 +4005,8 @@
         },
         {
           "path": "README.md",
-          "sha256": "67057fc59a61f437cf2a4427c4513c8a2a14e360384926bda0983ee994e6d018",
-          "size": 5374
+          "sha256": "5632ed887f38a9a42d20eed188e983844dea0010bf119ce3c3a72db3311cfee3",
+          "size": 6326
         }
       ],
       "kit": {

@@ -3,7 +3,7 @@
 The surface is a grid of one glyph (an arrow, a cross, a plus, a dash, a chevron, a triangle or a compass needle). The glyphs turn toward the pointer like compass needles, with a little overshoot, near ones first and far ones later, so a turn spreads as a wave; near the pointer they grow and brighten as under a lens. Without a pointer the field drifts in a slow wind and follows an unseen wanderer. A press sends a ring wave, and every glyph it passes makes a full turn.
 
 - **Russian name:** Поле стрелок
-- **Version:** 0.1.0, simai.effect 1.4.0
+- **Version:** 0.2.0, simai.effect 1.4.0
 - **Surfaces:** hero, section, sign-in, dashboard
 - **Tags:** arrows, field, pointer
 - **Role:** A calm, playful background that answers the pointer, for a hero, a section or a sign-in: the glyphs are full on the centre-right and right and faint over the text on the left. Dark is the home scheme; light prints the glyphs in deeper ink on a pale ground.
@@ -16,6 +16,8 @@ Each glyph has an angle and an angular speed and turns on a damped spring (dampi
 
 - **the wind:** a smooth, slowly moving two-octave noise field of angles, so the idle field drifts in broad, calm currents;
 - **the attractor**, by the chosen behaviour: toward it, away from it, across it (a whirlpool), or along the field lines of a magnetic dipole at the attractor whose axis turns slowly.
+
+The behaviour `curie` replaces both with magnetic domains. Each glyph carries a spin, one of four directions, on the glyph lattice (periodic edges): the four-state Potts model, updated by heat-bath steps (about six sweeps a second). The magnet is heated and cooled on a slow loop (about 70 s) around the critical temperature 1/ln 3. Cold, domains grow and merge into a few large ones; at the Curie point they split into areas of every size, with the power-law spread of a critical system; a little above it they melt into ripple. The pointer heats the magnet locally and a press sends a heat burst that melts the domains around it, so they re-form as it cools. Glyphs follow their spin on the same spring, with a breath of the wind, so domain walls ripple as spins flip. The still frame is the lattice settled at the critical point.
 
 The spring is stiffer near the attractor, so near glyphs turn first and the turn spreads outward as a wave. The attractor is the pointer while it is over the area; when it leaves, the attractor glides back to an unseen wanderer on a slow Lissajous path over the centre-right and right, with a weaker pull. Touch does not steer the field.
 
@@ -30,7 +32,7 @@ With **colour by direction** on, a glyph's colour follows its angle through the 
 | `speed` | integer | 10–300 % | `100` | Speed |
 | `intensity` | integer | 10–100 % | `70` | Intensity: how strongly the glyphs show |
 | `glyph` | choice | `arrow`, `cross`, `plus`, `dash`, `chevron`, `triangle`, `needle` | `"arrow"` | Glyph: the one sign the grid is made of |
-| `mode` | choice | `face`, `away`, `orbit`, `magnet` | `"face"` | Behaviour: how the glyphs turn: toward the pointer, away from it, across it as a whirlpool, or along a magnet's field lines |
+| `mode` | choice | `face`, `away`, `orbit`, `magnet`, `curie` | `"face"` | Behaviour: how the glyphs turn: toward the pointer, away from it, across it as a whirlpool, along a magnet's field lines, or as magnetic domains at the Curie point (the magnet slowly heats and cools; the pointer and a press heat it) |
 | `size` | integer | 50–200 % | `100` | Glyph size: larger glyphs make a sparser grid |
 | `grid` | choice | `square`, `offset` | `"square"` | Grid: square or staggered |
 | `hues` | boolean | | `true` | Colour by direction: glyphs turned the same way share a shade, so patches of colour drift across the field; off, one colour |
