@@ -87,7 +87,7 @@ const alternates = (locale, page) => LOCALES.map((other) => ({lang: other.lang, 
 // language, each named in itself with its English name below, the current one marked. The menu sits after the header; site/assets/common.js opens it.
 const languageButton = (locale) => {
   const word = escape(dictionaries[locale.lang]['lang.switch']);
-  return `<button slot="tools" type="button" class="sf-icon-button sf-icon-button--icon sf-icon-button--on-surface sf-icon-button--link sf-icon-button--size-1/2" aria-label="${word}" title="${word}" aria-haspopup="menu" data-lang-button><sf-icon icon="language" aria-hidden="true"></sf-icon></button>`;
+  return `<button slot="tools" type="button" class="sf-icon-button sf-icon-button--icon sf-icon-button--on-surface sf-icon-button--ghost sf-icon-button--size-1/2" aria-label="${word}" title="${word}" aria-haspopup="menu" data-lang-button><sf-icon icon="language" aria-hidden="true"></sf-icon></button>`;
 };
 const languageMenu = (locale, page) => {
   const entries = alternates(locale, page).map((other) => ({id: other.lang, text: other.name, ...(other.english !== other.name && {caption: other.english}), lang: other.lang, href: other.href, current: other.lang === locale.lang}));
