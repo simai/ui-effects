@@ -2,7 +2,7 @@
   "schema": "simai.effect",
   "schema_version": 1,
   "id": "arrow-field",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "label": {
     "ru": "Поле стрелок",
     "en": "Arrow field",
@@ -258,14 +258,14 @@
         }
       ],
       "hint": {
-        "ru": "Как значки поворачиваются: к указателю, от него, поперёк — водоворотом, вдоль силовых линий магнита, или как магнитные домены у точки Кюри: магнит медленно нагревается и остывает, домены то растут и сливаются, то дробятся на области всех размеров, указатель и нажатие греют его",
-        "en": "How the glyphs turn: toward the pointer, away from it, across it as a whirlpool, along a magnet’s field lines, or as magnetic domains at the Curie point: the magnet slowly heats and cools, so domains grow and merge, then split into areas of every size; the pointer and a press heat it",
-        "es": "Cómo giran los símbolos: hacia el puntero, en sentido contrario, de través como un remolino, a lo largo de las líneas de campo de un imán o como dominios magnéticos en el punto de Curie: el imán se calienta y se enfría despacio, los dominios crecen y se funden y luego se dividen en zonas de todos los tamaños; el puntero y una pulsación lo calientan",
-        "pt-BR": "Como os símbolos giram: para o ponteiro, para longe dele, de través como um redemoinho, ao longo das linhas de campo de um ímã ou como domínios magnéticos no ponto de Curie: o ímã aquece e esfria devagar, os domínios crescem e se fundem e depois se dividem em áreas de todos os tamanhos; o ponteiro e um toque o aquecem",
-        "de": "Wie sich die Zeichen drehen: zum Zeiger, von ihm weg, quer als Wirbel, entlang der Feldlinien eines Magneten oder als magnetische Domänen am Curie-Punkt: Der Magnet erwärmt und kühlt sich langsam, Domänen wachsen und verschmelzen und zerfallen dann in Bereiche jeder Größe; Zeiger und Druck erwärmen ihn",
-        "zh-CN": "符号如何转动：朝向指针、背离指针、横向形成漩涡、沿磁铁的磁力线排列，或像居里点处的磁畴：磁铁缓慢升温又冷却，磁畴时而长大合并，时而碎裂成大小各异的区域；指针和按下会加热它",
-        "fr": "Comment les symboles tournent : vers le pointeur, à l’opposé, en travers comme un tourbillon, le long des lignes de champ d’un aimant, ou comme des domaines magnétiques au point de Curie : l’aimant chauffe et refroidit lentement, les domaines grandissent et fusionnent puis se brisent en zones de toutes tailles ; le pointeur et un appui le chauffent",
-        "ja": "記号の向き方：ポインターへ、反対へ、横向きに渦をつくる、磁石の磁力線に沿う、またはキュリー点の磁区のように：磁石がゆっくり温まっては冷え、磁区は育って合わさり、やがてあらゆる大きさの領域に割れます。ポインターと押す操作で温まります"
+        "ru": "Как значки поворачиваются: к указателю, от него, поперёк — водоворотом, вдоль силовых линий магнита, или как магнитные домены у точки Кюри: магнит медленно нагревается и остывает, домены то растут и сливаются, то дробятся на области всех размеров, указатель — сильный внешний магнит: стрелки рядом поворачиваются к нему, и намагниченная область остаётся, пока магнит холодный; нажатие нагревает",
+        "en": "How the glyphs turn: toward the pointer, away from it, across it as a whirlpool, along a magnet’s field lines, or as magnetic domains at the Curie point: the magnet slowly heats and cools, so domains grow and merge, then split into areas of every size; the pointer is a strong outside magnet: glyphs near it turn toward it, and the area it magnetises stays while the magnet is cold; a press heats it",
+        "es": "Cómo giran los símbolos: hacia el puntero, en sentido contrario, de través como un remolino, a lo largo de las líneas de campo de un imán o como dominios magnéticos en el punto de Curie: el imán se calienta y se enfría despacio, los dominios crecen y se funden y luego se dividen en zonas de todos los tamaños; el puntero es un imán externo fuerte: los símbolos cercanos giran hacia él y la zona imantada permanece mientras el imán está frío; una pulsación lo calienta",
+        "pt-BR": "Como os símbolos giram: para o ponteiro, para longe dele, de través como um redemoinho, ao longo das linhas de campo de um ímã ou como domínios magnéticos no ponto de Curie: o ímã aquece e esfria devagar, os domínios crescem e se fundem e depois se dividem em áreas de todos os tamanhos; o ponteiro é um ímã externo forte: os símbolos perto dele giram em sua direção e a área imantada permanece enquanto o ímã está frio; um toque o aquece",
+        "de": "Wie sich die Zeichen drehen: zum Zeiger, von ihm weg, quer als Wirbel, entlang der Feldlinien eines Magneten oder als magnetische Domänen am Curie-Punkt: Der Magnet erwärmt und kühlt sich langsam, Domänen wachsen und verschmelzen und zerfallen dann in Bereiche jeder Größe; der Zeiger ist ein starker äußerer Magnet: Zeichen in seiner Nähe drehen sich zu ihm, und der magnetisierte Bereich bleibt, solange der Magnet kalt ist; ein Druck erwärmt ihn",
+        "zh-CN": "符号如何转动：朝向指针、背离指针、横向形成漩涡、沿磁铁的磁力线排列，或像居里点处的磁畴：磁铁缓慢升温又冷却，磁畴时而长大合并，时而碎裂成大小各异的区域；指针是一块强大的外部磁铁：附近的符号转向它，磁铁冷却时被磁化的区域会保留；按下会加热它",
+        "fr": "Comment les symboles tournent : vers le pointeur, à l’opposé, en travers comme un tourbillon, le long des lignes de champ d’un aimant, ou comme des domaines magnétiques au point de Curie : l’aimant chauffe et refroidit lentement, les domaines grandissent et fusionnent puis se brisent en zones de toutes tailles ; le pointeur est un aimant extérieur puissant : les symboles proches se tournent vers lui, et la zone aimantée reste tant que l’aimant est froid ; un appui le chauffe",
+        "ja": "記号の向き方：ポインターへ、反対へ、横向きに渦をつくる、磁石の磁力線に沿う、またはキュリー点の磁区のように：磁石がゆっくり温まっては冷え、磁区は育って合わさり、やがてあらゆる大きさの領域に割れます。ポインターは強い外部磁石です。近くの記号はポインターを向き、磁石が冷たいあいだは磁化された領域が残ります。押す操作で温まります"
       }
     },
     {

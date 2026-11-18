@@ -161,7 +161,12 @@ function target(env, state, t, apply, reach = hypot(env.w, env.h) * 0.3) {
   const mx = cos(m), my = sin(m), R2 = reach * reach;
   for (let j = 0; j < n; j += 1) {
     // Domains: each glyph follows its spin (one of four directions), with a breath of the wind.
-    if (mode === 'curie') { apply(j, state.Q[j] * PI / 2 + 0.25 * sin(TAU * noise2(X[j] * f + ox + t * 0.05, Y[j] * f + oy)), 0.6); continue; }
+    // Near the pointer (a strong outside field) they turn the last part straight at it.
+    if (mode === 'curie') {
+      const q = state.Q[j] * PI / 2 + 0.25 * sin(TAU * noise2(X[j] * f + ox + t * 0.05, Y[j] * f + oy)), ex = ax - X[j], ey = ay - Y[j];
+      const b = pw * exp(-(ex * ex + ey * ey) / (c * c * 16)), l = hypot(ex, ey) || 1;
+      apply(j, atan2((1 - b) * sin(q) + b * ey / l, (1 - b) * cos(q) + b * ex / l), mix(0.6, 1, b)); continue;
+    }
     const u = X[j] * f + ox + t * 0.035, v = Y[j] * f + oy - t * 0.022;
     const wind = TAU * 1.1 * (0.7 * noise2(u, v) + 0.3 * noise2(u * 2.3 + 7, v * 2.3 + 3));
     let dx = ax - X[j], dy = ay - Y[j];
@@ -181,27 +186,38 @@ function target(env, state, t, apply, reach = hypot(env.w, env.h) * 0.3) {
 // Domains: the four-state Potts model on the glyph lattice (periodic), heat-bath updates. Its
 // critical temperature is 1/ln(3); there the domains are of every size, with a power-law spread.
 const TC = 1 / Math.log(3);
-function flip(state, j, T) {
+function flip(state, j, T, hx = 0, hy = 0) {
   const {cols, rows, Q} = state, q = j % cols, r = (j / cols) | 0, m = [0, 0, 0, 0];
   m[Q[r * cols + (q + 1) % cols]] += 1; m[Q[r * cols + (q + cols - 1) % cols]] += 1;
   m[Q[((r + 1) % rows) * cols + q]] += 1; m[Q[((r + rows - 1) % rows) * cols + q]] += 1;
+  m[0] += hx; m[1] += hy; m[2] -= hx; m[3] -= hy;
   const e = m.map((k) => exp(k / T)), u = state.random() * (e[0] + e[1] + e[2] + e[3]);
   Q[j] = u < e[0] ? 0 : u < e[0] + e[1] ? 1 : u < e[0] + e[1] + e[2] ? 2 : 3;
 }
 // The magnet is heated through the Curie point and cooled again on a slow loop: cold, domains
-// grow and merge; at the point they split into every size; above it they melt. The pointer and a
-// press heat it locally.
+// grow and merge; at the point they split into every size; above it they melt. The pointer is a
+// strong outside field: spins near it turn toward it, and the domain it writes stays after it
+// leaves while the magnet is cold. A press heats it locally.
 function anneal(env, state, t, dt) {
   const {X, Y, n, c} = state, base = TC * (0.97 + 0.15 * sin(TAU * t / 70)), r2 = (c * 5) ** 2;
   for (const hs of state.heat) hs.a -= dt / 4;
   state.heat = state.heat.filter((hs) => hs.a > 0);
+  const {cols, rows, ax, ay, pw, random} = state, rf = c * 7, step = (Y[cols] - Y[0]) || c, R = Math.ceil(rf / c);
+  const one = (j) => {
+    let T = base;
+    const dx = ax - X[j], dy = ay - Y[j], d = hypot(dx, dy) || 1, H = 2.6 * pw * exp(-(d * d) / (rf * rf)) / d;
+    for (const hs of state.heat) { const u = X[j] - hs.x, v = Y[j] - hs.y; T += 2 * TC * hs.a * exp(-(u * u + v * v) / (r2 * 2)); }
+    flip(state, j, T, H * dx, H * dy);
+  };
   state.sweep += dt * 6 * n;
-  for (; state.sweep >= 1; state.sweep -= 1) {
-    const j = (state.random() * n) | 0;
-    let T = base, dx = X[j] - state.ax, dy = Y[j] - state.ay;
-    T += 0.8 * TC * state.pw * exp(-(dx * dx + dy * dy) / r2);
-    for (const hs of state.heat) { dx = X[j] - hs.x; dy = Y[j] - hs.y; T += 2 * TC * hs.a * exp(-(dx * dx + dy * dy) / (r2 * 2)); }
-    flip(state, j, T);
+  for (; state.sweep >= 1; state.sweep -= 1) one((random() * n) | 0);
+  // Extra updates around the pointer, so the field writes its domain at the speed of the hand.
+  if (pw > 0.01) {
+    const q0 = Math.round((ax - X[0]) / c), r0 = Math.round((ay - Y[0]) / step);
+    for (let k = (dt * 40 * R * R * 4) | 0; k > 0; k -= 1) {
+      const q = q0 + ((random() * 2 - 1) * R | 0), r = r0 + ((random() * 2 - 1) * R | 0);
+      if (q >= 0 && q < cols && r >= 0 && r < rows) one(r * cols + q);
+    }
   }
 }
 
