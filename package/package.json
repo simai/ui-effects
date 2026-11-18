@@ -1,6 +1,6 @@
 {
   "name": "@simai-studio/effects",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "SIMAI Effects, the free component set effects of SIMAI Framework: the element sf-effect, its engine and the catalogue of background effects.",
   "license": "Apache-2.0",
   "author": "Rim Zabarov",
