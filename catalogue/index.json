@@ -11,8 +11,8 @@
   },
   "counts": {
     "effects": 46,
-    "dual": 31,
-    "dark": 13,
+    "dual": 32,
+    "dark": 12,
     "light": 2
   },
   "categories": [
@@ -3847,7 +3847,7 @@
     },
     {
       "id": "drone-show",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "label": {
         "ru": "Шоу дронов",
         "en": "Drone show",
@@ -3859,31 +3859,32 @@
         "ja": "ドローンショー"
       },
       "description": {
-        "ru": "Шоу дронов в ночном небе: около тысячи огней взлетают с земли и собираются в объёмные фигуры — птицу, кита, медузу, цветок, Землю, планету с кольцом, галактику и сердце. Каждая фигура живёт (машет крыльями, плывёт, пульсирует, раскрывается, вращается, бьётся) и поворачивается целиком в перспективе, по ней бегут цветные волны; затем рой плавно перелетает в следующую фигуру, каждый дрон — к ближайшей цели. Указатель слегка поворачивает фигуру, перетаскивание вращает её, щелчок разгоняет дронов.",
-        "en": "A drone light show in the night sky: about a thousand lights take off from the ground and form 3D figures: a bird, a whale, a jellyfish, a flower, the Earth, a ringed planet, a galaxy and a heart. Each figure lives (flaps, swims, pulses, blooms, spins, beats) and turns as one whole in perspective while colour waves run across it; then the swarm flows into the next figure, each drone to a near target. The pointer tilts the figure, a drag rotates it, a click scatters the drones.",
-        "es": "Un espectáculo de drones en el cielo nocturno: unas mil luces despegan del suelo y forman figuras en 3D: un pájaro, una ballena, una medusa, una flor, la Tierra, un planeta con anillo, una galaxia y un corazón. Cada figura cobra vida (aletea, nada, palpita, florece, gira, late) y gira entera en perspectiva mientras la recorren ondas de color; luego el enjambre fluye a la siguiente figura, cada dron hacia un destino cercano. El puntero inclina la figura, arrastrar la hace girar y un clic dispersa los drones.",
-        "pt-BR": "Um show de drones no céu noturno: cerca de mil luzes decolam do chão e formam figuras em 3D: um pássaro, uma baleia, uma água-viva, uma flor, a Terra, um planeta com anel, uma galáxia e um coração. Cada figura ganha vida (bate as asas, nada, pulsa, desabrocha, gira, bate) e gira inteira em perspectiva enquanto ondas de cor a percorrem; depois o enxame flui para a figura seguinte, cada drone para um alvo próximo. O ponteiro inclina a figura, arrastar a gira e um clique espalha os drones.",
-        "de": "Eine Drohnenshow am Nachthimmel: Rund tausend Lichter steigen vom Boden auf und bilden 3D-Figuren: einen Vogel, einen Wal, eine Qualle, eine Blume, die Erde, einen Planeten mit Ring, eine Galaxie und ein Herz. Jede Figur lebt (schlägt mit den Flügeln, schwimmt, pulsiert, erblüht, rotiert, schlägt) und dreht sich als Ganzes in Perspektive, während Farbwellen über sie laufen; dann fließt der Schwarm in die nächste Figur, jede Drohne zu einem nahen Ziel. Der Zeiger neigt die Figur, Ziehen dreht sie, ein Klick zerstreut die Drohnen.",
-        "zh-CN": "夜空中的无人机表演：约一千个光点从地面升起，组成立体图形：鸟、鲸、水母、花、地球、带环行星、星系和心。每个图形都有自己的动作（振翅、游动、脉动、绽放、旋转、跳动），并在透视中整体转动，彩色波纹从其上掠过；随后机群流畅地飞向下一个图形，每架无人机飞往附近的目标。指针会让图形微微倾斜，拖动可旋转图形，单击会让无人机散开。",
-        "fr": "Un spectacle de drones dans le ciel nocturne : un millier de lumières décollent du sol et forment des figures en 3D : un oiseau, une baleine, une méduse, une fleur, la Terre, une planète à anneau, une galaxie et un cœur. Chaque figure s’anime (bat des ailes, nage, pulse, s’épanouit, tourne, bat) et pivote d’un seul bloc en perspective tandis que des vagues de couleur la parcourent ; puis l’essaim s’écoule vers la figure suivante, chaque drone vers une cible proche. Le pointeur incline la figure, un glisser la fait pivoter, un clic disperse les drones.",
-        "ja": "夜空のドローンショー。約千の光が地上から飛び立ち、鳥、クジラ、クラゲ、花、地球、環のある惑星、銀河、ハートといった立体の図形をつくります。各図形はそれぞれに動き（羽ばたく、泳ぐ、脈打つ、花開く、回る、鼓動する）、色の波が走るなか遠近法で全体が回転します。やがて群れは次の図形へ流れるように移り、各ドローンは近くの目標へ向かいます。ポインターで図形が傾き、ドラッグで回転し、クリックでドローンが散ります。"
+        "ru": "Шоу дронов в ночном или дневном небе: около тысячи огней взлетают с земли и собираются в объёмные фигуры — птицу, кита, медузу, цветок, Землю, планету с кольцом, галактику и сердце. Каждая фигура живёт (машет крыльями, плывёт, пульсирует, раскрывается, вращается, бьётся) и поворачивается целиком в перспективе, по ней бегут цветные волны; затем рой плавно перелетает в следующую фигуру, каждый дрон — к ближайшей цели. Указатель слегка поворачивает фигуру, перетаскивание вращает её, щелчок разгоняет дронов.",
+        "en": "A drone light show in the night or day sky: about a thousand lights take off from the ground and form 3D figures: a bird, a whale, a jellyfish, a flower, the Earth, a ringed planet, a galaxy and a heart. Each figure lives (flaps, swims, pulses, blooms, spins, beats) and turns as one whole in perspective while colour waves run across it; then the swarm flows into the next figure, each drone to a near target. The pointer tilts the figure, a drag rotates it, a click scatters the drones.",
+        "es": "Un espectáculo de drones en el cielo nocturno o diurno: unas mil luces despegan del suelo y forman figuras en 3D: un pájaro, una ballena, una medusa, una flor, la Tierra, un planeta con anillo, una galaxia y un corazón. Cada figura cobra vida (aletea, nada, palpita, florece, gira, late) y gira entera en perspectiva mientras la recorren ondas de color; luego el enjambre fluye a la siguiente figura, cada dron hacia un destino cercano. El puntero inclina la figura, arrastrar la hace girar y un clic dispersa los drones.",
+        "pt-BR": "Um show de drones no céu noturno ou diurno: cerca de mil luzes decolam do chão e formam figuras em 3D: um pássaro, uma baleia, uma água-viva, uma flor, a Terra, um planeta com anel, uma galáxia e um coração. Cada figura ganha vida (bate as asas, nada, pulsa, desabrocha, gira, bate) e gira inteira em perspectiva enquanto ondas de cor a percorrem; depois o enxame flui para a figura seguinte, cada drone para um alvo próximo. O ponteiro inclina a figura, arrastar a gira e um clique espalha os drones.",
+        "de": "Eine Drohnenshow am Nacht- oder Taghimmel: Rund tausend Lichter steigen vom Boden auf und bilden 3D-Figuren: einen Vogel, einen Wal, eine Qualle, eine Blume, die Erde, einen Planeten mit Ring, eine Galaxie und ein Herz. Jede Figur lebt (schlägt mit den Flügeln, schwimmt, pulsiert, erblüht, rotiert, schlägt) und dreht sich als Ganzes in Perspektive, während Farbwellen über sie laufen; dann fließt der Schwarm in die nächste Figur, jede Drohne zu einem nahen Ziel. Der Zeiger neigt die Figur, Ziehen dreht sie, ein Klick zerstreut die Drohnen.",
+        "zh-CN": "夜空或白天天空中的无人机表演：约一千个光点从地面升起，组成立体图形：鸟、鲸、水母、花、地球、带环行星、星系和心。每个图形都有自己的动作（振翅、游动、脉动、绽放、旋转、跳动），并在透视中整体转动，彩色波纹从其上掠过；随后机群流畅地飞向下一个图形，每架无人机飞往附近的目标。指针会让图形微微倾斜，拖动可旋转图形，单击会让无人机散开。",
+        "fr": "Un spectacle de drones dans le ciel nocturne ou diurne : un millier de lumières décollent du sol et forment des figures en 3D : un oiseau, une baleine, une méduse, une fleur, la Terre, une planète à anneau, une galaxie et un cœur. Chaque figure s’anime (bat des ailes, nage, pulse, s’épanouit, tourne, bat) et pivote d’un seul bloc en perspective tandis que des vagues de couleur la parcourent ; puis l’essaim s’écoule vers la figure suivante, chaque drone vers une cible proche. Le pointeur incline la figure, un glisser la fait pivoter, un clic disperse les drones.",
+        "ja": "夜空や昼の空のドローンショー。約千の光が地上から飛び立ち、鳥、クジラ、クラゲ、花、地球、環のある惑星、銀河、ハートといった立体の図形をつくります。各図形はそれぞれに動き（羽ばたく、泳ぐ、脈打つ、花開く、回る、鼓動する）、色の波が走るなか遠近法で全体が回転します。やがて群れは次の図形へ流れるように移り、各ドローンは近くの目標へ向かいます。ポインターで図形が傾き、ドラッグで回転し、クリックでドローンが散ります。"
       },
       "role": {
-        "ru": "Зрелищный тёмный фон для героя, раздела или входа: фигура держится справа, над текстом слева огни едва заметны. Только тёмная схема — это излучаемый свет.",
-        "en": "A spectacular dark background for a hero, a section or sign-in: the figure stays on the right, and the lights are faint over the text on the left. Dark only: this is emitted light.",
-        "es": "Un fondo oscuro espectacular para un hero, una sección o un inicio de sesión: la figura se mantiene a la derecha y las luces son tenues sobre el texto de la izquierda. Solo oscuro: es luz emitida.",
-        "pt-BR": "Um fundo escuro espetacular para um hero, uma seção ou login: a figura fica à direita e as luzes são suaves sobre o texto à esquerda. Apenas escuro: é luz emitida.",
-        "de": "Ein spektakulärer dunkler Hintergrund für Hero, Abschnitt oder Anmeldung: Die Figur bleibt rechts, über dem Text links sind die Lichter nur schwach. Nur dunkel: Es ist ausgestrahltes Licht.",
-        "zh-CN": "适合首屏、版块或登录页的壮观深色背景：图形位于右侧，左侧文字上方的光点很淡。仅深色方案：这是发出的光。",
-        "fr": "Un fond sombre spectaculaire pour un hero, une section ou une connexion : la figure reste à droite et les lumières sont pâles sur le texte à gauche. Sombre uniquement : c’est de la lumière émise.",
-        "ja": "ヒーロー、セクション、サインイン向けの見ごたえのあるダークな背景。図形は右側にとどまり、左の文字の上では光はごく淡くなります。発光の表現なのでダークのみです。"
+        "ru": "Зрелищный фон для героя, раздела или входа: фигура держится справа, над текстом слева огни едва заметны. В тёмной схеме — светящиеся огни в ночном небе, в светлой — цветные дроны в голубом дневном небе с облаками.",
+        "en": "A spectacular background for a hero, a section or sign-in: the figure stays on the right, and the lights are faint over the text on the left. Dark draws glowing lights in a night sky; light draws coloured drones in a pale blue day sky with clouds.",
+        "es": "Un fondo espectacular para un hero, una sección o un inicio de sesión: la figura se mantiene a la derecha y las luces son tenues sobre el texto de la izquierda. El esquema oscuro dibuja luces brillantes en un cielo nocturno; el claro, drones de colores en un cielo diurno azul pálido con nubes.",
+        "pt-BR": "Um fundo espetacular para um hero, uma seção ou login: a figura fica à direita e as luzes são suaves sobre o texto à esquerda. O esquema escuro desenha luzes brilhantes num céu noturno; o claro, drones coloridos num céu diurno azul-claro com nuvens.",
+        "de": "Ein spektakulärer Hintergrund für Hero, Abschnitt oder Anmeldung: Die Figur bleibt rechts, über dem Text links sind die Lichter nur schwach. Dunkel zeigt leuchtende Lichter am Nachthimmel, hell farbige Drohnen an einem blassblauen Taghimmel mit Wolken.",
+        "zh-CN": "适合首屏、版块或登录页的壮观背景：图形位于右侧，左侧文字上方的光点很淡。深色方案是夜空中发光的光点，浅色方案是带云的淡蓝色白天天空中的彩色无人机。",
+        "fr": "Un fond spectaculaire pour un hero, une section ou une connexion : la figure reste à droite et les lumières sont pâles sur le texte à gauche. Le schéma sombre dessine des lumières brillantes dans un ciel nocturne ; le clair, des drones colorés dans un ciel de jour bleu pâle avec des nuages.",
+        "ja": "ヒーロー、セクション、サインイン向けの見ごたえのある背景。図形は右側にとどまり、左の文字の上では光はごく淡くなります。ダークでは夜空に輝く光、ライトでは雲のある淡い青の昼空に色とりどりのドローンを描きます。"
       },
       "categories": [
         "space",
         "nature"
       ],
       "schemes": [
-        "dark"
+        "dark",
+        "light"
       ],
       "pair": null,
       "capabilities": [
@@ -3904,13 +3905,13 @@
       "files": [
         {
           "path": "effect.json",
-          "sha256": "eef0fd4e5b8810fd510e5944da7b4eb13524038de5837b31a0f01b876b1414f0",
-          "size": 12577
+          "sha256": "2e5bf217c0d66f70fdee18e2bb0720fa985d9595b9929a63bfd4304a32c79ae2",
+          "size": 12590
         },
         {
           "path": "index.js",
-          "sha256": "5938da16cf1ceca81f881138a5459225211d0a8fa29cc288d0f1fc0d4d0eb732",
-          "size": 24551
+          "sha256": "e72d5081585594decd7d68d5697c3e69cd18c21d05892e34a726225fb82d66b5",
+          "size": 24567
         },
         {
           "path": "preview.png",
@@ -3919,15 +3920,15 @@
         },
         {
           "path": "README.md",
-          "sha256": "2027a2d6bb2a234c87d34dc3dff961e2139fcb3999b6255ca8fa7ce9e02fea81",
-          "size": 5241
+          "sha256": "ff083712cc954b7192c2c0e66208b19a5142b0e2dbe629971170151f991f348b",
+          "size": 5694
         }
       ],
       "kit": {
         "status": "pass",
         "framework": "ui-1ed6b6c9a040",
-        "passed": 14,
-        "total": 14
+        "passed": 17,
+        "total": 17
       }
     },
     {

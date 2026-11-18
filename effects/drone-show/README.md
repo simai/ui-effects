@@ -1,12 +1,12 @@
 # Drone show (`drone-show`)
 
-A drone light show in the night sky: about a thousand lights take off from the ground and form 3D figures: a bird, a whale, a jellyfish, a flower, the Earth, a ringed planet, a galaxy and a heart. Each figure lives (flaps, swims, pulses, blooms, spins, beats) and turns as one whole in perspective while colour waves run across it; then the swarm flows into the next figure, each drone to a near target. The pointer tilts the figure, a drag rotates it, a click scatters the drones.
+A drone light show in the night or day sky: about a thousand lights take off from the ground and form 3D figures: a bird, a whale, a jellyfish, a flower, the Earth, a ringed planet, a galaxy and a heart. Each figure lives (flaps, swims, pulses, blooms, spins, beats) and turns as one whole in perspective while colour waves run across it; then the swarm flows into the next figure, each drone to a near target. The pointer tilts the figure, a drag rotates it, a click scatters the drones.
 
 - **Russian name:** Шоу дронов
 - **Version:** 0.1.0, simai.effect 1.4.0
 - **Surfaces:** hero, section, sign-in
 - **Tags:** drones, light-show, sky
-- **Role:** A spectacular dark background for a hero, a section or sign-in: the figure stays on the right, and the lights are faint over the text on the left. Dark only: this is emitted light.
+- **Role:** A spectacular background for a hero, a section or sign-in: the figure stays on the right, and the lights are faint over the text on the left. Dark draws glowing lights in a night sky; light draws coloured drones in a pale blue day sky with clouds.
 
 ## How it works
 
@@ -46,11 +46,13 @@ While it moves, every mount shows a new order of figures; the reduced-motion sti
 
 ## Schemes
 
-The manifest declares `"schemes": ["dark"]` and `"capabilities": ["windows"]`.
+The manifest declares `"schemes": ["dark", "light"]` (dark is home) and `"capabilities": ["windows"]`.
 
-Dark only: the drones are emitted light on a deep night-sky gradient with a very faint field of stars. Colours come from palette tones: the sky from `neutral` and `primary`, the drones from a ramp of `primary` (cyan and white), `secondary` (amber) and `tertiary` (rose). The named palettes and `custom` give one hue to all three, so the show is one colour.
+Dark (home): the drones are emitted light on a deep night-sky gradient with a very faint field of stars. Colours come from palette tones: the sky from `neutral` and `primary`, the drones from a ramp of `primary` (cyan and white), `secondary` (amber) and `tertiary` (rose). The named palettes and `custom` give one hue to all three, so the show is one colour.
 
-Theme modes a placement may choose: `auto`, `dark`. On a light page in `auto` the area stays dark and takes `theme-dark`.
+Light: a day show. The sky runs from a pale blue (from `primary`, toward `neutral` 98) at the top to a white haze below, with a few soft flattened clouds. A glow is invisible against a bright sky, so each drone is a larger solid dot with only a thin halo, and the ramp is deepened (each channel squared), so the colours stay saturated: blue, rose and amber read as coloured drones, the white ones as grey bodies.
+
+Theme modes a placement may choose: `auto`, `dark`, `light`.
 
 ## Files
 

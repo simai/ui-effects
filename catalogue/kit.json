@@ -270,9 +270,9 @@
       "failed": []
     },
     "drone-show": {
-      "digest": "37478777a10cb0b1eb98004ca2bbbe7eeb8b6979970708d3878f395e0fd29d98",
-      "passed": 14,
-      "total": 14,
+      "digest": "68cb3e49acf8bee92d44ddf3033302545691fb63ade40ada2ca458e11efa8332",
+      "passed": 17,
+      "total": 17,
       "failed": []
     },
     "arrow-field": {
