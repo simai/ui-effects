@@ -4168,8 +4168,8 @@
         },
         {
           "path": "index.js",
-          "sha256": "851cef1dbce9d28906403e6c21d3ba719e68cb926f283328409cbb2056de81eb",
-          "size": 24369
+          "sha256": "6bdc7fe5de5c1abac591190a6b34372d484f82b15e39347a60bf71a2c5e849a9",
+          "size": 24443
         },
         {
           "path": "preview.png",
@@ -4178,8 +4178,8 @@
         },
         {
           "path": "README.md",
-          "sha256": "023e195ad03b68f41b7353791348444467df930da20172b217f1817a089ef900",
-          "size": 7189
+          "sha256": "82b65fdf10ddc23811c97d888fa738418953937c265442334158323839bf765b",
+          "size": 7448
         }
       ],
       "kit": {

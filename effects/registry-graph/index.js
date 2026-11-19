@@ -1,5 +1,5 @@
 // Registry graph (simai.effect 1.4.0; dark): SIMAI Framework parts as a galaxy. Data: the pair's
-// registry export in a JSON script of the page (source = its id); without it, nameless stars.
+// registry export in a JSON script of the page (source = its id).
 
 const {sin, cos, sqrt, min, max, abs, PI, round, ceil, floor, log, exp, hypot, tan} = Math;
 const TAU = PI * 2, R0 = .12, EXT = 1.3, RS = 1024, COSI = .42, TILT = -.28;
@@ -35,16 +35,10 @@ function readTones(host, mono) {
   return t;
 }
 
-// Links are [user, used]; counts come from them.
+// Links are [user, used]; counts come from them. No data: the sky and the bulge only.
 function model(data, v) {
-  const list = data?.nodes, has = Array.isArray(list) && list.length > 0;
-  const N = has
-    ? list.map((n, i) => ({i, n: String(n?.name ?? ''), f: max(0, ['core', 'utility', 'component', 'smart'].indexOf(n?.family)), d: n?.docs ?? {}, u: 0, o: 0, users: [], used: []}))
-    : Array.from({length: 320}, (_, i) => {
-      const h = hash('d' + i, 9);
-      return {i, n: '', f: i < 10 ? 0 : h < .55 ? 1 : h < .78 ? 2 : 3, d: {}, u: round(40 * hash('u' + i, 1) ** 5), o: round(14 * hash('o' + i, 2) ** 2), users: [], used: []};
-    });
-  if (has) for (const [a, b] of Array.isArray(data.edges) ? data.edges : []) {
+  const N = (Array.isArray(data?.nodes) ? data.nodes : []).map((n, i) => ({i, n: String(n?.name ?? ''), f: max(0, ['core', 'utility', 'component', 'smart'].indexOf(n?.family)), d: n?.docs ?? {}, u: 0, o: 0, users: [], used: []}));
+  for (const [a, b] of Array.isArray(data?.edges) ? data.edges : []) {
     const A = N[a], B = N[b];
     if (A && B && A !== B) { A.o++; B.u++; A.used.push(b); B.users.push(a); }
   }
@@ -214,14 +208,19 @@ export function mount(host, settings = {}, context = {}) {
     if (!ringC) ringC = rings(doc, M, T, F, (v.intensity ?? 80) / (narrow ? 133 : 80));
     if (!fl && F.field) fl = field(doc, W, H, dpr, T);
     base(); op('source-over'); g.globalAlpha = 1;
-    if (!bg) { bg = g.createRadialGradient(CX, CY, 0, CX, CY, max(W, H)); bg.addColorStop(0, rgba(T.sky[0])); bg.addColorStop(.6, rgba(T.sky[1])); bg.addColorStop(1, rgba(T.sky[1])); }
-    g.fillStyle = bg; g.fillRect(0, 0, W, H);
     const z = view.z, tn = now();
     par.x += (parT.x - par.x) * .05; par.y += (parT.y - par.y) * .05;
+    // Sky and field are cached together and redrawn only when the parallax or the pan moves.
+    const key = [sn(par.x * 14), sn(par.y * 10), sn(view.x * .06), sn(view.y * .06)] + '';
+    if (!bg || bg.key !== key) {
+      bg ||= cv(doc, canvas.width, canvas.height).getContext('2d');
+      const k = bg, gr = k.createRadialGradient(CX * dpr, CY * dpr, 0, CX * dpr, CY * dpr, max(W, H) * dpr);
+      gr.addColorStop(0, rgba(T.sky[0])); gr.addColorStop(.6, rgba(T.sky[1])); gr.addColorStop(1, rgba(T.sky[1]));
+      k.fillStyle = gr; k.fillRect(0, 0, k.canvas.width, k.canvas.height); k.key = key;
+      if (F.field) for (const [c, d] of fl.L) k.drawImage(c, round((-fl.PAD - par.x * 14 * d + view.x * .06 * d) * dpr), round((-fl.PAD - par.y * 10 * d + view.y * .06 * d) * dpr));
+    }
+    g.setTransform(1, 0, 0, 1, 0, 0); g.drawImage(bg.canvas, 0, 0); base();
     if (F.field) {
-      g.imageSmoothingEnabled = false;
-      for (const [c, d] of fl.L) g.drawImage(c, sn(-fl.PAD - par.x * 14 * d + view.x * .06 * d), sn(-fl.PAD - par.y * 10 * d + view.y * .06 * d), c.width / dpr, c.height / dpr);
-      g.imageSmoothingEnabled = true;
       const p = (dpr > 1.5 ? 2 : 1) / dpr;
       for (const s of fl.tw) {
         g.fillStyle = rgba(T.field, (F.twinkle && !still ? s[2] * (.55 + .45 * sin(tn / 1000 * s[4] + s[3])) : s[2]).toFixed(3));

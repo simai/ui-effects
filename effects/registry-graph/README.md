@@ -26,7 +26,7 @@ The export (`simai.registry-graph`, version 1):
 | `nodes[]` | `{name, family, docs: {ru, en?}}`; `docs` are paths from the docs site root, one per language the docs have |
 | `edges[]` | `[user, used]`: indexes into `nodes`; the part `user` uses the part `used` |
 
-Nothing else is counted in the data: how often a part is used and how many links it has come from `edges`. The core is placed in the bulge as used by every part, without edges. Until the pair publishes the export, the catalogue page embeds a copy of the prototype's data (pair ui-dc9fc39aeb26: 395 parts, 640 links; `site/data/registry-graph.json`, written into the page by `scripts/build-site.mjs`). Without data the effect draws a seeded galaxy of nameless stars that answer nothing.
+Nothing else is counted in the data: how often a part is used and how many links it has come from `edges`. The core is placed in the bulge as used by every part, without edges. Until the pair publishes the export, the catalogue page embeds a copy of the prototype's data (pair ui-dc9fc39aeb26: 395 parts, 640 links; `site/data/registry-graph.json`, written into the page by `scripts/build-site.mjs`). Without data the effect draws the sky and the bulge only.
 
 After the source script the effect writes a visually hidden list of links to the parts (most used first), for screen readers; a link that takes keyboard focus lights its star with its links, and on a focused link `+`, `−`, `0` and the arrows zoom and pan. Several placements on one source share one list.
 
@@ -36,6 +36,7 @@ After the source script the effect writes a visually hidden list of links to the
 - **Size:** `1.2 + 1.15·√(links)` px, at most 9 (`sizeBy`).
 - **Colour:** star temperature by family from the palette: core amber (the bulge), Smart blue-white, components pale cyan, utilities red-orange dust.
 - **Sky:** a bulge glow, nebulae along the arms tinted by the families nearby, dust lanes on the inner edge of the main arms, three parallax layers of distant stars and a light twinkle on a few of them. Nebulae and dust are drawn once into three rings of the galaxy plane, and each ring turns with its mean speed.
+- **Cache:** the sky gradient and the three field layers are composed once into one backdrop at device resolution and redrawn only when the parallax or the pan moves, so a still pointer costs one copy a frame (it took the long frames of a loaded machine from 30–150 to 0–5 in 5 s).
 - **Turn:** one turn in `rotation` seconds (360 by default); the middle runs ahead and falls back within a bound, so the arms never wind up.
 - **Crisp stars:** each core is a disc cached at device resolution per family and quarter-pixel radius and copied 1:1 onto whole device pixels; a tight halo (at most 4.5 core radii, 5.5 when lit) from a 64 px sprite that is only ever drawn smaller; the eight most linked parts get diffraction rays one device pixel wide. Zoom redraws the cores at their new radius.
 - **Hover:** hover, keyboard focus or the first touch tap shows only the part's name and draws that star's links: thin lines that fade in, with light running from the used part to the part that uses it; the rest dims. Leaving takes it all away. Past ×2.2 the biggest visible stars get their names (40 at most, none over the text side). Nothing in the scene is a number.
