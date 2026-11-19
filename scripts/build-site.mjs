@@ -121,6 +121,13 @@ const common = (locale, page) => ({
   COMMIT_SHORT: commit.slice(0, 12),
 });
 
+// Data an effect draws from the page (an effect reads no network): site/data/<id>.json,
+// embedded on its page as a JSON script with the id the effect's source setting names.
+const effectData = (id) => {
+  const path = join(ROOT, 'site', 'data', `${id}.json`);
+  return existsSync(path) ? `<script type="application/json" id="${id}">${JSON.stringify(readJson(path)).replace(/</gu, '\\u003c')}</script>` : '';
+};
+
 const galleryTemplate = readFileSync(join(ROOT, 'site', 'index.html'), 'utf8');
 const effectTemplate = readFileSync(join(ROOT, 'site', 'effect.html'), 'utf8');
 const authorsTemplate = readFileSync(join(ROOT, 'site', 'authors.html'), 'utf8');
@@ -148,6 +155,7 @@ for (const locale of LOCALES) {
       EFFECT_ID: effect.id,
       EFFECT_LABEL: escape(pick(effect.label, locale.lang)),
       EFFECT_DESCRIPTION: escape(pick(effect.description, locale.lang)),
+      EFFECT_DATA: effectData(effect.id),
     }, locale.lang));
   }
 }

@@ -286,6 +286,12 @@
       "passed": 17,
       "total": 17,
       "failed": []
+    },
+    "registry-graph": {
+      "digest": "6ea043539f5478b6da1bf4463a8d129f911bbdf7b6cd0bc6dbd8e6859b0478d0",
+      "passed": 14,
+      "total": 14,
+      "failed": []
     }
   }
 }

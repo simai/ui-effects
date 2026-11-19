@@ -1415,6 +1415,38 @@
         "board",
         "calendar"
       ]
+    },
+    {
+      "id": "registry-graph",
+      "categories": [
+        "space",
+        "tech"
+      ],
+      "description": {
+        "ru": "Части SIMAI Framework — звёзды спиральной галактики: чем чаще часть используется, тем ближе к центру, чем больше связей, тем крупнее.",
+        "en": "The parts of SIMAI Framework as the stars of a spiral galaxy: the more a part is used, the nearer the centre; the more links, the bigger.",
+        "es": "Las partes de SIMAI Framework como estrellas de una galaxia espiral: cuanto más se usa una parte, más cerca del centro; cuantos más enlaces, más grande.",
+        "pt-BR": "As partes do SIMAI Framework como estrelas de uma galáxia espiral: quanto mais uma parte é usada, mais perto do centro; quanto mais ligações, maior.",
+        "de": "Die Teile von SIMAI Framework als Sterne einer Spiralgalaxie: Je häufiger ein Teil verwendet wird, desto näher an der Mitte; je mehr Verbindungen, desto größer.",
+        "zh-CN": "SIMAI Framework 的各个部件化作旋涡星系中的恒星：部件被使用得越多，越靠近中心；链接越多，星越大。",
+        "fr": "Les parties de SIMAI Framework en étoiles d’une galaxie spirale : plus une partie est utilisée, plus elle est près du centre ; plus elle a de liens, plus elle est grande.",
+        "ja": "SIMAI Framework のパーツを渦巻銀河の星として描きます。よく使われるパーツほど中心に近く、リンクが多いほど大きくなります。"
+      },
+      "role": {
+        "ru": "Фон главной страницы документации: наведите на звезду — имя и её связи, щелчок открывает страницу части, удержание приближает. Данные — выгрузка реестра пары на странице; ночная панель в обеих темах.",
+        "en": "The docs home hero: hover a star for its name and links, a click opens the part’s page, press and hold zooms in. Data is the pair’s registry export on the page; a night panel in both themes.",
+        "es": "El fondo de la portada de la documentación: pasa sobre una estrella para ver su nombre y enlaces, un clic abre la página de la parte, mantener pulsado acerca. Los datos son la exportación del registro en la página; un panel nocturno en ambos temas.",
+        "pt-BR": "O fundo da página inicial da documentação: passe sobre uma estrela para ver o nome e as ligações, um clique abre a página da parte, manter pressionado aproxima. Os dados são a exportação do registro na página; um painel noturno nos dois temas.",
+        "de": "Der Hintergrund der Doku-Startseite: Über einem Stern erscheinen Name und Verbindungen, ein Klick öffnet die Seite des Teils, Gedrückthalten zoomt. Die Daten sind der Registerexport auf der Seite; ein Nachtpanel in beiden Designs.",
+        "zh-CN": "文档首页的背景：悬停在星上显示名称及其链接，点击打开该部件的页面，按住可放大。数据来自页面上的注册表导出；两种主题下都是夜空面板。",
+        "fr": "Le fond de l’accueil de la documentation : survolez une étoile pour voir son nom et ses liens, un clic ouvre la page de la partie, un appui long zoome. Les données sont l’export du registre sur la page ; un panneau nocturne dans les deux thèmes.",
+        "ja": "ドキュメントのトップの背景です。星にポインターを置くと名前とリンク、クリックでパーツのページ、長押しでズーム。データはページ上のレジストリのエクスポート、どちらのテーマでも夜空のパネルです。"
+      },
+      "tags": [
+        "registry",
+        "graph",
+        "sky"
+      ]
     }
   ]
 }

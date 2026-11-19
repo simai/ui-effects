@@ -1,0 +1,445 @@
+{
+  "schema": "simai.effect",
+  "schema_version": 1,
+  "id": "registry-graph",
+  "version": "0.1.0",
+  "label": {
+    "ru": "Галактика реестра",
+    "en": "Registry galaxy",
+    "es": "Galaxia del registro",
+    "pt-BR": "Galáxia do registro",
+    "de": "Registergalaxie",
+    "zh-CN": "注册表星系",
+    "fr": "Galaxie du registre",
+    "ja": "レジストリ銀河"
+  },
+  "author": "Rim Zabarov",
+  "entry": "index.js",
+  "preview": "preview.png",
+  "surfaces": [
+    "hero",
+    "section"
+  ],
+  "schemes": [
+    "dark"
+  ],
+  "capabilities": [
+    "windows"
+  ],
+  "settings": [
+    {
+      "key": "source",
+      "type": "string",
+      "label": {
+        "ru": "Источник данных",
+        "en": "Data source",
+        "es": "Fuente de datos",
+        "pt-BR": "Fonte de dados",
+        "de": "Datenquelle",
+        "zh-CN": "数据来源",
+        "fr": "Source des données",
+        "ja": "データソース"
+      },
+      "default": "registry-graph",
+      "max": 120,
+      "hint": {
+        "ru": "id элемента script type=\"application/json\" на странице с выгрузкой реестра пары",
+        "en": "The id of the page’s script type=\"application/json\" holding the pair’s registry export",
+        "es": "El id del script type=\"application/json\" de la página con la exportación del registro",
+        "pt-BR": "O id do script type=\"application/json\" da página com a exportação do registro",
+        "de": "Die id des script type=\"application/json\" der Seite mit dem Registerexport",
+        "zh-CN": "页面中存放注册表导出的 script type=\"application/json\" 的 id",
+        "fr": "L’id du script type=\"application/json\" de la page qui contient l’export du registre",
+        "ja": "レジストリのエクスポートを含むページの script type=\"application/json\" の id"
+      }
+    },
+    {
+      "key": "layout",
+      "type": "choice",
+      "label": {
+        "ru": "Раскладка",
+        "en": "Layout",
+        "es": "Disposición",
+        "pt-BR": "Disposição",
+        "de": "Anordnung",
+        "zh-CN": "布局",
+        "fr": "Disposition",
+        "ja": "配置"
+      },
+      "default": "galaxy",
+      "options": [
+        {
+          "value": "galaxy",
+          "label": {
+            "ru": "Галактика",
+            "en": "Galaxy",
+            "es": "Galaxia",
+            "pt-BR": "Galáxia",
+            "de": "Galaxie",
+            "zh-CN": "星系",
+            "fr": "Galaxie",
+            "ja": "銀河"
+          }
+        },
+        {
+          "value": "constellation",
+          "label": {
+            "ru": "Созвездие",
+            "en": "Constellation",
+            "es": "Constelación",
+            "pt-BR": "Constelação",
+            "de": "Sternbild",
+            "zh-CN": "星座",
+            "fr": "Constellation",
+            "ja": "星座"
+          }
+        }
+      ]
+    },
+    {
+      "key": "arms",
+      "type": "choice",
+      "label": {
+        "ru": "Рукава",
+        "en": "Arms",
+        "es": "Brazos",
+        "pt-BR": "Braços",
+        "de": "Arme",
+        "zh-CN": "旋臂",
+        "fr": "Bras",
+        "ja": "腕"
+      },
+      "default": "2+2",
+      "options": [
+        {
+          "value": "2+2",
+          "label": {
+            "ru": "Два главных и два слабых",
+            "en": "Two main and two weak",
+            "es": "Dos principales y dos débiles",
+            "pt-BR": "Dois principais e dois fracos",
+            "de": "Zwei Haupt- und zwei schwache",
+            "zh-CN": "两条主臂和两条弱臂",
+            "fr": "Deux principaux et deux faibles",
+            "ja": "主腕2本と弱い腕2本"
+          }
+        },
+        {
+          "value": "2",
+          "label": {
+            "ru": "Два",
+            "en": "Two",
+            "es": "Dos",
+            "pt-BR": "Dois",
+            "de": "Zwei",
+            "zh-CN": "两条",
+            "fr": "Deux",
+            "ja": "2本"
+          }
+        },
+        {
+          "value": "4",
+          "label": {
+            "ru": "Четыре равных",
+            "en": "Four equal",
+            "es": "Cuatro iguales",
+            "pt-BR": "Quatro iguais",
+            "de": "Vier gleiche",
+            "zh-CN": "四条等臂",
+            "fr": "Quatre égaux",
+            "ja": "均等な4本"
+          }
+        }
+      ],
+      "when": {
+        "key": "layout",
+        "is": [
+          "galaxy"
+        ]
+      }
+    },
+    {
+      "key": "pitch",
+      "type": "integer",
+      "label": {
+        "ru": "Закрутка рукавов",
+        "en": "Arm pitch",
+        "es": "Inclinación de los brazos",
+        "pt-BR": "Inclinação dos braços",
+        "de": "Steigung der Arme",
+        "zh-CN": "旋臂螺距",
+        "fr": "Pas des bras",
+        "ja": "腕の巻き角"
+      },
+      "default": 16,
+      "min": 8,
+      "max": 30,
+      "step": 1,
+      "unit": "°",
+      "when": {
+        "key": "layout",
+        "is": [
+          "galaxy"
+        ]
+      }
+    },
+    {
+      "key": "radiusBy",
+      "type": "choice",
+      "label": {
+        "ru": "Ближе к центру",
+        "en": "Nearer the centre",
+        "es": "Más cerca del centro",
+        "pt-BR": "Mais perto do centro",
+        "de": "Näher zur Mitte",
+        "zh-CN": "越靠近中心",
+        "fr": "Plus près du centre",
+        "ja": "中心に近いほど"
+      },
+      "default": "usedBy",
+      "options": [
+        {
+          "value": "usedBy",
+          "label": {
+            "ru": "Чем чаще используется",
+            "en": "The more it is used",
+            "es": "Cuanto más se usa",
+            "pt-BR": "Quanto mais é usada",
+            "de": "Je häufiger verwendet",
+            "zh-CN": "被使用得越多",
+            "fr": "Plus elle est utilisée",
+            "ja": "よく使われるほど"
+          }
+        },
+        {
+          "value": "degree",
+          "label": {
+            "ru": "Чем больше связей",
+            "en": "The more links",
+            "es": "Cuantos más enlaces",
+            "pt-BR": "Quanto mais ligações",
+            "de": "Je mehr Verbindungen",
+            "zh-CN": "链接越多",
+            "fr": "Plus elle a de liens",
+            "ja": "リンクが多いほど"
+          }
+        }
+      ]
+    },
+    {
+      "key": "sizeBy",
+      "type": "choice",
+      "label": {
+        "ru": "Крупнее",
+        "en": "Bigger",
+        "es": "Más grande",
+        "pt-BR": "Maior",
+        "de": "Größer",
+        "zh-CN": "越大",
+        "fr": "Plus grande",
+        "ja": "大きいほど"
+      },
+      "default": "degree",
+      "options": [
+        {
+          "value": "degree",
+          "label": {
+            "ru": "Чем больше связей",
+            "en": "The more links",
+            "es": "Cuantos más enlaces",
+            "pt-BR": "Quanto mais ligações",
+            "de": "Je mehr Verbindungen",
+            "zh-CN": "链接越多",
+            "fr": "Plus elle a de liens",
+            "ja": "リンクが多いほど"
+          }
+        },
+        {
+          "value": "usedBy",
+          "label": {
+            "ru": "Чем чаще используется",
+            "en": "The more it is used",
+            "es": "Cuanto más se usa",
+            "pt-BR": "Quanto mais é usada",
+            "de": "Je häufiger verwendet",
+            "zh-CN": "被使用得越多",
+            "fr": "Plus elle est utilisée",
+            "ja": "よく使われるほど"
+          }
+        }
+      ]
+    },
+    {
+      "key": "colourBy",
+      "type": "choice",
+      "label": {
+        "ru": "Цвет звёзд",
+        "en": "Star colour",
+        "es": "Color de las estrellas",
+        "pt-BR": "Cor das estrelas",
+        "de": "Sternfarbe",
+        "zh-CN": "星的颜色",
+        "fr": "Couleur des étoiles",
+        "ja": "星の色"
+      },
+      "default": "family",
+      "options": [
+        {
+          "value": "family",
+          "label": {
+            "ru": "По семейству",
+            "en": "By family",
+            "es": "Por familia",
+            "pt-BR": "Por família",
+            "de": "Nach Familie",
+            "zh-CN": "按类别",
+            "fr": "Par famille",
+            "ja": "ファミリー別"
+          }
+        },
+        {
+          "value": "theme",
+          "label": {
+            "ru": "Цвет темы",
+            "en": "Theme colour",
+            "es": "Color del tema",
+            "pt-BR": "Cor do tema",
+            "de": "Designfarbe",
+            "zh-CN": "主题色",
+            "fr": "Couleur du thème",
+            "ja": "テーマカラー"
+          }
+        }
+      ]
+    },
+    {
+      "key": "layers",
+      "type": "string",
+      "label": {
+        "ru": "Слои",
+        "en": "Layers",
+        "es": "Capas",
+        "pt-BR": "Camadas",
+        "de": "Ebenen",
+        "zh-CN": "图层",
+        "fr": "Calques",
+        "ja": "レイヤー"
+      },
+      "default": "bulge nebula dust field twinkle bloom spikes names",
+      "max": 120,
+      "hint": {
+        "ru": "Через пробел: bulge nebula dust field twinkle bloom spikes names",
+        "en": "Space-separated: bulge nebula dust field twinkle bloom spikes names",
+        "es": "Separadas por espacios: bulge nebula dust field twinkle bloom spikes names",
+        "pt-BR": "Separadas por espaço: bulge nebula dust field twinkle bloom spikes names",
+        "de": "Durch Leerzeichen getrennt: bulge nebula dust field twinkle bloom spikes names",
+        "zh-CN": "以空格分隔：bulge nebula dust field twinkle bloom spikes names",
+        "fr": "Séparés par des espaces : bulge nebula dust field twinkle bloom spikes names",
+        "ja": "スペース区切り：bulge nebula dust field twinkle bloom spikes names"
+      }
+    },
+    {
+      "key": "rotation",
+      "type": "integer",
+      "label": {
+        "ru": "Оборот",
+        "en": "One turn",
+        "es": "Una vuelta",
+        "pt-BR": "Uma volta",
+        "de": "Eine Umdrehung",
+        "zh-CN": "转一圈",
+        "fr": "Un tour",
+        "ja": "1回転"
+      },
+      "default": 360,
+      "min": 0,
+      "max": 1200,
+      "step": 30,
+      "unit": "s",
+      "hint": {
+        "ru": "0 — без вращения",
+        "en": "0 stops the turn",
+        "es": "0 detiene el giro",
+        "pt-BR": "0 para a rotação",
+        "de": "0 hält die Drehung an",
+        "zh-CN": "0 为不旋转",
+        "fr": "0 arrête la rotation",
+        "ja": "0で回転しません"
+      }
+    },
+    {
+      "key": "interactive",
+      "type": "string",
+      "label": {
+        "ru": "Отклик",
+        "en": "Response",
+        "es": "Respuesta",
+        "pt-BR": "Resposta",
+        "de": "Reaktion",
+        "zh-CN": "交互",
+        "fr": "Réaction",
+        "ja": "反応"
+      },
+      "default": "hover click hold",
+      "max": 40,
+      "hint": {
+        "ru": "hover — имя и связи, click — страница документации, hold — приближение",
+        "en": "hover: name and links; click: the docs page; hold: zoom",
+        "es": "hover: nombre y enlaces; click: la página de la documentación; hold: zoom",
+        "pt-BR": "hover: nome e ligações; click: a página da documentação; hold: zoom",
+        "de": "hover: Name und Verbindungen; click: die Dokuseite; hold: Zoom",
+        "zh-CN": "hover：名称与链接；click：文档页面；hold：缩放",
+        "fr": "hover : nom et liens ; click : la page de documentation ; hold : zoom",
+        "ja": "hover：名前とリンク、click：ドキュメントのページ、hold：ズーム"
+      }
+    },
+    {
+      "key": "hrefPattern",
+      "type": "string",
+      "label": {
+        "ru": "Адрес страницы",
+        "en": "Page address",
+        "es": "Dirección de la página",
+        "pt-BR": "Endereço da página",
+        "de": "Seitenadresse",
+        "zh-CN": "页面地址",
+        "fr": "Adresse de la page",
+        "ja": "ページのアドレス"
+      },
+      "default": "https://ui.simai.io{path}",
+      "max": 200,
+      "hint": {
+        "ru": "{path} — путь части в документации на языке страницы",
+        "en": "{path} is the part’s docs path in the page language",
+        "es": "{path} es la ruta de la parte en la documentación, en el idioma de la página",
+        "pt-BR": "{path} é o caminho da parte na documentação, no idioma da página",
+        "de": "{path} ist der Dokupfad des Teils in der Sprache der Seite",
+        "zh-CN": "{path} 是该部件在页面语言下的文档路径",
+        "fr": "{path} est le chemin de la partie dans la documentation, dans la langue de la page",
+        "ja": "{path} はページの言語でのドキュメントのパス"
+      }
+    },
+    {
+      "key": "intensity",
+      "type": "integer",
+      "label": {
+        "ru": "Яркость туманностей",
+        "en": "Nebula brightness",
+        "es": "Brillo de las nebulosas",
+        "pt-BR": "Brilho das nebulosas",
+        "de": "Nebelhelligkeit",
+        "zh-CN": "星云亮度",
+        "fr": "Éclat des nébuleuses",
+        "ja": "星雲の明るさ"
+      },
+      "default": 80,
+      "min": 20,
+      "max": 150,
+      "step": 5,
+      "unit": "%"
+    }
+  ],
+  "needs": {
+    "network": false
+  }
+}
