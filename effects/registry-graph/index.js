@@ -14,7 +14,7 @@ const hash = (s, k) => {
 };
 const cv = (doc, w, h) => Object.assign(doc.createElement('canvas'), {width: w, height: h});
 const ringOf = r => (r < .38 ? 0 : r < .7 ? 1 : 2);
-const words = s => new Set(String(s ?? '').split(/[\s,]+/u));
+const arr = a => (Array.isArray(a) ? a : []), words = s => new Set(String(s ?? '').split(/[\s,]+/u));
 
 function readTones(host, mono) {
   const doc = host.ownerDocument, probe = host.appendChild(doc.createElement('i')), pixel = doc.createElement('canvas').getContext('2d', {willReadFrequently: true});
@@ -37,8 +37,8 @@ function readTones(host, mono) {
 
 // Links are [user, used]; counts come from them. No data: the sky and the bulge only.
 function model(data, v) {
-  const N = (Array.isArray(data?.nodes) ? data.nodes : []).map((n, i) => ({i, n: String(n?.name ?? ''), f: max(0, ['core', 'utility', 'component', 'smart'].indexOf(n?.family)), d: n?.docs, g: n?.langs ?? ['ru'], u: 0, o: 0, users: [], used: []}));
-  for (const [a, b] of Array.isArray(data?.edges) ? data.edges : []) {
+  const N = arr(data?.nodes).map((n, i) => ({i, n: String(n?.name ?? ''), f: max(0, ['core', 'utility', 'component', 'smart'].indexOf(n?.family)), d: n?.docs, g: n?.langs ?? ['ru'], u: 0, o: 0, users: [], used: []}));
+  for (const [a, b] of arr(data?.edges)) {
     const A = N[a], B = N[b];
     if (A && B && A !== B) { A.o++; B.u++; A.used.push(b); B.users.push(a); }
   }
@@ -108,19 +108,19 @@ function field(doc, W, H, dpr, T) {
 }
 
 export function mount(host, settings = {}, context = {}) {
-  const doc = host.ownerDocument, win = doc.defaultView, canvas = doc.createElement('canvas'), g = canvas.getContext('2d', {alpha: false}), motion = win.matchMedia?.('(prefers-reduced-motion: reduce)');
+  const calm = () => !!(context.reducedMotion || motion?.matches), doc = host.ownerDocument, win = doc.defaultView, canvas = doc.createElement('canvas'), g = canvas.getContext('2d', {alpha: false}), motion = win.matchMedia?.('(prefers-reduced-motion: reduce)');
   canvas.setAttribute('aria-hidden', 'true');
   canvas.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none';
   host.append(canvas);
-  let v = {...settings}, T, F, M, ringC, fl, halos, cores, bg, src, nav, OM = 0, PX, PY, PS, font = '',
-    still = !!(context.reducedMotion || motion?.matches), paused = false, visible = true, raf = 0, last = 0, t = 0, W = 1, H = 1, dpr = 1, CX = 0, CY = 0, S = 1, narrow = false,
+  let v = {...settings}, T, F, M, ringC, fl, halos, cores, fb, bg, src, nav, OM = 0, PX, PY, PS, font = '',
+    still = calm(), paused = false, visible = true, raf = 0, last = 0, t = 0, W = 1, H = 1, dpr = 1, CX = 0, CY = 0, S = 1, narrow = false,
     view = {z: 1, x: 0, y: 0}, rest = {...view}, anim = null, hold = null, pinch = null, start = null, hover = -1, mine = false, hoverT = 0, tapped = -1;
-  const par = {x: 0, y: 0}, parT = {x: 0, y: 0}, downs = new Map(), now = () => win.performance.now(), sn = q => round(q * dpr) / dpr, op = o => { g.globalCompositeOperation = o; }, base = () => g.setTransform(dpr, 0, 0, dpr, 0, 0);
+  const par = {x: 0, y: 0}, parT = {x: 0, y: 0}, downs = new Map(), now = () => win.performance.now(), sn = q => round(q * dpr) / dpr, op = (o, c = g) => { c.globalCompositeOperation = o; }, base = () => g.setTransform(dpr, 0, 0, dpr, 0, 0);
 
   const flags = () => {
     const on = words(v.layers), act = words(v.interactive);
     F = {arms: v.layout !== 'constellation', hover: act.has('hover'), click: act.has('click'), hold: act.has('hold')};
-    for (const k of ['bulge', 'nebula', 'dust', 'field', 'twinkle', 'bloom', 'spikes', 'names']) F[k] = on.has(k);
+    for (const k of 'bulge nebula dust field twinkle bloom spikes names'.split(' ')) F[k] = on.has(k);
     OM = v.rotation > 0 ? TAU / v.rotation : 0;
   };
   const retone = () => {
@@ -131,7 +131,7 @@ export function mount(host, settings = {}, context = {}) {
       x.fillStyle = gr; x.fillRect(0, 0, 64, 64);
       return s;
     });
-    cores = {}; ringC = fl = bg = null;
+    cores = {}; ringC = fl = fb = bg = null;
   };
   // Crisp stars: core discs cached at device resolution, copied 1:1 on whole device pixels.
   const disc = (f, rd) => {
@@ -197,7 +197,7 @@ export function mount(host, settings = {}, context = {}) {
     [CX, CY, S] = narrow ? [W * .52, H * .66, W * .8] : [W * .65, H * .52, min(W * .44, H * .95)];
     const style = getComputedStyle(host);
     if (style.direction === 'rtl') CX = W - CX;
-    font = style.fontFamily; fl = bg = null; cores = {};
+    font = style.fontFamily; fl = fb = bg = null; cores = {};
     draw();
   };
   // Bounded differential turn: arms never wind up.
@@ -207,33 +207,43 @@ export function mount(host, settings = {}, context = {}) {
     // Narrow: text lies over the galaxy, nebulae at 60 %.
     if (!ringC) { ringC = rings(doc, M, T, F, (v.intensity ?? 80) / (narrow ? 133 : 80)); bg = null; }
     if (!fl && F.field) fl = field(doc, W, H, dpr, T);
-    base(); op('source-over'); g.globalAlpha = 1;
-    const z = view.z, tn = now();
     par.x += (parT.x - par.x) * .05; par.y += (parT.y - par.y) * .05;
-    // One cached backdrop (sky, field, rings), redrawn when parallax, view or a ring
-    // turn (1.5 device px steps at its rim) moves.
-    const ox = CX + view.x, oy = CY + view.y, sc = S * z, ct = cos(TILT), st = sin(TILT), q = 1.5 / (sc * EXT * dpr), A = RINGS.map(([a, b]) => round(spin((a + b) / 2) / q) * q);
-    const key = [sn(par.x * 14), sn(par.y * 10), ox, oy, sc, ...A] + '';
-    if (!bg || bg.key !== key) {
-      bg ||= cv(doc, canvas.width, canvas.height).getContext('2d');
-      const k = bg, gr = k.createRadialGradient(CX * dpr, CY * dpr, 0, CX * dpr, CY * dpr, max(W, H) * dpr);
-      gr.addColorStop(0, rgba(T.sky[0])); gr.addColorStop(.6, rgba(T.sky[1])); gr.addColorStop(1, rgba(T.sky[1]));
-      k.fillStyle = gr; k.fillRect(0, 0, k.canvas.width, k.canvas.height); k.key = key;
-      if (F.field) for (const [c, d] of fl.L) k.drawImage(c, round((-fl.PAD - par.x * 14 * d + view.x * .06 * d) * dpr), round((-fl.PAD - par.y * 10 * d + view.y * .06 * d) * dpr));
-      k.globalCompositeOperation = 'lighter';
-      ringC.forEach((c, i) => { k.setTransform(dpr, 0, 0, dpr, 0, 0); k.translate(ox, oy); k.rotate(TILT); k.scale(sc, sc * COSI); k.rotate(A[i]); k.drawImage(c, -EXT, -EXT, 2 * EXT, 2 * EXT); });
-      k.setTransform(1, 0, 0, 1, 0, 0); k.globalCompositeOperation = 'source-over';
+    const ex = par.x * 14 - view.x * .06, ey = par.y * 10 - view.y * .06;
+    const z = view.z, tn = now(), ox = CX + view.x, oy = CY + view.y, sc = S * z, ct = cos(TILT), st = sin(TILT), q = 1.5 / (sc * EXT * dpr), A = RINGS.map(([a, b]) => round(spin((a + b) / 2) / q) * q),
+      kin = hover >= 0, me = M.N[hover], lit = new Set(kin ? [hover, ...me.users, ...me.used] : []), grow = (narrow ? .82 : 1) * (z > 1 ? z ** .35 : 1), mk = c => c || cv(doc, canvas.width, canvas.height).getContext('2d'), rad = j => max(.6, .45 + .2 * PS[j]);
+    M.N.forEach((n, j) => {
+      const a = (F.arms ? n.ta : n.tf) + spin(n.r), gx = n.r * cos(a), gy = n.r * sin(a) * COSI;
+      PX[j] = ox + (gx * ct - gy * st) * sc; PY[j] = oy + (gx * st + gy * ct) * sc; PS[j] = n.s * grow;
+    });
+    // Two caches: sky + field (parallax, pan); rings + halos over it (a ring's 1.5 device px
+    // step at its rim, view, lit star).
+    const k1 = [sn(ex), sn(ey)] + '', k2 = [k1, ox, oy, sc, hover, ...A] + '';
+    if (fb?.key !== k1) {
+      const gr = (fb = mk(fb)).createRadialGradient(CX * dpr, CY * dpr, 0, CX * dpr, CY * dpr, max(W, H) * dpr);
+      [0, .6, 1].forEach((a, i) => gr.addColorStop(a, rgba(T.sky[+!!i])));
+      fb.fillStyle = gr; fb.fillRect(0, 0, canvas.width, canvas.height); fb.key = k1;
+      if (F.field) for (const [c, d] of fl.L) fb.drawImage(c, round((-fl.PAD - ex * d) * dpr), round((-fl.PAD - ey * d) * dpr));
     }
-    g.setTransform(1, 0, 0, 1, 0, 0); g.drawImage(bg.canvas, 0, 0); base();
+    if (bg?.key !== k2) {
+      const k = bg = mk(bg);
+      k.resetTransform(); k.globalAlpha = 1; op('copy', k); k.drawImage(fb.canvas, 0, 0); op('lighter', k);
+      ringC.forEach((c, i) => { k.setTransform(dpr, 0, 0, dpr, ox * dpr, oy * dpr); k.rotate(TILT); k.scale(sc, sc * COSI); k.rotate(A[i]); k.drawImage(c, -EXT, -EXT, 2 * EXT, 2 * EXT); });
+      k.setTransform(dpr, 0, 0, dpr, 0, 0); k.key = k2;
+      // Tight halos, never drawn larger than their 64 px sprite.
+      if (F.bloom) M.N.forEach((n, j) => {
+        const on = lit.has(j), hs = min(31 / dpr, rad(j) * (on ? 5.5 : 4.5));
+        k.globalAlpha = kin && !on ? .108 : on ? .85 : .6; k.drawImage(halos[n.f], sn(PX[j]) - hs, sn(PY[j]) - hs, 2 * hs, 2 * hs);
+      });
+    }
+    g.resetTransform(); op('source-over'); g.globalAlpha = 1; g.drawImage(bg.canvas, 0, 0); base();
     if (F.field) {
       const p = (dpr > 1.5 ? 2 : 1) / dpr;
       for (const s of fl.tw) {
         g.fillStyle = rgba(T.field, (F.twinkle && !still ? s[2] * (.55 + .45 * sin(tn / 1000 * s[4] + s[3])) : s[2]).toFixed(3));
-        g.fillRect(sn(s[0] - par.x * 14 + view.x * .06), sn(s[1] - par.y * 10 + view.y * .06), p, p);
+        g.fillRect(sn(s[0] - ex), sn(s[1] - ey), p, p);
       }
     }
     op('lighter');
-    const kin = hover >= 0, me = M.N[hover], lit = new Set(kin ? [hover, ...me.users, ...me.used] : []);
     if (kin) {
       const fade = still ? 1 : min(1, (tn - hoverT) / 350);
       g.lineWidth = 1;
@@ -246,24 +256,17 @@ export function mount(host, settings = {}, context = {}) {
         g.globalAlpha = fade * .9; g.drawImage(c, sn(ax + (bx - ax) * q) - w / 2, sn(ay + (by - ay) * q) - w / 2, w, w); g.globalAlpha = 1;
       });
     }
-    const shrink = narrow ? .82 : 1, grow = z > 1 ? z ** .35 : 1;
-    for (let j = 0; j < M.N.length; j++) {
-      const n = M.N[j], a = (F.arms ? n.ta : n.tf) + spin(n.r), gx = n.r * cos(a), gy = n.r * sin(a) * COSI, X = ox + (gx * ct - gy * st) * sc, Y = oy + (gx * st + gy * ct) * sc, sz = n.s * shrink * grow;
-      PX[j] = X; PY[j] = Y; PS[j] = sz;
-      if (X < -40 || Y < -40 || X > W + 40 || Y > H + 40) continue;
-      const on = lit.has(j), al = kin && !on ? .18 : 1, cx = sn(X), cy = sn(Y), cr = max(.6, .45 + .2 * sz);
-      if (F.bloom) { const hs = min(31 / dpr, cr * (on ? 5.5 : 4.5)); g.globalAlpha = al * (on ? .85 : .6); g.drawImage(halos[n.f], cx - hs, cy - hs, 2 * hs, 2 * hs); }
-      const c = disc(n.f, cr * dpr), w = c.width / dpr;
-      g.globalAlpha = al; g.drawImage(c, cx - w / 2, cy - w / 2, w, w);
-      if (F.spikes && n.sp) {
-        const l = cr * 9, p = 1 / dpr;
-        for (const [x0, y0, x1, y1] of [[cx - l, cy, cx + l, cy], [cx, cy - l, cx, cy + l]]) {
-          const gr = g.createLinearGradient(x0, y0, x1, y1);
-          gr.addColorStop(0, wh(0)); gr.addColorStop(.5, wh(.7)); gr.addColorStop(1, wh(0));
-          g.fillStyle = gr; g.fillRect(x0, y0, x1 - x0 || p, y1 - y0 || p);
-        }
+    M.N.forEach((n, j) => {
+      const X = PX[j], Y = PY[j], cx = sn(X), cy = sn(Y), cr = rad(j), c = disc(n.f, cr * dpr), w = c.width / dpr;
+      if (X < -40 || Y < -40 || X > W + 40 || Y > H + 40) return;
+      g.globalAlpha = kin && !lit.has(j) ? .18 : 1; g.drawImage(c, cx - w / 2, cy - w / 2, w, w);
+      // One-device-pixel rays.
+      if (F.spikes && n.sp) for (const [x0, y0, x1, y1] of [[cx - cr * 9, cy, cx + cr * 9, cy], [cx, cy - cr * 9, cx, cy + cr * 9]]) {
+        const gr = g.createLinearGradient(x0, y0, x1, y1);
+        [0, .7, 0].forEach((a, i) => gr.addColorStop(i / 2, wh(a)));
+        g.fillStyle = gr; g.fillRect(x0, y0, x1 - x0 || 1 / dpr, y1 - y0 || 1 / dpr);
       }
-    }
+    });
     g.globalAlpha = 1; op('source-over'); g.textBaseline = 'middle';
     // Names past x2.2: biggest first, 40 at most, no overlap.
     if (F.names && z > 2.2) {
@@ -283,9 +286,7 @@ export function mount(host, settings = {}, context = {}) {
       g.strokeStyle = wh(.85); g.lineWidth = 1.25; g.beginPath(); g.arc(x, y, max(6, PS[hover] * 1.6 + 3), 0, TAU); g.stroke();
       g.font = `600 13px ${font}`;
       const w = round(g.measureText(me.n).width + 16);
-      let lx = round(x + 14), ly = round(y - 38);
-      if (lx + w > W - 8) lx = round(x - w - 14);
-      if (ly < 8) ly = round(y + 14);
+      const lx = round(x + 14 + w > W - 8 ? x - w - 14 : x + 14), ly = round(y < 46 ? y + 14 : y - 38);
       g.fillStyle = rgba(T.pill, .94); g.beginPath(); g.roundRect(lx, ly, w, 24, 6); g.fill();
       g.fillStyle = rgba(T.ink); g.fillText(me.n, lx + 8, ly + 12);
     }
@@ -307,7 +308,7 @@ export function mount(host, settings = {}, context = {}) {
       if (k >= 1) anim = null;
     }
     draw();
-    if (needs()) raf = win.requestAnimationFrame(frame); else last = 0;
+    if (needs()) kick(); else last = 0;
   };
 
   const zoomTo = (z, ax, ay) => { z = clamp(z, 1, 8); const k = z / view.z; view.x = ax - CX - (ax - CX - view.x) * k; view.y = ay - CY - (ay - CY - view.y) * k; view.z = z; };
@@ -391,8 +392,8 @@ export function mount(host, settings = {}, context = {}) {
     if (!F.hold) return;
     anim = null;
     if (k === '0') reset();
-    else if (k === '+' || k === '=') zoomTo(view.z * 1.25, CX, CY);
-    else if (k === '-' || k === '_' || k === '−') zoomTo(view.z / 1.25, CX, CY);
+    else if ('+='.includes(k)) zoomTo(view.z * 1.25, CX, CY);
+    else if ('-_−'.includes(k)) zoomTo(view.z / 1.25, CX, CY);
     else if (k.startsWith('Arrow')) { view.x += {ArrowLeft: d, ArrowRight: -d}[k] ?? 0; view.y += {ArrowUp: d, ArrowDown: -d}[k] ?? 0; } else return;
     e.preventDefault();
     if (k !== '0') { keep(); kick(); }
@@ -404,7 +405,7 @@ export function mount(host, settings = {}, context = {}) {
   const sizes = new ResizeObserver(resize);
   const screen = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; if (visible) kick(); else stop(); });
   const onVisibility = () => { last = 0; if (doc.hidden) stop(); else kick(); };
-  const onMotion = () => { still = !!(context.reducedMotion || motion.matches); stop(); kick(); };
+  const onMotion = () => { still = calm(); stop(); kick(); };
   doc.addEventListener('visibilitychange', onVisibility);
   motion?.addEventListener?.('change', onMotion);
   flags(); retone(); load(); resize(); sizes.observe(host); screen.observe(host); kick();
