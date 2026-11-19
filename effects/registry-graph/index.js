@@ -112,7 +112,7 @@ export function mount(host, settings = {}, context = {}) {
   canvas.setAttribute('aria-hidden', 'true');
   canvas.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none';
   host.append(canvas);
-  let v = {...settings}, T, F, M, ringC, fl, halos, cores, bg, src, nav, OM = 0, PX, PY, PS, font = '', lines = 0,
+  let v = {...settings}, T, F, M, ringC, fl, halos, cores, bg, src, nav, OM = 0, PX, PY, PS, font = '',
     still = !!(context.reducedMotion || motion?.matches), paused = false, visible = true, raf = 0, last = 0, t = 0, W = 1, H = 1, dpr = 1, CX = 0, CY = 0, S = 1, narrow = false,
     view = {z: 1, x: 0, y: 0}, rest = {...view}, anim = null, hold = null, pinch = null, start = null, hover = -1, mine = false, hoverT = 0, tapped = -1;
   const par = {x: 0, y: 0}, parT = {x: 0, y: 0}, downs = new Map(), now = () => win.performance.now(), sn = q => round(q * dpr) / dpr, op = o => { g.globalCompositeOperation = o; }, base = () => g.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -205,19 +205,24 @@ export function mount(host, settings = {}, context = {}) {
 
   const draw = () => {
     // Narrow: text lies over the galaxy, nebulae at 60 %.
-    if (!ringC) ringC = rings(doc, M, T, F, (v.intensity ?? 80) / (narrow ? 133 : 80));
+    if (!ringC) { ringC = rings(doc, M, T, F, (v.intensity ?? 80) / (narrow ? 133 : 80)); bg = null; }
     if (!fl && F.field) fl = field(doc, W, H, dpr, T);
     base(); op('source-over'); g.globalAlpha = 1;
     const z = view.z, tn = now();
     par.x += (parT.x - par.x) * .05; par.y += (parT.y - par.y) * .05;
-    // Sky and field are cached together and redrawn only when the parallax or the pan moves.
-    const key = [sn(par.x * 14), sn(par.y * 10), sn(view.x * .06), sn(view.y * .06)] + '';
+    // Sky, field and nebula rings are cached in one backdrop, redrawn when the parallax, the
+    // view or a ring's turn (in steps of 1.5 device px at its rim) moves.
+    const ox = CX + view.x, oy = CY + view.y, sc = S * z, ct = cos(TILT), st = sin(TILT), q = 1.5 / (sc * EXT * dpr), A = RINGS.map(([a, b]) => round(spin((a + b) / 2) / q) * q);
+    const key = [sn(par.x * 14), sn(par.y * 10), ox, oy, sc, ...A] + '';
     if (!bg || bg.key !== key) {
       bg ||= cv(doc, canvas.width, canvas.height).getContext('2d');
       const k = bg, gr = k.createRadialGradient(CX * dpr, CY * dpr, 0, CX * dpr, CY * dpr, max(W, H) * dpr);
       gr.addColorStop(0, rgba(T.sky[0])); gr.addColorStop(.6, rgba(T.sky[1])); gr.addColorStop(1, rgba(T.sky[1]));
       k.fillStyle = gr; k.fillRect(0, 0, k.canvas.width, k.canvas.height); k.key = key;
       if (F.field) for (const [c, d] of fl.L) k.drawImage(c, round((-fl.PAD - par.x * 14 * d + view.x * .06 * d) * dpr), round((-fl.PAD - par.y * 10 * d + view.y * .06 * d) * dpr));
+      k.globalCompositeOperation = 'lighter';
+      ringC.forEach((c, i) => { k.setTransform(dpr, 0, 0, dpr, 0, 0); k.translate(ox, oy); k.rotate(TILT); k.scale(sc, sc * COSI); k.rotate(A[i]); k.drawImage(c, -EXT, -EXT, 2 * EXT, 2 * EXT); });
+      k.setTransform(1, 0, 0, 1, 0, 0); k.globalCompositeOperation = 'source-over';
     }
     g.setTransform(1, 0, 0, 1, 0, 0); g.drawImage(bg.canvas, 0, 0); base();
     if (F.field) {
@@ -227,22 +232,15 @@ export function mount(host, settings = {}, context = {}) {
         g.fillRect(sn(s[0] - par.x * 14 + view.x * .06), sn(s[1] - par.y * 10 + view.y * .06), p, p);
       }
     }
-    const ox = CX + view.x, oy = CY + view.y, sc = S * z, ct = cos(TILT), st = sin(TILT);
     op('lighter');
-    ringC.forEach((c, k) => {
-      base(); g.translate(ox, oy); g.rotate(TILT); g.scale(sc, sc * COSI); g.rotate(spin((RINGS[k][0] + RINGS[k][1]) / 2));
-      g.drawImage(c, -EXT, -EXT, 2 * EXT, 2 * EXT);
-    });
-    base();
     const kin = hover >= 0, me = M.N[hover], lit = new Set(kin ? [hover, ...me.users, ...me.used] : []);
-    lines = 0;
     if (kin) {
       const fade = still ? 1 : min(1, (tn - hoverT) / 350);
       g.lineWidth = 1;
       [...me.users.map(u => [hover, u]), ...me.used.map(u => [u, hover])].forEach(([a, b], k) => {
         const ax = PX[a], ay = PY[a], bx = PX[b], by = PY[b], gr = g.createLinearGradient(ax, ay, bx, by);
         gr.addColorStop(0, wh(.3 * fade)); gr.addColorStop(1, wh(.08 * fade));
-        g.strokeStyle = gr; g.beginPath(); g.moveTo(ax, ay); g.lineTo(bx, by); g.stroke(); lines++;
+        g.strokeStyle = gr; g.beginPath(); g.moveTo(ax, ay); g.lineTo(bx, by); g.stroke();
         if (still || paused) return;
         const q = (tn / 1600 + k * .37) % 1, c = disc(M.N[b].f, 1.1 * (.5 + .5 * sin(PI * q)) * dpr), w = c.width / dpr;
         g.globalAlpha = fade * .9; g.drawImage(c, sn(ax + (bx - ax) * q) - w / 2, sn(ay + (by - ay) * q) - w / 2, w, w); g.globalAlpha = 1;
@@ -410,8 +408,6 @@ export function mount(host, settings = {}, context = {}) {
   doc.addEventListener('visibilitychange', onVisibility);
   motion?.addEventListener?.('change', onMotion);
   flags(); retone(); load(); resize(); sizes.observe(host); screen.observe(host); kick();
-  // Read-only state for tests.
-  canvas.registryGraph = () => ({z: view.z, lines, hover, N: M.N, PX, PY, href});
 
   return {
     update(next = {}) {
