@@ -37,7 +37,7 @@ function readTones(host, mono) {
 
 // Links are [user, used]; counts come from them. No data: the sky and the bulge only.
 function model(data, v) {
-  const N = (Array.isArray(data?.nodes) ? data.nodes : []).map((n, i) => ({i, n: String(n?.name ?? ''), f: max(0, ['core', 'utility', 'component', 'smart'].indexOf(n?.family)), d: n?.docs ?? {}, u: 0, o: 0, users: [], used: []}));
+  const N = (Array.isArray(data?.nodes) ? data.nodes : []).map((n, i) => ({i, n: String(n?.name ?? ''), f: max(0, ['core', 'utility', 'component', 'smart'].indexOf(n?.family)), d: n?.docs, g: n?.langs ?? ['ru'], u: 0, o: 0, users: [], used: []}));
   for (const [a, b] of Array.isArray(data?.edges) ? data.edges : []) {
     const A = N[a], B = N[b];
     if (A && B && A !== B) { A.o++; B.u++; A.used.push(b); B.users.push(a); }
@@ -146,10 +146,10 @@ export function mount(host, settings = {}, context = {}) {
 
   const lang = () => (host.closest('[lang]')?.lang || 'ru').slice(0, 2).toLowerCase();
   const href = n => {
-    const p = n.d[lang()] || n.d.ru, url = String(v.hrefPattern || '{path}').replace('{path}', p);
+    const p = n.d && `/${n.g.includes(lang()) ? lang() : n.g[0]}/${n.d}`, url = String(v.hrefPattern || '{path}').replace('{path}', p);
     return /^\//u.test(p ?? '') && /^(https?:)?\//u.test(url) ? url : '';
   };
-  // Hidden list of links after the source: focus lights a star; + − 0 arrows zoom.
+  // Hidden link list after the source; focus lights a star.
   const onFocus = e => { const i = e.target.dataset?.i; if (i != null) { mine = false; setHover(+i); } };
   const onBlur = () => setHover(-1);
   const LISTEN = [['focusin', onFocus], ['focusout', onBlur], ['keydown', onKey]];
@@ -174,7 +174,7 @@ export function mount(host, settings = {}, context = {}) {
         if (!n.n || !url) continue;
         const a = ul.appendChild(doc.createElement('li')).appendChild(doc.createElement('a'));
         a.href = url; a.textContent = n.n; a.dataset.i = n.i;
-        if (!n.d[lang()]) a.hreflang = 'ru';
+        if (!n.g.includes(lang())) a.hreflang = n.g[0];
       }
       src.after(nav); nav.users = 0;
     }
@@ -210,8 +210,8 @@ export function mount(host, settings = {}, context = {}) {
     base(); op('source-over'); g.globalAlpha = 1;
     const z = view.z, tn = now();
     par.x += (parT.x - par.x) * .05; par.y += (parT.y - par.y) * .05;
-    // Sky, field and nebula rings are cached in one backdrop, redrawn when the parallax, the
-    // view or a ring's turn (in steps of 1.5 device px at its rim) moves.
+    // One cached backdrop (sky, field, rings), redrawn when parallax, view or a ring
+    // turn (1.5 device px steps at its rim) moves.
     const ox = CX + view.x, oy = CY + view.y, sc = S * z, ct = cos(TILT), st = sin(TILT), q = 1.5 / (sc * EXT * dpr), A = RINGS.map(([a, b]) => round(spin((a + b) / 2) / q) * q);
     const key = [sn(par.x * 14), sn(par.y * 10), ox, oy, sc, ...A] + '';
     if (!bg || bg.key !== key) {
